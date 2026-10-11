@@ -1,0 +1,1905 @@
+{
+ "date": "2026-10-09",
+ "generatedAt": "2026-10-11T09:14:31.731Z",
+ "summary": {
+  "India": {
+   "rows": 106,
+   "match": 88,
+   "differs": 16,
+   "missing": 2
+  },
+  "US": {
+   "rows": 81,
+   "match": 76,
+   "differs": 3,
+   "missing": 2
+  }
+ },
+ "rows": [
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "close",
+   "claude": 22520.45,
+   "repo": 22520.45,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "high",
+   "claude": 22580.75,
+   "repo": 22580.75,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "low",
+   "claude": 22294.75,
+   "repo": 22294.75,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "volume",
+   "claude": null,
+   "repo": 296.21,
+   "diff": null,
+   "unit": "%",
+   "status": "missing"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "sma50",
+   "claude": 23761.06,
+   "repo": 23761.06,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "sma200",
+   "claude": 24282.77,
+   "repo": 24287.94,
+   "diff": 0.02,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 50",
+   "field": "vix",
+   "claude": 14.36,
+   "repo": 14.38,
+   "diff": 0.14,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 500",
+   "field": "close",
+   "claude": 21866.65,
+   "repo": 21866.65,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 500",
+   "field": "sma50",
+   "claude": 23085.42,
+   "repo": 23085.42,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty 500",
+   "field": "sma200",
+   "claude": 22922.08,
+   "repo": 22926.88,
+   "diff": 0.02,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Breadth",
+   "field": "breadth",
+   "claude": null,
+   "repo": 17.8,
+   "diff": null,
+   "unit": "pts",
+   "status": "missing",
+   "note": "typed scan vs Nifty 500 above 50-day, computed"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Auto",
+   "field": "close",
+   "claude": 24859.9,
+   "repo": 24859.9,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Auto",
+   "field": "sma50",
+   "claude": 27924.84,
+   "repo": 27924.84,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Auto",
+   "field": "sma200",
+   "claude": 27043.78,
+   "repo": 27043.78,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Auto",
+   "field": "r1m",
+   "claude": -10.1,
+   "repo": -10.1,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Auto",
+   "field": "r3m",
+   "claude": -6.81,
+   "repo": -6.81,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Bank",
+   "field": "close",
+   "claude": 55256.65,
+   "repo": 55256.65,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Bank",
+   "field": "sma50",
+   "claude": 56742.75,
+   "repo": 56742.75,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Bank",
+   "field": "sma200",
+   "claude": 57041.51,
+   "repo": 57041.51,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Bank",
+   "field": "r1m",
+   "claude": -1.85,
+   "repo": -1.85,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Bank",
+   "field": "r3m",
+   "claude": -3.49,
+   "repo": -3.49,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Capital Markets",
+   "field": "close",
+   "claude": 5177.5,
+   "repo": 5181.15,
+   "diff": 0.07,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Capital Markets",
+   "field": "sma50",
+   "claude": 5314.35,
+   "repo": 5313,
+   "diff": -0.03,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Capital Markets",
+   "field": "sma200",
+   "claude": 5078.67,
+   "repo": 5081.57,
+   "diff": 0.06,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Capital Markets",
+   "field": "r1m",
+   "claude": -4.67,
+   "repo": -3.4,
+   "diff": 1.27,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Capital Markets",
+   "field": "r3m",
+   "claude": -3.2,
+   "repo": -5.32,
+   "diff": -2.12,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Chemicals",
+   "field": "close",
+   "claude": 27969.45,
+   "repo": 27969.45,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Chemicals",
+   "field": "sma50",
+   "claude": 29761.01,
+   "repo": 29761.01,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Chemicals",
+   "field": "sma200",
+   "claude": 28791.98,
+   "repo": 28791.98,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Chemicals",
+   "field": "r1m",
+   "claude": -7.07,
+   "repo": -7.07,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Chemicals",
+   "field": "r3m",
+   "claude": -4.69,
+   "repo": -4.69,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Consumer Durables",
+   "field": "close",
+   "claude": 35613.2,
+   "repo": 35969.55,
+   "diff": 1,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Consumer Durables",
+   "field": "sma50",
+   "claude": 39254.26,
+   "repo": 39175.51,
+   "diff": -0.2,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Consumer Durables",
+   "field": "sma200",
+   "claude": 37172.51,
+   "repo": 37165.46,
+   "diff": -0.02,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Consumer Durables",
+   "field": "r1m",
+   "claude": -9.21,
+   "repo": -7.76,
+   "diff": 1.45,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Consumer Durables",
+   "field": "r3m",
+   "claude": -4.29,
+   "repo": -4.93,
+   "diff": -0.64,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Energy",
+   "field": "close",
+   "claude": 35786.5,
+   "repo": 35786.5,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Energy",
+   "field": "sma50",
+   "claude": 37910.94,
+   "repo": 37910.94,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Energy",
+   "field": "sma200",
+   "claude": 37684.99,
+   "repo": 37684.99,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Energy",
+   "field": "r1m",
+   "claude": -6.64,
+   "repo": -6.64,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Energy",
+   "field": "r3m",
+   "claude": -7.86,
+   "repo": -7.86,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty FMCG",
+   "field": "close",
+   "claude": 44864.25,
+   "repo": 44864.25,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty FMCG",
+   "field": "sma50",
+   "claude": 46808.71,
+   "repo": 46808.71,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty FMCG",
+   "field": "sma200",
+   "claude": 49473.06,
+   "repo": 49473.06,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty FMCG",
+   "field": "r1m",
+   "claude": -0.98,
+   "repo": -0.98,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty FMCG",
+   "field": "r3m",
+   "claude": -9.09,
+   "repo": -9.09,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Financial Services",
+   "field": "close",
+   "claude": 24968.5,
+   "repo": 24968.5,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Financial Services",
+   "field": "sma50",
+   "claude": 25816.21,
+   "repo": 25816.21,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Financial Services",
+   "field": "sma200",
+   "claude": 26334.62,
+   "repo": 26334.62,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Financial Services",
+   "field": "r1m",
+   "claude": -1.61,
+   "repo": -1.61,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Financial Services",
+   "field": "r3m",
+   "claude": -5.72,
+   "repo": -5.72,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Healthcare",
+   "field": "close",
+   "claude": 15684.65,
+   "repo": 15855.55,
+   "diff": 1.09,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Healthcare",
+   "field": "sma50",
+   "claude": 16551.53,
+   "repo": 16535.27,
+   "diff": -0.1,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Healthcare",
+   "field": "sma200",
+   "claude": 15394.5,
+   "repo": 15399.37,
+   "diff": 0.03,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Healthcare",
+   "field": "r1m",
+   "claude": -5.65,
+   "repo": -4.38,
+   "diff": 1.27,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Healthcare",
+   "field": "r3m",
+   "claude": -2.86,
+   "repo": -2.77,
+   "diff": 0.09,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty IT",
+   "field": "close",
+   "claude": 28574.9,
+   "repo": 28574.9,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty IT",
+   "field": "sma50",
+   "claude": 29962.01,
+   "repo": 29962.01,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty IT",
+   "field": "sma200",
+   "claude": 31205.53,
+   "repo": 31205.53,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty IT",
+   "field": "r1m",
+   "claude": -1.17,
+   "repo": -1.17,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty IT",
+   "field": "r3m",
+   "claude": 4.02,
+   "repo": 4.02,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty India Defence",
+   "field": "close",
+   "claude": 9006.65,
+   "repo": 9006.65,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty India Defence",
+   "field": "sma50",
+   "claude": 9540.14,
+   "repo": 9540.14,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty India Defence",
+   "field": "sma200",
+   "claude": 8771.27,
+   "repo": 8771.27,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty India Defence",
+   "field": "r1m",
+   "claude": -8.95,
+   "repo": -8.95,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty India Defence",
+   "field": "r3m",
+   "claude": -3.25,
+   "repo": -3.25,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Infrastructure",
+   "field": "close",
+   "claude": 8503.6,
+   "repo": 8574.45,
+   "diff": 0.83,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Infrastructure",
+   "field": "sma50",
+   "claude": 9174.8,
+   "repo": 9159.78,
+   "diff": -0.16,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Infrastructure",
+   "field": "sma200",
+   "claude": 9276.66,
+   "repo": 9271.43,
+   "diff": -0.06,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Infrastructure",
+   "field": "r1m",
+   "claude": -7,
+   "repo": -5.98,
+   "diff": 1.02,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Infrastructure",
+   "field": "r3m",
+   "claude": -8.07,
+   "repo": -8.06,
+   "diff": 0.01,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Media",
+   "field": "close",
+   "claude": 1534.5,
+   "repo": 1553.3,
+   "diff": 1.23,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Media",
+   "field": "sma50",
+   "claude": 1567.02,
+   "repo": 1566.54,
+   "diff": -0.03,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Media",
+   "field": "sma200",
+   "claude": 1459.42,
+   "repo": 1459.91,
+   "diff": 0.03,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Media",
+   "field": "r1m",
+   "claude": -0.4,
+   "repo": 1.76,
+   "diff": 2.16,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Media",
+   "field": "r3m",
+   "claude": 5.65,
+   "repo": 4.75,
+   "diff": -0.9,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Metal",
+   "field": "close",
+   "claude": 12000.75,
+   "repo": 12000.75,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Metal",
+   "field": "sma50",
+   "claude": 13015.78,
+   "repo": 13015.78,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Metal",
+   "field": "sma200",
+   "claude": 12419.47,
+   "repo": 12419.47,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Metal",
+   "field": "r1m",
+   "claude": -10.38,
+   "repo": -10.38,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Metal",
+   "field": "r3m",
+   "claude": -4.02,
+   "repo": -4.02,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Oil & Gas",
+   "field": "close",
+   "claude": 10345.3,
+   "repo": 10345.3,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Oil & Gas",
+   "field": "sma50",
+   "claude": 11028.56,
+   "repo": 11028.56,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Oil & Gas",
+   "field": "sma200",
+   "claude": 11369.93,
+   "repo": 11369.93,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Oil & Gas",
+   "field": "r1m",
+   "claude": -6.2,
+   "repo": -6.2,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Oil & Gas",
+   "field": "r3m",
+   "claude": -6.23,
+   "repo": -6.23,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSE",
+   "field": "close",
+   "claude": 9010.45,
+   "repo": 9077.75,
+   "diff": 0.75,
+   "unit": "%",
+   "status": "differs"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSE",
+   "field": "sma50",
+   "claude": 9692.45,
+   "repo": 9675.08,
+   "diff": -0.18,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSE",
+   "field": "sma200",
+   "claude": 10011.1,
+   "repo": 10008.32,
+   "diff": -0.03,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSE",
+   "field": "r1m",
+   "claude": -7.2,
+   "repo": -6.77,
+   "diff": 0.43,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSE",
+   "field": "r3m",
+   "claude": -8.1,
+   "repo": -7.42,
+   "diff": 0.68,
+   "unit": "pts",
+   "status": "differs",
+   "note": "check: the Claude Desk often carried returns from an earlier day (see its own flags)"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSU Bank",
+   "field": "close",
+   "claude": 8126.35,
+   "repo": 8126.35,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSU Bank",
+   "field": "sma50",
+   "claude": 8421.75,
+   "repo": 8421.75,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSU Bank",
+   "field": "sma200",
+   "claude": 8580.91,
+   "repo": 8580.91,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSU Bank",
+   "field": "r1m",
+   "claude": -2.9,
+   "repo": -2.9,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty PSU Bank",
+   "field": "r3m",
+   "claude": -0.94,
+   "repo": -0.94,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Pharma",
+   "field": "close",
+   "claude": 25962.05,
+   "repo": 25962.05,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Pharma",
+   "field": "sma50",
+   "claude": 26596.31,
+   "repo": 26596.31,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Pharma",
+   "field": "sma200",
+   "claude": 24227.77,
+   "repo": 24227.77,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Pharma",
+   "field": "r1m",
+   "claude": -2.73,
+   "repo": -2.73,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Pharma",
+   "field": "r3m",
+   "claude": 1.19,
+   "repo": 1.19,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Realty",
+   "field": "close",
+   "claude": 803.95,
+   "repo": 803.95,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Realty",
+   "field": "sma50",
+   "claude": 878.69,
+   "repo": 878.69,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Realty",
+   "field": "sma200",
+   "claude": 825.57,
+   "repo": 825.57,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Realty",
+   "field": "r1m",
+   "claude": -7.83,
+   "repo": -7.83,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "India",
+   "item": "Nifty Realty",
+   "field": "r3m",
+   "claude": -11.36,
+   "repo": -11.36,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "close",
+   "claude": 778.57,
+   "repo": 778.57,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "high",
+   "claude": 779.4,
+   "repo": 779.42,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "low",
+   "claude": 775.23,
+   "repo": 775.14,
+   "diff": -0.01,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "volume",
+   "claude": 22.76,
+   "repo": 22.62,
+   "diff": -0.62,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "sma50",
+   "claude": 767.57,
+   "repo": 767.57,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "sma200",
+   "claude": 722.93,
+   "repo": 722.93,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "SPY",
+   "field": "vix",
+   "claude": null,
+   "repo": 14.84,
+   "diff": null,
+   "unit": "%",
+   "status": "missing"
+  },
+  {
+   "market": "US",
+   "item": "QQQ",
+   "field": "close",
+   "claude": 751.27,
+   "repo": 751.27,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "QQQ",
+   "field": "sma50",
+   "claude": 724.52,
+   "repo": 724.52,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "QQQ",
+   "field": "sma200",
+   "claude": 672.18,
+   "repo": 672.18,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Breadth",
+   "field": "breadth",
+   "claude": null,
+   "repo": 34.4,
+   "diff": null,
+   "unit": "pts",
+   "status": "missing",
+   "note": "typed vs S&P 500 above 50-day, computed"
+  },
+  {
+   "market": "US",
+   "item": "Aerospace & Defense (ITA)",
+   "field": "close",
+   "claude": 206.65,
+   "repo": 206.65,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Aerospace & Defense (ITA)",
+   "field": "sma50",
+   "claude": 227.37,
+   "repo": 227.36,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Aerospace & Defense (ITA)",
+   "field": "sma200",
+   "claude": 230.35,
+   "repo": 230.34,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Aerospace & Defense (ITA)",
+   "field": "r1m",
+   "claude": -5.83,
+   "repo": -5.83,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Aerospace & Defense (ITA)",
+   "field": "r3m",
+   "claude": -13.76,
+   "repo": -13.76,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Communication (XLC)",
+   "field": "close",
+   "claude": 110.38,
+   "repo": 110.38,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Communication (XLC)",
+   "field": "sma50",
+   "claude": 111.83,
+   "repo": 111.83,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Communication (XLC)",
+   "field": "sma200",
+   "claude": 113.09,
+   "repo": 113.67,
+   "diff": 0.51,
+   "unit": "%",
+   "status": "differs",
+   "note": "known: the Claude Desk used TipRanks for some 200 SMAs (dividend-adjusted, runs lower)"
+  },
+  {
+   "market": "US",
+   "item": "Communication (XLC)",
+   "field": "r1m",
+   "claude": -0.41,
+   "repo": -0.41,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Communication (XLC)",
+   "field": "r3m",
+   "claude": -0.12,
+   "repo": -0.12,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Discretionary (XLY)",
+   "field": "close",
+   "claude": 112.85,
+   "repo": 112.85,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Discretionary (XLY)",
+   "field": "sma50",
+   "claude": 114.41,
+   "repo": 114.41,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Discretionary (XLY)",
+   "field": "sma200",
+   "claude": 116.12,
+   "repo": 116.12,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Discretionary (XLY)",
+   "field": "r1m",
+   "claude": 0.35,
+   "repo": 0.35,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Discretionary (XLY)",
+   "field": "r3m",
+   "claude": -3.42,
+   "repo": -3.42,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Staples (XLP)",
+   "field": "close",
+   "claude": 83.43,
+   "repo": 83.43,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Staples (XLP)",
+   "field": "sma50",
+   "claude": 84.03,
+   "repo": 84.03,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Staples (XLP)",
+   "field": "sma200",
+   "claude": 83.81,
+   "repo": 83.81,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Staples (XLP)",
+   "field": "r1m",
+   "claude": 0.46,
+   "repo": 0.46,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Consumer Staples (XLP)",
+   "field": "r3m",
+   "claude": 0.28,
+   "repo": 0.28,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Energy (XLE)",
+   "field": "close",
+   "claude": 65.08,
+   "repo": 65.08,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Energy (XLE)",
+   "field": "sma50",
+   "claude": 62.67,
+   "repo": 62.67,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Energy (XLE)",
+   "field": "sma200",
+   "claude": 57.05,
+   "repo": 57.05,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Energy (XLE)",
+   "field": "r1m",
+   "claude": -0.35,
+   "repo": -0.35,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Energy (XLE)",
+   "field": "r3m",
+   "claude": 18.72,
+   "repo": 18.72,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Financials (XLF)",
+   "field": "close",
+   "claude": 54.73,
+   "repo": 54.73,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Financials (XLF)",
+   "field": "sma50",
+   "claude": 56.53,
+   "repo": 56.53,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Financials (XLF)",
+   "field": "sma200",
+   "claude": 53.33,
+   "repo": 53.69,
+   "diff": 0.68,
+   "unit": "%",
+   "status": "differs",
+   "note": "known: the Claude Desk used TipRanks for some 200 SMAs (dividend-adjusted, runs lower)"
+  },
+  {
+   "market": "US",
+   "item": "Financials (XLF)",
+   "field": "r1m",
+   "claude": -4.08,
+   "repo": -4.08,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Financials (XLF)",
+   "field": "r3m",
+   "claude": -1.46,
+   "repo": -1.46,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Health Care (XLV)",
+   "field": "close",
+   "claude": 170.81,
+   "repo": 170.81,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Health Care (XLV)",
+   "field": "sma50",
+   "claude": 168.92,
+   "repo": 168.92,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Health Care (XLV)",
+   "field": "sma200",
+   "claude": 157.06,
+   "repo": 157.06,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Health Care (XLV)",
+   "field": "r1m",
+   "claude": 2.54,
+   "repo": 2.54,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Health Care (XLV)",
+   "field": "r3m",
+   "claude": 5.33,
+   "repo": 5.33,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Industrials (XLI)",
+   "field": "close",
+   "claude": 169.25,
+   "repo": 169.25,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Industrials (XLI)",
+   "field": "sma50",
+   "claude": 175.72,
+   "repo": 175.72,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Industrials (XLI)",
+   "field": "sma200",
+   "claude": 172.69,
+   "repo": 172.69,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Industrials (XLI)",
+   "field": "r1m",
+   "claude": -1.48,
+   "repo": -1.48,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Industrials (XLI)",
+   "field": "r3m",
+   "claude": -6.55,
+   "repo": -6.55,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Materials (XLB)",
+   "field": "close",
+   "claude": 49.43,
+   "repo": 49.43,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Materials (XLB)",
+   "field": "sma50",
+   "claude": 51.33,
+   "repo": 51.33,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Materials (XLB)",
+   "field": "sma200",
+   "claude": 50.76,
+   "repo": 50.76,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Materials (XLB)",
+   "field": "r1m",
+   "claude": -3.81,
+   "repo": -3.81,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Materials (XLB)",
+   "field": "r3m",
+   "claude": -1.65,
+   "repo": -1.65,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Real Estate (XLRE)",
+   "field": "close",
+   "claude": 41.61,
+   "repo": 41.61,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Real Estate (XLRE)",
+   "field": "sma50",
+   "claude": 43.43,
+   "repo": 43.43,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Real Estate (XLRE)",
+   "field": "sma200",
+   "claude": 42.52,
+   "repo": 43.21,
+   "diff": 1.62,
+   "unit": "%",
+   "status": "differs",
+   "note": "known: the Claude Desk used TipRanks for some 200 SMAs (dividend-adjusted, runs lower)"
+  },
+  {
+   "market": "US",
+   "item": "Real Estate (XLRE)",
+   "field": "r1m",
+   "claude": -4.15,
+   "repo": -4.15,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Real Estate (XLRE)",
+   "field": "r3m",
+   "claude": -5.92,
+   "repo": -5.92,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Semiconductors (SMH)",
+   "field": "close",
+   "claude": 603.33,
+   "repo": 603.33,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Semiconductors (SMH)",
+   "field": "sma50",
+   "claude": 578.24,
+   "repo": 578.24,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Semiconductors (SMH)",
+   "field": "sma200",
+   "claude": 506.24,
+   "repo": 506.24,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Semiconductors (SMH)",
+   "field": "r1m",
+   "claude": 5.06,
+   "repo": 5.06,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Semiconductors (SMH)",
+   "field": "r3m",
+   "claude": -0.72,
+   "repo": -0.72,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Software (IGV)",
+   "field": "close",
+   "claude": 112.67,
+   "repo": 112.67,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Software (IGV)",
+   "field": "sma50",
+   "claude": 104.92,
+   "repo": 104.92,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Software (IGV)",
+   "field": "sma200",
+   "claude": 93.71,
+   "repo": 93.71,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Software (IGV)",
+   "field": "r1m",
+   "claude": 10.65,
+   "repo": 10.65,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Software (IGV)",
+   "field": "r3m",
+   "claude": 20.01,
+   "repo": 20.01,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Technology (XLK)",
+   "field": "close",
+   "claude": 198.78,
+   "repo": 198.78,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Technology (XLK)",
+   "field": "sma50",
+   "claude": 189.05,
+   "repo": 189.05,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Technology (XLK)",
+   "field": "sma200",
+   "claude": 166.38,
+   "repo": 166.38,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Technology (XLK)",
+   "field": "r1m",
+   "claude": 5.81,
+   "repo": 5.81,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Technology (XLK)",
+   "field": "r3m",
+   "claude": 7.25,
+   "repo": 7.25,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Utilities (XLU)",
+   "field": "close",
+   "claude": 41.41,
+   "repo": 41.41,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Utilities (XLU)",
+   "field": "sma50",
+   "claude": 42.23,
+   "repo": 42.23,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Utilities (XLU)",
+   "field": "sma200",
+   "claude": 44.34,
+   "repo": 44.34,
+   "diff": 0,
+   "unit": "%",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Utilities (XLU)",
+   "field": "r1m",
+   "claude": -3.56,
+   "repo": -3.56,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  },
+  {
+   "market": "US",
+   "item": "Utilities (XLU)",
+   "field": "r3m",
+   "claude": -8.24,
+   "repo": -8.24,
+   "diff": 0,
+   "unit": "pts",
+   "status": "match"
+  }
+ ]
+}
