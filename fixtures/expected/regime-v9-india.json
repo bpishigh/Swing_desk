@@ -1,0 +1,151 @@
+{
+ "generatedBy": "v9 app regimeFrom over fixtures/db/tracker/",
+ "rows": [
+  {
+   "date": "2026-08-28",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-31",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-01",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-02",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-03",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-04",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-07",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-08",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-09",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-10",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-11",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-15",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-16",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-17",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-18",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-21",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-22",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-23",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-24",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-25",
+   "lv": 0,
+   "sma": 0,
+   "la": 0,
+   "lb": 0,
+   "risingA": null,
+   "risingB": null,
+   "breadth": null,
+   "activeDist": 5,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-09-28",
+   "lv": 0,
+   "sma": 0,
+   "la": 0,
+   "lb": 0,
+   "risingA": false,
+   "risingB": false,
+   "breadth": null,
+   "activeDist": 6,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-09-29",
+   "lv": 0,
+   "sma": 0,
+   "la": 0,
+   "lb": 0,
+   "risingA": false,
+   "risingB": false,
+   "breadth": 18,
+   "activeDist": 6,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-09-30",
+   "lv": 0,
+   "sma": 0,
+   "la": 0,
+   "lb": 0,
+   "risingA": false,
+   "risingB": false,
+   "breadth": 18,
+   "activeDist": 6,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-10-01",
+   "lv": 0,
+   "sma": 0,
+   "la": 0,
+   "lb": 0,
+   "risingA": false,
+   "risingB": false,
+   "breadth": 18,
+   "activeDist": 6,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  }
+ ]
+}

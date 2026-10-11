@@ -1,0 +1,48 @@
+{
+ "ts": "2026-10-10T13:33:11.262Z",
+ "pages": [
+  {
+   "kind": "share-price",
+   "status": 200,
+   "bytes": 600712,
+   "snippets": [
+    "e traded price for today is 238.11. The 50 DMA stands at 256.13 and 200 DMA is at 244.03. Looking at intraday trend, the stock is moving sideways. Stock Overview Symbol : TRIVENI O",
+    "238.11. The 50 DMA stands at 256.13 and 200 DMA is at 244.03. Looking at intraday trend, the stock is moving sideways. Stock Overview Symbol : TRIVENI Open : ₹ 243.10 Previous Clos",
+    "ns PB Ratio Dividend Yield ROE ROCE EPS 50 DMA 200 DMA RSI T Triveni Engineering &amp; Industries 235.67 Invest -0.92% 4,63,094 ₹ 5,193 19.35 141.61 314.90 195.28 -13.59% -14.67% 7",
+    "atio Dividend Yield ROE ROCE EPS 50 DMA 200 DMA RSI T Triveni Engineering &amp; Industries 235.67 Invest -0.92% 4,63,094 ₹ 5,193 19.35 141.61 314.90 195.28 -13.59% -14.67% 7.57% 0.",
+    "ods Buy Sell ₹ 235. 67 -2.19 ( -0.92 %) as on 09 Oct 2026 at 03:59 PM NSE BSE M.Cap ₹ 5,193 Cr PE Ratio 19.40 ROCE 11.91 % 121 100 % Buy (Based on 3 analysts) T Triveni Engineering",
+    "nsumer Goods ₹ 235. 67 -2.19 ( -0.92 %) as on 09 Oct 2026 at 03:59 PM NSE BSE 121 100 % Buy (Based on 3 analysts) T ₹ 235. 67 -2.19 ( -0.92 %) Overview News History Fundamentals In",
+    "lue of ₹ 1,00,000 invested 5 years ago, as on today ₹ 0 Gain ₹ 1,00,000 ( 93.98 %) Invest Now Invest Now Note: Past profits do not guarantee future returns. TRIVENI Investment Retu",
+    "ies share price as of today is ₹ 235.67 as on 09 Oct 2026 at 03:59 PM . What is the 52W high and 52W low of Triveni Engineering &amp; Industries ? The 52W high of Triveni Engineeri",
+    "s stands at 19.40 and 1.56 respectively as on 09 Oct 2026 at 15:59 . What is the EPS of Triveni Engineering &amp; Industries ? The EPS of Triveni Engineering &amp; Industries is 0."
+   ],
+   "textLen": 32972,
+   "nextData": {
+    "bytes": 49355,
+    "hasDMA": false,
+    "hasSma": true
+   }
+  },
+  {
+   "kind": "technical-analysis",
+   "status": 200,
+   "bytes": 325074,
+   "snippets": [
+    "nical Analysis - RSI, MACD, STOCH, SMA, EMA | Dhan Indices Major Indices Global Indices List Nifty 50 Sensex Nifty Bank BSE Small Cap Finnifty BSE Mid Cap Nifty Next 50 BSE Bankex ",
+    "ng Averages Period Exponential Signal 5-EMA 238.43 Bearish 10-EMA 239.75 Bearish 20-EMA 244.71 Bearish 50-EMA 252.77 Bearish 100-EMA 252.46 Bearish 200-EMA 242.99 Bearish Technical",
+    "onential Signal 5-EMA 238.43 Bearish 10-EMA 239.75 Bearish 20-EMA 244.71 Bearish 50-EMA 252.77 Bearish 100-EMA 252.46 Bearish 200-EMA 242.99 Bearish Technical Indicators Indicator ",
+    "238.43 Bearish 10-EMA 239.75 Bearish 20-EMA 244.71 Bearish 50-EMA 252.77 Bearish 100-EMA 252.46 Bearish 200-EMA 242.99 Bearish Technical Indicators Indicator Value Action RSI(14) 4",
+    "239.75 Bearish 20-EMA 244.71 Bearish 50-EMA 252.77 Bearish 100-EMA 252.46 Bearish 200-EMA 242.99 Bearish Technical Indicators Indicator Value Action RSI(14) 40.53 Neutral ATR(14) 1",
+    "44.71 Bearish 50-EMA 252.77 Bearish 100-EMA 252.46 Bearish 200-EMA 242.99 Bearish Technical Indicators Indicator Value Action RSI(14) 40.53 Neutral ATR(14) 10.95 Less Volatile STOC",
+    "ods Buy Sell ₹ 235. 67 -2.19 ( -0.92 %) as on 09 Oct 2026 at 03:59 PM NSE BSE M.Cap ₹ 5,193 Cr PE Ratio 19.40 ROCE 11.91 % 121 100 % Buy (Based on 3 analysts) T Triveni Engineering",
+    "nsumer Goods ₹ 235. 67 -2.19 ( -0.92 %) as on 09 Oct 2026 at 03:59 PM NSE BSE 121 100 % Buy (Based on 3 analysts) T ₹ 235. 67 -2.19 ( -0.92 %) Technicals Peers Go to Overview Class"
+   ],
+   "textLen": 24271,
+   "nextData": {
+    "bytes": 49274,
+    "hasDMA": false,
+    "hasSma": true
+   }
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+{
+ "date": "2026-08-27",
+ "bench": {
+  "r1m": 0.4,
+  "r3m": 0.77
+ },
+ "sectors": {
+  "Nifty IT": {
+   "close": 30221.15,
+   "sma50": 29325.7,
+   "r1m": 2.65,
+   "r3m": 4.55
+  },
+  "Nifty Bank": {
+   "close": 57509.95,
+   "sma50": 57630.58,
+   "r1m": 0.74,
+   "r3m": 4.84
+  },
+  "Nifty Financial Services": {
+   "close": 26280.65,
+   "sma50": 26493.87,
+   "r1m": 0.59,
+   "r3m": 2.05
+  },
+  "Nifty PSU Bank": {
+   "close": 8587.8,
+   "sma50": 8522.28,
+   "r1m": 2.67,
+   "r3m": 4.41
+  },
+  "Nifty Auto": {
+   "close": 28883.5,
+   "sma50": 27858.48,
+   "r1m": 4.45,
+   "r3m": 7.52
+  },
+  "Nifty Pharma": {
+   "close": 26848.75,
+   "sma50": 25891.19,
+   "r1m": 3.48,
+   "r3m": 8.63
+  },
+  "Nifty FMCG": {
+   "close": 47030.45,
+   "sma50": 48990.62,
+   "r1m": -5.11,
+   "r3m": -6.21
+  },
+  "Nifty Metal": {
+   "close": 13425.2,
+   "sma50": 12808.05,
+   "r1m": 7.6,
+   "r3m": -2.14
+  },
+  "Nifty Realty": {
+   "close": 909.6,
+   "sma50": 887.5,
+   "r1m": 0.85,
+   "r3m": 15.94
+  },
+  "Nifty Energy": {
+   "close": 38103.95,
+   "sma50": 39091.93,
+   "r1m": -1.87,
+   "r3m": -8.26
+  },
+  "Nifty Infrastructure": {
+   "close": 9237.8,
+   "sma50": 9399.74,
+   "r1m": -0.69,
+   "r3m": -2.75
+  },
+  "Nifty PSE": {
+   "close": 9701.55,
+   "sma50": 9940.85,
+   "r1m": -3.08,
+   "r3m": -7.39
+  },
+  "Nifty Media": {
+   "close": 1596.7,
+   "sma50": 1543.03,
+   "r1m": 2.1,
+   "r3m": 12.67
+  },
+  "Nifty India Defence": {
+   "close": 9802.35,
+   "sma50": 9528.82,
+   "r1m": 4.06,
+   "r3m": 5.93
+  },
+  "Nifty Healthcare": {
+   "close": 16707.7,
+   "sma50": 16367.97,
+   "r1m": 1.43,
+   "r3m": 6.53
+  },
+  "Nifty Oil & Gas": {
+   "close": 11060.65,
+   "sma50": 11192.89,
+   "r1m": -0.17,
+   "r3m": -3.69
+  },
+  "Nifty Consumer Durables": {
+   "close": 40737.85,
+   "sma50": 38939.74,
+   "r1m": 4.11,
+   "r3m": 14.69
+  },
+  "Nifty Chemicals": {
+   "close": 30402.7,
+   "sma50": 30126.14,
+   "r1m": -0.08,
+   "r3m": 2.35
+  },
+  "Nifty Capital Markets": {
+   "close": 5465.15,
+   "sma50": 5396.63,
+   "r1m": 3.28,
+   "r3m": -2.01
+  }
+ }
+}

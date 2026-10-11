@@ -1,0 +1,123 @@
+{
+ "date": "2026-09-11",
+ "bench": {
+  "r1m": -4.39,
+  "r3m": 1.02
+ },
+ "sectors": {
+  "Nifty IT": {
+   "close": 28921.5,
+   "sma50": 30009.66,
+   "r1m": -9.12,
+   "r3m": 3.96
+  },
+  "Nifty Bank": {
+   "close": 56606.55,
+   "sma50": 57490.19,
+   "r1m": -1.46,
+   "r3m": 2.59
+  },
+  "Nifty Financial Services": {
+   "close": 25545.4,
+   "sma50": 26344.42,
+   "r1m": -3.36,
+   "r3m": 1.56
+  },
+  "Nifty PSU Bank": {
+   "close": 8349.9,
+   "sma50": 8492.53,
+   "r1m": -3.36,
+   "r3m": 0.55
+  },
+  "Nifty Auto": {
+   "close": 27304.5,
+   "sma50": 28175.71,
+   "r1m": -7.31,
+   "r3m": 5.87
+  },
+  "Nifty Pharma": {
+   "close": 26532.4,
+   "sma50": 26308.48,
+   "r1m": -0.82,
+   "r3m": 9.16
+  },
+  "Nifty FMCG": {
+   "close": 45053.75,
+   "sma50": 48245.67,
+   "r1m": -7.65,
+   "r3m": -7.15
+  },
+  "Nifty Metal": {
+   "close": 12999.05,
+   "sma50": 12931.25,
+   "r1m": -0.78,
+   "r3m": 2.08
+  },
+  "Nifty Realty": {
+   "close": 848.5,
+   "sma50": 902.76,
+   "r1m": -4.57,
+   "r3m": 14.15
+  },
+  "Nifty Energy": {
+   "close": 37935.2,
+   "sma50": 38651.17,
+   "r1m": -2,
+   "r3m": -1.86
+  },
+  "Nifty Infrastructure": {
+   "close": 9077.15,
+   "sma50": 9339.28,
+   "r1m": -3.28,
+   "r3m": 0.58
+  },
+  "Nifty PSE": {
+   "close": 9688.4,
+   "sma50": 9857.4,
+   "r1m": -1.45,
+   "r3m": -0.97
+  },
+  "Nifty Media": {
+   "close": 1537.2,
+   "sma50": 1552.82,
+   "r1m": -1,
+   "r3m": 4.89
+  },
+  "Nifty India Defence": {
+   "close": 9723.85,
+   "sma50": 9577.9,
+   "r1m": 1.36,
+   "r3m": 10.47
+  },
+  "Nifty Healthcare": {
+   "close": 16492.1,
+   "sma50": 16531.82,
+   "r1m": -1.27,
+   "r3m": 6.4
+  },
+  "Nifty Oil & Gas": {
+   "close": 10937,
+   "sma50": 11178.14,
+   "r1m": -3.03,
+   "r3m": 1.46
+  },
+  "Nifty Consumer Durables": {
+   "close": 38900.8,
+   "sma50": 39596.79,
+   "r1m": -3.48,
+   "r3m": 13.85
+  },
+  "Nifty Chemicals": {
+   "close": 29782,
+   "sma50": 30228.08,
+   "r1m": -2.33,
+   "r3m": 3.71
+  },
+  "Nifty Capital Markets": {
+   "close": 5371.8,
+   "sma50": 5376.65,
+   "r1m": 0.64,
+   "r3m": 3.92
+  }
+ }
+}

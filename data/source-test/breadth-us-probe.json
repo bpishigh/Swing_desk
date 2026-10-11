@@ -1,0 +1,32 @@
+{
+ "ts": "2026-10-10T20:11:07.365Z",
+ "listed": 507,
+ "seconds": 173,
+ "results": {
+  "2026-09-29": {
+   "up": 123,
+   "n": 499,
+   "pct": 24.6
+  },
+  "2026-10-01": {
+   "up": 114,
+   "n": 499,
+   "pct": 22.8
+  },
+  "2026-10-09": {
+   "up": 175,
+   "n": 499,
+   "pct": 35.1
+  }
+ },
+ "failedCount": 7,
+ "failed": [
+  "INDUSTRY: Nasdaq reply has no rows",
+  "COMPARE: Nasdaq reply has no rows",
+  "EARNINGS-CALENDAR: Nasdaq reply has no rows",
+  "SCREENER: Nasdaq reply has no rows",
+  "ABNB: Nasdaq reply has no rows",
+  "HOOD: Nasdaq reply has no rows",
+  "BF.B: Nasdaq reply has no rows"
+ ]
+}

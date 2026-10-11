@@ -1,0 +1,229 @@
+{
+ "ts": "2026-10-10T17:10:34.581Z",
+ "res": [
+  {
+   "k": "fromDate",
+   "status": 200,
+   "n": 584,
+   "min": "20260201",
+   "max": "20260228",
+   "cats": [
+    "Debt Segment",
+    "Mutual Fund",
+    "Inspection & Compliance",
+    "Securities Lending & Borrowing Scheme",
+    "Listing",
+    "Member Service Department"
+   ]
+  },
+  {
+   "k": "fromDate_dept",
+   "status": 200,
+   "n": 0,
+   "cats": []
+  },
+  {
+   "k": "from_date_dept",
+   "status": 200,
+   "n": 0,
+   "cats": []
+  },
+  {
+   "k": "dept_only",
+   "status": 200,
+   "n": 0,
+   "cats": []
+  },
+  {
+   "k": "isin_style",
+   "status": 200,
+   "n": 32,
+   "min": "20260206",
+   "max": "20260206",
+   "cats": [
+    "Inspection & Compliance",
+    "Surveillance & Investigation",
+    "Listing",
+    "Member Service Department",
+    "Legal, ISC & Arbitration",
+    "Debt Segment"
+   ]
+  },
+  {
+   "k": "archive",
+   "status": 404,
+   "n": 0,
+   "cats": []
+  }
+ ],
+ "hits": [
+  {
+   "date": "20260227",
+   "dept": "Listing",
+   "no": "NSE/CML/73063",
+   "sub": "Listing of units issued by Angel One Asset Management Company Limited (Angel One Silver ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML73063.pdf"
+  },
+  {
+   "date": "20260226",
+   "dept": "Listing",
+   "no": "NSE/CML/73020",
+   "sub": "Face Value Split - ETF of LIC Mutual Fund Asset Management Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML73020.pdf"
+  },
+  {
+   "date": "20260225",
+   "dept": "Futures & Options",
+   "no": "NSE/FAOP/72993",
+   "sub": "SPLIT: Adjustment of Futures and Options contracts in the security ANGELONE",
+   "link": "https://nsearchives.nseindia.com/content/circulars/FAOP72993.pdf"
+  },
+  {
+   "date": "20260223",
+   "dept": "Listing",
+   "no": "NSE/CML/72947",
+   "sub": "Face Value Split - Silver Touch Technologies Limited (SILVERTUC)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72947.pdf"
+  },
+  {
+   "date": "20260223",
+   "dept": "Listing",
+   "no": "NSE/CML/72934",
+   "sub": "Face Value Split - Varvee GLobal Limited (VGL)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72934.pdf"
+  },
+  {
+   "date": "20260220",
+   "dept": "Listing",
+   "no": "NSE/CML/72917",
+   "sub": "Face Value Split - Aqylon Nexus Limited (AQYLON)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72917.pdf"
+  },
+  {
+   "date": "20260220",
+   "dept": "Listing",
+   "no": "NSE/CML/72916",
+   "sub": "Face Value Split - ETFs of Kotak Mahindra Asset Management Company Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72916.pdf"
+  },
+  {
+   "date": "20260219",
+   "dept": "Futures & Options",
+   "no": "NSE/FAOP/72897",
+   "sub": "SPLIT: Adjustment of Futures and Options contracts in the security ANGELONE",
+   "link": "https://nsearchives.nseindia.com/content/circulars/FAOP72897.pdf"
+  },
+  {
+   "date": "20260219",
+   "dept": "Listing",
+   "no": "NSE/CML/72891",
+   "sub": "Listing of units issued by Aditya Birla Sun Life AMC Limited (Aditya Birla Sun Life MSCI India ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72891.pdf"
+  },
+  {
+   "date": "20260219",
+   "dept": "Listing",
+   "no": "NSE/CML/72889",
+   "sub": "Face Value Split - Angel One Limited (ANGELONE)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72889.pdf"
+  },
+  {
+   "date": "20260218",
+   "dept": "Listing",
+   "no": "NSE/CML/72881",
+   "sub": "Listing of units issued by Mirae Asset Investment Managers (India) Private Limited (Mirae Asset BSE India Defence ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72881.pdf"
+  },
+  {
+   "date": "20260217",
+   "dept": "Listing",
+   "no": "NSE/CML/72854",
+   "sub": "Listing of units issued by Mirae Asset Investment Managers (India) Private Limited (Mirae Asset Nifty India Infrastructure & Logistics ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72854.pdf"
+  },
+  {
+   "date": "20260213",
+   "dept": "Listing",
+   "no": "NSE/CML/72818",
+   "sub": "Listing of units issued by Mirae Asset Investment Managers (India) Private Limited (Mirae Asset Nifty 500 Healthcare ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72818.pdf"
+  },
+  {
+   "date": "20260210",
+   "dept": "NSE Clearing - Capital Market",
+   "no": "NCL/CMPT/72733",
+   "sub": "Settlement Calendar for Offer for Sale of units of Bharat Heavy Electricals Limited.",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CMPT72733.pdf"
+  },
+  {
+   "date": "20260210",
+   "dept": "Listing",
+   "no": "NSE/CML/72721",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww Nifty PSE ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72721.pdf"
+  },
+  {
+   "date": "20260210",
+   "dept": "Mutual Fund",
+   "no": "NSE/NMF/72719",
+   "sub": "Availability of Whiteoak Capital Consumption Opportunities Fund for ongoing transactions on NSE MF Invest Platform",
+   "link": "https://nsearchives.nseindia.com/content/circulars/NMF72719.pdf"
+  },
+  {
+   "date": "20260209",
+   "dept": "Securities Lending & Borrowing Scheme",
+   "no": "NSE/SLBS/72705",
+   "sub": "Consolidation of Trading reports format details for SLBM segment",
+   "link": "https://nsearchives.nseindia.com/content/circulars/SLBS72705.zip"
+  },
+  {
+   "date": "20260209",
+   "dept": "Listing",
+   "no": "NSE/CML/72700",
+   "sub": "Listing of units issued by ICICI Prudential Asset Management Company Limited (iSIF Hybrid Long-Short Fund)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72700.pdf"
+  },
+  {
+   "date": "20260209",
+   "dept": "Listing",
+   "no": "NSE/CML/72694",
+   "sub": "Face Value Split - Delphi World Money Limited (DELPHIFX)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72694.pdf"
+  },
+  {
+   "date": "20260204",
+   "dept": "NSE Clearing - Capital Market",
+   "no": "NCL/CMPT/72637",
+   "sub": "Settlement Calendar for Offer for Sale of units of IndiGrid Infrastructure Trust. ",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CMPT72637.pdf"
+  },
+  {
+   "date": "20260204",
+   "dept": "Listing",
+   "no": "NSE/CML/72620",
+   "sub": "Face Value Split - ETFs of Quantum Asset Management Company Private Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72620.pdf"
+  },
+  {
+   "date": "20260202",
+   "dept": "Capital Market (Equities) Trade",
+   "no": "NSE/CMTR/72580",
+   "sub": "SPLIT: Adjustment of Market Lot for Security DHARIWAL in SME Platform",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CMTR72580.pdf"
+  },
+  {
+   "date": "20260202",
+   "dept": "Listing",
+   "no": "NSE/CML/72579",
+   "sub": "Listing of units issued by Bandhan AMC (Arudha Hybrid Long-Short Fund)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72579.pdf"
+  },
+  {
+   "date": "20260202",
+   "dept": "Listing",
+   "no": "NSE/CML/72573",
+   "sub": "Face Value Split - Dhariwalcorp Limited (DHARIWAL)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72573.pdf"
+  }
+ ]
+}

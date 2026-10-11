@@ -1,0 +1,23 @@
+{
+ "b": {
+  "close": 22072.1,
+  "sma200": 22977.79,
+  "sma50": 23247.77
+ },
+ "close": 22620.45,
+ "fetchedAt": "2026-09-30T14:50:01Z",
+ "flags": [
+  "close/high/low from Upstox (30 Sep 16:00); cross-checked Business Standard close report (Nifty at 22,620)",
+  "volume pending: Investing.com and TopStockResearch have no 30 Sep row yet",
+  "SMA from Dhan (page dated 30 Sep; through 29 Sep)",
+  "Nifty 500 from Upstox (30 Sep 16:00); SMA from Dhan (29 Sep)"
+ ],
+ "high": 22809.35,
+ "low": 22595.2,
+ "maAsOf": "2026-09-29",
+ "skip": false,
+ "sma200": 24383.87,
+ "sma50": 23932.93,
+ "src": "Upstox + Dhan + Business Standard",
+ "vix": 13.49
+}

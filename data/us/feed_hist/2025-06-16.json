@@ -1,0 +1,93 @@
+{
+ "date": "2025-06-16",
+ "bench": {
+  "r1m": 1.43,
+  "r3m": 7.08
+ },
+ "sectors": {
+  "Technology (XLK)": {
+   "close": 243.04,
+   "r1m": 3.47,
+   "r3m": 13.6,
+   "sma50": 218.58
+  },
+  "Financials (XLF)": {
+   "close": 50.53,
+   "r1m": -2.05,
+   "r3m": 4.14,
+   "sma50": 49.2
+  },
+  "Energy (XLE)": {
+   "close": 87.84,
+   "r1m": 2.76,
+   "r3m": -2.14,
+   "sma50": 82.24
+  },
+  "Health Care (XLV)": {
+   "close": 135.71,
+   "r1m": 1.97,
+   "r3m": -6.36,
+   "sma50": 134.79
+  },
+  "Industrials (XLI)": {
+   "close": 143.63,
+   "r1m": -0.1,
+   "r3m": 9.53,
+   "sma50": 135.35
+  },
+  "Consumer Discretionary (XLY)": {
+   "close": 214.02,
+   "r1m": -1.68,
+   "r3m": 8.81,
+   "sma50": 203.21
+  },
+  "Consumer Staples (XLP)": {
+   "close": 81.22,
+   "r1m": -1.04,
+   "r3m": 2.15,
+   "sma50": 81.17
+  },
+  "Utilities (XLU)": {
+   "close": 81.02,
+   "r1m": -1.41,
+   "r3m": 2.73,
+   "sma50": 79.48
+  },
+  "Materials (XLB)": {
+   "close": 88.12,
+   "r1m": 1.23,
+   "r3m": 2.49,
+   "sma50": 84.29
+  },
+  "Real Estate (XLRE)": {
+   "close": 41.93,
+   "r1m": -0.19,
+   "r3m": 1.16,
+   "sma50": 40.93
+  },
+  "Communication (XLC)": {
+   "close": 104.34,
+   "r1m": 2.52,
+   "r3m": 8.03,
+   "sma50": 97.49
+  },
+  "Semiconductors (SMH)": {
+   "close": 263.38,
+   "r1m": 6.88,
+   "r3m": 16.25,
+   "sma50": 226.53
+  },
+  "Software (IGV)": {
+   "close": 107.4,
+   "r1m": 2.13,
+   "r3m": 17.17,
+   "sma50": 97.94
+  },
+  "Aerospace & Defense (ITA)": {
+   "close": 179.16,
+   "r1m": 4.2,
+   "r3m": 18.46,
+   "sma50": 163.79
+  }
+ }
+}

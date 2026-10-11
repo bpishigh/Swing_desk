@@ -1,0 +1,123 @@
+{
+ "date": "2026-08-24",
+ "bench": {
+  "r1m": 1.9,
+  "r3m": 2.11
+ },
+ "sectors": {
+  "Nifty IT": {
+   "close": 30596.9,
+   "sma50": 29180.58,
+   "r1m": 6.36,
+   "r3m": 5.83
+  },
+  "Nifty Bank": {
+   "close": 57525.95,
+   "sma50": 57600.32,
+   "r1m": 1.47,
+   "r3m": 6.42
+  },
+  "Nifty Financial Services": {
+   "close": 26158.5,
+   "sma50": 26491.24,
+   "r1m": 0.96,
+   "r3m": 2.46
+  },
+  "Nifty PSU Bank": {
+   "close": 8539.75,
+   "sma50": 8519.49,
+   "r1m": 2.33,
+   "r3m": 6.66
+  },
+  "Nifty Auto": {
+   "close": 29101.3,
+   "sma50": 27715.37,
+   "r1m": 6.92,
+   "r3m": 11.85
+  },
+  "Nifty Pharma": {
+   "close": 26339.3,
+   "sma50": 25755.75,
+   "r1m": 3.1,
+   "r3m": 7.18
+  },
+  "Nifty FMCG": {
+   "close": 47527.8,
+   "sma50": 49091.13,
+   "r1m": -3.11,
+   "r3m": -5.42
+  },
+  "Nifty Metal": {
+   "close": 13381.45,
+   "sma50": 12778.54,
+   "r1m": 7.9,
+   "r3m": 0.83
+  },
+  "Nifty Realty": {
+   "close": 917.1,
+   "sma50": 880.35,
+   "r1m": 4,
+   "r3m": 18.43
+  },
+  "Nifty Energy": {
+   "close": 38335.85,
+   "sma50": 39170.08,
+   "r1m": -1.25,
+   "r3m": -4.73
+  },
+  "Nifty Infrastructure": {
+   "close": 9342.6,
+   "sma50": 9399.77,
+   "r1m": 1.1,
+   "r3m": -0.18
+  },
+  "Nifty PSE": {
+   "close": 9781.85,
+   "sma50": 9952.08,
+   "r1m": -1.71,
+   "r3m": -5.6
+  },
+  "Nifty Media": {
+   "close": 1603.3,
+   "sma50": 1536.13,
+   "r1m": 4.97,
+   "r3m": 16.64
+  },
+  "Nifty India Defence": {
+   "close": 9739.6,
+   "sma50": 9488.98,
+   "r1m": 4.12,
+   "r3m": 7.03
+  },
+  "Nifty Healthcare": {
+   "close": 16418,
+   "sma50": 16305.4,
+   "r1m": 1.12,
+   "r3m": 4.77
+  },
+  "Nifty Oil & Gas": {
+   "close": 11197,
+   "sma50": 11191.42,
+   "r1m": 1.08,
+   "r3m": -1.54
+  },
+  "Nifty Consumer Durables": {
+   "close": 40452.55,
+   "sma50": 38653.81,
+   "r1m": 3.86,
+   "r3m": 14.76
+  },
+  "Nifty Chemicals": {
+   "close": 30038.65,
+   "sma50": 30085.15,
+   "r1m": -0.01,
+   "r3m": 2.96
+  },
+  "Nifty Capital Markets": {
+   "close": 5457.25,
+   "sma50": 5394.4,
+   "r1m": 4.07,
+   "r3m": -1.77
+  }
+ }
+}

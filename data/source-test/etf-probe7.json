@@ -1,0 +1,42 @@
+{
+ "plain": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": ".<!DOCTY",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebmaster@nse.co.in "
+ },
+ "pdf_accept": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": ".<!DOCTY",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebmaster@nse.co.in "
+ },
+ "referer": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": ".<!DOCTY",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebmaster@nse.co.in "
+ },
+ "archives_host": {
+  "status": 200,
+  "type": "application/pdf",
+  "size": 166369,
+  "head": "%PDF-1.7"
+ },
+ "www_host": {
+  "status": 404,
+  "type": "text/html; charset=utf-8",
+  "size": 296796,
+  "head": "<!DOCTYP"
+ },
+ "www_api_path": {
+  "status": 404,
+  "type": "text/html; charset=utf-8",
+  "size": 272,
+  "head": "<!DOCTYP",
+  "text": " Resource not found Resource not found "
+ }
+}

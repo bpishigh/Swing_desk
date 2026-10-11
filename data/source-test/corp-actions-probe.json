@@ -1,0 +1,30 @@
+{
+ "ts": "2026-10-10T13:27:09.922Z",
+ "tries": [
+  {
+   "url": "https://www.nseindia.com/api/corporates-corporateActions?index=equities&from_date=01-10-2025&to_date=10-10-2026",
+   "status": 200,
+   "bytes": 33,
+   "note": "",
+   "count": 0,
+   "keys": []
+  },
+  {
+   "url": "https://www.nseindia.com/api/corporates-corporateActions?index=equities&from_date=01-10-2025&to_date=10-10-2026&subject=Bonus",
+   "status": 200,
+   "bytes": 33,
+   "note": "",
+   "count": 0,
+   "keys": []
+  },
+  {
+   "url": "https://www.nseindia.com/api/corporates-corporateActions?index=equities",
+   "status": 200,
+   "bytes": 33,
+   "note": "",
+   "count": 0,
+   "keys": []
+  }
+ ],
+ "cookie": "set"
+}

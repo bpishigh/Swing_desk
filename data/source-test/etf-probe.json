@@ -1,0 +1,190 @@
+{
+ "ts": "2026-10-10T13:50:33.871Z",
+ "n": 16,
+ "yahoo": [
+  {
+   "symbol": "GROWWGOLD",
+   "breakDate": "2026-02-06",
+   "ratio": 0.0989,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "GROWWSLVR",
+   "breakDate": "2026-02-06",
+   "ratio": 0.0949,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "QNIFTY",
+   "breakDate": "2026-02-13",
+   "ratio": 0.0989,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "BANKNIFTY1",
+   "breakDate": "2026-02-27",
+   "ratio": 0.0991,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "CONS",
+   "breakDate": "2026-02-27",
+   "ratio": 0.0989,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "MIDCAP",
+   "breakDate": "2026-02-27",
+   "ratio": 0.0992,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "NV20",
+   "breakDate": "2026-02-27",
+   "ratio": 0.0992,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "SILVER1",
+   "breakDate": "2026-02-27",
+   "ratio": 0.1032,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "LICMFGOLD",
+   "breakDate": "2026-03-06",
+   "ratio": 0.0099,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "IVZINGOLD",
+   "breakDate": "2026-04-30",
+   "ratio": 0.0102,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "HEALTHADD",
+   "breakDate": "2026-07-03",
+   "ratio": 0.1026,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "MIDQ50ADD",
+   "breakDate": "2026-07-03",
+   "ratio": 0.0998,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "PSUBANK",
+   "breakDate": "2026-07-10",
+   "ratio": 0.1037,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "IVZINNIFTY",
+   "breakDate": "2026-07-31",
+   "ratio": 0.1007,
+   "status": 200,
+   "splits": null,
+   "err": null
+  },
+  {
+   "symbol": "GOLDADD",
+   "breakDate": "2026-08-28",
+   "ratio": 0.1004,
+   "status": 200,
+   "splits": {
+    "1787888700": {
+     "date": 1787888700,
+     "numerator": 10,
+     "denominator": 1,
+     "splitRatio": "10:1"
+    }
+   },
+   "err": null
+  },
+  {
+   "symbol": "SILVERADD",
+   "breakDate": "2026-08-28",
+   "ratio": 0.1016,
+   "status": 200,
+   "splits": {
+    "1787888700": {
+     "date": 1787888700,
+     "numerator": 10,
+     "denominator": 1,
+     "splitRatio": "10:1"
+    }
+   },
+   "err": null
+  }
+ ],
+ "nse": {
+  "etfList": {
+   "status": 200,
+   "bytes": 37654,
+   "head": "Symbol,Underlying Asset,SecurityName,DateofListing,MarketLot,ISINNumber,FaceValue,ETF Underlying,Underlying Key\r\nNIFTYBEES,Nifty 50,NIPINDETFNIFTYBEES,08-Jan-02,1,INF204KB14I2,1,EQUITY,Nifty 50\r\nJUNIORBEES,Nippon India ETF Nifty Next 50 Junior BeES,NIP IND ETF JUNIOR BEES,06-Mar-03,1,INF732E01045,1."
+  },
+  "etfApi": {
+   "status": 200,
+   "bytes": 2,
+   "head": "{}"
+  },
+  "ca_symbol": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  },
+  "ca_symbol_dates": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  },
+  "ca_mf": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  },
+  "ca_etf": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  },
+  "announce": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  },
+  "announce_sme": {
+   "status": 200,
+   "bytes": 33,
+   "head": "{\"data\":[],\"msg\":\"no data found\"}"
+  }
+ }
+}

@@ -1,0 +1,76 @@
+name: india-stocks
+# Repo Desk India whole-market stock store. Manual only for now: compare with the Claude Desk before any schedule is added.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Session date YYYY-MM-DD (blank = latest session)'
+        required: false
+        default: ''
+      backfill:
+        description: 'Also make sure this many earlier sessions are stored (0-300)'
+        required: false
+        default: '0'
+concurrency: india-stocks
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - name: Store sessions and build stock stats
+        env:
+          IN_DATE: ${{ inputs.date }}
+          IN_BACKFILL: ${{ inputs.backfill }}
+        run: |
+          ARGS="--backfill=${IN_BACKFILL:-0}"
+          if [ -n "$IN_DATE" ]; then ARGS="$ARGS --date=$IN_DATE"; fi
+          node scripts/india-stocks.mjs $ARGS
+      - name: Alert on new unresolved corporate-action breaks
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MSG=$(node -e "const r=JSON.parse(require('fs').readFileSync('data/india/last-run-stocks.json','utf8'));const n=r.newUnresolved||[];const cp=r.circularProblems||[];const p=[];if(n.length)p.push(n.length+' new price break(s) with no usable corporate action, averages left out: '+n.slice(0,12).map(x=>x.replace('|',' ')).join(', ')+(n.length>12?' ...':''));if(cp.length)p.push('NSE circular check: '+cp.slice(0,8).join('; '));if(p.length)console.log('India stocks '+r.date+': '+p.join(' | '))")
+          if [ -n "$MSG" ]; then node scripts/alert.mjs "$MSG"; fi
+      - name: Breadth (Nifty 500 above its 50-day average)
+        continue-on-error: true
+        run: node scripts/breadth-india.mjs
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india
+          git commit -m "india-stocks: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
+      - name: Regime check and phone message
+        if: always()
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git pull --rebase origin main
+          node scripts/regime-run.mjs india
+          git add data/india/regime.json
+          git commit -m "regime india: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

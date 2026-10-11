@@ -1,0 +1,20 @@
+{
+ "b": {
+  "close": 22603.5,
+  "sma200": 22985.81,
+  "sma50": 23269.85
+ },
+ "close": 23140.5,
+ "fetchedAt": "2026-09-27T18:18:41Z",
+ "flags": [
+  "India VIX: Dhan page showed 38.87 dated 26 Sep (inconsistent); used Upstox 12.16 dated 25 Sep"
+ ],
+ "high": 23162.7,
+ "low": 23020.95,
+ "skip": false,
+ "sma200": 24417.13,
+ "sma50": 23994.46,
+ "src": "Dhan + Upstox + Investing.com",
+ "vix": 12.16,
+ "volume": 242.72
+}

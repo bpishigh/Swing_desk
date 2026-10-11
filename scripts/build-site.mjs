@@ -1,0 +1,72 @@
+// Assembles the dashboard's one data file (site/data/dashboard.json) from the Repo Desk's stored data. No network. Run after any data change.
+// Regime and sector ranking use the same engine as the nightly alerts and the app rules.
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
+import { makeCalendar } from '../src/engine/calendar.ts';
+import { regimeFrom } from '../src/engine/regime.ts';
+import { rankSectors } from '../src/engine/sectors.ts';
+import { targetSession } from '../src/ingest/nightly-plan.ts';
+import { usTarget } from '../src/ingest/us-plan.ts';
+
+const read = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
+const calJson = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8'));
+const cals = {
+  india: makeCalendar([...calJson.india.holidays, ...(calJson.india.priorHolidays || [])]),
+  us: makeCalendar(calJson.us.holidays),
+};
+const now = Date.now();
+const expected = { india: targetSession(now, cals.india).target, us: usTarget(now, cals.us).target };
+
+function market(m) {
+  const files = readdirSync(`data/${m}/tracker`).filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().slice(-130);
+  const breadth = read(`data/${m}/breadth.json`, {});
+  const rows = files.map((f) => { const date = f.slice(0, 10); return { ...read(`data/${m}/tracker/${f}`), date, ...(breadth[date] ? { breadth: breadth[date].pct } : {}) }; });
+  const opts = { cal: cals[m] };
+  const timeline = [];
+  for (let i = Math.max(0, rows.length - 40); i < rows.length; i++) {
+    const r = regimeFrom(rows.slice(0, i + 1), opts);
+    if (r && !r.incomplete) timeline.push({ date: rows[i].date, regime: r.name });
+  }
+  const last = regimeFrom(rows, opts);
+  const regime = last && !last.incomplete ? {
+    name: last.name, notes: last.notes, breadth: Number.isFinite(last.breadth) ? last.breadth : null, breadthDate: last.breadthDate || null,
+    distribution: last.analysis.active.map((d) => ({ date: d.date, chg: Math.round(d.chg * 100) / 100 })),
+    followThrough: last.analysis.status, trendLevels: { a: last.la, b: last.lb }, risingA: last.risingA, risingB: last.risingB,
+  } : null;
+  const feed = read(`data/${m}/feed/latest.json`, {});
+  const mode = regime?.name === 'red' ? 'red' : 'normal';
+  const inputs = Object.entries(feed.sectors || {}).map(([name, s]) => ({ name, m1: s.r1m, m3: s.r3m, above50: s.close > s.sma50, above200: s.close > s.sma200 }));
+  const ranked = rankSectors(inputs, feed.bench?.r3m, mode);
+  const sectors = Object.entries(feed.sectors || {}).map(([name, s]) => ({ name, close: s.close, r1m: s.r1m, r3m: s.r3m, sma50: s.sma50, sma200: s.sma200, ...ranked.find((x) => x.name === name) && { pass: ranked.find((x) => x.name === name).pass, rank: ranked.find((x) => x.name === name).rank, score: ranked.find((x) => x.name === name).score } }));
+  return {
+    date: rows.at(-1)?.date ?? null, expected: expected[m], feedDate: feed.date ?? null, fetchedAt: feed.fetchedAt ?? null,
+    index: rows.slice(-60).map((r) => ({ date: r.date, close: r.close, sma50: r.sma50, sma200: r.sma200, volume: r.volume, vix: r.vix })),
+    latest: rows.at(-1) ? { ...rows.at(-1) } : null, regime, timeline, benchmarkR3m: feed.bench?.r3m ?? null, benchmarkR1m: feed.bench?.r1m ?? null,
+    sectors, mode, breadthSeries: Object.entries(breadth).sort().slice(-30).map(([date, v]) => ({ date, pct: v.pct, n: v.n })), flags: feed.flags || [],
+  };
+}
+const india = market('india'), us = market('us');
+
+// India whole-market store: summary only (the store itself is large)
+const st = read('data/india/stocks/latest.json', {});
+india.stocks = st.date ? { date: st.date, count: st.count, with200: Object.values(st.stocks || {}).filter((s) => s.sma200 !== undefined && s.sma200 !== null).length, corporate: { unresolved: (st.corporateActions?.unresolved || []).length, adjusted: (st.corporateActions?.resolved || []).length } } : null;
+
+// US weekly screen
+const sc = read('data/us/screen/latest.json', null);
+us.screen = sc ? { date: sc.date, feedDate: sc.feedDate, fetchedAt: sc.fetchedAt, sectors: sc.sectors, flags: sc.flags, stocks: sc.stocks } : null;
+
+// Health
+const lr = (p) => read(p, null);
+const jobs = [
+  ['India index', 'data/india/last-run.json'], ['India stocks', 'data/india/last-run-stocks.json'], ['US daily', 'data/us/last-run.json'], ['US screen', 'data/us/screen/last-run.json'],
+].map(([name, p]) => { const r = lr(p); return r ? { name, ts: r.ts, date: r.date ?? null, status: r.status, flags: (r.flags || []).slice(0, 6) } : { name, ts: null, date: null, status: 'never run', flags: [] }; });
+const health = { jobs, usage: read('data/ops/usage.json', null), orchestrator: { india: read('data/india/orchestrator.json', {}), us: read('data/us/orchestrator.json', {}) },
+  regimeState: { india: read('data/india/regime.json', null), us: read('data/us/regime.json', null) } };
+
+const compare = read('data/compare/latest.json', null);
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare };
+mkdirSync('site/data', { recursive: true });
+// Keep the old file when only the build time changed, so the tick does not commit every half hour.
+const prev = read('site/data/dashboard.json', null);
+const same = prev && JSON.stringify({ ...prev, generatedAt: 0 }) === JSON.stringify({ ...out, generatedAt: 0 });
+if (!same) writeFileSync('site/data/dashboard.json', JSON.stringify(out) + '\n');
+console.log(`site/data/dashboard.json ${Math.round(JSON.stringify(out).length / 1024)} KB; India ${india.date} (${india.regime?.name}), US ${us.date} (${us.regime?.name})`);

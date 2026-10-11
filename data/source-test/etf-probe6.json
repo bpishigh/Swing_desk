@@ -1,0 +1,249 @@
+{
+ "ts": "2026-10-10T17:20:59.240Z",
+ "counts": [
+  [
+   "01-02-2026",
+   200,
+   584
+  ],
+  [
+   "01-03-2026",
+   200,
+   558
+  ],
+  [
+   "01-04-2026",
+   200,
+   578
+  ],
+  [
+   "01-05-2026",
+   200,
+   530
+  ],
+  [
+   "01-06-2026",
+   200,
+   555
+  ],
+  [
+   "01-07-2026",
+   200,
+   651
+  ],
+  [
+   "01-08-2026",
+   200,
+   638
+  ],
+  [
+   "01-09-2026",
+   200,
+   700
+  ],
+  [
+   "01-10-2026",
+   200,
+   222
+  ]
+ ],
+ "total": 4284,
+ "groww": [
+  {
+   "date": "20260212",
+   "no": "NSE/NMF/72766",
+   "sub": "Availability of Groww Nifty PSE ETF FOF for ongoing transactions on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260210",
+   "no": "NSE/CML/72721",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww Nifty PSE ETF)"
+  },
+  {
+   "date": "20260210",
+   "no": "NSE/NMF/72716",
+   "sub": "Launch of Groww BSE Hospitals ETF NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260210",
+   "no": "NSE/NMF/72715",
+   "sub": "Launch of Groww BSE Hospitals ETF FOF NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260204",
+   "no": "NSE/CML/72617",
+   "sub": "Change in ISIN - ETFs of Groww Mutual Fund"
+  },
+  {
+   "date": "20260201",
+   "no": "NCL/CMPT/72565",
+   "sub": "Early Pay-in of Securities for Groww Mutual Fund (GROWWGOLD) & (GROWWSLVR)"
+  },
+  {
+   "date": "20260325",
+   "no": "NSE/CML/73465",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww Nifty PSU Bank ETF)"
+  },
+  {
+   "date": "20260325",
+   "no": "NSE/NMF/73457",
+   "sub": "Availability of Groww Nifty PSU Bank Index Fund for ongoing transactions on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260306",
+   "no": "NSE/NMF/73164",
+   "sub": "Availability of Groww BSE Hospitals ETF FOF for ongoing transactions on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260305",
+   "no": "NSE/NMF/73136",
+   "sub": "Launch of Groww Nifty PSU Bank ETF NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260305",
+   "no": "NSE/NMF/73135",
+   "sub": "Launch of Groww Nifty PSU Bank Index Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260304",
+   "no": "NSE/CML/73117",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww BSE Hospitals ETF)"
+  },
+  {
+   "date": "20260428",
+   "no": "NSE/NMF/73937",
+   "sub": "Availability of Groww Arbitrage Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260407",
+   "no": "NSE/NMF/73633",
+   "sub": "Launch of Groww Arbitrage Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260406",
+   "no": "NSE/NMF/73606",
+   "sub": "Change in scheme name of Groww Mutual Fund on NSE MF Invest platform"
+  },
+  {
+   "date": "20260527",
+   "no": "NSE/NMF/74430",
+   "sub": "Launch of Groww Nifty Smallcap 250 Momentum Quality 100 ETF NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260527",
+   "no": "NSE/NMF/74428",
+   "sub": "Launch of Groww Nifty Smallcap 250 Momentum Quality 100 Index Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260526",
+   "no": "NSE/NMF/74404",
+   "sub": "Availability of Groww Nifty Private Bank Index Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260525",
+   "no": "NSE/CML/74392",
+   "sub": "Listing of units issued by Groww asset Management Limited (Groww Nifty Private Bank ETF)"
+  },
+  {
+   "date": "20260505",
+   "no": "NSE/NMF/74043",
+   "sub": "Launch of Groww Nifty Private Bank ETF NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260505",
+   "no": "NSE/NMF/74042",
+   "sub": "Launch of Groww Nifty Private Bank Index Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260618",
+   "no": "NSE/NMF/74762",
+   "sub": "Availability of Groww Nifty Smallcap 250 Momentum Quality 100 Index Fund NFO on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260617",
+   "no": "NSE/CML/74743",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww Nifty Smallcap 250 Momentum Quality 100 ETF)"
+  },
+  {
+   "date": "20260727",
+   "no": "NSE/CML/75425",
+   "sub": "Listing of units issued by Groww Asset Management Limited (Groww Nifty Cements ETF)"
+  },
+  {
+   "date": "20260709",
+   "no": "NSE/NMF/75121",
+   "sub": "Temporary restriction on Subscriptions in certain schemes of Groww Mutual Fund on NSE MF Invest Platform"
+  },
+  {
+   "date": "20260707",
+   "no": "NSE/NMF/75076",
+   "sub": "Launch of Groww Nifty Cements ETF NFO on NSE MF Invest Platform"
+  }
+ ],
+ "found": 9,
+ "items": [
+  {
+   "date": "20260204",
+   "no": "NSE/CML/72620",
+   "sub": "Face Value Split - ETFs of Quantum Asset Management Company Private Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72620.pdf",
+   "text": "\nNational Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/72620 Date: February 04, 2026 \nCircular Ref. No: 0179/2026 \nTo All Members \nSub: Face Value Split – ETFs of Quantum Asset Management Company Private Limited \nIt is hereby informed that the face value and paid-up value of the following ETF shall be changed w.e.f. \nFebruary 13, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face \nValue & Paid-up \nValue (Rs.) \nNew Face \nValue & Paid-\nup Value (Re.) \n1 Quantum Nifty 50 ETF QNIFTY 10 1 \nThis circular shall be effective from February 13, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260204",
+   "no": "NSE/CML/72617",
+   "sub": "Change in ISIN - ETFs of Groww Mutual Fund",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72617.pdf",
+   "text": "\nNational Stock Exchange of India \nCircular \nDepartment: Listing \nDownload Ref No: NSE/CML/72617 Date: February 04, 2026 \nCircular Ref. No: 0178/2026 \nTo All Members \nSub: Change in ISIN – ETFs of Groww Mutual Fund \nMembers of the Exchange are hereby informed that the ISIN Code for the units of the following company shall \nbe changed w.e.f. February 06, 2026. \nSr. \nNo. \nSymbol Company Name New ISIN Remarks \n1 \nGROWWGOLD \nGroww Mutual Fund - \nGroww Gold ETF \nINF666M01OE7 Sub-Division from Rs. 10/- to Re. 1/- \n2 \nGROWWSLVR \nGroww Mutual Fund - \nGroww Silver ETF \nINF666M01OF4 Sub-Division from Rs. 10/- to Re. 1/- \nThe new ISINs shall be effective for all trades done on and from the Ex-date i.e., February 06, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260220",
+   "no": "NSE/CML/72916",
+   "sub": "Face Value Split - ETFs of Kotak Mahindra Asset Management Company Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML72916.pdf",
+   "text": "\n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/72916 Date: February 20, 2026 \nCircular Ref. No: 0290/2026 \nTo All Members \nSub: Face Value Split – ETFs of Kotak Mahindra Asset Management Company Limited \nIt is hereby informed that the face value and paid-up value of the following ETFs shall be changed w.e.f. \nFebruary 27, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face \nValue & Paid-\nup Value (Rs.) \nNew Face \nValue & \nPaid-up \nValue (Re.) \n1 Kotak Nifty Bank ETF BANKNIFTY1 10 1 \n2 Kotak Nifty India Consumption ETF CONS 10 1 \n3 \nKotak Mahindra Mutual Fund - Kotak \nSilver ETF \nSILVER1 10 1 \n4 Kotak Nifty 50 value 20 ETF NV20 10 1 \n5 Kotak Nifty Midcap 50 ETF MIDCAP 10 1 \nThis circular shall be effective from February 27, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260226",
+   "no": "NSE/CML/73020",
+   "sub": "Face Value Split - ETF of LIC Mutual Fund Asset Management Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML73020.pdf",
+   "text": "\nNational Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/73020 Date: February 26, 2026 \nCircular Ref. No: 0329/2026 \nTo All Members \nSub: Face Value Split – ETF of LIC Mutual Fund Asset Management Limited \nIt is hereby informed that the face value and paid-up value of the following ETF shall be changed w.e.f. \nMarch 06, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face \nValue & Paid-up \nValue (Rs.) \nNew Face \nValue & Paid-\nup Value (Re.) \n1 \nLIC MF Gold EXCHANGE TRADED \nFUND \nLICMFGOLD 100 1 \nThis circular shall be effective from March 06, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260420",
+   "no": "NSE/CML/73816",
+   "sub": "Face Value Split - ETF of Invesco India Gold Exchange Traded Fund",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML73816.pdf",
+   "text": "\nNational Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/73816 Date: April 20, 2026 \nCircular Ref. No: 0653/2026 \nTo All Members \nSub: Face Value Split – ETF of Invesco India Gold Exchange Traded Fund \nIt is hereby informed that the face value and paid-up value of the following ETF shall be changed w.e.f. \nApril 30, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face \nValue & Paid-up \nValue (Rs.) \nNew Face \nValue & Paid-\nup Value (Re.) \n1 Invesco India Gold Exchange Traded Fund IVZINGOLD 100 1 \nThis circular shall be effective from April 30, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260618",
+   "no": "NSE/CML/74765",
+   "sub": "Face Value Split - ETFs of DSP Asset Managers Private Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML74765.pdf",
+   "text": "\nNational Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/74765 Date: June 18, 2026 \nCircular Ref. No: 0985/2026 \nTo All Members \nSub: Face Value Split – ETFs of DSP Asset Managers Private Limited \nIt is hereby informed that the face value and paid-up value of the following ETFs shall be changed w.e.f. \nJuly 03, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face Value & \nPaid-up Value (Rs.) \nNew Face Value & \nPaid-up Value (Re.) \n1 \nDSP Nifty Midcap 150 \nQuality 50 ETF \nMIDQ50ADD 10 1 \n2 \nDSP Nifty Healthcare \nETF \nHEALTHADD 10 1 \nThis circular shall be effective from July 03, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260629",
+   "no": "NSE/CML/74911",
+   "sub": "Face Value Split - ETFs of Kotak Nifty PSU Bank ETF",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML74911.pdf",
+   "text": "\n National Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/74911 Date: June 29, 2026 \nCircular Ref. No: 1033/2026 \nTo All Members \nSub: Face Value Split – ETF of Kotak Nifty PSU Bank ETF \nIt is hereby informed that the face value and paid-up value of the following ETF shall be changed w.e.f. \nJuly 10, 2026. \nSr. \nNo. \nName of the ETF Symbol \nExisting Face Value & Paid-\nup Value (Rs.) \nNew Face Value & Paid-\nup Value (Re.) \n1 \nKotak Nifty PSU \nBank ETF \nPSUBANK 10 1 \nThis circular shall be effective from July 10, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260716",
+   "no": "NSE/CML/75236",
+   "sub": "Face Value Split - ETF of Invesco Asset Management (India) Private Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML75236.pdf",
+   "text": "\n National Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/75236 Date: July 16, 2026 \nCircular Ref. No: 1162/2026 \nTo All Members \nSub: Face Value Split – ETF of Invesco Asset Management (India) Private Limited \nIt is hereby informed that the face value and paid-up value of the following ETF shall be changed w.e.f. \nJuly 31, 2026. \nSr. \nNo. \nSymbol Name of the ETF \nExisting Face Value & \nPaid-up Value (Rs.) \nNew Face Value & \nPaid-up Value (Re.) \n1 IVZINNIFTY \nInvesco India Nifty 50 \nExchange Traded Fund \n10 1 \nThis circular shall be effective from July 31, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nRuchi Jaiswal \nManager \n "
+  },
+  {
+   "date": "20260811",
+   "no": "NSE/CML/75678",
+   "sub": "Face Value Split - ETFs of DSP Asset Managers Private Limited",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML75678.pdf",
+   "text": "\n National Stock Exchange of India \n Circular \nDepartment: Listing \nDownload Ref No: NSE/CML/75678 Date: August 11, 2026 \nCircular Ref. No: 1323/2026 \nTo All Members \nSub: Face Value Split – ETFs of DSP Asset Managers Private Limited \nIt is hereby informed that the face value and paid-up value of the following ETFs shall be changed w.e.f. \nAugust 28, 2026. \nSr. \nNo. \nSymbol Name of the ETF \nExisting Face Value & \nPaid-up Value (Rs.) \nNew Face Value & \nPaid-up Value (Re.) \n1 GOLDADD \nDSP Mutual Fund - DSP \nGold ETF \n10 1 \n2 SILVERADD \nDSP Mutual Fund - DSP \nSilver ETF \n10 1 \nThis circular shall be effective from August 28, 2026. \nFor and on behalf of \nNational Stock Exchange of India Limited \nPranali Honrao \nManager \n "
+  }
+ ]
+}

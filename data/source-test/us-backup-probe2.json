@@ -1,0 +1,377 @@
+{
+ "ts": "2026-10-10T19:35:25.532Z",
+ "nasdaq": [
+  {
+   "sym": "PANW",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 94.63,
+    "avgVol": 6098801
+   },
+   "stored": {
+    "chg52": 94.63,
+    "avgVol": 6098801
+   }
+  },
+  {
+   "sym": "MSFT",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 2.43,
+    "avgVol": 22395391
+   },
+   "stored": {
+    "chg52": 2.43,
+    "avgVol": 22395391
+   }
+  },
+  {
+   "sym": "FTNT",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 125.95,
+    "avgVol": 4096795
+   },
+   "stored": {
+    "chg52": 125.95,
+    "avgVol": 4096795
+   }
+  },
+  {
+   "sym": "ADBE",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": -30.28,
+    "avgVol": 4878063
+   },
+   "stored": {
+    "chg52": -30.28,
+    "avgVol": 4878063
+   }
+  },
+  {
+   "sym": "COP",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 45.84,
+    "avgVol": 6827066
+   },
+   "stored": {
+    "chg52": 45.84,
+    "avgVol": 6827066
+   }
+  },
+  {
+   "sym": "PSX",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 112.21,
+    "avgVol": 3220045
+   },
+   "stored": {
+    "chg52": 112.21,
+    "avgVol": 3220045
+   }
+  },
+  {
+   "sym": "SLB",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 47.75,
+    "avgVol": 13708106
+   },
+   "stored": {
+    "chg52": 47.75,
+    "avgVol": 13708106
+   }
+  },
+  {
+   "sym": "AAPL",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 32.51,
+    "avgVol": 37773797
+   },
+   "stored": {
+    "chg52": 32.51,
+    "avgVol": 37773795
+   }
+  },
+  {
+   "sym": "MU",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 435.02,
+    "avgVol": 25724891
+   },
+   "stored": {
+    "chg52": 435.02,
+    "avgVol": 25724891
+   }
+  },
+  {
+   "sym": "AMAT",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 130.15,
+    "avgVol": 6240984
+   },
+   "stored": {
+    "chg52": 130.15,
+    "avgVol": 6240983
+   }
+  },
+  {
+   "sym": "ABBV",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 19.84,
+    "avgVol": 4530338
+   },
+   "stored": {
+    "chg52": 19.84,
+    "avgVol": 4530338
+   }
+  },
+  {
+   "sym": "TMO",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": 23.07,
+    "avgVol": 2394750
+   },
+   "stored": {
+    "chg52": 23.07,
+    "avgVol": 2394750
+   }
+  },
+  {
+   "sym": "ABT",
+   "status": 200,
+   "rows": 300,
+   "last": "2026-10-09",
+   "diffPct": {
+    "close": 0,
+    "sma50": 0,
+    "sma200": 0,
+    "ema20": 0,
+    "atr14": 0,
+    "high50": 0,
+    "low10": 0,
+    "r1m": 0,
+    "avgVol": 0,
+    "volRatio": 0,
+    "chg52": 0
+   },
+   "mine": {
+    "chg52": -25.29,
+    "avgVol": 9417802
+   },
+   "stored": {
+    "chg52": -25.29,
+    "avgVol": 9417801
+   }
+  }
+ ],
+ "etf": {
+  "status": 200,
+  "rows": 299,
+  "last": [
+   "2026-10-09",
+   776.24,
+   779.42,
+   775.14,
+   778.57,
+   22624490,
+   1,
+   0
+  ],
+  "first": "2025-08-01"
+ },
+ "saHistory": {
+  "status": 200,
+  "tableRows": 51,
+  "jsonRows": 0,
+  "hasVolume": false
+ }
+}

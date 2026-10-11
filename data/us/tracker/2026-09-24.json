@@ -1,0 +1,15 @@
+{
+ "close": 767.18,
+ "high": 768.95,
+ "low": 763.25,
+ "volume": 43.98,
+ "b": {
+  "close": 741.1,
+  "sma50": 711.88,
+  "sma200": 664.99
+ },
+ "sma50": 761.15,
+ "sma200": 718.01,
+ "src": "Tiingo EOD, split-adjusted (not cross-checked)",
+ "fetchedAt": "2026-10-10T18:21:29.924Z"
+}

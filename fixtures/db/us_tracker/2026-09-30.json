@@ -1,0 +1,19 @@
+{
+ "b": {
+  "close": 739.77,
+  "sma200": 665.28,
+  "sma50": 714.93
+ },
+ "close": 762.63,
+ "fetchedAt": "2026-10-01T01:54:09Z",
+ "flags": [
+  "QQQ close: TradingView page stale (625.48); 739.77 confirmed on StockAnalysis quote page (30 Sep 4:00 pm)",
+  "Distribution days in last 25 sessions: 10 (cap Yellow)"
+ ],
+ "high": 769.41,
+ "low": 762.18,
+ "sma200": 715.29,
+ "sma50": 762.74,
+ "src": "StockAnalysis + TipRanks + TradingView",
+ "volume": 59.92
+}

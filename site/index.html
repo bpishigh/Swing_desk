@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Repo Desk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23205c4a'/%3E%3Cpath d='M3 11l3-4 3 2 4-5' stroke='white' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #f5f4f0; --panel: #ffffff; --ink: #1d2327; --muted: #5d6870; --line: #dedbd3; --line-soft: #ebe8e1;
+  --accent: #1f5f8b; --accent-soft: #e3eef6;
+  --green: #17693a; --green-bg: #dff0e4; --yellow: #7a5a00; --yellow-bg: #f8ecc4; --red: #a1261b; --red-bg: #f9dcd8;
+  --ok: #17693a; --warn: #7a5a00; --bad: #a1261b; --neutral-bg: #ecebe6;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181b; --panel: #1c2226; --ink: #e6e9ea; --muted: #98a3a9; --line: #333c42; --line-soft: #283036;
+    --accent: #6cb2e0; --accent-soft: #1f3342;
+    --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
+    --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181b; --panel: #1c2226; --ink: #e6e9ea; --muted: #98a3a9; --line: #333c42; --line-soft: #283036;
+  --accent: #6cb2e0; --accent-soft: #1f3342;
+  --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
+  --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 48px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-bottom: 12px; }
+h1 { font-size: 20px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
+.sub { color: var(--muted); font-size: 12.5px; }
+nav { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; }
+nav button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 14px; font: inherit; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; }
+nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+nav button:focus-visible, th button:focus-visible, .chip-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 16px; }
+.grid2.wide { grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+.card h2 { margin: 0 0 2px; font-size: 15px; font-weight: 600; }
+.card h3 { margin: 18px 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 13px; }
+.badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.green { color: var(--green); background: var(--green-bg); } .yellow { color: var(--yellow); background: var(--yellow-bg); } .red { color: var(--red); background: var(--red-bg); }
+.chip { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: var(--neutral-bg); color: var(--muted); }
+.chip.ok { color: var(--ok); } .chip.warn { color: var(--warn); background: var(--yellow-bg); } .chip.bad { color: var(--bad); background: var(--red-bg); }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 14px; }
+.kv div { min-width: 0; } .kv dt { font-size: 11.5px; color: var(--muted); margin: 0; } .kv dd { margin: 2px 0 0; font-family: var(--mono); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.kv dd small { font-family: var(--font); font-size: 11.5px; color: var(--muted); font-weight: 400; display: block; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pos { color: var(--green); } .neg { color: var(--red); }
+.notesrow td { border-bottom: 1px solid var(--line); padding-top: 0; white-space: normal; overflow-wrap: anywhere; }
+.wrapnote { min-width: 300px; max-width: 460px; white-space: normal; overflow-wrap: anywhere; }
+.tablewrap { overflow-x: auto; margin-inline: -4px; padding-inline: 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--line-soft); text-align: left; vertical-align: top; }
+th { font-size: 11.5px; font-weight: 600; color: var(--muted); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
+th.num, td.num { text-align: right; }
+th button { all: unset; cursor: pointer; } th button::after { content: " ↕"; opacity: .4; } th[aria-sort="ascending"] button::after { content: " ↑"; opacity: 1; } th[aria-sort="descending"] button::after { content: " ↓"; opacity: 1; }
+tr.dim td { color: var(--muted); }
+.strip { display: flex; gap: 2px; flex-wrap: wrap; }
+.strip i { width: 9px; height: 18px; border-radius: 2px; display: block; }
+.strip i.green { background: var(--green); } .strip i.yellow { background: var(--yellow); } .strip i.red { background: var(--red); }
+.note { color: var(--muted); font-size: 12.5px; }
+.empty { padding: 28px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; }
+.bar { height: 10px; background: var(--neutral-bg); border-radius: 5px; overflow: hidden; position: relative; }
+.bar > span { display: block; height: 100%; background: var(--accent); }
+.bar > em { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-btn { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 3px 12px; cursor: pointer; font-size: 12.5px; }
+.chip-btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+ul.flat { margin: 6px 0 0; padding-left: 18px; } ul.flat li { margin: 2px 0; }
+svg text { fill: var(--muted); font: 10.5px var(--mono); }
+.spark path.l { fill: none; stroke-width: 1.6; } .spark .c { stroke: var(--ink); } .spark .s50 { stroke: var(--accent); stroke-dasharray: 3 2; } .spark .s200 { stroke: var(--warn); stroke-dasharray: 1 3; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>Repo Desk</h1><div class="sub" id="gen">Loading…</div></div>
+    <div class="row" id="fresh"></div>
+  </header>
+  <nav role="tablist" aria-label="Sections">
+    <button role="tab" id="t-market" aria-selected="true">Market</button>
+    <button role="tab" id="t-screens" aria-selected="false">Screens</button>
+    <button role="tab" id="t-health" aria-selected="false">Data health</button>
+    <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
+  </nav>
+  <main id="main"></main>
+</div>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = (x, d = 2) => (typeof x === 'number' && isFinite(x) ? x.toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d }) : '–');
+const sgn = (x, d = 2, suf = '') => (typeof x === 'number' && isFinite(x) ? `<span class="${x > 0 ? 'pos' : x < 0 ? 'neg' : ''}">${x > 0 ? '+' : ''}${fmt(x, d)}${suf}</span>` : '–');
+const pctVs = (c, s) => (typeof c === 'number' && typeof s === 'number' && s ? (c / s - 1) * 100 : null);
+const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST' : '–');
+const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
+let D = null; let tab = 'market';
+const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
+let screenSector = 'all'; let cmpFilter = 'differs'; let cmpMarket = 'all';
+
+function spark(rows) {
+  const W = 420, H = 110, P = { l: 4, r: 44, t: 8, b: 16 };
+  const pts = rows.filter((r) => typeof r.close === 'number');
+  if (pts.length < 3) return '<div class="note">Not enough index history.</div>';
+  const vals = pts.flatMap((r) => [r.close, r.sma50, r.sma200]).filter((v) => typeof v === 'number');
+  const lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
+  const x = (i) => P.l + (i / (pts.length - 1)) * (W - P.l - P.r), y = (v) => P.t + (1 - (v - lo) / span) * (H - P.t - P.b);
+  const path = (k) => { let d = '', pen = false; pts.forEach((r, i) => { if (typeof r[k] !== 'number') { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(r[k]).toFixed(1)}`; pen = true; }); return d; };
+  const last = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Index close with 50 and 200 day averages, last ${pts.length} sessions">
+    <path class="l s200" d="${path('sma200')}"/><path class="l s50" d="${path('sma50')}"/><path class="l c" d="${path('close')}"/>
+    <text x="${W - P.r + 4}" y="${y(last.close) + 3}">${fmt(last.close, 0)}</text>
+    <text x="${P.l}" y="${H - 3}">${esc(pts[0].date.slice(5))}</text><text x="${W - P.r}" y="${H - 3}" text-anchor="end">${esc(last.date.slice(5))}</text></svg>
+    <div class="note"><span style="color:var(--ink)">━</span> close &nbsp; <span style="color:var(--accent)">╍</span> 50-day &nbsp; <span style="color:var(--warn)">┈</span> 200-day</div>`;
+}
+function th(label, key, st, num) { const s = sortState[st]; const a = s.key === key ? (s.dir > 0 ? 'ascending' : 'descending') : 'none'; return `<th class="${num ? 'num' : ''}" aria-sort="${a}"><button data-sort="${st}:${key}">${label}</button></th>`; }
+function sortRows(rows, st) { const { key, dir } = sortState[st]; return rows.slice().sort((a, b) => { const x = a[key], y = b[key]; const nx = x === null || x === undefined || Number.isNaN(x), ny = y === null || y === undefined || Number.isNaN(y); if (nx && ny) return 0; if (nx) return 1; if (ny) return -1; return (typeof x === 'string' ? x.localeCompare(y) : x - y) * dir; }); }
+
+function marketCard(name, m, ccy) {
+  const r = m.regime, L = m.latest || {};
+  if (!r) return `<section class="card"><h2>${name}</h2><div class="empty">No regime yet: the tracker has no averages.</div></section>`;
+  const behind = m.date < m.expected;
+  const trend = (c, s50, s200) => `${sgn(pctVs(c, s50), 1, '%')} vs 50, ${sgn(pctVs(c, s200), 1, '%')} vs 200`;
+  const bTxt = r.breadth === null ? '–' : `${fmt(r.breadth, 1)}%`;
+  const dist = r.distribution || [];
+  return `<section class="card">
+    <div class="row" style="justify-content:space-between"><h2>${name}</h2><span class="${behind ? 'chip warn' : 'chip ok'}">${behind ? `behind: data ${esc(m.date)}, expected ${esc(m.expected)}` : `data ${esc(m.date)}`}</span></div>
+    <div class="row" style="margin-top:10px"><span class="badge ${r.name}">${cap(r.name)}</span>${r.notes.map((n) => `<span class="note">${esc(n)}</span>`).join('')}</div>
+    <dl class="kv">
+      <div><dt>${name === 'India' ? 'Nifty 50' : 'SPY'}</dt><dd>${fmt(L.close)}<small>${trend(L.close, L.sma50, L.sma200)}</small></dd></div>
+      <div><dt>${name === 'India' ? 'Nifty 500' : 'QQQ'}</dt><dd>${fmt(L.b?.close)}<small>${trend(L.b?.close, L.b?.sma50, L.b?.sma200)}</small></dd></div>
+      <div><dt>Breadth (above 50-day)</dt><dd>${bTxt}<small>${name === 'India' ? 'Nifty 500' : 'S&P 500'}${r.breadth !== null && r.breadth < 40 ? ' · below 40 caps at Yellow' : ''}</small></dd></div>
+      <div><dt>Distribution days</dt><dd>${dist.length}<small>last 25 sessions${dist.length >= 5 ? ' · 5+ caps at Yellow' : ''}</small></dd></div>
+      <div><dt>Follow-through</dt><dd>${esc(r.followThrough)}</dd></div>
+      <div><dt>${name === 'India' ? 'India VIX' : 'VIX'}</dt><dd>${fmt(L.vix)}</dd></div>
+    </dl>
+    <h3>Index, last 60 sessions</h3>${spark(m.index)}
+    <h3>Regime, last ${m.timeline.length} sessions</h3>
+    <div class="strip" role="img" aria-label="Regime colour per session, oldest first">${m.timeline.map((t) => `<i class="${t.regime}" title="${esc(t.date)}: ${t.regime}"></i>`).join('')}</div>
+    <div class="note" style="margin-top:4px">Oldest left. ${m.timeline.length < 40 ? 'Shorter than 40: tracker history is still building.' : ''}</div>
+    ${dist.length ? `<h3>Active distribution days</h3><div class="note">${dist.map((d) => `${esc(d.date.slice(5))} (${fmt(d.chg, 2)}%)`).join(' · ')}</div>` : ''}
+  </section>`;
+}
+function sectorTable(name, m, st) {
+  const rows = sortRows(m.sectors.map((s) => ({ ...s, v50: pctVs(s.close, s.sma50), v200: pctVs(s.close, s.sma200), rank: s.rank ?? null })), st);
+  if (!rows.length) return '';
+  return `<section class="card"><h2>${name} sectors</h2>
+  <div class="note">Gate: 3-month return beats the benchmark (${fmt(m.benchmarkR3m, 2)}%)${m.mode === 'red' ? ' (Red: 3-month only)' : ' and close above the 50-day'}. Score = 2 × 3M + 1M. Top 4 are the leaders.</div>
+  <div class="tablewrap"><table><thead><tr>${th('Sector', 'name', st)}${th('Rank', 'rank', st, 1)}${th('Score', 'score', st, 1)}${th('1M', 'r1m', st, 1)}${th('3M', 'r3m', st, 1)}${th('vs 50d', 'v50', st, 1)}${th('vs 200d', 'v200', st, 1)}<th>Gate</th></tr></thead><tbody>
+  ${rows.map((s) => `<tr class="${s.pass ? '' : 'dim'}"><td>${esc(s.name)}</td><td class="num">${s.rank ?? '–'}</td><td class="num">${fmt(s.score, 1)}</td><td class="num">${sgn(s.r1m, 2)}</td><td class="num">${sgn(s.r3m, 2)}</td><td class="num">${sgn(s.v50, 1, '%')}</td><td class="num">${sgn(s.v200, 1, '%')}</td><td>${s.pass ? '<span class="chip ok">pass</span>' : '<span class="chip">no</span>'}</td></tr>`).join('')}
+  </tbody></table></div></section>`;
+}
+function viewMarket() {
+  return `<div class="grid2">${marketCard('India', D.india)}${marketCard('US', D.us)}</div><div class="grid2 wide" style="margin-top:16px">${sectorTable('India', D.india, 'sectIndia')}${sectorTable('US', D.us, 'sectUS')}</div>
+  <p class="note">Regime and sector ranking use the Engine Rules code. India distribution days ignore the skip-day flag for now (monthly expiry, half-days, the day after a holiday); that gap is on the scope list.</p>`;
+}
+function viewScreens() {
+  const s = D.us.screen;
+  let h = '';
+  if (!s) h += '<div class="empty">No US screen yet. It runs on Saturdays from 08:30 IST.</div>';
+  else {
+    const stocks = s.stocks.map((x) => ({ ...x, v50: pctVs(x.close, x.sma50), v200: pctVs(x.close, x.sma200), atrPct: x.atr14 && x.close ? (x.atr14 / x.close) * 100 : null, off50: x.high50 ? (x.close / x.high50 - 1) * 100 : null, flagCount: (x.flags || []).filter((f) => f !== 'next earnings date missing').length }));
+    const sectors = [...new Set(stocks.map((x) => x.sector))];
+    const rows = sortRows(screenSector === 'all' ? stocks : stocks.filter((x) => x.sector === screenSector), 'screen');
+    h += `<section class="card"><div class="row" style="justify-content:space-between"><h2>US weekly screen</h2><span class="chip">${esc(s.date)} · fetched ${ist(s.fetchedAt)}</span></div>
+    <div class="note">Top sectors passing the gate, then each ETF's top holdings: ${s.sectors.map(esc).join(', ')}. ${stocks.length} stocks. Metrics computed from price history; next earnings from StockAnalysis.</div>
+    <div class="chips" style="margin:12px 0" role="group" aria-label="Filter by sector"><button class="chip-btn" data-sector="all" aria-pressed="${screenSector === 'all'}">All</button>${sectors.map((x) => `<button class="chip-btn" data-sector="${esc(x)}" aria-pressed="${screenSector === x}">${esc(x)}</button>`).join('')}</div>
+    <div class="tablewrap"><table><thead><tr>${th('Stock', 'sym', 'screen')}${th('ETF', 'sector', 'screen')}${th('Weight %', 'weight', 'screen', 1)}${th('Close', 'close', 'screen', 1)}${th('vs 50-day', 'v50', 'screen', 1)}${th('vs 200-day', 'v200', 'screen', 1)}${th('1M %', 'r1m', 'screen', 1)}${th('52W %', 'chg52', 'screen', 1)}${th('ATR %', 'atrPct', 'screen', 1)}${th('From 50d high', 'off50', 'screen', 1)}${th('Vol ratio', 'volRatio', 'screen', 1)}${th('Next earnings', 'earnings', 'screen')}${th('Checks', 'flagCount', 'screen', 1)}</tr></thead><tbody>
+    ${rows.map((x) => `<tr><td><b>${esc(x.sym)}</b></td><td>${esc(x.sector)}</td><td class="num">${fmt(x.weight, 1)}</td><td class="num">${fmt(x.close)}</td><td class="num">${sgn(x.v50, 1, '%')}</td><td class="num">${sgn(x.v200, 1, '%')}</td><td class="num">${sgn(x.r1m, 1)}</td><td class="num">${sgn(x.chg52, 1)}</td><td class="num">${fmt(x.atrPct, 1)}</td><td class="num">${sgn(x.off50, 1, '%')}</td><td class="num">${fmt(x.volRatio, 2)}</td><td>${esc(x.earnings || '–')}</td><td class="num">${x.flagCount ? `<span class="chip warn" title="${esc((x.flags || []).join('; '))}">${x.flagCount}</span>` : '<span class="chip ok">0</span>'}</td></tr>`).join('')}
+    </tbody></table></div>
+    ${s.flags?.length ? `<h3>Run notes</h3><ul class="flat note">${s.flags.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+    <p class="note">This is the screen's data, not a Ready list: the setup tests (breakout, pullback, IPO base, earnings gap) are the next step to bring across from the Claude Desk.</p></section>`;
+  }
+  const st = D.india.stocks;
+  h += `<section class="card" style="margin-top:16px"><h2>India whole-market store</h2>${st ? `<dl class="kv"><div><dt>Stocks stored</dt><dd>${fmt(st.count, 0)}</dd></div><div><dt>With a 200-day average</dt><dd>${fmt(st.with200, 0)}</dd></div><div><dt>Price breaks adjusted</dt><dd>${st.corporate.adjusted}</dd></div><div><dt>Breaks unresolved</dt><dd>${st.corporate.unresolved}</dd></div><div><dt>As of</dt><dd>${esc(st.date)}</dd></div></dl>` : '<div class="empty">Not stored yet.</div>'}<p class="note">India stock scans (trend template, relative strength, volume) are not on the dashboard yet; the store holds what they need.</p></section>`;
+  return h;
+}
+function viewHealth() {
+  const H = D.health, u = H.usage;
+  const jobRows = H.jobs.map((j) => { const bad = /fail|error/i.test(j.status); return `<tr><td>${esc(j.name)}</td><td>${ist(j.ts)}</td><td>${esc(j.date ?? '–')}</td><td><span class="chip ${bad ? 'bad' : /written|stored|done/i.test(j.status) ? 'ok' : ''}">${esc(j.status)}</span></td></tr>${j.flags.length ? `<tr class="notesrow"><td colspan="4" class="note">${j.flags.map(esc).join('<br>')}</td></tr>` : ''}`; }).join('');
+  const dataRows = [['India index and sectors', D.india.date, D.expected.india], ['India stocks', D.india.stocks?.date, D.expected.india], ['US daily', D.us.date, D.expected.us], ['US screen (weekly)', D.us.screen?.feedDate, null]].map(([n, d, e]) => `<tr><td>${n}</td><td>${esc(d ?? '–')}</td><td>${esc(e ?? 'Saturday')}</td><td>${e ? (d >= e ? '<span class="chip ok">current</span>' : '<span class="chip warn">behind</span>') : '<span class="chip">weekly</span>'}</td></tr>`).join('');
+  let use = '<div class="empty">No usage estimate yet.</div>';
+  if (u) {
+    const used = u.usedMinutesEstimate, pct = Math.min(100, (used / u.budget) * 100), proj = Math.min(100, (u.projectedMonthEnd / u.budget) * 100);
+    use = `<div class="row" style="justify-content:space-between"><span><b>${fmt(used, 0)}</b> of ${fmt(u.budget, 0)} free minutes (estimate)</span><span class="chip ${u.projectedMonthEnd > 1400 ? 'warn' : 'ok'}">month-end projection ${fmt(u.projectedMonthEnd, 0)}</span></div>
+    <div class="bar" style="margin:8px 0" role="img" aria-label="${used} of ${u.budget} minutes used"><span style="width:${pct}%"></span><em style="left:${proj}%" title="projection"></em></div>
+    <div class="note">As of ${esc(u.date)}. ${esc(u.note)}</div>
+    <div class="tablewrap"><table><thead><tr><th>Workflow</th><th class="num">Minutes</th></tr></thead><tbody>${Object.entries(u.byWorkflow).slice(0, 8).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${v}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  const o = H.orchestrator;
+  const orch = `<ul class="flat note"><li>India: target ${esc(o.india.target ?? '–')}, tries so far: index ${o.india.attempts?.nightly ?? 0}, stocks ${o.india.attempts?.stocks ?? 0}${o.india.alertedFor ? ' · alert sent' : ''}</li>
+  <li>US: daily ${esc(o.us.daily?.target ?? '–')} (${o.us.daily?.attempts ?? 0} tries), breadth ${esc(o.us.breadth?.target ?? '–')} (${o.us.breadth?.attempts ?? 0}), screen ${esc(o.us.screen?.target ?? '–')} (${o.us.screen?.attempts ?? 0})</li></ul>`;
+  return `<div class="grid2"><section class="card"><h2>Data freshness</h2><div class="tablewrap"><table><thead><tr><th>Data set</th><th>Latest</th><th>Expected</th><th></th></tr></thead><tbody>${dataRows}</tbody></table></div><h3>Start-if-missing state</h3>${orch}</section>
+  <section class="card"><h2>GitHub Actions minutes</h2>${use}</section></div>
+  <section class="card" style="margin-top:16px"><h2>Last runs</h2><div class="tablewrap"><table><thead><tr><th>Job</th><th>Ran</th><th>Data day</th><th>Status</th></tr></thead><tbody>${jobRows}</tbody></table></div></section>`;
+}
+function viewCompare() {
+  const c = D.compare;
+  if (!c) return '<div class="empty">No comparison yet. Ask Claude for the morning comparison; it reads the Claude Desk\'s stored numbers and writes the result here.</div>';
+  const sums = Object.entries(c.summary).map(([m, s]) => `<div><dt>${m}</dt><dd>${s.match} match<small>${s.differs} differ · ${s.missing} missing</small></dd></div>`).join('');
+  const rows = c.rows.filter((r) => (cmpFilter === 'all' || r.status === cmpFilter) && (cmpMarket === 'all' || r.market === cmpMarket));
+  const chip = (st) => `<span class="chip ${st === 'match' ? 'ok' : st === 'differs' ? 'bad' : 'warn'}">${st}</span>`;
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>Repo Desk against Claude Desk, ${esc(c.date)}</h2><span class="chip">made ${ist(c.generatedAt)}</span></div>
+  <dl class="kv">${sums}</dl>
+  <div class="chips" style="margin:14px 0" role="group" aria-label="Filters">${['differs', 'missing', 'match', 'all'].map((f) => `<button class="chip-btn" data-cf="${f}" aria-pressed="${cmpFilter === f}">${f}</button>`).join('')}<span style="width:8px"></span>${['all', 'India', 'US'].map((f) => `<button class="chip-btn" data-cm="${f}" aria-pressed="${cmpMarket === f}">${f === 'all' ? 'both markets' : f}</button>`).join('')}</div>
+  ${rows.length ? `<div class="tablewrap"><table><thead><tr><th>Market</th><th>Item</th><th>Field</th><th class="num">Claude Desk</th><th class="num">Repo Desk</th><th class="num">Difference</th><th>Status</th><th>Why</th></tr></thead><tbody>
+  ${rows.map((r) => `<tr><td>${r.market}</td><td>${esc(r.item)}</td><td>${esc(r.field)}</td><td class="num">${fmt(r.claude)}</td><td class="num">${fmt(r.repo)}</td><td class="num">${r.diff === null ? '–' : `${r.diff > 0 ? '+' : ''}${fmt(r.diff)} ${r.unit}`}</td><td>${chip(r.status)}</td><td class="note wrapnote">${esc(r.note || '')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">Nothing in this filter.</div>'}
+  <p class="note">Tolerances: prices and averages 0.05–0.5%, volume 5%, returns 0.1 points, breadth 3 points. Differences with a known cause say so in "Why".</p></section>`;
+}
+function render() {
+  if (!D) return;
+  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, compare: viewCompare }[tab]();
+  document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
+}
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
+  if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : 1; s.key = key; return render(); }
+  if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
+  if (t.dataset.cf) { cmpFilter = t.dataset.cf; return render(); }
+  if (t.dataset.cm) { cmpMarket = t.dataset.cm; return render(); }
+});
+fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => {
+  D = d;
+  $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
+  const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
+  $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
+  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'compare'].includes(h)) tab = h;
+  render();
+}).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
+</script>
+</body>
+</html>

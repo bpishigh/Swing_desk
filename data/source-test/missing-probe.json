@@ -1,0 +1,62 @@
+{
+ "bhav_future_arch": {
+  "status": 404,
+  "type": "text/html;charset=UTF-8",
+  "size": 3539,
+  "head": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <me",
+  "text": " 4 4 The file you are trying to access doesn't appear to exist. Go to Homepage "
+ },
+ "bhav_holiday_arch": {
+  "status": 404,
+  "type": "text/html;charset=UTF-8",
+  "size": 3539,
+  "head": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <me",
+  "text": " 4 4 The file you are trying to access doesn't appear to exist. Go to Homepage "
+ },
+ "bhav_ok_arch": {
+  "status": 200,
+  "type": "text/csv",
+  "size": 397318,
+  "head": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE"
+ },
+ "bhav_future": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <title>S",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebma"
+ },
+ "bhav_holiday": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <title>S",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebma"
+ },
+ "bhav_ok": {
+  "status": 200,
+  "type": "text/csv",
+  "size": 397318,
+  "head": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE"
+ },
+ "idx_future_nse": {
+  "status": 200,
+  "type": "text/html",
+  "size": 18590,
+  "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <title>S",
+  "text": " Service Temporarily Unavailable Service Temporarily Unavailable This site is not accessible in your region at the moment. We appreciate your patience and will be back soon. If you face this issue for more than 24 hrs, kindly write to us at: nsewebma"
+ },
+ "idx_future_arch": {
+  "status": 404,
+  "type": "text/html;charset=UTF-8",
+  "size": 3539,
+  "head": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <me",
+  "text": " 4 4 The file you are trying to access doesn't appear to exist. Go to Homepage "
+ },
+ "idx_ok_arch": {
+  "status": 200,
+  "type": "text/csv",
+  "size": 17585,
+  "head": "Index Name,Index Date,Open Index Value,High Index Value,Low Index Value,Closing "
+ }
+}

@@ -1,0 +1,185 @@
+{
+ "bench": {
+  "r1m": -6.79,
+  "r3m": -6.6
+ },
+ "date": "2026-10-01",
+ "fetchedAt": "2026-10-01T16:00:00Z",
+ "flags": [
+  "EMAs not refreshed (Dhan technical page stale) for 18 stocks (names removed from this fixture)",
+  "2 stock prices from earlier run (names removed from this fixture)"
+ ],
+ "sectors": {
+  "Nifty Auto": {
+   "close": 25384.95,
+   "date": "2026-10-01",
+   "r1m": -9.25,
+   "r3m": -0.92,
+   "sma200": 27096.77,
+   "sma50": 28156.14,
+   "src": "Upstox close (1 Oct, no time stamp); averages Dhan (1 Oct); returns carried"
+  },
+  "Nifty Bank": {
+   "close": 54450.75,
+   "date": "2026-10-01",
+   "r1m": -5.85,
+   "r3m": -5.06,
+   "sma200": 57149.38,
+   "sma50": 56950.58,
+   "src": "Dhan (1 Oct 17:14); r1m/r3m carried"
+  },
+  "Nifty Capital Markets": {
+   "close": 5041.8,
+   "date": "2026-10-01",
+   "r1m": -6.48,
+   "r3m": -9.23,
+   "sma200": 5066.68,
+   "sma50": 5322.15,
+   "src": "NSE index file (1 Oct) + computed averages/returns"
+  },
+  "Nifty Chemicals": {
+   "close": 27944.45,
+   "date": "2026-10-01",
+   "r1m": -7.07,
+   "r3m": -5.13,
+   "sma200": 28799.36,
+   "sma50": 29973.83,
+   "src": "IIFL close (1 Oct) + averages/returns computed from NSE index files"
+  },
+  "Nifty Consumer Durables": {
+   "close": 35927.8,
+   "date": "2026-10-01",
+   "r1m": -9.88,
+   "r3m": -1.42,
+   "sma200": 37173.43,
+   "sma50": 39469.92,
+   "src": "NSE index file (1 Oct) + computed averages/returns"
+  },
+  "Nifty Energy": {
+   "close": 36388.15,
+   "date": "2026-10-01",
+   "r1m": -3.79,
+   "r3m": -8.08,
+   "sma200": 37621.23,
+   "sma50": 38274.57,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  },
+  "Nifty FMCG": {
+   "close": 43789.85,
+   "date": "2026-10-01",
+   "r1m": -2.68,
+   "r3m": -8.83,
+   "sma200": 49803.14,
+   "sma50": 47452.28,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  },
+  "Nifty Financial Services": {
+   "close": 24556.1,
+   "date": "2026-10-01",
+   "r1m": -5.57,
+   "r3m": -8.37,
+   "sma200": 26400.75,
+   "sma50": 25946.73,
+   "src": "Dhan (1 Oct 20:01)"
+  },
+  "Nifty Healthcare": {
+   "close": 16095.55,
+   "date": "2026-10-01",
+   "r1m": -3.45,
+   "r3m": 0.22,
+   "sma200": 15366.67,
+   "sma50": 16574.83,
+   "src": "NSE index file (1 Oct) + computed averages/returns"
+  },
+  "Nifty IT": {
+   "close": 28304.7,
+   "date": "2026-10-01",
+   "r1m": -11.18,
+   "r3m": 5.35,
+   "sma200": 31510.48,
+   "sma50": 30097.1,
+   "src": "Upstox (1 Oct 16:00)"
+  },
+  "Nifty India Defence": {
+   "close": 9142.55,
+   "date": "2026-10-01",
+   "r1m": -5.24,
+   "r3m": -4.32,
+   "sma200": 8730.98,
+   "sma50": 9559.17,
+   "src": "NSE index file (1 Oct) + computed averages/returns"
+  },
+  "Nifty Infrastructure": {
+   "close": 8605.15,
+   "date": "2026-10-01",
+   "r1m": -6.56,
+   "r3m": -8.86,
+   "sma200": 9291.68,
+   "sma50": 9222.16,
+   "src": "NSE index file (1 Oct) + computed averages/returns"
+  },
+  "Nifty Media": {
+   "close": 1546.3,
+   "date": "2026-10-01",
+   "r1m": -1.05,
+   "r3m": 3.43,
+   "sma200": 1454.49,
+   "sma50": 1562.73,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  },
+  "Nifty Metal": {
+   "close": 12460.7,
+   "date": "2026-10-01",
+   "r1m": -1.81,
+   "r3m": 3.26,
+   "sma200": 12347.81,
+   "sma50": 13016.33,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  },
+  "Nifty Oil & Gas": {
+   "close": 10474.85,
+   "date": "2026-10-01",
+   "r1m": -5.99,
+   "r3m": -5.5,
+   "sma200": 11401.36,
+   "sma50": 11087.67,
+   "src": "Dhan (1 Oct 17:39)"
+  },
+  "Nifty PSE": {
+   "close": 9208.65,
+   "date": "2026-10-01",
+   "r1m": -3.72,
+   "r3m": -6.28,
+   "sma200": 10018.9,
+   "sma50": 9777.67,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  },
+  "Nifty PSU Bank": {
+   "close": 7937.8,
+   "date": "2026-10-01",
+   "r1m": -6.68,
+   "r3m": -6.79,
+   "sma200": 8588.08,
+   "sma50": 8454.3,
+   "src": "Dhan (1 Oct 17:40); r3m carried"
+  },
+  "Nifty Pharma": {
+   "close": 26311.55,
+   "date": "2026-10-01",
+   "r1m": -2.75,
+   "r3m": 4.39,
+   "sma200": 24114.05,
+   "sma50": 26542.62,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns Dhan (30 Sep)"
+  },
+  "Nifty Realty": {
+   "close": 835,
+   "date": "2026-10-01",
+   "r1m": -7.78,
+   "r3m": 1.83,
+   "sma200": 826.56,
+   "sma50": 889.23,
+   "src": "Upstox close (1 Oct, no time stamp); averages/returns carried"
+  }
+ }
+}

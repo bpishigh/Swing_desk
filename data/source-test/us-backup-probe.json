@@ -1,0 +1,244 @@
+{
+ "ts": "2026-10-10T19:34:20.141Z",
+ "stooq": {
+  "status": 403,
+  "head": "<meta charset=utf-8><title>Stooq</title><center style=font-family:arial;margin-top:50px><p><a href=/><img src=//static.stooq.com/stooq.svg height=68></a><p styl",
+  "lines": 1
+ },
+ "rows": [
+  {
+   "sym": "PANW",
+   "stored": {
+    "close": 418.78,
+    "chg52": 94.63,
+    "avgVol": 6098801,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 92.29,
+    "avgVol": 6080639,
+    "ma50": 370.85
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "MSFT",
+   "stored": {
+    "close": 535.07,
+    "chg52": 2.43,
+    "avgVol": 22395391,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 1.95,
+    "avgVol": 22288976,
+    "ma50": 500.45
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "FTNT",
+   "stored": {
+    "close": 194.75,
+    "chg52": 125.95,
+    "avgVol": 4096795,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 125.25,
+    "avgVol": 4016282,
+    "ma50": 167.37
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "ADBE",
+   "stored": {
+    "close": 242.27,
+    "chg52": -30.28,
+    "avgVol": 4878063,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": -30.54,
+    "avgVol": 4848976,
+    "ma50": 257.88
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "COP",
+   "stored": {
+    "close": 134.1,
+    "chg52": 45.84,
+    "avgVol": 6827066,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 43.04,
+    "avgVol": 6610067,
+    "ma50": 129.38
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "PSX",
+   "stored": {
+    "close": 278.18,
+    "chg52": 112.21,
+    "avgVol": 3220045,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 111.87,
+    "avgVol": 3185255,
+    "ma50": 247.31
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "SLB",
+   "stored": {
+    "close": 48.95,
+    "chg52": 47.75,
+    "avgVol": 13708106,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 44.1,
+    "avgVol": 12971452,
+    "ma50": 52.8
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "AAPL",
+   "stored": {
+    "close": 336.64,
+    "chg52": 32.51,
+    "avgVol": 37773795,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 30.45,
+    "avgVol": 37772788,
+    "ma50": 322.39
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "MU",
+   "stored": {
+    "close": 1029,
+    "chg52": 435.02,
+    "avgVol": 25724891,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 423.56,
+    "avgVol": 25575585,
+    "ma50": 976.19
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "AMAT",
+   "stored": {
+    "close": 507.03,
+    "chg52": 130.15,
+    "avgVol": 6240983,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 133.11,
+    "avgVol": 6192703,
+    "ma50": 489.94
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "ABBV",
+   "stored": {
+    "close": 276.47,
+    "chg52": 19.84,
+    "avgVol": 4530338,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 19.56,
+    "avgVol": 4275158,
+    "ma50": 258.89
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "TMO",
+   "stored": {
+    "close": 658.02,
+    "chg52": 23.07,
+    "avgVol": 2394750,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": 22.72,
+    "avgVol": 2316642,
+    "ma50": 626.41
+   },
+   "yahoo": {
+    "status": 429
+   }
+  },
+  {
+   "sym": "ABT",
+   "stored": {
+    "close": 99.6,
+    "chg52": -25.29,
+    "avgVol": 9417801,
+    "date": "2026-10-09"
+   },
+   "page": {
+    "status": 200,
+    "chg52": -25.82,
+    "avgVol": 9036367,
+    "ma50": 106.17
+   },
+   "yahoo": {
+    "status": 429
+   }
+  }
+ ]
+}

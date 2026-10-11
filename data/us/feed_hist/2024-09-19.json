@@ -1,0 +1,48 @@
+{
+ "date": "2024-09-19",
+ "bench": {},
+ "sectors": {
+  "Technology (XLK)": {
+   "close": 223.62
+  },
+  "Financials (XLF)": {
+   "close": 45.69
+  },
+  "Energy (XLE)": {
+   "close": 88.96
+  },
+  "Health Care (XLV)": {
+   "close": 155.92
+  },
+  "Industrials (XLI)": {
+   "close": 134.12
+  },
+  "Consumer Discretionary (XLY)": {
+   "close": 197.14
+  },
+  "Consumer Staples (XLP)": {
+   "close": 82.65
+  },
+  "Utilities (XLU)": {
+   "close": 78.02
+  },
+  "Materials (XLB)": {
+   "close": 94.74
+  },
+  "Real Estate (XLRE)": {
+   "close": 44.76
+  },
+  "Communication (XLC)": {
+   "close": 88.9
+  },
+  "Semiconductors (SMH)": {
+   "close": 241.09
+  },
+  "Software (IGV)": {
+   "close": 89.19
+  },
+  "Aerospace & Defense (ITA)": {
+   "close": 147.28
+  }
+ }
+}

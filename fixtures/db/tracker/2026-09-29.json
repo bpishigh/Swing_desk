@@ -1,0 +1,28 @@
+{
+ "b": {
+  "close": 22101,
+  "sma200": 22977.79,
+  "sma50": 23247.77
+ },
+ "breadth": 18,
+ "close": 22716.2,
+ "editedAt": "2026-09-29T17:34:07.108Z",
+ "fetchedAt": "2026-09-29T15:38:42Z",
+ "flags": [
+  "close/high/low from Upstox (29 Sep 16:00); cross-checked Dhan 22716.20 (as on 29 Sep 19:12) and Investing.com 22716.20",
+  "volume from Investing.com (603.19M)",
+  "SMA from Dhan (page dated 29 Sep; through 28 Sep)",
+  "Nifty 500 from Upstox (29 Sep 16:00), matches Dhan (29 Sep 19:12)",
+  "skip: monthly Nifty F&O expiry (last Tuesday of September)"
+ ],
+ "high": 22753.25,
+ "low": 22569.65,
+ "maAsOf": "2026-09-28",
+ "manual": true,
+ "skip": true,
+ "sma200": 24400.1,
+ "sma50": 23963.37,
+ "src": "Upstox + Dhan + Investing.com",
+ "vix": 13.41,
+ "volume": 603.19
+}

@@ -1,0 +1,67 @@
+{
+  "note": "Exchange holidays on weekdays, 2026. India: NSE equity segment list, taken from two third-party summaries of the NSE circular (Kotak Neo, Sahi) that agree on all 16 dates; 2 Oct 2026 was also seen as a holiday in the live feed. Confirm against the NSE circular and update when NSE changes it. US: NYSE published 2026 schedule (Independence Day observed Fri 3 Jul). Half-days and Muhurat are in 'shortSessions' and are not holidays.",
+  "checkedAgainst": "3 Oct 2026: owner supplied the NSE trading-holiday list and the NYSE holiday table; both match the dates here exactly (16 NSE, 10 NYSE). NSE clearing holidays also include 19 Feb, 19 Mar, 1 Apr and 26 Aug, which are trading days (prices exist) and so are not listed. Early closes: 27 Nov and 24 Dec 2026 (1 pm ET) are on NYSE's published 2026 trading calendar (nyse.com/trade/hours-calendars), confirmed by the reviewer; the PDF's text does not list them, so a person should check the grid once. 2 Jul 2026 was a full session, not an early close: SPY volume that day was 57.5 million against 47.1 million on 1 Jul and 50.7 million on 6 Jul (Tiingo, via the source-test log).",
+  "india": {
+    "holidays": [
+      "2026-01-15",
+      "2026-01-26",
+      "2026-03-03",
+      "2026-03-26",
+      "2026-03-31",
+      "2026-04-03",
+      "2026-04-14",
+      "2026-05-01",
+      "2026-05-28",
+      "2026-06-26",
+      "2026-09-14",
+      "2026-10-02",
+      "2026-10-20",
+      "2026-11-10",
+      "2026-11-24",
+      "2026-12-25"
+    ],
+    "shortSessions": [
+      {
+        "date": "2026-11-08",
+        "what": "Muhurat session (Sunday evening, one hour; date reported by Kotak Neo, time to be confirmed by NSE circular)"
+      }
+    ],
+    "extraSessions": [
+      {
+        "date": "2026-02-01",
+        "what": "Union Budget special trading session (Sunday). The 2 Feb 2026 all-stock file carries PREV_CLOSE values from it"
+      }
+    ],
+    "priorHolidays": [
+      "2025-10-02",
+      "2025-10-22",
+      "2025-11-05",
+      "2025-12-25"
+    ],
+    "priorHolidaysNote": "Added 10 Oct 2026 so the stock store can span a year: 2 Oct, 22 Oct, 5 Nov and 25 Dec 2025. The 22 Oct, 5 Nov and 25 Dec all-stock files held the previous session data (seen by the stock job). Used by scripts/india-stocks.mjs only; the engine reads india.holidays."
+  },
+  "us": {
+    "holidays": [
+      "2026-01-01",
+      "2026-01-19",
+      "2026-02-16",
+      "2026-04-03",
+      "2026-05-25",
+      "2026-06-19",
+      "2026-07-03",
+      "2026-09-07",
+      "2026-11-26",
+      "2026-12-25"
+    ],
+    "shortSessions": [
+      {
+        "date": "2026-11-27",
+        "what": "early close 1 pm ET"
+      },
+      {
+        "date": "2026-12-24",
+        "what": "early close 1 pm ET"
+      }
+    ]
+  }
+}

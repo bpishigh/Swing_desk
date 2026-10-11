@@ -1,0 +1,47 @@
+name: us-screen
+# Repo Desk weekly US stock screen (top sectors -> top 10 holdings -> metrics). 
+on:
+  workflow_dispatch:
+    inputs:
+      backup_only:
+        description: 'Test: skip Tiingo and use the Nasdaq backup only (yes/no)'
+        required: false
+        default: 'no'
+concurrency: us-screen
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Screen
+        env:
+          TIINGO_KEY: ${{ secrets.TIINGO_KEY }}
+          BACKUP_ONLY: ${{ inputs.backup_only == 'yes' && '1' || '' }}
+        run: node scripts/us-screen.mjs
+      - name: Tell the phone
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MSG=$(node -e "const r=JSON.parse(require('fs').readFileSync('data/us/screen/last-run.json','utf8'));console.log(r.status==='written'?'Weekly US screen done: '+r.stocks+' stocks from '+r.sectors.join(', ')+'. Open the Weekend tab for the Ready list.':'Weekly US screen: '+r.status+'. '+r.flags.slice(0,2).join('; '))")
+          node scripts/alert.mjs "$MSG"
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us
+          git commit -m "us-screen: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

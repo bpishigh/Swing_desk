@@ -1,0 +1,62 @@
+name: source-test
+on:
+  workflow_dispatch:
+    inputs:
+      now:
+        description: 'Test only: pretend it is this time (ISO, e.g. 2026-10-12T14:00:00Z) for the nightly-start step. Blank in normal use.'
+        required: false
+        default: ''
+concurrency: source-test
+permissions:
+  contents: write
+  actions: write      # lets the nightly step start the India jobs
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/source-test.mjs
+        env:
+          TIINGO_KEY: ${{ secrets.TIINGO_KEY }}
+          POLYGON_KEY: ${{ secrets.POLYGON_KEY }}
+          EODHD_KEY: ${{ secrets.EODHD_KEY }}
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+      - run: node scripts/check-no-personal-data.mjs
+      - name: Record run
+        if: always()
+        run: node scripts/record-run.mjs
+        env:
+          JOB_STATUS: ${{ job.status }}
+      - name: Start the India nightly jobs when a day is missing
+        if: always()
+        continue-on-error: true
+        run: node scripts/dispatch-nightly.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOW_OVERRIDE: ${{ inputs.now }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Start the US daily job and the weekly screen when due
+        if: always()
+        continue-on-error: true
+        run: node scripts/dispatch-us.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOW_OVERRIDE: ${{ inputs.now }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Commit log
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/source-test/log.ndjson data/source-test/runs.ndjson data/india/orchestrator.json data/us/orchestrator.json
+          git commit -m "source-test: probe $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

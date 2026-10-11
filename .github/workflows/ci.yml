@@ -1,0 +1,20 @@
+name: ci
+on:
+  push:
+    paths-ignore: ['data/**']   # the bots' data commits are already checked by their own jobs (privacy check before every commit)
+  pull_request:
+    paths-ignore: ['data/**']
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Privacy check (deny-list comes from the PRIVACY_DENYLIST secret, never from the repo)
+        run: node scripts/check-no-personal-data.mjs
+        env:
+          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
+      - run: npm test

@@ -1,0 +1,59 @@
+name: us-breadth
+# Repo Desk US breadth: share of the S&P 500 above its 50-day average (S5FI definition), from Nasdaq's public history. Started by the half-hourly tick after each close.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'US session date YYYY-MM-DD (blank = latest session)'
+        required: false
+        default: ''
+concurrency: us-breadth
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Breadth
+        env:
+          IN_DATE: ${{ inputs.date }}
+        run: |
+          ARGS=""
+          if [ -n "$IN_DATE" ]; then ARGS="--date=$IN_DATE"; fi
+          node scripts/breadth-us.mjs $ARGS
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us
+          git commit -m "us-breadth: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
+      - name: Regime check and phone message
+        if: always()
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git pull --rebase origin main
+          node scripts/regime-run.mjs us
+          git add data/us/regime.json
+          git commit -m "regime us: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

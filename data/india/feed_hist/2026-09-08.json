@@ -1,0 +1,123 @@
+{
+ "date": "2026-09-08",
+ "bench": {
+  "r1m": -3.81,
+  "r3m": 2.21
+ },
+ "sectors": {
+  "Nifty IT": {
+   "close": 29883.45,
+   "sma50": 29836.57,
+   "r1m": -5.28,
+   "r3m": 4.29
+  },
+  "Nifty Bank": {
+   "close": 56777.55,
+   "sma50": 57571.44,
+   "r1m": -1.68,
+   "r3m": 5.02
+  },
+  "Nifty Financial Services": {
+   "close": 25695.55,
+   "sma50": 26416.86,
+   "r1m": -2.91,
+   "r3m": 3.59
+  },
+  "Nifty PSU Bank": {
+   "close": 8412.35,
+   "sma50": 8501.04,
+   "r1m": -4.25,
+   "r3m": 2.6
+  },
+  "Nifty Auto": {
+   "close": 27775.35,
+   "sma50": 28123.74,
+   "r1m": -6.32,
+   "r3m": 8.15
+  },
+  "Nifty Pharma": {
+   "close": 26880.8,
+   "sma50": 26222.27,
+   "r1m": 1.28,
+   "r3m": 11.32
+  },
+  "Nifty FMCG": {
+   "close": 45749.85,
+   "sma50": 48494.49,
+   "r1m": -7.45,
+   "r3m": -4.88
+  },
+  "Nifty Metal": {
+   "close": 13155.95,
+   "sma50": 12882.56,
+   "r1m": -0.26,
+   "r3m": 1.88
+  },
+  "Nifty Realty": {
+   "close": 892.05,
+   "sma50": 901.24,
+   "r1m": 0.69,
+   "r3m": 19.07
+  },
+  "Nifty Energy": {
+   "close": 38093.5,
+   "sma50": 38742.41,
+   "r1m": -1.69,
+   "r3m": -4.01
+  },
+  "Nifty Infrastructure": {
+   "close": 9144.05,
+   "sma50": 9357.14,
+   "r1m": -3.79,
+   "r3m": 0.62
+  },
+  "Nifty PSE": {
+   "close": 9709.35,
+   "sma50": 9874.18,
+   "r1m": -2.15,
+   "r3m": -3.31
+  },
+  "Nifty Media": {
+   "close": 1540.6,
+   "sma50": 1550.91,
+   "r1m": -0.92,
+   "r3m": 4.32
+  },
+  "Nifty India Defence": {
+   "close": 9998.7,
+   "sma50": 9557.76,
+   "r1m": 2.74,
+   "r3m": 11.38
+  },
+  "Nifty Healthcare": {
+   "close": 16624.6,
+   "sma50": 16504.36,
+   "r1m": -0.5,
+   "r3m": 7.79
+  },
+  "Nifty Oil & Gas": {
+   "close": 11044.75,
+   "sma50": 11181.01,
+   "r1m": -2.36,
+   "r3m": 1.03
+  },
+  "Nifty Consumer Durables": {
+   "close": 39224.5,
+   "sma50": 39449.21,
+   "r1m": -2.16,
+   "r3m": 12.28
+  },
+  "Nifty Chemicals": {
+   "close": 30167.1,
+   "sma50": 30199.82,
+   "r1m": -1.37,
+   "r3m": 5.41
+  },
+  "Nifty Capital Markets": {
+   "close": 5430.9,
+   "sma50": 5384.45,
+   "r1m": 4.35,
+   "r3m": 3.99
+  }
+ }
+}

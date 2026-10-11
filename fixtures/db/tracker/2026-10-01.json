@@ -1,0 +1,25 @@
+{
+ "b": {
+  "close": 21857.75,
+  "sma200": 22963.45,
+  "sma50": 23197.43
+ },
+ "close": 22421.95,
+ "fetchedAt": "2026-10-01T18:00:00Z",
+ "flags": [
+  "close/high/low from Upstox (1 Oct 16:00); cross-checked Dhan (1 Oct 15:36) and TopStockResearch 22421.90",
+  "volume from TopStockResearch (463,551K); Investing.com has no 1 Oct row yet",
+  "SMA from Dhan (page dated 1 Oct; through 30 Sep)",
+  "Nifty 500 close/SMAs from Dhan (1 Oct 20:41), single source",
+  "India VIX from Upstox (1 Oct 16:00)"
+ ],
+ "high": 22610.6,
+ "low": 22217.3,
+ "maAsOf": "2026-09-30",
+ "skip": false,
+ "sma200": 24367.78,
+ "sma50": 23901.58,
+ "src": "Upstox + Dhan + TopStockResearch",
+ "vix": 14.46,
+ "volume": 463.55
+}

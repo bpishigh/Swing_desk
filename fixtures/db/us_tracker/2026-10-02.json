@@ -1,0 +1,20 @@
+{
+ "b": {
+  "close": 749.58,
+  "sma200": 668.6,
+  "sma50": 716.82
+ },
+ "close": 769.64,
+ "fetchedAt": "2026-10-03T01:55:00Z",
+ "flags": [
+  "SPY 50 SMA computed from closes (TipRanks 761.19 differs 0.3%); 200 SMAs computed from stored closes",
+  "QQQ close 749.58 vs TradingView 749.41 (within 0.1%)",
+  "Distribution days in last 25 sessions: 10 (cap Yellow)"
+ ],
+ "high": 772.65,
+ "low": 767.15,
+ "sma200": 720.47,
+ "sma50": 763.7,
+ "src": "StockAnalysis + TipRanks + TradingView",
+ "volume": 45.46
+}

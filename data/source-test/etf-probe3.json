@@ -1,0 +1,335 @@
+{
+ "ts": "2026-10-10T17:07:41.538Z",
+ "tests": [
+  {
+   "k": "ctl_actions_RELIANCE",
+   "status": 200,
+   "bytes": 6072,
+   "n": 20,
+   "sample": [
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Reliance Industries Limited",
+     "exDate": "05-Jun-2026",
+     "faceVal": "10",
+     "ind": "-",
+     "isin": "INE002A01018",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "05-Jun-2026",
+     "series": "EQ",
+     "subject": "Dividend - Rs 6 Per Share",
+     "symbol": "RELIANCE"
+    },
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Reliance Industries Limited",
+     "exDate": "14-Aug-2025",
+     "faceVal": "10",
+     "ind": "-",
+     "isin": "INE002A01018",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "14-Aug-2025",
+     "series": "EQ",
+     "subject": "Dividend - Rs 5.5 Per Share",
+     "symbol": "RELIANCE"
+    },
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Reliance Industries Limited",
+     "exDate": "28-Oct-2024",
+     "faceVal": "10",
+     "ind": "-",
+     "isin": "INE002A01018",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "28-Oct-2024",
+     "series": "EQ",
+     "subject": "Bonus 1:1",
+     "symbol": "RELIANCE"
+    }
+   ]
+  },
+  {
+   "k": "ctl_actions_window",
+   "status": 200,
+   "bytes": 150565,
+   "n": 506,
+   "sample": [
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Garware Technical Fibres Limited",
+     "exDate": "01-Sep-2026",
+     "faceVal": "10",
+     "ind": "-",
+     "isin": "INE276A01018",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "01-Sep-2026",
+     "series": "EQ",
+     "subject": "Dividend - Re 1 Per Share",
+     "symbol": "GARFIBRES"
+    },
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Jindal Drilling And Industries Limited",
+     "exDate": "01-Sep-2026",
+     "faceVal": "5",
+     "ind": "-",
+     "isin": "INE742C01031",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "01-Sep-2026",
+     "series": "EQ",
+     "subject": "Dividend - Re 1 Per Share",
+     "symbol": "JINDRILL"
+    },
+    {
+     "bcEndDate": "-",
+     "bcStartDate": "-",
+     "caBroadcastDate": null,
+     "comp": "Rico Auto Industries Limited",
+     "exDate": "01-Sep-2026",
+     "faceVal": "1",
+     "ind": "-",
+     "isin": "INE209B01025",
+     "ndEndDate": "-",
+     "ndStartDate": "-",
+     "recDate": "01-Sep-2026",
+     "series": "EQ",
+     "subject": "Dividend - Re 0.55 Per Share",
+     "symbol": "RICOAUTO"
+    }
+   ]
+  },
+  {
+   "k": "ctl_ann_RELIANCE",
+   "status": 200,
+   "bytes": 2892257,
+   "n": 3356,
+   "sample": [
+    {
+     "an_dt": "07-Oct-2026 22:36:08",
+     "attFileSize": "280.74 KB",
+     "attchmntFile": "https://nsearchives.nseindia.com/corporate/PVIVINMA_07102026223504_RIL_SEletter07102026.pdf",
+     "attchmntText": "Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 is attached.",
+     "bflag": null,
+     "csvName": null,
+     "desc": "Action(s) taken or orders passed",
+     "difference": "00:00:01",
+     "dt": "07102026223608",
+     "exchdisstime": "07-Oct-2026 22:36:09",
+     "fileSize": "280.74 KB",
+     "hasXbrl": true,
+     "old_new": null,
+     "orgid": null,
+     "seq_id": "106810410",
+     "smIndustry": "Refineries",
+     "sm_isin": "INE002A01018",
+     "sm_name": "Reliance Industries Limited",
+     "sort_date": "2026-10-07 22:36:08",
+     "symbol": "RELIANCE"
+    },
+    {
+     "an_dt": "01-Oct-2026 15:02:20",
+     "attFileSize": "270.27 KB",
+     "attchmntFile": "https://nsearchives.nseindia.com/corporate/kavinavora_01102026150203_SE_01102026.pdf",
+     "attchmntText": "We wish to inform that the Company has today allotted 13,00,000 Unsecured, Redeemable, Non-Convertible Debentures (\"NCDs\") of the face value of Rs. 1,00,000 each (\"PPD Series R\"), issued on private placement basis.",
+     "bflag": null,
+     "csvName": null,
+     "desc": "Allotment of Securities",
+     "difference": "00:00:01",
+     "dt": "01102026150220",
+     "exchdisstime": "01-Oct-2026 15:02:21",
+     "fileSize": "270.27 KB",
+     "hasXbrl": true,
+     "old_new": null,
+     "orgid": null,
+     "seq_id": "106804744",
+     "smIndustry": "Refineries",
+     "sm_isin": "INE002A01018",
+     "sm_name": "Reliance Industries Limited",
+     "sort_date": "2026-10-01 15:02:20",
+     "symbol": "RELIANCE"
+    },
+    {
+     "an_dt": "30-Sep-2026 17:19:17",
+     "attFileSize": "178.94 KB",
+     "attchmntFile": "https://nsearchives.nseindia.com/corporate/PVIVINMA_30092026170527_SE_TWC_300926.pdf",
+     "attchmntText": "Reliance Industries Limited has informed the Exchange regarding the Trading Window closure pursuant to SEBI (Prohibition of Insider Trading) Regulations, 2015",
+     "bflag": null,
+     "csvName": null,
+     "desc": "Trading Window",
+     "difference": "00:00:01",
+     "dt": "30092026171917",
+     "exchdisstime": "30-Sep-2026 17:19:18",
+     "fileSize": "178.94 KB",
+     "hasXbrl": true,
+     "old_new": null,
+     "orgid": null,
+     "seq_id": "106802824",
+     "smIndustry": "Refineries",
+     "sm_isin": "INE002A01018",
+     "sm_name": "Reliance Industries Limited",
+     "sort_date": "2026-09-30 17:19:17",
+     "symbol": "RELIANCE"
+    }
+   ]
+  },
+  {
+   "k": "ann_GROWWGOLD",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_GROWWGOLD_nodates",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "actions_GROWWGOLD",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_GROWWGOLD_sme",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_QNIFTY",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_QNIFTY_nodates",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "actions_QNIFTY",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_QNIFTY_sme",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_GOLDADD",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_GOLDADD_nodates",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "actions_GOLDADD",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_GOLDADD_sme",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "ann_window",
+   "status": 200,
+   "bytes": 2,
+   "n": 0,
+   "sample": []
+  },
+  {
+   "k": "circulars",
+   "status": 200,
+   "bytes": 76017,
+   "n": 172,
+   "sample": [
+    {
+     "cirDate": "20261009",
+     "cirDisplayDate": "October 09, 2026",
+     "circCategory": "Compliance",
+     "circCompany": "NSE",
+     "circDepartment": "Surveillance & Investigation",
+     "circDisplayNo": "NSE/INVG/76848",
+     "circFileSize": "726 KB",
+     "circFilelink": "https://nsearchives.nseindia.com/content/circulars/INVG76848.zip",
+     "circFilename": "INVG76848.zip",
+     "circNumber": "76848",
+     "fileDept": "INVG",
+     "fileExt": "zip",
+     "sub": "Revocation Order in the matter of LS Industries Limited"
+    },
+    {
+     "cirDate": "20261009",
+     "cirDisplayDate": "October 09, 2026",
+     "circCategory": "Compliance",
+     "circCompany": "NSE",
+     "circDepartment": "Surveillance & Investigation",
+     "circDisplayNo": "NSE/SURV/76847",
+     "circFileSize": "151 KB",
+     "circFilelink": "https://nsearchives.nseindia.com/content/circulars/SURV76847.zip",
+     "circFilename": "SURV76847.zip",
+     "circNumber": "76847",
+     "fileDept": "SURV",
+     "fileExt": "zip",
+     "sub": "Applicability of Additional Surveillance Measure under IBC"
+    },
+    {
+     "cirDate": "20261009",
+     "cirDisplayDate": "October 09, 2026",
+     "circCategory": "Compliance",
+     "circCompany": "NSE",
+     "circDepartment": "Surveillance & Investigation",
+     "circDisplayNo": "NSE/SURV/76846",
+     "circFileSize": "174 KB",
+     "circFilelink": "https://nsearchives.nseindia.com/content/circulars/SURV76846.zip",
+     "circFilename": "SURV76846.zip",
+     "circNumber": "76846",
+     "fileDept": "SURV",
+     "fileExt": "zip",
+     "sub": "Applicability of Enhanced Surveillance Measure (ESM)"
+    }
+   ]
+  }
+ ]
+}

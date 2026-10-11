@@ -1,0 +1,23 @@
+{
+ "b": {
+  "close": 742.03,
+  "sma200": 665.87,
+  "sma50": 715.66
+ },
+ "breadth": 22.86,
+ "close": 763.99,
+ "editedAt": "2026-10-02T10:50:08.824Z",
+ "fetchedAt": "2026-10-02T01:53:00Z",
+ "flags": [
+  "Distribution days in last 25 sessions: 10 (cap Yellow)",
+  "QQQ close 742.03 confirmed on StockAnalysis quote page; SPY 763.99 matches TradingView"
+ ],
+ "high": 765.65,
+ "low": 758.79,
+ "manual": true,
+ "skip": false,
+ "sma200": 716.11,
+ "sma50": 763.07,
+ "src": "StockAnalysis + TipRanks + TradingView",
+ "volume": 46.23
+}

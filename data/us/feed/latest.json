@@ -1,0 +1,153 @@
+{
+ "date": "2026-10-09",
+ "fetchedAt": "2026-10-10T19:41:43.568Z",
+ "bench": {
+  "r1m": 2.12,
+  "r3m": 3.57
+ },
+ "sectors": {
+  "Technology (XLK)": {
+   "date": "2026-10-09",
+   "close": 198.78,
+   "r1m": 5.81,
+   "r3m": 7.25,
+   "sma50": 189.05,
+   "sma200": 166.38,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Financials (XLF)": {
+   "date": "2026-10-09",
+   "close": 54.73,
+   "r1m": -4.08,
+   "r3m": -1.46,
+   "sma50": 56.53,
+   "sma200": 53.69,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Energy (XLE)": {
+   "date": "2026-10-09",
+   "close": 65.08,
+   "r1m": -0.35,
+   "r3m": 18.72,
+   "sma50": 62.67,
+   "sma200": 57.05,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Health Care (XLV)": {
+   "date": "2026-10-09",
+   "close": 170.81,
+   "r1m": 2.54,
+   "r3m": 5.33,
+   "sma50": 168.92,
+   "sma200": 157.06,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Industrials (XLI)": {
+   "date": "2026-10-09",
+   "close": 169.25,
+   "r1m": -1.48,
+   "r3m": -6.55,
+   "sma50": 175.72,
+   "sma200": 172.69,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Consumer Discretionary (XLY)": {
+   "date": "2026-10-09",
+   "close": 112.85,
+   "r1m": 0.35,
+   "r3m": -3.42,
+   "sma50": 114.41,
+   "sma200": 116.12,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Consumer Staples (XLP)": {
+   "date": "2026-10-09",
+   "close": 83.43,
+   "r1m": 0.46,
+   "r3m": 0.28,
+   "sma50": 84.03,
+   "sma200": 83.81,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Utilities (XLU)": {
+   "date": "2026-10-09",
+   "close": 41.41,
+   "r1m": -3.56,
+   "r3m": -8.24,
+   "sma50": 42.23,
+   "sma200": 44.34,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Materials (XLB)": {
+   "date": "2026-10-09",
+   "close": 49.43,
+   "r1m": -3.81,
+   "r3m": -1.65,
+   "sma50": 51.33,
+   "sma200": 50.76,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Real Estate (XLRE)": {
+   "date": "2026-10-09",
+   "close": 41.61,
+   "r1m": -4.15,
+   "r3m": -5.92,
+   "sma50": 43.43,
+   "sma200": 43.21,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Communication (XLC)": {
+   "date": "2026-10-09",
+   "close": 110.38,
+   "r1m": -0.41,
+   "r3m": -0.12,
+   "sma50": 111.83,
+   "sma200": 113.67,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Semiconductors (SMH)": {
+   "date": "2026-10-09",
+   "close": 603.33,
+   "r1m": 5.06,
+   "r3m": -0.72,
+   "sma50": 578.24,
+   "sma200": 506.24,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Software (IGV)": {
+   "date": "2026-10-09",
+   "close": 112.67,
+   "r1m": 10.65,
+   "r3m": 20.01,
+   "sma50": 104.92,
+   "sma200": 93.71,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Aerospace & Defense (ITA)": {
+   "date": "2026-10-09",
+   "close": 206.65,
+   "r1m": -5.83,
+   "r3m": -13.76,
+   "sma50": 227.36,
+   "sma200": 230.34,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  }
+ },
+ "flags": [
+  "Tiingo was unavailable for 16 ticker(s) (SPY, QQQ and 14 more); Nasdaq's public history was used for them"
+ ]
+}

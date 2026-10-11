@@ -1,0 +1,37 @@
+{
+ "VEDL|2026-04-30": {
+  "factor": 0.375072,
+  "source": "Dhan 200 DMA, EMA cross-check",
+  "asOf": "2026-10-09",
+  "published200": 271.77,
+  "emaWorstPct": 0.02
+ },
+ "TRIVENI|2026-07-22": {
+  "factor": 0.615033,
+  "source": "Dhan 200 DMA, EMA cross-check",
+  "asOf": "2026-10-09",
+  "published200": 244.03,
+  "emaWorstPct": 0
+ },
+ "INDIAGLYCO|2026-09-02": {
+  "factor": 0.203023,
+  "source": "Dhan 200 DMA, EMA cross-check",
+  "asOf": "2026-10-09",
+  "published200": 213.22,
+  "emaWorstPct": 0.23
+ },
+ "VERANDA|2026-10-06": {
+  "factor": 0.133698,
+  "source": "Dhan 200 DMA, EMA cross-check",
+  "asOf": "2026-10-09",
+  "published200": 28.04,
+  "emaWorstPct": 0.22
+ },
+ "BHAGYANGR|2026-10-08": {
+  "factor": 0.086432,
+  "source": "Dhan 200 DMA, EMA cross-check",
+  "asOf": "2026-10-09",
+  "published200": 24.18,
+  "emaWorstPct": 0.71
+ }
+}

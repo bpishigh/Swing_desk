@@ -1,0 +1,139 @@
+{
+ "ts": "2026-10-10T17:09:12.785Z",
+ "log": [
+  [
+   "01-02-2026",
+   "all",
+   200,
+   172
+  ],
+  [
+   "01-02-2026",
+   "&subject=ETF",
+   200,
+   172
+  ],
+  [
+   "01-02-2026",
+   "&subject=split",
+   200,
+   172
+  ],
+  [
+   "01-02-2026",
+   "&subject=unit",
+   200,
+   172
+  ],
+  [
+   "01-04-2026",
+   "all",
+   200,
+   172
+  ],
+  [
+   "01-04-2026",
+   "&subject=ETF",
+   200,
+   172
+  ],
+  [
+   "01-04-2026",
+   "&subject=split",
+   200,
+   172
+  ],
+  [
+   "01-04-2026",
+   "&subject=unit",
+   200,
+   172
+  ],
+  [
+   "01-06-2026",
+   "all",
+   200,
+   172
+  ],
+  [
+   "01-06-2026",
+   "&subject=ETF",
+   200,
+   172
+  ],
+  [
+   "01-06-2026",
+   "&subject=split",
+   200,
+   172
+  ],
+  [
+   "01-06-2026",
+   "&subject=unit",
+   200,
+   172
+  ],
+  [
+   "01-08-2026",
+   "all",
+   200,
+   172
+  ],
+  [
+   "01-08-2026",
+   "&subject=ETF",
+   200,
+   172
+  ],
+  [
+   "01-08-2026",
+   "&subject=split",
+   200,
+   172
+  ],
+  [
+   "01-08-2026",
+   "&subject=unit",
+   200,
+   172
+  ]
+ ],
+ "total": 147,
+ "hits": [
+  {
+   "date": "20261009",
+   "dept": "Mutual Fund",
+   "no": "NSE/NMF/76815",
+   "sub": "Availability of SBI Nifty200 Value 30 ETF FOF NFO on NSE MF Invest Platform",
+   "link": "https://nsearchives.nseindia.com/content/circulars/NMF76815.pdf"
+  },
+  {
+   "date": "20261009",
+   "dept": "Mutual Fund",
+   "no": "NSE/NMF/76814",
+   "sub": "Launch of Zerodha BSE Top 10 Banks ETF NFO on NSE MF Invest Platform",
+   "link": "https://nsearchives.nseindia.com/content/circulars/NMF76814.pdf"
+  },
+  {
+   "date": "20261009",
+   "dept": "Mutual Fund",
+   "no": "NSE/NMF/76812",
+   "sub": "Launch of ICICI Prudential Nifty Pharma ETF NFO on NSE MF Invest Platform",
+   "link": "https://nsearchives.nseindia.com/content/circulars/NMF76812.pdf"
+  },
+  {
+   "date": "20261006",
+   "dept": "Listing",
+   "no": "NSE/CML/76740",
+   "sub": "Listing of units issued by DSP Asset Managers Private Limited (DSP BSE Insurance ETF)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML76740.pdf"
+  },
+  {
+   "date": "20261006",
+   "dept": "Listing",
+   "no": "NSE/CML/76731",
+   "sub": "Face Value Split - Bansal Wire Industries Limited (BANSALWIRE)",
+   "link": "https://nsearchives.nseindia.com/content/circulars/CML76731.pdf"
+  }
+ ]
+}

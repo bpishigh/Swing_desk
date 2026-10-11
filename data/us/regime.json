@@ -1,0 +1,13 @@
+{
+ "latest": {
+  "date": "2026-10-09",
+  "name": "yellow",
+  "notes": [
+   "8 distribution days cap at Yellow"
+  ],
+  "breadth": 34.4,
+  "breadthDate": "2026-10-09",
+  "distribution": 8,
+  "followThrough": "none"
+ }
+}

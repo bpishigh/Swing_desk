@@ -1,0 +1,155 @@
+{
+ "bench": {
+  "r1m": 0.59,
+  "r3m": 3.34
+ },
+ "date": "2026-10-02",
+ "fetchedAt": "2026-10-03T01:55:00Z",
+ "flags": [
+  "US 200 SMA: computed from stored closes for XLE, XLU, XLV, IGV; others from TipRanks until stored history is topped up",
+  "TipRanks stamp older than prior session: XLI 200 SMA stamp 2026-09-30, XLY 200 SMA stamp 2026-09-29, XLP 200 SMA stamp 2026-09-29, XLRE 200 SMA stamp 2026-09-29, ITA 200 SMA stamp 2026-09-29",
+  "No open US trades"
+ ],
+ "sectors": {
+  "Aerospace & Defense (ITA)": {
+   "close": 207.79,
+   "date": "2026-10-02",
+   "r1m": -6.97,
+   "r3m": -16.28,
+   "sma200": 230.06,
+   "sma200Src": "TipRanks (2026-09-29)",
+   "sma50": 230.82,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Communication (XLC)": {
+   "close": 110.32,
+   "date": "2026-10-02",
+   "r1m": -1.87,
+   "r3m": 0.66,
+   "sma200": 113.17,
+   "sma200Src": "TipRanks (2026-10-02)",
+   "sma50": 111.49,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Consumer Discretionary (XLY)": {
+   "close": 110.04,
+   "date": "2026-10-02",
+   "r1m": -4.2,
+   "r3m": -6.05,
+   "sma200": 116.11,
+   "sma200Src": "TipRanks (2026-09-29)",
+   "sma50": 114.39,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Consumer Staples (XLP)": {
+   "close": 80.53,
+   "date": "2026-10-02",
+   "r1m": -5.85,
+   "r3m": -5.25,
+   "sma200": 82.6,
+   "sma200Src": "TipRanks (2026-09-29)",
+   "sma50": 84.39,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Energy (XLE)": {
+   "close": 62.82,
+   "date": "2026-10-02",
+   "r1m": -3.5,
+   "r3m": 18.04,
+   "sma200": 56.55,
+   "sma200Src": "computed from stored closes",
+   "sma50": 62.12,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Financials (XLF)": {
+   "close": 53.49,
+   "date": "2026-10-02",
+   "r1m": -7.23,
+   "r3m": -3.83,
+   "sma200": 53.33,
+   "sma200Src": "TipRanks (2026-10-01)",
+   "sma50": 56.81,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Health Care (XLV)": {
+   "close": 166.18,
+   "date": "2026-10-02",
+   "r1m": -3.91,
+   "r3m": 1.49,
+   "sma200": 156.7,
+   "sma200Src": "computed from stored closes",
+   "sma50": 168.53,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Industrials (XLI)": {
+   "close": 169.95,
+   "date": "2026-10-02",
+   "r1m": -1.64,
+   "r3m": -7.59,
+   "sma200": 171.21,
+   "sma200Src": "TipRanks (2026-09-30)",
+   "sma50": 176.84,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Materials (XLB)": {
+   "close": 48.86,
+   "date": "2026-10-02",
+   "r1m": -7.72,
+   "r3m": -6.06,
+   "sma200": 50.17,
+   "sma200Src": "TipRanks (2026-10-01)",
+   "sma50": 51.56,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Real Estate (XLRE)": {
+   "close": 40.81,
+   "date": "2026-10-02",
+   "r1m": -6.68,
+   "r3m": -8.66,
+   "sma200": 42.48,
+   "sma200Src": "TipRanks (2026-09-29)",
+   "sma50": 43.92,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Semiconductors (SMH)": {
+   "close": 630.6,
+   "date": "2026-10-02",
+   "r1m": 14.55,
+   "r3m": 6.47,
+   "sma200": 496.76,
+   "sma200Src": "TipRanks (2026-10-02)",
+   "sma50": 569.85,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Software (IGV)": {
+   "close": 108.43,
+   "date": "2026-10-02",
+   "r1m": 4.84,
+   "r3m": 15.88,
+   "sma200": 93.61,
+   "sma200Src": "computed from stored closes",
+   "sma50": 102.98,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Technology (XLK)": {
+   "close": 199.81,
+   "date": "2026-10-02",
+   "r1m": 8.83,
+   "r3m": 10.64,
+   "sma200": 164.02,
+   "sma200Src": "TipRanks (2026-10-01)",
+   "sma50": 186.3,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  },
+  "Utilities (XLU)": {
+   "close": 39.83,
+   "date": "2026-10-02",
+   "r1m": -6.66,
+   "r3m": -12.96,
+   "sma200": 44.38,
+   "sma200Src": "computed from stored closes",
+   "sma50": 42.68,
+   "src": "StockAnalysis + TipRanks + stored closes"
+  }
+ }
+}

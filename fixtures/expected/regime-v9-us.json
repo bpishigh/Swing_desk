@@ -1,0 +1,267 @@
+{
+ "generatedBy": "v9 app regimeFrom over fixtures/db/us_tracker/",
+ "rows": [
+  {
+   "date": "2026-07-21",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-22",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-23",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-24",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-27",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-28",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-29",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-30",
+   "incomplete": true
+  },
+  {
+   "date": "2026-07-31",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-03",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-04",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-05",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-06",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-07",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-10",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-11",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-12",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-13",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-14",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-17",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-18",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-19",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-20",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-21",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-24",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-25",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-26",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-27",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-28",
+   "incomplete": true
+  },
+  {
+   "date": "2026-08-31",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-01",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-02",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-03",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-04",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-08",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-09",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-10",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-11",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-14",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-15",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-16",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-17",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-18",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-21",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-22",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-23",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-24",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-25",
+   "incomplete": true
+  },
+  {
+   "date": "2026-09-28",
+   "lv": 1,
+   "sma": 1,
+   "la": 1,
+   "lb": 1,
+   "risingA": null,
+   "risingB": null,
+   "breadth": null,
+   "activeDist": 9,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-09-29",
+   "lv": 1,
+   "sma": 2,
+   "la": 2,
+   "lb": 2,
+   "risingA": true,
+   "risingB": true,
+   "breadth": 24.65,
+   "activeDist": 9,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-09-30",
+   "lv": 1,
+   "sma": 1,
+   "la": 1,
+   "lb": 2,
+   "risingA": true,
+   "risingB": true,
+   "breadth": 24.65,
+   "activeDist": 10,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-10-01",
+   "lv": 1,
+   "sma": 2,
+   "la": 2,
+   "lb": 2,
+   "risingA": true,
+   "risingB": true,
+   "breadth": 22.86,
+   "activeDist": 10,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  },
+  {
+   "date": "2026-10-02",
+   "lv": 1,
+   "sma": 2,
+   "la": 2,
+   "lb": 2,
+   "risingA": true,
+   "risingB": true,
+   "breadth": 22.86,
+   "activeDist": 10,
+   "expiredEarly": 0,
+   "ftdStatus": "none",
+   "carriedFrom": null
+  }
+ ]
+}

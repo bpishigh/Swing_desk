@@ -1,0 +1,122 @@
+{
+ "xom": {
+  "status": 200,
+  "size": 125510,
+  "fiftyTwo": "52-Week Price Change|+48.17%|50-Day Moving Average|161.57|200-Day Moving Average|150.33|Re",
+  "ma50": "50-Day Moving Average|161.57|200-Day Moving Average|150.33|Relative Strength Index (RSI)|6",
+  "ma200": "200-Day Moving Average|150.33|Relative Strength Index (RSI)|64.17|Average Volume (20 Days)",
+  "avgVol": "Average Volume (20 Days)|12,969,783|Short Selling Information|The latest short interest is",
+  "earnings": "Earnings Date|Oct 30, 2026|Ex-Dividend Date|Aug 17, 2026|Share Statistics|XOM has 4.11 bil",
+  "nextEarn": "ABSENT",
+  "overviewEarnings": "ABSENT"
+ },
+ "nvda": {
+  "status": 200,
+  "size": 125596,
+  "fiftyTwo": "52-Week Price Change|+21.24%|50-Day Moving Average|222.08|200-Day Moving Average|202.15|Re",
+  "ma50": "50-Day Moving Average|222.08|200-Day Moving Average|202.15|Relative Strength Index (RSI)|5",
+  "ma200": "200-Day Moving Average|202.15|Relative Strength Index (RSI)|52.96|Average Volume (20 Days)",
+  "avgVol": "Average Volume (20 Days)|108,598,323|Short Selling Information|The latest short interest i",
+  "earnings": "Earnings Date|Nov 18, 2026|Ex-Dividend Date|Sep 10, 2026|Share Statistics|NVIDIA has 24.15",
+  "nextEarn": "ABSENT",
+  "overviewEarnings": "ABSENT"
+ },
+ "etfConstituents": {
+  "status": 200,
+  "header": [
+   "No.",
+   "Symbol",
+   "Name",
+   "% Weight",
+   "Shares"
+  ],
+  "rows": [
+   [
+    "1",
+    "XOM",
+    "ExxonMobil Holdings Corporation",
+    "23.49%",
+    "59,169,889"
+   ],
+   [
+    "2",
+    "CVX",
+    "Chevron Corporation",
+    "17.66%",
+    "35,424,778"
+   ],
+   [
+    "3",
+    "COP",
+    "ConocoPhillips",
+    "6.81%",
+    "21,539,510"
+   ],
+   [
+    "4",
+    "MPC",
+    "Marathon Petroleum Corporation",
+    "5.20%",
+    "4,759,741"
+   ],
+   [
+    "5",
+    "VLO",
+    "Valero Energy Corporation",
+    "5.11%",
+    "4,888,092"
+   ],
+   [
+    "6",
+    "PSX",
+    "Phillips 66",
+    "4.84%",
+    "7,290,533"
+   ],
+   [
+    "7",
+    "WMB",
+    "The Williams Companies, Inc.",
+    "4.31%",
+    "25,299,302"
+   ],
+   [
+    "8",
+    "EOG",
+    "EOG Resources, Inc.",
+    "3.92%",
+    "11,207,400"
+   ],
+   [
+    "9",
+    "SLB",
+    "SLB N.V.",
+    "3.66%",
+    "31,710,996"
+   ],
+   [
+    "10",
+    "KMI",
+    "Kinder Morgan, Inc.",
+    "3.18%",
+    "41,869,515"
+   ],
+   [
+    "11",
+    "TRGP",
+    "Targa Resources Corp.",
+    "3.11%",
+    "4,581,687"
+   ],
+   [
+    "12",
+    "OKE",
+    "ONEOK, Inc.",
+    "2.87%",
+    "13,468,834"
+   ]
+  ],
+  "n": 25,
+  "asOf": "Oct 8, 2026"
+ }
+}

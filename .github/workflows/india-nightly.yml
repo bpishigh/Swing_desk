@@ -1,0 +1,56 @@
+name: india-nightly
+# Repo Desk India index feed. Manual only for now: compare its output with the Claude Desk before any schedule is added.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Session date YYYY-MM-DD (blank = latest session)'
+        required: false
+        default: ''
+concurrency: india-nightly
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Build feed and tracker
+        id: job
+        run: |
+          if [ -n "${{ inputs.date }}" ]; then node scripts/india-nightly.mjs --date=${{ inputs.date }}; else node scripts/india-nightly.mjs; fi
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india
+          git commit -m "india-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
+      - name: Regime check and phone message
+        if: always()
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git pull --rebase origin main
+          node scripts/regime-run.mjs india
+          git add data/india/regime.json
+          git commit -m "regime india: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
