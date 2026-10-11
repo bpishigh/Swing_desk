@@ -1,0 +1,98 @@
+{
+ "ts": "2026-10-11T17:25:28.225Z",
+ "depth": [
+  {
+   "label": "1y",
+   "date": "2025-10-10",
+   "status": 200,
+   "rows": 11557,
+   "note": ""
+  },
+  {
+   "label": "18m",
+   "date": "2025-04-11",
+   "status": 200,
+   "rows": 11003,
+   "note": ""
+  },
+  {
+   "label": "23m",
+   "date": "2024-11-08",
+   "status": 200,
+   "rows": 10676,
+   "note": ""
+  },
+  {
+   "label": "25m",
+   "date": "2024-09-11",
+   "status": 403,
+   "rows": null,
+   "note": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  },
+  {
+   "label": "3y",
+   "date": "2023-10-12",
+   "status": 403,
+   "rows": null,
+   "note": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  },
+  {
+   "label": "5y",
+   "date": "2021-10-12",
+   "status": 403,
+   "rows": null,
+   "note": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  },
+  {
+   "label": "2020-03-16",
+   "date": "2020-03-16",
+   "status": 403,
+   "rows": null,
+   "note": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  }
+ ],
+ "delisted": {
+  "pastDate": "2025-03-04",
+  "nowDate": "2026-10-09",
+  "pastStatus": 200,
+  "pastRows": 10988,
+  "nowRows": 12598,
+  "onPastDate": {
+   "WBA": true,
+   "JNPR": true,
+   "ANSS": true,
+   "AAPL": true
+  },
+  "onNowDate": {
+   "WBA": false,
+   "JNPR": false,
+   "ANSS": false,
+   "AAPL": true
+  }
+ },
+ "adjustment": {
+  "date": "2025-06-06",
+  "rawStatus": 200,
+  "adjStatus": 200,
+  "rawClose": 1377.72,
+  "adjClose": 91.848,
+  "ratio": 15
+ },
+ "splits": {
+  "status": 200,
+  "results": [
+   {
+    "date": "2025-06-10",
+    "from": 1,
+    "to": 15
+   },
+   {
+    "date": "2005-06-16",
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "note": ""
+ },
+ "errors": []
+}
