@@ -1,6 +1,6 @@
 # How a stock is shortlisted: India and US (brief for review)
 
-Status as at 11 Oct 2026, version 2 (sections 6 to 8 revised after the first outside review the same evening). Source: `docs/ENGINE_RULES.md` (rules) and `src/ingest/us-screen.ts` (the US code). This brief describes what is live, what is manual, and what is proposed. Sections 1 to 3 describe what exists; sections 4 to 8 are proposals and change nothing until the test in section 7 is run and the owner signs off.
+Status as at 11 Oct 2026, version 3 (sections 6 to 10 revised after two outside reviews the same evening). Source: `docs/ENGINE_RULES.md` (rules) and `src/ingest/us-screen.ts` (the US code). This brief describes what is live, what is manual, and what is proposed. Sections 1 to 3 describe what exists; sections 4 to 8 are proposals and change nothing until the test in section 7 is run and the owner signs off.
 
 ## 1. The funnel, both markets
 
@@ -53,63 +53,81 @@ Apply one trend template to every liquid listed stock each night in both markets
 | Setups | 1, 1ipo, 2, 4 | 1, 1ipo, 2, 3, 4 |
 | Max positions (Green) | 4 | 10 |
 
-## 6. Proposed rule set, version 2 (after review 1)
+## 6. Proposed rule set, version 3 (after reviews 1 and 2)
 
-Principle: buy the strongest stocks in a healthy market. The evidence is strongest for relative-strength momentum and for trading near 52-week highs; both can fail in sharp rebounds after a bear market, which the regime filter limits. Chart-pattern tests are trader practice with little formal evidence, so they are tested before adoption.
+Principle: buy the strongest stocks in a healthy market. The evidence is strongest for relative-strength momentum and for trading near 52-week highs; both can fail in sharp rebounds after a bear market, which the regime filter limits. Chart-pattern tests are trader practice with little formal evidence, so they are tested before adoption. All thresholds below are **fixed before the replay and not tuned** (section 7).
 
 **The universe, each night, in both markets**
-- **India:** the Nifty Total Market index (about 750 names, a published constituent list) or Nifty 500 plus Microcap 250, instead of a market-cap test (NSE's daily file has none). Cash-segment EQ series only. **Excluded:** stocks under ASM or GSM surveillance, in the trade-for-trade segment, or on a 5% price band, because a stop cannot execute through a locked circuit. Listing source for the exclusions to be named at build. To be verified: that the constituent lists are available point-in-time back to 2020.
-- **US:** the liquid universe the data plan allows (to be fixed at build), not just ETF holdings.
-- **Liquidity:** India Rs 10 crore a day and price over Rs 50; US a floor of $10 to 20 million a day and price over $10 (down from $50 million, which excludes the smaller names C-20 wants). Both are backed by one rule: **the planned position is at most about 1% of the stock's 20-day average traded value**, stated against the current swing capital so it moves when the Portfolio Manager changes it.
+- **India:** the **top 750 NSE cash-segment (EQ series) stocks by trailing six-month median traded value, recomputed monthly from the daily NSE file.** This replaces the index-list idea: the Nifty Total Market index only launched on 13 October 2021 and its press release gives index values, not pre-launch constituent lists (checked 11 Oct), and NSE publishes current constituents, not monthly point-in-time lists. The daily-file universe is point-in-time, survivorship-free and the same rule live and in the replay. **The universe size is pinned at 750** so the top-20% threshold does not move with the liquidity floor.
+- **India exclusions:** stocks under ASM or GSM surveillance, in the trade-for-trade segment, or on a **2% or 5% price band** (10% and wider, and no-band, stay). A stop cannot execute through a locked circuit. Listing source named at build. Historical ASM, GSM and band lists may not be reconstructible, in which case the replay universe is wider than the live one and the result is labelled flattered.
+- **US:** the liquid universe the data plan allows (fixed at build). **Minimum listing age 65 sessions.**
+- **Liquidity:** India Rs 10 crore a day and price over Rs 50; US $10 to 20 million a day and price over $10. One binding rule: **the planned position is at most about 1% of the stock's 20-day average traded value**, stated against the current swing capital so it moves when the Portfolio Manager changes it.
 
 **The screen**
-1. **Relative-strength score:** weighted return over the last year, 40, 20, 20, 20 across the four quarters (latest first). Percentile rank on the **liquid universe only**, so a thin stock's spike does not move the thresholds. **Gate and first sort key:** top 20%.
-2. **One trend template, 52 weeks, both markets:** close above the 50-, 150- and 200-day averages; 150-day above 200-day; 200-day rising versus a month ago; 50-day above 150-day; at least 30% above the 52-week low; within 25% of the 52-week high.
-3. **Industry strength:** rank industries by the **median** relative strength of members that pass the liquidity floor (not an average over all members, which illiquid microcaps would dominate). India classification: NSE's basic-industry field. US: a sub-industry map is needed and Tiingo does not supply one; source to be named at build. The sector gate and two-week persistence rule stay as the market-level filter until the industry ranking is tested.
-4. **Base quality at scan time:** range narrowing as a ratio (ATR over 10 sessions divided by ATR over 50 sessions; the cut-off is set by the test) and distance to the pivot within 5%. **Breakout volume (at least 150% of the 50-day average) is an entry-day check on the trade checklist, not a scan test**, because the breakout has not happened at scan time.
-5. **Not extended:** skip a stock too far above its 50-day average (limit set by the test).
-6. **Ranked output:** a fixed, pre-registered composite, relative-strength percentile carrying most of the weight, then base tightness, then distance to the pivot; ties by relative strength. Weights fixed before the replay and logged in settings. Top 10 shown.
-7. **Shortlist in every regime.** In Red the top 20% are the stocks that fell least; no entries are allowed, but the Watch list is produced so it is ready for a follow-through day.
+1. **Relative-strength score:** weighted return over the last year, 40, 20, 20, 20 across the four quarters (latest first). Percentile rank on the pinned liquid universe. **Gate and first sort key:** top 20%. The skip-the-last-month variant (12-1) is logged as a diagnostic.
+2. **One trend template, 52 weeks, both markets:** close above the 50-, 150- and 200-day averages; 150-day above 200-day; 200-day rising versus a month ago; 50-day above 150-day; at least 30% above the 52-week low; within 25% of the 52-week high. **A filter, not a ranking input.**
+3. **Industry strength:** median relative strength of liquid members, **minimum five members**, falling back to the sector score below that. India classification: NSE's basic-industry field. US: a sub-industry map is needed and Tiingo does not supply one; source to be named at build. The sector gate (score 2 x 3-month + 1-month, so one-month momentum is kept at industry level) and the two-week persistence rule stay as the market-level filter.
+4. **Base quality at scan time, thresholds frozen:** tight = ATR over 10 sessions below 0.7 of ATR over 50; distance to the pivot within 5%.
+5. **Not extended, frozen:** more than 25% above the 50-day average is extended and skipped.
+6. **Breakout volume** (at least 150% of the 50-day average) is an **entry-day check**, not a scan test.
+7. **Ranked output:** a fixed composite, relative-strength percentile carrying most of the weight, then base tightness, then distance to the pivot; ties by relative strength; weights logged in settings before the replay. **Top 10 shown, at most 3 per industry**, so the list shows the next-best outside a crowded theme.
+8. **Shortlist in every regime.** In Red the Watch list is still produced, ready for a follow-through day.
 
-**Rule clarifications (these fix ambiguities in today's text)**
-- **Room.** "At least 3R (US) or 2R (India) of room" means distance from entry to the **nearest overhead resistance above the pivot**. It is **waived when the entry is at a 52-week or all-time high**, where there is no overhead supply. As written today ("room to the 50-day high") a base breakout, which triggers at the pivot, cannot pass.
-- **IPO base (setup 1ipo).** To stop the rule itself preventing the "hot listing" mistake: proposed minimum **40 sessions since listing and a formed base of at least 15 sessions**; numbers pre-registered with the owner before use.
-- **The US one-month lead over the sector ETF** stops being a gate. The one-month comparison stays as a flag on the shortlist ("lagging its sector"), never a gate, because one-month returns are where short-term reversal is strongest.
-- **Kept as they are:** regime filter, results-date test (more than 10 trading days; unknown is flagged, never passed; India dates from the NSE board-meeting announcements), stop-width limits, setups per regime, sizing, the daily cap.
+**Rule clarifications**
+- **Room, defined mechanically.** Overhead resistance = the **highest high of the prior 250 sessions, if it is above the pivot**; if not, there is none and the test is waived. Room is the distance from entry to that level, at least 3R (US) or 2R (India). The nearest swing-high resistance the trader types into the checklist at entry stays as the discretionary check; the scan uses the mechanical one so two implementations agree. The test therefore bites on stocks that are 10 to 25% below their highs.
+- **IPO base (setup 1ipo).** At least **65 sessions since listing** (past the 90-day anchor-investor unlock; SEBI's 2022 rule locks 50% of anchor shares for 30 days and the rest for 90) and a formed base of at least **15 sessions**. Flag the six-month pre-IPO shareholder unlock in India and the typical 180-day insider lock-up in the US.
+- **US one-month lead over the sector ETF:** a flag on the shortlist, shown and not buried, never a gate.
+- **Kept as they are:** regime filter, results-date test (more than 10 trading days; unknown is flagged, never passed; India dates from NSE board-meeting announcements), stop-width limits, setups per regime, sizing, the daily cap.
 - **Left out for now:** earnings-growth and fundamentals screens.
 
-## 7. Test plan, version 2
+## 7. Test plan, version 3
 
-**What is replayed.** Three versions: **A** today's rules, **codified** (for India, A is the Chartink template written as code and is an approximation of what was actually done by hand, not an exact replay); **B** relative-strength gate, one template, ranked output (rules 1, 2, 3, 6); **C** B plus base quality and the extension limit (rules 4 and 5). No further versions.
+**What is replayed.** Three versions: **A** today's rules, **codified** (for India, the Chartink template written as code, an approximation of what was done by hand, not an exact replay); **B** relative-strength gate, one template, ranked output, pinned universe (rules 1, 2, 3, 7); **C** B plus base quality and the extension limit (rules 4, 5). No further versions; the thresholds inside them are frozen in section 6.
 
-**Two stages, kept apart.**
-1. **Pick quality:** forward returns of each version's picks at **20 and 60 sessions**, against the liquid universe and the index. No setups, stops or exits, because exit rules can mask or manufacture a difference in pick quality.
-2. **Whole funnel:** the same picks run through setups, stops and exits, with costs. Costs use the Portfolio Manager's charges model plus a slippage assumption that rises for thinner names, since the widened universe is where slippage lives.
+**Two stages, kept apart.** (1) Pick quality: forward returns of each version's picks at **20 and 60 sessions** against the liquid universe and the index, with no setups, stops or exits. (2) Whole funnel: the same picks through setups, stops and exits with costs (the Portfolio Manager's charges model plus slippage that rises for thinner names).
 
-**Pre-registered pass criterion (proposal, owner to sign off before the replay).** The metric that decides is **median 20-session excess return over the liquid universe**. B or C must beat A by at least **1 percentage point**, and do so in at least **4 of 6 half-year sub-periods** within 2020 to 2023 (fit) and hold up in 2024 to 2026 (judge). If neither passes, A stays. The numbers are written down before the first run.
+**Data prerequisites.**
+- **Corporate actions for the whole universe**, 2020 to 2025, back-filled before any replay (not just held names): an unadjusted split corrupts the trend template, and the Swing Desk store starts in October 2025.
+- **NSE changed the daily-file format in 2024** (date to verify); the loader reads both layouts.
+- **US:** testing on current index members is flattered by survivorship unless the vendor keeps delisted tickers (to check with Tiingo); otherwise the US result is labelled flattered. The US judging window is almost all bull market, so it says little about Red and Yellow regimes.
 
-**Diagnostics, not extra versions** (they cost nothing in overfitting):
-- Split B's picks by whether the last month was their strongest quarter; if they underperform, the fix is a pre-registered variant later, not a tweak now.
-- Tag every pick with whether its sector was in the top 4 and whether it came through the bottom-up path, and compare the two groups. If outside-sector leaders do as well, widening the bottom-up path from pilot to full size becomes a later change.
+**Pre-registered criterion (version 3, replaces the earlier numbers).**
+- **Primary comparison:** the picks B (or C) makes that A does not (the symmetric difference), because A's picks are largely a subset of B's and the shared names contribute nothing to the difference.
+- **Metrics:** median, **mean and hit rate** of 20-session excess return over the liquid universe. Momentum's profit sits in the right tail and its losses in rebounds, so the median alone hides both.
+- **Out-of-sample test first:** same sign and at least half the in-sample margin in at least 3 of the 5 half-years from 2024-H1 to 2026-H1. The 2020 to 2023 fit window alone proves little.
+- **Report a block-bootstrap confidence interval** on the difference, not only pass or fail.
+- **The margin is derived, not chosen:** set from the dispersion of A's own picks before the first run. The earlier "1 percentage point" had no stated basis and is withdrawn.
+- **Sample size:** no judgement before about 300 non-overlapping picks per version per market; overlapping windows and shared names reduce the effective number.
+- **If neither B nor C passes, A stays.**
 
-**Data.**
-- **India:** NSE's daily file is point-in-time and includes names that later delisted, so it is survivorship-free once symbol changes are mapped. We hold about a year (from Oct 2025); the archive is loaded back to 2020 once, with splits and bonuses adjusted. The 2024 to 2026 judging window holds one correction (late 2024 to early 2025).
-- **US:** testing on current index members is flattered by survivorship. The honest fix is a vendor that keeps delisted tickers; otherwise the US result is labelled flattered. The US judging window is almost entirely a bull market, so it says little about Red and Yellow regimes.
+**Diagnostics, not extra versions:**
+- B's rules run on A's US ETF-holdings pool ("B-narrow"). If B-narrow beats A the rules help; if only the wide-universe B does, the gain is the universe, where slippage and lock-ups live.
+- B's picks split by whether the last month was their strongest quarter.
+- Picks tagged by whether the sector was in the top 4 and whether the pick came through the bottom-up path.
+- **Rebound check:** B's and C's results in the 60 sessions after every Red-to-Green transition (March to June 2020, November 2020, April 2025). If they lose to A there, the regime filter, not the screen, needs work.
 
 ## 8. Change management
 
-C-20 is split in two so the risky part waits for the test:
-- **C-20a: whole-market nightly scan infrastructure.** No rule change; a wider candidate list shown alongside today's. Can be built now.
-- **C-20b: the rule changes in section 6.** Adopted only after section 7 passes.
+C-20 is split in two:
+- **C-20a: whole-market nightly scan infrastructure.** No rule change; a wider candidate list shown alongside today's. Needs the corporate-action back-fill and the daily-file loader. Can be built now.
+- **C-20b: the rule changes in section 6.** Adopted only after the section 7 criterion passes.
 
 ## 9. Review 1 (11 Oct 2026): answers to the seven questions
 
-1. **One template for both markets:** yes. The US omissions are an artefact of the ETF-holdings pool, where every name already passes them; with a wider universe they do the work. 52 weeks in both.
-2. **Sector first or stock alone:** keep the sector gate in B; answer from the replay by tagging picks (section 7 diagnostics), not by design.
-3. **Relative strength:** both a gate and the first sort key; percentile on the liquid universe only.
-4. **US one-month lead:** replace with the same weighted relative-strength percentile; keep the one-month comparison as a flag only.
-5. **India data:** drop market cap; use a published index universe (Nifty Total Market, about 750 names, or Nifty 500 plus Microcap 250) for both the market-cap question and survivorship; the traded-value floor plus the 1% rule handle liquidity; results dates from NSE board-meeting announcements.
-6. **Ranking inside the shortlist:** a fixed, pre-registered composite (relative strength, then tightness, then distance to pivot), volume as an entry-day check.
-7. **Liquidity floors:** Rs 10 crore and Rs 50 are fine for India once the 1% rule exists (it binds first above about Rs 10 lakh); the US $50 million floor can come down to $10 to 20 million with a $10 minimum price; state floors against current swing capital.
+1. One template for both markets: yes; the US omissions come from the ETF-holdings pool. 52 weeks in both.
+2. Sector first or stock alone: keep the sector gate in B; answer from the replay tags.
+3. Relative strength: both gate and first sort key; percentile on the liquid universe only.
+4. US one-month lead: replace with the weighted percentile; keep the one-month comparison as a flag.
+5. India data: drop market cap; superseded in review 2 by the daily-file top-750 universe.
+6. Ranking: a fixed, pre-registered composite; volume as an entry-day check.
+7. Liquidity floors: Rs 10 crore and Rs 50 fine for India with the 1% rule; US floor down to $10 to 20 million with a $10 minimum.
 
-Open for the owner: sign-off on the pass criterion (section 7), the IPO-base numbers (section 6) and the lower US floor.
+## 10. Review 2 (11 Oct 2026): what was accepted and what was not
+
+**Accepted:** the out-of-sample pass criterion and the symmetric-difference comparison; bootstrap intervals; mean and hit rate beside the median; the derived margin; the bhavcopy top-750 universe (the index-list idea fails on history); corporate-action back-fill for the whole universe; the two daily-file layouts; the B-narrow diagnostic; the 65-session IPO minimum (40 sessions fell between the 30- and 90-day unlocks); frozen thresholds in C; the rebound check; the 3-per-industry cap on the top 10; the mechanical room definition; the pinned universe size and the 12-1 diagnostic; the five-member minimum for industry medians; excluding 2% and 5% price bands only; the 300-pick sample size; the 65-session US listing minimum.
+
+**Checked by me:** the Nifty Total Market launch date and its press-release contents (13 October 2021; index values, not earlier constituent lists). **Not checked by me:** the SEBI anchor lock-in rule (cited by the reviewer from law-firm notes), the 2024 daily-file format change, the momentum literature, and the claim that Tiingo's delisted-ticker coverage decides US survivorship.
+
+**One simplification to flag:** the mechanical room test uses the 52-week high as overhead resistance, which is the farthest level, not the nearest swing high. It is reproducible; the trader's own nearest-resistance check at entry covers the nearer levels.
+
+**Still for the owner to sign off:** the derived-margin method for the pass criterion (section 7), the 65-session IPO minimum with the 15-session base, and the lower US floor.
