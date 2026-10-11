@@ -1,6 +1,6 @@
 # How a stock is shortlisted: India and US (brief for review)
 
-Status as at 11 Oct 2026. Source: `docs/ENGINE_RULES.md` (rules) and `src/ingest/us-screen.ts` (the US code). This brief describes what is live, what is manual, and what is proposed. Nothing here is a new rule except section 4.
+Status as at 11 Oct 2026 (sections 6 and 7 added the same evening). Source: `docs/ENGINE_RULES.md` (rules) and `src/ingest/us-screen.ts` (the US code). This brief describes what is live, what is manual, and what is proposed. Nothing here is a new rule except section 4.
 
 ## 1. The funnel, both markets
 
@@ -36,7 +36,7 @@ The sector gate and ranking already run from the official NSE index file. The st
 
 Then the same setup, stop, room (2R, not 3R) and results-date checks as the US. Setup 3 (earnings gap) is allowed in India. India VIX above 20 halves risk per trade. The RS-leader test for India is: top 20% of the Nifty 500 on 3- or 6-month return.
 
-## 4. Proposed (change C-20, not built): one whole-market nightly scan
+## 4. Proposed in outline (change C-20, not built): one whole-market nightly scan
 
 Apply one trend template to every liquid listed stock each night in both markets, with a relative-strength percentile rank, instead of the US ETF-holdings pool and the manual India scan. Liquidity floors differ by market. The data for India is already stored (daily NSE file with adjusted averages). Purpose: find smaller stocks outside the sector indexes.
 
@@ -53,7 +53,28 @@ Apply one trend template to every liquid listed stock each night in both markets
 | Setups | 1, 1ipo, 2, 4 | 1, 1ipo, 2, 3, 4 |
 | Max positions (Green) | 4 | 10 |
 
-## 6. Questions for the reviewer
+## 6. Proposed rule set (for review; replaces section 4's outline)
+
+Principle: buy the strongest stocks in a healthy market. The evidence is strongest for relative-strength momentum and for trading near 52-week highs; both can fail in sharp rebounds after a bear market, which the regime filter is there to limit. Chart-pattern tests (tight bases, volume dry-up) are trader practice with little formal evidence, so they are tested before they are adopted.
+
+**Same logic in India and the US, applied to every liquid stock each night:**
+1. **Relative-strength score.** Weighted return over the last year, leaning on the last 3 months (weights about 40, 20, 20, 20 across the four quarters). Rank by percentile across the liquid universe. Gate: top 20%.
+2. **One full trend template:** close above the 50-, 150- and 200-day averages; 150-day above 200-day; 200-day rising versus a month ago; 50-day above 150-day; at least 30% above the 52-week low; within 25% of the 52-week high. 52 weeks in both markets (the US currently uses 50 sessions).
+3. **Industry-group strength.** Score each industry by the average relative strength of its members; replace the US "top 10 holdings of 4 ETFs" pool and India's coarse sector indices. Keep the sector gate and persistence rule as a market-level filter until the industry ranking is tested.
+4. **Base quality (tested first, adopted only if it helps):** daily range narrowing over the last 10 to 15 sessions; price within 5% of the pivot; breakout volume at least 150% of the 50-day average.
+5. **Not extended:** skip a stock too far above its 50-day average (limit set by test).
+6. **Liquidity scaled to the trade:** planned position at most about 1% of the stock's 20-day average traded value, plus the existing floors.
+7. **Ranked output:** show the top 10 ranked by relative strength, base tightness, volume and distance from the pivot, not an unordered list.
+8. **Kept as they are:** regime filter, results-date test (more than 10 trading days), stop-width limits, room (3R US, 2R India), the setups per regime, sizing and the daily entry cap.
+9. **Left out for now:** earnings-growth and fundamentals screens (a second data source and system; add later if wanted).
+
+## 7. Test plan (before any rule is adopted)
+
+Replay each version on past data and compare the forward returns, hit rate and R-multiples of its picks against the whole market. Three versions: **A** today's rules; **B** relative-strength gate plus the full template plus ranked output (1, 2, 3, 7); **C** B plus base quality and the extension limit (4, 5). Fit on 2020 to 2023 and judge on 2024 to 2026 so the rules are not tuned to the past; no more than these three versions, to limit overfitting.
+
+Data limits: India stores about a year of daily files (from Oct 2025); NSE's archive would be loaded back to 2020 once, with splits and bonuses adjusted. US: testing on current index members flatters results because stocks that later left are missing; the history available depends on the data plan.
+
+## 8. Questions for the reviewer
 
 1. Should the two markets share one trend template? The US screen skips the 150-day, rising 200-day and 52-week proximity tests that India uses, and uses 50-session highs and lows instead of 52 weeks.
 2. Should a stock be allowed only inside a top-4 sector, or may a stock outside the sector indexes qualify on its own? Engine Rules say sector first, but C-20 aims to find stocks outside the indexes. A "bottom-up leader" path (3 or more stocks of one industry passing) already exists as pilot size only.
