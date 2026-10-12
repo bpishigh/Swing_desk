@@ -5,7 +5,7 @@ export interface FundMatch { code: string; isin: string; name: string; category:
 export interface FundResult { match: FundMatch | null; reason?: string }
 
 const STOP = new Set(['fund', 'plan', 'option', 'scheme', 'the', 'of', 'and', 'a', 'growth', 'direct', 'regular', 'idcw', 'dividend', 'payout', 'reinvestment', 'bonus', 'cum', 'capital', 'withdrawal', 'income', 'distribution']);
-const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').replace(/\bfof\b/g, 'fund of funds').trim();
+const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').replace(/\bfof\b/g, 'fund of funds').replace(/\b(mid|small|large|flexi|multi) cap\b/g, '$1cap').trim();
 const flags = (s: string) => { const n = norm(s); return { plan: /\bdirect\b/.test(n) ? 'direct' : /\bregular\b/.test(n) ? 'regular' : 'unknown', option: /\b(idcw|dividend|payout|reinvestment)\b/.test(n) ? 'idcw' : /\bgrowth\b/.test(n) ? 'growth' : /\bbonus\b/.test(n) ? 'bonus' : 'unknown' }; };
 const tokens = (s: string) => new Set(norm(s).split(' ').filter((t) => t && !STOP.has(t)));
 const jacc = (a: Set<string>, b: Set<string>) => { let i = 0; for (const x of a) if (b.has(x)) i++; return i / (a.size + b.size - i || 1); };
