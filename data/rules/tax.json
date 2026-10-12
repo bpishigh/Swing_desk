@@ -1,13 +1,136 @@
 {
-  "note": "Dated tax rules (design section 7, researched 11 Oct 2026). Rates exclude surcharge and cess. Decision support, not tax advice. Rows marked Medium or Low are unverified against primary text.",
-  "types": {
-    "listed_equity": { "label": "Listed shares and equity-oriented funds/ETFs", "long_after_days": 365, "exemption": true, "confidence": "High",
-      "rules": [ { "transfer_from": "2000-01-01", "stcg": 0.15, "ltcg": 0.10, "exemption": 100000 }, { "transfer_from": "2024-07-23", "stcg": 0.20, "ltcg": 0.125, "exemption": 125000 } ] },
-    "gold_silver_etf": { "label": "Gold and silver ETFs", "long_after_days": 365, "exemption": false, "confidence": "Medium",
-      "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ], "note": "Pre-2025 transfers of lots bought before 1 Apr 2023 and the 2023-2025 deemed short-term window are not modelled: treated with the 12-month rule and flagged" },
-    "intl_etf": { "label": "Listed international ETFs", "long_after_days": 365, "exemption": false, "confidence": "Medium", "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ] },
-    "us_stock": { "label": "US stocks", "long_after_days": 730, "exemption": false, "confidence": "Medium", "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ] },
-    "fund_unclassified": { "label": "Mutual fund, tax class not yet known", "long_after_days": null, "exemption": false, "confidence": "Low", "rules": [] }
+ "note": "Dated tax rules (design section 7, researched 11 Oct 2026). Rates exclude surcharge and cess. Decision support, not tax advice. Rows marked Medium or Low are unverified against primary text.",
+ "types": {
+  "listed_equity": {
+   "label": "Listed shares and equity-oriented funds/ETFs",
+   "long_after_days": 365,
+   "exemption": true,
+   "confidence": "High",
+   "rules": [
+    {
+     "transfer_from": "2000-01-01",
+     "stcg": 0.15,
+     "ltcg": 0.1,
+     "exemption": 100000
+    },
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": 0.2,
+     "ltcg": 0.125,
+     "exemption": 125000
+    }
+   ]
   },
-  "carry_forward_years": 8
+  "gold_silver_etf": {
+   "label": "Gold and silver ETFs",
+   "long_after_days": 365,
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ],
+   "note": "Pre-2025 transfers of lots bought before 1 Apr 2023 and the 2023-2025 deemed short-term window are not modelled: treated with the 12-month rule and flagged"
+  },
+  "intl_etf": {
+   "label": "Listed international ETFs",
+   "long_after_days": 365,
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ]
+  },
+  "us_stock": {
+   "label": "US stocks",
+   "long_after_days": 730,
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ]
+  },
+  "fund_unclassified": {
+   "label": "Mutual fund, tax class not yet known",
+   "long_after_days": null,
+   "exemption": false,
+   "confidence": "Low",
+   "rules": []
+  },
+  "equity_fund": {
+   "label": "Equity-oriented mutual funds (65% or more in domestic equity), incl. ELSS and index funds",
+   "long_after_days": 365,
+   "exemption": true,
+   "confidence": "High",
+   "rules": [
+    {
+     "transfer_from": "2000-01-01",
+     "stcg": 0.15,
+     "ltcg": 0.1,
+     "exemption": 100000
+    },
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": 0.2,
+     "ltcg": 0.125,
+     "exemption": 125000
+    }
+   ]
+  },
+  "debt_fund": {
+   "label": "Debt, liquid and money-market funds",
+   "long_after_days": 730,
+   "deemed_short_if_bought_on_or_after": "2023-04-01",
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ],
+   "note": "Bought on or after 1 Apr 2023: slab rate at any holding period. Bought earlier: more than 24 months for transfers from 23 Jul 2024 (12.5%); the older 36-month indexed rule for earlier transfers is not modelled and is flagged"
+  },
+  "hybrid_other": {
+   "label": "Hybrid funds with 35% to 65% in domestic equity",
+   "long_after_days": 730,
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ],
+   "note": "to verify"
+  },
+  "overseas_fof": {
+   "label": "Overseas and gold fund-of-funds (unlisted)",
+   "long_after_days": 730,
+   "exemption": false,
+   "confidence": "Medium",
+   "rules": [
+    {
+     "transfer_from": "2024-07-23",
+     "stcg": "slab",
+     "ltcg": 0.125
+    }
+   ],
+   "note": "24 months inferred from AMC tax reckoners; bought 1 Apr 2023 to 31 Mar 2025 and sold before 1 Apr 2025 may be deemed short-term at any period under the old test: flagged, not modelled"
+  }
+ },
+ "carry_forward_years": 8
 }

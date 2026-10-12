@@ -16,14 +16,16 @@ export function taxView(rep: Replay, typeOf: (key: string) => AssetType, expense
     const f = fy(r.sellDate); const m = byFy.get(f) ?? byFy.set(f, new Map()).get(f)!;
     const line = m.get(type) ?? m.set(type, { fy: f, type, stcg: 0, ltcg: 0, confidence: rule.confidence, unlabeled: 0 }).get(type)!;
     const gain = r.gain - expense(r);
-    const longAfter = rule.long_after_days;
+    const rr0 = rule as { long_after_days: number | null; deemed_short_if_bought_on_or_after?: string };
+    const longAfter = rr0.deemed_short_if_bought_on_or_after && r.buyDate >= rr0.deemed_short_if_bought_on_or_after ? 1e9 : rr0.long_after_days;
     if (longAfter === null) { line.unlabeled += gain; continue; }
     if (r.days > longAfter) line.ltcg += gain; else line.stcg += gain;
   }
   const out: TaxYear[] = []; let carryS = 0, carryL = 0; const ys = [...byFy.keys()].sort();
   for (const f of ys) {
     const lines = [...byFy.get(f)!.values()];
-    const eq = lines.find((l) => l.type === 'listed_equity') ?? { stcg: 0, ltcg: 0 };
+    const pool = lines.filter((l) => rules.types[l.type].exemption);                      // listed equity and equity funds share set-off and the exemption
+    const eq = { stcg: pool.reduce((a, l) => a + l.stcg, 0), ltcg: pool.reduce((a, l) => a + l.ltcg, 0) };
     const ruleRows = rules.types.listed_equity.rules.filter((x) => x.transfer_from <= `${f.slice(0, 4)}-10-01`).sort((a, b) => b.transfer_from.localeCompare(a.transfer_from));
     const rr = ruleRows[0] ?? rules.types.listed_equity.rules[0];
     let s = eq.stcg - carryS, l = eq.ltcg - carryL; // earlier carried losses first (unconfirmed)
@@ -34,7 +36,7 @@ export function taxView(rep: Replay, typeOf: (key: string) => AssetType, expense
     const used = Math.min(afterSetoff, rr.exemption), taxL = afterSetoff - used;
     const tax = taxS * (rr.stcg as number) + taxL * (rr.ltcg as number);
     carryS = stcl; carryL = ltcl;
-    const slab = lines.filter((x) => x.type !== 'listed_equity').reduce((a, x) => a + x.stcg + x.ltcg, 0);
+    const slab = lines.filter((x) => !rules.types[x.type].exemption).reduce((a, x) => a + x.stcg + x.ltcg, 0);
     out.push({ fy: f, lines, equity: { stcg: eq.stcg, ltcg: eq.ltcg, ltcgAfterSetoff: afterSetoff, exemption: rr.exemption, exemptionUsed: used, taxable: { stcg: taxS, ltcg: taxL }, tax: Math.round(tax) }, slabGains: Math.round(slab), carryForward: { stcl, ltcl, unconfirmed: true }, openBreaks: rep.breaks.length, banner: rep.breaks.length ? `${rep.breaks.length} sell(s) with no buy are left out of these totals until resolved` : null });
   }
   return out;

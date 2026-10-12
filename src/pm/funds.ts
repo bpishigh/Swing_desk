@@ -30,3 +30,18 @@ export class FundMaster {
     const r = top.x.row; return { match: { code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4], how: 'name', score: top.s } };
   }
 }
+
+export type FundTaxType = 'equity_fund' | 'debt_fund' | 'hybrid_other' | 'overseas_fof' | 'fund_unclassified';
+/** Tax class of a fund from its AMFI category (design section 7). Anything the category does not settle stays unclassified, shown with a flag. */
+export function fundTaxType(category: string, name = ''): FundTaxType {
+  const c = category.toLowerCase(), n = name.toLowerCase();
+  if (/fof overseas|overseas|international/.test(c) || /gold|silver/.test(n) && /fund of fund|fof/.test(n + ' ' + c)) return 'overseas_fof';
+  if (/index fund|etf/.test(c) && /gold|silver/.test(n)) return 'overseas_fof';
+  if (/arbitrage/.test(c) || /balanced advantage|dynamic asset/.test(c)) return 'equity_fund';
+  if (/aggressive hybrid|equity savings/.test(c)) return /equity savings/.test(c) ? 'hybrid_other' : 'equity_fund';
+  if (/^equity scheme/.test(c) || /elss|index fund|sectoral|thematic/.test(c) && !/debt/.test(c)) return 'equity_fund';
+  if (/index funds|other scheme - index|other scheme - etf/.test(c)) return /nifty|sensex|bse|nasdaq|s&p/.test(n) && !/nasdaq|s&p ?500|us /.test(n) ? 'equity_fund' : 'fund_unclassified';
+  if (/debt|income|liquid|money market|gilt|overnight|ultra short|low duration|floater|corporate bond|credit risk|banking and psu|short duration|medium duration|long duration|dynamic bond/.test(c)) return 'debt_fund';
+  if (/multi asset|conservative hybrid|hybrid/.test(c)) return 'hybrid_other';
+  return 'fund_unclassified';
+}

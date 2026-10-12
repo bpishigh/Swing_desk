@@ -1,7 +1,7 @@
 // Tax/charge class of an instrument. Heuristic on name and kind, overridable per ISIN in data/portfolio/instrument-overrides.json
 // (the AMFI category replaces the heuristic for funds when the fund-data adapter lands). Unknown funds stay unclassified: no guess.
 import type { Trade } from './reader.ts';
-export type AssetType = 'listed_equity' | 'gold_silver_etf' | 'intl_etf' | 'us_stock' | 'fund_unclassified';
+export type AssetType = 'listed_equity' | 'gold_silver_etf' | 'intl_etf' | 'us_stock' | 'equity_fund' | 'debt_fund' | 'hybrid_other' | 'overseas_fof' | 'fund_unclassified';
 export function assetType(t: Pick<Trade, 'instrument' | 'isin' | 'kind'>, overrides: Record<string, AssetType> = {}): AssetType {
   if (overrides[t.isin]) return overrides[t.isin];
   const n = t.instrument.toLowerCase();

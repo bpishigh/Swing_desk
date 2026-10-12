@@ -9,6 +9,8 @@ import { assetType } from '../src/pm/classify.ts';
 import { orderCharges } from '../src/pm/charges.ts';
 import { taxView } from '../src/pm/tax.ts';
 import { computeDividends } from '../src/pm/dividends.ts';
+import { FundMaster, fundTaxType } from '../src/pm/funds.ts';
+import { replay } from '../src/pm/ledger.ts';
 import { canonicalise } from '../src/pm/lineage.ts';
 import { buildCatalogue, ipoCandidates } from '../src/pm/nse-catalogue.ts';
 const [broker, ...rest] = process.argv.slice(2);
@@ -33,14 +35,22 @@ const typeByKey = new Map(); for (const t of stocks) if (!typeByKey.has(t.isin |
 const nameByKey = new Map(); for (const t of stocks) nameByKey.set(t.isin || t.instrument.toUpperCase(), t.instrument);
 const synth = (r, side, value, date) => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
 const expense = (r) => { const ty = typeByKey.get(r.key) ?? 'listed_equity'; return orderCharges(synth(r, 'buy', r.cost, r.buyDate), ty, broker, charges).deductible + orderCharges(synth(r, 'sell', r.proceeds, r.sellDate), ty, broker, charges, true).deductible; };
-const years = taxView(res.replay, (k) => typeByKey.get(k) ?? 'listed_equity', expense, rules);
+// funds: scheme -> AMFI code/ISIN/category (ISIN first, then name); FIFO per scheme; cost is the amount paid (stamp duty is taken before units)
+const fm = new FundMaster(JSON.parse(readFileSync('data/rules/amfi-schemes.json', 'utf8')).rows, JSON.parse(readFileSync('data/rules/fund-overrides.json', 'utf8')).records);
+const fundTrades = []; const unmapped = new Set();
+for (const t of funds) { const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; } typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); fundTrades.push({ ...t, isin: x.match.isin }); }
+const fundRep = replay(fundTrades, 365);
+const combined = { open: [...res.replay.open, ...fundRep.open], realised: [...res.replay.realised, ...fundRep.realised], breaks: [...res.replay.breaks, ...fundRep.breaks], applied: [] };
+const isFund = (k) => !!typeByKey.get(k) && /fund|fof|hybrid/.test(typeByKey.get(k));
+const years = taxView(combined, (k) => typeByKey.get(k) ?? 'listed_equity', (r) => (isFund(r.key) ? 0 : expense(r)), rules);
+if (funds.length) console.log(`fund orders ${funds.length}: mapped ${fundTrades.length}, unmapped schemes ${unmapped.size}${unmapped.size ? ' (' + [...unmapped].join('; ') + ')' : ''}; open fund breaks ${fundRep.breaks.length}`);
 console.log(`files ${rest.length}; trades ${m.trades.length} (duplicates dropped ${m.duplicates}); orders ${orders.length}; stock orders ${stocks.length}; fund orders ${funds.length}`);
 console.log(`open lots ${res.replay.open.length}; applied ${res.applied.length}; proposed ${res.proposed.length}; unexplained ${res.unexplained.length}`);
 for (const x of skipped) console.log('  NEEDS RECORD', x.symbol, x.exDate, x.why);
 console.log('events applied from NSE history:', res.facts.length);
 for (const p of [...res.applied, ...res.proposed]) console.log('  ' + p.status.toUpperCase(), (nameByKey.get(p.event.key) ?? p.event.key), p.why.slice(0, 110));
 for (const b of res.unexplained) console.log('  OPEN SELL', (nameByKey.get(b.key) ?? b.key).padEnd(28), b.date, 'qty', b.qty);
-for (const y of years) console.log(`FY ${y.fy}: equity STCG ${Math.round(y.equity.stcg)}  LTCG ${Math.round(y.equity.ltcg)}  exemption used ${y.equity.exemptionUsed}  est. tax ${y.equity.tax}  other-type gains (slab) ${y.slabGains}`);
+for (const y of years) console.log(`FY ${y.fy}: equity+equity-fund STCG ${Math.round(y.equity.stcg)}  LTCG ${Math.round(y.equity.ltcg)}  exemption used ${y.equity.exemptionUsed}  est. tax ${y.equity.tax}  other-type gains (slab) ${y.slabGains}`);
 if (years.length) console.log('banner:', years[0].banner);
 
 if (useNse) {
