@@ -1,19 +1,21 @@
 {
- "ts": "2026-10-11T03:04:04.960Z",
- "date": "2026-10-09",
+ "ts": "2026-10-12T13:37:40.901Z",
+ "date": "2026-10-12",
  "status": "written",
- "fetched": [],
+ "fetched": [
+  "2026-10-12"
+ ],
  "skipped": [],
  "notPublished": false,
- "sessionsStored": 242,
- "stocks": 2909,
+ "sessionsStored": 243,
+ "stocks": 2924,
  "flags": [
-  "2420 of 2909 stocks have a 200 SMA; 2642 have a warm EMA",
+  "2427 of 2924 stocks have a 200 SMA; 2651 have a warm EMA",
   "corporate actions: 97 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 1 unresolved (averages omitted), 1 older than the averages now reach",
   "NSE circulars: 48 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 252,
+  "checked": 266,
   "newlyRead": 0,
   "unreadable": [],
   "errors": 0,
