@@ -7,7 +7,7 @@ import type { Trade } from './reader.ts';
 export interface GrantCandidate { kind: 'ipo' | 'rights'; key: string; date: string; unitCost: number; lotSize?: number; windowDays: number; source: string; estimate?: boolean; instrument?: string }
 export interface Catalogue { facts: CorpEvent[]; candidates: GrantCandidate[] }
 export interface Proposal { break: Break; event: CorpEvent; why: string; status: 'applied' | 'proposed' }
-export interface Resolution { replay: Replay; applied: Proposal[]; proposed: Proposal[]; unexplained: Break[]; facts: string[] }
+export interface Resolution { events: CorpEvent[]; replay: Replay; applied: Proposal[]; proposed: Proposal[]; unexplained: Break[]; facts: string[] }
 
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 const remaining = (r: Replay, k: string) => r.breaks.filter((b) => b.key === k).reduce((a, b) => a + b.qty, 0);
@@ -52,5 +52,5 @@ export function resolve(trades: Trade[], cat: Catalogue, overrides: CorpEvent[] 
   }
   const final = replay(trades, longAfterDays, events);
   const open = new Set(proposed.map((p) => p.event.type === 'grant' ? p.event.key : ''));
-  return { replay: final, applied, proposed, unexplained: final.breaks.filter((b) => !open.has(b.key) || remaining(final, b.key) > 0), facts: final.applied };
+  return { events, replay: final, applied, proposed, unexplained: final.breaks.filter((b) => !open.has(b.key) || remaining(final, b.key) > 0), facts: final.applied };
 }

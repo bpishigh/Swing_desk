@@ -8,6 +8,7 @@ import { resolve } from '../src/pm/resolver.ts';
 import { assetType } from '../src/pm/classify.ts';
 import { orderCharges } from '../src/pm/charges.ts';
 import { taxView } from '../src/pm/tax.ts';
+import { computeDividends } from '../src/pm/dividends.ts';
 import { canonicalise } from '../src/pm/lineage.ts';
 import { buildCatalogue, ipoCandidates } from '../src/pm/nse-catalogue.ts';
 const [broker, ...rest] = process.argv.slice(2);
@@ -41,3 +42,8 @@ for (const p of [...res.applied, ...res.proposed]) console.log('  ' + p.status.t
 for (const b of res.unexplained) console.log('  OPEN SELL', (nameByKey.get(b.key) ?? b.key).padEnd(28), b.date, 'qty', b.qty);
 for (const y of years) console.log(`FY ${y.fy}: equity STCG ${Math.round(y.equity.stcg)}  LTCG ${Math.round(y.equity.ltcg)}  exemption used ${y.equity.exemptionUsed}  est. tax ${y.equity.tax}  other-type gains (slab) ${y.slabGains}`);
 if (years.length) console.log('banner:', years[0].banner);
+
+if (useNse) {
+  const dy = computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, feed, canon.lineage, JSON.parse(readFileSync('data/rules/dividend.json', 'utf8')));
+  for (const y of dy) console.log(`DIVIDENDS (computed) FY ${y.fy}: gross ${y.gross}  TDS ${y.tds}  net ${y.net}  (${y.lines.length} payments)`);
+}
