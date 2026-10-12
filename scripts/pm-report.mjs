@@ -11,6 +11,7 @@ import { taxView } from '../src/pm/tax.ts';
 import { computeDividends } from '../src/pm/dividends.ts';
 import { FundMaster, fundTaxType } from '../src/pm/funds.ts';
 import { replay } from '../src/pm/ledger.ts';
+import { performance } from '../src/pm/performance.ts';
 import { canonicalise } from '../src/pm/lineage.ts';
 import { buildCatalogue, ipoCandidates } from '../src/pm/nse-catalogue.ts';
 const [broker, ...rest] = process.argv.slice(2);
@@ -56,4 +57,28 @@ if (years.length) console.log('banner:', years[0].banner);
 if (useNse) {
   const dy = computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, feed, canon.lineage, JSON.parse(readFileSync('data/rules/dividend.json', 'utf8')));
   for (const y of dy) console.log(`DIVIDENDS (computed) FY ${y.fy}: gross ${y.gross}  TDS ${y.tds}  net ${y.net}  (${y.lines.length} payments)`);
+}
+
+// ---- performance: XIRR on dated cash flows; holdings valued at the latest stored NSE close (stocks, ETFs) and latest AMFI NAV (funds)
+{
+  const bhavDir = 'data/india/bhav'; const { readdirSync } = await import('node:fs');
+  const latest = readdirSync(bhavDir).filter((f) => f.endsWith('.json')).sort().pop(); const bhav = JSON.parse(readFileSync(`${bhavDir}/${latest}`, 'utf8'));
+  const symOf = new Map(); for (const t of canon.trades.filter((x) => x.kind !== 'fund')) symOf.set(t.isin, (t.symbol ?? t.instrument).toUpperCase());
+  const latestEx = new Map(); for (const r of feed) { const k = canon.lineage.key(r.symbol, r.isin); if (symOf.has(k) && (!latestEx.has(k) || latestEx.get(k) < r.exDate)) { latestEx.set(k, r.exDate); if (bhav.rows[r.symbol]) symOf.set(k, r.symbol); } }
+  const navOf = new Map(); const navDate = new Map(); for (const t of funds) { const x = fm.resolve(t.instrument, t.isin); if (x.match) { navOf.set(x.match.isin, x.match.nav); navDate.set(x.match.isin, x.match.navDate); } }
+  let held = 0, unvalued = []; const lastOrderPrice = new Map(); for (const t of fundTrades) lastOrderPrice.set(t.isin, t.price);
+  for (const l of combined.open) {
+    if (typeByKey.get(l.key) && /fund|fof|hybrid/.test(typeByKey.get(l.key))) { const nav = navOf.get(l.key) ?? lastOrderPrice.get(l.key); held += l.qty * nav; if (!navOf.get(l.key)) unvalued.push('fund at last order NAV: ' + (nameByKey.get(l.key) ?? l.key)); continue; }
+    const px = bhav.rows[symOf.get(l.key)]?.[5]; if (px) held += l.qty * px; else unvalued.push(nameByKey.get(l.key) ?? l.key);
+  }
+  const ords = [];
+  const ch = (t) => { const ty = typeByKey.get(t.isin || t.instrument.toUpperCase()) ?? 'listed_equity'; return /fund|fof|hybrid/.test(ty) ? 0 : orderCharges(t, ty, broker, charges).total; };
+  for (const t of stocks) ords.push({ date: t.date, side: t.side, value: t.value, charges: ch(t) });
+  for (const t of fundTrades) ords.push({ date: t.date, side: t.side, value: t.value, charges: 0 });
+  for (const e of res.events) if (e.type === 'grant' && e.unitCost > 0) ords.push({ date: e.date, side: 'buy', value: e.qty * e.unitCost, charges: 0 });
+  const dv = useNse ? computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, feed, canon.lineage, JSON.parse(readFileSync('data/rules/dividend.json', 'utf8'))).flatMap((y) => y.lines.map((l) => ({ date: l.exDate, net: l.net }))) : [];
+  const p = performance({ orders: ords, dividends: dv, holdingsValue: held, asOf: latest.slice(0, 10) });
+  const pc = (x) => (x === null ? 'n/a' : (x * 100).toFixed(1) + '%');
+  console.log(`PERFORMANCE as of ${p.asOf}: invested ${Math.round(p.invested)}, sold ${Math.round(p.sold)}, held now ${Math.round(p.held)}, computed dividends ${Math.round(p.dividends)}, gain ${Math.round(p.gain)} (price-only), XIRR price-only ${pc(p.xirrPriceOnly)}, with dividends ${pc(p.xirrWithDividends)}`);
+  if (unvalued.length) console.log('  not valued:', unvalued.slice(0, 8).join('; '));
 }
