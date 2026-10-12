@@ -1,15 +1,14 @@
 // Minimal xlsx reader with no dependencies: zip central directory, shared strings, cell values of every sheet.
-// Runs in Node (node:zlib). The browser build swaps inflate for DecompressionStream; the parsing is the same.
-import { inflateRawSync } from 'node:zlib';
+// readXlsx is sync (Node, zlib found at call time); readXlsxAsync uses DecompressionStream and runs in the browser. The parsing is shared.
 
-function unzip(buf: Uint8Array): Map<string, Uint8Array> {
+function unzipRaw(buf: Uint8Array): Map<string, { method: number; data: Uint8Array }> {
   const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 70000); i--) if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
   if (eocd < 0) throw new Error('not a zip file');
   const count = dv.getUint16(eocd + 10, true);
   let p = dv.getUint32(eocd + 16, true);
-  const out = new Map<string, Uint8Array>();
+  const out = new Map<string, { method: number; data: Uint8Array }>();
   for (let n = 0; n < count; n++) {
     if (dv.getUint32(p, true) !== 0x02014b50) throw new Error('bad zip directory');
     const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
@@ -18,7 +17,8 @@ function unzip(buf: Uint8Array): Map<string, Uint8Array> {
     const name = new TextDecoder().decode(buf.subarray(p + 46, p + 46 + nlen));
     const lnlen = dv.getUint16(lho + 26, true), lelen = dv.getUint16(lho + 28, true);
     const data = buf.subarray(lho + 30 + lnlen + lelen, lho + 30 + lnlen + lelen + csize);
-    out.set(name, method === 0 ? data : method === 8 ? new Uint8Array(inflateRawSync(data)) : (() => { throw new Error('zip method ' + method); })());
+    if (method !== 0 && method !== 8) throw new Error('zip method ' + method);
+    out.set(name, { method, data });
     p += 46 + nlen + elen + clen;
   }
   return out;
@@ -30,8 +30,25 @@ const textOf = (xml: string) => [...xml.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].ma
 
 export interface Sheet { name: string; rows: string[][] }
 
+function nodeInflate(): (d: Uint8Array) => Uint8Array {
+  const z = (globalThis as any).process?.getBuiltinModule?.('node:zlib');
+  if (!z) throw new Error('sync xlsx reading needs Node; use readXlsxAsync');
+  return (d) => new Uint8Array(z.inflateRawSync(d));
+}
 export function readXlsx(buf: Uint8Array): Sheet[] {
-  const files = unzip(buf);
+  const inf = nodeInflate();
+  return parseSheets(new Map([...unzipRaw(buf)].map(([k, v]) => [k, v.method === 0 ? v.data : inf(v.data)])));
+}
+async function inflateWeb(d: Uint8Array): Promise<Uint8Array> {
+  const stream = new Blob([d as BlobPart]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+export async function readXlsxAsync(buf: Uint8Array): Promise<Sheet[]> {
+  const out = new Map<string, Uint8Array>();
+  for (const [k, v] of unzipRaw(buf)) out.set(k, v.method === 0 ? v.data : await inflateWeb(v.data));
+  return parseSheets(out);
+}
+function parseSheets(files: Map<string, Uint8Array>): Sheet[] {
   const dec = (n: string) => { const f = files.get(n); return f ? new TextDecoder().decode(f) : ''; };
   const shared = [...dec('xl/sharedStrings.xml').matchAll(/<si[^>]*>([\s\S]*?)<\/si>/g)].map((m) => textOf(m[1]));
   const wb = dec('xl/workbook.xml');

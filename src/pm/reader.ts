@@ -1,7 +1,6 @@
 // Any-platform order/tradebook reader (design section 11.1). Deterministic, no model call, no network.
 // Input: rows of strings (from csv.ts or xlsx.ts). Output: normalised trades, the detected profile, identity found in the
 // preamble (in memory only: the caller hashes it into an account alias and drops it), and issues.
-import { createHmac } from 'node:crypto';
 
 export type Side = 'buy' | 'sell';
 export interface Trade {
@@ -208,4 +207,4 @@ export function aggregateFills(trades: Trade[]): Trade[] {
   }
   return out;
 }
-export const accountAlias = (clientCode: string, salt: string): string => 'A' + createHmac('sha256', salt).update(clientCode.trim().toUpperCase()).digest('hex').slice(0, 8);
+export const accountAlias = (clientCode: string, salt: string): string => 'A' + (globalThis as any).process.getBuiltinModule('node:crypto').createHmac('sha256', salt).update(clientCode.trim().toUpperCase()).digest('hex').slice(0, 8); // Node only; the browser never writes aliases

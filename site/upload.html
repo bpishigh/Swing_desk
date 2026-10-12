@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio Manager</title>
+<meta name="robots" content="noindex">
+<style>
+:root { --bg:#f5f4f0; --panel:#fff; --ink:#1d2327; --muted:#5d6870; --line:#dedbd3; --accent:#1f5f8b; --green:#17693a; --red:#a1261b; --yellow:#7a5a00; --yellow-bg:#f8ecc4; --font: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono: ui-monospace,Menlo,Consolas,monospace; }
+@media (prefers-color-scheme: dark) { :root { --bg:#14181b; --panel:#1c2226; --ink:#e6e9ea; --muted:#98a3a9; --line:#333c42; --accent:#6cb2e0; --green:#6fd197; --red:#ff8f84; --yellow:#e8c45c; --yellow-bg:#3b3210; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 var(--font); }
+.wrap { max-width:1100px; margin:0 auto; padding:16px 16px 48px; }
+h1 { font-size:20px; margin:0 0 4px; } h2 { font-size:15px; margin:0 0 8px; }
+a { color:var(--accent); } .sub { color:var(--muted); font-size:12.5px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px; margin:12px 0; overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; } th,td { text-align:right; padding:5px 8px; border-bottom:1px solid var(--line); white-space:nowrap; } th:first-child,td:first-child { text-align:left; } th { color:var(--muted); font-weight:500; }
+.neg { color:var(--red); } .pos { color:var(--green); }
+.note { background:var(--yellow-bg); color:var(--yellow); border-radius:6px; padding:8px 10px; margin:6px 0; font-size:13px; }
+.kpis { display:flex; flex-wrap:wrap; gap:10px 28px; } .kpis div { min-width:120px; } .kpis b { display:block; font:600 18px var(--mono); } .kpis span { color:var(--muted); font-size:12px; }
+.row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+button, select, input[type=file] { font:inherit; } button { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; } button:disabled { opacity:.5; }
+.tag { font-size:11px; padding:1px 6px; border-radius:10px; background:var(--yellow-bg); color:var(--yellow); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="sub"><a href="index.html">← Repo Desk</a></div>
+  <h1>Portfolio Manager</h1>
+  <div class="sub">Your files are read and computed inside this browser tab only. Nothing is uploaded or saved anywhere; close the tab and it is gone. Public data (corporate actions, fund list, prices) comes from the Repo Desk.</div>
+  <div class="card">
+    <div class="row">
+      <input type="file" id="files" multiple accept=".csv,.xlsx">
+      <label>Broker <select id="broker"><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
+      <button id="run" disabled>Compute</button>
+      <span class="sub" id="status">Loading public data…</span>
+    </div>
+    <div class="sub" style="margin-top:6px">Choose all tradebooks for one account together (stocks and funds, any years). Use one broker per run; run each account separately.</div>
+  </div>
+  <div id="out"></div>
+</div>
+<script type="module">
+import { parseCsv } from './pm/csv.js';
+import { readXlsxAsync } from './pm/xlsx.js';
+import { readRows } from './pm/reader.js';
+import { runPipeline } from './pm/pipeline.js';
+const $ = (id) => document.getElementById(id);
+const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
+let data;
+(async () => {
+  try {
+    const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
+    data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
+    $('status').textContent = `Public data ready (prices as of ${px.asOf}).`; $('run').disabled = false;
+  } catch (e) { $('status').textContent = 'Could not load public data: ' + e.message; }
+})();
+const n = (x) => { const v = Math.round(x); return `<span class="${v < 0 ? 'neg' : ''}">${v.toLocaleString('en-IN')}</span>`; };
+const pc = (x) => (x === null || x === undefined ? 'n/a' : (x * 100).toFixed(1) + '%');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+$('run').onclick = async () => {
+  const out = $('out'); out.innerHTML = ''; const files = [...$('files').files];
+  if (!files.length) { $('status').textContent = 'Choose at least one file.'; return; }
+  $('status').textContent = 'Computing…'; await new Promise((r) => setTimeout(r, 20));
+  try {
+    const batches = [], notes = [];
+    for (const f of files) {
+      const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text());
+      const r = readRows(rows, { filename: f.name });
+      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
+    }
+    if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
+    const r = runPipeline(batches, $('broker').value, data), p = r.performance;
+    const h = [];
+    for (const t of notes) h.push(`<div class="note">${esc(t)}</div>`);
+    h.push(`<div class="card"><h2>Overview <span class="tag">unverified: built from tradebooks only</span></h2><div class="kpis">
+      <div><b>${n(p.invested)}</b><span>Invested</span></div><div><b>${n(p.held)}</b><span>Held now (${esc(p.asOf)})</span></div>
+      <div><b>${n(p.realised)}</b><span>Realised gain</span></div><div><b>${n(p.unrealised)}</b><span>Unrealised gain</span></div>
+      <div><b>${pc(p.xirrPriceOnly)}</b><span>XIRR (incl. unrealised)</span></div><div><b>${pc(p.xirrWithDividends)}</b><span>XIRR with dividends</span></div></div>
+      <div class="sub" style="margin-top:8px">${r.counts.orders} orders (${r.counts.stockOrders} stock, ${r.counts.fundOrders} fund), ${r.counts.duplicates} duplicates dropped, ${r.counts.openLots} open lots.</div></div>`);
+    for (const w of r.warnings) h.push(`<div class="note">${esc(w)}</div>`);
+    h.push(`<div class="card"><h2>Capital gains by financial year (₹)</h2><table><tr><th>FY</th><th>Short-term</th><th>Long-term</th><th>Total</th><th>Other (slab)</th><th>Est. tax</th></tr>${r.tax.map((y) => `<tr><td>${y.fy}</td><td>${n(y.equity.stcg)}</td><td>${n(y.equity.ltcg)}</td><td>${n(y.equity.stcg + y.equity.ltcg)}</td><td>${n(y.slabGains)}</td><td>${n(y.equity.tax)}</td></tr>`).join('')}</table>
+      <div class="sub" style="margin-top:6px">Equity-taxed assets in the first three gain columns; "Other" is debt, hybrid and overseas funds taxed at your slab. After charges. Estimate only, not tax advice.</div>${r.tax.filter((y) => y.banner).map((y) => `<div class="note">${y.fy}: ${esc(y.banner)}</div>`).join('')}</div>`);
+    if (r.dividends.length) h.push(`<div class="card"><h2>Dividends (₹)</h2><table><tr><th>FY</th><th>Gross</th><th>TDS</th><th>Net</th></tr>${r.dividends.map((y) => `<tr><td>${y.fy}</td><td>${n(y.gross)}</td><td>${n(y.tds)}</td><td>${n(y.net)}</td></tr>`).join('')}</table></div>`);
+    h.push(`<div class="card"><h2>Books</h2><table><tr><th>Book</th><th>Lots</th><th>Cost</th><th>Value</th></tr>${Object.entries(r.books).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v.lots}</td><td>${n(v.cost)}</td><td>${n(v.value)}</td></tr>`).join('')}</table></div>`);
+    h.push(`<div class="card"><h2>Holdings</h2><table><tr><th>Name</th><th>Book</th><th>Qty</th><th>Cost</th><th>Value</th><th>Gain</th></tr>${r.holdings.map((x) => `<tr><td>${esc(x.name)}</td><td>${esc(x.book)}</td><td>${(Math.round(x.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${n(x.cost)}</td><td>${x.value === null ? 'n/a' : n(x.value)}</td><td>${x.value === null ? '' : n(x.value - x.cost)}</td></tr>`).join('')}</table></div>`);
+    const rs = r.resolver;
+    h.push(`<div class="card"><h2>Reconciliation</h2><div class="sub">${rs.eventsFromFeed} corporate actions from NSE; ${rs.applied.length} explained and applied automatically.</div>
+      ${rs.proposed.map((x) => `<div class="note"><span class="tag">unconfirmed</span> ${esc(x)}</div>`).join('')}
+      ${rs.unexplained.map((u) => `<div class="note">Sell with no matching buy: ${esc(u.name)} ${u.date} (${u.qty}). Gains for it are left out until a statement explains it.</div>`).join('')}
+      ${p.notValued.length ? `<div class="note">Not valued at market: ${esc(p.notValued.slice(0, 8).join('; '))}</div>` : ''}</div>`);
+    out.innerHTML = h.join(''); $('status').textContent = 'Done.';
+  } catch (e) { $('status').textContent = 'Error: ' + e.message; console.error(e); }
+};
+</script>
+</body>
+</html>

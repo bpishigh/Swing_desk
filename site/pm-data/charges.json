@@ -1,0 +1,12 @@
+{
+  "note": "Dated charge rates for delivery equity and ETFs. Rates only; no personal data. Every row has a source and a confidence. Percent values are percent of order value.",
+  "brokers": {
+    "groww": { "regimes": [ { "from": "2020-07-01", "confidence": "Medium", "source": "Groww pricing page, read 11 Oct 2026, no effective date shown: earlier years are estimates",
+      "brokerage": { "pct": 0.1, "cap": 20, "min": 5 }, "dp_per_sell_debit": 16.5, "dp_note": "depository fee plus broker fee, per instrument per sell day; exact figure to confirm from a contract note" } ] },
+    "zerodha": { "regimes": [ { "from": "2020-07-01", "confidence": "Medium", "source": "Zerodha pricing page: zero delivery brokerage, DP charge per scrip per sell day; to verify against a contract note",
+      "brokerage": { "pct": 0, "cap": 0, "min": 0 }, "dp_per_sell_debit": 15.93, "dp_note": "13.5 plus 18% GST, to verify" } ] }
+  },
+  "exchange": [ { "from": "2020-07-01", "NSE_pct": 0.00297, "BSE_pct": 0.00375, "sebi_pct": 0.0001, "ipft_NSE_pct": 0.0001, "gst_pct": 18, "confidence": "Medium", "source": "Groww pricing page and NSE investor page, 11 Oct 2026" } ],
+  "stt": [ { "from": "2020-07-01", "listed_shares_pct": 0.1, "both_sides": true, "equity_etf_sell_pct": 0.001, "gold_silver_intl_etf_pct": 0, "confidence": "Medium", "source": "NSE investor page (shares, High); ETF rows from one broker page (Medium, to verify)" } ],
+  "stamp": [ { "from": "2020-07-01", "buy_pct": 0.015, "mf_buy_pct": 0.005, "confidence": "High", "source": "NSE page and AMC pages; uniform national stamp duty since 1 Jul 2020" } ]
+}

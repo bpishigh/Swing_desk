@@ -1,5 +1,6 @@
 // Assembles the dashboard's one data file (site/data/dashboard.json) from the Repo Desk's stored data. No network. Run after any data change.
 // Regime and sector ranking use the same engine as the nightly alerts and the app rules.
+import './build-pm-site.mjs';
 import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { regimeFrom } from '../src/engine/regime.ts';

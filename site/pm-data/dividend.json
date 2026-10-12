@@ -1,0 +1,5 @@
+{ "note": "Dividend TDS rules for resident individuals on Indian company dividends (design 7.4). Rate applies when dividends from one company in the financial year exceed the threshold. Medium confidence: secondary sources, to verify against the Income-tax Act text.",
+  "tds": [
+    { "from": "2020-04-01", "to": "2021-03-31", "rate": 0.075, "threshold": 5000, "note": "reduced rate 14 May 2020 to 31 Mar 2021; 10% before 14 May 2020, treated as 7.5% for the year" },
+    { "from": "2021-04-01", "to": "2099-12-31", "rate": 0.10, "threshold": 5000 }
+  ] }
