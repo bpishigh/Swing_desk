@@ -14,5 +14,10 @@ for (const line of txt.split(/\r?\n/)) {
   if (p.length >= 6 && /^\d+$/.test(p[0].trim())) rows.push([p[0].trim(), p[1].trim(), p[2].trim(), p[3].trim(), category]);
   else if (/^(Open|Close|Interval).*Schemes?\s*\(/i.test(line.trim())) category = line.trim().replace(/^.*\(/, '').replace(/\)\s*$/, '');
 }
+// The AMFI file's own names omit plan and option (four rows named alike); the community mirror lists the full scheme names by code.
+let full = new Map(), fullStatus = null;
+try { const r = await fetch('https://api.mfapi.in/mf', { headers: { 'user-agent': UA } }); fullStatus = r.status; if (r.ok) for (const x of await r.json()) full.set(String(x.schemeCode), x.schemeName); } catch (e) { fullStatus = String(e).slice(0, 60); }
+for (const r of rows) { const f = full.get(r[0]); if (f) r[3] = f; }
+console.log('full names', full.size, 'status', fullStatus);
 writeFileSync('data/rules/amfi-schemes.json', JSON.stringify({ asOf: new Date().toISOString().slice(0, 10), cols: ['code', 'isin1', 'isin2', 'name', 'category'], rows }));
 console.log(JSON.stringify({ schemes: rows.length, categories: new Set(rows.map((r) => r[4])).size }));

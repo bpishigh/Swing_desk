@@ -1,0 +1,28 @@
+// Mutual fund identity: map an order's scheme (ISIN when present, else name) to the AMFI scheme code, category and ISIN.
+// Name matching is deterministic: plan (direct/regular) and option (growth/IDCW) must agree, then token overlap decides; a weak or tied match is flagged, never forced.
+export type AmfiRow = [code: string, isin1: string, isin2: string, name: string, category: string];
+export interface FundMatch { code: string; isin: string; name: string; category: string; how: 'isin' | 'name'; score: number }
+export interface FundResult { match: FundMatch | null; reason?: string }
+
+const STOP = new Set(['fund', 'plan', 'option', 'scheme', 'the', 'of', 'and', 'a', 'growth', 'direct', 'regular', 'idcw', 'dividend', 'payout', 'reinvestment', 'bonus', 'cum', 'capital', 'withdrawal', 'income', 'distribution']);
+const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').replace(/\bfof\b/g, 'fund of funds').trim();
+const flags = (s: string) => { const n = norm(s); return { plan: /\bdirect\b/.test(n) ? 'direct' : /\bregular\b/.test(n) ? 'regular' : 'unknown', option: /\b(idcw|dividend|payout|reinvestment)\b/.test(n) ? 'idcw' : /\bgrowth\b/.test(n) ? 'growth' : /\bbonus\b/.test(n) ? 'bonus' : 'unknown' }; };
+const tokens = (s: string) => new Set(norm(s).split(' ').filter((t) => t && !STOP.has(t)));
+const jacc = (a: Set<string>, b: Set<string>) => { let i = 0; for (const x of a) if (b.has(x)) i++; return i / (a.size + b.size - i || 1); };
+
+export class FundMaster {
+  private byIsin = new Map<string, AmfiRow>(); private rows: { row: AmfiRow; tok: Set<string>; f: ReturnType<typeof flags> }[] = [];
+  constructor(rows: AmfiRow[]) {
+    for (const r of rows) { for (const i of [r[1], r[2]]) if (i && i !== '-') this.byIsin.set(i, r); this.rows.push({ row: r, tok: tokens(r[3]), f: flags(r[3]) }); }
+  }
+  resolve(name: string, isin?: string): FundResult {
+    if (isin && this.byIsin.has(isin)) { const r = this.byIsin.get(isin)!; return { match: { code: r[0], isin, name: r[3], category: r[4], how: 'isin', score: 1 } }; }
+    const want = flags(name), tk = tokens(name);
+    if (want.plan === 'unknown' || want.option === 'unknown') return { match: null, reason: 'plan or option not stated in the name' };
+    const scored = this.rows.filter((x) => x.f.plan === want.plan && x.f.option === want.option).map((x) => ({ x, s: jacc(tk, x.tok) })).sort((a, b) => b.s - a.s);
+    const top = scored[0], second = scored[1];
+    if (!top || top.s < 0.8) return { match: null, reason: `no scheme close enough (best ${top ? top.s.toFixed(2) : '0'})` };
+    if (second && second.s >= top.s - 0.001 && second.x.row[0] !== top.x.row[0]) return { match: null, reason: 'tie between schemes with the same words' };
+    const r = top.x.row; return { match: { code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4], how: 'name', score: top.s } };
+  }
+}
