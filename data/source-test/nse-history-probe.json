@@ -1,0 +1,201 @@
+{
+ "ts": "2026-10-12T18:16:28.585Z",
+ "actions": [
+  {
+   "from": "2020-04-01",
+   "to": "2020-04-30",
+   "status": 200,
+   "n": 13,
+   "note": ""
+  },
+  {
+   "from": "2021-04-01",
+   "to": "2021-04-30",
+   "status": 200,
+   "n": 41,
+   "note": ""
+  },
+  {
+   "from": "2022-08-01",
+   "to": "2022-08-31",
+   "status": 200,
+   "n": 387,
+   "note": ""
+  },
+  {
+   "from": "2023-05-01",
+   "to": "2023-05-31",
+   "status": 200,
+   "n": 85,
+   "note": ""
+  },
+  {
+   "from": "2024-10-01",
+   "to": "2024-10-31",
+   "status": 200,
+   "n": 76,
+   "note": ""
+  },
+  {
+   "from": "2025-01-15",
+   "to": "2025-02-15",
+   "status": 200,
+   "n": 174,
+   "note": ""
+  },
+  {
+   "from": "2022-01-01",
+   "to": "2022-12-31",
+   "status": 200,
+   "n": 2483,
+   "note": ""
+  },
+  {
+   "from": "2020-04-01",
+   "to": "2025-10-10",
+   "status": 200,
+   "n": 13510,
+   "note": ""
+  }
+ ],
+ "samples": {
+  "tatasteel": [],
+  "bonus": [
+   {
+    "symbol": "NBCC",
+    "subject": "Bonus 1:2",
+    "exDate": "07-Oct-2024"
+   },
+   {
+    "symbol": "POWERMECH",
+    "subject": "Bonus 1:1",
+    "exDate": "08-Oct-2024"
+   },
+   {
+    "symbol": "VAISHALI",
+    "subject": "Bonus 1:1",
+    "exDate": "15-Oct-2024"
+   },
+   {
+    "symbol": "RELIANCE",
+    "subject": "Bonus 1:1",
+    "exDate": "28-Oct-2024"
+   }
+  ],
+  "itc": [
+   {
+    "symbol": "ITC",
+    "subject": "Interim Dividend - Rs 6.50 Per Share",
+    "exDate": "12-Feb-2025",
+    "recDate": "12-Feb-2025"
+   }
+  ]
+ },
+ "bhav": [
+  {
+   "date": "2020-04-15",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 213158,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 1939
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 213158,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 1939
+   }
+  },
+  {
+   "date": "2021-04-15",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 224296,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2006
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 224296,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2006
+   }
+  },
+  {
+   "date": "2022-08-16",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 260435,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2295
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 260435,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2295
+   }
+  },
+  {
+   "date": "2023-05-16",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 266171,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2345
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 266171,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2345
+   }
+  },
+  {
+   "date": "2024-07-15",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 304381,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2652
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 304381,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2652
+   }
+  },
+  {
+   "date": "2024-10-15",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 309549,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2706
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 309549,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2706
+   }
+  },
+  {
+   "date": "2025-01-15",
+   "archives.nseindia.com": {
+    "status": 200,
+    "bytes": 313561,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2753
+   },
+   "nsearchives.nseindia.com": {
+    "status": 200,
+    "bytes": 313561,
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "lines": 2753
+   }
+  }
+ ]
+}
