@@ -32,10 +32,11 @@ button, select, input[type=file] { font:inherit; } button { background:var(--acc
     <div class="row">
       <input type="file" id="files" multiple accept=".csv,.xlsx">
       <label>Broker <select id="broker"><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
-      <button id="run" disabled>Compute</button>
+      <label>Account name <input id="label" value="Account 1" size="14"></label>
+      <button id="run" disabled>Add account</button>
       <span class="sub" id="status">Loading public data…</span>
     </div>
-    <div class="sub" style="margin-top:6px">Choose all tradebooks for one account together (stocks and funds, any years). Use one broker per run; run each account separately.</div>
+    <div class="sub" style="margin-top:6px">Choose all tradebooks for one account together (stocks and funds, any years). Add each account separately (its own name and broker); a combined household view appears once there are two or more. Adding an account with the same name replaces it.</div>
   </div>
   <div id="out"></div>
 </div>
@@ -57,8 +58,23 @@ let data;
 const n = (x) => { const v = Math.round(x); return `<span class="${v < 0 ? 'neg' : ''}">${v.toLocaleString('en-IN')}</span>`; };
 const pc = (x) => (x === null || x === undefined ? 'n/a' : (x * 100).toFixed(1) + '%');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const accounts = new Map();
+function render() {
+  const out = $('out'); const list = [...accounts.entries()]; const h = [];
+  if (list.length > 1) {
+    const sum = (f) => list.reduce((a, [, r]) => a + f(r), 0);
+    const fys = [...new Set(list.flatMap(([, r]) => r.tax.map((y) => y.fy)))].sort();
+    const g = (r, fy, k) => r.tax.find((y) => y.fy === fy)?.equity[k] ?? 0;
+    const inv = sum((r) => r.performance.invested), held = sum((r) => r.performance.held), real = sum((r) => r.performance.realised), unr = sum((r) => r.performance.unrealised);
+    h.push(`<div class="card"><h2>Household: ${list.map(([k]) => esc(k)).join(' + ')}</h2><div class="kpis"><div><b>${n(inv)}</b><span>Invested</span></div><div><b>${n(held)}</b><span>Held now</span></div><div><b>${n(real)}</b><span>Realised gain</span></div><div><b>${n(unr)}</b><span>Unrealised gain</span></div></div>
+      <table style="margin-top:10px"><tr><th>FY (each account taxed on its own PAN)</th>${list.map(([k]) => `<th>${esc(k)} total</th>`).join('')}<th>Household total</th></tr>${fys.map((fy) => `<tr><td>${fy}</td>${list.map(([, r]) => `<td>${n(g(r, fy, 'stcg') + g(r, fy, 'ltcg'))}</td>`).join('')}<td>${n(list.reduce((a, [, r]) => a + g(r, fy, 'stcg') + g(r, fy, 'ltcg'), 0))}</td></tr>`).join('')}</table>
+      <div class="sub" style="margin-top:6px">XIRR is shown per account only (cash flows of different accounts are not merged here). Tax, exemption and set-off are per person, so they are not added across accounts.</div></div>`);
+  }
+  for (const [k, r] of list) h.push(`<h2 style="margin-top:20px">${esc(k)}</h2>` + r.html);
+  out.innerHTML = h.join('');
+}
 $('run').onclick = async () => {
-  const out = $('out'); out.innerHTML = ''; const files = [...$('files').files];
+  const out = $('out'); const files = [...$('files').files];
   if (!files.length) { $('status').textContent = 'Choose at least one file.'; return; }
   $('status').textContent = 'Computing…'; await new Promise((r) => setTimeout(r, 20));
   try {
@@ -70,6 +86,7 @@ $('run').onclick = async () => {
     }
     if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
     const r = runPipeline(batches, $('broker').value, data), p = r.performance;
+    const label = ($('label').value || 'Account').trim();
     const h = [];
     for (const t of notes) h.push(`<div class="note">${esc(t)}</div>`);
     h.push(`<div class="card"><h2>Overview <span class="tag">unverified: built from tradebooks only</span></h2><div class="kpis">
@@ -88,7 +105,7 @@ $('run').onclick = async () => {
       ${rs.proposed.map((x) => `<div class="note"><span class="tag">unconfirmed</span> ${esc(x)}</div>`).join('')}
       ${rs.unexplained.map((u) => `<div class="note">Sell with no matching buy: ${esc(u.name)} ${u.date} (${u.qty}). Gains for it are left out until a statement explains it.</div>`).join('')}
       ${p.notValued.length ? `<div class="note">Not valued at market: ${esc(p.notValued.slice(0, 8).join('; '))}</div>` : ''}</div>`);
-    out.innerHTML = h.join(''); $('status').textContent = 'Done.';
+    r.html = h.join(''); accounts.set(label, r); render(); $('status').textContent = `Done. ${accounts.size} account(s) loaded.`; $('label').value = 'Account ' + (accounts.size + 1);
   } catch (e) { $('status').textContent = 'Error: ' + e.message; console.error(e); }
 };
 </script>
