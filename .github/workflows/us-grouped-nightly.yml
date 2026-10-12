@@ -1,0 +1,32 @@
+name: us-grouped-nightly
+# Nightly extension of the stored US whole-market daily bars (Massive free plan, one call per new trading day).
+# 22:30 UTC Mon-Fri = 04:00 IST Tue-Sat, well after the US close in both daylight and standard time. Resumable: missing days are filled next run.
+on:
+  schedule:
+    - cron: '30 22 * * 1-5'
+  workflow_dispatch:
+concurrency: us-grouped-nightly
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/backfill-us-grouped.mjs 12
+        env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
+      - name: Commit new days
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us/grouped data/us/grouped-meta.json
+          git commit -m "us-grouped-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
