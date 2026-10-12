@@ -79,6 +79,8 @@ if (useNse) {
   for (const e of res.events) if (e.type === 'grant' && e.unitCost > 0) ords.push({ date: e.date, side: 'buy', value: e.qty * e.unitCost, charges: 0 });
   const dv = useNse ? computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, feed, canon.lineage, JSON.parse(readFileSync('data/rules/dividend.json', 'utf8'))).flatMap((y) => y.lines.map((l) => ({ date: l.exDate, net: l.net }))) : [];
   const p = performance({ orders: ords, dividends: dv, holdingsValue: held, asOf: latest.slice(0, 10) });
+  const costOpen = combined.open.reduce((a, l) => a + l.qty * l.unitCost, 0), realisedGain = combined.realised.reduce((a, r) => a + r.gain, 0);
+  console.log(`  realised gain ${Math.round(realisedGain)}, unrealised gain ${Math.round(held - costOpen)} (held ${Math.round(held)} vs cost of open lots ${Math.round(costOpen)}), dividends computed ${Math.round(p.dividends)}`);
   const pc = (x) => (x === null ? 'n/a' : (x * 100).toFixed(1) + '%');
   console.log(`PERFORMANCE as of ${p.asOf}: invested ${Math.round(p.invested)}, sold ${Math.round(p.sold)}, held now ${Math.round(p.held)}, computed dividends ${Math.round(p.dividends)}, gain ${Math.round(p.gain)} (price-only), XIRR price-only ${pc(p.xirrPriceOnly)}, with dividends ${pc(p.xirrWithDividends)}`);
   if (unvalued.length) console.log('  not valued:', unvalued.slice(0, 8).join('; '));
