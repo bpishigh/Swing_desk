@@ -45,6 +45,7 @@ const combined = { open: [...res.replay.open, ...fundRep.open], realised: [...re
 const isFund = (k) => !!typeByKey.get(k) && /fund|fof|hybrid/.test(typeByKey.get(k));
 const years = taxView(combined, (k) => typeByKey.get(k) ?? 'listed_equity', (r) => (isFund(r.key) ? 0 : expense(r)), rules);
 if (funds.length) console.log(`fund orders ${funds.length}: mapped ${fundTrades.length}, unmapped schemes ${unmapped.size}${unmapped.size ? ' (' + [...unmapped].join('; ') + ')' : ''}; open fund breaks ${fundRep.breaks.length}`);
+const zero = stocks.filter((t) => t.value === 0); if (zero.length) console.log(`WARNING ${zero.length} order(s) with zero value (a credit, not a purchase: cost unknown, likely a demerger or bonus credit): ` + zero.map((t) => `${t.instrument || t.symbol || t.isin} ${t.qty} on ${t.date}`).join('; '));
 console.log(`files ${rest.length}; trades ${m.trades.length} (duplicates dropped ${m.duplicates}); orders ${orders.length}; stock orders ${stocks.length}; fund orders ${funds.length}`);
 console.log(`open lots ${res.replay.open.length}; applied ${res.applied.length}; proposed ${res.proposed.length}; unexplained ${res.unexplained.length}`);
 for (const x of skipped) console.log('  NEEDS RECORD', x.symbol, x.exDate, x.why);
@@ -69,7 +70,7 @@ if (useNse) {
   let held = 0, unvalued = []; const lastOrderPrice = new Map(); for (const t of fundTrades) lastOrderPrice.set(t.isin, t.price);
   for (const l of combined.open) {
     if (typeByKey.get(l.key) && /fund|fof|hybrid/.test(typeByKey.get(l.key))) { const nav = navOf.get(l.key) ?? lastOrderPrice.get(l.key); held += l.qty * nav; if (!navOf.get(l.key)) unvalued.push('fund at last order NAV: ' + (nameByKey.get(l.key) ?? l.key)); continue; }
-    const px = bhav.rows[symOf.get(l.key)]?.[5]; if (px) held += l.qty * px; else unvalued.push(nameByKey.get(l.key) ?? l.key);
+    const px = bhav.rows[symOf.get(l.key)]?.[5]; if (px) held += l.qty * px; else unvalued.push((nameByKey.get(l.key) ?? l.key) + ' [' + l.key + ' ' + symOf.get(l.key) + ' qty ' + l.qty + ']');
   }
   const ords = [];
   const ch = (t) => { const ty = typeByKey.get(t.isin || t.instrument.toUpperCase()) ?? 'listed_equity'; return /fund|fof|hybrid/.test(ty) ? 0 : orderCharges(t, ty, broker, charges).total; };
@@ -82,3 +83,4 @@ if (useNse) {
   console.log(`PERFORMANCE as of ${p.asOf}: invested ${Math.round(p.invested)}, sold ${Math.round(p.sold)}, held now ${Math.round(p.held)}, computed dividends ${Math.round(p.dividends)}, gain ${Math.round(p.gain)} (price-only), XIRR price-only ${pc(p.xirrPriceOnly)}, with dividends ${pc(p.xirrWithDividends)}`);
   if (unvalued.length) console.log('  not valued:', unvalued.slice(0, 8).join('; '));
 }
+if (process.env.DEBUG_KEY) { console.log(res.replay.applied.filter((a) => a.includes(process.env.DEBUG_KEY)).join('\n').slice(0, 600)); console.log(res.replay.open.filter((l) => l.key === process.env.DEBUG_KEY).map((l) => `${l.date} ${l.qty} @ ${l.unitCost}`).join('\n')); }
