@@ -11,7 +11,7 @@ export interface Replay { open: Lot[]; realised: Realised[]; breaks: Break[]; ap
 export type CorpEvent = { date: string; source: string; estimate?: boolean } & (
   | { type: 'split'; key: string; ratio: number }                                   // new shares per old; cost spread, holding period unchanged
   | { type: 'bonus'; key: string; num: number; den: number }                        // num bonus shares per den held; nil cost, holding from `date`
-  | { type: 'demerger'; parent: string; child: string; ratio: number; costPct: number } // child shares per parent; costPct of parent cost moves; holding period inherited
+  | { type: 'demerger'; parent: string; child: string; ratio: number; costPct: number; floorTotal?: boolean } // child shares per parent; costPct of parent cost moves; holding period inherited
   | { type: 'rename'; from: string; to: string }
   | { type: 'grant'; key: string; qty: number; unitCost: number; instrument?: string }  // IPO allotment or rights shares: dated, sourced, cost explicit
 );
@@ -30,7 +30,17 @@ export function replay(trades: Trade[], longAfterDays: number | null = 365, even
     applied.push(`${e.date} ${e.type} ${JSON.stringify(e)}`);
     if (e.type === 'split') for (const l of Q(e.key)) { l.qty *= e.ratio; l.unitCost /= e.ratio; }
     else if (e.type === 'bonus') { const held = Q(e.key).reduce((a, l) => a + l.qty, 0); const n = Math.floor((held * e.num) / e.den); if (n > 0) Q(e.key).push(mk(e.key, e.date, n, 0)); }
-    else if (e.type === 'demerger') { for (const l of [...Q(e.parent)]) { const cq = l.qty * e.ratio; Q(e.child).push(mk(e.child, l.date, cq, (l.unitCost * l.qty * e.costPct) / cq)); l.unitCost *= 1 - e.costPct; } }
+    else if (e.type === 'demerger') {
+      const ls = [...Q(e.parent)]; let frac = ls.map((l) => l.qty * e.ratio);
+      if (e.floorTotal) { // swap with fractions paid in cash: whole shares on the holder's total, given to the oldest lots first by largest remainder
+        let units = Math.floor(frac.reduce((a, x) => a + x, 0) + 1e-9); const base = frac.map(Math.floor); units -= base.reduce((a, x) => a + x, 0);
+        const order = frac.map((x, i) => [x - Math.floor(x), i] as const).sort((a, b) => b[0] - a[0] || a[1] - b[1]);
+        for (const [, i] of order) { if (units <= 0) break; base[i]++; units--; }
+        frac = base;
+      }
+      ls.forEach((l, i) => { const cq = frac[i]; if (cq > 0) Q(e.child).push(mk(e.child, l.date, cq, (l.unitCost * l.qty * e.costPct) / cq)); l.unitCost *= 1 - e.costPct; if (e.costPct >= 1) l.qty = 0; });
+      lots.set(e.parent, Q(e.parent).filter((l) => l.qty > 1e-9));
+    }
     else if (e.type === 'rename') { const from = Q(e.from); lots.set(e.to, [...Q(e.to), ...from.map((l) => ({ ...l, key: e.to }))].sort((a, b) => a.date.localeCompare(b.date))); lots.set(e.from, []); }
     else if (e.type === 'grant') Q(e.key).push(mk(e.key, e.date, e.qty, e.unitCost, e.instrument));
   };

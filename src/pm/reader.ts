@@ -5,7 +5,7 @@ import { createHmac } from 'node:crypto';
 
 export type Side = 'buy' | 'sell';
 export interface Trade {
-  instrument: string; isin: string; side: Side; qty: number; price: number; value: number;
+  instrument: string; symbol?: string; isin: string; side: Side; qty: number; price: number; value: number;
   date: string; time: string; exchange: string; orderId: string; tradeId: string; kind: 'stock' | 'fund' | 'unknown';
 }
 export interface Issue { row: number; reason: string }
@@ -16,7 +16,8 @@ export interface ReadResult {
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 const SYN: Record<string, string[]> = {
-  instrument: ['symbol', 'scrip', 'scrip name', 'stock name', 'security', 'security name', 'scheme', 'scheme name', 'instrument', 'name', 'company', 'trading symbol', 'fund name', 'ticker'],
+  symbol: ['symbol', 'trading symbol', 'ticker', 'scrip symbol', 'nse symbol'],
+  instrument: ['symbol', 'scrip', 'scrip name', 'stock name', 'security', 'security name', 'scheme', 'scheme name', 'instrument', 'name', 'company', 'fund name'],
   isin: ['isin', 'isin code', 'isin no'],
   side: ['type', 'trade type', 'side', 'buy sell', 'b s', 'transaction type', 'order type', 'action', 'txn type', 'buy or sell', 'transaction', 'purchase sale', 'purchase or sale', 'buy sale'],
   qty: ['quantity', 'qty', 'units', 'shares', 'no of units', 'traded qty', 'trade quantity'],
@@ -102,7 +103,7 @@ function findHeader(rows: string[][]): { idx: number; fields: (string | null)[] 
   for (let i = 0; i < Math.min(rows.length, 60); i++) {
     const fields = rows[i].map(fieldFor);
     const set = new Set(fields.filter(Boolean));
-    const core = ['qty', 'side', 'date', 'instrument', 'isin', 'price', 'value'].filter((f) => set.has(f)).length;
+    const core = ['qty', 'side', 'date', 'instrument', 'symbol', 'isin', 'price', 'value'].filter((f) => set.has(f)).length;
     const score = set.size + core;
     if (set.size >= 3 && set.has('qty') && (!best || score > best.score)) best = { idx: i, fields, score };
   }
@@ -172,7 +173,8 @@ export function readRows(rows: string[][], opts: { filename?: string } = {}): Re
     const exch = get(r, 'exchange');
     const kind = /^(mf|fund)/i.test(get(r, 'segment')) ? 'fund' : exch ? 'stock' : isin || get(r, 'instrument') ? 'fund' : 'unknown'; // exchange-traded (shares, ETFs) carry an exchange; fund orders do not
     const time = (col.time !== undefined && col.time !== col.date ? get(r, 'time') : '') || dcol.times[i] || '';
-    trades.push({ instrument: get(r, 'instrument'), isin, side, qty, price, value, date: iso, time, exchange: get(r, 'exchange').toUpperCase(), orderId: get(r, 'orderId'), tradeId: get(r, 'tradeId'), kind });
+    const sym = get(r, 'symbol');
+    trades.push({ instrument: get(r, 'instrument') || sym, symbol: sym || get(r, 'instrument'), isin, side, qty, price, value, date: iso, time, exchange: get(r, 'exchange').toUpperCase(), orderId: get(r, 'orderId'), tradeId: get(r, 'tradeId'), kind });
   });
   void dateHasTime;
   const identity = idFrom(rows, h.idx);
