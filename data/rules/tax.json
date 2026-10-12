@@ -1,0 +1,13 @@
+{
+  "note": "Dated tax rules (design section 7, researched 11 Oct 2026). Rates exclude surcharge and cess. Decision support, not tax advice. Rows marked Medium or Low are unverified against primary text.",
+  "types": {
+    "listed_equity": { "label": "Listed shares and equity-oriented funds/ETFs", "long_after_days": 365, "exemption": true, "confidence": "High",
+      "rules": [ { "transfer_from": "2000-01-01", "stcg": 0.15, "ltcg": 0.10, "exemption": 100000 }, { "transfer_from": "2024-07-23", "stcg": 0.20, "ltcg": 0.125, "exemption": 125000 } ] },
+    "gold_silver_etf": { "label": "Gold and silver ETFs", "long_after_days": 365, "exemption": false, "confidence": "Medium",
+      "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ], "note": "Pre-2025 transfers of lots bought before 1 Apr 2023 and the 2023-2025 deemed short-term window are not modelled: treated with the 12-month rule and flagged" },
+    "intl_etf": { "label": "Listed international ETFs", "long_after_days": 365, "exemption": false, "confidence": "Medium", "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ] },
+    "us_stock": { "label": "US stocks", "long_after_days": 730, "exemption": false, "confidence": "Medium", "rules": [ { "transfer_from": "2024-07-23", "stcg": "slab", "ltcg": 0.125 } ] },
+    "fund_unclassified": { "label": "Mutual fund, tax class not yet known", "long_after_days": null, "exemption": false, "confidence": "Low", "rules": [] }
+  },
+  "carry_forward_years": 8
+}
