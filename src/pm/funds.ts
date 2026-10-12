@@ -12,11 +12,15 @@ const jacc = (a: Set<string>, b: Set<string>) => { let i = 0; for (const x of a)
 
 export class FundMaster {
   private byIsin = new Map<string, AmfiRow>(); private rows: { row: AmfiRow; tok: Set<string>; f: ReturnType<typeof flags> }[] = [];
-  constructor(rows: AmfiRow[]) {
+  private overrides = new Map<string, { code: string; isin: string; evidence: string }>();
+  constructor(rows: AmfiRow[], overrides: { name: string; code: string; isin: string; evidence: string }[] = []) {
+    for (const o of overrides) this.overrides.set(norm(o.name), o);
     for (const r of rows) { for (const i of [r[1], r[2]]) if (i && i !== '-') this.byIsin.set(i, r); this.rows.push({ row: r, tok: tokens(r[3]), f: flags(r[3]) }); }
   }
   resolve(name: string, isin?: string): FundResult {
     if (isin && this.byIsin.has(isin)) { const r = this.byIsin.get(isin)!; return { match: { code: r[0], isin, name: r[3], category: r[4], how: 'isin', score: 1 } }; }
+    const ov = this.overrides.get(norm(name));
+    if (ov) { const r = this.rows.find((x) => x.row[0] === ov.code)?.row; return { match: { code: ov.code, isin: ov.isin, name: r?.[3] ?? name, category: r?.[4] ?? '', how: 'name', score: 1 } }; }
     const want = flags(name), tk = tokens(name);
     if (want.plan === 'unknown' || want.option === 'unknown') return { match: null, reason: 'plan or option not stated in the name' };
     const scored = this.rows.filter((x) => x.f.plan === want.plan && x.f.option === want.option).map((x) => ({ x, s: jacc(tk, x.tok) })).sort((a, b) => b.s - a.s);
