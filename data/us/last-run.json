@@ -1,77 +1,77 @@
 {
- "ts": "2026-10-10T19:40:53.717Z",
- "date": "2026-10-09",
+ "ts": "2026-10-12T21:37:40.661Z",
+ "date": "2026-10-12",
  "status": "written",
  "fetched": {
   "SPY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "QQQ": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLK": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLF": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLI": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLP": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLU": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLB": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLRE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLC": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "SMH": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "IGV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "ITA": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   }
  },
  "conflicts": [],
  "flags": [
-  "Tiingo was unavailable for 16 ticker(s) (SPY, QQQ and 14 more); Nasdaq's public history was used for them",
-  "14 of 14 sectors, SPY and QQQ written for 2026-10-09, VIX 14.84"
+  "VIX: Cboe has no row for 2026-10-12 yet",
+  "14 of 14 sectors, SPY and QQQ written for 2026-10-12"
  ],
- "backfilled": 397
+ "backfilled": 0
 }
