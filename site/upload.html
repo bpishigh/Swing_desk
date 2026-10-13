@@ -27,13 +27,14 @@ button, select, input[type=file] { font:inherit; } button { background:var(--acc
 <div class="wrap">
   <div class="sub"><a href="index.html" target="_top">← Repo Desk</a></div>
   <h1>Portfolio Manager</h1>
-  <div class="sub">Your files are read and computed inside this browser tab only. Nothing is uploaded or saved anywhere; close the tab and it is gone. Public data (corporate actions, fund list, prices) comes from the Repo Desk.</div>
+  <div class="sub">Files are read and computed in your browser. If you tick Save, only the clean transactions (no client code, name or PAN) are stored in your private repo through the signed-in Cloudflare link, so the accounts come back next time. Without Save, nothing is kept. Public data (corporate actions, fund list, prices) comes from the Repo Desk.</div>
   <div class="card">
     <div class="row">
       <input type="file" id="files" multiple accept=".csv,.xlsx">
       <label>Broker <select id="broker"><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
       <label>Account name <input id="label" value="Account 1" size="14"></label>
       <button id="run" disabled>Add account</button>
+      <label class="sub" id="saveBox" hidden><input type="checkbox" id="save" checked> Save these transactions to my private portfolio store</label>
       <label class="sub"><input type="checkbox" id="nav"> include funds in the chart (fetches public NAV history from mfapi.in; that service can see which schemes you hold)</label>
       <span class="sub" id="status">Loading public data…</span>
     </div>
@@ -44,7 +45,7 @@ button, select, input[type=file] { font:inherit; } button { background:var(--acc
 <script type="module">
 import { parseCsv } from './pm/csv.js';
 import { readXlsxAsync } from './pm/xlsx.js';
-import { readRows } from './pm/reader.js';
+import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
 const $ = (id) => document.getElementById(id);
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
@@ -71,7 +72,7 @@ function chart(series) {
   try {
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
     data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
-    $('status').textContent = `Public data ready (prices as of ${px.asOf}).`; $('run').disabled = false;
+    $('status').textContent = `Public data ready (prices as of ${px.asOf}).`; $('run').disabled = false; loadSaved();
   } catch (e) { $('status').textContent = 'Could not load public data: ' + e.message; }
 })();
 const n = (x) => { const v = Math.round(x); return `<span class="${v < 0 ? 'neg' : ''}">${v.toLocaleString('en-IN')}</span>`; };
@@ -92,23 +93,11 @@ function render() {
   for (const [k, r] of list) h.push(`<h2 style="margin-top:20px">${esc(k)}</h2>` + r.html);
   out.innerHTML = h.join('');
 }
-$('run').onclick = async () => {
-  const out = $('out'); const files = [...$('files').files];
-  if (!files.length) { $('status').textContent = 'Choose at least one file.'; return; }
-  $('status').textContent = 'Computing…'; await new Promise((r) => setTimeout(r, 20));
-  try {
-    const batches = [], notes = [];
-    for (const f of files) {
-      const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text());
-      const r = readRows(rows, { filename: f.name });
-      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
-    }
-    if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
+async function compute(label, broker, batches, notes) {
     data.priceHistory = await loadHist(); data.navHistory = undefined;
-    let r = runPipeline(batches, $('broker').value, data);
-    if ($('nav').checked && Object.keys(r.fundCodes).length) { $('status').textContent = 'Fetching fund NAV history…'; data.navHistory = await loadNav(r.fundCodes); r = runPipeline(batches, $('broker').value, data); }
+    let r = runPipeline(batches, broker, data);
+    if ($('nav').checked && Object.keys(r.fundCodes).length) { $('status').textContent = 'Fetching fund NAV history…'; data.navHistory = await loadNav(r.fundCodes); r = runPipeline(batches, broker, data); }
     const p = r.performance;
-    const label = ($('label').value || 'Account').trim();
     const h = [];
     for (const t of notes) h.push(`<div class="note">${esc(t)}</div>`);
     h.push(`<div class="card"><h2>Overview <span class="tag">unverified: built from tradebooks only</span></h2><div class="kpis">
@@ -129,9 +118,43 @@ $('run').onclick = async () => {
       ${rs.proposed.map((x) => `<div class="note"><span class="tag">unconfirmed</span> ${esc(x)}</div>`).join('')}
       ${rs.unexplained.map((u) => `<div class="note">Sell with no matching buy: ${esc(u.name)} ${u.date} (${u.qty}). Gains for it are left out until a statement explains it.</div>`).join('')}
       ${p.notValued.length ? `<div class="note">Not valued at market: ${esc(p.notValued.slice(0, 8).join('; '))}</div>` : ''}</div>`);
-    r.html = h.join(''); accounts.set(label, r); render(); $('status').textContent = `Done. ${accounts.size} account(s) loaded.`; $('label').value = 'Account ' + (accounts.size + 1);
+    r.html = h.join(''); accounts.set(label, r); render();
+}
+let saved = new Map(), canSave = false;
+async function loadSaved() {
+  try {
+    const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
+    if (!res.ok) throw new Error(String(res.status));
+    const j = await res.json(); canSave = true; $('saveBox').hidden = false;
+    for (const a of j.accounts) saved.set(a.label, a);
+    for (const a of j.accounts) { $('status').textContent = 'Loading ' + a.label + '…'; await compute(a.label, a.broker, [a.trades], []); }
+    $('status').textContent = j.accounts.length ? `Loaded ${j.accounts.length} saved account(s). Add files to update one.` : 'No saved accounts yet. Add files, and tick Save to keep them.';
+  } catch { $('status').textContent = 'Public data ready. Saving is not available on this address (open the dashboard through its Cloudflare link to use saved accounts).'; }
+}
+$('run').onclick = async () => {
+  const files = [...$('files').files], label = ($('label').value || 'Account').trim(), broker = $('broker').value;
+  if (!files.length) { $('status').textContent = 'Choose at least one file.'; return; }
+  $('status').textContent = 'Computing…'; await new Promise((r) => setTimeout(r, 20));
+  try {
+    const batches = [], notes = [];
+    for (const f of files) {
+      const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text());
+      const r = readRows(rows, { filename: f.name });
+      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
+    }
+    if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
+    const all = saved.has(label) ? [saved.get(label).trades, ...batches] : batches;
+    await compute(label, broker, all, notes);
+    let msg = `Done. ${accounts.size} account(s) loaded.`;
+    if (canSave && $('save').checked) {
+      const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label, broker, trades: batches.flat() }) });
+      const j = await res.json().catch(() => ({}));
+      if (res.ok) { msg += ` Saved ${label}: ${j.trades} transactions stored (${j.added} new).`; saved.set(label, { label, broker, trades: mergeFlat(all) }); } else msg += ` Not saved: ${j.error || res.status}.`;
+    }
+    $('status').textContent = msg; $('label').value = 'Account ' + (accounts.size + 1);
   } catch (e) { $('status').textContent = 'Error: ' + e.message; console.error(e); }
 };
+const mergeFlat = (bs) => mergeTrades(bs).trades;
 </script>
 </body>
 </html>
