@@ -11,7 +11,7 @@
  "sma50": 768.6,
  "sma200": 723.82,
  "src": "Tiingo EOD (SPY, QQQ), split-adjusted; Cboe (VIX)",
- "fetchedAt": "2026-10-13T21:37:56.984Z",
+ "fetchedAt": "2026-10-13T21:38:46.438Z",
  "flags": [
   "VIX: Cboe has no row for 2026-10-13 yet"
  ]
