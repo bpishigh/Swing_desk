@@ -1,7 +1,7 @@
 // Assembles the dashboard's one data file (site/data/dashboard.json) from the Repo Desk's stored data. No network. Run after any data change.
 // Regime and sector ranking use the same engine as the nightly alerts and the app rules.
 import './build-pm-site.mjs';
-import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, statSync } from 'node:fs';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { regimeFrom } from '../src/engine/regime.ts';
 import { rankSectors } from '../src/engine/sectors.ts';
@@ -63,8 +63,22 @@ const jobs = [
 const health = { jobs, usage: read('data/ops/usage.json', null), orchestrator: { india: read('data/india/orchestrator.json', {}), us: read('data/us/orchestrator.json', {}) },
   regimeState: { india: read('data/india/regime.json', null), us: read('data/us/regime.json', null) } };
 
+// Data store coverage: what the repo holds beyond the nightly tracker (back-fill, NSE history, rules)
+const dayFiles = (d, re) => (existsSync(d) ? readdirSync(d).filter((f) => re.test(f)).sort() : []);
+const span = (fs) => ({ days: fs.length, first: fs[0]?.slice(0, 10) ?? null, last: fs.at(-1)?.slice(0, 10) ?? null });
+const dirKb = (d) => (existsSync(d) ? Math.round(readdirSync(d).reduce((a, f) => a + statSync(`${d}/${f}`).size, 0) / 1024) : 0);
+const ca = read('data/india/corp-actions-history.json', []);
+const caDates = ca.map((r) => r.exDate).filter(Boolean).sort();
+const amfi = read('data/rules/amfi-schemes.json', null), gm = read('data/us/grouped-meta.json', {});
+const store = {
+  usGrouped: { ...span(dayFiles('data/us/grouped', /^\d{4}-\d\d-\d\d\.csv\.gz$/)), mb: Math.round(dirKb('data/us/grouped') / 1024), holidays: (gm.noData || []).length, refused: (gm.refused || []).length, splits: Object.keys(read('data/us/splits.json', {})).length },
+  indiaBhav: { ...span(dayFiles('data/india/bhav', /^\d{4}-\d\d-\d\d\.json$/)), mb: Math.round(dirKb('data/india/bhav') / 1024) },
+  indiaActions: { rows: ca.length, first: caDates[0] ?? null, last: caDates.at(-1) ?? null },
+  amfi: amfi ? { schemes: amfi.rows.length, asOf: amfi.asOf } : null,
+  rules: ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides'].map((n) => { const j = read(`data/rules/${n}.json`, {}); return { name: n, records: Array.isArray(j.records) ? j.records.length : null, estimates: Array.isArray(j.records) ? j.records.filter((r) => r.estimate).length : null }; }),
+};
 const compare = read('data/compare/latest.json', null);
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare };
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare, store };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);

@@ -87,12 +87,14 @@ svg text { fill: var(--muted); font: 10.5px var(--mono); }
 <div class="wrap">
   <header>
     <div><h1>Repo Desk</h1><div class="sub" id="gen">Loading…</div></div>
-    <div class="row" id="fresh"></div><a href="upload.html" class="sub">Portfolio Manager →</a>
+    <div class="row" id="fresh"></div>
   </header>
   <nav role="tablist" aria-label="Sections">
     <button role="tab" id="t-market" aria-selected="true">Market</button>
     <button role="tab" id="t-screens" aria-selected="false">Screens</button>
     <button role="tab" id="t-health" aria-selected="false">Data health</button>
+    <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
+    <button role="tab" id="t-store" aria-selected="false">Data store</button>
     <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
   </nav>
   <main id="main"></main>
@@ -205,6 +207,21 @@ function viewHealth() {
   <section class="card"><h2>GitHub Actions minutes</h2>${use}</section></div>
   <section class="card" style="margin-top:16px"><h2>Last runs</h2><div class="tablewrap"><table><thead><tr><th>Job</th><th>Ran</th><th>Data day</th><th>Status</th></tr></thead><tbody>${jobRows}</tbody></table></div></section>`;
 }
+function viewPortfolio() {
+  return `<section class="card" style="padding:0;overflow:hidden"><iframe src="upload.html" title="Portfolio Manager" style="width:100%;height:1400px;border:0;display:block"></iframe></section>`;
+}
+function viewStore() {
+  const S = D.store; if (!S) return '<div class="empty">No store summary yet.</div>';
+  const row = (a, b, c, d) => `<tr><td>${a}</td><td class="num">${b}</td><td>${c}</td><td>${d}</td></tr>`;
+  const rules = S.rules.map((r) => row(esc(r.name), r.records ?? '–', r.records === null ? 'rates and rules' : 'records', r.estimates ? `<span class="chip warn">${r.estimates} estimated</span>` : '')).join('');
+  return `<section class="card"><h2>Stored data beyond the nightly tracker</h2><div class="tablewrap"><table><thead><tr><th>Data set</th><th class="num">Size</th><th>Covers</th><th>Notes</th></tr></thead><tbody>
+  ${row('US daily bars, all stocks (Massive)', S.usGrouped.days + ' days', `${esc(S.usGrouped.first)} to ${esc(S.usGrouped.last)}`, `${S.usGrouped.mb} MB; ${S.usGrouped.holidays} holidays, ${S.usGrouped.refused} days the plan refuses; ${S.usGrouped.splits} splits stored; nightly job adds one day`)}
+  ${row('India daily bars, all NSE stocks', S.indiaBhav.days + ' days', `${esc(S.indiaBhav.first)} to ${esc(S.indiaBhav.last)}`, `${S.indiaBhav.mb} MB`)}
+  ${row('NSE corporate actions', S.indiaActions.rows.toLocaleString('en-IN') + ' rows', `${esc(S.indiaActions.first)} to ${esc(S.indiaActions.last)}`, 'splits, bonuses, demergers, dividends; drives the Portfolio Manager reconciliation')}
+  ${S.amfi ? row('Mutual fund list (AMFI)', S.amfi.schemes.toLocaleString('en-IN') + ' schemes', 'NAV as of ' + esc(S.amfi.asOf), 'maps fund names to tax class') : ''}
+  ${rules}</tbody></table></div>
+  <p class="note">The Portfolio tab reads your tradebooks inside your browser only; nothing personal is stored in the repo.</p></section>`;
+}
 function viewCompare() {
   const c = D.compare;
   if (!c) return '<div class="empty">No comparison yet. Ask Claude for the morning comparison; it reads the Claude Desk\'s stored numbers and writes the result here.</div>';
@@ -220,7 +237,7 @@ function viewCompare() {
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, compare: viewCompare }[tab]();
+  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
 }
 document.addEventListener('click', (e) => {
@@ -236,7 +253,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'compare'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>
