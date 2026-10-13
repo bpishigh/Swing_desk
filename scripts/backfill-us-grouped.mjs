@@ -35,7 +35,7 @@ for (let d = new Date(start); d <= end && calls < maxCalls; d.setUTCDate(d.getUT
   const day = iso(d), f = `${dir}/${day}.csv.gz`;
   if (existsSync(f) || meta.noData.includes(day) || meta.refused.includes(day)) continue;
   const g = await get(`/v2/aggs/grouped/locale/us/market/stocks/${day}?adjusted=false`);
-  if (g.status === 403) { meta.refused.push(day); continue; }
+  if (g.status === 403) { if (end - d > 6 * 86400000) meta.refused.push(day); continue; } // a recent day may just not be released on the free plan yet: retry it next run, never record it as refused
   if (g.status !== 200) { console.log(`${day}: status ${g.status}, stopping`); break; }
   const rows = g.j?.results ?? [];
   if (!rows.length) { meta.noData.push(day); continue; } // holiday or no trading
