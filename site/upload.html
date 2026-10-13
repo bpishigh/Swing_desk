@@ -25,7 +25,7 @@ button, select, input[type=file] { font:inherit; } button { background:var(--acc
 </head>
 <body>
 <div class="wrap">
-  <div class="sub"><a href="index.html" target="_top">← Repo Desk</a></div>
+  <div class="sub" id="back"><a href="index.html" target="_top">← Repo Desk</a></div>
   <h1>Portfolio Manager</h1>
   <div class="sub">Files are read and computed in your browser. If you tick Save, only the clean transactions (no client code, name or PAN) are stored in your private repo through the signed-in Cloudflare link, so the accounts come back next time. Without Save, nothing is kept. Public data (corporate actions, fund list, prices) comes from the Repo Desk.</div>
   <div class="card">
@@ -48,6 +48,7 @@ import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
 const $ = (id) => document.getElementById(id);
+if (window.top !== window) $('back').hidden = true;
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
 let data, hist = null;
 async function loadHist() {
@@ -124,12 +125,12 @@ let saved = new Map(), canSave = false;
 async function loadSaved() {
   try {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
-    if (!res.ok) throw new Error(String(res.status));
+    if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; $('status').textContent = `Public data ready. Saving is not available (${res.status} ${e.error || ''}): ${hint}.`; return; }
     const j = await res.json(); canSave = true; $('saveBox').hidden = false;
     for (const a of j.accounts) saved.set(a.label, a);
     for (const a of j.accounts) { $('status').textContent = 'Loading ' + a.label + '…'; await compute(a.label, a.broker, [a.trades], []); }
     $('status').textContent = j.accounts.length ? `Loaded ${j.accounts.length} saved account(s). Add files to update one.` : 'No saved accounts yet. Add files, and tick Save to keep them.';
-  } catch { $('status').textContent = 'Public data ready. Saving is not available on this address (open the dashboard through its Cloudflare link to use saved accounts).'; }
+  } catch (e) { $('status').textContent = 'Public data ready. Saving is not available (could not reach /api/portfolio: ' + e.message + ').'; }
 }
 $('run').onclick = async () => {
   const files = [...$('files').files], label = ($('label').value || 'Account').trim(), broker = $('broker').value;
