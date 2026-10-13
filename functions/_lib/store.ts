@@ -1,7 +1,7 @@
 // Portfolio storage in the private repo through the GitHub contents API. Only the folder `portfolio/accounts/` is ever touched.
 import { mergeTrades, type Trade } from '../../src/pm/reader.ts';
 export interface StoreEnv { GITHUB_TOKEN: string; REPO: string; BRANCH?: string }
-export interface Account { label: string; broker: 'groww' | 'zerodha'; savedAt: string; trades: Trade[] }
+export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; savedAt: string; trades: Trade[] }
 const DIR = 'portfolio/accounts';
 const LABEL = /^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/;
 const DATE = /^\d{4}-\d\d-\d\d$/;
@@ -25,6 +25,7 @@ export function cleanTrades(input: unknown): Trade[] | string {
   }
   return out;
 }
+export const validOwner = (o: unknown): o is string | undefined => o === undefined || validLabel(o);
 export const validLabel = (l: unknown): l is string => typeof l === 'string' && LABEL.test(l);
 const slug = (l: string) => l.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const b64 = (s: string) => { const b = new TextEncoder().encode(s); let r = ''; for (const c of b) r += String.fromCharCode(c); return btoa(r); };
@@ -51,10 +52,10 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date()) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
-  const acc: Account = { label, broker, savedAt: now.toISOString(), trades: merged.trades };
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }

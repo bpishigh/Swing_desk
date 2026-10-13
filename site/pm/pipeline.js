@@ -4,13 +4,13 @@ import { mergeTrades, aggregateFills,            } from './reader.js';
 import { canonicalise } from './lineage.js';
 import { buildCatalogue, ipoCandidates,                                                   } from './nse-catalogue.js';
 import { resolve } from './resolver.js';
-import { assetType,                } from './classify.js';
+import { assetType, isEtf,                } from './classify.js';
 import { orderCharges } from './charges.js';
 import { taxView,              } from './tax.js';
 import { computeDividends,                   } from './dividends.js';
 import { FundMaster, fundTaxType,              } from './funds.js';
 import { replay } from './ledger.js';
-import { performance,           } from './performance.js';
+import { performance,                      } from './performance.js';
 import { inferBooks, bookTotals } from './books.js';
 import { valuationSeries,               } from './valuation.js';
 
@@ -28,7 +28,8 @@ import { valuationSeries,               } from './valuation.js';
                      
                                                                                                                                                  
                                                                        
-                                                                                              
+                                                                                                                                                                    
+                                                                                                                                                                                    
                                                                
  
 const isFundType = (t         ) => !!t && /fund|fof|hybrid/.test(t);
@@ -83,7 +84,7 @@ export function runPipeline(batches           , broker                     , d  
   const books = inferBooks(combined.open, { typeOf: (k) => (typeByKey.get(k) ?? 'listed_equity')             , isFund: (k) => isFundType(typeByKey.get(k)) });
   const bt = bookTotals(books, priceOf);
   const byName = new Map                                    ();
-  for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const e = byName.get(nm) ?? byName.set(nm, { name: nm, book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0 }).get(nm) ; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
+  for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity')             ) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm) ; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
   holdings.push(...byName.values());
 
   const ords                                                                            = [];
@@ -108,7 +109,7 @@ export function runPipeline(batches           , broker                     , d  
   }
   const warnings           = [];
   const zero = stocks.filter((t) => t.value === 0);
-  if (absorbed.length) warnings.push(`Broker credit(s) matched to a demerger and replaced by the demerger record (cost moved from the parent): ${absorbed.join('; ')}`);
+  if (absorbed.length) warnings.push(`Your broker showed free shares from a demerger (${absorbed.join('; ')}). The demerger is already counted from public records, with the cost moved over from the original company, so the broker's free credit was ignored to avoid counting it twice.`);
   if (zero.length) warnings.push(`${zero.length} order(s) with zero value (a credit, not a purchase; cost unknown, likely a demerger or bonus credit): ` + zero.map((t) => `${t.instrument || t.symbol || t.isin} ${t.qty} on ${t.date}`).join('; '));
   if (unmapped.size) warnings.push(`Fund schemes not matched to AMFI: ${[...unmapped].join('; ')}`);
   const nm = (k        ) => nameByKey.get(k) ?? k;
@@ -116,6 +117,8 @@ export function runPipeline(batches           , broker                     , d  
     counts: { trades: m.trades.length, duplicates: m.duplicates, orders: orders.length, stockOrders: stocks.length, fundOrders: funds.length, openLots: combined.open.length },
     funds: { mapped: fundTrades.length, unmapped: [...unmapped] },
     resolver: { eventsFromFeed: res.facts.length, applied: res.applied.map((p) => `${nm((p.event       ).key)}: ${p.why}`), proposed: res.proposed.map((p) => `${nm((p.event       ).key)}: ${p.why}`), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
+    flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
+    divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
     books: bt, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };

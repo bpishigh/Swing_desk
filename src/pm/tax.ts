@@ -21,9 +21,14 @@ export function taxView(rep: Replay, typeOf: (key: string) => AssetType, expense
     if (longAfter === null) { line.unlabeled += gain; continue; }
     if (r.days > longAfter) line.ltcg += gain; else line.stcg += gain;
   }
+  return taxFromLines(new Map([...byFy].map(([f, m]) => [f, [...m.values()]])), rules, rep.breaks.length);
+}
+
+/** The second half of the tax view, on gains already split by type: pooling, set-off, carry, exemption, tax. Also used to combine several accounts of one person. */
+export function taxFromLines(byFy: Map<string, TaxLine[]>, rules: Rules, breaks = 0): TaxYear[] {
   const out: TaxYear[] = []; let carryS = 0, carryL = 0; const ys = [...byFy.keys()].sort();
   for (const f of ys) {
-    const lines = [...byFy.get(f)!.values()];
+    const lines = byFy.get(f)!;
     const pool = lines.filter((l) => rules.types[l.type].exemption);                      // listed equity and equity funds share set-off and the exemption
     const eq = { stcg: pool.reduce((a, l) => a + l.stcg, 0), ltcg: pool.reduce((a, l) => a + l.ltcg, 0) };
     const ruleRows = rules.types.listed_equity.rules.filter((x) => x.transfer_from <= `${f.slice(0, 4)}-10-01`).sort((a, b) => b.transfer_from.localeCompare(a.transfer_from));
@@ -37,7 +42,18 @@ export function taxView(rep: Replay, typeOf: (key: string) => AssetType, expense
     const tax = taxS * (rr.stcg as number) + taxL * (rr.ltcg as number);
     carryS = stcl; carryL = ltcl;
     const slab = lines.filter((x) => !rules.types[x.type].exemption).reduce((a, x) => a + x.stcg + x.ltcg, 0);
-    out.push({ fy: f, lines, equity: { stcg: eq.stcg, ltcg: eq.ltcg, ltcgAfterSetoff: afterSetoff, exemption: rr.exemption, exemptionUsed: used, taxable: { stcg: taxS, ltcg: taxL }, tax: Math.round(tax) }, slabGains: Math.round(slab), carryForward: { stcl, ltcl, unconfirmed: true }, openBreaks: rep.breaks.length, banner: rep.breaks.length ? `${rep.breaks.length} sell(s) with no buy are left out of these totals until resolved` : null });
+    out.push({ fy: f, lines, equity: { stcg: eq.stcg, ltcg: eq.ltcg, ltcgAfterSetoff: afterSetoff, exemption: rr.exemption, exemptionUsed: used, taxable: { stcg: taxS, ltcg: taxL }, tax: Math.round(tax) }, slabGains: Math.round(slab), carryForward: { stcl, ltcl, unconfirmed: true }, openBreaks: breaks, banner: breaks ? `${breaks} sell(s) with no buy are left out of these totals until resolved` : null });
   }
   return out;
+}
+
+/** One person's tax across their accounts: gains of the same type add up before set-off, exemption and tax (the exemption and the loss set-off belong to the person, not the account). */
+export function mergeTax(sets: TaxYear[][], rules: Rules): TaxYear[] {
+  const by = new Map<string, Map<AssetType, TaxLine>>();
+  for (const set of sets) for (const y of set) {
+    const m = by.get(y.fy) ?? by.set(y.fy, new Map()).get(y.fy)!;
+    for (const l of y.lines) { const e = m.get(l.type) ?? m.set(l.type, { ...l, stcg: 0, ltcg: 0, unlabeled: 0 }).get(l.type)!; e.stcg += l.stcg; e.ltcg += l.ltcg; e.unlabeled += l.unlabeled; }
+  }
+  const breaks = sets.reduce((a, s) => a + (s[0]?.openBreaks ?? 0), 0);
+  return taxFromLines(new Map([...by].map(([f, m]) => [f, [...m.values()]])), rules, breaks);
 }

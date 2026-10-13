@@ -208,8 +208,9 @@ function viewHealth() {
   <section class="card" style="margin-top:16px"><h2>Last runs</h2><div class="tablewrap"><table><thead><tr><th>Job</th><th>Ran</th><th>Data day</th><th>Status</th></tr></thead><tbody>${jobRows}</tbody></table></div></section>`;
 }
 function viewPortfolio() {
-  return `<section class="card" style="padding:0;overflow:hidden"><iframe src="upload.html" title="Portfolio Manager" style="width:100%;height:1400px;border:0;display:block"></iframe></section>`;
+  return `<section class="card" style="padding:0;overflow:hidden"><iframe id="pmFrame" src="upload.html" title="Portfolio Manager" style="width:100%;height:900px;border:0;display:block"></iframe></section>`;
 }
+addEventListener('message', (e) => { if (e.source && e.data && typeof e.data.pmHeight === 'number') { const f = document.getElementById('pmFrame'); if (f && f.contentWindow === e.source) f.style.height = Math.max(500, Math.ceil(e.data.pmHeight)) + 'px'; } });
 function viewStore() {
   const S = D.store; if (!S) return '<div class="empty">No store summary yet.</div>';
   const row = (a, b, c, d) => `<tr><td>${a}</td><td class="num">${b}</td><td>${c}</td><td>${d}</td></tr>`;

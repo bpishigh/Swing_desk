@@ -6,136 +6,384 @@
 <title>Portfolio Manager</title>
 <meta name="robots" content="noindex">
 <style>
-:root { --bg:#f5f4f0; --panel:#fff; --ink:#1d2327; --muted:#5d6870; --line:#dedbd3; --accent:#1f5f8b; --green:#17693a; --red:#a1261b; --yellow:#7a5a00; --yellow-bg:#f8ecc4; --font: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono: ui-monospace,Menlo,Consolas,monospace; }
-@media (prefers-color-scheme: dark) { :root { --bg:#14181b; --panel:#1c2226; --ink:#e6e9ea; --muted:#98a3a9; --line:#333c42; --accent:#6cb2e0; --green:#6fd197; --red:#ff8f84; --yellow:#e8c45c; --yellow-bg:#3b3210; color-scheme: dark; } }
-* { box-sizing: border-box; }
+:root { --bg:#f5f4f0; --panel:#fff; --ink:#1d2327; --muted:#5d6870; --line:#e3e0d8; --accent:#1f5f8b; --accent-bg:#e3eef6; --green:#17693a; --green-bg:#e1f1e7; --red:#a1261b; --red-bg:#f8e4e1; --yellow:#7a5a00; --yellow-bg:#f8ecc4; --font: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono: ui-monospace,Menlo,Consolas,monospace; }
+@media (prefers-color-scheme: dark) { :root { --bg:#14181b; --panel:#1c2226; --ink:#e6e9ea; --muted:#98a3a9; --line:#323b41; --accent:#6cb2e0; --accent-bg:#1d3342; --green:#6fd197; --green-bg:#16301f; --red:#ff8f84; --red-bg:#3a1b18; --yellow:#e8c45c; --yellow-bg:#3b3210; color-scheme: dark; } }
+* { box-sizing:border-box; }
 body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 var(--font); }
-.wrap { max-width:1100px; margin:0 auto; padding:16px 16px 48px; }
-h1 { font-size:20px; margin:0 0 4px; } h2 { font-size:15px; margin:0 0 8px; }
-a { color:var(--accent); } .sub { color:var(--muted); font-size:12.5px; }
-.card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px; margin:12px 0; overflow-x:auto; }
-table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; } th,td { text-align:right; padding:5px 8px; border-bottom:1px solid var(--line); white-space:nowrap; } th:first-child,td:first-child { text-align:left; } th { color:var(--muted); font-weight:500; }
-.neg { color:var(--red); } .pos { color:var(--green); }
-.note { background:var(--yellow-bg); color:var(--yellow); border-radius:6px; padding:8px 10px; margin:6px 0; font-size:13px; }
-.kpis { display:flex; flex-wrap:wrap; gap:10px 28px; } .kpis div { min-width:120px; } .kpis b { display:block; font:600 18px var(--mono); } .kpis span { color:var(--muted); font-size:12px; }
-.row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-button, select, input[type=file] { font:inherit; } button { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:8px 14px; cursor:pointer; } button:disabled { opacity:.5; }
-.tag { font-size:11px; padding:1px 6px; border-radius:10px; background:var(--yellow-bg); color:var(--yellow); }
+.wrap { max-width:1080px; margin:0 auto; padding:0 16px 40px; }
+.bar { padding:12px 0 0; border-bottom:1px solid var(--line); }
+.bar .r { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.grow { flex:1; }
+button, select, input { font:inherit; color:inherit; }
+button { cursor:pointer; }
+.btn { background:var(--accent); color:#fff; border:0; border-radius:8px; padding:8px 14px; } .btn:disabled { opacity:.5; cursor:default; }
+.ghost { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:7px 12px; }
+.sw { position:relative; } .sw > .ghost { font-weight:600; font-size:15px; min-width:210px; text-align:left; }
+.menu { position:absolute; top:calc(100% + 4px); left:0; min-width:270px; background:var(--panel); border:1px solid var(--line); border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.18); padding:6px; z-index:10; }
+.menu button { display:flex; justify-content:space-between; gap:12px; width:100%; background:none; border:0; text-align:left; padding:7px 10px; border-radius:6px; } .menu button:hover, .menu button[aria-current=true] { background:var(--accent-bg); }
+.menu .h { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); padding:8px 10px 2px; }
+.menu input { width:100%; border:1px solid var(--line); border-radius:6px; padding:7px 9px; background:var(--bg); margin-top:6px; }
+.seg { display:flex; flex-wrap:wrap; gap:4px; } .seg button { background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:13px; } .seg button[aria-pressed=true] { background:var(--accent); border-color:var(--accent); color:#fff; }
+.tabs { display:flex; gap:2px; margin-top:8px; overflow-x:auto; } .tabs button { background:none; border:0; border-bottom:2px solid transparent; padding:7px 14px; color:var(--muted); font-weight:500; } .tabs button[aria-selected=true] { color:var(--ink); border-color:var(--accent); }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; margin:14px 0; }
+.card h2 { font-size:14px; margin:0 0 10px; font-weight:600; } .sub { color:var(--muted); font-size:12.5px; }
+.verdict { border-left:5px solid var(--muted); font-size:17px; line-height:1.4; } .verdict.good { border-color:var(--green); background:var(--green-bg); } .verdict.bad { border-color:var(--red); background:var(--red-bg); } .verdict.flat { border-color:var(--yellow); background:var(--yellow-bg); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:12px; margin:14px 0; }
+.tile { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.tile .k { font-size:12px; color:var(--muted); display:flex; justify-content:space-between; } .tile .v { font:600 26px/1.2 var(--font); margin:4px 0 2px; letter-spacing:-.01em; } .tile .s { font-size:12.5px; color:var(--muted); }
+.pos { color:var(--green); } .neg { color:var(--red); }
+.chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; } .chip { font-size:11.5px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); background:var(--bg); cursor:pointer; } .chip[aria-pressed=true] { border-color:var(--accent); background:var(--accent-bg); }
+.tag { font-size:11px; padding:1px 7px; border-radius:999px; background:var(--yellow-bg); color:var(--yellow); white-space:nowrap; } .tag.ok { background:var(--green-bg); color:var(--green); } .tag.bad { background:var(--red-bg); color:var(--red); }
+.tw { overflow-x:auto; } table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; } th, td { text-align:right; padding:7px 9px; border-bottom:1px solid var(--line); white-space:nowrap; } th:first-child, td:first-child { text-align:left; white-space:normal; min-width:150px; } th { color:var(--muted); font-weight:500; font-size:12.5px; } th[data-sort] { cursor:pointer; user-select:none; } tfoot td { font-weight:600; border-top:2px solid var(--line); border-bottom:0; } tr.hi td { background:var(--accent-bg); }
+td small { display:block; color:var(--muted); font-size:11.5px; }
+.note { background:var(--yellow-bg); color:var(--yellow); border-radius:8px; padding:8px 11px; margin:8px 0; font-size:13px; } .note.info { background:var(--accent-bg); color:var(--ink); }
+.chartbox { position:relative; } .tip { position:absolute; pointer-events:none; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:6px 9px; font-size:12px; box-shadow:0 4px 14px rgba(0,0,0,.15); white-space:nowrap; display:none; }
+.legend { display:flex; gap:16px; font-size:12px; color:var(--muted); margin-top:4px; } .legend i { display:inline-block; width:18px; height:0; border-top:3px solid var(--accent); vertical-align:middle; margin-right:5px; } .legend i.d { border-top:2px dashed #888; }
+.bar2 { height:6px; border-radius:3px; background:var(--accent-bg); } .bar2 > i { display:block; height:100%; border-radius:3px; background:var(--accent); }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; } .grid2 .card { margin:0; }
+.drawer { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; margin:12px 0; } .drawer .f { display:flex; flex-wrap:wrap; gap:10px; align-items:end; } .drawer label { display:flex; flex-direction:column; font-size:12px; color:var(--muted); gap:3px; } .drawer input, .drawer select { border:1px solid var(--line); border-radius:6px; padding:7px 9px; background:var(--bg); }
+.empty { text-align:center; padding:44px 12px; color:var(--muted); }
+input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--panel); min-width:200px; }
+@media (max-width:640px) { .tile .v { font-size:22px; } .sw > .ghost { min-width:0; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="sub" id="back"><a href="index.html" target="_top">← Repo Desk</a></div>
-  <h1>Portfolio Manager</h1>
-  <div class="sub">Files are read and computed in your browser. If you tick Save, only the clean transactions (no client code, name or PAN) are stored in your private repo through the signed-in Cloudflare link, so the accounts come back next time. Without Save, nothing is kept. Public data (corporate actions, fund list, prices) comes from the Repo Desk.</div>
-  <div class="card">
-    <div class="row">
-      <input type="file" id="files" multiple accept=".csv,.xlsx">
-      <label>Broker <select id="broker"><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
-      <label>Account name <input id="label" value="Account 1" size="14"></label>
-      <button id="run" disabled>Add account</button>
-      <label class="sub" id="saveBox" hidden><input type="checkbox" id="save" checked> Save these transactions to my private portfolio store</label>
-      <label class="sub"><input type="checkbox" id="nav"> include funds in the chart (fetches public NAV history from mfapi.in; that service can see which schemes you hold)</label>
-      <span class="sub" id="status">Loading public data…</span>
+  <div class="bar">
+    <div class="r">
+      <div class="sw" id="sw"></div>
+      <span class="grow"></span>
+      <button class="ghost" id="addBtn">＋ Add files</button>
     </div>
-    <div class="sub" style="margin-top:6px">Choose all tradebooks for one account together (stocks and funds, any years). Add each account separately (its own name and broker); a combined household view appears once there are two or more. Adding an account with the same name replaces it.</div>
+    <div class="seg" id="per" style="margin-top:10px"></div>
+    <div class="tabs" id="tabs" role="tablist"></div>
   </div>
-  <div id="out"></div>
+  <div class="drawer" id="drawer" hidden>
+    <div class="f">
+      <label>Tradebook files (CSV or Excel) <input type="file" id="files" multiple accept=".csv,.xlsx"></label>
+      <label>Account <input id="label" list="acctList" placeholder="pick or type a new name" size="18"><datalist id="acctList"></datalist></label>
+      <label>Owner (whose PAN) <input id="owner" list="ownerList" placeholder="e.g. Owner" size="12"><datalist id="ownerList"></datalist></label>
+      <label>Broker <select id="broker"><option value="auto">Detect from files</option><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
+      <label class="sub" id="saveBox" hidden style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" id="save" checked> Save to my private store</label>
+      <button class="btn" id="run" disabled>Add</button>
+    </div>
+    <div class="sub" id="status" style="margin-top:8px">Loading public data…</div>
+    <div class="sub" style="margin-top:4px">Files are read in your browser. If Save is on, only clean transactions (no client code, name or PAN) go to your private repo. Adding to an existing account merges and ignores repeated rows. Pick one broker's files per account; stocks and funds can go together.</div>
+  </div>
+  <div id="main"></div>
 </div>
 <script type="module">
 import { parseCsv } from './pm/csv.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
+import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowReturn } from './pm/insight.js';
+import { mergeTax, fy } from './pm/tax.js';
 const $ = (id) => document.getElementById(id);
-if (window.top !== window) $('back').hidden = true;
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
-let data, hist = null;
-async function loadHist() {
-  if (hist) return hist; const months = await J('prices/index'); const parts = await Promise.all(months.map((m) => J('prices/' + m)));
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const keyOf = (l) => l.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const store = { get(k, d) { try { return localStorage.getItem('pm.' + k) ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem('pm.' + k, v); } catch {} } };
+
+// ---------- formatting
+const inr = (x) => Math.round(x).toLocaleString('en-IN');
+const money = (x) => (x < 0 ? '−' : '') + '₹' + inr(Math.abs(x));
+const short = (x) => { const a = Math.abs(x), s = x < 0 ? '−' : ''; return a >= 1e7 ? s + '₹' + (a / 1e7).toFixed(2) + ' Cr' : a >= 1e5 ? s + '₹' + (a / 1e5).toFixed(2) + ' L' : s + '₹' + inr(a); };
+const pct = (x, d = 1) => (x === null || x === undefined || !Number.isFinite(x) ? '–' : (x * 100).toFixed(d) + '%');
+const pts = (x) => (x === null ? '–' : (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(1) + ' pts');
+const cls = (x) => (x < 0 ? 'neg' : x > 0 ? 'pos' : '');
+const num = (x) => `<span class="${cls(x)}">${inr(x)}</span>`;
+
+// ---------- state
+const S = { accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', q: '', benchStatus: '' };
+const ownerOf = (a) => a.owner || 'Unassigned';
+const reports = () => [...S.accounts.values()].filter((a) => a.report);
+
+// ---------- data loading
+let histP;
+function loadHist() { return (histP ??= (async () => {
+  const months = await J('prices/index'); const parts = await Promise.all(months.map((m) => J('prices/' + m)));
   const dates = [], px = {}; let off = 0;
   for (const c of parts) { for (const [sym, a] of Object.entries(c.px)) { const t = (px[sym] ??= new Array(off).fill(null)); while (t.length < off) t.push(null); for (let i = 0; i < c.dates.length; i++) t.push(a[i] ?? null); } dates.push(...c.dates); off += c.dates.length; for (const a of Object.values(px)) while (a.length < off) a.push(null); }
-  return (hist = { dates, px });
+  return { dates, px };
+})()); }
+async function fetchNav(code) { try { const j = await (await fetch('https://api.mfapi.in/mf/' + code)).json(); const m = {}; for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); m[`${yy}-${mm}-${dd}`] = Number(x.nav); } return Object.keys(m).length ? m : null; } catch { return null; } }
+async function loadBenchmarks() {
+  const got = await Promise.all(BENCHMARKS.map(async (b) => [b.id, await fetchNav(b.code)]));
+  let ok = 0; for (const [id, m] of got) if (m) { S.navs[id] = m; ok++; }
+  S.benchStatus = ok === BENCHMARKS.length ? 'Index history loaded.' : ok ? `Index history loaded for ${ok} of ${BENCHMARKS.length} indices.` : 'Index history could not be loaded (the NAV service did not answer), so there is no index comparison right now.';
 }
-async function loadNav(codes) {
-  const out = {};
-  await Promise.all(Object.entries(codes).map(async ([isin, code]) => { try { const j = await (await fetch('https://api.mfapi.in/mf/' + code)).json(); const m = {}; for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); m[`${yy}-${mm}-${dd}`] = Number(x.nav); } out[isin] = m; } catch {} }));
+async function loadFundNavs() {
+  if (!S.fundOn) { S.fundNavs = undefined; return; }
+  const codes = {}; for (const a of reports()) Object.assign(codes, a.report.fundCodes);
+  const missing = Object.entries(codes).filter(([isin]) => !(S.fundNavs && S.fundNavs[isin]));
+  if (!missing.length) return;
+  S.fundNavs = { ...(S.fundNavs || {}) };
+  await Promise.all(missing.map(async ([isin, code]) => { const m = await fetchNav(code); if (m) S.fundNavs[isin] = m; }));
+}
+function compute(a) {
+  const d = S.data; d.priceHistory = S.hist; d.navHistory = S.fundOn ? S.fundNavs : undefined;
+  a.report = runPipeline([a.trades], a.broker, d);
+  a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
+}
+async function recomputeAll(withFunds) {
+  for (const a of S.accounts.values()) if (a.trades.length) compute(a);
+  render();
+  if (withFunds && S.fundOn && reports().some((a) => Object.keys(a.report.fundCodes).length)) {
+    setStatus('Loading fund history…'); await loadFundNavs();
+    for (const a of S.accounts.values()) if (a.trades.length) compute(a);
+    setStatus(''); render();
+  }
+}
+const setStatus = (t) => { $('status').textContent = t; };
+
+// ---------- selection
+function members() {
+  const L = reports();
+  if (S.sel === 'ALL') return L;
+  if (S.sel.startsWith('o:')) return L.filter((a) => ownerOf(a) === S.sel.slice(2));
+  return L.filter((a) => a.key === S.sel.slice(2));
+}
+function selLabel() {
+  if (S.sel === 'ALL') return 'Household · all accounts';
+  if (S.sel.startsWith('o:')) return S.sel.slice(2) + ' · all accounts';
+  return S.accounts.get(S.sel.slice(2))?.label ?? 'Choose account';
+}
+function build() {
+  const ms = members(); if (!ms.length) return null;
+  const R = ms.map((a) => a.report);
+  const V = { ms, R, flows: R.flatMap((r) => r.flows), divFlows: R.flatMap((r) => r.divFlows), held: R.reduce((a, r) => a + r.performance.held, 0), costOpen: R.reduce((a, r) => a + r.performance.costOpen, 0), realised: R.reduce((a, r) => a + r.performance.realised, 0), unrealised: R.reduce((a, r) => a + r.performance.unrealised, 0), asOf: R[0].performance.asOf };
+  V.series = ms.every((a) => a.report.series) ? sumSeries(R.map((r) => r.series)) : null;
+  V.complete = ms.every((a) => a.complete);
+  const fys = [...new Set(V.flows.map((f) => fy(f.date)))];
+  V.periods = periods(fys, V.asOf);
+  return V;
+}
+
+// ---------- chrome
+function drawChrome() {
+  const owners = [...new Set([...S.accounts.values()].map(ownerOf))];
+  const items = [...S.accounts.values()];
+  $('sw').innerHTML = `<button class="ghost" id="swBtn" aria-haspopup="true" aria-expanded="${S.menu}">${esc(selLabel())} ▾</button>` + (S.menu ? `<div class="menu" id="menu">
+    <button data-sel="ALL" aria-current="${S.sel === 'ALL'}">Household · all accounts<span class="sub">${items.length}</span></button>
+    ${owners.length > 1 || (owners.length === 1 && items.length > 1) ? `<div class="h">People</div>${owners.map((o) => `<button data-sel="o:${esc(o)}" aria-current="${S.sel === 'o:' + o}">${esc(o)}<span class="sub">${items.filter((a) => ownerOf(a) === o).length} acct</span></button>`).join('')}` : ''}
+    <div class="h">Accounts</div>${items.map((a) => `<button data-sel="a:${a.key}" aria-current="${S.sel === 'a:' + a.key}">${esc(a.label)}<span class="sub">${esc(ownerOf(a))} · ${esc(a.broker)}</span></button>`).join('') || '<div class="sub" style="padding:4px 10px">None yet</div>'}
+    <div class="h">New</div><input id="newAcct" placeholder="Type a name, press Enter to create" maxlength="40"></div>` : '');
+  const V = S.cur;
+  $('per').innerHTML = V ? V.periods.map((p) => `<button data-per="${p.id}" aria-pressed="${p.id === (V.periods.find((x) => x.id === S.period) ? S.period : 'all')}">${esc(p.label)}</button>`).join('') : '';
+  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['tax', 'Tax'], ['income', 'Income'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
+  $('acctList').innerHTML = items.map((a) => `<option value="${esc(a.label)}">`).join(''); $('ownerList').innerHTML = owners.filter((o) => o !== 'Unassigned').map((o) => `<option value="${esc(o)}">`).join('');
+}
+
+// ---------- overview
+function chartSvg(path, benchId) {
+  if (path.length < 2) return '';
+  const W = 900, H = 300, L = 62, B = 26, T = 10, Rr = 12;
+  const vals = path.flatMap((d) => [d.value, d.idx[benchId]].filter((x) => x !== undefined));
+  let lo = Math.min(...vals), hi = Math.max(...vals); const padv = (hi - lo || hi || 1) * 0.08; lo = Math.max(0, lo - padv); hi += padv;
+  const x = (i) => L + (i / (path.length - 1)) * (W - L - Rr), y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+  const grid = [0, 1, 2, 3, 4].map((k) => { const v = lo + ((hi - lo) * k) / 4; return `<line x1="${L}" x2="${W - Rr}" y1="${y(v)}" y2="${y(v)}" stroke="currentColor" opacity=".12"/><text x="${L - 6}" y="${y(v) + 4}" font-size="11" text-anchor="end" fill="currentColor" opacity=".7">${short(v).replace('₹', '')}</text>`; }).join('');
+  const xl = [0, 1, 2, 3, 4].map((k) => { const i = Math.round(((path.length - 1) * k) / 4); return `<text x="${x(i)}" y="${H - 7}" font-size="11" text-anchor="${k === 0 ? 'start' : k === 4 ? 'end' : 'middle'}" fill="currentColor" opacity=".7">${path[i].date}</text>`; }).join('');
+  const line = (get, stroke, extra) => { const seg = path.map((d, i) => (get(d) === undefined ? null : x(i).toFixed(1) + ',' + y(get(d)).toFixed(1))).filter(Boolean); return seg.length > 1 ? `<polyline fill="none" stroke="${stroke}" stroke-width="2.4" stroke-linejoin="round" ${extra || ''} points="${seg.join(' ')}"/>` : ''; };
+  return `<svg id="chart" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;touch-action:pan-y" role="img" aria-label="Portfolio value against the same money in an index">${grid}${xl}${line((d) => d.idx[benchId], '#888', 'stroke-dasharray="6 4" stroke-width="2"')}${line((d) => d.value, 'var(--accent)')}<line id="cx" y1="${T}" y2="${H - B}" stroke="currentColor" opacity=".35" visibility="hidden"/><circle id="cd" r="4" fill="var(--accent)" visibility="hidden"/></svg>`;
+}
+function wireChart(path, benchId) {
+  const svg = $('chart'), tip = $('tip'); if (!svg) return;
+  const W = 900, L = 62, Rr = 12;
+  svg.onpointermove = (e) => {
+    const r = svg.getBoundingClientRect(), px = ((e.clientX - r.left) / r.width) * W; const i = Math.max(0, Math.min(path.length - 1, Math.round(((px - L) / (W - L - Rr)) * (path.length - 1)))); const d = path[i];
+    const sx = (L + (i / (path.length - 1)) * (W - L - Rr)); $('cx').setAttribute('x1', sx); $('cx').setAttribute('x2', sx); $('cx').setAttribute('visibility', 'visible');
+    const b = d.idx[benchId], B = BENCHMARKS.find((z) => z.id === benchId).label;
+    tip.innerHTML = `<b>${d.date}</b><br>You: ${money(d.value)}${b !== undefined ? `<br>${esc(B)}: ${money(b)} <span class="${cls(d.value - b)}">(${d.value - b >= 0 ? 'ahead' : 'behind'} ${short(Math.abs(d.value - b))})</span>` : ''}`;
+    tip.style.display = 'block'; const tx = (sx / W) * r.width; tip.style.left = Math.min(Math.max(4, tx + 12), r.width - tip.offsetWidth - 4) + 'px'; tip.style.top = '8px';
+  };
+  svg.onpointerleave = () => { tip.style.display = 'none'; $('cx').setAttribute('visibility', 'hidden'); };
+}
+function home(V) {
+  const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0];
+  const A = analyse({ series: V.series, seriesComplete: V.complete, flows: V.flows, divFlows: V.divFlows, asOf: V.asOf, heldNow: V.held, navs: S.navs, period: per });
+  const M = momentum(V.series, V.complete, V.flows, V.asOf, S.navs[S.bench]);
+  const vd = verdict(A, S.bench, M); const B = A.bench.find((b) => b.id === S.bench);
+  const benchLabel = BENCHMARKS.find((b) => b.id === S.bench).label;
+  const arrow = { Gaining: '▲', Steady: '▬', Fading: '▼' }[M.label] ?? '·', mcls = { Gaining: 'pos', Fading: 'neg' }[M.label] ?? '';
+  const t1 = `<div class="tile"><div class="k">Value now <span>${esc(V.asOf)}</span></div><div class="v">${short(V.held)}</div><div class="s">Cost ${short(V.costOpen)} · unrealised <span class="${cls(V.unrealised)}">${short(V.unrealised)}</span></div></div>`;
+  const t2 = A.ok ? `<div class="tile"><div class="k">Gain · ${esc(per.label)}</div><div class="v ${cls(A.gain)}">${short(A.gain)}</div><div class="s">${per.id === 'all' ? `Realised <span class="${cls(V.realised)}">${short(V.realised)}</span> · unrealised <span class="${cls(V.unrealised)}">${short(V.unrealised)}</span>` : `${short(A.startValue)} → ${short(A.endValue)}${Math.abs(A.netInvested) > 1 ? ` with ${short(A.netInvested)} ${A.netInvested > 0 ? 'added' : 'taken out'}` : ''}`}${A.dividends ? `<br>+ ${short(A.dividends)} estimated dividends` : ''}</div></div>` : `<div class="tile"><div class="k">Gain · ${esc(per.label)}</div><div class="v">–</div><div class="s">${esc(A.why)}</div></div>`;
+  const t3 = `<div class="tile" title="XIRR is your yearly return allowing for when money went in. The index figure is what the same deposits and withdrawals would have earned in that index fund."><div class="k">Yearly return (XIRR)</div><div class="v ${B && B.gap !== null ? cls(B.gap) : ''}">${A.ok ? pct(A.xirr) : '–'}</div><div class="s">${B && B.xirr !== null ? `${esc(benchLabel)} ${pct(B.xirr)} · <b class="${cls(B.gap)}">${pts(B.gap)}</b>` : esc(S.benchStatus || 'Index comparison not available')}</div><div class="chips">${A.bench.map((b) => `<button class="chip" data-bench="${b.id}" aria-pressed="${b.id === S.bench}" title="${esc(b.label)}: ${b.xirr === null ? esc(b.why || 'n/a') : pct(b.xirr)}">${esc(b.label.split(' (')[0])} <b class="${cls(b.gap ?? 0)}">${b.gap === null ? '' : pts(b.gap)}</b></button>`).join('')}</div></div>`;
+  const t4 = `<div class="tile" title="Compares the last 3 months with the 3 months before, so you can see whether returns are picking up, holding or slipping."><div class="k">Momentum</div><div class="v ${mcls}">${arrow} ${M.label === 'Not enough history' ? 'Unknown' : M.label}</div><div class="s">${esc(M.note)}${M.idx3 !== null && M.r3 !== null ? `<br>${esc(benchLabel)} last 3 months: ${pct(M.idx3)}` : ''}</div></div>`;
+  const hs = mergedHoldings(V).filter((h) => h.value !== null).slice(0, 6), tot = V.held || 1;
+  const attention = attentionItems(V);
+  return `<div class="card verdict ${vd.tone}">${esc(vd.text)}</div>
+  <div class="tiles">${t1}${t2}${t3}${t4}</div>
+  <div class="card"><h2>You against the same money in ${esc(benchLabel)}</h2><div class="chartbox">${A.path.length > 1 ? chartSvg(A.path, S.bench) + '<div class="tip" id="tip"></div>' : `<div class="empty">${A.ok ? 'No value history to draw for this selection yet. Stored prices cover only recent months, and funds need fund history switched on (Data tab).' : esc(A.why)}</div>`}</div>
+    ${A.path.length > 1 ? `<div class="legend"><span><i></i>Your portfolio</span><span><i class="d"></i>Same deposits in ${esc(benchLabel)}</span></div>` : ''}
+    ${A.pathNote ? `<div class="sub" style="margin-top:6px">${esc(A.pathNote)}</div>` : ''}
+    <div class="sub" style="margin-top:6px">Index lines use direct-plan index funds as stand-ins for the indices (close to the index, less a small fee). Where the lines part is where you did better or worse than simply buying the index.</div></div>
+  <div class="grid2"><div class="card"><h2>Largest holdings <button class="chip" data-tab="holdings">all holdings →</button></h2>${hs.map((h) => `<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(h.name)}</span><span>${short(h.value)} <span class="sub">${pct(h.value / tot, 0)}</span> <span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost, 0)}</span></span></div><div class="bar2"><i style="width:${Math.min(100, (h.value / tot) * 100 * 2.5)}%"></i></div></div>`).join('') || '<div class="sub">Nothing valued yet.</div>'}</div>
+  <div class="card"><h2>Needs a look</h2>${attention.length ? attention.map((x) => `<div style="margin:6px 0">${x}</div>`).join('') : '<div class="sub">Nothing to check in the data.</div>'}<div class="sub" style="margin-top:8px">Buy, hold or sell verdicts for each holding come later, from the Swing Desk and fund rules.</div></div></div>`;
+}
+function attentionItems(V) {
+  const out = []; const un = V.R.reduce((a, r) => a + r.resolver.proposed.length, 0), ux = V.R.reduce((a, r) => a + r.resolver.unexplained.length, 0), nv = V.R.reduce((a, r) => a + r.performance.notValued.filter((x) => !/last order price/.test(x)).length, 0);
+  if (un) out.push(`<span class="tag">${un} estimated</span> corporate-action or IPO items rest on public estimates, not your broker's statement.`);
+  if (ux) out.push(`<span class="tag bad">${ux} unexplained</span> sells with no matching buy; their gains are left out.`);
+  if (nv) out.push(`<span class="tag">${nv} unpriced</span> holdings have no market price and are left out of value.`);
+  if (S.canSave === false && S.accounts.size) out.push(`<span class="tag">not saved</span> these accounts live in this browser tab only.`);
+  if (!out.length && !V.complete) out.push(`<span class="tag">partial history</span> the chart and periods need fund history (Data tab).`);
   return out;
 }
-function chart(series) {
-  if (!series || series.length < 2) return '';
-  const W = 900, H = 260, P = 44, max = Math.max(...series.map((d) => Math.max(d.value, d.invested))) * 1.05, x = (i) => P + (i / (series.length - 1)) * (W - P - 10), y = (v) => H - 24 - (v / max) * (H - 40);
-  const line = (k, c, dash = '') => `<polyline fill="none" stroke="${c}" stroke-width="2" ${dash} points="${series.map((d, i) => x(i) + ',' + y(d[k])).join(' ')}"/>`;
-  const ticks = [0, .5, 1].map((f) => `<text x="4" y="${y(max * f / 1.05) + 4}" font-size="11" fill="currentColor">${Math.round(max * f / 1.05 / 1e4) / 10}L</text>`).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Value against cost">${ticks}${line('invested', '#888', 'stroke-dasharray="5 4"')}${line('value', 'var(--accent)')}<text x="${P}" y="${H - 6}" font-size="11" fill="currentColor">${series[0].date}</text><text x="${W - 80}" y="${H - 6}" font-size="11" fill="currentColor">${series.at(-1).date}</text></svg><div class="sub">Solid: market value. Dashed: cost of what was held. Amounts in lakh (L). Days with a missing price carry the last known price.</div>`;
+
+// ---------- holdings
+function mergedHoldings(V) {
+  const by = new Map();
+  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; if (h.value === null) e.anyNull = true; else e.value += h.value; }
+  return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 }
+function holdingsRows(V) {
+  const tot = mergedHoldings(V).reduce((a, h) => a + (h.value ?? 0), 0) || 1;
+  let rows = mergedHoldings(V).filter((h) => (S.kind === 'All' || h.kind === S.kind) && (!S.q || (h.name + ' ' + h.symbol).toLowerCase().includes(S.q.toLowerCase())));
+  const g = { name: (h) => h.name.toLowerCase(), kind: (h) => h.kind, book: (h) => h.book, weight: (h) => h.value ?? -1, value: (h) => h.value ?? -1, cost: (h) => h.cost, gain: (h) => (h.value === null ? -1e18 : h.value - h.cost), gainPct: (h) => (h.value === null || !h.cost ? -1e18 : (h.value - h.cost) / h.cost) }[S.sort.k];
+  rows = rows.sort((a, b) => (g(a) < g(b) ? -1 : g(a) > g(b) ? 1 : 0) * S.sort.d);
+  const sum = rows.reduce((a, h) => ({ cost: a.cost + h.cost, value: a.value + (h.value ?? 0) }), { cost: 0, value: 0 });
+  return { tot, rows, sum };
+}
+function holdingsBody(V) {
+  const { tot, rows, sum } = holdingsRows(V);
+  return rows.map((h) => `<tr><td>${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>`).join('') + `<tr class="foot"><td colspan="5"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
+}
+function holdings(V) {
+  const kinds = ['All', 'Stock', 'ETF', 'Fund'];
+  const th = (k, t) => `<th data-sort="${k}">${t}${S.sort.k === k ? (S.sort.d > 0 ? ' ▲' : ' ▼') : ''}</th>`;
+  return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
+  <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>`;
+}
+
+// ---------- tax and income
+function taxGroups() {
+  const ms = members(); const by = new Map();
+  if (S.sel.startsWith('a:')) by.set(ms[0] ? ms[0].label + ' (this account alone)' : '', ms);
+  else for (const a of ms) { const o = ownerOf(a); (by.get(o) ?? by.set(o, []).get(o)).push(a); }
+  return [...by.entries()].map(([name, list]) => ({ name, list, years: list.length === 1 ? list[0].report.tax : mergeTax(list.map((a) => a.report.tax), S.data.taxRules) }));
+}
+function tax(V) {
+  const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0], hiFy = per.id.startsWith('fy') ? per.id.slice(2) : null;
+  const groups = taxGroups();
+  return `<div class="note info">Tax is worked out per person, because the ₹1.25 lakh yearly exemption and loss set-off belong to one PAN, not to one account. Within a person, gains of all their accounts are added before the exemption. Each account is still matched first-in-first-out on its own, as the law requires for separate demat accounts.</div>` + groups.map((g) => {
+    const ys = g.years, tot = ys.reduce((a, y) => ({ s: a.s + y.equity.stcg, l: a.l + y.equity.ltcg, ex: a.ex + y.equity.exemptionUsed, tx: a.tx + y.equity.tax, o: a.o + y.slabGains }), { s: 0, l: 0, ex: 0, tx: 0, o: 0 });
+    const last = ys.at(-1);
+    return `<div class="card"><h2>${esc(g.name)} · capital gains by financial year ${g.list.length > 1 ? `<span class="sub">(${g.list.map((a) => esc(a.label)).join(' + ')})</span>` : ''}</h2><div class="tw"><table><thead><tr><th>FY</th><th>Short-term ₹</th><th>Long-term ₹</th><th>Exemption used ₹</th><th>Taxable ₹</th><th>Est. tax ₹</th><th>Other assets ₹</th><th></th></tr></thead><tbody>${ys.map((y) => `<tr class="${y.fy === hiFy ? 'hi' : ''}"><td>${y.fy}</td><td>${num(y.equity.stcg)}</td><td>${num(y.equity.ltcg)}</td><td>${inr(y.equity.exemptionUsed)}</td><td>${inr(y.equity.taxable.stcg + y.equity.taxable.ltcg)}</td><td><b>${inr(y.equity.tax)}</b></td><td>${num(y.slabGains)}</td><td>${y.lines.some((l) => l.confidence !== 'High') ? '<span class="tag" title="Some of this rests on a rule marked Medium or Low confidence in the design notes">check</span>' : ''}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${num(tot.s)}</td><td>${num(tot.l)}</td><td>${inr(tot.ex)}</td><td></td><td>${inr(tot.tx)}</td><td>${num(tot.o)}</td><td></td></tr></tfoot></table></div>
+    <div class="sub" style="margin-top:8px">Short-term and long-term are equity and equity funds, after deductible charges, with same-year set-off and the exemption applied. "Other assets" are gold and silver ETFs, overseas and debt funds, which follow different rules, so no tax is estimated for them here. Estimate before surcharge and cess; not tax advice.</div>
+    ${last && (last.carryForward.stcl || last.carryForward.ltcl) ? `<div class="note">Unused loss after the latest year: short-term ${money(last.carryForward.stcl)}, long-term ${money(last.carryForward.ltcl)}. It only carries forward if that year's return was filed on time, which the tool cannot see, so treat it as unconfirmed.</div>` : ''}
+    ${ys.filter((y) => y.banner).map((y) => `<div class="note">${y.fy}: ${esc(y.banner)}</div>`).join('')}</div>`;
+  }).join('');
+}
+function income(V) {
+  const byFy = new Map(), byCo = new Map();
+  for (const r of V.R) for (const y of r.dividends) { const e = byFy.get(y.fy) ?? byFy.set(y.fy, { gross: 0, tds: 0, net: 0 }).get(y.fy); e.gross += y.gross; e.tds += y.tds; e.net += y.net; for (const l of y.lines) { const c = byCo.get(l.symbol) ?? byCo.set(l.symbol, { net: 0, n: 0, last: '' }).get(l.symbol); c.net += l.net; c.n++; if (l.exDate > c.last) c.last = l.exDate; } }
+  if (!byFy.size) return '<div class="card empty">No dividends found for this selection.</div>';
+  const fys = [...byFy.entries()].sort((a, b) => b[0].localeCompare(a[0])), cos = [...byCo.entries()].sort((a, b) => b[1].net - a[1].net);
+  return `<div class="note info">These dividends are estimates: units held the day before the record date × the amount announced on NSE. They show what you were entitled to, not proof that cash arrived.</div>
+  <div class="grid2"><div class="card"><h2>Estimated dividends by financial year</h2><div class="tw"><table><thead><tr><th>FY</th><th>Gross ₹</th><th>TDS ₹</th><th>Net ₹</th></tr></thead><tbody>${fys.map(([f, y]) => `<tr><td>${f}</td><td>${inr(y.gross)}</td><td>${inr(y.tds)}</td><td>${inr(y.net)}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="card"><h2>By company (all years, net)</h2><div class="tw"><table><thead><tr><th>Company</th><th>Payouts</th><th>Last record date</th><th>Net ₹</th></tr></thead><tbody>${cos.slice(0, 15).map(([s, c]) => `<tr><td>${esc(s)}</td><td>${c.n}</td><td>${c.last}</td><td>${inr(c.net)}</td></tr>`).join('')}</tbody></table></div>${cos.length > 15 ? `<div class="sub">and ${cos.length - 15} more</div>` : ''}</div></div>`;
+}
+
+// ---------- data and accounts
+function coverage(a) {
+  const ds = a.trades.map((t) => t.date).sort(); if (!ds.length) return { first: '–', last: '–', years: '', gap: '' };
+  const years = {}; for (const d of ds) years[d.slice(0, 4)] = (years[d.slice(0, 4)] || 0) + 1;
+  let gap = 0, gf = '', gt = ''; for (let i = 1; i < ds.length; i++) { const g = (Date.parse(ds[i]) - Date.parse(ds[i - 1])) / 86400000; if (g > gap) { gap = g; gf = ds[i - 1]; gt = ds[i]; } }
+  return { first: ds[0], last: ds.at(-1), years: Object.entries(years).map(([y, n]) => `${y}: ${n}`).join(' · '), gap: gap > 120 ? `Longest quiet stretch: ${Math.round(gap)} days (${gf} to ${gt}). Normal if you did not trade; if you did, a file may be missing.` : '' };
+}
+function dataTab() {
+  const accts = [...S.accounts.values()];
+  const ms = members();
+  const prop = ms.flatMap((a) => a.report.resolver.proposed.map((x) => [a.label, x])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
+  return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td></tr>`; }).join('')}</tbody></table></div>
+  <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
+  <div class="card"><h2>Things to check</h2>
+  ${prop.length ? `<div class="note">Estimated, not confirmed by your broker. These are used in the numbers until you upload a statement that settles them:</div>${prop.map(([l, x]) => `<div style="margin:6px 0"><span class="tag">estimated</span> <b>${esc(l)}</b> · ${esc(x)}</div>`).join('')}` : ''}
+  ${unx.length ? unx.map(([l, u]) => `<div class="note"><b>${esc(l)}</b>: sold ${esc(u.name)} on ${u.date} (${u.qty} units) but no matching purchase was found. Its gain is left out until a statement explains it.</div>`).join('') : ''}
+  ${nvs.length ? `<div class="note">No market price, so left out of value (or valued at your last order price): ${nvs.slice(0, 8).map(([l, x]) => esc(x)).join('; ')}</div>` : ''}
+  ${ms.flatMap((a) => a.report.warnings.map((w) => `<div class="note"><b>${esc(a.label)}</b>: ${esc(w)}</div>`)).join('')}
+  ${!prop.length && !unx.length && !nvs.length && !ms.some((a) => a.report.warnings.length) ? '<div class="sub">Nothing to check.</div>' : ''}
+  <div class="sub" style="margin-top:8px">${ms.reduce((a, m) => a + m.report.resolver.applied.length, 0)} corporate actions (splits, bonuses, demergers) were found in your holdings and applied automatically from NSE records.</div></div>
+  <div class="card"><h2>Data</h2>
+  <label><input type="checkbox" id="fundOn" ${S.fundOn ? 'checked' : ''}> Include mutual funds in value history and period returns</label>
+  <div class="sub" style="margin:4px 0 8px 22px">Fetches public NAV history from mfapi.in. That service can see which fund schemes you hold (it cannot see amounts or your name). Index history is fetched the same way, for five fixed index funds.</div>
+  <div class="sub">${esc(S.benchStatus)} Prices as of ${esc(S.data?.pricesAsOf || '')}. Stored daily prices start ${esc(S.hist?.dates?.[0] || '')}; periods that begin earlier show gains and tax but not value-based returns.</div></div>`;
+}
+
+// ---------- render
+function render() {
+  S.cur = build(); drawChrome();
+  const main = $('main');
+  if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; return; }
+  if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
+  main.innerHTML = { home, holdings, tax, income, data: dataTab }[S.tab](S.cur);
+  if (S.tab === 'home') { const per = S.cur.periods.find((p) => p.id === S.period) ?? S.cur.periods[0]; const A = analyse({ series: S.cur.series, seriesComplete: S.cur.complete, flows: S.cur.flows, divFlows: S.cur.divFlows, asOf: S.cur.asOf, heldNow: S.cur.held, navs: S.navs, period: per }); wireChart(A.path, S.bench); }
+  if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
+  if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
+  tellParent();
+}
+function tellParent() { try { if (window.parent !== window) parent.postMessage({ pmHeight: document.documentElement.scrollHeight }, '*'); } catch {} }
+new ResizeObserver(tellParent).observe(document.body);
+
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button'); const inMenu = e.target.closest('#sw');
+  if (S.menu && !inMenu) { S.menu = false; drawChrome(); }
+  if (!t) return;
+  if (t.id === 'swBtn') { S.menu = !S.menu; drawChrome(); if (S.menu) $('newAcct')?.focus(); return; }
+  if (t.id === 'addBtn') { $('drawer').hidden = !$('drawer').hidden; if (!$('drawer').hidden && S.sel.startsWith('a:')) { const a = S.accounts.get(S.sel.slice(2)); if (a) { $('label').value = a.label; $('owner').value = a.owner || ''; } } return; }
+  if (t.dataset.sel !== undefined) { S.sel = t.dataset.sel.startsWith('a:') ? 'a:' + t.dataset.sel.slice(2) : t.dataset.sel; store.set('sel', S.sel); S.menu = false; S.period = 'all'; return render(); }
+  if (t.dataset.per) { S.period = t.dataset.per; store.set('period', S.period); return render(); }
+  if (t.dataset.tab) { S.tab = t.dataset.tab; return render(); }
+  if (t.dataset.bench) { S.bench = t.dataset.bench; store.set('bench', S.bench); return render(); }
+  if (t.dataset.kind) { S.kind = t.dataset.kind; return render(); }
+});
+document.addEventListener('click', (e) => { const th = e.target.closest('th[data-sort]'); if (!th) return; const k = th.dataset.sort; S.sort = S.sort.k === k ? { k, d: -S.sort.d } : { k, d: k === 'name' || k === 'kind' || k === 'book' ? 1 : -1 }; render(); });
+document.addEventListener('keydown', (e) => {
+  if (e.target.id === 'newAcct' && e.key === 'Enter') {
+    const label = e.target.value.trim(); if (!/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(label)) { e.target.style.borderColor = 'var(--red)'; return; }
+    const key = keyOf(label); if (!S.accounts.has(key)) S.accounts.set(key, { key, label, broker: 'groww', owner: '', trades: [], report: null });
+    S.sel = 'a:' + key; S.menu = false; $('drawer').hidden = false; $('label').value = S.accounts.get(key).label; $('owner').value = S.accounts.get(key).owner || ''; render(); $('files').focus();
+  }
+  if (e.key === 'Escape' && S.menu) { S.menu = false; drawChrome(); }
+});
+$('label').addEventListener('change', () => { const a = S.accounts.get(keyOf($('label').value)); if (a) $('owner').value = a.owner || $('owner').value; });
+
+async function setOwner(key, owner) {
+  const a = S.accounts.get(key); if (!a) return; a.owner = owner; render();
+  if (S.canSave) { try { await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, owner: owner || undefined, trades: [] }) }); } catch {} }
+}
+
+// ---------- start up and saving
 (async () => {
   try {
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
-    data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
-    $('status').textContent = `Public data ready (prices as of ${px.asOf}).`; $('run').disabled = false; loadSaved();
-  } catch (e) { $('status').textContent = 'Could not load public data: ' + e.message; }
+    S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
+    S.hist = await loadHist(); $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
+    const bench = loadBenchmarks();
+    await loadSaved(); await bench;
+    await recomputeAll(true);
+  } catch (e) { setStatus('Could not load public data: ' + e.message); }
+  render();
 })();
-const n = (x) => { const v = Math.round(x); return `<span class="${v < 0 ? 'neg' : ''}">${v.toLocaleString('en-IN')}</span>`; };
-const pc = (x) => (x === null || x === undefined ? 'n/a' : (x * 100).toFixed(1) + '%');
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const accounts = new Map();
-function render() {
-  const out = $('out'); const list = [...accounts.entries()]; const h = [];
-  if (list.length > 1) {
-    const sum = (f) => list.reduce((a, [, r]) => a + f(r), 0);
-    const fys = [...new Set(list.flatMap(([, r]) => r.tax.map((y) => y.fy)))].sort();
-    const g = (r, fy, k) => r.tax.find((y) => y.fy === fy)?.equity[k] ?? 0;
-    const inv = sum((r) => r.performance.invested), held = sum((r) => r.performance.held), real = sum((r) => r.performance.realised), unr = sum((r) => r.performance.unrealised);
-    h.push(`<div class="card"><h2>Household: ${list.map(([k]) => esc(k)).join(' + ')}</h2><div class="kpis"><div><b>${n(inv)}</b><span>Invested</span></div><div><b>${n(held)}</b><span>Held now</span></div><div><b>${n(real)}</b><span>Realised gain</span></div><div><b>${n(unr)}</b><span>Unrealised gain</span></div></div>
-      <table style="margin-top:10px"><tr><th>FY (each account taxed on its own PAN)</th>${list.map(([k]) => `<th>${esc(k)} total</th>`).join('')}<th>Household total</th></tr>${fys.map((fy) => `<tr><td>${fy}</td>${list.map(([, r]) => `<td>${n(g(r, fy, 'stcg') + g(r, fy, 'ltcg'))}</td>`).join('')}<td>${n(list.reduce((a, [, r]) => a + g(r, fy, 'stcg') + g(r, fy, 'ltcg'), 0))}</td></tr>`).join('')}</table>
-      <div class="sub" style="margin-top:6px">XIRR is shown per account only (cash flows of different accounts are not merged here). Tax, exemption and set-off are per person, so they are not added across accounts.</div></div>`);
-  }
-  for (const [k, r] of list) h.push(`<h2 style="margin-top:20px">${esc(k)}</h2>` + r.html);
-  out.innerHTML = h.join('');
-}
-async function compute(label, broker, batches, notes) {
-    data.priceHistory = await loadHist(); data.navHistory = undefined;
-    let r = runPipeline(batches, broker, data);
-    if ($('nav').checked && Object.keys(r.fundCodes).length) { $('status').textContent = 'Fetching fund NAV history…'; data.navHistory = await loadNav(r.fundCodes); r = runPipeline(batches, broker, data); }
-    const p = r.performance;
-    const h = [];
-    for (const t of notes) h.push(`<div class="note">${esc(t)}</div>`);
-    h.push(`<div class="card"><h2>Overview <span class="tag">unverified: built from tradebooks only</span></h2><div class="kpis">
-      <div><b>${n(p.invested)}</b><span>Invested</span></div><div><b>${n(p.held)}</b><span>Held now (${esc(p.asOf)})</span></div>
-      <div><b>${n(p.realised)}</b><span>Realised gain</span></div><div><b>${n(p.unrealised)}</b><span>Unrealised gain</span></div>
-      <div><b>${pc(p.xirrPriceOnly)}</b><span>XIRR (incl. unrealised)</span></div><div><b>${pc(p.xirrWithDividends)}</b><span>XIRR with dividends</span></div></div>
-      <div class="sub" style="margin-top:8px">${r.counts.orders} orders (${r.counts.stockOrders} stock, ${r.counts.fundOrders} fund), ${r.counts.duplicates} duplicates dropped, ${r.counts.openLots} open lots.</div></div>`);
-    const note = $('nav').checked ? '' : ' Stocks and ETFs only; tick the box above to include funds.';
-    if (r.series) h.push(`<div class="card"><h2>Value over time (last 12 months of stored prices)</h2>${chart(r.series)}<div class="sub">${note}</div></div>`);
-    for (const w of r.warnings) h.push(`<div class="note">${esc(w)}</div>`);
-    h.push(`<div class="card"><h2>Capital gains by financial year (₹)</h2><table><tr><th>FY</th><th>Short-term</th><th>Long-term</th><th>Total</th><th>Other (slab)</th><th>Est. tax</th></tr>${r.tax.map((y) => `<tr><td>${y.fy}</td><td>${n(y.equity.stcg)}</td><td>${n(y.equity.ltcg)}</td><td>${n(y.equity.stcg + y.equity.ltcg)}</td><td>${n(y.slabGains)}</td><td>${n(y.equity.tax)}</td></tr>`).join('')}</table>
-      <div class="sub" style="margin-top:6px">Equity-taxed assets in the first three gain columns; "Other" is debt, hybrid and overseas funds taxed at your slab. After charges. Estimate only, not tax advice.</div>${r.tax.filter((y) => y.banner).map((y) => `<div class="note">${y.fy}: ${esc(y.banner)}</div>`).join('')}</div>`);
-    if (r.dividends.length) h.push(`<div class="card"><h2>Dividends (₹)</h2><table><tr><th>FY</th><th>Gross</th><th>TDS</th><th>Net</th></tr>${r.dividends.map((y) => `<tr><td>${y.fy}</td><td>${n(y.gross)}</td><td>${n(y.tds)}</td><td>${n(y.net)}</td></tr>`).join('')}</table></div>`);
-    h.push(`<div class="card"><h2>Books</h2><table><tr><th>Book</th><th>Lots</th><th>Cost</th><th>Value</th></tr>${Object.entries(r.books).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v.lots}</td><td>${n(v.cost)}</td><td>${n(v.value)}</td></tr>`).join('')}</table></div>`);
-    h.push(`<div class="card"><h2>Holdings</h2><table><tr><th>Name</th><th>Book</th><th>Qty</th><th>Cost</th><th>Value</th><th>Gain</th></tr>${r.holdings.map((x) => `<tr><td>${esc(x.name)}</td><td>${esc(x.book)}</td><td>${(Math.round(x.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${n(x.cost)}</td><td>${x.value === null ? 'n/a' : n(x.value)}</td><td>${x.value === null ? '' : n(x.value - x.cost)}</td></tr>`).join('')}</table></div>`);
-    const rs = r.resolver;
-    h.push(`<div class="card"><h2>Reconciliation</h2><div class="sub">${rs.eventsFromFeed} corporate actions from NSE; ${rs.applied.length} explained and applied automatically.</div>
-      ${rs.proposed.map((x) => `<div class="note"><span class="tag">unconfirmed</span> ${esc(x)}</div>`).join('')}
-      ${rs.unexplained.map((u) => `<div class="note">Sell with no matching buy: ${esc(u.name)} ${u.date} (${u.qty}). Gains for it are left out until a statement explains it.</div>`).join('')}
-      ${p.notValued.length ? `<div class="note">Not valued at market: ${esc(p.notValued.slice(0, 8).join('; '))}</div>` : ''}</div>`);
-    r.html = h.join(''); accounts.set(label, r); render();
-}
-let saved = new Map(), canSave = false;
 async function loadSaved() {
   try {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
-    if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; $('status').textContent = `Public data ready. Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`; return; }
-    const j = await res.json(); canSave = true; $('saveBox').hidden = false;
-    for (const a of j.accounts) saved.set(a.label, a);
-    for (const a of j.accounts) { $('status').textContent = 'Loading ' + a.label + '…'; await compute(a.label, a.broker, [a.trades], []); }
-    $('status').textContent = j.accounts.length ? `Loaded ${j.accounts.length} saved account(s). Add files to update one.` : 'No saved accounts yet. Add files, and tick Save to keep them.';
-  } catch (e) { $('status').textContent = 'Public data ready. Saving is not available (could not reach /api/portfolio: ' + e.message + ').'; }
+    if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
+    const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
+    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', trades: a.trades, report: null }); }
+    for (const a of S.accounts.values()) if (a.trades.length) { compute(a); render(); await new Promise((r) => setTimeout(r)); }
+    if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
+    if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';
+    setStatus(j.accounts.length ? `Loaded ${j.accounts.length} saved account(s).` : 'No saved accounts yet. Add files, and keep Save ticked to keep them.');
+  } catch (e) { setStatus('Saving is not available (could not reach /api/portfolio: ' + e.message + ').'); }
 }
 $('run').onclick = async () => {
-  const files = [...$('files').files], label = ($('label').value || 'Account').trim(), broker = $('broker').value;
-  if (!files.length) { $('status').textContent = 'Choose at least one file.'; return; }
-  $('status').textContent = 'Computing…'; await new Promise((r) => setTimeout(r, 20));
+  const files = [...$('files').files], label = ($('label').value || '').trim(), owner = ($('owner').value || '').trim();
+  if (!files.length) return setStatus('Choose at least one file.');
+  if (!/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(label)) return setStatus('Give the account a name (letters, numbers, spaces; up to 40).');
+  if (owner && !/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(owner)) return setStatus('Owner name: letters and numbers only.');
+  setStatus('Reading files…'); await new Promise((r) => setTimeout(r, 20));
   try {
     const batches = [], notes = [];
     for (const f of files) {
@@ -144,18 +392,21 @@ $('run').onclick = async () => {
       if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
     }
     if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
-    const all = saved.has(label) ? [saved.get(label).trades, ...batches] : batches;
-    await compute(label, broker, all, notes);
-    let msg = `Done. ${accounts.size} account(s) loaded.`;
-    if (canSave && $('save').checked) {
-      const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label, broker, trades: batches.flat() }) });
-      const j = await res.json().catch(() => ({}));
-      if (res.ok) { msg += ` Saved ${label}: ${j.trades} transactions stored (${j.added} new).`; saved.set(label, { label, broker, trades: mergeFlat(all) }); } else msg += ` Not saved: ${j.error || res.status}.`;
+    const key = keyOf(label), ex = S.accounts.get(key);
+    const detected = files.some((f) => /tradebook/i.test(f.name) || /\.csv$/i.test(f.name)) ? 'zerodha' : 'groww';
+    const broker = $('broker').value === 'auto' ? (ex && ex.trades.length ? ex.broker : detected) : $('broker').value;
+    const a = ex ?? { key, label, broker, owner: '', trades: [], report: null };
+    a.label = ex ? ex.label : label; a.broker = broker; if (owner) a.owner = owner;
+    a.trades = mergeTrades([a.trades, ...batches]).trades; S.accounts.set(key, a);
+    compute(a); S.sel = 'a:' + key; store.set('sel', S.sel); render();
+    let msg = `Done: ${a.label} now has ${a.trades.length} transactions.${notes.length ? ' ' + notes.join(' ') : ''}`;
+    if (S.canSave && $('save').checked) {
+      const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
+      const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` Not saved: ${j.error || res.status}.`;
     }
-    $('status').textContent = msg; $('label').value = 'Account ' + (accounts.size + 1);
-  } catch (e) { $('status').textContent = 'Error: ' + e.message; console.error(e); }
+    setStatus(msg); $('files').value = ''; await recomputeAll(true);
+  } catch (e) { setStatus('Error: ' + e.message); console.error(e); }
 };
-const mergeFlat = (bs) => mergeTrades(bs).trades;
 </script>
 </body>
 </html>
