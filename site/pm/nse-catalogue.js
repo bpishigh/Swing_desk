@@ -4,7 +4,7 @@
                                                
                                             
                                                                                                                                       
-                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                               
 const num = (s        ) => Number(s.replace(/,/g, ''));
 
 export function buildCatalogue(rows           , lin         , demergers                   = [], held              )                                                                                                        {

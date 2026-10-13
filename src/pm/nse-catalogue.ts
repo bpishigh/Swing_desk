@@ -4,7 +4,7 @@ import type { CorpEvent } from './ledger.ts';
 import type { Catalogue } from './resolver.ts';
 import type { Lineage } from './lineage.ts';
 export interface FeedRow { symbol: string; subject: string; exDate: string; recDate?: string | null; faceVal?: string; isin?: string }
-export interface DemergerRecord { parent: string; child: string; parentIsin?: string; childIsin?: string; exDate: string; ratio: number; costPct: number; source: string; floorTotal?: boolean; feed?: boolean; confidence?: string }
+export interface DemergerRecord { parent: string; child: string; parentIsin?: string; childIsin?: string; exDate: string; ratio: number; costPct: number; source: string; childSymbol?: string; childName?: string; floorTotal?: boolean; feed?: boolean; confidence?: string }
 const num = (s: string) => Number(s.replace(/,/g, ''));
 
 export function buildCatalogue(rows: FeedRow[], lin: Lineage, demergers: DemergerRecord[] = [], held?: Set<string>): { catalogue: Catalogue; skipped: { symbol: string; exDate: string; subject: string; why: string }[] } {

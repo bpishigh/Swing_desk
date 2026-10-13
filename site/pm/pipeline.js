@@ -39,10 +39,15 @@ export function runPipeline(batches           , broker                     , d  
   const held = new Set(canon.trades.map((t) => t.isin));
   const bc = buildCatalogue(d.feed.filter((r) => pairs.some((p) => p.symbol === r.symbol && p.isin === r.isin) || held.has(canon.lineage.key(r.symbol, r.isin))), canon.lineage, d.demergers, held);
   const cat = { facts: bc.catalogue.facts, candidates: ipoCandidates(d.ipos, canon.lineage, held) };
-  const stocks = orders.filter((t) => t.kind !== 'fund'), funds = orders.filter((t) => t.kind === 'fund');
+  // A broker's zero-value credit of a demerger's child shares is the same event as the demerger fact (which carries the cost): keep the fact, drop the credit
+  const kids = new Map(d.demergers.filter((x) => x.childIsin).map((x) => [x.childIsin , x]         ));
+  const factKids = new Set(cat.facts.filter((f     ) => f.type === 'demerger').map((f     ) => f.child));
+  const absorbed           = [];
+  const stocks = orders.filter((t) => t.kind !== 'fund').filter((t) => { if (t.value === 0 && t.side === 'buy' && factKids.has(t.isin) && kids.has(t.isin)) { absorbed.push(`${kids.get(t.isin) .childName ?? t.isin} ${t.qty} on ${t.date}`); return false; } return true; }), funds = orders.filter((t) => t.kind === 'fund');
   const res = resolve(stocks, cat, []);
   const typeByKey = new Map                (), nameByKey = new Map                ();
   for (const t of stocks) { const k = t.isin || t.instrument.toUpperCase(); if (!typeByKey.has(k)) typeByKey.set(k, assetType(t)); nameByKey.set(k, t.instrument); }
+  const symKid = new Map                ();
   const fm = new FundMaster(d.amfi, d.fundOverrides);
   const fundTrades          = [], unmapped = new Set        (), navOf = new Map                ();
   for (const t of funds) {
@@ -50,6 +55,7 @@ export function runPipeline(batches           , broker                     , d  
     typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
     fundTrades.push({ ...t, isin: x.match.isin });
   }
+  for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
   const fundRep = replay(fundTrades, 365);
   const combined = { open: [...res.replay.open, ...fundRep.open], realised: [...res.replay.realised, ...fundRep.realised], breaks: [...res.replay.breaks, ...fundRep.breaks], applied: []             };
   const synth = (r                              , side                , value        , date        )        => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
@@ -60,6 +66,7 @@ export function runPipeline(batches           , broker                     , d  
   // valuation: stocks and ETFs at the latest stored NSE close, funds at the latest AMFI NAV (last order price if the NAV is missing)
   const symOf = new Map                (); for (const t of canon.trades.filter((x) => x.kind !== 'fund')) symOf.set(t.isin, (t.symbol ?? t.instrument).toUpperCase());
   const latestEx = new Map                (); for (const r of d.feed) { const k = canon.lineage.key(r.symbol, r.isin); if (symOf.has(k) && (!latestEx.has(k) || latestEx.get(k)  < r.exDate) && d.prices[r.symbol] !== undefined) { latestEx.set(k, r.exDate); symOf.set(k, r.symbol); } }
+  for (const [k, v] of symKid) symOf.set(k, v);
   const lastOrder = new Map                (); for (const t of fundTrades) lastOrder.set(t.isin, t.price);
   const notValued           = []; let heldValue = 0, costOpen = 0; const holdings                     = [];
   const priceOf = (key        )                     => (isFundType(typeByKey.get(key)) ? navOf.get(key) ?? lastOrder.get(key) : d.prices[symOf.get(key) ?? '']);
@@ -84,6 +91,7 @@ export function runPipeline(batches           , broker                     , d  
 
   const warnings           = [];
   const zero = stocks.filter((t) => t.value === 0);
+  if (absorbed.length) warnings.push(`Broker credit(s) matched to a demerger and replaced by the demerger record (cost moved from the parent): ${absorbed.join('; ')}`);
   if (zero.length) warnings.push(`${zero.length} order(s) with zero value (a credit, not a purchase; cost unknown, likely a demerger or bonus credit): ` + zero.map((t) => `${t.instrument || t.symbol || t.isin} ${t.qty} on ${t.date}`).join('; '));
   if (unmapped.size) warnings.push(`Fund schemes not matched to AMFI: ${[...unmapped].join('; ')}`);
   const nm = (k        ) => nameByKey.get(k) ?? k;
