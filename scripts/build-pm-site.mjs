@@ -16,4 +16,11 @@ const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$
 const bhav = JSON.parse(readFileSync('data/india/bhav/' + bf, 'utf8'));
 const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];
 put('site/pm-data/prices.json', JSON.stringify({ asOf: bf.slice(0, 10), prices }) + '\n');
+// stored daily closes for the valuation chart (public data), one file per month so closed months never change in git
+const days = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort();
+const months = {};
+for (const f of days) { const m = f.slice(0, 7); const c = (months[m] ??= { dates: [], px: {} }); const i = c.dates.length; c.dates.push(f.slice(0, 10)); const rows = JSON.parse(readFileSync('data/india/bhav/' + f, 'utf8')).rows; for (const [sym, r] of Object.entries(rows)) { if (r[5] == null) continue; (c.px[sym] ??= [])[i] = r[5]; } }
+mkdirSync('site/pm-data/prices', { recursive: true });
+for (const [m, c] of Object.entries(months)) { for (const a of Object.values(c.px)) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null; put(`site/pm-data/prices/${m}.json`, JSON.stringify(c) + '\n'); }
+put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n');
 console.log('site/pm built; prices as of', bf.slice(0, 10), Object.keys(prices).length, 'symbols');

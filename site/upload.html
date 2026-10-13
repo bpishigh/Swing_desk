@@ -34,6 +34,7 @@ button, select, input[type=file] { font:inherit; } button { background:var(--acc
       <label>Broker <select id="broker"><option value="groww">Groww</option><option value="zerodha">Zerodha</option></select></label>
       <label>Account name <input id="label" value="Account 1" size="14"></label>
       <button id="run" disabled>Add account</button>
+      <label class="sub"><input type="checkbox" id="nav"> include funds in the chart (fetches public NAV history from mfapi.in; that service can see which schemes you hold)</label>
       <span class="sub" id="status">Loading public data…</span>
     </div>
     <div class="sub" style="margin-top:6px">Choose all tradebooks for one account together (stocks and funds, any years). Add each account separately (its own name and broker); a combined household view appears once there are two or more. Adding an account with the same name replaces it.</div>
@@ -47,7 +48,25 @@ import { readRows } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
 const $ = (id) => document.getElementById(id);
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
-let data;
+let data, hist = null;
+async function loadHist() {
+  if (hist) return hist; const months = await J('prices/index'); const parts = await Promise.all(months.map((m) => J('prices/' + m)));
+  const dates = [], px = {}; let off = 0;
+  for (const c of parts) { for (const [sym, a] of Object.entries(c.px)) { const t = (px[sym] ??= new Array(off).fill(null)); while (t.length < off) t.push(null); for (let i = 0; i < c.dates.length; i++) t.push(a[i] ?? null); } dates.push(...c.dates); off += c.dates.length; for (const a of Object.values(px)) while (a.length < off) a.push(null); }
+  return (hist = { dates, px });
+}
+async function loadNav(codes) {
+  const out = {};
+  await Promise.all(Object.entries(codes).map(async ([isin, code]) => { try { const j = await (await fetch('https://api.mfapi.in/mf/' + code)).json(); const m = {}; for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); m[`${yy}-${mm}-${dd}`] = Number(x.nav); } out[isin] = m; } catch {} }));
+  return out;
+}
+function chart(series) {
+  if (!series || series.length < 2) return '';
+  const W = 900, H = 260, P = 44, max = Math.max(...series.map((d) => Math.max(d.value, d.invested))) * 1.05, x = (i) => P + (i / (series.length - 1)) * (W - P - 10), y = (v) => H - 24 - (v / max) * (H - 40);
+  const line = (k, c, dash = '') => `<polyline fill="none" stroke="${c}" stroke-width="2" ${dash} points="${series.map((d, i) => x(i) + ',' + y(d[k])).join(' ')}"/>`;
+  const ticks = [0, .5, 1].map((f) => `<text x="4" y="${y(max * f / 1.05) + 4}" font-size="11" fill="currentColor">${Math.round(max * f / 1.05 / 1e4) / 10}L</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Value against cost">${ticks}${line('invested', '#888', 'stroke-dasharray="5 4"')}${line('value', 'var(--accent)')}<text x="${P}" y="${H - 6}" font-size="11" fill="currentColor">${series[0].date}</text><text x="${W - 80}" y="${H - 6}" font-size="11" fill="currentColor">${series.at(-1).date}</text></svg><div class="sub">Solid: market value. Dashed: cost of what was held. Amounts in lakh (L). Days with a missing price carry the last known price.</div>`;
+}
 (async () => {
   try {
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
@@ -85,7 +104,10 @@ $('run').onclick = async () => {
       if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
     }
     if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
-    const r = runPipeline(batches, $('broker').value, data), p = r.performance;
+    data.priceHistory = await loadHist(); data.navHistory = undefined;
+    let r = runPipeline(batches, $('broker').value, data);
+    if ($('nav').checked && Object.keys(r.fundCodes).length) { $('status').textContent = 'Fetching fund NAV history…'; data.navHistory = await loadNav(r.fundCodes); r = runPipeline(batches, $('broker').value, data); }
+    const p = r.performance;
     const label = ($('label').value || 'Account').trim();
     const h = [];
     for (const t of notes) h.push(`<div class="note">${esc(t)}</div>`);
@@ -94,6 +116,8 @@ $('run').onclick = async () => {
       <div><b>${n(p.realised)}</b><span>Realised gain</span></div><div><b>${n(p.unrealised)}</b><span>Unrealised gain</span></div>
       <div><b>${pc(p.xirrPriceOnly)}</b><span>XIRR (incl. unrealised)</span></div><div><b>${pc(p.xirrWithDividends)}</b><span>XIRR with dividends</span></div></div>
       <div class="sub" style="margin-top:8px">${r.counts.orders} orders (${r.counts.stockOrders} stock, ${r.counts.fundOrders} fund), ${r.counts.duplicates} duplicates dropped, ${r.counts.openLots} open lots.</div></div>`);
+    const note = $('nav').checked ? '' : ' Stocks and ETFs only; tick the box above to include funds.';
+    if (r.series) h.push(`<div class="card"><h2>Value over time (last 12 months of stored prices)</h2>${chart(r.series)}<div class="sub">${note}</div></div>`);
     for (const w of r.warnings) h.push(`<div class="note">${esc(w)}</div>`);
     h.push(`<div class="card"><h2>Capital gains by financial year (₹)</h2><table><tr><th>FY</th><th>Short-term</th><th>Long-term</th><th>Total</th><th>Other (slab)</th><th>Est. tax</th></tr>${r.tax.map((y) => `<tr><td>${y.fy}</td><td>${n(y.equity.stcg)}</td><td>${n(y.equity.ltcg)}</td><td>${n(y.equity.stcg + y.equity.ltcg)}</td><td>${n(y.slabGains)}</td><td>${n(y.equity.tax)}</td></tr>`).join('')}</table>
       <div class="sub" style="margin-top:6px">Equity-taxed assets in the first three gain columns; "Other" is debt, hybrid and overseas funds taxed at your slab. After charges. Estimate only, not tax advice.</div>${r.tax.filter((y) => y.banner).map((y) => `<div class="note">${y.fy}: ${esc(y.banner)}</div>`).join('')}</div>`);

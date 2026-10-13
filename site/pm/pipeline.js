@@ -12,11 +12,14 @@ import { FundMaster, fundTaxType,              } from './funds.js';
 import { replay } from './ledger.js';
 import { performance,           } from './performance.js';
 import { inferBooks, bookTotals } from './books.js';
+import { valuationSeries,               } from './valuation.js';
 
                              
                                                                                                          
                                              
                                                                                         
+                                                                                                                               
+                                                                                                                        
  
                          
                                                                                                                             
@@ -26,6 +29,7 @@ import { inferBooks, bookTotals } from './books.js';
                                                                                                                                                  
                                                                        
                                                                                               
+                                                               
  
 const isFundType = (t         ) => !!t && /fund|fof|hybrid/.test(t);
 
@@ -49,11 +53,12 @@ export function runPipeline(batches           , broker                     , d  
   for (const t of stocks) { const k = t.isin || t.instrument.toUpperCase(); if (!typeByKey.has(k)) typeByKey.set(k, assetType(t)); nameByKey.set(k, t.instrument); }
   const symKid = new Map                ();
   const fm = new FundMaster(d.amfi, d.fundOverrides);
+  const fundCodes                         = {};
   const fundTrades          = [], unmapped = new Set        (), navOf = new Map                ();
   for (const t of funds) {
     const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; }
     typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
-    fundTrades.push({ ...t, isin: x.match.isin });
+    fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
   const fundRep = replay(fundTrades, 365);
@@ -89,6 +94,18 @@ export function runPipeline(batches           , broker                     , d  
   const perf = performance({ orders: ords, dividends: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, net: l.net }))), holdingsValue: heldValue, asOf: d.pricesAsOf });
   const realised = combined.realised.reduce((a, r) => a + r.gain, 0);
 
+  let series                    = null;
+  if (d.priceHistory) {
+    const ph = d.priceHistory, first = [...stocks, ...(d.navHistory ? fundTrades : [])].map((t) => t.date).sort()[0] ?? '';
+    const idx = ph.dates.map((x, i) => [x, i]         ).filter(([x]) => x >= first);
+    const dates = idx.map(([x]) => x), at = new Map(idx);
+    const navDates = new Map                  (); for (const [k, m] of Object.entries(d.navHistory ?? {})) navDates.set(k, Object.keys(m).sort());
+    const price = (key        , date        )                     => {
+      if (isFundType(typeByKey.get(key))) { const m = d.navHistory?.[key]; if (!m) return undefined; if (m[date] !== undefined) return m[date]; const ds = navDates.get(key) ; let lo = 0, hi = ds.length - 1, best = -1; while (lo <= hi) { const mid = (lo + hi) >> 1; if (ds[mid] <= date) { best = mid; lo = mid + 1; } else hi = mid - 1; } return best >= 0 ? m[ds[best]] : undefined; }
+      const arr = ph.px[symOf.get(key) ?? '']; return arr?.[at.get(date) ] ?? undefined;
+    };
+    series = valuationSeries([...stocks, ...(d.navHistory ? fundTrades : [])], res.events, dates, price);
+  }
   const warnings           = [];
   const zero = stocks.filter((t) => t.value === 0);
   if (absorbed.length) warnings.push(`Broker credit(s) matched to a demerger and replaced by the demerger record (cost moved from the parent): ${absorbed.join('; ')}`);
@@ -100,6 +117,6 @@ export function runPipeline(batches           , broker                     , d  
     funds: { mapped: fundTrades.length, unmapped: [...unmapped] },
     resolver: { eventsFromFeed: res.facts.length, applied: res.applied.map((p) => `${nm((p.event       ).key)}: ${p.why}`), proposed: res.proposed.map((p) => `${nm((p.event       ).key)}: ${p.why}`), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)),
+    books: bt, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }
