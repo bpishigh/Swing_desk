@@ -1,12 +1,12 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
 // Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on this repo only), REPO ("owner/name"), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
-import { verifyAccess } from '../_lib/access.ts';
+import { checkAccess } from '../_lib/access.ts';
 import { cleanTrades, loadAccounts, saveAccount, validLabel } from '../_lib/store.ts';
 
 const reply = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
 export async function handle(req: Request, env: any, fetchFn: typeof fetch = fetch): Promise<Response> {
-  const who = await verifyAccess(req, env, fetchFn); if (!who) return reply(401, { error: 'not signed in' });
+  const who = await checkAccess(req, env, fetchFn); if (!who.ok) return reply(401, { error: 'not signed in', reason: who.reason });
   if (req.method === 'GET') { try { return reply(200, { accounts: await loadAccounts(env, fetchFn) }); } catch (e: any) { return reply(502, { error: e.message }); } }
   if (req.method === 'POST') {
     if ((req.headers.get('content-type') ?? '').split(';')[0] !== 'application/json') return reply(415, { error: 'json only' });

@@ -125,7 +125,7 @@ let saved = new Map(), canSave = false;
 async function loadSaved() {
   try {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
-    if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; $('status').textContent = `Public data ready. Saving is not available (${res.status} ${e.error || ''}): ${hint}.`; return; }
+    if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; $('status').textContent = `Public data ready. Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`; return; }
     const j = await res.json(); canSave = true; $('saveBox').hidden = false;
     for (const a of j.accounts) saved.set(a.label, a);
     for (const a of j.accounts) { $('status').textContent = 'Loading ' + a.label + '…'; await compute(a.label, a.broker, [a.trades], []); }

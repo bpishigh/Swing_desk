@@ -5,28 +5,37 @@ const b64u = (s: string) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_
 const json = (s: string) => JSON.parse(new TextDecoder().decode(b64u(s)));
 let keyCache: { at: number; domain: string; keys: any[] } | null = null;
 
-export async function verifyAccess(req: Request, env: AccessEnv, fetchFn: typeof fetch = fetch, nowMs = Date.now()): Promise<{ email: string } | null> {
-  const token = req.headers.get('Cf-Access-Jwt-Assertion'); if (!token || !env.TEAM_DOMAIN || !env.POLICY_AUD || !env.ALLOWED_EMAILS) return null;
-  const parts = token.split('.'); if (parts.length !== 3) return null;
+export type AccessResult = { ok: true; email: string } | { ok: false; reason: string };
+const no = (reason: string): AccessResult => ({ ok: false, reason });
+
+/** Same checks as before, but says which one failed (a short code only, never a secret value), so a misconfiguration can be fixed without guessing. */
+export async function checkAccess(req: Request, env: AccessEnv, fetchFn: typeof fetch = fetch, nowMs = Date.now()): Promise<AccessResult> {
+  const missing = (['TEAM_DOMAIN', 'POLICY_AUD', 'ALLOWED_EMAILS'] as const).filter((k) => !env[k]);
+  if (missing.length) return no('worker variables missing: ' + missing.join(', '));
+  const token = req.headers.get('Cf-Access-Jwt-Assertion'); if (!token) return no('no Access login token on the request (Access is not in front of this address, or you are not signed in through it)');
+  const parts = token.split('.'); if (parts.length !== 3) return no('malformed token');
   try {
     const head = json(parts[0]), claims = json(parts[1]);
-    if (head.alg !== 'RS256') return null;
+    if (head.alg !== 'RS256') return no('unsupported token algorithm');
     const iss = `https://${env.TEAM_DOMAIN}`;
-    if (claims.iss !== iss) return null;
-    const aud = Array.isArray(claims.aud) ? claims.aud : [claims.aud]; if (!aud.includes(env.POLICY_AUD)) return null;
-    if (typeof claims.exp !== 'number' || claims.exp * 1000 <= nowMs) return null;
-    if (typeof claims.nbf === 'number' && claims.nbf * 1000 > nowMs + 60000) return null;
+    if (claims.iss !== iss) return no(`TEAM_DOMAIN does not match the token issuer (token says ${String(claims.iss).slice(0, 80)})`);
+    const aud = Array.isArray(claims.aud) ? claims.aud : [claims.aud]; if (!aud.includes(env.POLICY_AUD)) return no('POLICY_AUD does not match this Access application');
+    if (typeof claims.exp !== 'number' || claims.exp * 1000 <= nowMs) return no('login token expired: sign in again');
+    if (typeof claims.nbf === 'number' && claims.nbf * 1000 > nowMs + 60000) return no('token not yet valid (clock)');
     if (!keyCache || keyCache.domain !== env.TEAM_DOMAIN || nowMs - keyCache.at > 600000 || !keyCache.keys.some((k) => k.kid === head.kid)) {
-      const r = await fetchFn(`${iss}/cdn-cgi/access/certs`); if (!r.ok) return null;
+      const r = await fetchFn(`${iss}/cdn-cgi/access/certs`); if (!r.ok) return no('could not fetch Access signing keys');
       keyCache = { at: nowMs, domain: env.TEAM_DOMAIN, keys: (await r.json() as any).keys ?? [] };
     }
-    const jwk = keyCache.keys.find((k) => k.kid === head.kid); if (!jwk) return null;
+    const jwk = keyCache.keys.find((k) => k.kid === head.kid); if (!jwk) return no('signing key not found');
     const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
     const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, b64u(parts[2]), new TextEncoder().encode(parts[0] + '.' + parts[1]));
-    if (!ok) return null;
+    if (!ok) return no('bad token signature');
     const email = String(claims.email ?? '').toLowerCase();
     const allowed = env.ALLOWED_EMAILS.split(',').map((x) => x.trim().toLowerCase()).filter(Boolean);
-    return email && allowed.includes(email) ? { email } : null;
-  } catch { return null; }
+    return email && allowed.includes(email) ? { ok: true, email } : no('your e-mail is not in ALLOWED_EMAILS');
+  } catch { return no('token could not be read'); }
+}
+export async function verifyAccess(req: Request, env: AccessEnv, fetchFn: typeof fetch = fetch, nowMs = Date.now()): Promise<{ email: string } | null> {
+  const r = await checkAccess(req, env, fetchFn, nowMs); return r.ok ? { email: r.email } : null;
 }
 export const resetAccessCache = () => { keyCache = null; };
