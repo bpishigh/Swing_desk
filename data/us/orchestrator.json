@@ -1,15 +1,14 @@
 {
  "breadth": {
-  "target": "2026-10-13",
-  "attempts": 8,
-  "alertedFor": "2026-10-13"
+  "target": "2026-10-14",
+  "attempts": 1
  },
  "daily": {
-  "target": "2026-10-13",
+  "target": "2026-10-14",
   "attempts": 1
  },
  "screen": {
-  "target": "2026-10-13",
+  "target": "2026-10-14",
   "attempts": 0
  }
 }
