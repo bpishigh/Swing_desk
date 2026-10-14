@@ -1,7 +1,7 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
 // Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on this repo only), REPO ("owner/name"), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
 import { checkAccess } from '../_lib/access.ts';
-import { cleanTrades, loadAccounts, saveAccount, validLabel, validOwner, cleanDecisions } from '../_lib/store.ts';
+import { cleanTrades, loadAccounts, saveAccount, validLabel, validOwner, cleanDecisions, deleteAccount, renameAccount } from '../_lib/store.ts';
 
 const reply = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -18,6 +18,15 @@ export async function handle(req: Request, env: any, fetchFn: typeof fetch = fet
     if (b.broker !== 'groww' && b.broker !== 'zerodha') return reply(400, { error: 'bad broker' });
     const trades = cleanTrades(b.trades); if (typeof trades === 'string') return reply(400, { error: trades });
     try { return reply(200, await saveAccount(env, b.label, b.broker, trades, fetchFn, new Date(), b.owner, decisions)); } catch (e: any) { return reply(502, { error: e.message }); }
+  }
+  if (req.method === 'DELETE' || req.method === 'PATCH') {
+    let b: any; try { b = await req.json(); } catch { return reply(400, { error: 'bad json' }); }
+    if (!validLabel(b?.label)) return reply(400, { error: 'bad account name' });
+    try {
+      if (req.method === 'DELETE') return reply(200, await deleteAccount(env, b.label, fetchFn));
+      if (!validLabel(b.newLabel)) return reply(400, { error: 'bad new name' });
+      const r = await renameAccount(env, b.label, b.newLabel, fetchFn); return reply(r.renamed ? 200 : 409, r);
+    } catch (e: any) { return reply(502, { error: e.message }); }
   }
   return reply(405, { error: 'method' });
 }

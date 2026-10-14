@@ -46,6 +46,7 @@ td small { display:block; color:var(--muted); font-size:11.5px; }
 .empty { text-align:center; padding:44px 12px; color:var(--muted); }
 input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--panel); min-width:200px; }
 @media (max-width:640px) { .tile .v { font-size:22px; } .sw > .ghost { min-width:0; } }
+#toast { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); background:var(--ink); color:var(--bg); padding:9px 16px; border-radius:8px; font-size:13px; max-width:90%; z-index:20; display:none; }
 </style>
 </head>
 <body>
@@ -72,6 +73,7 @@ input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6p
     <div class="sub" style="margin-top:4px">Files are read in your browser. If Save is on, only clean transactions (no client code, name or PAN) go to your private repo. Adding to an existing account merges and ignores repeated rows. Pick one broker's files per account; stocks and funds can go together.</div>
   </div>
   <div id="main"></div>
+<div id="toast" role="status"></div>
 </div>
 <script type="module">
 import { parseCsv } from './pm/csv.js';
@@ -136,7 +138,8 @@ async function recomputeAll(withFunds) {
     setStatus(''); render();
   }
 }
-const setStatus = (t) => { $('status').textContent = t; };
+let toastT; const setStatus = (t) => { $('status').textContent = t; };
+const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 5000); };
 
 // ---------- selection
 function members() {
@@ -268,9 +271,9 @@ function tax(V) {
   const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0], hiFy = per.id.startsWith('fy') ? per.id.slice(2) : null;
   const groups = taxGroups();
   return `<div class="note info">Tax is worked out per person, because the ₹1.25 lakh yearly exemption and loss set-off belong to one PAN, not to one account. Within a person, gains of all their accounts are added before the exemption. Each account is still matched first-in-first-out on its own, as the law requires for separate demat accounts.</div>` + groups.map((g) => {
-    const ys = g.years, tot = ys.reduce((a, y) => ({ s: a.s + y.equity.stcg, l: a.l + y.equity.ltcg, ex: a.ex + y.equity.exemptionUsed, tx: a.tx + y.equity.tax, o: a.o + y.slabGains }), { s: 0, l: 0, ex: 0, tx: 0, o: 0 });
-    const last = ys.at(-1);
-    return `<div class="card"><h2>${esc(g.name)} · capital gains by financial year ${g.list.length > 1 ? `<span class="sub">(${g.list.map((a) => esc(a.label)).join(' + ')})</span>` : ''}</h2><div class="tw"><table><thead><tr><th>FY</th><th>Short-term ₹</th><th>Long-term ₹</th><th>Exemption used ₹</th><th>Taxable ₹</th><th>Est. tax ₹</th><th>Other assets ₹</th><th></th></tr></thead><tbody>${ys.map((y) => `<tr class="${y.fy === hiFy ? 'hi' : ''}"><td>${y.fy}</td><td>${num(y.equity.stcg)}</td><td>${num(y.equity.ltcg)}</td><td>${inr(y.equity.exemptionUsed)}</td><td>${inr(y.equity.taxable.stcg + y.equity.taxable.ltcg)}</td><td><b>${inr(y.equity.tax)}</b></td><td>${num(y.slabGains)}</td><td>${y.lines.some((l) => l.confidence !== 'High') ? '<span class="tag" title="Some of this rests on a rule marked Medium or Low confidence in the design notes">check</span>' : ''}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${num(tot.s)}</td><td>${num(tot.l)}</td><td>${inr(tot.ex)}</td><td></td><td>${inr(tot.tx)}</td><td>${num(tot.o)}</td><td></td></tr></tfoot></table></div>
+    const ys = [...g.years].reverse(), tot = ys.reduce((a, y) => ({ s: a.s + y.equity.stcg, l: a.l + y.equity.ltcg, ex: a.ex + y.equity.exemptionUsed, tx: a.tx + y.equity.tax, o: a.o + y.slabGains }), { s: 0, l: 0, ex: 0, tx: 0, o: 0 });
+    const last = g.years.at(-1), showO = ys.some((y) => y.slabGains);
+    return `<div class="card"><h2>${esc(g.name)} · capital gains by financial year ${g.list.length > 1 ? `<span class="sub">(${g.list.map((a) => esc(a.label)).join(' + ')})</span>` : ''}</h2><div class="tw"><table><thead><tr><th>FY</th><th>Short-term ₹</th><th>Long-term ₹</th><th>Exemption used ₹</th><th>Taxable ₹</th><th>Est. tax ₹</th>${showO ? '<th>Other assets ₹</th>' : ''}<th></th></tr></thead><tbody>${ys.map((y) => `<tr class="${y.fy === hiFy ? 'hi' : ''}"><td>${y.fy}</td><td>${num(y.equity.stcg)}</td><td>${num(y.equity.ltcg)}</td><td>${inr(y.equity.exemptionUsed)}</td><td>${inr(y.equity.taxable.stcg + y.equity.taxable.ltcg)}</td><td><b>${inr(y.equity.tax)}</b></td>${showO ? `<td>${num(y.slabGains)}</td>` : ''}<td>${y.lines.some((l) => l.confidence !== 'High') ? '<span class="tag" title="Some of this rests on a rule marked Medium or Low confidence in the design notes">check</span>' : ''}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${num(tot.s)}</td><td>${num(tot.l)}</td><td>${inr(tot.ex)}</td><td></td><td>${inr(tot.tx)}</td>${showO ? `<td>${num(tot.o)}</td>` : ''}<td></td></tr></tfoot></table></div>
     <div class="sub" style="margin-top:8px">Short-term and long-term are equity and equity funds, after deductible charges, with same-year set-off and the exemption applied. "Other assets" are gold and silver ETFs, overseas and debt funds, which follow different rules, so no tax is estimated for them here. Estimate before surcharge and cess; not tax advice.</div>
     ${last && (last.carryForward.stcl || last.carryForward.ltcl) ? `<div class="note">Unused loss after the latest year: short-term ${money(last.carryForward.stcl)}, long-term ${money(last.carryForward.ltcl)}. It only carries forward if that year's return was filed on time, which the tool cannot see, so treat it as unconfirmed.</div>` : ''}
     ${ys.filter((y) => y.banner).map((y) => `<div class="note">${y.fy}: ${esc(y.banner)}</div>`).join('')}</div>`;
@@ -297,7 +300,7 @@ function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
   const items = ms.flatMap((a) => a.report.resolver.proposedItems.map((x) => [a, x])), decided = ms.flatMap((a) => a.report.resolver.decided.map((d) => [a, d])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
-  return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td></tr>`; }).join('')}</tbody></table></div>
+  return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
   <div class="card"><h2>Things to check</h2>
   ${items.length ? `<div class="note">Your tradebook shows sells of shares it never shows buying. An IPO or rights allotment explains each one, but the price is an estimate. Confirm it, type the real price from your allotment or contract note, or reject it (the sell then stays unexplained and its gain is left out).</div>${items.map(([a, x], n) => `<div style="margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:8px"><span class="tag">estimated</span> <b>${esc(x.name)}</b> <span class="sub">${esc(a.label)} · ${x.kind} of ${x.qty} units around ${x.date} at ₹${x.unitCost}/unit</span><div class="sub" style="margin:4px 0">${esc(x.why)}</div><div class="row2"><button class="chip" data-dec="confirm" data-acct="${a.key}" data-k="${esc(x.key)}">Confirm ₹${x.unitCost}</button><input type="number" step="any" min="0" class="pxin" id="px${n}" placeholder="actual ₹ per unit" style="width:140px"><button class="chip" data-dec="price" data-acct="${a.key}" data-k="${esc(x.key)}" data-in="px${n}">Use this price</button><button class="chip" data-dec="reject" data-acct="${a.key}" data-k="${esc(x.key)}">Reject</button></div></div>`).join('')}` : ''}
@@ -357,12 +360,27 @@ async function decide(acctKey, k, action, unitCost) {
   const dec = action === 'clear' ? 'clear' : action === 'price' ? { action, unitCost } : { action };
   if (dec === 'clear') delete a.decisions[k]; else a.decisions[k] = dec;
   compute(a); render();
-  if (S.canSave) { try { const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, trades: [], decisions: { [k]: dec } }) }); setStatus(res.ok ? 'Answer saved.' : 'Answer applied here but not saved (' + res.status + ').'); } catch { setStatus('Answer applied here but not saved.'); } }
+  if (S.canSave) { try { const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, trades: [], decisions: { [k]: dec } }) }); notify(res.ok ? 'Answer saved.' : 'Answer applied here but not saved (' + res.status + ').'); } catch { notify('Answer applied here but not saved.'); } }
 }
 document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-dec]'); if (!b) return;
   if (b.dataset.dec === 'price') { const v = Number($(b.dataset.in).value); if (!Number.isFinite(v) || v < 0 || $(b.dataset.in).value === '') { $(b.dataset.in).style.borderColor = 'var(--red)'; return; } return decide(b.dataset.acct, b.dataset.k, 'price', v); }
   decide(b.dataset.acct, b.dataset.k, b.dataset.dec);
+});
+async function api(method, body) { const res = await fetch('/api/portfolio', { method, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }); const j = await res.json().catch(() => ({})); return { ok: res.ok, j, status: res.status }; }
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-acc]'); if (!b) return; const a = S.accounts.get(b.dataset.k); if (!a) return;
+  if (b.dataset.acc === 'rename') {
+    const n = (prompt('New name for ' + a.label + ':', a.label) || '').trim(); if (!n || n === a.label) return;
+    if (!/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(n)) return notify('Names use letters, numbers and spaces, up to 40.');
+    const nk = keyOf(n); if (nk !== a.key && S.accounts.has(nk)) return notify('There is already an account with that name.');
+    if (S.canSave) { try { const r = await api('PATCH', { label: a.label, newLabel: n }); if (!r.ok) return notify('Not renamed: ' + (r.j.error || r.status)); } catch { return notify('Not renamed: could not reach the save service.'); } }
+    S.accounts.delete(a.key); if (S.sel === 'a:' + a.key) S.sel = 'a:' + nk; a.key = nk; a.label = n; S.accounts.set(nk, a); store.set('sel', S.sel); render(); notify('Renamed to ' + n + '.');
+  } else {
+    if (!confirm('Delete the account "' + a.label + '" and its ' + a.trades.length + ' transactions' + (S.canSave ? ' from your private store' : ' from this page') + '? This cannot be undone. (Your original files are not affected.)')) return;
+    if (S.canSave) { try { const r = await api('DELETE', { label: a.label }); if (!r.ok) return notify('Not deleted: ' + (r.j.error || r.status)); } catch { return notify('Not deleted: could not reach the save service.'); } }
+    S.accounts.delete(a.key); if (S.sel === 'a:' + a.key) S.sel = 'ALL'; store.set('sel', S.sel); render(); notify('Deleted ' + a.label + '.');
+  }
 });
 async function setOwner(key, owner) {
   const a = S.accounts.get(key); if (!a) return; a.owner = owner; render();
@@ -420,7 +438,7 @@ $('run').onclick = async () => {
       const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
       const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` Not saved: ${j.error || res.status}.`;
     }
-    setStatus(msg); $('files').value = ''; await recomputeAll(true);
+    notify(msg); $('files').value = ''; await recomputeAll(true);
   } catch (e) { setStatus('Error: ' + e.message); console.error(e); }
 };
 </script>

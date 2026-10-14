@@ -60,6 +60,10 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
       const r = await fetchFn(`${base}/${DIR}?ref=${ref}`, { headers: h }); if (r.status === 404) return []; if (!r.ok) throw new Error('list failed ' + r.status);
       return ((await r.json() as any[]) ?? []).filter((f) => f.type === 'file' && f.name.endsWith('.json')).map((f) => f.path);
     },
+    async del(path: string, sha: string, message: string) {
+      const r = await fetchFn(`${base}/${path}`, { method: 'DELETE', headers: h, body: JSON.stringify({ message, sha, branch: ref }) });
+      if (!r.ok) throw new Error('delete failed ' + r.status);
+    },
     async put(path: string, data: Account, sha: string | undefined, message: string) {
       const r = await fetchFn(`${base}/${path}`, { method: 'PUT', headers: h, body: JSON.stringify({ message, content: b64(JSON.stringify(data) + '\n'), branch: ref, ...(sha ? { sha } : {}) }) });
       if (!r.ok) throw new Error('write failed ' + r.status);
@@ -80,4 +84,23 @@ export async function loadAccounts(env: StoreEnv, fetchFn: typeof fetch = fetch)
   const gh = github(env, fetchFn), out: Account[] = [];
   for (const p of await gh.list()) { const f = await gh.get(p); if (f) out.push(f.data); }
   return out;
+}
+
+/** Removes one saved account file. Only `portfolio/accounts/<slug>.json` can be named, because the path is built from a validated label. */
+export async function deleteAccount(env: StoreEnv, label: string, fetchFn: typeof fetch = fetch): Promise<{ deleted: boolean }> {
+  const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
+  if (!cur) return { deleted: false };
+  await gh.del(path, cur.sha, `portfolio: remove ${slug(label)}`);
+  return { deleted: true };
+}
+/** Renames an account: writes the new file, then removes the old one. A change of letter case alone rewrites the same file. */
+export async function renameAccount(env: StoreEnv, label: string, newLabel: string, fetchFn: typeof fetch = fetch, now = new Date()): Promise<{ renamed: boolean; error?: string }> {
+  const gh = github(env, fetchFn), from = pathFor(label), to = pathFor(newLabel), cur = await gh.get(from);
+  if (!cur) return { renamed: false, error: 'account not found' };
+  const acc: Account = { ...cur.data, label: newLabel, savedAt: now.toISOString() };
+  if (from === to) { await gh.put(to, acc, cur.sha, `portfolio: rename ${slug(label)}`); return { renamed: true }; }
+  if (await gh.get(to)) return { renamed: false, error: 'an account with that name already exists' };
+  await gh.put(to, acc, undefined, `portfolio: rename ${slug(label)} to ${slug(newLabel)}`);
+  await gh.del(from, cur.sha, `portfolio: remove ${slug(label)} (renamed)`);
+  return { renamed: true };
 }
