@@ -12,7 +12,7 @@ import { replay, keyOf,                                         } from './ledger
 const dayDiff = (a        , b        ) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 const remaining = (r        , k        ) => r.breaks.filter((b) => b.key === k).reduce((a, b) => a + b.qty, 0);
 
-export function resolve(trades         , cat           , overrides              = [], longAfterDays                = 365)             {
+export function resolve(trades         , cat           , overrides              = [], longAfterDays                = 365, decisions                           = {})             {
   // Facts and typed overrides first: splits, bonuses, renames, demergers with a published cost percent are dated records, not guesses.
   let events              = [...cat.facts, ...overrides];
   const base = replay(trades, longAfterDays, events);
@@ -22,6 +22,8 @@ export function resolve(trades         , cat           , overrides              
   const byKey = new Map                 ();
   for (const b of base.breaks) (byKey.get(b.key) ?? byKey.set(b.key, []).get(b.key) ).push(b);
   for (const [key, brks] of byKey) {
+    const dec = decisions[key];
+    if (dec?.action === 'reject') continue;                                              // the owner says this item is wrong: its sells stay unexplained
     const total = brks.reduce((a, b) => a + b.qty, 0), firstBreak = brks[0];
     const first = sorted.find((t) => keyOf(t) === key)?.date ?? firstBreak.date;
     let resolved = false;
@@ -29,10 +31,11 @@ export function resolve(trades         , cat           , overrides              
       const lead = dayDiff(c.date, first);
       if (lead < -2) continue;                                                          // the allotment must precede the first trade
       if (c.lotSize && Math.round(total) % c.lotSize !== 0) continue;                    // IPO: a whole number of lots
-      const ev            = { type: 'grant', key, date: c.date, qty: total, unitCost: c.unitCost, source: c.source, estimate: c.estimate, instrument: c.instrument };
+      const priced = dec?.action === 'price' && typeof dec.unitCost === 'number' && Number.isFinite(dec.unitCost) && dec.unitCost >= 0;
+      const ev            = { type: 'grant', key, date: c.date, qty: total, unitCost: priced ? dec .unitCost  : c.unitCost, source: c.source + (dec ? (priced ? ' (price entered by the owner)' : ' (confirmed by the owner)') : ''), estimate: dec ? false : c.estimate, instrument: c.instrument };
       const trial = replay(trades, longAfterDays, [...events, ev]);
       if (remaining(trial, key) > 1e-9) continue;                                         // must close the break to the unit
-      const p           = { break: firstBreak, event: ev, why: `${c.kind} record ${c.source}: ${total} units at ${c.unitCost}`, status: c.estimate || !c.source ? 'proposed' : 'applied' };
+      const p           = { break: firstBreak, event: ev, why: `${c.kind} record ${ev.source}: ${total} units at ${ev.unitCost}`, status: dec || (!c.estimate && c.source) ? 'applied' : 'proposed' };
       (p.status === 'applied' ? applied : proposed).push(p);
       events = [...events, ev]; resolved = true; break;                                  // proposed events still show in the provisional replay
     }
@@ -44,8 +47,9 @@ export function resolve(trades         , cat           , overrides              
       const parent = sym.replace(/-RE\d?$/, '');
       const heldParent = sorted.some((t) => (t.symbol ?? t.instrument).toUpperCase().startsWith(parent) && t.side === 'buy' && t.date < firstBreak.date);
       if (heldParent) {
-        const ev            = { type: 'grant', key, date: sorted.find((t) => keyOf(t) === key) .date, qty: total, unitCost: 0, source: `rights entitlement credited to holders of ${parent}; nil cost (quantity not checked against the issue ratio)`, estimate: true };
-        proposed.push({ break: firstBreak, event: ev, why: `${sym} is a rights entitlement and ${parent} was held`, status: 'proposed' });
+        const priced = dec?.action === 'price' && typeof dec.unitCost === 'number' && Number.isFinite(dec.unitCost) && dec.unitCost >= 0;
+        const ev            = { type: 'grant', key, date: sorted.find((t) => keyOf(t) === key) .date, qty: total, unitCost: priced ? dec .unitCost  : 0, source: `rights entitlement credited to holders of ${parent}; ${priced ? 'cost entered by the owner' : 'nil cost'} (quantity not checked against the issue ratio)`, estimate: dec ? false : true };
+        (dec ? applied : proposed).push({ break: firstBreak, event: ev, why: `${sym} is a rights entitlement and ${parent} was held`, status: dec ? 'applied' : 'proposed' });
         events = [...events, ev];
       }
     }

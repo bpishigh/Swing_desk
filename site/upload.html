@@ -42,6 +42,7 @@ td small { display:block; color:var(--muted); font-size:11.5px; }
 .bar2 { height:6px; border-radius:3px; background:var(--accent-bg); } .bar2 > i { display:block; height:100%; border-radius:3px; background:var(--accent); }
 .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; } .grid2 .card { margin:0; }
 .drawer { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; margin:12px 0; } .drawer .f { display:flex; flex-wrap:wrap; gap:10px; align-items:end; } .drawer label { display:flex; flex-direction:column; font-size:12px; color:var(--muted); gap:3px; } .drawer input, .drawer select { border:1px solid var(--line); border-radius:6px; padding:7px 9px; background:var(--bg); }
+.row2 { display:flex; flex-wrap:wrap; gap:8px; align-items:center; } .pxin { border:1px solid var(--line); border-radius:6px; padding:4px 8px; background:var(--bg); }
 .empty { text-align:center; padding:44px 12px; color:var(--muted); }
 input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--panel); min-width:200px; }
 @media (max-width:640px) { .tile .v { font-size:22px; } .sw > .ghost { min-width:0; } }
@@ -123,7 +124,7 @@ async function loadFundNavs() {
 }
 function compute(a) {
   const d = S.data; d.priceHistory = S.hist; d.navHistory = S.fundOn ? S.fundNavs : undefined;
-  a.report = runPipeline([a.trades], a.broker, d);
+  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {});
   a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
 }
 async function recomputeAll(withFunds) {
@@ -295,15 +296,16 @@ function coverage(a) {
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
-  const prop = ms.flatMap((a) => a.report.resolver.proposed.map((x) => [a.label, x])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
+  const items = ms.flatMap((a) => a.report.resolver.proposedItems.map((x) => [a, x])), decided = ms.flatMap((a) => a.report.resolver.decided.map((d) => [a, d])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
   return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
   <div class="card"><h2>Things to check</h2>
-  ${prop.length ? `<div class="note">Estimated, not confirmed by your broker. These are used in the numbers until you upload a statement that settles them:</div>${prop.map(([l, x]) => `<div style="margin:6px 0"><span class="tag">estimated</span> <b>${esc(l)}</b> · ${esc(x)}</div>`).join('')}` : ''}
+  ${items.length ? `<div class="note">Your tradebook shows sells of shares it never shows buying. An IPO or rights allotment explains each one, but the price is an estimate. Confirm it, type the real price from your allotment or contract note, or reject it (the sell then stays unexplained and its gain is left out).</div>${items.map(([a, x], n) => `<div style="margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:8px"><span class="tag">estimated</span> <b>${esc(x.name)}</b> <span class="sub">${esc(a.label)} · ${x.kind} of ${x.qty} units around ${x.date} at ₹${x.unitCost}/unit</span><div class="sub" style="margin:4px 0">${esc(x.why)}</div><div class="row2"><button class="chip" data-dec="confirm" data-acct="${a.key}" data-k="${esc(x.key)}">Confirm ₹${x.unitCost}</button><input type="number" step="any" min="0" class="pxin" id="px${n}" placeholder="actual ₹ per unit" style="width:140px"><button class="chip" data-dec="price" data-acct="${a.key}" data-k="${esc(x.key)}" data-in="px${n}">Use this price</button><button class="chip" data-dec="reject" data-acct="${a.key}" data-k="${esc(x.key)}">Reject</button></div></div>`).join('')}` : ''}
+  ${decided.length ? `<div class="sub" style="margin:8px 0">Your answers: ${decided.map(([a, d]) => `${esc(d.name)} (${esc(a.label)}): ${d.action === 'price' ? 'price ₹' + d.unitCost + ' entered' : d.action === 'confirm' ? 'estimate confirmed' : 'rejected'} <button class="chip" data-dec="clear" data-acct="${a.key}" data-k="${esc(d.key)}">undo</button>`).join(' · ')}</div>` : ''}
   ${unx.length ? unx.map(([l, u]) => `<div class="note"><b>${esc(l)}</b>: sold ${esc(u.name)} on ${u.date} (${u.qty} units) but no matching purchase was found. Its gain is left out until a statement explains it.</div>`).join('') : ''}
   ${nvs.length ? `<div class="note">No market price, so left out of value (or valued at your last order price): ${nvs.slice(0, 8).map(([l, x]) => esc(x)).join('; ')}</div>` : ''}
   ${ms.flatMap((a) => a.report.warnings.map((w) => `<div class="note"><b>${esc(a.label)}</b>: ${esc(w)}</div>`)).join('')}
-  ${!prop.length && !unx.length && !nvs.length && !ms.some((a) => a.report.warnings.length) ? '<div class="sub">Nothing to check.</div>' : ''}
+  ${!items.length && !unx.length && !nvs.length && !ms.some((a) => a.report.warnings.length) ? '<div class="sub">Nothing to check.</div>' : ''}
   <div class="sub" style="margin-top:8px">${ms.reduce((a, m) => a + m.report.resolver.applied.length, 0)} corporate actions (splits, bonuses, demergers) were found in your holdings and applied automatically from NSE records.</div></div>
   <div class="card"><h2>Data</h2>
   <label><input type="checkbox" id="fundOn" ${S.fundOn ? 'checked' : ''}> Include mutual funds in value history and period returns</label>
@@ -349,6 +351,19 @@ document.addEventListener('keydown', (e) => {
 });
 $('label').addEventListener('input', () => { const a = S.accounts.get(keyOf($('label').value)); $('owner').value = a ? a.owner || '' : ''; });   // owner follows the account named; a new name starts blank so one person's owner is not carried onto another account
 
+async function decide(acctKey, k, action, unitCost) {
+  const a = S.accounts.get(acctKey); if (!a) return;
+  a.decisions = { ...(a.decisions || {}) };
+  const dec = action === 'clear' ? 'clear' : action === 'price' ? { action, unitCost } : { action };
+  if (dec === 'clear') delete a.decisions[k]; else a.decisions[k] = dec;
+  compute(a); render();
+  if (S.canSave) { try { const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, trades: [], decisions: { [k]: dec } }) }); setStatus(res.ok ? 'Answer saved.' : 'Answer applied here but not saved (' + res.status + ').'); } catch { setStatus('Answer applied here but not saved.'); } }
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-dec]'); if (!b) return;
+  if (b.dataset.dec === 'price') { const v = Number($(b.dataset.in).value); if (!Number.isFinite(v) || v < 0 || $(b.dataset.in).value === '') { $(b.dataset.in).style.borderColor = 'var(--red)'; return; } return decide(b.dataset.acct, b.dataset.k, 'price', v); }
+  decide(b.dataset.acct, b.dataset.k, b.dataset.dec);
+});
 async function setOwner(key, owner) {
   const a = S.accounts.get(key); if (!a) return; a.owner = owner; render();
   if (S.canSave) { try { await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, owner: owner || undefined, trades: [] }) }); } catch {} }
@@ -371,7 +386,7 @@ async function loadSaved() {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
     if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
     const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
-    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', trades: a.trades, report: null }); }
+    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, trades: a.trades, report: null }); }
     for (const a of S.accounts.values()) if (a.trades.length) { compute(a); render(); await new Promise((r) => setTimeout(r)); }
     if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
     if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';

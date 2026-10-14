@@ -3,7 +3,7 @@
 import { mergeTrades, aggregateFills, type Trade } from './reader.ts';
 import { canonicalise } from './lineage.ts';
 import { buildCatalogue, ipoCandidates, type DemergerRecord, type FeedRow, type IpoRecord } from './nse-catalogue.ts';
-import { resolve } from './resolver.ts';
+import { resolve, type Decision } from './resolver.ts';
 import { assetType, isEtf, type AssetType } from './classify.ts';
 import { orderCharges } from './charges.ts';
 import { taxView, type TaxYear } from './tax.ts';
@@ -24,7 +24,7 @@ export interface PublicData {
 export interface Report {
   counts: { trades: number; duplicates: number; orders: number; stockOrders: number; fundOrders: number; openLots: number };
   funds: { mapped: number; unmapped: string[] };
-  resolver: { eventsFromFeed: number; applied: string[]; proposed: string[]; unexplained: { name: string; date: string; qty: number }[]; needsRecord: { symbol: string; exDate: string; why: string }[] };
+  resolver: { eventsFromFeed: number; applied: string[]; proposed: string[]; proposedItems: { key: string; name: string; kind: 'IPO allotment' | 'rights entitlement' | 'credit'; date: string; qty: number; unitCost: number; why: string }[]; decided: { key: string; name: string; action: string; unitCost?: number }[]; unexplained: { name: string; date: string; qty: number }[]; needsRecord: { symbol: string; exDate: string; why: string }[] };
   warnings: string[];
   tax: TaxYear[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
@@ -34,7 +34,7 @@ export interface Report {
 }
 const isFundType = (t?: string) => !!t && /fund|fof|hybrid/.test(t);
 
-export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: PublicData): Report {
+export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: PublicData, decisions: Record<string, Decision> = {}): Report {
   const m = mergeTrades(batches);
   const names = new Set(m.trades.map((t) => (t.symbol ?? t.instrument).toUpperCase()));
   const isins = new Set(m.trades.filter((t) => t.isin).map((t) => t.isin));
@@ -49,7 +49,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const factKids = new Set(cat.facts.filter((f: any) => f.type === 'demerger').map((f: any) => f.child));
   const absorbed: string[] = [];
   const stocks = orders.filter((t) => t.kind !== 'fund').filter((t) => { if (t.value === 0 && t.side === 'buy' && factKids.has(t.isin) && kids.has(t.isin)) { absorbed.push(`${kids.get(t.isin)!.childName ?? t.isin} ${t.qty} on ${t.date}`); return false; } return true; }), funds = orders.filter((t) => t.kind === 'fund');
-  const res = resolve(stocks, cat, []);
+  const res = resolve(stocks, cat, [], 365, decisions);
   const typeByKey = new Map<string, string>(), nameByKey = new Map<string, string>();
   for (const t of stocks) { const k = t.isin || t.instrument.toUpperCase(); if (!typeByKey.has(k)) typeByKey.set(k, assetType(t)); nameByKey.set(k, t.instrument); }
   const symKid = new Map<string, string>();
@@ -119,7 +119,9 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   return {
     counts: { trades: m.trades.length, duplicates: m.duplicates, orders: orders.length, stockOrders: stocks.length, fundOrders: funds.length, openLots: combined.open.length },
     funds: { mapped: fundTrades.length, unmapped: [...unmapped] },
-    resolver: { eventsFromFeed: res.facts.length, applied: res.applied.map((p) => `${nm((p.event as any).key)}: ${p.why}`), proposed: res.proposed.map((p) => `${nm((p.event as any).key)}: ${p.why}`), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
+    resolver: { eventsFromFeed: res.facts.length, applied: res.applied.map((p) => `${nm((p.event as any).key)}: ${p.why}`), proposed: res.proposed.map((p) => `${nm((p.event as any).key)}: ${p.why}`),
+      proposedItems: res.proposed.filter((p) => p.event.type === 'grant').map((p) => { const e = p.event as any; return { key: e.key, name: nm(e.key), kind: /rights/.test(p.why) ? 'rights entitlement' as const : 'IPO allotment' as const, date: e.date, qty: e.qty, unitCost: e.unitCost, why: p.why }; }),
+      decided: Object.entries(decisions).map(([k, v]) => ({ key: k, name: nm(k), action: v.action, unitCost: v.unitCost })), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },

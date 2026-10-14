@@ -1,7 +1,8 @@
 // Portfolio storage in the private repo through the GitHub contents API. Only the folder `portfolio/accounts/` is ever touched.
 import { mergeTrades, type Trade } from '../../src/pm/reader.ts';
+import type { Decision } from '../../src/pm/resolver.ts';
 export interface StoreEnv { GITHUB_TOKEN: string; REPO: string; BRANCH?: string }
-export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; savedAt: string; trades: Trade[] }
+export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; savedAt: string; trades: Trade[] }
 const DIR = 'portfolio/accounts';
 const LABEL = /^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/;
 const DATE = /^\d{4}-\d\d-\d\d$/;
@@ -22,6 +23,21 @@ export function cleanTrades(input: unknown): Trade[] | string {
     const o: Trade = { instrument: x.instrument as string, isin: x.isin as string, side: x.side, qty: x.qty as number, price: x.price as number, value: x.value as number, date: x.date, time: x.time as string, exchange: x.exchange as string, orderId: x.orderId as string, tradeId: x.tradeId as string, kind: x.kind };
     if (x.symbol !== undefined) { if (!str(x.symbol, 40)) return `trade ${i}: bad symbol`; o.symbol = x.symbol as string; }
     out.push(o);
+  }
+  return out;
+}
+/** The owner's answers to estimated items. `clear` removes an answer. Keys are company keys (an ISIN or an uppercased name). */
+export function cleanDecisions(input: unknown): Record<string, Decision | 'clear'> | string {
+  if (input === undefined) return {};
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return 'decisions must be an object';
+  const out: Record<string, Decision | 'clear'> = {}; const entries = Object.entries(input as Record<string, any>);
+  if (entries.length > 200) return 'too many decisions';
+  for (const [k, v] of entries) {
+    if (!/^[A-Za-z0-9 .&_()-]{1,60}$/.test(k)) return 'bad decision key';
+    if (v === 'clear') { out[k] = 'clear'; continue; }
+    if (!v || typeof v !== 'object' || !['confirm', 'reject', 'price'].includes(v.action)) return 'bad decision';
+    if (v.action === 'price' && !(typeof v.unitCost === 'number' && Number.isFinite(v.unitCost) && v.unitCost >= 0 && v.unitCost < 1e7)) return 'bad price';
+    out[k] = v.action === 'price' ? { action: 'price', unitCost: v.unitCost } : { action: v.action };
   }
   return out;
 }
@@ -52,10 +68,11 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
-  const acc: Account = { label: cur?.data.label ?? label, broker, ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
+  const dec: Record<string, Decision> = { ...(cur?.data.decisions ?? {}) }; for (const [k, v] of Object.entries(decisions)) { if (v === 'clear') delete dec[k]; else dec[k] = v; }
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }
