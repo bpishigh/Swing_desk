@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-14T22:07:44.404Z",
+ "fetchedAt": "2026-10-14T22:37:41.877Z",
  "src": "https://stockanalysis.com/list/sp-500-stocks/",
  "count": 503,
  "symbols": [
@@ -32,8 +32,8 @@
   "KO",
   "MRK",
   "PG",
-  "BAC",
   "LRCX",
+  "BAC",
   "UNH",
   "AMAT",
   "CAT",
