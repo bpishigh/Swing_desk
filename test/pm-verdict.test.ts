@@ -58,3 +58,23 @@ test('a recently listed stock below its swing low is still an Exit, labelled as 
   assert.equal(v.label, 'Exit'); assert.equal(v.below200, null); assert.equal(v.belowSwing, true); assert.match(v.partial ?? '', /swing low only/); assert.match(v.reasons.join(' '), /not available yet/);
   assert.equal(stockVerdict('AAA', hist('AAA', rising())).partial, undefined);
 });
+test('priceFactor reads plain splits and bonuses only', async () => {
+  const { priceFactor } = await import('../src/pm/verdict.ts');
+  assert.equal(priceFactor(' Bonus 1:4'), 1.25); assert.equal(priceFactor('Bonus- 1:2'), 1.5); assert.equal(priceFactor(' Bonus 2:1'), 3);
+  assert.equal(priceFactor(' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share'), 5);
+  assert.equal(priceFactor('Scheme Of Arrangement - Bonus Ncrps 4:1'), null); assert.equal(priceFactor(' Demerger'), null);
+  assert.equal(priceFactor('Consolidation Of Equity Shares From Re 1 Per Share To Rs 10 Per Share'), null); assert.equal(priceFactor(' Rights 1:7 @ Premium Rs 95 Per Share'), null);
+});
+test('a split that the stored prices show is adjusted, so the verdict is real; one they do not show stays No verdict', () => {
+  const real = rising().map((v, i) => (i >= 240 ? v / 5 : v));               // 1:5 split at index 240: the stored close falls to a fifth
+  const h = hist('AAA', real); const row = { symbol: 'AAA', exDate: h.dates[240], subject: ' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share' };
+  const v = stockVerdict('AAA', h, [row]);
+  assert.equal(v.label, 'Keep'); assert.equal(v.below200, false); assert.equal(v.adjusted?.length, 1);
+  const fake = stockVerdict('AAA', hist('AAA', rising()), [{ ...row, exDate: h.dates[240] }]); assert.equal(fake.label, 'No verdict'); assert.match(fake.reasons[0], /could not be adjusted/);
+  const dem = stockVerdict('AAA', h, [{ symbol: 'AAA', exDate: h.dates[240], subject: ' Demerger' }]); assert.equal(dem.label, 'No verdict');
+});
+test('two actions in the window are stacked', () => {
+  const c = rising().map((v, i) => v / (i >= 220 ? 2 : 1) / (i >= 240 ? 5 : 1)); const h = hist('AAA', c);
+  const rows = [{ symbol: 'AAA', exDate: h.dates[220], subject: 'Bonus 1:1' }, { symbol: 'AAA', exDate: h.dates[240], subject: ' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share' }];
+  const v = stockVerdict('AAA', h, rows); assert.equal(v.adjusted?.length, 2); assert.equal(v.label, 'Keep');
+});
