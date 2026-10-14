@@ -1,0 +1,1366 @@
+{
+ "asOf": "2026-10-14",
+ "firstDate": "2021-04-01",
+ "sessions": 1366,
+ "step": 5,
+ "firstStart": "2022-02-07",
+ "universe": "symbols with a stored close on the start date",
+ "proxy": "median Nifty 500 stock; Red = its cumulative index below both its 50 and 200 day averages",
+ "atr": "mean absolute close-to-close move over 14 sessions",
+ "preregistered": "C-42 and C-43 in the Engine Rules change log, written before the first run of this script",
+ "parity": {
+  "symbols": 2914,
+  "identical": 2914
+ },
+ "crossSection": {
+  "date": "2026-10-14",
+  "stocks": 2914,
+  "noVerdictCorporateAction": 124,
+  "noVerdictOther": 365,
+  "groups": {
+   "Both": {
+    "stocks": 883,
+    "nifty500": 180,
+    "medianPctFrom200": -11.2,
+    "medianRsPercentile": 28
+   },
+   "200 only": {
+    "stocks": 443,
+    "nifty500": 87,
+    "medianPctFrom200": -7.5,
+    "medianRsPercentile": 41
+   },
+   "Swing only": {
+    "stocks": 136,
+    "nifty500": 35,
+    "medianPctFrom200": 5.3,
+    "medianRsPercentile": 60
+   },
+   "Swing only (no 200-day yet)": {
+    "stocks": 155,
+    "nifty500": 5,
+    "medianPctFrom200": null,
+    "medianRsPercentile": 44
+   },
+   "Keep": {
+    "stocks": 808,
+    "nifty500": 153,
+    "medianPctFrom200": 15.6,
+    "medianRsPercentile": 80
+   }
+  }
+ },
+ "replay": {
+  "kept": {
+   "20": 400511,
+   "60": 377613
+  },
+  "removedByCorporateActionGuard": {
+   "20": 28668,
+   "60": 30485
+  },
+  "byHorizon": {
+   "20": {
+    "Both": {
+     "all": {
+      "n": 71117,
+      "medianExcess": -1,
+      "meanExcess": 0.03,
+      "p10Excess": -10.58,
+      "backToKeepPct": 11.2
+     },
+     "redOnly": {
+      "n": 64048,
+      "medianExcess": -1.04,
+      "meanExcess": -0.07,
+      "p10Excess": -10.65,
+      "backToKeepPct": 10.8
+     },
+     "byYear": {
+      "2022": {
+       "n": 11034,
+       "medianExcess": -0.82,
+       "meanExcess": -0.04,
+       "p10Excess": -10.1,
+       "backToKeepPct": 11.3
+      },
+      "2023": {
+       "n": 9405,
+       "medianExcess": -1.01,
+       "meanExcess": 0.09,
+       "p10Excess": -10.45,
+       "backToKeepPct": 15.6
+      },
+      "2024": {
+       "n": 9315,
+       "medianExcess": -0.14,
+       "meanExcess": 1.31,
+       "p10Excess": -8.82,
+       "backToKeepPct": 20.4
+      },
+      "2025": {
+       "n": 24351,
+       "medianExcess": -2.07,
+       "meanExcess": -1.54,
+       "p10Excess": -12.21,
+       "backToKeepPct": 6.1
+      },
+      "2026": {
+       "n": 17012,
+       "medianExcess": -0.05,
+       "meanExcess": 1.57,
+       "p10Excess": -9.44,
+       "backToKeepPct": 11.1
+      }
+     }
+    },
+    "200 only": {
+     "all": {
+      "n": 121287,
+      "medianExcess": -1.25,
+      "meanExcess": 0.04,
+      "p10Excess": -10.05,
+      "backToKeepPct": 20.1
+     },
+     "redOnly": {
+      "n": 75033,
+      "medianExcess": -1.55,
+      "meanExcess": -0.53,
+      "p10Excess": -10.31,
+      "backToKeepPct": 17.4
+     },
+     "byYear": {
+      "2022": {
+       "n": 23048,
+       "medianExcess": -0.99,
+       "meanExcess": -0.05,
+       "p10Excess": -10.09,
+       "backToKeepPct": 20.7
+      },
+      "2023": {
+       "n": 18196,
+       "medianExcess": -1.6,
+       "meanExcess": 0.06,
+       "p10Excess": -10.7,
+       "backToKeepPct": 28.7
+      },
+      "2024": {
+       "n": 14961,
+       "medianExcess": -1.05,
+       "meanExcess": 0.64,
+       "p10Excess": -9.46,
+       "backToKeepPct": 22.7
+      },
+      "2025": {
+       "n": 36471,
+       "medianExcess": -1.47,
+       "meanExcess": -0.22,
+       "p10Excess": -10.04,
+       "backToKeepPct": 16.4
+      },
+      "2026": {
+       "n": 28611,
+       "medianExcess": -1.04,
+       "meanExcess": 0.14,
+       "p10Excess": -9.95,
+       "backToKeepPct": 17.3
+      }
+     }
+    },
+    "200 only: near (within 1 ATR)": {
+     "all": {
+      "n": 11329,
+      "medianExcess": -1.11,
+      "meanExcess": 0.35,
+      "p10Excess": -9.97,
+      "backToKeepPct": 43.2
+     },
+     "redOnly": {
+      "n": 7194,
+      "medianExcess": -1.15,
+      "meanExcess": 0.02,
+      "p10Excess": -10.07,
+      "backToKeepPct": 39
+     },
+     "byYear": {
+      "2022": {
+       "n": 2062,
+       "medianExcess": -0.75,
+       "meanExcess": 0.47,
+       "p10Excess": -9.71,
+       "backToKeepPct": 43.1
+      },
+      "2023": {
+       "n": 1945,
+       "medianExcess": -1.41,
+       "meanExcess": 0.73,
+       "p10Excess": -10.17,
+       "backToKeepPct": 53.6
+      },
+      "2024": {
+       "n": 2123,
+       "medianExcess": -1.16,
+       "meanExcess": 1.15,
+       "p10Excess": -9.42,
+       "backToKeepPct": 40.5
+      },
+      "2025": {
+       "n": 2907,
+       "medianExcess": -1.87,
+       "meanExcess": -0.82,
+       "p10Excess": -10.38,
+       "backToKeepPct": 39.1
+      },
+      "2026": {
+       "n": 2292,
+       "medianExcess": -0.36,
+       "meanExcess": 0.63,
+       "p10Excess": -9.94,
+       "backToKeepPct": 42.2
+      }
+     }
+    },
+    "200 only: mid (1 ATR to 3%)": {
+     "all": {
+      "n": 11054,
+      "medianExcess": -0.54,
+      "meanExcess": 0.33,
+      "p10Excess": -8.26,
+      "backToKeepPct": 38.1
+     },
+     "redOnly": {
+      "n": 6756,
+      "medianExcess": -0.52,
+      "meanExcess": 0.13,
+      "p10Excess": -8.28,
+      "backToKeepPct": 33.3
+     },
+     "byYear": {
+      "2022": {
+       "n": 1813,
+       "medianExcess": -0.46,
+       "meanExcess": 0.13,
+       "p10Excess": -8.67,
+       "backToKeepPct": 38.9
+      },
+      "2023": {
+       "n": 2075,
+       "medianExcess": -0.81,
+       "meanExcess": 0.97,
+       "p10Excess": -8.38,
+       "backToKeepPct": 53.1
+      },
+      "2024": {
+       "n": 1727,
+       "medianExcess": -1.11,
+       "meanExcess": 0.65,
+       "p10Excess": -8.89,
+       "backToKeepPct": 33.4
+      },
+      "2025": {
+       "n": 3098,
+       "medianExcess": -0.99,
+       "meanExcess": -0.43,
+       "p10Excess": -8.11,
+       "backToKeepPct": 34
+      },
+      "2026": {
+       "n": 2341,
+       "medianExcess": 0.01,
+       "meanExcess": 0.68,
+       "p10Excess": -7.66,
+       "backToKeepPct": 33.3
+      }
+     }
+    },
+    "200 only: far (beyond both)": {
+     "all": {
+      "n": 98904,
+      "medianExcess": -1.35,
+      "meanExcess": -0.02,
+      "p10Excess": -10.26,
+      "backToKeepPct": 15.4
+     },
+     "redOnly": {
+      "n": 61083,
+      "medianExcess": -1.73,
+      "meanExcess": -0.66,
+      "p10Excess": -10.54,
+      "backToKeepPct": 13.1
+     },
+     "byYear": {
+      "2022": {
+       "n": 19173,
+       "medianExcess": -1.06,
+       "meanExcess": -0.13,
+       "p10Excess": -10.3,
+       "backToKeepPct": 16.6
+      },
+      "2023": {
+       "n": 14176,
+       "medianExcess": -1.78,
+       "meanExcess": -0.16,
+       "p10Excess": -10.98,
+       "backToKeepPct": 21.7
+      },
+      "2024": {
+       "n": 11111,
+       "medianExcess": -1.02,
+       "meanExcess": 0.54,
+       "p10Excess": -9.57,
+       "backToKeepPct": 17.6
+      },
+      "2025": {
+       "n": 30466,
+       "medianExcess": -1.48,
+       "meanExcess": -0.15,
+       "p10Excess": -10.2,
+       "backToKeepPct": 12.5
+      },
+      "2026": {
+       "n": 23978,
+       "medianExcess": -1.32,
+       "meanExcess": 0.05,
+       "p10Excess": -10.16,
+       "backToKeepPct": 13.4
+      }
+     }
+    },
+    "Swing only": {
+     "all": {
+      "n": 15492,
+      "medianExcess": -0.55,
+      "meanExcess": 0.64,
+      "p10Excess": -10.01,
+      "backToKeepPct": 60
+     },
+     "redOnly": {
+      "n": 12433,
+      "medianExcess": -0.41,
+      "meanExcess": 0.73,
+      "p10Excess": -9.77,
+      "backToKeepPct": 59.3
+     },
+     "byYear": {
+      "2022": {
+       "n": 2122,
+       "medianExcess": -0.1,
+       "meanExcess": 0.71,
+       "p10Excess": -10.75,
+       "backToKeepPct": 61.2
+      },
+      "2023": {
+       "n": 3080,
+       "medianExcess": -0.07,
+       "meanExcess": 0.95,
+       "p10Excess": -8.99,
+       "backToKeepPct": 68.6
+      },
+      "2024": {
+       "n": 5505,
+       "medianExcess": -0.54,
+       "meanExcess": 1.22,
+       "p10Excess": -9.73,
+       "backToKeepPct": 64.1
+      },
+      "2025": {
+       "n": 2946,
+       "medianExcess": -1.37,
+       "meanExcess": -1.02,
+       "p10Excess": -12.16,
+       "backToKeepPct": 45.2
+      },
+      "2026": {
+       "n": 1839,
+       "medianExcess": -0.5,
+       "meanExcess": 0.93,
+       "p10Excess": -8.98,
+       "backToKeepPct": 55.8
+      }
+     }
+    },
+    "Swing only: deep (1.5 ATR)": {
+     "all": {
+      "n": 14820,
+      "medianExcess": -0.52,
+      "meanExcess": 0.66,
+      "p10Excess": -10.07,
+      "backToKeepPct": 59.9
+     },
+     "redOnly": {
+      "n": 11898,
+      "medianExcess": -0.39,
+      "meanExcess": 0.78,
+      "p10Excess": -9.79,
+      "backToKeepPct": 59.3
+     },
+     "byYear": {
+      "2022": {
+       "n": 2074,
+       "medianExcess": -0.06,
+       "meanExcess": 0.73,
+       "p10Excess": -10.71,
+       "backToKeepPct": 61.1
+      },
+      "2023": {
+       "n": 2985,
+       "medianExcess": 0,
+       "meanExcess": 0.97,
+       "p10Excess": -8.98,
+       "backToKeepPct": 68.8
+      },
+      "2024": {
+       "n": 5214,
+       "medianExcess": -0.51,
+       "meanExcess": 1.27,
+       "p10Excess": -9.79,
+       "backToKeepPct": 64.1
+      },
+      "2025": {
+       "n": 2822,
+       "medianExcess": -1.36,
+       "meanExcess": -1.04,
+       "p10Excess": -12.25,
+       "backToKeepPct": 45.2
+      },
+      "2026": {
+       "n": 1725,
+       "medianExcess": -0.49,
+       "meanExcess": 0.98,
+       "p10Excess": -8.99,
+       "backToKeepPct": 55
+      }
+     }
+    },
+    "Swing only: shallow": {
+     "all": {
+      "n": 672,
+      "medianExcess": -0.97,
+      "meanExcess": 0.09,
+      "p10Excess": -9.32,
+      "backToKeepPct": 61
+     },
+     "redOnly": {
+      "n": 535,
+      "medianExcess": -0.99,
+      "meanExcess": -0.56,
+      "p10Excess": -9.46,
+      "backToKeepPct": 60
+     },
+     "byYear": {
+      "2022": {
+       "n": 48,
+       "medianExcess": -1.28,
+       "meanExcess": -0.42,
+       "p10Excess": -14.19,
+       "backToKeepPct": 64.6
+      },
+      "2023": {
+       "n": 95,
+       "medianExcess": -0.73,
+       "meanExcess": 0.29,
+       "p10Excess": -10.8,
+       "backToKeepPct": 63.2
+      },
+      "2024": {
+       "n": 291,
+       "medianExcess": -0.78,
+       "meanExcess": 0.29,
+       "p10Excess": -8,
+       "backToKeepPct": 63.6
+      },
+      "2025": {
+       "n": 124,
+       "medianExcess": -1.76,
+       "meanExcess": -0.43,
+       "p10Excess": -10,
+       "backToKeepPct": 45.2
+      },
+      "2026": {
+       "n": 114,
+       "medianExcess": -0.97,
+       "meanExcess": 0.22,
+       "p10Excess": -8.58,
+       "backToKeepPct": 68.4
+      }
+     }
+    },
+    "Swing only: no prior pivot high": {
+     "all": {
+      "n": 0,
+      "medianExcess": null,
+      "meanExcess": null,
+      "p10Excess": null,
+      "backToKeepPct": 0
+     },
+     "redOnly": {
+      "n": 0,
+      "medianExcess": null,
+      "meanExcess": null,
+      "p10Excess": null,
+      "backToKeepPct": 0
+     },
+     "byYear": {
+      "2022": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2023": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2024": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2025": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2026": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      }
+     }
+    },
+    "Keep": {
+     "all": {
+      "n": 192615,
+      "medianExcess": -0.49,
+      "meanExcess": 1.01,
+      "p10Excess": -11,
+      "backToKeepPct": 78.3
+     },
+     "redOnly": {
+      "n": 105523,
+      "medianExcess": -0.37,
+      "meanExcess": 0.79,
+      "p10Excess": -11,
+      "backToKeepPct": 73.7
+     },
+     "byYear": {
+      "2022": {
+       "n": 27656,
+       "medianExcess": -0.52,
+       "meanExcess": 1.08,
+       "p10Excess": -11.11,
+       "backToKeepPct": 75.9
+      },
+      "2023": {
+       "n": 49672,
+       "medianExcess": -0.68,
+       "meanExcess": 1.25,
+       "p10Excess": -10.37,
+       "backToKeepPct": 87
+      },
+      "2024": {
+       "n": 55072,
+       "medianExcess": -0.83,
+       "meanExcess": 1.1,
+       "p10Excess": -11.81,
+       "backToKeepPct": 77.9
+      },
+      "2025": {
+       "n": 33686,
+       "medianExcess": -0.46,
+       "meanExcess": -0.1,
+       "p10Excess": -11.04,
+       "backToKeepPct": 71.5
+      },
+      "2026": {
+       "n": 26529,
+       "medianExcess": 0.29,
+       "meanExcess": 1.69,
+       "p10Excess": -10.25,
+       "backToKeepPct": 74.1
+      }
+     }
+    }
+   },
+   "60": {
+    "Both": {
+     "all": {
+      "n": 66951,
+      "medianExcess": -2.89,
+      "meanExcess": -0.56,
+      "p10Excess": -19.11,
+      "backToKeepPct": 23.1
+     },
+     "redOnly": {
+      "n": 59923,
+      "medianExcess": -2.89,
+      "meanExcess": -0.72,
+      "p10Excess": -19.11,
+      "backToKeepPct": 22.3
+     },
+     "byYear": {
+      "2022": {
+       "n": 10887,
+       "medianExcess": -2.38,
+       "meanExcess": -1.03,
+       "p10Excess": -18.71,
+       "backToKeepPct": 21.4
+      },
+      "2023": {
+       "n": 9278,
+       "medianExcess": -3.42,
+       "meanExcess": -0.32,
+       "p10Excess": -19.8,
+       "backToKeepPct": 38.8
+      },
+      "2024": {
+       "n": 9250,
+       "medianExcess": -1.53,
+       "meanExcess": 1.45,
+       "p10Excess": -17.33,
+       "backToKeepPct": 25.7
+      },
+      "2025": {
+       "n": 24152,
+       "medianExcess": -5.04,
+       "meanExcess": -3.43,
+       "p10Excess": -21.04,
+       "backToKeepPct": 16
+      },
+      "2026": {
+       "n": 13384,
+       "medianExcess": -0.17,
+       "meanExcess": 3.46,
+       "p10Excess": -15.27,
+       "backToKeepPct": 24.9
+      }
+     }
+    },
+    "200 only": {
+     "all": {
+      "n": 115056,
+      "medianExcess": -2.95,
+      "meanExcess": -0.25,
+      "p10Excess": -18.59,
+      "backToKeepPct": 33.4
+     },
+     "redOnly": {
+      "n": 69299,
+      "medianExcess": -3.37,
+      "meanExcess": -1,
+      "p10Excess": -19.01,
+      "backToKeepPct": 29.9
+     },
+     "byYear": {
+      "2022": {
+       "n": 22777,
+       "medianExcess": -2.92,
+       "meanExcess": -0.7,
+       "p10Excess": -18.59,
+       "backToKeepPct": 32
+      },
+      "2023": {
+       "n": 17917,
+       "medianExcess": -3.15,
+       "meanExcess": 0.65,
+       "p10Excess": -20.58,
+       "backToKeepPct": 54
+      },
+      "2024": {
+       "n": 14784,
+       "medianExcess": -3.08,
+       "meanExcess": 0.04,
+       "p10Excess": -18.61,
+       "backToKeepPct": 28.8
+      },
+      "2025": {
+       "n": 36097,
+       "medianExcess": -3.86,
+       "meanExcess": -1.87,
+       "p10Excess": -18.71,
+       "backToKeepPct": 26.9
+      },
+      "2026": {
+       "n": 23481,
+       "medianExcess": -1.34,
+       "meanExcess": 1.78,
+       "p10Excess": -16.49,
+       "backToKeepPct": 32.4
+      }
+     }
+    },
+    "200 only: near (within 1 ATR)": {
+     "all": {
+      "n": 10698,
+      "medianExcess": -2.46,
+      "meanExcess": 0.63,
+      "p10Excess": -18.12,
+      "backToKeepPct": 46.3
+     },
+     "redOnly": {
+      "n": 6605,
+      "medianExcess": -2.92,
+      "meanExcess": -0.28,
+      "p10Excess": -18.67,
+      "backToKeepPct": 40.1
+     },
+     "byYear": {
+      "2022": {
+       "n": 2045,
+       "medianExcess": -2.02,
+       "meanExcess": 1.02,
+       "p10Excess": -17.68,
+       "backToKeepPct": 42.4
+      },
+      "2023": {
+       "n": 1921,
+       "medianExcess": -2,
+       "meanExcess": 2.18,
+       "p10Excess": -18.67,
+       "backToKeepPct": 68.9
+      },
+      "2024": {
+       "n": 2099,
+       "medianExcess": -2.49,
+       "meanExcess": 1.17,
+       "p10Excess": -17.85,
+       "backToKeepPct": 38.2
+      },
+      "2025": {
+       "n": 2875,
+       "medianExcess": -4.75,
+       "meanExcess": -2.58,
+       "p10Excess": -19.62,
+       "backToKeepPct": 37.1
+      },
+      "2026": {
+       "n": 1758,
+       "medianExcess": -0.07,
+       "meanExcess": 3.1,
+       "p10Excess": -15.95,
+       "backToKeepPct": 51
+      }
+     }
+    },
+    "200 only: mid (1 ATR to 3%)": {
+     "all": {
+      "n": 10270,
+      "medianExcess": -1.59,
+      "meanExcess": 0.83,
+      "p10Excess": -15.84,
+      "backToKeepPct": 46.4
+     },
+     "redOnly": {
+      "n": 6019,
+      "medianExcess": -1.57,
+      "meanExcess": 0.22,
+      "p10Excess": -15.92,
+      "backToKeepPct": 39.4
+     },
+     "byYear": {
+      "2022": {
+       "n": 1781,
+       "medianExcess": -0.6,
+       "meanExcess": 1.58,
+       "p10Excess": -15.25,
+       "backToKeepPct": 46.6
+      },
+      "2023": {
+       "n": 2056,
+       "medianExcess": -2.56,
+       "meanExcess": 1.82,
+       "p10Excess": -17.45,
+       "backToKeepPct": 67.2
+      },
+      "2024": {
+       "n": 1707,
+       "medianExcess": -1.63,
+       "meanExcess": 2.49,
+       "p10Excess": -16.29,
+       "backToKeepPct": 39.1
+      },
+      "2025": {
+       "n": 3067,
+       "medianExcess": -2.92,
+       "meanExcess": -1.93,
+       "p10Excess": -16.07,
+       "backToKeepPct": 36.8
+      },
+      "2026": {
+       "n": 1659,
+       "medianExcess": 0.22,
+       "meanExcess": 2.2,
+       "p10Excess": -13.17,
+       "backToKeepPct": 45.8
+      }
+     }
+    },
+    "200 only: far (beyond both)": {
+     "all": {
+      "n": 94088,
+      "medianExcess": -3.18,
+      "meanExcess": -0.47,
+      "p10Excess": -18.9,
+      "backToKeepPct": 30.6
+     },
+     "redOnly": {
+      "n": 56675,
+      "medianExcess": -3.62,
+      "meanExcess": -1.22,
+      "p10Excess": -19.37,
+      "backToKeepPct": 27.7
+     },
+     "byYear": {
+      "2022": {
+       "n": 18951,
+       "medianExcess": -3.32,
+       "meanExcess": -1.1,
+       "p10Excess": -18.9,
+       "backToKeepPct": 29.5
+      },
+      "2023": {
+       "n": 13940,
+       "medianExcess": -3.39,
+       "meanExcess": 0.27,
+       "p10Excess": -21.38,
+       "backToKeepPct": 49.9
+      },
+      "2024": {
+       "n": 10978,
+       "medianExcess": -3.39,
+       "meanExcess": -0.56,
+       "p10Excess": -19.12,
+       "backToKeepPct": 25.4
+      },
+      "2025": {
+       "n": 30155,
+       "medianExcess": -3.85,
+       "meanExcess": -1.79,
+       "p10Excess": -18.89,
+       "backToKeepPct": 24.9
+      },
+      "2026": {
+       "n": 20064,
+       "medianExcess": -1.77,
+       "meanExcess": 1.62,
+       "p10Excess": -16.78,
+       "backToKeepPct": 29.6
+      }
+     }
+    },
+    "Swing only": {
+     "all": {
+      "n": 14577,
+      "medianExcess": -1.51,
+      "meanExcess": 1.67,
+      "p10Excess": -18.47,
+      "backToKeepPct": 52.2
+     },
+     "redOnly": {
+      "n": 11558,
+      "medianExcess": -1.37,
+      "meanExcess": 1.42,
+      "p10Excess": -18.36,
+      "backToKeepPct": 49.2
+     },
+     "byYear": {
+      "2022": {
+       "n": 2095,
+       "medianExcess": -1.41,
+       "meanExcess": 0.88,
+       "p10Excess": -19.35,
+       "backToKeepPct": 42.1
+      },
+      "2023": {
+       "n": 3014,
+       "medianExcess": -0.93,
+       "meanExcess": 2.83,
+       "p10Excess": -18.1,
+       "backToKeepPct": 76.5
+      },
+      "2024": {
+       "n": 5455,
+       "medianExcess": -0.45,
+       "meanExcess": 3.4,
+       "p10Excess": -16.82,
+       "backToKeepPct": 51.3
+      },
+      "2025": {
+       "n": 2887,
+       "medianExcess": -3.42,
+       "meanExcess": -2.3,
+       "p10Excess": -21.43,
+       "backToKeepPct": 39.1
+      },
+      "2026": {
+       "n": 1126,
+       "medianExcess": -2.99,
+       "meanExcess": 1.87,
+       "p10Excess": -15.29,
+       "backToKeepPct": 44.1
+      }
+     }
+    },
+    "Swing only: deep (1.5 ATR)": {
+     "all": {
+      "n": 13960,
+      "medianExcess": -1.51,
+      "meanExcess": 1.68,
+      "p10Excess": -18.45,
+      "backToKeepPct": 52.1
+     },
+     "redOnly": {
+      "n": 11078,
+      "medianExcess": -1.39,
+      "meanExcess": 1.45,
+      "p10Excess": -18.29,
+      "backToKeepPct": 49.2
+     },
+     "byYear": {
+      "2022": {
+       "n": 2047,
+       "medianExcess": -1.33,
+       "meanExcess": 0.93,
+       "p10Excess": -19.24,
+       "backToKeepPct": 42.2
+      },
+      "2023": {
+       "n": 2919,
+       "medianExcess": -0.82,
+       "meanExcess": 2.86,
+       "p10Excess": -18.1,
+       "backToKeepPct": 76.2
+      },
+      "2024": {
+       "n": 5168,
+       "medianExcess": -0.58,
+       "meanExcess": 3.46,
+       "p10Excess": -16.85,
+       "backToKeepPct": 51.4
+      },
+      "2025": {
+       "n": 2764,
+       "medianExcess": -3.48,
+       "meanExcess": -2.3,
+       "p10Excess": -21.33,
+       "backToKeepPct": 39
+      },
+      "2026": {
+       "n": 1062,
+       "medianExcess": -2.59,
+       "meanExcess": 1.61,
+       "p10Excess": -15.3,
+       "backToKeepPct": 42.9
+      }
+     }
+    },
+    "Swing only: shallow": {
+     "all": {
+      "n": 617,
+      "medianExcess": -1.3,
+      "meanExcess": 1.43,
+      "p10Excess": -18.65,
+      "backToKeepPct": 54.3
+     },
+     "redOnly": {
+      "n": 480,
+      "medianExcess": -0.7,
+      "meanExcess": 0.73,
+      "p10Excess": -19.71,
+      "backToKeepPct": 48.5
+     },
+     "byYear": {
+      "2022": {
+       "n": 48,
+       "medianExcess": -8.04,
+       "meanExcess": -1.56,
+       "p10Excess": -21.31,
+       "backToKeepPct": 37.5
+      },
+      "2023": {
+       "n": 95,
+       "medianExcess": -2.9,
+       "meanExcess": 2.06,
+       "p10Excess": -18.47,
+       "backToKeepPct": 86.3
+      },
+      "2024": {
+       "n": 287,
+       "medianExcess": 1.79,
+       "meanExcess": 2.29,
+       "p10Excess": -15.77,
+       "backToKeepPct": 50.2
+      },
+      "2025": {
+       "n": 123,
+       "medianExcess": -1.56,
+       "meanExcess": -2.38,
+       "p10Excess": -23.52,
+       "backToKeepPct": 40.7
+      },
+      "2026": {
+       "n": 64,
+       "medianExcess": -7.9,
+       "meanExcess": 6.22,
+       "p10Excess": -14.68,
+       "backToKeepPct": 64.1
+      }
+     }
+    },
+    "Swing only: no prior pivot high": {
+     "all": {
+      "n": 0,
+      "medianExcess": null,
+      "meanExcess": null,
+      "p10Excess": null,
+      "backToKeepPct": 0
+     },
+     "redOnly": {
+      "n": 0,
+      "medianExcess": null,
+      "meanExcess": null,
+      "p10Excess": null,
+      "backToKeepPct": 0
+     },
+     "byYear": {
+      "2022": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2023": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2024": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2025": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      },
+      "2026": {
+       "n": 0,
+       "medianExcess": null,
+       "meanExcess": null,
+       "p10Excess": null,
+       "backToKeepPct": 0
+      }
+     }
+    },
+    "Keep": {
+     "all": {
+      "n": 181029,
+      "medianExcess": -1.37,
+      "meanExcess": 2.28,
+      "p10Excess": -19.42,
+      "backToKeepPct": 66.3
+     },
+     "redOnly": {
+      "n": 95531,
+      "medianExcess": -1.06,
+      "meanExcess": 1.7,
+      "p10Excess": -19.18,
+      "backToKeepPct": 59.4
+     },
+     "byYear": {
+      "2022": {
+       "n": 27275,
+       "medianExcess": -1.68,
+       "meanExcess": 1.11,
+       "p10Excess": -19.39,
+       "backToKeepPct": 58.6
+      },
+      "2023": {
+       "n": 48748,
+       "medianExcess": -1.66,
+       "meanExcess": 4.38,
+       "p10Excess": -19.44,
+       "backToKeepPct": 81.7
+      },
+      "2024": {
+       "n": 54075,
+       "medianExcess": -1.82,
+       "meanExcess": 1.84,
+       "p10Excess": -20.06,
+       "backToKeepPct": 63.2
+      },
+      "2025": {
+       "n": 32996,
+       "medianExcess": -1.22,
+       "meanExcess": -0.28,
+       "p10Excess": -19.67,
+       "backToKeepPct": 56
+      },
+      "2026": {
+       "n": 17935,
+       "medianExcess": 0.47,
+       "meanExcess": 4.35,
+       "p10Excess": -16.28,
+       "backToKeepPct": 65
+      }
+     }
+    }
+   }
+  }
+ },
+ "tests": {
+  "C-42": [
+   {
+    "band": "200 only: near (within 1 ATR)",
+    "full": {
+     "ok": false,
+     "back": true,
+     "ex": false,
+     "backPct": [
+      43.2,
+      11.2
+     ],
+     "excessGap": 0.43
+    },
+    "years": {
+     "2022": {
+      "ok": false,
+      "back": true,
+      "ex": false,
+      "backPct": [
+       43.1,
+       11.3
+      ],
+      "excessGap": 0.36
+     },
+     "2023": {
+      "ok": true,
+      "back": true,
+      "ex": true,
+      "backPct": [
+       53.6,
+       15.6
+      ],
+      "excessGap": 1.42
+     },
+     "2024": {
+      "ok": false,
+      "back": false,
+      "ex": false,
+      "backPct": [
+       40.5,
+       20.4
+      ],
+      "excessGap": -0.96
+     },
+     "2025": {
+      "ok": false,
+      "back": true,
+      "ex": false,
+      "backPct": [
+       39.1,
+       6.1
+      ],
+      "excessGap": 0.29
+     }
+    },
+    "yearsPassed": 1,
+    "pass": false
+   },
+   {
+    "band": "200 only: mid (1 ATR to 3%)",
+    "full": {
+     "ok": true,
+     "back": true,
+     "ex": true,
+     "backPct": [
+      38.1,
+      11.2
+     ],
+     "excessGap": 1.3
+    },
+    "years": {
+     "2022": {
+      "ok": true,
+      "back": true,
+      "ex": true,
+      "backPct": [
+       38.9,
+       11.3
+      ],
+      "excessGap": 1.78
+     },
+     "2023": {
+      "ok": false,
+      "back": true,
+      "ex": false,
+      "backPct": [
+       53.1,
+       15.6
+      ],
+      "excessGap": 0.86
+     },
+     "2024": {
+      "ok": false,
+      "back": false,
+      "ex": false,
+      "backPct": [
+       33.4,
+       20.4
+      ],
+      "excessGap": -0.1
+     },
+     "2025": {
+      "ok": true,
+      "back": true,
+      "ex": true,
+      "backPct": [
+       34,
+       6.1
+      ],
+      "excessGap": 2.12
+     }
+    },
+    "yearsPassed": 2,
+    "pass": false
+   },
+   {
+    "band": "200 only: far (beyond both)",
+    "full": {
+     "ok": false,
+     "back": false,
+     "ex": false,
+     "backPct": [
+      15.4,
+      11.2
+     ],
+     "excessGap": -0.29
+    },
+    "years": {
+     "2022": {
+      "ok": false,
+      "back": false,
+      "ex": false,
+      "backPct": [
+       16.6,
+       11.3
+      ],
+      "excessGap": -0.94
+     },
+     "2023": {
+      "ok": false,
+      "back": false,
+      "ex": false,
+      "backPct": [
+       21.7,
+       15.6
+      ],
+      "excessGap": 0.03
+     },
+     "2024": {
+      "ok": false,
+      "back": false,
+      "ex": false,
+      "backPct": [
+       17.6,
+       20.4
+      ],
+      "excessGap": -1.86
+     },
+     "2025": {
+      "ok": true,
+      "back": true,
+      "ex": true,
+      "backPct": [
+       12.5,
+       6.1
+      ],
+      "excessGap": 1.19
+     }
+    },
+    "yearsPassed": 1,
+    "pass": false
+   }
+  ],
+  "C-43": {
+   "full": {
+    "ok": false,
+    "ex": false,
+    "back": true,
+    "excessGap": -0.14,
+    "backPct": [
+     59.9,
+     78.3
+    ]
+   },
+   "years": {
+    "2022": {
+     "ok": false,
+     "ex": false,
+     "back": false,
+     "excessGap": 0.35,
+     "backPct": [
+      61.1,
+      75.9
+     ]
+    },
+    "2023": {
+     "ok": false,
+     "ex": false,
+     "back": true,
+     "excessGap": 0.84,
+     "backPct": [
+      68.8,
+      87
+     ]
+    },
+    "2024": {
+     "ok": false,
+     "ex": false,
+     "back": false,
+     "excessGap": 1.24,
+     "backPct": [
+      64.1,
+      77.9
+     ]
+    },
+    "2025": {
+     "ok": true,
+     "ex": true,
+     "back": true,
+     "excessGap": -2.26,
+     "backPct": [
+      45.2,
+      71.5
+     ]
+    }
+   },
+   "yearsPassed": 1,
+   "redOnlyDeepWorseThanKeep": true,
+   "redOnly": [
+    -1.39,
+    -1.06
+   ],
+   "pass": false
+  },
+  "note": "A calendar year counts only with at least 100 observations in the cell (implementation detail added when the script was written)."
+ }
+}
