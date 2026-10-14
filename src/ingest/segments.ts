@@ -14,3 +14,12 @@ export function parseIndexList(csv: string, which: keyof typeof LISTS): string[]
   if (out.length < min || out.length > max) throw new Error(`${which}: ${out.length} symbols, expected ${min} to ${max}`);
   return out;
 }
+
+/** Industry of each symbol in one NSE list (the second column); same header check as parseIndexList. */
+export function parseIndexIndustries(csv: string): Record<string, string> {
+  const lines = csv.replace(/^﻿/, '').trim().split(/\r?\n/);
+  if (!/^Company Name,Industry,Symbol/.test(lines[0])) throw new Error('unexpected header');
+  const out: Record<string, string> = {};
+  for (const l of lines.slice(1)) { const c = l.split(','); const sym = c[2]?.trim(), ind = c[1]?.trim(); if (sym && ind) out[sym] = ind; }
+  return out;
+}

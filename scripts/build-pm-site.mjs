@@ -2,6 +2,7 @@
 // No personal data is ever read or written here. Run by build-site.mjs and on its own.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
 import { stripTypeScriptTypes } from 'node:module';
+import { computeContext } from '../src/pm/context.ts';
 
 mkdirSync('site/pm', { recursive: true }); mkdirSync('site/pm-data', { recursive: true });
 const put = (p, s) => { if (!existsSync(p) || readFileSync(p, 'utf8') !== s) writeFileSync(p, s); };
@@ -29,4 +30,16 @@ for (const d of Object.keys(byDay).sort()) { const c = (months[d.slice(0, 7)] ??
 mkdirSync('site/pm-data/prices', { recursive: true });
 for (const [m, c] of Object.entries(months)) { for (const a of Object.values(c.px)) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null; put(`site/pm-data/prices/${m}.json`, JSON.stringify(c) + '\n'); }
 put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n');
+// context for each stock (trend, relative strength, liquidity, delivery): public data only, never part of a verdict
+{
+  const dts = [], px = {}; for (const m of Object.keys(months)) { const c = months[m]; const base = dts.length; dts.push(...c.dates); for (const [sym, a] of Object.entries(c.px)) { const arr = (px[sym] ??= []); while (arr.length < base) arr.push(null); arr.push(...a); } }
+  for (const sym in px) while (px[sym].length < dts.length) px[sym].push(null);
+  const feed = JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8'));
+  const bh = days.slice(-40).map((f) => ({ date: f.slice(0, 10), rows: JSON.parse(readFileSync('data/india/bhav/' + f, 'utf8')).rows }));
+  const ic = existsSync('data/india/idx_closes.json') ? JSON.parse(readFileSync('data/india/idx_closes.json', 'utf8')).closes?.['Nifty 500'] : null;
+  const idx = ic ? { dates: Object.keys(ic).sort(), closes: Object.keys(ic).sort().map((d) => ic[d]) } : null;
+  const ctx = computeContext({ dates: dts, px }, feed, bh, idx, new Set(Object.keys(prices)));
+  put('site/pm-data/context.json', JSON.stringify(ctx) + '\n');
+  if (existsSync('data/india/regime.json')) { const r = JSON.parse(readFileSync('data/india/regime.json', 'utf8')).latest; if (r) put('site/pm-data/regime.json', JSON.stringify({ date: r.date, name: r.name, breadth: r.breadth, distribution: r.distribution, followThrough: r.followThrough }) + '\n'); }
+}
 console.log('site/pm built; prices as of', bf.slice(0, 10), Object.keys(prices).length, 'symbols');
