@@ -16,6 +16,7 @@ export type VerdictLabel = 'Exit' | 'Keep' | 'No verdict';
 export interface StockVerdict {
   symbol: string; label: VerdictLabel; reasons: string[]; pending: string[]; asOf: string | null;
   close: number | null; sma200: number | null; swingLow: SwingLow | null; below200: boolean | null; belowSwing: boolean | null;
+  partial?: string;      // set when only one leg of the exit test could be run, and which one (owner decision 15 Oct: keep the Exit, label the missing leg)
 }
 
 /** The most recent close that is the lowest of PIVOT_SIDE sessions on each side (and so already confirmed by PIVOT_SIDE later sessions). */
@@ -57,7 +58,10 @@ export function stockVerdict(symbol: string, hist: PriceHistory | undefined, fee
     s200 === null ? 'The 200 SMA needs 200 sessions of closes; fewer are stored.' : `Close ${f2(close)} is ${below200 ? 'below' : 'above'} its 200 SMA ${f2(s200)}.`,
     sw === null ? 'No confirmed swing low in the stored window.' : `Close is ${belowSwing ? 'below' : 'above'} the last major swing low ${f2(sw.price)} (${sw.date}).`,
   ];
-  if (below200 || belowSwing) return { ...base, label: 'Exit', reasons: ['Fails the exit test.', ...facts.filter((_, i) => (i === 0 ? below200 : belowSwing))], pending: [] };
+  if (below200 || belowSwing) {
+    const partial = s200 === null ? 'swing low only: the 200 SMA is not available yet (under 200 sessions stored)' : undefined;
+    return { ...base, label: 'Exit', reasons: ['Fails the exit test.', ...facts.filter((_, i) => (i === 0 ? below200 : belowSwing)), ...(partial ? ['Only the swing-low leg could be tested: the 200 SMA is not available yet (fewer than 200 sessions stored).'] : [])], pending: [], ...(partial ? { partial } : {}) };
+  }
   if (s200 === null) return { ...base, label: 'No verdict', reasons: [facts[0], 'Not below the swing low, but the exit test needs both legs, so no verdict yet.'], pending: [] };
   const pending = ['Ranking against the ten-name target (Trim) and the Swing screen (Promote) are not applied yet.'];
   return { ...base, label: 'Keep', reasons: ['Passes the exit test.', ...(sw === null ? [facts[0], facts[1]] : facts)], pending };

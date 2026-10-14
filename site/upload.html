@@ -274,8 +274,8 @@ function verdictOf(h) {
   let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed); vmemo.set(h.symbol, v); } return v;
 }
 const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
-const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}</span>`);
-const vWhy = (v) => (!v ? '' : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') : v.label === 'No verdict' ? v.reasons[0] : '');
+const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
+const vWhy = (v) => (!v ? '' : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
 function verdictCard(V) {
   const vs = mergedHoldings(V).map((h) => [h, verdictOf(h)]).filter(([, v]) => v);
   if (!vs.length) return '';

@@ -52,3 +52,9 @@ test('a missing close inside the window does not break the pivot search', () => 
   assert.equal(swingLow(mkDates(c.length), c)?.price, 120);
   assert.equal(PIVOT_SIDE, 10);
 });
+test('a recently listed stock below its swing low is still an Exit, labelled as swing-low only (owner decision 15 Oct)', () => {
+  const c = Array.from({ length: 120 }, (_, i) => 100 + i * 0.5); c[60] = 90; c[119] = 80;   // pivot at 90, close 80, only 120 sessions
+  const v = stockVerdict('NEW', hist('NEW', c));
+  assert.equal(v.label, 'Exit'); assert.equal(v.below200, null); assert.equal(v.belowSwing, true); assert.match(v.partial ?? '', /swing low only/); assert.match(v.reasons.join(' '), /not available yet/);
+  assert.equal(stockVerdict('AAA', hist('AAA', rising())).partial, undefined);
+});
