@@ -39,7 +39,7 @@ export const sma = (closes                   , len = SMA_LEN)                => 
 const ADJUSTS = /\b(split|sub-?division|bonus|demerger|de-merger|arrangement|consolidation|capital reduction|scheme)\b/i;
 const BONUS = /^\s*bonus-?\s*(\d+)\s*:\s*(\d+)\s*$/i;                       // "Bonus 1:4" = 1 new share for every 4 held
 const SPLIT = /^\s*(?:face value )?(?:split|sub-?division)[^]*?from\s+(?:rs|re)\.?\s*([\d.]+)\s*\/?-?\s*per share\s+to\s+(?:rs|re)\.?\s*([\d.]+)/i;
-export const ADJUST_TOLERANCE = 0.25;   // the observed ex-date move must match the expected price drop within this (ordinary market move allowance)
+export const ADJUST_TOLERANCE = 0.25;   // the observed ex-date move may differ from the expected drop by at most this (ordinary market move allowance), and by less than half the log distance between "no change" and the expected drop, so a small bonus that did not show cannot pass
 
 /** Price divisor for a plain split or bonus (closes before the ex-date are divided by it); null for anything else (demerger, scheme, rights, consolidation, NCRPS bonus). */
 export function priceFactor(subject        )                {
@@ -48,26 +48,32 @@ export function priceFactor(subject        )                {
   return null;
 }
 
-/** Back-adjust closes for the splits and bonuses of one symbol. Each factor is checked against the stored closes: the move across the ex-date must be about
- *  the expected drop, else the action is left as "unresolved" and the caller falls back to No verdict. Returns the adjusted series and the unresolved rows. */
-export function adjustSeries(dates          , series                   , rows                 , from        )                                                                                                                {
-  const out = series.slice(), unresolved                  = [], applied                                           = [];
+/** Back-adjust closes for the splits and bonuses of one symbol. Actions with the same ex-date are combined (a bonus announced with a split is one price move). Each combined factor is
+ *  checked against the stored closes: the move across the ex-date must be about the expected drop, else the group is left "unresolved" and the caller falls back to No verdict.
+ *  A group holding any action that is not a plain split or bonus (demerger, scheme, rights, NCRPS bonus) is unresolved. */
+export function adjustSeries(dates          , series                   , rows                 , from        )                                                                                                                                                                                                {
+  const out = series.slice(), unresolved                  = [], applied                                           = [], rejected                                                                       = [];
   const first = series.findIndex((v) => v !== null && v !== undefined);
-  for (const r of rows.filter((x) => ADJUSTS.test(x.subject)).sort((a, b) => (a.exDate < b.exDate ? 1 : -1))) {   // latest first, so each factor sits on top of the later ones
-    const inWindow = r.exDate >= from;                                    // only an action the verdict cannot adjust AND that sits in the window blocks it
-    const f = priceFactor(r.subject);
-    if (f === null) { if (inWindow) unresolved.push(r); continue; }
-    let i = dates.findIndex((d) => d >= r.exDate); if (i < 0) continue;  // ex-date after the last stored session: nothing to adjust yet
-    if (first < 0 || i <= first) continue;                                // before the stock's first close: nothing earlier to adjust
+  const groups = new Map                         ();
+  for (const r of rows) if (ADJUSTS.test(r.subject)) (groups.get(r.exDate) ?? groups.set(r.exDate, []).get(r.exDate) ).push(r);
+  for (const [exDate, g] of [...groups].sort((a, b) => (a[0] < b[0] ? 1 : -1))) {   // latest first, so each factor sits on top of the later ones
+    const inWindow = exDate >= from;                                       // only an action the verdict cannot adjust AND that sits in the window blocks it
+    const fs = g.map((r) => priceFactor(r.subject));
+    if (fs.some((f) => f === null)) { if (inWindow) unresolved.push(...g); continue; }
+    const f = (fs            ).reduce((a, b) => a * b, 1);
+    const i = dates.findIndex((d) => d >= exDate); if (i < 0) continue;     // ex-date after the last stored session: nothing to adjust yet
+    if (first < 0 || i <= first) continue;                                 // before the stock's first close: nothing earlier to adjust
     let j = i - 1; while (j >= 0 && (out[j] === null || out[j] === undefined)) j--;
     const after = out[i], before = out[j];
-    if (j < 0 || after === null || after === undefined || before === null || before === undefined) { if (inWindow) unresolved.push(r); continue; }
-    if (Math.abs(after / (before / f) - 1) > ADJUST_TOLERANCE) { if (inWindow) unresolved.push(r); continue; }   // the stored prices do not show this action
+    if (j < 0 || after === null || after === undefined || before === null || before === undefined) { rejected.push({ rows: g, factor: f, observed: null }); if (inWindow) unresolved.push(...g); continue; }
+    const dev = Math.abs(Math.log(after / (before / f)));
+    if (dev > Math.min(Math.log(1 + ADJUST_TOLERANCE), 0.5 * Math.log(f))) { rejected.push({ rows: g, factor: f, observed: after / before }); if (inWindow) unresolved.push(...g); continue; }   // the stored prices do not show this action
     for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v / f; }
-    applied.push({ row: r, factor: f });
+    for (const r of g) applied.push({ row: r, factor: priceFactor(r.subject)           });
   }
-  return { series: out, unresolved, applied };
+  return { series: out, unresolved, applied, rejected };
 }
+
 const dayDiff = (a        , b        ) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
 const f2 = (n        ) => n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 

@@ -78,3 +78,10 @@ test('two actions in the window are stacked', () => {
   const rows = [{ symbol: 'AAA', exDate: h.dates[220], subject: 'Bonus 1:1' }, { symbol: 'AAA', exDate: h.dates[240], subject: ' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share' }];
   const v = stockVerdict('AAA', h, rows); assert.equal(v.adjusted?.length, 2); assert.equal(v.label, 'Keep');
 });
+test('a bonus and a split with the same ex-date are one price move, and a small bonus the prices do not show is not accepted', () => {
+  const c = rising().map((v, i) => (i >= 240 ? v / 10 : v)); const h = hist('AAA', c);
+  const rows = [{ symbol: 'AAA', exDate: h.dates[240], subject: 'Bonus 1:1' }, { symbol: 'AAA', exDate: h.dates[240], subject: ' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share' }];
+  const v = stockVerdict('AAA', h, rows); assert.equal(v.adjusted?.length, 2); assert.equal(v.label, 'Keep');
+  const flat = stockVerdict('AAA', hist('AAA', rising()), [{ symbol: 'AAA', exDate: h.dates[240], subject: 'Bonus 1:4' }]);
+  assert.equal(flat.label, 'No verdict');
+});
