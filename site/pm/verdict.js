@@ -11,6 +11,7 @@ export const CA_LOOKBACK = 300;        // sessions: a split, bonus or demerger i
 
                                                                                         
                                                                                                                     
+                                                                                                   // from data/rules/demergers.json: the company's published share of cost (and so of value) that went to the child
                                                          
                                                           
                                
@@ -67,10 +68,18 @@ export function rightsFactor(r               , prior        )                {
   return f > 1.0001 && f < 3 ? f : null;
 }
 
+const DEMERGER = /\bdemerger\b/i;
+/** Divisor for the parent's closes before a demerger ex-date: 1 / (1 - the published cost share that went to the child). null when no typed record exists or the record is not a split of one business into two. */
+export function demergerFactor(r               , recs               )                {
+  if (!DEMERGER.test(r.subject)) return null;
+  const d = recs.find((x) => x.parent === r.symbol && x.exDate === r.exDate && x.feed !== false);
+  return d && d.costPct > 0 && d.costPct < 1 ? 1 / (1 - d.costPct) : null;
+}
+
 /** Back-adjust closes for the splits and bonuses of one symbol. Actions with the same ex-date are combined (a bonus announced with a split is one price move). Each combined factor is
  *  checked against the stored closes: the move across the ex-date must be about the expected drop, else the group is left "unresolved" and the caller falls back to No verdict.
  *  A group holding any action that is not a plain split or bonus (demerger, scheme, rights, NCRPS bonus) is unresolved. */
-export function adjustSeries(dates          , series                   , rows                 , from        )                                                                                                                                                                                                {
+export function adjustSeries(dates          , series                   , rows                 , from        , demergers                = [])                                                                                                                                                                                                {
   const out = series.slice(), unresolved                  = [], applied                                           = [], rejected                                                                       = [];
   const first = series.findIndex((v) => v !== null && v !== undefined);
   const groups = new Map                         ();
@@ -87,7 +96,7 @@ export function adjustSeries(dates          , series                   , rows   
       if (f > 1) { for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v / f; } for (const r of used) applied.push({ row: r, factor: f }); }
       continue;
     }
-    const fs = g.map((r) => (ADJUSTS.test(r.subject) ? priceFactor(r.subject) : 1));   // a dividend or rights row sharing the ex-date with a split or bonus is left unadjusted
+    const fs = g.map((r) => (ADJUSTS.test(r.subject) ? priceFactor(r.subject) ?? demergerFactor(r, demergers) : 1));   // a dividend or rights row sharing the ex-date with a split or bonus is left unadjusted
     if (fs.some((f) => f === null)) { if (inWindow) unresolved.push(...g); continue; }
     const f = (fs            ).reduce((a, b) => a * b, 1);
     const i = dates.findIndex((d) => d >= exDate); if (i < 0) continue;     // ex-date after the last stored session: nothing to adjust yet
@@ -106,7 +115,7 @@ export function adjustSeries(dates          , series                   , rows   
 const dayDiff = (a        , b        ) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
 const f2 = (n        ) => n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-export function stockVerdict(symbol        , hist                          , feed                  = [])               {
+export function stockVerdict(symbol        , hist                          , feed                  = [], demergers                = [])               {
   const none = (why        , extra                        = {})               => ({ symbol, label: 'No verdict', reasons: [why], pending: [], asOf: null, close: null, sma200: null, swingLow: null, below200: null, belowSwing: null, ...extra });
   const series = hist?.px[symbol];
   if (!hist || !series) return none('No stored price history for this symbol.');
@@ -115,9 +124,9 @@ export function stockVerdict(symbol        , hist                          , fee
   if (li < 0) return none('No stored closes for this symbol.');
   if (dayDiff(last, dates[li]) > STALE_DAYS) return none(`Latest stored close is ${dates[li]}, older than ${STALE_DAYS} days.`, { asOf: dates[li] });
   const from = dates[Math.max(0, dates.length - CA_LOOKBACK)];
-  const adj = adjustSeries(dates, series, feed.filter((r) => r.symbol === symbol), from);
+  const adj = adjustSeries(dates, series, feed.filter((r) => r.symbol === symbol), from, demergers);
   const ca = adj.unresolved[0];
-  if (ca) return none(`A corporate action (${ca.subject.trim()}, ex-date ${ca.exDate}) falls inside the price window and could not be adjusted for automatically (not a plain split or bonus, or the stored prices do not show it). Check the chart.`, { asOf: dates[li] });
+  if (ca) return none(`A corporate action (${ca.subject.trim()}, ex-date ${ca.exDate}) falls inside the price window and could not be adjusted for automatically (not a plain split or bonus, no typed demerger apportionment, or the stored prices do not show it). Check the chart.`, { asOf: dates[li] });
   const closes = adj.series.slice(0, li + 1), d = dates.slice(0, li + 1);
   const close = closes[li]          , s200 = sma(closes), sw = swingLow(d, closes);
   const below200 = s200 === null ? null : close < s200, belowSwing = sw === null ? null : close < sw.price;

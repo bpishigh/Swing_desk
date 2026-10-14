@@ -23,3 +23,10 @@ test('a split is adjusted before the trend is read, and short liquidity history 
   const c = computeContext(h, [{ symbol: 'AAA', exDate: dates[250], subject: ' Face Value Split (Sub-Division) - From Rs 10/- Per Share To Rs 2/- Per Share' }], bhav.slice(0, 3), null);
   assert.ok(c.stocks.AAA.vs200! > 0); assert.equal(c.stocks.AAA.advCr, null); assert.equal(c.stocks.AAA.vsIndex, null);
 });
+test('volume on up days against down days, and the verdict state, are in the context', () => {
+  const idx = null;
+  const rows = (i: number) => ({ UP: ['EQ', 100, 1, 1, 1, i % 2 ? 101 : 99, i % 2 ? 3000 : 1000, 40] } as Record<string, (string | number | null)[]>);
+  const bh = Array.from({ length: 40 }, (_, i) => ({ date: dates[220 + i], rows: rows(i) }));
+  const c = computeContext(hist, [], bh, idx);
+  assert.equal(c.stocks.UP.upDown, 3); assert.equal(c.stocks.UP.state, 'Keep'); assert.equal(c.stocks.DOWN.state, '200 only: far (beyond both)');   // a straight fall has no confirmed swing low, so only the 200-day leg fails
+});

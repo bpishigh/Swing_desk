@@ -102,7 +102,7 @@ const cls = (x) => (x < 0 ? 'neg' : x > 0 ? 'pos' : '');
 const num = (x) => `<span class="${cls(x)}">${inr(x)}</span>`;
 
 // ---------- state
-const S = { ctx: null, regime: null, open: new Set(), accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', vf: 'All', q: '', benchStatus: '', segments: null };
+const S = { track: null, ctx: null, regime: null, open: new Set(), accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', vf: 'All', q: '', benchStatus: '', segments: null };
 const ownerOf = (a) => a.owner || 'Unassigned';
 const reports = () => [...S.accounts.values()].filter((a) => a.report);
 
@@ -272,13 +272,28 @@ function mergedHoldings(V) {
 const vmemo = new Map(), fmt2 = (n) => n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 function verdictOf(h) {
   if (h.kind !== 'Stock' || h.book !== 'Legacy' || !h.symbol || !S.hist || !S.data) return null;
-  let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed); vmemo.set(h.symbol, v); } return v;
+  let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed, S.data.demergers); vmemo.set(h.symbol, v); } return v;
 }
 const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
 const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
-const vWhy = (v) => (!v ? '' : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
+const vWhy0 = (v) => (!v ? '' : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
 const ctxOf = (h) => (h.kind === 'Stock' && h.symbol && S.ctx ? S.ctx.stocks[h.symbol] ?? null : null);
 const sgn = (x, d = 1) => (x === null || x === undefined ? '–' : (x > 0 ? '+' : '') + x.toFixed(d) + '%');
+const FIRM_BACK = 30;   // display convention, not a rule: an Exit state counts as "borderline" when at least this share of such stocks passed the test again within 20 sessions in the replay
+function firmOf(h) {
+  const v = verdictOf(h), c = ctxOf(h); if (!v || !c || v.label === 'No verdict') return null;
+  const tr = c.state ? S.track?.states?.[c.state] : null, keep = S.track?.states?.Keep;
+  const notes = [];
+  if (v.adjusted) notes.push(`prices adjusted for ${v.adjusted.length} corporate action${v.adjusted.length > 1 ? 's' : ''} (split, bonus, dividend, rights or demerger), each checked against the stored prices where a check is possible`);
+  if (v.partial) notes.push('only the swing-low leg could be tested (200-day average not available yet)');
+  if (c.series && c.series !== 'EQ') notes.push(`traded in the ${c.series} segment`);
+  if (c.advCr !== null && c.advCr < 10) notes.push(`average traded value is under ₹10 crore a day`);
+  if (v.label === 'Keep') return { label: 'Passes', tr, keep, notes, line: tr ? `${tr.back20}% of such stocks still passed 20 sessions later` : '' };
+  if (!tr) return { label: 'No track record', tr: null, keep, notes, line: 'no replay history for this state' };
+  const border = tr.back20 >= FIRM_BACK;
+  return { label: border ? 'Borderline' : 'Firm', tr, keep, notes, line: `${tr.back20}% of such stocks passed the test again within 20 sessions` };
+}
+const reentry = (h) => { const v = verdictOf(h), c = ctxOf(h); return !!(v && v.label === 'Exit' && c && c.rs !== null && c.rs >= 75 && c.upDown !== null && c.upDown > 1); };
 function ctxPanel(h, tot) {
   const c = ctxOf(h), v = verdictOf(h); if (!c) return '';
   const ind = S.segments?.industry?.[h.symbol];
@@ -294,8 +309,11 @@ function ctxPanel(h, tot) {
     ${cell('Avg traded value', c.advCr === null ? '–' : '₹' + c.advCr.toLocaleString('en-IN', { maximumFractionDigits: 1 }) + ' cr/day', 'Average of close × volume, last 20 sessions. The desk\'s entry floor is ₹10 crore a day; exits are not held to it')}${cell('Your position', dayShare === null ? '–' : (dayShare * 100).toFixed(dayShare < 0.01 ? 2 : 1) + '% of a day\'s trading', 'Position value against one day of average traded value')}
     ${cell('Delivery', c.deliv === null ? '–' : c.deliv.toFixed(0) + '%' + (dtr === null ? '' : ` (${dtr > 0 ? '+' : ''}${dtr.toFixed(0)} pts)`), 'Share of traded volume that was taken for delivery, last 20 sessions, and the change from the 20 before')}${cell('NSE series', c.series === null ? '–' : c.series === 'EQ' ? 'EQ' : `<b>${esc(c.series)}</b> restricted`, 'EQ is the normal segment. BE, BZ, SM and others are trade-for-trade or surveillance segments: slower to sell')}
     ${cell('Value at risk to the exit level', v && v.label === 'Keep' ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', v && v.label === 'Keep' ? 'Fall in value if the close reached the nearer of the 200 SMA and the swing low' : 'This stock already fails the exit test')}${cell('Weight in the book', h.value === null ? '–' : pct(h.value / tot, 1), 'Share of everything held in the selected accounts')}
+    ${(() => { const f = firmOf(h); if (!f) return ''; return `<div style="grid-column:1/-1" title="The verdict itself is a rule and always the same for the same prices. This is how stocks in the same state fared in the replay of Apr 2021 to Oct 2026, not a forecast for this stock."><span class="sub">How firm</span><br><b>${esc(f.label)}</b>${f.line ? ' · ' + esc(f.line) : ''}${f.tr && f.keep ? `<br><span class="sub">Median 60-session return against the typical Nifty 500 stock: ${f.tr.median60} pts for this state, ${f.keep.median60} pts for stocks that pass (average ${f.tr.mean60} against ${f.keep.mean60}; the worst tenth did ${Math.abs(f.tr.p10_60)} points worse than that or more). Overlapping, clustered cases; no significance test.</span>` : ''}${f.notes.length ? `<br><span class="sub">Lower certainty: ${esc(f.notes.join('; '))}.</span>` : ''}</div>`; })()}
+    ${(() => { const v = verdictOf(h), c = ctxOf(h); if (!v || v.label !== 'Exit' || !c) return ''; return `<div style="grid-column:1/-1"><span class="sub">Re-entry</span><br>${reentry(h) ? '<b>Candidate</b> (untested): relative strength in the top quarter and more volume on up days than down days over 20 sessions.' : 'Not a candidate' + (c.rs !== null && c.rs < 75 ? ': relative strength is below the top quarter' : c.upDown === null || c.upDown <= 1 ? ': volume has not been heavier on up days' : '') + '.'} <span class="sub">A candidate comes back only through the Swing Desk rules, never by holding.</span></div>`; })()}
   </div><div class="sub" style="margin-top:6px">Context only: none of this changes the verdict. Results dates are not shown because no results calendar is stored yet.</div></td></tr>`;
 }
+const vWhy = (v, h) => { const base = vWhy0(v); if (!h || !v || v.label === 'No verdict') return base; const f = firmOf(h); return base + (f && v.label === 'Exit' ? ` · ${f.label.toLowerCase()}` : '') + (reentry(h) ? ' · re-entry candidate (untested)' : ''); };
 function verdictCard(V) {
   const vs = mergedHoldings(V).map((h) => [h, verdictOf(h)]).filter(([, v]) => v);
   if (!vs.length) return '';
@@ -304,7 +322,7 @@ function verdictCard(V) {
   return `<div class="card"><h2>What to do <button class="chip" data-tab="holdings">all verdicts →</button></h2>
   ${S.regime ? `<div class="sub" style="margin-bottom:6px">Market: <b>${esc(S.regime.name[0].toUpperCase() + S.regime.name.slice(1))}</b> on ${esc(S.regime.date)} · ${S.regime.breadth}% of stocks above their 50-day average · ${S.regime.distribution} distribution days. Context only: it does not change a stock's verdict.</div>` : ''}
   <div style="margin-bottom:8px">${vs.length} direct stocks tested: <b>${ex.length}</b> fail the exit test${ex.length ? ` (${short(ex.reduce((a, [h]) => a + (h.value ?? 0), 0))} of value)` : ''}, <b>${keep}</b> pass${nov ? `, ${nov} cannot be tested` : ''}.</div>
-  ${ex.slice(0, 8).map(([h, v]) => `<div style="margin:8px 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span><span class="tag bad">Exit</span> ${esc(h.name)} <span class="sub">${esc(vWhy(v))}</span></span><span>${h.value === null ? '' : short(h.value)} <span class="${cls((h.value ?? 0) - h.cost)}">${h.value === null || !h.cost ? '' : pct((h.value - h.cost) / h.cost, 0)}</span></span></div>`).join('')}${ex.length > 8 ? `<div class="sub">and ${ex.length - 8} more on the Holdings tab.</div>` : ''}${!ex.length ? '<div class="sub">No stock fails the exit test.</div>' : ''}
+  ${ex.slice(0, 8).map(([h, v]) => `<div style="margin:8px 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span><span class="tag bad">Exit</span> ${esc(h.name)} <span class="sub">${esc(vWhy(v, h))}</span></span><span>${h.value === null ? '' : short(h.value)} <span class="${cls((h.value ?? 0) - h.cost)}">${h.value === null || !h.cost ? '' : pct((h.value - h.cost) / h.cost, 0)}</span></span></div>`).join('')}${ex.length > 8 ? `<div class="sub">and ${ex.length - 8} more on the Holdings tab.</div>` : ''}${!ex.length ? '<div class="sub">No stock fails the exit test.</div>' : ''}
   <div class="sub" style="margin-top:8px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test; whether it also fits your ten-name target (Trim) or qualifies for the Swing book (Promote) is not applied yet. Based on closes up to ${esc(asOf)}.</div></div>`;
 }
 function holdingsRows(V) {
@@ -317,7 +335,7 @@ function holdingsRows(V) {
 }
 function holdingsBody(V) {
   const { tot, rows, sum } = holdingsRows(V);
-  return rows.map((h) => { const open = ctxOf(h) && S.open.has(h.symbol); return `<tr${ctxOf(h) ? ` class="hr" data-sym="${esc(h.symbol)}"` : ''}><td>${ctxOf(h) ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${vWhy(verdictOf(h)) ? `<small class="why">${esc(vWhy(verdictOf(h)))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? ctxPanel(h, tot) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
+  return rows.map((h) => { const open = ctxOf(h) && S.open.has(h.symbol); return `<tr${ctxOf(h) ? ` class="hr" data-sym="${esc(h.symbol)}"` : ''}><td>${ctxOf(h) ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${vWhy(verdictOf(h), h) ? `<small class="why">${esc(vWhy(verdictOf(h), h))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? ctxPanel(h, tot) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
 }
 function holdings(V) {
   const kinds = ['All', 'Stock', 'ETF', 'Fund'];
@@ -470,6 +488,7 @@ async function setOwner(key, owner) {
     S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.ctx = await fetch('pm-data/context.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.track = await fetch('pm-data/track-record.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.regime = await fetch('pm-data/regime.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.hist = await hp; $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
     await loadSaved();

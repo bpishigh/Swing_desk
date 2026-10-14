@@ -13,6 +13,7 @@ for (const f of readdirSync('src/pm').filter((x) => x.endsWith('.ts'))) {
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
+if (existsSync('data/replay/track-record.json')) cp('data/replay/track-record.json', 'site/pm-data/track-record.json');
 if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site/pm-data/segments.json');
 const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().pop();
 const bhav = JSON.parse(readFileSync('data/india/bhav/' + bf, 'utf8'));
@@ -38,7 +39,8 @@ put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n'
   const bh = days.slice(-40).map((f) => ({ date: f.slice(0, 10), rows: JSON.parse(readFileSync('data/india/bhav/' + f, 'utf8')).rows }));
   const ic = existsSync('data/india/idx_closes.json') ? JSON.parse(readFileSync('data/india/idx_closes.json', 'utf8')).closes?.['Nifty 500'] : null;
   const idx = ic ? { dates: Object.keys(ic).sort(), closes: Object.keys(ic).sort().map((d) => ic[d]) } : null;
-  const ctx = computeContext({ dates: dts, px }, feed, bh, idx, new Set(Object.keys(prices)));
+  const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;
+  const ctx = computeContext({ dates: dts, px }, feed, bh, idx, new Set(Object.keys(prices)), dem);
   put('site/pm-data/context.json', JSON.stringify(ctx) + '\n');
   if (existsSync('data/india/regime.json')) { const r = JSON.parse(readFileSync('data/india/regime.json', 'utf8')).latest; if (r) put('site/pm-data/regime.json', JSON.stringify({ date: r.date, name: r.name, breadth: r.breadth, distribution: r.distribution, followThrough: r.followThrough }) + '\n'); }
 }

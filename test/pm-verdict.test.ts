@@ -98,3 +98,12 @@ test('dividends: only a payout of 5% of the prior close or more is adjusted; rig
   assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1', faceVal: '10' }, 200), null);
   assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1 @ Premium Rs 400/-', faceVal: '10' }, 200), null);   // issue price above market
 });
+test('a demerger with a typed cost apportionment is adjusted when the stored prices show the drop; without a record it stays blocked', () => {
+  const c = rising().map((v, i) => (i >= 240 ? v * 0.7 : v)); const h = hist('AAA', c);
+  const row = { symbol: 'AAA', exDate: h.dates[240], subject: ' Demerger' };
+  assert.equal(stockVerdict('AAA', h, [row]).label, 'No verdict');
+  const v = stockVerdict('AAA', h, [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 0.3 }]);
+  assert.equal(v.label, 'Keep'); assert.equal(v.adjusted?.length, 1);
+  const wrong = stockVerdict('AAA', hist('AAA', rising()), [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 0.3 }]); assert.equal(wrong.label, 'No verdict');   // prices show no drop
+  const amalg = stockVerdict('AAA', h, [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 1, feed: false }]); assert.equal(amalg.label, 'No verdict');
+});

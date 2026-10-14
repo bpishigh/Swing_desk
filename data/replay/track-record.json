@@ -1,0 +1,62 @@
+{
+ "asOf": "2026-10-14",
+ "from": "2022-02-07",
+ "sessions": 1366,
+ "note": "Replay on stored closes, adjusted for corporate actions. Back to Keep = share of observations that passed the exit test again 20 or 60 sessions later. Excess = return minus the median Nifty 500 stock, in points. Overlapping, clustered observations; delisted stocks drop out; no significance test.",
+ "states": {
+  "Both": {
+   "n20": 75502,
+   "back20": 11.2,
+   "n60": 71370,
+   "back60": 23.1,
+   "median60": -3.01,
+   "mean60": -0.7,
+   "p10_60": -19.43
+  },
+  "200 only: near (within 1 ATR)": {
+   "n20": 11961,
+   "back20": 43.2,
+   "n60": 11371,
+   "back60": 46.1,
+   "median60": -2.47,
+   "mean60": 0.53,
+   "p10_60": -18.38
+  },
+  "200 only: mid (1 ATR to 3%)": {
+   "n20": 11650,
+   "back20": 37.9,
+   "n60": 10887,
+   "back60": 46.1,
+   "median60": -1.71,
+   "mean60": 0.7,
+   "p10_60": -16.15
+  },
+  "200 only: far (beyond both)": {
+   "n20": 104698,
+   "back20": 15.4,
+   "n60": 100101,
+   "back60": 30.4,
+   "median60": -3.28,
+   "mean60": -0.62,
+   "p10_60": -19.18
+  },
+  "Swing only": {
+   "n20": 16686,
+   "back20": 60.1,
+   "n60": 15821,
+   "back60": 52.2,
+   "median60": -1.58,
+   "mean60": 1.55,
+   "p10_60": -18.61
+  },
+  "Keep": {
+   "n20": 205525,
+   "back20": 78.2,
+   "n60": 195117,
+   "back60": 66.2,
+   "median60": -1.45,
+   "mean60": 2.29,
+   "p10_60": -19.62
+  }
+ }
+}

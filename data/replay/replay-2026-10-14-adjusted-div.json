@@ -15,13 +15,13 @@
  "crossSection": {
   "date": "2026-10-14",
   "stocks": 2914,
-  "noVerdictCorporateAction": 23,
+  "noVerdictCorporateAction": 22,
   "noVerdictOther": 369,
   "groups": {
    "Both": {
-    "stocks": 904,
-    "nifty500": 186,
-    "medianPctFrom200": -11.3,
+    "stocks": 905,
+    "nifty500": 187,
+    "medianPctFrom200": -11.4,
     "medianRsPercentile": 27
    },
    "200 only": {
@@ -52,28 +52,28 @@
  },
  "replay": {
   "kept": {
-   "20": 425953,
-   "60": 404595
+   "20": 426022,
+   "60": 404667
   },
   "removedByCorporateActionGuard": {
-   "20": 3226,
-   "60": 3503
+   "20": 3157,
+   "60": 3431
   },
   "byHorizon": {
    "20": {
     "Both": {
      "all": {
-      "n": 75483,
+      "n": 75502,
       "medianExcess": -1.06,
-      "meanExcess": -0.02,
+      "meanExcess": -0.01,
       "p10Excess": -10.73,
       "backToKeepPct": 11.2
      },
      "redOnly": {
-      "n": 67625,
+      "n": 67641,
       "medianExcess": -1.09,
       "meanExcess": -0.09,
-      "p10Excess": -10.8,
+      "p10Excess": -10.79,
       "backToKeepPct": 10.9
      },
      "byYear": {
@@ -99,35 +99,35 @@
        "backToKeepPct": 20.3
       },
       "2025": {
-       "n": 25958,
-       "medianExcess": -2.11,
-       "meanExcess": -1.54,
-       "p10Excess": -12.29,
+       "n": 25965,
+       "medianExcess": -2.1,
+       "meanExcess": -1.53,
+       "p10Excess": -12.27,
        "backToKeepPct": 6.2
       },
       "2026": {
-       "n": 17788,
-       "medianExcess": -0.1,
-       "meanExcess": 1.53,
-       "p10Excess": -9.53,
-       "backToKeepPct": 11.2
+       "n": 17800,
+       "medianExcess": -0.09,
+       "meanExcess": 1.55,
+       "p10Excess": -9.51,
+       "backToKeepPct": 11.1
       }
      }
     },
     "200 only": {
      "all": {
-      "n": 128276,
-      "medianExcess": -1.29,
+      "n": 128309,
+      "medianExcess": -1.28,
       "meanExcess": -0.01,
-      "p10Excess": -10.16,
+      "p10Excess": -10.15,
       "backToKeepPct": 20
      },
      "redOnly": {
-      "n": 77587,
+      "n": 77617,
       "medianExcess": -1.59,
-      "meanExcess": -0.58,
+      "meanExcess": -0.57,
       "p10Excess": -10.39,
-      "backToKeepPct": 17.3
+      "backToKeepPct": 17.2
      },
      "byYear": {
       "2022": {
@@ -147,19 +147,19 @@
       "2024": {
        "n": 16001,
        "medianExcess": -1.15,
-       "meanExcess": 0.5,
+       "meanExcess": 0.49,
        "p10Excess": -9.68,
        "backToKeepPct": 22.4
       },
       "2025": {
-       "n": 38745,
-       "medianExcess": -1.52,
-       "meanExcess": -0.26,
-       "p10Excess": -10.16,
+       "n": 38774,
+       "medianExcess": -1.5,
+       "meanExcess": -0.25,
+       "p10Excess": -10.14,
        "backToKeepPct": 16.4
       },
       "2026": {
-       "n": 29814,
+       "n": 29818,
        "medianExcess": -1.07,
        "meanExcess": 0.12,
        "p10Excess": -10.03,
@@ -169,17 +169,17 @@
     },
     "200 only: near (within 1 ATR)": {
      "all": {
-      "n": 11956,
-      "medianExcess": -1.13,
-      "meanExcess": 0.29,
-      "p10Excess": -10.05,
+      "n": 11961,
+      "medianExcess": -1.12,
+      "meanExcess": 0.3,
+      "p10Excess": -10.03,
       "backToKeepPct": 43.2
      },
      "redOnly": {
-      "n": 7459,
+      "n": 7464,
       "medianExcess": -1.17,
       "meanExcess": -0.02,
-      "p10Excess": -10.13,
+      "p10Excess": -10.12,
       "backToKeepPct": 38.7
      },
      "byYear": {
@@ -205,16 +205,16 @@
        "backToKeepPct": 40.6
       },
       "2025": {
-       "n": 3090,
-       "medianExcess": -1.85,
-       "meanExcess": -0.81,
+       "n": 3095,
+       "medianExcess": -1.83,
+       "meanExcess": -0.8,
        "p10Excess": -10.42,
        "backToKeepPct": 39.2
       },
       "2026": {
        "n": 2376,
-       "medianExcess": -0.38,
-       "meanExcess": 0.59,
+       "medianExcess": -0.37,
+       "meanExcess": 0.6,
        "p10Excess": -9.97,
        "backToKeepPct": 42.1
       }
@@ -222,16 +222,16 @@
     },
     "200 only: mid (1 ATR to 3%)": {
      "all": {
-      "n": 11629,
+      "n": 11650,
       "medianExcess": -0.61,
       "meanExcess": 0.26,
       "p10Excess": -8.4,
-      "backToKeepPct": 38
+      "backToKeepPct": 37.9
      },
      "redOnly": {
-      "n": 6948,
+      "n": 6966,
       "medianExcess": -0.63,
-      "meanExcess": -0.01,
+      "meanExcess": -0.02,
       "p10Excess": -8.44,
       "backToKeepPct": 32.6
      },
@@ -258,16 +258,16 @@
        "backToKeepPct": 32.8
       },
       "2025": {
-       "n": 3253,
-       "medianExcess": -1,
+       "n": 3274,
+       "medianExcess": -0.97,
        "meanExcess": -0.52,
        "p10Excess": -8.31,
-       "backToKeepPct": 33.8
+       "backToKeepPct": 33.7
       },
       "2026": {
        "n": 2436,
-       "medianExcess": -0.06,
-       "meanExcess": 0.61,
+       "medianExcess": -0.05,
+       "meanExcess": 0.62,
        "p10Excess": -7.79,
        "backToKeepPct": 33.3
       }
@@ -275,17 +275,17 @@
     },
     "200 only: far (beyond both)": {
      "all": {
-      "n": 104691,
+      "n": 104698,
       "medianExcess": -1.4,
-      "meanExcess": -0.08,
+      "meanExcess": -0.07,
       "p10Excess": -10.37,
       "backToKeepPct": 15.4
      },
      "redOnly": {
-      "n": 63180,
+      "n": 63187,
       "medianExcess": -1.76,
       "meanExcess": -0.7,
-      "p10Excess": -10.63,
+      "p10Excess": -10.62,
       "backToKeepPct": 13
      },
      "byYear": {
@@ -311,14 +311,14 @@
        "backToKeepPct": 17.4
       },
       "2025": {
-       "n": 32402,
-       "medianExcess": -1.54,
-       "meanExcess": -0.18,
-       "p10Excess": -10.3,
+       "n": 32405,
+       "medianExcess": -1.53,
+       "meanExcess": -0.17,
+       "p10Excess": -10.29,
        "backToKeepPct": 12.5
       },
       "2026": {
-       "n": 25002,
+       "n": 25006,
        "medianExcess": -1.33,
        "meanExcess": 0.03,
        "p10Excess": -10.26,
@@ -336,7 +336,7 @@
      },
      "redOnly": {
       "n": 13306,
-      "medianExcess": -0.38,
+      "medianExcess": -0.37,
       "meanExcess": 0.72,
       "p10Excess": -9.85,
       "backToKeepPct": 59.5
@@ -365,15 +365,15 @@
       },
       "2025": {
        "n": 3219,
-       "medianExcess": -1.35,
-       "meanExcess": -0.98,
-       "p10Excess": -12.18,
+       "medianExcess": -1.34,
+       "meanExcess": -0.97,
+       "p10Excess": -12.17,
        "backToKeepPct": 45.6
       },
       "2026": {
        "n": 1972,
-       "medianExcess": -0.46,
-       "meanExcess": 0.8,
+       "medianExcess": -0.47,
+       "meanExcess": 0.81,
        "p10Excess": -9.13,
        "backToKeepPct": 55.2
       }
@@ -384,13 +384,13 @@
       "n": 15964,
       "medianExcess": -0.55,
       "meanExcess": 0.64,
-      "p10Excess": -10.05,
+      "p10Excess": -10.06,
       "backToKeepPct": 60
      },
      "redOnly": {
       "n": 12731,
-      "medianExcess": -0.35,
-      "meanExcess": 0.77,
+      "medianExcess": -0.34,
+      "meanExcess": 0.78,
       "p10Excess": -9.86,
       "backToKeepPct": 59.5
      },
@@ -418,15 +418,15 @@
       },
       "2025": {
        "n": 3083,
-       "medianExcess": -1.34,
-       "meanExcess": -0.98,
+       "medianExcess": -1.33,
+       "meanExcess": -0.97,
        "p10Excess": -12.18,
        "backToKeepPct": 45.6
       },
       "2026": {
        "n": 1854,
        "medianExcess": -0.45,
-       "meanExcess": 0.83,
+       "meanExcess": 0.84,
        "p10Excess": -9.15,
        "backToKeepPct": 54.3
       }
@@ -435,16 +435,16 @@
     "Swing only: shallow": {
      "all": {
       "n": 722,
-      "medianExcess": -0.94,
-      "meanExcess": 0.12,
+      "medianExcess": -0.95,
+      "meanExcess": 0.13,
       "p10Excess": -9.55,
       "backToKeepPct": 60.9
      },
      "redOnly": {
       "n": 575,
-      "medianExcess": -0.98,
-      "meanExcess": -0.53,
-      "p10Excess": -9.78,
+      "medianExcess": -0.99,
+      "meanExcess": -0.52,
+      "p10Excess": -9.73,
       "backToKeepPct": 59.7
      },
      "byYear": {
@@ -471,15 +471,15 @@
       },
       "2025": {
        "n": 136,
-       "medianExcess": -2.04,
+       "medianExcess": -2.03,
        "meanExcess": -0.89,
-       "p10Excess": -10.69,
+       "p10Excess": -10.68,
        "backToKeepPct": 44.1
       },
       "2026": {
        "n": 118,
-       "medianExcess": -0.97,
-       "meanExcess": 0.29,
+       "medianExcess": -0.98,
+       "meanExcess": 0.3,
        "p10Excess": -8.98,
        "backToKeepPct": 69.5
       }
@@ -540,15 +540,15 @@
     },
     "Keep": {
      "all": {
-      "n": 205508,
+      "n": 205525,
       "medianExcess": -0.52,
-      "meanExcess": 1,
+      "meanExcess": 1.01,
       "p10Excess": -11.09,
       "backToKeepPct": 78.2
      },
      "redOnly": {
-      "n": 111211,
-      "medianExcess": -0.4,
+      "n": 111222,
+      "medianExcess": -0.39,
       "meanExcess": 0.81,
       "p10Excess": -11.09,
       "backToKeepPct": 73.5
@@ -569,18 +569,18 @@
        "backToKeepPct": 86.9
       },
       "2024": {
-       "n": 58602,
+       "n": 58605,
        "medianExcess": -0.91,
        "meanExcess": 1.05,
        "p10Excess": -11.91,
        "backToKeepPct": 77.8
       },
       "2025": {
-       "n": 36270,
+       "n": 36284,
        "medianExcess": -0.53,
-       "meanExcess": -0.14,
-       "p10Excess": -11.19,
-       "backToKeepPct": 71.3
+       "meanExcess": -0.13,
+       "p10Excess": -11.18,
+       "backToKeepPct": 71.2
       },
       "2026": {
        "n": 28218,
@@ -595,17 +595,17 @@
    "60": {
     "Both": {
      "all": {
-      "n": 71355,
-      "medianExcess": -3.04,
-      "meanExcess": -0.71,
-      "p10Excess": -19.45,
+      "n": 71370,
+      "medianExcess": -3.01,
+      "meanExcess": -0.7,
+      "p10Excess": -19.43,
       "backToKeepPct": 23.1
      },
      "redOnly": {
-      "n": 63515,
-      "medianExcess": -3.01,
-      "meanExcess": -0.82,
-      "p10Excess": -19.37,
+      "n": 63527,
+      "medianExcess": -2.99,
+      "meanExcess": -0.81,
+      "p10Excess": -19.35,
       "backToKeepPct": 22.3
      },
      "byYear": {
@@ -625,40 +625,40 @@
       },
       "2024": {
        "n": 9912,
-       "medianExcess": -1.72,
-       "meanExcess": 1.1,
+       "medianExcess": -1.73,
+       "meanExcess": 1.09,
        "p10Excess": -17.71,
        "backToKeepPct": 24.9
       },
       "2025": {
-       "n": 25797,
-       "medianExcess": -5.13,
-       "meanExcess": -3.41,
-       "p10Excess": -21.18,
+       "n": 25804,
+       "medianExcess": -5.1,
+       "meanExcess": -3.38,
+       "p10Excess": -21.14,
        "backToKeepPct": 16.2
       },
       "2026": {
-       "n": 14054,
-       "medianExcess": -0.3,
-       "meanExcess": 3.31,
-       "p10Excess": -15.57,
+       "n": 14062,
+       "medianExcess": -0.27,
+       "meanExcess": 3.33,
+       "p10Excess": -15.53,
        "backToKeepPct": 25.3
       }
      }
     },
     "200 only": {
      "all": {
-      "n": 122327,
-      "medianExcess": -3.07,
-      "meanExcess": -0.41,
-      "p10Excess": -18.85,
+      "n": 122359,
+      "medianExcess": -3.06,
+      "meanExcess": -0.4,
+      "p10Excess": -18.84,
       "backToKeepPct": 33.3
      },
      "redOnly": {
-      "n": 71995,
-      "medianExcess": -3.54,
-      "meanExcess": -1.21,
-      "p10Excess": -19.31,
+      "n": 72024,
+      "medianExcess": -3.53,
+      "meanExcess": -1.2,
+      "p10Excess": -19.3,
       "backToKeepPct": 29.4
      },
      "byYear": {
@@ -678,40 +678,40 @@
       },
       "2024": {
        "n": 15900,
-       "medianExcess": -3.28,
-       "meanExcess": -0.32,
-       "p10Excess": -18.97,
+       "medianExcess": -3.3,
+       "meanExcess": -0.34,
+       "p10Excess": -18.99,
        "backToKeepPct": 28
       },
       "2025": {
-       "n": 38515,
-       "medianExcess": -3.92,
-       "meanExcess": -1.94,
-       "p10Excess": -18.94,
+       "n": 38544,
+       "medianExcess": -3.87,
+       "meanExcess": -1.91,
+       "p10Excess": -18.91,
        "backToKeepPct": 26.8
       },
       "2026": {
-       "n": 24607,
-       "medianExcess": -1.39,
-       "meanExcess": 1.72,
-       "p10Excess": -16.74,
+       "n": 24610,
+       "medianExcess": -1.37,
+       "meanExcess": 1.73,
+       "p10Excess": -16.72,
        "backToKeepPct": 32.9
       }
      }
     },
     "200 only: near (within 1 ATR)": {
      "all": {
-      "n": 11366,
-      "medianExcess": -2.48,
-      "meanExcess": 0.52,
+      "n": 11371,
+      "medianExcess": -2.47,
+      "meanExcess": 0.53,
       "p10Excess": -18.38,
       "backToKeepPct": 46.1
      },
      "redOnly": {
-      "n": 6893,
-      "medianExcess": -3.04,
-      "meanExcess": -0.43,
-      "p10Excess": -19.02,
+      "n": 6898,
+      "medianExcess": -3.03,
+      "meanExcess": -0.42,
+      "p10Excess": -19,
       "backToKeepPct": 39.6
      },
      "byYear": {
@@ -731,22 +731,22 @@
       },
       "2024": {
        "n": 2241,
-       "medianExcess": -2.54,
-       "meanExcess": 1.09,
+       "medianExcess": -2.55,
+       "meanExcess": 1.08,
        "p10Excess": -18.09,
        "backToKeepPct": 37.7
       },
       "2025": {
-       "n": 3074,
-       "medianExcess": -4.67,
-       "meanExcess": -2.42,
+       "n": 3079,
+       "medianExcess": -4.65,
+       "meanExcess": -2.39,
        "p10Excess": -19.7,
        "backToKeepPct": 37.4
       },
       "2026": {
        "n": 1845,
        "medianExcess": -0.18,
-       "meanExcess": 2.95,
+       "meanExcess": 2.97,
        "p10Excess": -16.13,
        "backToKeepPct": 51.2
       }
@@ -754,18 +754,18 @@
     },
     "200 only: mid (1 ATR to 3%)": {
      "all": {
-      "n": 10866,
-      "medianExcess": -1.72,
-      "meanExcess": 0.71,
-      "p10Excess": -16.11,
-      "backToKeepPct": 46.2
+      "n": 10887,
+      "medianExcess": -1.71,
+      "meanExcess": 0.7,
+      "p10Excess": -16.15,
+      "backToKeepPct": 46.1
      },
      "redOnly": {
-      "n": 6220,
-      "medianExcess": -1.78,
-      "meanExcess": -0.07,
-      "p10Excess": -16.37,
-      "backToKeepPct": 38.9
+      "n": 6238,
+      "medianExcess": -1.79,
+      "meanExcess": -0.09,
+      "p10Excess": -16.4,
+      "backToKeepPct": 38.8
      },
      "byYear": {
       "2022": {
@@ -785,39 +785,39 @@
       "2024": {
        "n": 1818,
        "medianExcess": -1.85,
-       "meanExcess": 2.12,
+       "meanExcess": 2.11,
        "p10Excess": -16.51,
        "backToKeepPct": 37.9
       },
       "2025": {
-       "n": 3233,
-       "medianExcess": -3.01,
-       "meanExcess": -2.07,
-       "p10Excess": -16.6,
-       "backToKeepPct": 36.6
+       "n": 3254,
+       "medianExcess": -2.99,
+       "meanExcess": -2.09,
+       "p10Excess": -16.67,
+       "backToKeepPct": 36.4
       },
       "2026": {
        "n": 1738,
        "medianExcess": 0.14,
-       "meanExcess": 2.29,
-       "p10Excess": -13.24,
+       "meanExcess": 2.3,
+       "p10Excess": -13.23,
        "backToKeepPct": 46.7
       }
      }
     },
     "200 only: far (beyond both)": {
      "all": {
-      "n": 100095,
-      "medianExcess": -3.3,
-      "meanExcess": -0.63,
+      "n": 100101,
+      "medianExcess": -3.28,
+      "meanExcess": -0.62,
       "p10Excess": -19.18,
       "backToKeepPct": 30.4
      },
      "redOnly": {
-      "n": 58882,
-      "medianExcess": -3.8,
-      "meanExcess": -1.43,
-      "p10Excess": -19.69,
+      "n": 58888,
+      "medianExcess": -3.78,
+      "meanExcess": -1.41,
+      "p10Excess": -19.67,
       "backToKeepPct": 27.3
      },
      "byYear": {
@@ -837,40 +837,40 @@
       },
       "2024": {
        "n": 11841,
-       "medianExcess": -3.57,
-       "meanExcess": -0.97,
-       "p10Excess": -19.64,
+       "medianExcess": -3.58,
+       "meanExcess": -0.98,
+       "p10Excess": -19.65,
        "backToKeepPct": 24.7
       },
       "2025": {
-       "n": 32208,
-       "medianExcess": -3.93,
-       "meanExcess": -1.88,
-       "p10Excess": -19.13,
+       "n": 32211,
+       "medianExcess": -3.89,
+       "meanExcess": -1.85,
+       "p10Excess": -19.1,
        "backToKeepPct": 24.8
       },
       "2026": {
-       "n": 21024,
-       "medianExcess": -1.8,
-       "meanExcess": 1.56,
-       "p10Excess": -17.07,
+       "n": 21027,
+       "medianExcess": -1.77,
+       "meanExcess": 1.58,
+       "p10Excess": -17.06,
        "backToKeepPct": 30.1
       }
      }
     },
     "Swing only": {
      "all": {
-      "n": 15819,
+      "n": 15821,
       "medianExcess": -1.58,
-      "meanExcess": 1.54,
-      "p10Excess": -18.62,
+      "meanExcess": 1.55,
+      "p10Excess": -18.61,
       "backToKeepPct": 52.2
      },
      "redOnly": {
-      "n": 12460,
-      "medianExcess": -1.4,
-      "meanExcess": 1.35,
-      "p10Excess": -18.5,
+      "n": 12462,
+      "medianExcess": -1.38,
+      "meanExcess": 1.36,
+      "p10Excess": -18.47,
       "backToKeepPct": 49.3
      },
      "byYear": {
@@ -889,23 +889,23 @@
        "backToKeepPct": 75.6
       },
       "2024": {
-       "n": 5847,
+       "n": 5849,
        "medianExcess": -0.38,
-       "meanExcess": 3.38,
+       "meanExcess": 3.37,
        "p10Excess": -16.86,
        "backToKeepPct": 51.6
       },
       "2025": {
        "n": 3204,
-       "medianExcess": -3.27,
-       "meanExcess": -2.08,
-       "p10Excess": -21.24,
+       "medianExcess": -3.25,
+       "meanExcess": -2.05,
+       "p10Excess": -21.18,
        "backToKeepPct": 39.8
       },
       "2026": {
        "n": 1216,
-       "medianExcess": -2.82,
-       "meanExcess": 1.87,
+       "medianExcess": -2.81,
+       "meanExcess": 1.89,
        "p10Excess": -16.43,
        "backToKeepPct": 45
       }
@@ -913,17 +913,17 @@
     },
     "Swing only: deep (1.5 ATR)": {
      "all": {
-      "n": 15147,
+      "n": 15149,
       "medianExcess": -1.59,
-      "meanExcess": 1.55,
-      "p10Excess": -18.62,
+      "meanExcess": 1.56,
+      "p10Excess": -18.61,
       "backToKeepPct": 52.2
      },
      "redOnly": {
-      "n": 11935,
-      "medianExcess": -1.43,
-      "meanExcess": 1.38,
-      "p10Excess": -18.4,
+      "n": 11937,
+      "medianExcess": -1.42,
+      "meanExcess": 1.39,
+      "p10Excess": -18.39,
       "backToKeepPct": 49.3
      },
      "byYear": {
@@ -942,24 +942,24 @@
        "backToKeepPct": 75.3
       },
       "2024": {
-       "n": 5540,
-       "medianExcess": -0.51,
+       "n": 5542,
+       "medianExcess": -0.52,
        "meanExcess": 3.44,
        "p10Excess": -16.91,
        "backToKeepPct": 51.7
       },
       "2025": {
        "n": 3068,
-       "medianExcess": -3.35,
-       "meanExcess": -2.07,
-       "p10Excess": -21.18,
+       "medianExcess": -3.31,
+       "meanExcess": -2.04,
+       "p10Excess": -21.17,
        "backToKeepPct": 39.6
       },
       "2026": {
        "n": 1148,
-       "medianExcess": -2.44,
-       "meanExcess": 1.63,
-       "p10Excess": -16.3,
+       "medianExcess": -2.35,
+       "meanExcess": 1.66,
+       "p10Excess": -16.28,
        "backToKeepPct": 44.1
       }
      }
@@ -967,7 +967,7 @@
     "Swing only: shallow": {
      "all": {
       "n": 672,
-      "medianExcess": -1.39,
+      "medianExcess": -1.38,
       "meanExcess": 1.34,
       "p10Excess": -18.74,
       "backToKeepPct": 54.3
@@ -996,23 +996,23 @@
       },
       "2024": {
        "n": 307,
-       "medianExcess": 1.75,
-       "meanExcess": 2.25,
+       "medianExcess": 1.73,
+       "meanExcess": 2.24,
        "p10Excess": -15.01,
        "backToKeepPct": 50.5
       },
       "2025": {
        "n": 136,
-       "medianExcess": -1.5,
-       "meanExcess": -2.42,
-       "p10Excess": -22.25,
+       "medianExcess": -1.46,
+       "meanExcess": -2.38,
+       "p10Excess": -22.28,
        "backToKeepPct": 43.4
       },
       "2026": {
        "n": 68,
        "medianExcess": -8.65,
-       "meanExcess": 5.81,
-       "p10Excess": -16.93,
+       "meanExcess": 5.84,
+       "p10Excess": -16.91,
        "backToKeepPct": 61.8
       }
      }
@@ -1072,16 +1072,16 @@
     },
     "Keep": {
      "all": {
-      "n": 195094,
+      "n": 195117,
       "medianExcess": -1.45,
-      "meanExcess": 2.28,
-      "p10Excess": -19.63,
+      "meanExcess": 2.29,
+      "p10Excess": -19.62,
       "backToKeepPct": 66.2
      },
      "redOnly": {
-      "n": 101576,
+      "n": 101593,
       "medianExcess": -1.18,
-      "meanExcess": 1.69,
+      "meanExcess": 1.7,
       "p10Excess": -19.37,
       "backToKeepPct": 59.2
      },
@@ -1101,24 +1101,24 @@
        "backToKeepPct": 81.6
       },
       "2024": {
-       "n": 58247,
-       "medianExcess": -1.87,
+       "n": 58256,
+       "medianExcess": -1.88,
        "meanExcess": 1.89,
-       "p10Excess": -20.29,
+       "p10Excess": -20.3,
        "backToKeepPct": 63.2
       },
       "2025": {
-       "n": 35954,
-       "medianExcess": -1.45,
-       "meanExcess": -0.4,
-       "p10Excess": -19.95,
+       "n": 35968,
+       "medianExcess": -1.42,
+       "meanExcess": -0.37,
+       "p10Excess": -19.92,
        "backToKeepPct": 55.7
       },
       "2026": {
        "n": 19216,
-       "medianExcess": 0.51,
-       "meanExcess": 4.56,
-       "p10Excess": -16.55,
+       "medianExcess": 0.54,
+       "meanExcess": 4.58,
+       "p10Excess": -16.53,
        "backToKeepPct": 65.3
       }
      }
@@ -1138,7 +1138,7 @@
       43.2,
       11.2
      ],
-     "excessGap": 0.56
+     "excessGap": 0.54
     },
     "years": {
      "2022": {
@@ -1179,7 +1179,7 @@
        39.2,
        6.2
       ],
-      "excessGap": 0.46
+      "excessGap": 0.45
      }
     },
     "yearsPassed": 1,
@@ -1192,10 +1192,10 @@
      "back": true,
      "ex": true,
      "backPct": [
-      38,
+      37.9,
       11.2
      ],
-     "excessGap": 1.32
+     "excessGap": 1.3
     },
     "years": {
      "2022": {
@@ -1226,17 +1226,17 @@
        32.8,
        20.3
       ],
-      "excessGap": -0.13
+      "excessGap": -0.12
      },
      "2025": {
       "ok": true,
       "back": true,
       "ex": true,
       "backPct": [
-       33.8,
+       33.7,
        6.2
       ],
-      "excessGap": 2.12
+      "excessGap": 2.11
      }
     },
     "yearsPassed": 2,
@@ -1252,7 +1252,7 @@
       15.4,
       11.2
      ],
-     "excessGap": -0.26
+     "excessGap": -0.27
     },
     "years": {
      "2022": {
@@ -1293,7 +1293,7 @@
        12.5,
        6.2
       ],
-      "excessGap": 1.2
+      "excessGap": 1.21
      }
     },
     "yearsPassed": 1,
@@ -1346,17 +1346,17 @@
      "ok": true,
      "ex": true,
      "back": true,
-     "excessGap": -1.9,
+     "excessGap": -1.89,
      "backPct": [
       45.6,
-      71.3
+      71.2
      ]
     }
    },
    "yearsPassed": 1,
    "redOnlyDeepWorseThanKeep": true,
    "redOnly": [
-    -1.43,
+    -1.42,
     -1.18
    ],
    "pass": false

@@ -3,6 +3,7 @@
 // Writes <out>/replay-<last stored date>.json and docs/replay/BASELINE-<date>.md. No personal data is read.
 import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from 'node:fs';
 import { stockVerdict, adjustSeries } from '../src/pm/verdict.ts';
+import { bandOf, atr14 } from '../src/pm/state.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || `--${k}=${d}`).split('=')[1];
 const TAG = arg('tag', ''), STEP = +arg('step', 5), OUT = arg('out', 'data/replay'), T0 = 210, HS = [20, 60];
 const dir = 'site/pm-data/prices/';
@@ -11,14 +12,15 @@ const dates = [], px = {};
 for (const m of months) { const c = JSON.parse(readFileSync(dir + m + '.json', 'utf8')); const base = dates.length; dates.push(...c.dates); for (const [s, a] of Object.entries(c.px)) { const arr = (px[s] ??= []); while (arr.length < base) arr.push(null); arr.push(...a); } }
 for (const s in px) while (px[s].length < dates.length) px[s].push(null);
 const N = dates.length, ASOF = dates[N - 1];
+const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;
 const feedRaw = JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8')); const rows = Array.isArray(feedRaw) ? feedRaw : feedRaw.rows;
 const ADJ = /\b(split|sub-?division|bonus|demerger|de-merger|arrangement|consolidation|capital reduction|scheme)\b/i;   // same list as src/pm/verdict.ts
 const firstIdx = (d) => { let lo = 0, hi = N; while (lo < hi) { const m = (lo + hi) >> 1; if (dates[m] >= d) hi = m; else lo = m + 1; } return lo; };
 // Back-adjust every symbol's closes for plain splits and bonuses that the stored prices confirm (src/pm/verdict.ts adjustSeries); only actions that cannot be adjusted keep the guard.
 const bySym = new Map(); for (const r of rows) (bySym.get(r.symbol) ?? bySym.set(r.symbol, []).get(r.symbol)).push(r);
 const rawPx = { ...px };   // unadjusted, for the parity check against the module (which adjusts for itself)
-const ca = new Map(); let adjustedN = 0; const rejectedAdj = [], kinds = { splitBonus: 0, dividend: 0, rights: 0 };
-for (const [sym, rs] of bySym) { if (!px[sym]) continue; const a = adjustSeries(dates, px[sym], rs, dates[0]); px[sym] = a.series; adjustedN += a.applied.length; for (const x of a.applied) { const k = /dividend/i.test(x.row.subject) ? 'dividend' : /rights/i.test(x.row.subject) ? 'rights' : 'splitBonus'; kinds[k]++; } rejectedAdj.push(...a.rejected.map((r) => ({ symbol: sym, exDate: r.rows[0].exDate, factor: +r.factor.toFixed(2), observed: r.observed === null ? null : +r.observed.toFixed(2), subjects: r.rows.map((x) => x.subject.trim()) }))); if (a.unresolved.length) ca.set(sym, a.unresolved.map((r) => firstIdx(r.exDate)).filter((i) => i < N)); }
+const ca = new Map(); let adjustedN = 0; const rejectedAdj = [], kinds = { splitBonus: 0, dividend: 0, rights: 0, demerger: 0 };
+for (const [sym, rs] of bySym) { if (!px[sym]) continue; const a = adjustSeries(dates, px[sym], rs, dates[0], dem); px[sym] = a.series; adjustedN += a.applied.length; for (const x of a.applied) { const k = /dividend/i.test(x.row.subject) ? 'dividend' : /rights/i.test(x.row.subject) ? 'rights' : /demerger/i.test(x.row.subject) ? 'demerger' : 'splitBonus'; kinds[k]++; } rejectedAdj.push(...a.rejected.map((r) => ({ symbol: sym, exDate: r.rows[0].exDate, factor: +r.factor.toFixed(2), observed: r.observed === null ? null : +r.observed.toFixed(2), subjects: r.rows.map((x) => x.subject.trim()) }))); if (a.unresolved.length) ca.set(sym, a.unresolved.map((r) => firstIdx(r.exDate)).filter((i) => i < N)); }
 const cur = new Set(Object.keys(JSON.parse(readFileSync('site/pm-data/prices.json', 'utf8')).prices));
 const n500 = new Set(JSON.parse(readFileSync('data/india/nifty500.json', 'utf8')).symbols);
 const med = (a) => { if (!a.length) return NaN; const b = [...a].sort((x, y) => x - y); const m = b.length >> 1; return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; };
@@ -43,7 +45,7 @@ const red = (t) => { const a = sma(proxy, t, 50), b = sma(proxy, t, 200); return
 
 const result = { asOf: ASOF, firstDate: dates[0], sessions: N, step: STEP, firstStart: dates[T0], universe: 'symbols with a stored close on the start date', proxy: 'median Nifty 500 stock; Red = its cumulative index below both its 50 and 200 day averages', atr: 'mean absolute close-to-close move over 14 sessions', preregistered: 'C-42 and C-43 in the Engine Rules change log, written before the first run of this script' };
 // ---- parity with the module at the latest date
-{ let diff = 0, n = 0; for (const s of Object.keys(px)) { if (px[s][N - 1] == null) continue; const v = stockVerdict(s, { dates, px: rawPx }, rows); const g = group(s, N - 1); const mine = g ? (g.g === 'Keep' ? 'Keep' : 'Exit') : 'No verdict'; n++; if (mine !== v.label) diff++; } result.parity = { symbols: n, identical: n - diff }; }
+{ let diff = 0, n = 0; for (const s of Object.keys(px)) { if (px[s][N - 1] == null) continue; const v = stockVerdict(s, { dates, px: rawPx }, rows, dem); const g = group(s, N - 1); const mine = g ? (g.g === 'Keep' ? 'Keep' : 'Exit') : 'No verdict'; n++; if (mine !== v.label) diff++; } result.parity = { symbols: n, identical: n - diff }; }
 // ---- cross-section at the latest date
 {
   const t = N - 1, universe = [...cur].filter((s) => px[s]), rs = {}, all = [];
@@ -65,7 +67,7 @@ for (const H of HS) {
       const a = px[s]; if (a[t] == null || a[t + H] == null) continue; const x = group(s, t, H);
       if (!x || x.g === 'Swing only (no 200-day yet)') { if (!x && guarded(s, t, H) && sma(a, t, 200) !== null) removed[H]++; continue; }
       kept[H]++; const ret = a[t + H] / a[t] - 1; const labels = [x.g];
-      if (x.g === '200 only') { const gap = x.s200 - a[t], A = atr(a, t); labels.push(gap <= A ? '200 only: near (within 1 ATR)' : a[t] / x.s200 - 1 >= -0.03 ? '200 only: mid (1 ATR to 3%)' : '200 only: far (beyond both)'); }
+      if (x.g === '200 only') { labels.push(bandOf(a[t], x.s200, atr14(a, t))); }
       if (x.g === 'Swing only') { const ph = priorHigh(a, x.pi), A = atr(a, x.pi); labels.push(ph === null || isNaN(A) ? 'Swing only: no prior pivot high' : ph - x.sw >= 1.5 * A ? 'Swing only: deep (1.5 ATR)' : 'Swing only: shallow'); }
       const y = group(s, t + H); obs.push({ s, labels, ret, back: y && y.g === 'Keep' ? 1 : 0, hasBack: y ? 1 : 0 });
     }
@@ -99,9 +101,19 @@ console.log(`wrote ${OUT}/replay-${ASOF}${TAG}.json and docs/replay/BASELINE-${A
 
 // ---- notes: what the adjustment did, and whether the group-level conclusions survived it
 if (TAG) {
-  const blocked = []; for (const s of Object.keys(px)) { if (px[s][N - 1] == null) continue; const v = stockVerdict(s, { dates, px: rawPx }, rows); if (v.label === 'No verdict' && /corporate action/.test(v.reasons[0])) blocked.push(`${s} (${v.reasons[0].match(/\((.*?), ex-date/)?.[1] ?? '?'})`); }
+  const blocked = []; for (const s of Object.keys(px)) { if (px[s][N - 1] == null) continue; const v = stockVerdict(s, { dates, px: rawPx }, rows, dem); if (v.label === 'No verdict' && /corporate action/.test(v.reasons[0])) blocked.push(`${s} (${v.reasons[0].match(/\((.*?), ex-date/)?.[1] ?? '?'})`); }
   const basePath = `${OUT}/replay-${ASOF}.json`; let cmp = '';
   if (existsSync(basePath)) { const b = JSON.parse(readFileSync(basePath, 'utf8')); const keys = ['Both', '200 only', 'Swing only', 'Keep'], get = (r, H, g, k) => r.replay.byHorizon[H][g].all[k];
     cmp = `\n| Group | Median excess, 60 sessions: unadjusted | adjusted | Back to Keep after 60: unadjusted | adjusted |\n| --- | --- | --- | --- | --- |\n${keys.map((g) => `| ${g} | ${get(b, 60, g, 'medianExcess')} | ${get(result, 60, g, 'medianExcess')} | ${get(b, 60, g, 'backToKeepPct')}% | ${get(result, 60, g, 'backToKeepPct')}% |`).join('\n')}\n\nThe pre-adjustment baseline is docs/replay/BASELINE-${ASOF}.md.\n`; }
-  appendFileSync(`docs/replay/BASELINE-${ASOF}${TAG}.md`, `\n## Adjustment notes\n\n- ${adjustedN} actions adjusted (${kinds.splitBonus} split or bonus, ${kinds.dividend} dividend rows of 5% of price or more, ${kinds.rights} rights issues); ${rejectedAdj.length} ex-date groups rejected because the stored prices did not show the expected drop, or had no close either side. Actions with the same ex-date are combined (a bonus announced with a split is one price move).\n- Rejected groups: ${rejectedAdj.map((r) => `${r.symbol} ${r.exDate} (${r.subjects.join(' + ').slice(0, 40)}; expected x${(1 / r.factor).toFixed(2)}, observed ${r.observed ?? 'no data'})`).join('; ')}.\n- Still blocked at ${ASOF}: ${blocked.length} stocks: ${blocked.join(', ')}.\n${cmp}`);
+  appendFileSync(`docs/replay/BASELINE-${ASOF}${TAG}.md`, `\n## Adjustment notes\n\n- ${adjustedN} actions adjusted (${kinds.splitBonus} split or bonus, ${kinds.dividend} dividend rows of 5% of price or more, ${kinds.rights} rights issues, ${kinds.demerger} demergers with a typed apportionment); ${rejectedAdj.length} ex-date groups rejected because the stored prices did not show the expected drop, or had no close either side. Actions with the same ex-date are combined (a bonus announced with a split is one price move).\n- Rejected groups: ${rejectedAdj.map((r) => `${r.symbol} ${r.exDate} (${r.subjects.join(' + ').slice(0, 40)}; expected x${(1 / r.factor).toFixed(2)}, observed ${r.observed ?? 'no data'})`).join('; ')}.\n- Still blocked at ${ASOF}: ${blocked.length} stocks: ${blocked.join(', ')}.\n${cmp}`);
+}
+
+// ---- track record shipped to the Portfolio page: what happened to stocks in each verdict state in this replay (display only; see Engine Rules C-46)
+if (process.argv.includes('--track')) {
+  const STATES = ['Both', '200 only: near (within 1 ATR)', '200 only: mid (1 ATR to 3%)', '200 only: far (beyond both)', 'Swing only', 'Swing only (no 200-day yet)', 'Keep'];
+  const g = (H, l) => result.replay.byHorizon[H][l]?.all ?? null;
+  const track = { asOf: ASOF, from: result.firstStart, sessions: N, note: 'Replay on stored closes, adjusted for corporate actions. Back to Keep = share of observations that passed the exit test again 20 or 60 sessions later. Excess = return minus the median Nifty 500 stock, in points. Overlapping, clustered observations; delisted stocks drop out; no significance test.', states: {} };
+  for (const l of STATES) { const a = g(20, l), b = g(60, l); if (a || b) track.states[l] = { n20: a?.n ?? 0, back20: a?.backToKeepPct ?? null, n60: b?.n ?? 0, back60: b?.backToKeepPct ?? null, median60: b?.medianExcess ?? null, mean60: b?.meanExcess ?? null, p10_60: b?.p10Excess ?? null }; }
+  writeFileSync(`${OUT}/track-record.json`, JSON.stringify(track, null, 1) + '\n');
+  console.log(`wrote ${OUT}/track-record.json`);
 }
