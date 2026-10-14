@@ -10,7 +10,7 @@ export const STALE_DAYS = 7;           // last close older than this against the
 export const CA_LOOKBACK = 300;        // sessions: a split, bonus or demerger inside this window makes unadjusted closes unreliable
 
 export interface PriceHistory { dates: string[]; px: Record<string, (number | null)[]> }
-export interface CorpActionRow { symbol: string; exDate: string; subject: string }
+export interface CorpActionRow { symbol: string; exDate: string; subject: string; faceVal?: string | number | null }
 export interface SwingLow { price: number; date: string }
 export type VerdictLabel = 'Exit' | 'Keep' | 'No verdict';
 export interface StockVerdict {
@@ -48,6 +48,25 @@ export function priceFactor(subject: string): number | null {
   return null;
 }
 
+export const DIVIDEND_ADJUST_MIN = 0.05;   // a cash dividend (all payouts on the ex-date together) of at least this share of the prior close is adjusted for; ordinary dividends are left alone, as on every chart
+const DIVIDEND = /\bdividend\b/i;
+const RIGHTS = /^\s*rights(?: issue)?\s*:?\s*(\d+)\s*:\s*(\d+)\s*@\s*premium(?: of)?\s*(?:rs|re)\.?\s*([\d.]+)/i;   // "Rights 21:100 @ Premium Rs 76" = 21 new shares for every 100 held, issue price = face value + premium
+
+/** Cash paid per share on the ex-date: the sum of every "Rs n" / "Re n" in the subject (an AGM dividend and a special dividend can share a row). null when no amount is stated. */
+export function dividendAmount(subject: string): number | null {
+  if (!DIVIDEND.test(subject)) return null;
+  let sum = 0, found = false; for (const m of subject.matchAll(/\b(?:rs|re)\.?\s*([\d]+(?:\.\d+)?)/gi)) { sum += +m[1]; found = true; }
+  return found && sum > 0 ? sum : null;
+}
+/** Divisor for closes before a rights ex-date, by the theoretical ex-rights price (TERP = (held*P + new*S) / (held + new)); null if the terms are not in the subject or the issue is at or above the market price. */
+export function rightsFactor(r: CorpActionRow, prior: number): number | null {
+  const m = RIGHTS.exec(r.subject); if (!m) return null;
+  const nw = +m[1], held = +m[2], fv = Number(r.faceVal), S = fv + +m[3];
+  if (!(nw > 0 && held > 0 && fv > 0 && S > 0) || S >= prior) return null;
+  const terp = (held * prior + nw * S) / (held + nw), f = prior / terp;
+  return f > 1.0001 && f < 3 ? f : null;
+}
+
 /** Back-adjust closes for the splits and bonuses of one symbol. Actions with the same ex-date are combined (a bonus announced with a split is one price move). Each combined factor is
  *  checked against the stored closes: the move across the ex-date must be about the expected drop, else the group is left "unresolved" and the caller falls back to No verdict.
  *  A group holding any action that is not a plain split or bonus (demerger, scheme, rights, NCRPS bonus) is unresolved. */
@@ -55,10 +74,20 @@ export function adjustSeries(dates: string[], series: (number | null)[], rows: C
   const out = series.slice(), unresolved: CorpActionRow[] = [], applied: { row: CorpActionRow; factor: number }[] = [], rejected: { rows: CorpActionRow[]; factor: number; observed: number | null }[] = [];
   const first = series.findIndex((v) => v !== null && v !== undefined);
   const groups = new Map<string, CorpActionRow[]>();
-  for (const r of rows) if (ADJUSTS.test(r.subject)) (groups.get(r.exDate) ?? groups.set(r.exDate, []).get(r.exDate)!).push(r);
+  for (const r of rows) if (ADJUSTS.test(r.subject) || DIVIDEND.test(r.subject) || RIGHTS.test(r.subject)) (groups.get(r.exDate) ?? groups.set(r.exDate, []).get(r.exDate)!).push(r);
   for (const [exDate, g] of [...groups].sort((a, b) => (a[0] < b[0] ? 1 : -1))) {   // latest first, so each factor sits on top of the later ones
     const inWindow = exDate >= from;                                       // only an action the verdict cannot adjust AND that sits in the window blocks it
-    const fs = g.map((r) => priceFactor(r.subject));
+    if (!g.some((r) => ADJUSTS.test(r.subject))) {                        // dividend and rights only: no stored-price check is possible (the move is inside ordinary noise), so the terms decide
+      const i = dates.findIndex((d) => d >= exDate); if (i <= 0 || first < 0 || i <= first) continue;
+      let j = i - 1; while (j >= 0 && (series[j] === null || series[j] === undefined)) j--; const prior = j >= 0 ? (series[j] as number) : 0; if (!(prior > 0)) continue;
+      let f = 1; const used: CorpActionRow[] = [];
+      const cash = g.filter((r) => DIVIDEND.test(r.subject)).map((r) => dividendAmount(r.subject)).filter((x): x is number => x !== null).reduce((a, b) => a + b, 0);
+      if (cash / prior >= DIVIDEND_ADJUST_MIN && cash / prior < 0.6) { f *= prior / (prior - cash); used.push(...g.filter((r) => DIVIDEND.test(r.subject))); }
+      for (const r of g) { const rf = rightsFactor(r, prior - (used.length ? cash : 0)); if (rf) { f *= rf; used.push(r); } }
+      if (f > 1) { for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v / f; } for (const r of used) applied.push({ row: r, factor: f }); }
+      continue;
+    }
+    const fs = g.map((r) => (ADJUSTS.test(r.subject) ? priceFactor(r.subject) : 1));   // a dividend or rights row sharing the ex-date with a split or bonus is left unadjusted
     if (fs.some((f) => f === null)) { if (inWindow) unresolved.push(...g); continue; }
     const f = (fs as number[]).reduce((a, b) => a * b, 1);
     const i = dates.findIndex((d) => d >= exDate); if (i < 0) continue;     // ex-date after the last stored session: nothing to adjust yet

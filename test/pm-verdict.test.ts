@@ -85,3 +85,16 @@ test('a bonus and a split with the same ex-date are one price move, and a small 
   const flat = stockVerdict('AAA', hist('AAA', rising()), [{ symbol: 'AAA', exDate: h.dates[240], subject: 'Bonus 1:4' }]);
   assert.equal(flat.label, 'No verdict');
 });
+test('dividends: only a payout of 5% of the prior close or more is adjusted; rights use the theoretical ex-rights price', async () => {
+  const { dividendAmount, rightsFactor } = await import('../src/pm/verdict.ts');
+  assert.equal(dividendAmount('Annual General Meeting/Dividend - Rs 5 Per Share/Special Dividend - Rs 10 Per Share'), 15); assert.equal(dividendAmount(' Bonus 1:4'), null);
+  const flat = () => Array(250).fill(100); const h0 = hist('AAA', flat());
+  const big = flat().map((v, i) => (i >= 240 ? 90 : v)); const hb = hist('AAA', big);
+  const v = stockVerdict('AAA', hb, [{ symbol: 'AAA', exDate: hb.dates[240], subject: 'Special Dividend - Rs 10 Per Share' }]);
+  assert.equal(v.adjusted?.length, 1); assert.ok(Math.abs((v.sma200 as number) - 90) < 0.01);                      // the 10 rupees paid out no longer reads as a fall
+  const small = stockVerdict('AAA', hist('AAA', big), [{ symbol: 'AAA', exDate: hb.dates[240], subject: 'Dividend - Rs 4 Per Share' }]); assert.equal(small.adjusted, undefined);   // 4% stays
+  const r = rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1 @ Premium Rs 90/-', faceVal: '10' }, 200)!;
+  assert.ok(Math.abs(r - 200 / 150) < 1e-9);                                                                      // TERP = (200 + 100) / 2 = 150
+  assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1', faceVal: '10' }, 200), null);
+  assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1 @ Premium Rs 400/-', faceVal: '10' }, 200), null);   // issue price above market
+});
