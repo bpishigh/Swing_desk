@@ -32,6 +32,8 @@ export interface Report {
   flows: Flow[]; divFlows: Flow[];                       // dated cash flows (buys negative, sells positive) and estimated dividends, for periods, benchmarks and the household view
   series: DayValue[] | null; fundCodes: Record<string, string>;
 }
+const masters = new WeakMap<object, FundMaster>();   // the fund list is large; build the matcher once per list, not once per run
+const masterFor = (amfi: AmfiRow[], ov: any[]) => { let m = masters.get(amfi); if (!m) masters.set(amfi, (m = new FundMaster(amfi, ov))); return m; };
 const isFundType = (t?: string) => !!t && /fund|fof|hybrid/.test(t);
 
 export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: PublicData, decisions: Record<string, Decision> = {}): Report {
@@ -42,7 +44,8 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const canon = canonicalise(m.trades, pairs);
   const orders = aggregateFills(canon.trades);
   const held = new Set(canon.trades.map((t) => t.isin));
-  const bc = buildCatalogue(d.feed.filter((r) => pairs.some((p) => p.symbol === r.symbol && p.isin === r.isin) || held.has(canon.lineage.key(r.symbol, r.isin))), canon.lineage, d.demergers, held);
+  const pairSet = new Set(pairs.map((p) => p.symbol + '|' + p.isin));
+  const bc = buildCatalogue(d.feed.filter((r) => pairSet.has(r.symbol + '|' + r.isin) || held.has(canon.lineage.key(r.symbol, r.isin))), canon.lineage, d.demergers, held);
   const cat = { facts: bc.catalogue.facts, candidates: ipoCandidates(d.ipos, canon.lineage, held) };
   // A broker's zero-value credit of a demerger's child shares is the same event as the demerger fact (which carries the cost): keep the fact, drop the credit
   const kids = new Map(d.demergers.filter((x) => x.childIsin).map((x) => [x.childIsin!, x] as const));
@@ -53,7 +56,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const typeByKey = new Map<string, string>(), nameByKey = new Map<string, string>();
   for (const t of stocks) { const k = t.isin || t.instrument.toUpperCase(); if (!typeByKey.has(k)) typeByKey.set(k, assetType(t)); nameByKey.set(k, t.instrument); }
   const symKid = new Map<string, string>();
-  const fm = new FundMaster(d.amfi, d.fundOverrides);
+  const fm = masterFor(d.amfi, d.fundOverrides);
   const fundCodes: Record<string, string> = {};
   const fundTrades: Trade[] = [], unmapped = new Set<string>(), navOf = new Map<string, number>();
   for (const t of funds) {

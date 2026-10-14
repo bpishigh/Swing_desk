@@ -7,13 +7,19 @@ export class Lineage {
           find(x        )         { let r = x; while ((this.p.get(r) ?? r) !== r) r = this.p.get(r) ; this.p.set(x, r); return r; }
           add(x        ) { if (!this.p.has(x)) this.p.set(x, x); }
   link(symbol                    , isin                    , date        ) {
+    this.memo.clear();
     const ids = [symbol ? 'S:' + symbol.toUpperCase() : '', isin ? 'I:' + isin : ''].filter(Boolean);
     for (const i of ids) this.add(i);
     if (ids.length === 2) this.p.set(this.find(ids[0]), this.find(ids[1]));
     if (isin) { const prev = this.lastSeen.get('I:' + isin); if (!prev || prev < date) this.lastSeen.set('I:' + isin, date); }
   }
   /** Canonical key for a company: the ISIN of its group seen most recently; falls back to the symbol. */
+          memo = new Map                ();
   key(symbol         , isin         )         {
+    const mk = (isin ?? '') + '|' + (symbol ?? ''); const hit = this.memo.get(mk); if (hit !== undefined) return hit;
+    const r = this.keyUncached(symbol, isin); this.memo.set(mk, r); return r;
+  }
+          keyUncached(symbol         , isin         )         {
     const id = isin ? 'I:' + isin : symbol ? 'S:' + symbol.toUpperCase() : ''; if (!id || !this.p.has(id)) return isin || (symbol ?? '').toUpperCase();
     const root = this.find(id); let best = '', bd = '';
     for (const [k, d] of this.lastSeen) if (k.startsWith('I:') && this.p.has(k) && this.find(k) === root && d >= bd) { best = k.slice(2); bd = d; }

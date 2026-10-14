@@ -130,15 +130,17 @@ function compute(a) {
   a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
 }
 async function recomputeAll(withFunds) {
-  for (const a of S.accounts.values()) if (a.trades.length) compute(a);
-  render();
-  if (withFunds && S.fundOn && reports().some((a) => Object.keys(a.report.fundCodes).length)) {
+  const accts = [...S.accounts.values()].filter((a) => a.trades.length);
+  for (const a of accts) { setStatus('Calculating ' + a.label + '…'); await new Promise((r) => setTimeout(r)); compute(a); render(); }
+  setStatus('');
+  const withF = accts.filter((a) => Object.keys(a.report.fundCodes).length);
+  if (withFunds && S.fundOn && withF.length) {
     setStatus('Loading fund history…'); await loadFundNavs();
-    for (const a of S.accounts.values()) if (a.trades.length) compute(a);
-    setStatus(''); render();
+    for (const a of withF) { await new Promise((r) => setTimeout(r)); compute(a); render(); }   // only accounts that hold funds change
+    setStatus('');
   }
 }
-let toastT; const setStatus = (t) => { $('status').textContent = t; };
+const setStatus = (t) => { $('status').textContent = t; };
 const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 5000); };
 
 // ---------- selection
@@ -207,6 +209,7 @@ function home(V) {
   const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0];
   const A = analyse({ series: V.series, seriesComplete: V.complete, flows: V.flows, divFlows: V.divFlows, asOf: V.asOf, heldNow: V.held, navs: S.navs, period: per });
   const M = momentum(V.series, V.complete, V.flows, V.asOf, S.navs[S.bench]);
+  S.lastA = A;
   const vd = verdict(A, S.bench, M); const B = A.bench.find((b) => b.id === S.bench);
   const benchLabel = BENCHMARKS.find((b) => b.id === S.bench).label;
   const arrow = { Gaining: '▲', Steady: '▬', Fading: '▼' }[M.label] ?? '·', mcls = { Gaining: 'pos', Fading: 'neg' }[M.label] ?? '';
@@ -323,7 +326,7 @@ function render() {
   if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; return; }
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
   main.innerHTML = { home, holdings, tax, income, data: dataTab }[S.tab](S.cur);
-  if (S.tab === 'home') { const per = S.cur.periods.find((p) => p.id === S.period) ?? S.cur.periods[0]; const A = analyse({ series: S.cur.series, seriesComplete: S.cur.complete, flows: S.cur.flows, divFlows: S.cur.divFlows, asOf: S.cur.asOf, heldNow: S.cur.held, navs: S.navs, period: per }); wireChart(A.path, S.bench); }
+  if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();
@@ -390,12 +393,13 @@ async function setOwner(key, owner) {
 // ---------- start up and saving
 (async () => {
   try {
+    const hp = loadHist(), bench = loadBenchmarks().then(() => render());       // the big downloads run side by side
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
     S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
-    S.hist = await loadHist(); $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
-    const bench = loadBenchmarks();
-    await loadSaved(); await bench;
+    S.hist = await hp; $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
+    await loadSaved();
     await recomputeAll(true);
+    await bench; render();
   } catch (e) { setStatus('Could not load public data: ' + e.message); }
   render();
 })();
@@ -405,7 +409,6 @@ async function loadSaved() {
     if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
     const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
     for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, trades: a.trades, report: null }); }
-    for (const a of S.accounts.values()) if (a.trades.length) { compute(a); render(); await new Promise((r) => setTimeout(r)); }
     if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
     if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';
     setStatus(j.accounts.length ? `Loaded ${j.accounts.length} saved account(s).` : 'No saved accounts yet. Add files, and keep Save ticked to keep them.');

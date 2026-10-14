@@ -6,10 +6,12 @@ const D = (d: string) => Date.parse(d) / 86400000;
 export function xirr(flows: Flow[]): number | null {
   const fl = flows.filter((f) => f.amount !== 0).sort((a, b) => a.date.localeCompare(b.date));
   if (fl.length < 2 || !fl.some((f) => f.amount < 0) || !fl.some((f) => f.amount > 0)) return null;
-  const t0 = D(fl[0].date), f = (r: number) => fl.reduce((a, c) => a + c.amount / Math.pow(1 + r, (D(c.date) - t0) / 365), 0);
-  let lo = -0.9999, hi = 10;                                                 // bisection: f is decreasing in r when the first flow is an outflow
-  if (f(lo) * f(hi) > 0) return null;
-  for (let i = 0; i < 200; i++) { const mid = (lo + hi) / 2; (f(lo) * f(mid) <= 0) ? (hi = mid) : (lo = mid); }
+  const t0 = D(fl[0].date), n = fl.length, amt = new Float64Array(n), yrs = new Float64Array(n);       // year fractions once, not on every step
+  for (let i = 0; i < n; i++) { amt[i] = fl[i].amount; yrs[i] = (D(fl[i].date) - t0) / 365; }
+  const f = (r: number) => { const l = Math.log1p(r); let s = 0; for (let i = 0; i < n; i++) s += amt[i] * Math.exp(-yrs[i] * l); return s; };
+  let lo = -0.9999, hi = 10, flo = f(lo);                                    // bisection: f is decreasing in r when the first flow is an outflow
+  if (flo * f(hi) > 0) return null;
+  for (let i = 0; i < 70; i++) { const mid = (lo + hi) / 2, fm = f(mid); if (flo * fm <= 0) hi = mid; else { lo = mid; flo = fm; } }
   return (lo + hi) / 2;
 }
 
