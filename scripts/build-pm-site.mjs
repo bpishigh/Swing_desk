@@ -12,6 +12,7 @@ for (const f of readdirSync('src/pm').filter((x) => x.endsWith('.ts'))) {
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
+if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site/pm-data/segments.json');
 const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().pop();
 const bhav = JSON.parse(readFileSync('data/india/bhav/' + bf, 'utf8'));
 const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];

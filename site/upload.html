@@ -33,6 +33,7 @@ button { cursor:pointer; }
 .tile .k { font-size:12px; color:var(--muted); display:flex; justify-content:space-between; } .tile .v { font:600 26px/1.2 var(--font); margin:4px 0 2px; letter-spacing:-.01em; } .tile .s { font-size:12.5px; color:var(--muted); }
 .pos { color:var(--green); } .neg { color:var(--red); }
 .chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; } .chip { font-size:11.5px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); background:var(--bg); cursor:pointer; } .chip[aria-pressed=true] { border-color:var(--accent); background:var(--accent-bg); }
+.why { display:block; color:var(--muted); font-size:11px; white-space:normal; max-width:260px; text-align:left; }
 .tag { font-size:11px; padding:1px 7px; border-radius:999px; background:var(--yellow-bg); color:var(--yellow); white-space:nowrap; } .tag.ok { background:var(--green-bg); color:var(--green); } .tag.bad { background:var(--red-bg); color:var(--red); }
 .tw { overflow-x:auto; } table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; } th, td { text-align:right; padding:7px 9px; border-bottom:1px solid var(--line); white-space:nowrap; } th:first-child, td:first-child { text-align:left; white-space:normal; min-width:150px; } th { color:var(--muted); font-weight:500; font-size:12.5px; } th[data-sort] { cursor:pointer; user-select:none; } tfoot td { font-weight:600; border-top:2px solid var(--line); border-bottom:0; } tr.hi td { background:var(--accent-bg); }
 td small { display:block; color:var(--muted); font-size:11.5px; }
@@ -82,6 +83,8 @@ import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
 import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowReturn } from './pm/insight.js';
 import { mergeTax, fy } from './pm/tax.js';
+import { stockVerdict } from './pm/verdict.js';
+import { segmentOf } from './pm/segment.js';
 const $ = (id) => document.getElementById(id);
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -98,7 +101,7 @@ const cls = (x) => (x < 0 ? 'neg' : x > 0 ? 'pos' : '');
 const num = (x) => `<span class="${cls(x)}">${inr(x)}</span>`;
 
 // ---------- state
-const S = { accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', q: '', benchStatus: '' };
+const S = { accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', vf: 'All', q: '', benchStatus: '', segments: null };
 const ownerOf = (a) => a.owner || 'Unassigned';
 const reports = () => [...S.accounts.values()].filter((a) => a.report);
 
@@ -139,6 +142,25 @@ async function recomputeAll(withFunds) {
     for (const a of withF) { await new Promise((r) => setTimeout(r)); compute(a); render(); }   // only accounts that hold funds change
     setStatus('');
   }
+  syncLog().catch(() => {});
+}
+// The verdict log: a line is written when a held stock's verdict changes (or is first seen), so that later its outcome can be judged. Kept with the account.
+async function syncLog() {
+  for (const a of S.accounts.values()) {
+    if (!a.report) continue;
+    const last = new Map(); for (const e of a.verdictLog || []) last.set(e.symbol, e);
+    const add = [];
+    for (const h of a.report.holdings) {
+      const v = verdictOf({ ...h, book: h.book }); if (!v || v.label === 'No verdict' || !v.asOf) continue;
+      const l = last.get(h.symbol); if (l && l.verdict === v.label) continue;
+      add.push({ date: v.asOf, symbol: h.symbol, verdict: v.label, rule: 'exit test: 200 SMA and swing low', close: v.close, sma200: v.sma200, swingLow: v.swingLow ? v.swingLow.price : null, swingDate: v.swingLow ? v.swingLow.date : null, unrealised: h.value === null ? null : Math.round((h.value - h.cost) * 100) / 100 });
+    }
+    if (!add.length) continue;
+    const by = new Map(); for (const e of [...(a.verdictLog || []), ...add]) by.set(e.symbol + '|' + e.date, e);
+    a.verdictLog = [...by.values()].sort((x, y) => x.date.localeCompare(y.date) || x.symbol.localeCompare(y.symbol));
+    if (S.canSave && a.saved) { try { const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, trades: [], verdictLog: add.slice(0, 1000) }) }); if (!res.ok) console.warn('verdict log not saved', res.status); } catch (e) { console.warn('verdict log not saved', e); } }
+  }
+  if (S.tab === 'data') render();
 }
 const setStatus = (t) => { $('status').textContent = t; };
 const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 5000); };
@@ -225,8 +247,9 @@ function home(V) {
     ${A.path.length > 1 ? `<div class="legend"><span><i></i>Your portfolio</span><span><i class="d"></i>Same deposits in ${esc(benchLabel)}</span></div>` : ''}
     ${A.pathNote ? `<div class="sub" style="margin-top:6px">${esc(A.pathNote)}</div>` : ''}
     <div class="sub" style="margin-top:6px">Index lines use direct-plan index funds as stand-ins for the indices (close to the index, less a small fee). Where the lines part is where you did better or worse than simply buying the index.</div></div>
+  ${verdictCard(V)}
   <div class="grid2"><div class="card"><h2>Largest holdings <button class="chip" data-tab="holdings">all holdings →</button></h2>${hs.map((h) => `<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;gap:8px"><span>${esc(h.name)}</span><span>${short(h.value)} <span class="sub">${pct(h.value / tot, 0)}</span> <span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost, 0)}</span></span></div><div class="bar2"><i style="width:${Math.min(100, (h.value / tot) * 100 * 2.5)}%"></i></div></div>`).join('') || '<div class="sub">Nothing valued yet.</div>'}</div>
-  <div class="card"><h2>Needs a look</h2>${attention.length ? attention.map((x) => `<div style="margin:6px 0">${x}</div>`).join('') : '<div class="sub">Nothing to check in the data.</div>'}<div class="sub" style="margin-top:8px">Buy, hold or sell verdicts for each holding come later, from the Swing Desk and fund rules.</div></div></div>`;
+  <div class="card"><h2>Needs a look</h2>${attention.length ? attention.map((x) => `<div style="margin:6px 0">${x}</div>`).join('') : '<div class="sub">Nothing to check in the data.</div>'}<div class="sub" style="margin-top:8px">Funds and ETFs get no verdict yet; fund rules come later.</div></div></div>`;
 }
 function attentionItems(V) {
   const out = []; const un = V.R.reduce((a, r) => a + r.resolver.proposed.length, 0), ux = V.R.reduce((a, r) => a + r.resolver.unexplained.length, 0), nv = V.R.reduce((a, r) => a + r.performance.notValued.filter((x) => !/last order price/.test(x)).length, 0);
@@ -244,23 +267,42 @@ function mergedHoldings(V) {
   for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; if (h.value === null) e.anyNull = true; else e.value += h.value; }
   return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 }
+// ---------- verdicts for direct stocks: the exit test and Keep (design doc section 4). Funds and ETFs get none yet.
+const vmemo = new Map(), fmt2 = (n) => n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function verdictOf(h) {
+  if (h.kind !== 'Stock' || h.book !== 'Legacy' || !h.symbol || !S.hist || !S.data) return null;
+  let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed); vmemo.set(h.symbol, v); } return v;
+}
+const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
+const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}</span>`);
+const vWhy = (v) => (!v ? '' : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') : v.label === 'No verdict' ? v.reasons[0] : '');
+function verdictCard(V) {
+  const vs = mergedHoldings(V).map((h) => [h, verdictOf(h)]).filter(([, v]) => v);
+  if (!vs.length) return '';
+  const ex = vs.filter(([, v]) => v.label === 'Exit').sort((a, b) => (b[0].value ?? 0) - (a[0].value ?? 0)), keep = vs.filter(([, v]) => v.label === 'Keep').length, nov = vs.length - ex.length - keep;
+  const asOf = vs.map(([, v]) => v.asOf).filter(Boolean).sort().pop() || '';
+  return `<div class="card"><h2>What to do <button class="chip" data-tab="holdings">all verdicts →</button></h2>
+  <div style="margin-bottom:8px">${vs.length} direct stocks tested: <b>${ex.length}</b> fail the exit test${ex.length ? ` (${short(ex.reduce((a, [h]) => a + (h.value ?? 0), 0))} of value)` : ''}, <b>${keep}</b> pass${nov ? `, ${nov} cannot be tested` : ''}.</div>
+  ${ex.slice(0, 8).map(([h, v]) => `<div style="margin:8px 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span><span class="tag bad">Exit</span> ${esc(h.name)} <span class="sub">${esc(vWhy(v))}</span></span><span>${h.value === null ? '' : short(h.value)} <span class="${cls((h.value ?? 0) - h.cost)}">${h.value === null || !h.cost ? '' : pct((h.value - h.cost) / h.cost, 0)}</span></span></div>`).join('')}${ex.length > 8 ? `<div class="sub">and ${ex.length - 8} more on the Holdings tab.</div>` : ''}${!ex.length ? '<div class="sub">No stock fails the exit test.</div>' : ''}
+  <div class="sub" style="margin-top:8px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test; whether it also fits your ten-name target (Trim) or qualifies for the Swing book (Promote) is not applied yet. Based on closes up to ${esc(asOf)}.</div></div>`;
+}
 function holdingsRows(V) {
   const tot = mergedHoldings(V).reduce((a, h) => a + (h.value ?? 0), 0) || 1;
-  let rows = mergedHoldings(V).filter((h) => (S.kind === 'All' || h.kind === S.kind) && (!S.q || (h.name + ' ' + h.symbol).toLowerCase().includes(S.q.toLowerCase())));
-  const g = { name: (h) => h.name.toLowerCase(), kind: (h) => h.kind, book: (h) => h.book, weight: (h) => h.value ?? -1, value: (h) => h.value ?? -1, cost: (h) => h.cost, gain: (h) => (h.value === null ? -1e18 : h.value - h.cost), gainPct: (h) => (h.value === null || !h.cost ? -1e18 : (h.value - h.cost) / h.cost) }[S.sort.k];
+  let rows = mergedHoldings(V).filter((h) => (S.kind === 'All' || h.kind === S.kind) && (S.vf === 'All' || verdictOf(h)?.label === S.vf) && (!S.q || (h.name + ' ' + h.symbol).toLowerCase().includes(S.q.toLowerCase())));
+  const g = { name: (h) => h.name.toLowerCase(), kind: (h) => h.kind, book: (h) => h.book, weight: (h) => h.value ?? -1, value: (h) => h.value ?? -1, cost: (h) => h.cost, gain: (h) => (h.value === null ? -1e18 : h.value - h.cost), gainPct: (h) => (h.value === null || !h.cost ? -1e18 : (h.value - h.cost) / h.cost), verdict: (h) => verdictOf(h)?.label ?? '~', cap: (h) => segOf(h) ?? '~' }[S.sort.k];
   rows = rows.sort((a, b) => (g(a) < g(b) ? -1 : g(a) > g(b) ? 1 : 0) * S.sort.d);
   const sum = rows.reduce((a, h) => ({ cost: a.cost + h.cost, value: a.value + (h.value ?? 0) }), { cost: 0, value: 0 });
   return { tot, rows, sum };
 }
 function holdingsBody(V) {
   const { tot, rows, sum } = holdingsRows(V);
-  return rows.map((h) => `<tr><td>${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>`).join('') + `<tr class="foot"><td colspan="5"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
+  return rows.map((h) => `<tr><td>${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${vWhy(verdictOf(h)) ? `<small class="why">${esc(vWhy(verdictOf(h)))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>`).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
 }
 function holdings(V) {
   const kinds = ['All', 'Stock', 'ETF', 'Fund'];
   const th = (k, t) => `<th data-sort="${k}">${t}${S.sort.k === k ? (S.sort.d > 0 ? ' ▲' : ' ▼') : ''}</th>`;
-  return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
-  <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>`;
+  return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="seg">${['All', 'Exit', 'Keep', 'No verdict'].map((k) => `<button data-vf="${k}" aria-pressed="${S.vf === k}">${k === 'All' ? 'Any verdict' : k}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
+  <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('cap', 'Cap')}${th('verdict', 'Verdict')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>`;
 }
 
 // ---------- tax and income
@@ -299,6 +341,12 @@ function coverage(a) {
   let gap = 0, gf = '', gt = ''; for (let i = 1; i < ds.length; i++) { const g = (Date.parse(ds[i]) - Date.parse(ds[i - 1])) / 86400000; if (g > gap) { gap = g; gf = ds[i - 1]; gt = ds[i]; } }
   return { first: ds[0], last: ds.at(-1), years: Object.entries(years).map(([y, n]) => `${y}: ${n}`).join(' · '), gap: gap > 120 ? `Longest quiet stretch: ${Math.round(gap)} days (${gf} to ${gt}). Normal if you did not trade; if you did, a file may be missing.` : '' };
 }
+function logCard(ms) {
+  const rows = ms.flatMap((a) => (a.verdictLog || []).map((e) => [a, e])).sort((x, y) => y[1].date.localeCompare(x[1].date) || x[1].symbol.localeCompare(y[1].symbol));
+  if (!rows.length) return '';
+  const now = S.data?.prices || {};
+  return `<div class="card"><h2>Verdict log</h2><div class="sub" style="margin-bottom:6px">Every change of verdict is recorded with the price it rested on, so the verdicts can be judged later by what the stock did next. Newest first.</div><div class="tw"><table><thead><tr><th>Date</th><th>Account</th><th>Stock</th><th>Verdict</th><th>Close then ₹</th><th>200 SMA ₹</th><th>Swing low ₹</th><th>Since then</th></tr></thead><tbody>${rows.slice(0, 60).map(([a, e]) => { const p = now[e.symbol]; const ch = p && e.close ? (p - e.close) / e.close : null; return `<tr><td>${esc(e.date)}</td><td>${esc(a.label)}</td><td>${esc(e.symbol)}</td><td><span class="tag ${e.verdict === 'Exit' ? 'bad' : 'ok'}">${e.verdict}</span></td><td>${fmt2(e.close)}</td><td>${e.sma200 === null ? '–' : fmt2(e.sma200)}</td><td>${e.swingLow === null ? '–' : fmt2(e.swingLow)}</td><td>${ch === null ? '–' : `<span class="${cls(ch)}">${pct(ch)}</span>`}</td></tr>`; }).join('')}</tbody></table></div>${rows.length > 60 ? `<div class="sub">Showing the latest 60 of ${rows.length}.</div>` : ''}</div>`;
+}
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
@@ -313,6 +361,7 @@ function dataTab() {
   ${ms.flatMap((a) => a.report.warnings.map((w) => `<div class="note"><b>${esc(a.label)}</b>: ${esc(w)}</div>`)).join('')}
   ${!items.length && !unx.length && !nvs.length && !ms.some((a) => a.report.warnings.length) ? '<div class="sub">Nothing to check.</div>' : ''}
   <div class="sub" style="margin-top:8px">${ms.reduce((a, m) => a + m.report.resolver.applied.length, 0)} corporate actions (splits, bonuses, demergers) were found in your holdings and applied automatically from NSE records.</div></div>
+  ${logCard(ms)}
   <div class="card"><h2>Data</h2>
   <label><input type="checkbox" id="fundOn" ${S.fundOn ? 'checked' : ''}> Include mutual funds in value history and period returns</label>
   <div class="sub" style="margin:4px 0 8px 22px">Fetches public NAV history from mfapi.in. That service can see which fund schemes you hold (it cannot see amounts or your name). Index history is fetched the same way, for five fixed index funds.</div>
@@ -323,7 +372,8 @@ function dataTab() {
 function render() {
   S.cur = build(); drawChrome();
   const main = $('main');
-  if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; return; }
+  if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; S.autoOpen = true; return; }
+  if (S.autoOpen) { S.autoOpen = false; $('drawer').hidden = true; }   // opened only because nothing had loaded yet
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
   main.innerHTML = { home, holdings, tax, income, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
@@ -345,8 +395,9 @@ document.addEventListener('click', (e) => {
   if (t.dataset.tab) { S.tab = t.dataset.tab; return render(); }
   if (t.dataset.bench) { S.bench = t.dataset.bench; store.set('bench', S.bench); return render(); }
   if (t.dataset.kind) { S.kind = t.dataset.kind; return render(); }
+  if (t.dataset.vf) { S.vf = t.dataset.vf; return render(); }
 });
-document.addEventListener('click', (e) => { const th = e.target.closest('th[data-sort]'); if (!th) return; const k = th.dataset.sort; S.sort = S.sort.k === k ? { k, d: -S.sort.d } : { k, d: k === 'name' || k === 'kind' || k === 'book' ? 1 : -1 }; render(); });
+document.addEventListener('click', (e) => { const th = e.target.closest('th[data-sort]'); if (!th) return; const k = th.dataset.sort; S.sort = S.sort.k === k ? { k, d: -S.sort.d } : { k, d: ['name', 'kind', 'book', 'verdict', 'cap'].includes(k) ? 1 : -1 }; render(); });
 document.addEventListener('keydown', (e) => {
   if (e.target.id === 'newAcct' && e.key === 'Enter') {
     const label = e.target.value.trim(); if (!/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(label)) { e.target.style.borderColor = 'var(--red)'; return; }
@@ -396,6 +447,7 @@ async function setOwner(key, owner) {
     const hp = loadHist(), bench = loadBenchmarks().then(() => render());       // the big downloads run side by side
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
     S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
+    S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.hist = await hp; $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
     await loadSaved();
     await recomputeAll(true);
@@ -408,7 +460,7 @@ async function loadSaved() {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
     if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
     const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
-    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, trades: a.trades, report: null }); }
+    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, verdictLog: a.verdictLog || [], saved: true, trades: a.trades, report: null }); }
     if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
     if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';
     setStatus(j.accounts.length ? `Loaded ${j.accounts.length} saved account(s).` : 'No saved accounts yet. Add files, and keep Save ticked to keep them.');
@@ -439,7 +491,7 @@ $('run').onclick = async () => {
     let msg = `Done: ${a.label} now has ${a.trades.length} transactions.${notes.length ? ' ' + notes.join(' ') : ''}`;
     if (S.canSave && $('save').checked) {
       const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
-      const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` Not saved: ${j.error || res.status}.`;
+      const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` Not saved: ${j.error || res.status}.`; if (res.ok) a.saved = true;
     }
     notify(msg); $('files').value = ''; await recomputeAll(true);
   } catch (e) { setStatus('Error: ' + e.message); console.error(e); }

@@ -2,7 +2,7 @@
 import { mergeTrades, type Trade } from '../../src/pm/reader.ts';
 import type { Decision } from '../../src/pm/resolver.ts';
 export interface StoreEnv { GITHUB_TOKEN: string; REPO: string; BRANCH?: string }
-export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; savedAt: string; trades: Trade[] }
+export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; verdictLog?: LogEntry[]; savedAt: string; trades: Trade[] }
 const DIR = 'portfolio/accounts';
 const LABEL = /^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/;
 const DATE = /^\d{4}-\d\d-\d\d$/;
@@ -41,6 +41,30 @@ export function cleanDecisions(input: unknown): Record<string, Decision | 'clear
   }
   return out;
 }
+/** One line of the verdict log: what the rule said about a held stock on a day, and the numbers it rested on. Only changes are logged. */
+export interface LogEntry { date: string; symbol: string; verdict: 'Exit' | 'Keep'; rule: string; close: number; sma200: number | null; swingLow: number | null; swingDate: string | null; unrealised: number | null }
+const LOG_CAP = 5000;
+const finite = (v: unknown, lo = -1e12, hi = 1e12) => typeof v === 'number' && Number.isFinite(v) && v >= lo && v <= hi;
+export function cleanLog(input: unknown): LogEntry[] | string {
+  if (input === undefined) return [];
+  if (!Array.isArray(input)) return 'verdictLog must be a list';
+  if (input.length > 1000) return 'too many log entries';
+  const out: LogEntry[] = [];
+  for (const e of input) {
+    if (!e || typeof e !== 'object') return 'bad log entry';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date) || !/^[A-Za-z0-9&._-]{1,30}$/.test(e.symbol)) return 'bad log entry';
+    if (e.verdict !== 'Exit' && e.verdict !== 'Keep') return 'bad log verdict';
+    if (typeof e.rule !== 'string' || e.rule.length > 80) return 'bad log rule';
+    if (!finite(e.close, 0, 1e8) || !(e.sma200 === null || finite(e.sma200, 0, 1e8)) || !(e.swingLow === null || finite(e.swingLow, 0, 1e8)) || !(e.unrealised === null || finite(e.unrealised))) return 'bad log numbers';
+    if (!(e.swingDate === null || /^\d{4}-\d{2}-\d{2}$/.test(e.swingDate))) return 'bad log date';
+    out.push({ date: e.date, symbol: e.symbol, verdict: e.verdict, rule: e.rule, close: e.close, sma200: e.sma200, swingLow: e.swingLow, swingDate: e.swingDate, unrealised: e.unrealised });
+  }
+  return out;
+}
+export function mergeLog(cur: LogEntry[] = [], add: LogEntry[] = []): LogEntry[] {
+  const by = new Map<string, LogEntry>(); for (const e of [...cur, ...add]) by.set(e.symbol + '|' + e.date, e);
+  return [...by.values()].sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol)).slice(-LOG_CAP);
+}
 export const validOwner = (o: unknown): o is string | undefined => o === undefined || validLabel(o);
 export const validLabel = (l: unknown): l is string => typeof l === 'string' && LABEL.test(l);
 const slug = (l: string) => l.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -72,11 +96,12 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = []) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
   const dec: Record<string, Decision> = { ...(cur?.data.decisions ?? {}) }; for (const [k, v] of Object.entries(decisions)) { if (v === 'clear') delete dec[k]; else dec[k] = v; }
-  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
+  const vlog = mergeLog(cur?.data.verdictLog, log);
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }
