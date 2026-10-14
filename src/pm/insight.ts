@@ -108,7 +108,7 @@ export function analyse(i: AnalyseInput): Analysis {
   if (i.series && i.seriesComplete) {
     const s0 = i.series[0].date, pf = p.from && p.from > s0 ? p.from : s0 > from ? s0 : from;
     const startV = valueAt(i.series, flows, pf);
-    if (p.from === null && s0 > firstFlow) pathNote = `Value history starts ${s0} (stored prices); earlier months are not drawn.`;
+    if (p.from === null && s0 > shiftDays(firstFlow, 10)) pathNote = `Value history starts ${s0} (stored prices); earlier months are not drawn.`;
     if (startV !== null) {
       const pts = i.series.filter((d) => d.date >= pf && d.date <= to);
       const fl = flows.filter((f) => f.date > pf && f.date <= to).sort((a, b) => a.date.localeCompare(b.date));

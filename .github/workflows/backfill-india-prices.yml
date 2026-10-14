@@ -18,10 +18,11 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          for batch in 1 2 3 4 5 6 7 8 9 10 11 12 13; do
+          for batch in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
             node scripts/backfill-india-prices.mjs --months=4 | tee /tmp/out.txt
             git add data/india/prices-hist
             git commit -m "backfill-india-prices: batch $batch" || true
             for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && break; sleep $((i*3)); done
-            grep -q '"months":0' /tmp/out.txt && break
+            if grep -q '"months":0' /tmp/out.txt; then break; fi
           done
+          exit 0

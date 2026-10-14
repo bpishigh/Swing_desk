@@ -101,7 +101,7 @@ export function runPipeline(batches           , broker                     , d  
     const all = ph.dates.map((x, i) => [x, i]         ).filter(([x]) => x >= first);
     // Long histories are thinned so the daily replay stays fast: every day in the last 400 days, one day in five before that, and always the last session on or before each 31 March (the financial-year boundaries the page needs).
     const recent = ph.dates.length ? new Date(Date.parse(ph.dates[ph.dates.length - 1]) - 400 * 86400000).toISOString().slice(0, 10) : '';
-    const idx = all.filter(([x], k) => x >= recent || k % 5 === 0 || (k + 1 < all.length && x <= `${x.slice(0, 4)}-03-31` && all[k + 1][0] > `${x.slice(0, 4)}-03-31`) || k === all.length - 1);
+    const idx = all.filter(([x, i]) => x >= recent || i % 5 === 0 || (i + 1 < ph.dates.length && x <= `${x.slice(0, 4)}-03-31` && ph.dates[i + 1] > `${x.slice(0, 4)}-03-31`) || i === ph.dates.length - 1);   // thinned on the shared date list (not per account), so accounts line up when added together
     const dates = idx.map(([x]) => x), at = new Map(idx);
     const navDates = new Map                  (); for (const [k, m] of Object.entries(d.navHistory ?? {})) navDates.set(k, Object.keys(m).sort());
     const price = (key        , date        )                     => {
