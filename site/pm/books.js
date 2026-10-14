@@ -8,6 +8,7 @@
                               
                                      
                                    
+                                                                                                                                                          
                                                                                                   
                                                                                                                         
                                                                                               
@@ -17,7 +18,7 @@ export function inferBooks(open       , ctx             )           {
   return open.map((lot) => {
     if (ctx.isFund(lot.key)) return { lot, book: 'Long-term'        , rule: 'rule 2: mutual funds and fund-like holdings are Long-term' };
     const t = ctx.typeOf(lot.key);
-    if (t === 'gold_silver_etf' || t === 'intl_etf') return { lot, book: 'Long-term'        , rule: 'rule 2: ETFs other than direct equity are Long-term' };
+    if (t === 'gold_silver_etf' || t === 'intl_etf' || ctx.isEtf?.(lot.key)) return { lot, book: 'Long-term'        , rule: 'rule 2: ETFs other than direct equity are Long-term' };
     if (ctx.promoted?.has(`${lot.key}|${lot.date}`)) return { lot, book: 'Swing'        , rule: 'rule 4: promoted by the system (passed the screen, stop set)' };
     if (ctx.swingGoLive && lot.date >= ctx.swingGoLive && ctx.shortlistMatch?.(lot.key, lot.date)) return { lot, book: 'Swing'        , rule: 'rule 4: bought on that night\'s shortlist inside trigger and limit' };
     return { lot, book: 'Legacy'        , rule: 'rule 3: direct stocks start as Legacy' };

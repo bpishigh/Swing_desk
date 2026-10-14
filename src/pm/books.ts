@@ -8,6 +8,7 @@ export interface Tagged { lot: Lot; book: Book; rule: string }
 export interface BookContext {
   typeOf: (key: string) => AssetType;
   isFund: (key: string) => boolean;
+  isEtf?: (key: string) => boolean;             // any listed ETF (index, gold, silver, international, sector): Long-term, never under the stock exit test
   promoted?: Set<string>;                       // `${key}|${buyDate}` of lots the system promoted
   shortlistMatch?: (key: string, buyDate: string) => boolean;   // bought on a saved shortlist, inside trigger and limit
   swingGoLive?: string | null;                  // date the Swing Desk began saving shortlists
@@ -17,7 +18,7 @@ export function inferBooks(open: Lot[], ctx: BookContext): Tagged[] {
   return open.map((lot) => {
     if (ctx.isFund(lot.key)) return { lot, book: 'Long-term' as Book, rule: 'rule 2: mutual funds and fund-like holdings are Long-term' };
     const t = ctx.typeOf(lot.key);
-    if (t === 'gold_silver_etf' || t === 'intl_etf') return { lot, book: 'Long-term' as Book, rule: 'rule 2: ETFs other than direct equity are Long-term' };
+    if (t === 'gold_silver_etf' || t === 'intl_etf' || ctx.isEtf?.(lot.key)) return { lot, book: 'Long-term' as Book, rule: 'rule 2: ETFs other than direct equity are Long-term' };
     if (ctx.promoted?.has(`${lot.key}|${lot.date}`)) return { lot, book: 'Swing' as Book, rule: 'rule 4: promoted by the system (passed the screen, stop set)' };
     if (ctx.swingGoLive && lot.date >= ctx.swingGoLive && ctx.shortlistMatch?.(lot.key, lot.date)) return { lot, book: 'Swing' as Book, rule: 'rule 4: bought on that night\'s shortlist inside trigger and limit' };
     return { lot, book: 'Legacy' as Book, rule: 'rule 3: direct stocks start as Legacy' };

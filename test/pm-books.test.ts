@@ -24,3 +24,8 @@ test('valuation series: units from the replay times that day\'s price; a missing
   const s = valuationSeries([T('buy', '2024-01-02', 10), T('sell', '2024-01-05', 4)], [], Object.keys(prices), (_k, d) => prices[d]);
   assert.deepEqual(s.map((x) => x.value), [1000, 1000, 1200, 780]); assert.deepEqual(s.map((x) => x.missingPrices), [0, 1, 0, 0]);
 });
+test('index ETFs are Long-term, like gold and international ETFs; a plain stock stays Legacy (owner, 14 Oct)', () => {
+  const c = { ...ctx, isEtf: (k: string) => k === 'NIFTYBEES' };
+  const t = inferBooks([lot('NIFTYBEES', '2024-01-01', 10, 10), lot('STK', '2024-01-01', 10, 10)], c);
+  assert.deepEqual(t.map((x) => x.book), ['Long-term', 'Legacy']); assert.match(t[0].rule, /ETFs other than direct equity/);
+});
