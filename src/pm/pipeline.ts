@@ -98,7 +98,10 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   let series: DayValue[] | null = null;
   if (d.priceHistory) {
     const ph = d.priceHistory, first = [...stocks, ...(d.navHistory ? fundTrades : [])].map((t) => t.date).sort()[0] ?? '';
-    const idx = ph.dates.map((x, i) => [x, i] as const).filter(([x]) => x >= first);
+    const all = ph.dates.map((x, i) => [x, i] as const).filter(([x]) => x >= first);
+    // Long histories are thinned so the daily replay stays fast: every day in the last 400 days, one day in five before that, and always the last session on or before each 31 March (the financial-year boundaries the page needs).
+    const recent = ph.dates.length ? new Date(Date.parse(ph.dates[ph.dates.length - 1]) - 400 * 86400000).toISOString().slice(0, 10) : '';
+    const idx = all.filter(([x], k) => x >= recent || k % 5 === 0 || (k + 1 < all.length && x <= `${x.slice(0, 4)}-03-31` && all[k + 1][0] > `${x.slice(0, 4)}-03-31`) || k === all.length - 1);
     const dates = idx.map(([x]) => x), at = new Map(idx);
     const navDates = new Map<string, string[]>(); for (const [k, m] of Object.entries(d.navHistory ?? {})) navDates.set(k, Object.keys(m).sort());
     const price = (key: string, date: string): number | undefined => {
