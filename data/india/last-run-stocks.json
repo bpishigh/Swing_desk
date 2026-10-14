@@ -1,22 +1,22 @@
 {
- "ts": "2026-10-13T13:37:47.137Z",
- "date": "2026-10-13",
+ "ts": "2026-10-14T13:37:41.341Z",
+ "date": "2026-10-14",
  "status": "written",
  "fetched": [
-  "2026-10-13"
+  "2026-10-14"
  ],
  "skipped": [],
  "notPublished": false,
- "sessionsStored": 244,
+ "sessionsStored": 245,
  "stocks": 2914,
  "flags": [
-  "2429 of 2914 stocks have a 200 SMA; 2646 have a warm EMA",
+  "2428 of 2914 stocks have a 200 SMA; 2645 have a warm EMA",
   "corporate actions: 97 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 2 unresolved (averages omitted), 1 older than the averages now reach",
   "NSE circulars: 48 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 177,
-  "newlyRead": 1,
+  "checked": 204,
+  "newlyRead": 2,
   "unreadable": [],
   "errors": 0,
   "problem": null
@@ -31,7 +31,5 @@
   ]
  },
  "circularProblems": [],
- "newUnresolved": [
-  "NATCO-RE|2026-10-13"
- ]
+ "newUnresolved": []
 }
