@@ -21,10 +21,11 @@ jobs:
       - run: node scripts/backfill-us-sic.mjs ${{ github.event.inputs.refresh == 'true' && '--refresh' || '' }}
         env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
       - name: Commit
+        if: always()
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/us/sic.json
+          git add data/us/sic.json data/us/sic-log.json
           git commit -m "backfill-us-sic: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0

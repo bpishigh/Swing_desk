@@ -28,8 +28,10 @@ console.log(JSON.stringify({ last, wanted: wanted.length, stored: have.size, tod
 if (!todo.length) process.exit(0);
 
 async function sec(url) { const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' } }); return r.ok ? r.json() : { __status: r.status }; }
-const map = parseSecTickers(await sec('https://www.sec.gov/files/company_tickers.json'));
-if (!map.size) { console.error('SEC ticker map not read; stopping (no file written)'); process.exit(1); }
+const log = (o) => writeFileSync('data/us/sic-log.json', JSON.stringify({ at: new Date().toISOString(), ...o }) + '\n');
+let tickersJson; try { tickersJson = await sec('https://www.sec.gov/files/company_tickers.json'); } catch (e) { log({ step: 'sec tickers', error: String(e?.cause?.code || e?.message || e) }); console.error('SEC ticker file not reachable'); process.exit(1); }
+const map = parseSecTickers(tickersJson);
+if (!map.size) { log({ step: 'sec tickers', status: tickersJson?.__status ?? 'empty map', ua: UA.replace(/\S+@\S+/, '<contact>') }); console.error('SEC ticker map not read; stopping (no file written)'); process.exit(1); }
 const rows = [...have.values()]; const missing = [];
 let fetched = 0, blocked = false;
 for (const t of todo) {
