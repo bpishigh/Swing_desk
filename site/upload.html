@@ -285,7 +285,8 @@ function firmOf(h) {
   const v = verdictOf(h), c = ctxOf(h); if (!v || !c || v.label === 'No verdict') return null;
   const tr = c.state ? S.track?.states?.[c.state] : null, keep = S.track?.states?.Keep;
   const notes = [];
-  if (v.adjusted) notes.push(`this stock had ${v.adjusted.length} split, bonus, dividend or rights event${v.adjusted.length > 1 ? 's' : ''}, so its old prices were scaled to compare fairly. That is usually right, but glance at the chart if the numbers look odd`);
+  const est = (v.adjusted || []).filter((a) => /adjusted from price|dropped/.test(a)); if (est.length) notes.push(`this stock demerged and the exact split was not typed in, so the engine worked it out from the price itself (${est.map((a) => a.replace(/^.*?\(ex /, '(ex ')).join('; ')}). Treat the verdict as an estimate and glance at the chart`);
+  if (v.adjusted && v.adjusted.length > est.length) notes.push(`this stock had ${v.adjusted.length - est.length} split, bonus, dividend or rights event${v.adjusted.length - est.length > 1 ? 's' : ''}, so its old prices were scaled to compare fairly. That is usually right, but glance at the chart if the numbers look odd`);
   if (v.partial) notes.push('this stock is too new for a 200-day average, so only the swing-low test could be run');
   if (c.series && c.series !== 'EQ') notes.push(`it trades in the ${c.series} segment, which can be slower to sell`);
   if (c.advCr !== null && c.advCr < 10) notes.push('it trades under ₹10 crore a day, so selling a large position may take time');

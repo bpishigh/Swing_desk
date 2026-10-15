@@ -71,7 +71,8 @@ test('a split that the stored prices show is adjusted, so the verdict is real; o
   const v = stockVerdict('AAA', h, [row]);
   assert.equal(v.label, 'Keep'); assert.equal(v.below200, false); assert.equal(v.adjusted?.length, 1);
   const fake = stockVerdict('AAA', hist('AAA', rising()), [{ ...row, exDate: h.dates[240] }]); assert.equal(fake.label, 'No verdict'); assert.match(fake.reasons[0], /could not be adjusted/);
-  const dem = stockVerdict('AAA', h, [{ symbol: 'AAA', exDate: h.dates[240], subject: ' Demerger' }]); assert.equal(dem.label, 'No verdict');
+  const dem = stockVerdict('AAA', h, [{ symbol: 'AAA', exDate: h.dates[240], subject: ' Demerger' }]); assert.equal(dem.label, 'Keep'); assert.match(dem.adjusted?.[0] ?? '', /adjusted from price/);   // C-50: an untyped demerger with a clear break is adjusted by the observed ratio
+  const sch = stockVerdict('AAA', h, [{ symbol: 'AAA', exDate: h.dates[240], subject: ' Scheme Of Arrangement' }]); assert.equal(sch.label, 'No verdict'); assert.match(sch.reasons[0], /could not be adjusted/);   // only a demerger gets the fallback
 });
 test('two actions in the window are stacked', () => {
   const c = rising().map((v, i) => v / (i >= 220 ? 2 : 1) / (i >= 240 ? 5 : 1)); const h = hist('AAA', c);
@@ -98,12 +99,12 @@ test('dividends: only a payout of 5% of the prior close or more is adjusted; rig
   assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1', faceVal: '10' }, 200), null);
   assert.equal(rightsFactor({ symbol: 'AAA', exDate: '2026-01-01', subject: ' Rights 1:1 @ Premium Rs 400/-', faceVal: '10' }, 200), null);   // issue price above market
 });
-test('a demerger with a typed cost apportionment is adjusted when the stored prices show the drop; without a record it stays blocked', () => {
+test('a demerger with a typed cost apportionment is adjusted when the stored prices show the drop; without a record the observed drop is used (C-50)', () => {
   const c = rising().map((v, i) => (i >= 240 ? v * 0.7 : v)); const h = hist('AAA', c);
   const row = { symbol: 'AAA', exDate: h.dates[240], subject: ' Demerger' };
-  assert.equal(stockVerdict('AAA', h, [row]).label, 'No verdict');
+  const auto = stockVerdict('AAA', h, [row]); assert.equal(auto.label, 'Keep'); assert.match(auto.adjusted?.[0] ?? '', /adjusted from price: the stored closes fell 30%/);
   const v = stockVerdict('AAA', h, [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 0.3 }]);
   assert.equal(v.label, 'Keep'); assert.equal(v.adjusted?.length, 1);
-  const wrong = stockVerdict('AAA', hist('AAA', rising()), [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 0.3 }]); assert.equal(wrong.label, 'No verdict');   // prices show no drop
-  const amalg = stockVerdict('AAA', h, [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 1, feed: false }]); assert.equal(amalg.label, 'No verdict');
+  const wrong = stockVerdict('AAA', hist('AAA', rising()), [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 0.3 }]); assert.notEqual(wrong.label, 'Exit'); assert.match(wrong.adjusted?.[0] ?? '', /closes before the ex-date dropped/);   // prices show no drop: no clear break, history cut at the ex-date
+  const amalg = stockVerdict('AAA', h, [row], [{ parent: 'AAA', exDate: h.dates[240], costPct: 1, feed: false }]); assert.equal(amalg.label, 'Keep'); assert.match(amalg.adjusted?.[0] ?? '', /adjusted from price/);
 });

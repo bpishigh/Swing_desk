@@ -40,6 +40,7 @@ export const sma = (closes: (number | null)[], len = SMA_LEN): number | null => 
 const ADJUSTS = /\b(split|sub-?division|bonus|demerger|de-merger|arrangement|consolidation|capital reduction|scheme)\b/i;
 const BONUS = /^\s*bonus-?\s*(\d+)\s*:\s*(\d+)\s*$/i;                       // "Bonus 1:4" = 1 new share for every 4 held
 const SPLIT = /^\s*(?:face value )?(?:split|sub-?division)[^]*?from\s+(?:rs|re)\.?\s*([\d.]+)\s*\/?-?\s*per share\s+to\s+(?:rs|re)\.?\s*([\d.]+)/i;
+export const DEMERGER_BREAK = 0.15;   // C-50: a one-day fall at least this large across a demerger ex-date is taken as the demerger
 export const ADJUST_TOLERANCE = 0.25;   // the observed ex-date move may differ from the expected drop by at most this (ordinary market move allowance), and by less than half the log distance between "no change" and the expected drop, so a small bonus that did not show cannot pass
 
 /** Price divisor for a plain split or bonus (closes before the ex-date are divided by it); null for anything else (demerger, scheme, rights, consolidation, NCRPS bonus). */
@@ -79,8 +80,8 @@ export function demergerFactor(r: CorpActionRow, recs: DemergerRec[]): number | 
 /** Back-adjust closes for the splits and bonuses of one symbol. Actions with the same ex-date are combined (a bonus announced with a split is one price move). Each combined factor is
  *  checked against the stored closes: the move across the ex-date must be about the expected drop, else the group is left "unresolved" and the caller falls back to No verdict.
  *  A group holding any action that is not a plain split or bonus (demerger, scheme, rights, NCRPS bonus) is unresolved. */
-export function adjustSeries(dates: string[], series: (number | null)[], rows: CorpActionRow[], from: string, demergers: DemergerRec[] = []): { series: (number | null)[]; unresolved: CorpActionRow[]; applied: { row: CorpActionRow; factor: number }[]; rejected: { rows: CorpActionRow[]; factor: number; observed: number | null }[] } {
-  const out = series.slice(), unresolved: CorpActionRow[] = [], applied: { row: CorpActionRow; factor: number }[] = [], rejected: { rows: CorpActionRow[]; factor: number; observed: number | null }[] = [];
+export function adjustSeries(dates: string[], series: (number | null)[], rows: CorpActionRow[], from: string, demergers: DemergerRec[] = []): { series: (number | null)[]; unresolved: CorpActionRow[]; applied: { row: CorpActionRow; factor: number }[]; rejected: { rows: CorpActionRow[]; factor: number; observed: number | null }[]; estimated: { rows: CorpActionRow[]; factor: number }[]; truncated: CorpActionRow[] } {
+  const out = series.slice(), unresolved: CorpActionRow[] = [], applied: { row: CorpActionRow; factor: number }[] = [], rejected: { rows: CorpActionRow[]; factor: number; observed: number | null }[] = [], estimated: { rows: CorpActionRow[]; factor: number }[] = [], truncated: CorpActionRow[] = [];
   const first = series.findIndex((v) => v !== null && v !== undefined);
   const groups = new Map<string, CorpActionRow[]>();
   for (const r of rows) if (ADJUSTS.test(r.subject) || DIVIDEND.test(r.subject) || RIGHTS.test(r.subject)) (groups.get(r.exDate) ?? groups.set(r.exDate, []).get(r.exDate)!).push(r);
@@ -96,20 +97,34 @@ export function adjustSeries(dates: string[], series: (number | null)[], rows: C
       if (f > 1) { for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v / f; } for (const r of used) applied.push({ row: r, factor: f }); }
       continue;
     }
+    const onlyDemerger = g.filter((r) => ADJUSTS.test(r.subject)).every((r) => DEMERGER.test(r.subject));
+    /** C-50: a demerger with no usable typed record. A one-day fall of DEMERGER_BREAK or more across the ex-date is taken as the demerger and the earlier closes are adjusted by the observed ratio; anything smaller drops the closes before the ex-date (the stock is then treated like a recent listing). */
+    const demergerFallback = (): boolean => {
+      if (!onlyDemerger) return false;
+      const i = dates.findIndex((d) => d >= exDate); if (i < 0 || first < 0 || i <= first) return true;
+      let j = i - 1; while (j >= 0 && (out[j] === null || out[j] === undefined)) j--;
+      const after = out[i], before = j >= 0 ? out[j] : null;
+      if (after === null || after === undefined || before === null || before === undefined) return false;
+      const ratio = after / before;
+      if (ratio <= 1 - DEMERGER_BREAK) { const f = 1 / ratio; for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v * ratio; } estimated.push({ rows: g, factor: f }); return true; }
+      if (!inWindow) return true;
+      for (let k = 0; k < i; k++) out[k] = null;
+      truncated.push(...g); return true;
+    };
     const fs = g.map((r) => (ADJUSTS.test(r.subject) ? priceFactor(r.subject) ?? demergerFactor(r, demergers) : 1));   // a dividend or rights row sharing the ex-date with a split or bonus is left unadjusted
-    if (fs.some((f) => f === null)) { if (inWindow) unresolved.push(...g); continue; }
+    if (fs.some((f) => f === null)) { if (!demergerFallback() && inWindow) unresolved.push(...g); continue; }
     const f = (fs as number[]).reduce((a, b) => a * b, 1);
     const i = dates.findIndex((d) => d >= exDate); if (i < 0) continue;     // ex-date after the last stored session: nothing to adjust yet
     if (first < 0 || i <= first) continue;                                 // before the stock's first close: nothing earlier to adjust
     let j = i - 1; while (j >= 0 && (out[j] === null || out[j] === undefined)) j--;
     const after = out[i], before = out[j];
-    if (j < 0 || after === null || after === undefined || before === null || before === undefined) { rejected.push({ rows: g, factor: f, observed: null }); if (inWindow) unresolved.push(...g); continue; }
+    if (j < 0 || after === null || after === undefined || before === null || before === undefined) { rejected.push({ rows: g, factor: f, observed: null }); if (!demergerFallback() && inWindow) unresolved.push(...g); continue; }
     const dev = Math.abs(Math.log(after / (before / f)));
-    if (dev > Math.min(Math.log(1 + ADJUST_TOLERANCE), 0.5 * Math.log(f))) { rejected.push({ rows: g, factor: f, observed: after / before }); if (inWindow) unresolved.push(...g); continue; }   // the stored prices do not show this action
+    if (dev > Math.min(Math.log(1 + ADJUST_TOLERANCE), 0.5 * Math.log(f))) { rejected.push({ rows: g, factor: f, observed: after / before }); if (!demergerFallback() && inWindow) unresolved.push(...g); continue; }   // the stored prices do not show this action
     for (let k = 0; k < i; k++) { const v = out[k]; if (v !== null && v !== undefined) out[k] = v / f; }
     for (const r of g) applied.push({ row: r, factor: priceFactor(r.subject) as number });
   }
-  return { series: out, unresolved, applied, rejected };
+  return { series: out, unresolved, applied, rejected, estimated, truncated };
 }
 
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
@@ -130,7 +145,7 @@ export function stockVerdict(symbol: string, hist: PriceHistory | undefined, fee
   const closes = adj.series.slice(0, li + 1), d = dates.slice(0, li + 1);
   const close = closes[li] as number, s200 = sma(closes), sw = swingLow(d, closes);
   const below200 = s200 === null ? null : close < s200, belowSwing = sw === null ? null : close < sw.price;
-  const base = { symbol, asOf: d[li], close, sma200: s200, swingLow: sw, below200, belowSwing, ...(adj.applied.length ? { adjusted: adj.applied.map((a) => `${a.row.subject.trim()} (ex ${a.row.exDate})`) } : {}) };
+  const base = { symbol, asOf: d[li], close, sma200: s200, swingLow: sw, below200, belowSwing, ...(adj.applied.length || adj.estimated.length || adj.truncated.length ? { adjusted: [...adj.applied.map((a) => `${a.row.subject.trim()} (ex ${a.row.exDate})`), ...adj.estimated.map((e) => `${e.rows[0].subject.trim()} (ex ${e.rows[0].exDate}), adjusted from price: the stored closes fell ${((1 - 1 / e.factor) * 100).toFixed(0)}% that day`), ...adj.truncated.map((t) => `${t.subject.trim()} (ex ${t.exDate}), closes before the ex-date dropped: no clear price break, treated like a recent listing`)] } : {}) };
   const facts = [
     s200 === null ? 'The 200 SMA needs 200 sessions of closes; fewer are stored.' : `Close ${f2(close)} is ${below200 ? 'below' : 'above'} its 200 SMA ${f2(s200)}.`,
     sw === null ? 'No confirmed swing low in the stored window.' : `Close is ${belowSwing ? 'below' : 'above'} the last major swing low ${f2(sw.price)} (${sw.date}).`,

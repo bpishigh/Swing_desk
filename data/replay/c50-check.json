@@ -1,0 +1,261 @@
+{
+ "total": 2917,
+ "oldBlocked": 22,
+ "newBlocked": 6,
+ "unchangedEverywhere": 2901,
+ "changedOutsideAffected": [
+  "HEGAM"
+ ],
+ "branches": [
+  {
+   "s": "ABFRL",
+   "branch": "a (adjusted from price, fell 67%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "ALLCARGO",
+   "branch": "a (adjusted from price, fell 65%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "BEML",
+   "branch": "a (adjusted from price, fell 16%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "BHAGYANGR",
+   "branch": "a (adjusted from price, fell 91%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "BOROLTD",
+   "branch": "a (adjusted from price, fell 16%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "CHEMBOND",
+   "branch": "a (adjusted from price, fell 38%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "DALMIASUG",
+   "branch": "b (history cut)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "DBREALTY",
+   "branch": "a (adjusted from price, fell 15%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "DHAMPURSUG",
+   "branch": "a (adjusted from price, fell 16%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "EDELWEISS",
+   "branch": "a (adjusted from price, fell 45%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "GENUSPOWER",
+   "branch": "b (history cut)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "HINDUNILVR",
+   "branch": "b (history cut)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "INDIAGLYCO",
+   "branch": "a (adjusted from price, fell 79%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "KAMDHENU",
+   "branch": "a (adjusted from price, fell 47%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "KESORAMIND",
+   "branch": "a (adjusted from price, fell 95%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "KMSUGAR",
+   "branch": "a (adjusted from price, fell 18%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "MIRZAINT",
+   "branch": "a (adjusted from price, fell 86%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "NIITLTD",
+   "branch": "a (adjusted from price, fell 76%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "NMDC",
+   "branch": "a (adjusted from price, fell 20%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "QUESS",
+   "branch": "a (adjusted from price, fell 51%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "RAYMOND",
+   "branch": "a (adjusted from price, fell 65%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "ROSSELLIND",
+   "branch": "a (adjusted from price, fell 73%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "SANOFI",
+   "branch": "a (adjusted from price, fell 35%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "SCI",
+   "branch": "a (adjusted from price, fell 22%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "SHANKARA",
+   "branch": "a (adjusted from price, fell 76%)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "SIEMENS",
+   "branch": "a (adjusted from price, fell 43%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "SKFINDIA",
+   "branch": "a (adjusted from price, fell 55%)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "STAR",
+   "branch": "a (adjusted from price, fell 54%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "STLTECH",
+   "branch": "a (adjusted from price, fell 25%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "TRIVENI",
+   "branch": "a (adjusted from price, fell 42%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "VEDL",
+   "branch": "a (adjusted from price, fell 65%)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "DCMSRIND",
+   "branch": "a (adjusted from price, fell 68%)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "MHLXMIRU",
+   "branch": "a (adjusted from price, fell 27%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "VERANDA",
+   "branch": "a (adjusted from price, fell 86%)",
+   "old": "No verdict",
+   "new": "Keep"
+  },
+  {
+   "s": "INOXGREEN",
+   "branch": "b (history cut)",
+   "old": "No verdict",
+   "new": "Exit"
+  },
+  {
+   "s": "SEMAC",
+   "branch": "a (adjusted from price, fell 35%)",
+   "old": "Exit",
+   "new": "Exit"
+  },
+  {
+   "s": "CPCAP",
+   "branch": "a (adjusted from price, fell 38%)",
+   "old": "Keep",
+   "new": "Keep"
+  },
+  {
+   "s": "GUJENERGY",
+   "branch": "b (history cut)",
+   "old": "No verdict",
+   "new": "Exit"
+  }
+ ],
+ "methodCheck": {
+  "diffs": [
+   {
+    "parent": "ITC",
+    "typedDrop": 0.135,
+    "observedDrop": 0.081,
+    "diffPts": 5.4,
+    "passesPriceCheck": true,
+    "breakAtLeast15": false
+   },
+   {
+    "parent": "TRIVENI",
+    "typedDrop": 0.134,
+    "observedDrop": 0.416,
+    "diffPts": 28.2,
+    "passesPriceCheck": false,
+    "breakAtLeast15": true
+   }
+  ],
+  "medianDiffPts": null,
+  "maxDiffPts": null
+ }
+}
