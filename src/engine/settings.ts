@@ -2,7 +2,7 @@
 // Rule: parameters live in settings, never inside the code. Every Proposed switch is OFF; turning one on is an owner decision
 // after it is tested and logged Adopted. OQ-8 (Red = pilots only) is not a switch: it is the rule (C-24) and is in LIMITS.
 /** Rules version these defaults and the engine implement. Must equal the version in docs/ENGINE_RULES.md (a test checks). */
-export const RULES_VERSION = 'R-2026.10.5';
+export const RULES_VERSION = 'R-2026.10.6';
 
 import { DEFAULT_CORRECTION, type CorrectionParams } from './regime.ts';
 
