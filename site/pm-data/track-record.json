@@ -1,7 +1,7 @@
 {
- "asOf": "2026-10-14",
+ "asOf": "2026-10-15",
  "from": "2022-02-07",
- "sessions": 1366,
+ "sessions": 1367,
  "note": "Replay on stored closes, adjusted for corporate actions. Back to Keep = share of observations that passed the exit test again 20 or 60 sessions later. Excess = return minus the median Nifty 500 stock, in points. Overlapping, clustered observations; delisted stocks drop out; no significance test.",
  "states": {
   "Both": {
