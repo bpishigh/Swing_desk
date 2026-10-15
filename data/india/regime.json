@@ -1,11 +1,11 @@
 {
  "latest": {
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "name": "red",
   "notes": [],
-  "breadth": 24.7,
-  "breadthDate": "2026-10-14",
-  "distribution": 11,
+  "breadth": 20,
+  "breadthDate": "2026-10-15",
+  "distribution": 10,
   "followThrough": "none"
  },
  "alertedFor": "2026-10-14"
