@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node scripts/backfill-us-sic.mjs ${{ github.event.inputs.refresh == 'true' && '--refresh' || '' }}
-        env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
+        env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}", SEC_UA: "${{ secrets.SEC_UA }}" }
       - name: Commit
         if: always()
         run: |

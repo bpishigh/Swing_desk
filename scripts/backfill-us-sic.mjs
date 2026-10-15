@@ -8,7 +8,7 @@ import { parseSecTickers, secSubmissionsUrl, parseSecSic, parseMassiveSic } from
 import { SCAN } from '../src/ingest/us-scan-settings.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
-const UA = process.env.SEC_UA || 'Swing Desk research (personal use) noreply@github.com';
+const UA = process.env.SEC_UA || 'Swing Desk research (personal use) noreply@github.com';   // SEC's fair-access rule wants a real contact in the User-Agent: set the SEC_UA secret to "Name email"
 const MASSIVE_CALLS = Number(arg('massive') ?? 40);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const file = 'data/us/sic.json';
@@ -27,11 +27,11 @@ const todo = wanted.filter((t) => !have.has(t));
 console.log(JSON.stringify({ last, wanted: wanted.length, stored: have.size, todo: todo.length }));
 if (!todo.length) process.exit(0);
 
-async function sec(url) { const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' } }); return r.ok ? r.json() : { __status: r.status }; }
+async function sec(url) { const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/json' } }); if (r.ok) return r.json(); const body = (await r.text().catch(() => '')).replace(/\s+/g, ' ').slice(0, 160); return { __status: r.status, __body: body }; }
 const log = (o) => writeFileSync('data/us/sic-log.json', JSON.stringify({ at: new Date().toISOString(), ...o }) + '\n');
 let tickersJson; try { tickersJson = await sec('https://www.sec.gov/files/company_tickers.json'); } catch (e) { log({ step: 'sec tickers', error: String(e?.cause?.code || e?.message || e) }); console.error('SEC ticker file not reachable'); process.exit(1); }
 const map = parseSecTickers(tickersJson);
-if (!map.size) { log({ step: 'sec tickers', status: tickersJson?.__status ?? 'empty map', ua: UA.replace(/\S+@\S+/, '<contact>') }); console.error('SEC ticker map not read; stopping (no file written)'); process.exit(1); }
+if (!map.size) { log({ step: 'sec tickers', status: tickersJson?.__status ?? 'empty map', body: tickersJson?.__body, ua: UA.replace(/\S+@\S+/, '<contact>') }); console.error('SEC ticker map not read; stopping (no file written)'); process.exit(1); }
 const rows = [...have.values()]; const missing = [];
 let fetched = 0, blocked = false;
 for (const t of todo) {
