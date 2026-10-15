@@ -13,6 +13,7 @@ export interface StockContext {
   asOf: string; close: number;
   vs50: number | null;          // % above (+) or below (-) the 50 SMA
   vs200: number | null;         // % above or below the 200 SMA
+  s50vs200: number | null;      // the 50 SMA as % above (+) or below (-) the 200 SMA: positive is the classic uptrend structure
   ret63: number | null;         // % return over 63 sessions
   rs: number | null;            // percentile (0 to 100) of ret63 among all stored stocks
   vsIndex: number | null;       // ret63 minus the Nifty 500 index's 63-session return, in points
@@ -46,7 +47,7 @@ export function computeContext(hist: PriceHistory, feed: CorpActionRow[], bhav: 
     let up = 0, down = 0; for (const d of recent) { const r = d.rows[sym]; if (r && typeof r[1] === 'number' && typeof r[5] === 'number' && typeof r[6] === 'number') { if (r[5] > r[1]) up += r[6]; else if (r[5] < r[1]) down += r[6]; } }
     const last = recent.length ? recent[recent.length - 1].rows[sym] : undefined;
     out[sym] = {
-      asOf, close: c, vs50: s50 ? r2((c / s50 - 1) * 100) : null, vs200: s200 ? r2((c / s200 - 1) * 100) : null, ret63: r2(ret), rs: null,
+      asOf, close: c, vs50: s50 ? r2((c / s50 - 1) * 100) : null, vs200: s200 ? r2((c / s200 - 1) * 100) : null, s50vs200: s50 && s200 ? r2((s50 / s200 - 1) * 100) : null, ret63: r2(ret), rs: null,
       vsIndex: ret === null || indexRet63 === null ? null : r2(ret - indexRet63),
       advCr: tv.length >= LIQ_SESSIONS / 2 ? r2(avg(tv)) : null, deliv: dl(recent).length >= LIQ_SESSIONS / 2 ? r2(avg(dl(recent))) : null, delivPrev: dl(before).length >= LIQ_SESSIONS / 2 ? r2(avg(dl(before))) : null,
       upDown: recent.length >= LIQ_SESSIONS / 2 && down > 0 ? r2(up / down) : null,

@@ -30,3 +30,7 @@ test('volume on up days against down days, and the verdict state, are in the con
   const c = computeContext(hist, [], bh, idx);
   assert.equal(c.stocks.UP.upDown, 3); assert.equal(c.stocks.UP.state, 'Keep'); assert.equal(c.stocks.DOWN.state, '200 only: far (beyond both)');   // a straight fall has no confirmed swing low, so only the 200-day leg fails
 });
+test('the 50-day average against the 200-day average is in the context', () => {
+  const c = computeContext(hist, [], [], null);
+  assert.ok(c.stocks.UP.s50vs200! > 0); assert.ok(c.stocks.DOWN.s50vs200! < 0);
+});
