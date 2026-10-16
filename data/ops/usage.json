@@ -1,23 +1,24 @@
 {
- "date": "2026-10-15",
+ "date": "2026-10-16",
  "month": "2026-10",
- "usedMinutesEstimate": 1112,
+ "usedMinutesEstimate": 1320,
  "budget": 2000,
- "projectedMonthEnd": 2298,
+ "projectedMonthEnd": 2558,
  "byWorkflow": {
-  "source-test": 451,
-  "ci": 226,
+  "source-test": 537,
+  "ci": 262,
+  "us-breadth": 124,
   "backfill-us": 123,
-  "us-breadth": 92,
-  "tick": 83,
-  "india-stocks": 28,
+  "tick": 115,
+  "india-stocks": 30,
   "probe-breadth-us": 22,
   "us-screen": 18,
-  "india-nightly": 10,
-  "us-nightly": 9,
+  "backfill-us-sic": 16,
+  "india-nightly": 12,
+  "us-nightly": 10,
+  "us-grouped-nightly": 5,
   "fetch-amfi": 5,
   "probe-etf6": 5,
-  "us-grouped-nightly": 4,
   "probe-massive": 3,
   "probe-corp-actions": 3,
   "schedule-canary": 3,
@@ -43,6 +44,8 @@
   "probe-etf": 1,
   "probe-dhan": 1
  },
- "alerted": [],
+ "alerted": [
+  60
+ ],
  "note": "Estimate from run durations (each run rounded up to a minute, calendar month); GitHub billing page is the authority."
 }
