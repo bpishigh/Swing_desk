@@ -61,7 +61,7 @@ export interface Candidate {
   diag: { rs121: number | null; rs6m2w: number | null; atr14: number | null; sma50: number | null; sma200: number | null; high52: number | null; low52: number | null; failingNights: number };
 }
 /** noTightGate: US-SCAN-2 change 1 (C-52). Off by default, so the live US-SCAN-1 scan is unchanged. */
-export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState; noTightGate?: boolean; diag?: Record<string, number> }
+export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState; noTightGate?: boolean; diag?: Record<string, number>; diagRows?: Array<Record<string, number | string | boolean | null>> }
 export interface ScanOutput {
   version: string; asOf: string; light: Light; funnel: Record<string, number>; groups: Array<{ group: string; members: number; medianRs: number; passes: boolean }>;
   ready: Candidate[]; watch: Candidate[]; noGroup: { qualified: number }; thinGroup: { qualified: number }; qualifiedTotal: number; state: QualState;
@@ -186,6 +186,11 @@ export function runScan(inp: ScanInput): ScanOutput {
       if (allowed.has(sid) && (r.path === 'ipo' || tight || inp.noTightGate) && dist <= SCAN.pivotWithin) setup = buildSetup(sid, pivot, low10, pivot);
       if (!setup && r.path === 'main' && allowed.has('2') && ok(ema20) && close >= ema20 && lowN <= ema20 && close > r.sma50) setup = buildSetup('2', s.h[t], lowN, s.h[t]);
       if (!setup && r.path === 'main' && allowed.has('4') && close >= r.sma50 && lowN <= r.sma50) setup = buildSetup('4', s.h[t], lowN, s.h[t]);
+    }
+    if (inp.diagRows && !extended) {      // independent tests per candidate (C-52 follow-up): every test is evaluated whether or not an earlier one failed
+      const det = (basis: number, stopRaw: number, id: SetupId, roomRef: number) => { const sp = SETUPS[id], trigger = basis * (1 + sp.trig / 100); let stop = stopRaw; if (ok(a14) && stop > trigger - SCAN.atrStopMult * a14) stop = trigger - SCAN.atrStopMult * a14; const width = (trigger - stop) / trigger; const roomR = ok(overhead) && overhead > roomRef && trigger > stop ? (overhead - trigger) / (trigger - stop) : null; return { widthPct: r2(width * 100), capPct: sp.maxStop, roomR: roomR === null ? null : r2(roomR), atrs: ok(a14) && trigger > stop ? r2((trigger - stop) / a14) : null }; };
+      const brk = det(pivot, low10, '1', pivot), pb20 = ok(ema20) ? det(s.h[t], lowN, '2', s.h[t]) : null, pb50 = det(s.h[t], lowN, '4', s.h[t]);
+      inp.diagRows.push({ sym: r.m.sym, date: asOf, path: r.path, distPct: r2(dist * 100), geoBreakout: dist <= SCAN.pivotWithin, geoPull20: ok(ema20) && close >= ema20 && lowN <= ema20 && close > r.sma50, geoPull50: close >= r.sma50 && lowN <= r.sma50, atrPct: ok(a14) ? r2((a14 / close) * 100) : null, tight, brkWidth: brk.widthPct, brkCap: brk.capPct, brkRoomR: brk.roomR, brkAtrs: brk.atrs, p20Width: pb20?.widthPct ?? null, p20Cap: 7, p20RoomR: pb20?.roomR ?? null, p20Atrs: pb20?.atrs ?? null, p50Width: pb50.widthPct, p50Cap: 6, p50RoomR: pb50.roomR, p50Atrs: pb50.atrs });
     }
     if (inp.diag) { const d = inp.diag, bump = (k: string) => { d[k] = (d[k] ?? 0) + 1; }; bump('qualified'); if (extended) bump('extended'); else if (setup) bump('setup'); else if (!sawGeometry) bump('noGeometry'); else if (!sawWidthPass) bump('failStopWidth'); else bump('failRoom'); }
     if (tight && dist <= SCAN.pivotWithin && !extended) baseOk++;

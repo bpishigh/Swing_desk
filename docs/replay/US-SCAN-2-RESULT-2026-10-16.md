@@ -51,3 +51,17 @@ Counts only, no returns (scripts/funnel-waterfall-us.mjs, outputs data/replay/us
 The room test is not the choke: at 2R it frees about 10 more candidate-nights out of 7,891. The tests that remove candidates are extension, setup geometry and, with the gate off, the stop-width limit (1.5 ATR on momentum leaders is often wider than 6 to 8%). The setup order checks width before room, so room is only ever tested on candidates that already passed width; even so, a 2R room rule would change almost nothing here. No rule changed. Whether the stop-width limits suit stocks this volatile is a rule question for the owner and the reviewer, not something to tune on this year.
 
 Fill model: stage 2 already filled at the trigger when the next session's high reached it, within the limit. Only stage 1 enters at the next close, by design, to measure pick quality without a fill model. The stage-2 fills use highs and lows only (no opens), so a gap above the limit is approximated by the limit test against the day's low.
+
+## Addendum 2: independent tests and stop widths (16 Oct 2026)
+scripts/funnel-detail-us.mjs, data/replay/us-funnel-detail-yellow-gateoff.json. Gate off, Yellow, 228 nights; 5,598 candidate-nights that passed steps 1 to 5 and were not extended. Every test is evaluated on its own (not first-failure). Stop distance is the setup's own rule (chart level, widened to 1.5 ATR14), as a percent of the trigger and in ATR14 units. These are the live rules' numbers, nothing is changed.
+
+| Shape | Candidate-nights | Stop width 10th / median / 90th | In ATR | Over the 6-8% cap | Fails 3R room |
+| --- | --- | --- | --- | --- | --- |
+| Base breakout (within 5% of the 50-session high) | 1,999 | 8.6% / 13.8% / 21.6% | 2.6 / 3.6 / 5.1 | 1,848 (92%) | 86 (room waived when no overhead) |
+| Pullback to the 20 EMA (not allowed in Yellow) | 3,027 | 6.6% / 10.8% / 17.5% | 1.5 / 2.1 / 3.3 | 2,643 (87%) | 2,461 |
+| Pullback to the 50-day | 1,331 | 7.6% / 12.4% / 20.0% | 1.5 / 2.1 / 3.4 | 1,298 (98%) | 1,215 |
+
+- The candidates are very volatile: median ATR14 is 5.1% of price (10th to 90th: 3.2% to 8.5%). A 1.5 ATR stop alone is about 7.6%, already at or past every cap (6 to 8%). So the cap is mismatched to the universe, not set a little too tight.
+- Shapes are not rare: breakout only 794, 20 EMA pullback only 1,101, 50-day pullback only 376, more than one 1,927, none 1,400. The earlier "no setup shape" count was partly setups not allowed in Yellow (US Yellow allows 1, 1ipo, 3 and 4 only).
+- Room will bind once the cap goes: for pullbacks 3R of a wide R fails for 81 to 91% of shapes (median room 0.6R to 1.0R). The reviewer's expectation holds here, though not at the earlier waterfall's ordering.
+- A stop of up to 2.5 ATR with a 12% backstop (reviewer's proposal, counted not adopted): 1,782 candidate-nights qualify with room ignored, 203 with the 3R room test applied (against 161 today). Breakout stops sit at a median of 3.6 ATR, so most breakouts still exceed 2.5 ATR.

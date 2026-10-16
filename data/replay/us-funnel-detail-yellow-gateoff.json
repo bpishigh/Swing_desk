@@ -1,0 +1,91 @@
+{
+ "proposedAtrCap_2_5ATR_12pct": {
+  "breakout": 116,
+  "pullback20": 101,
+  "pullback50": 12,
+  "anySetup": 203,
+  "anySetupIgnoringRoom": 1782
+ },
+ "candidateNights": 5598,
+ "geometry": {
+  "breakoutOnly": 794,
+  "pull20Only": 1101,
+  "pull50Only": 376,
+  "several": 1927,
+  "none": 1400
+ },
+ "breakout": {
+  "n": 1999,
+  "widthOverCap": 1848,
+  "roomFail": 86,
+  "bothFail": 82,
+  "widthPctQ": [
+   8.63,
+   13.82,
+   21.56
+  ],
+  "atrsQ": [
+   2.59,
+   3.62,
+   5.06
+  ],
+  "roomRQ": [
+   0,
+   0.24,
+   0.65
+  ]
+ },
+ "pullback20": {
+  "n": 3027,
+  "widthOverCap": 2643,
+  "roomFail": 2461,
+  "bothFail": 2112,
+  "widthPctQ": [
+   6.63,
+   10.77,
+   17.5
+  ],
+  "atrsQ": [
+   1.5,
+   2.11,
+   3.34
+  ],
+  "roomRQ": [
+   0.08,
+   0.61,
+   1.44
+  ]
+ },
+ "pullback50": {
+  "n": 1331,
+  "widthOverCap": 1298,
+  "roomFail": 1215,
+  "bothFail": 1183,
+  "widthPctQ": [
+   7.58,
+   12.35,
+   20.01
+  ],
+  "atrsQ": [
+   1.5,
+   2.05,
+   3.42
+  ],
+  "roomRQ": [
+   0.2,
+   0.98,
+   1.89
+  ]
+ },
+ "atrPctQuantiles10_50_90": [
+  3.24,
+  5.09,
+  8.48
+ ],
+ "distPctQuantiles10_50_90": [
+  1.27,
+  7.56,
+  18.93
+ ],
+ "note": "gate off, Yellow, steps 1-5 qualified and not extended; each test evaluated independently; widths in percent of trigger, \"atrs\" = stop distance in ATR14 units"
+}
