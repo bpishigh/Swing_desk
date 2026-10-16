@@ -1,0 +1,14 @@
+{
+ "nights": 228,
+ "roomR": 3,
+ "gateOff": false,
+ "light": "yellow",
+ "candidateNights": {
+  "qualified": 7891,
+  "noGeometry": 4190,
+  "failStopWidth": 1341,
+  "extended": 2293,
+  "failRoom": 32,
+  "setup": 35
+ }
+}

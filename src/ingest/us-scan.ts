@@ -61,7 +61,7 @@ export interface Candidate {
   diag: { rs121: number | null; rs6m2w: number | null; atr14: number | null; sma50: number | null; sma200: number | null; high52: number | null; low52: number | null; failingNights: number };
 }
 /** noTightGate: US-SCAN-2 change 1 (C-52). Off by default, so the live US-SCAN-1 scan is unchanged. */
-export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState; noTightGate?: boolean }
+export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState; noTightGate?: boolean; diag?: Record<string, number> }
 export interface ScanOutput {
   version: string; asOf: string; light: Light; funnel: Record<string, number>; groups: Array<{ group: string; members: number; medianRs: number; passes: boolean }>;
   ready: Candidate[]; watch: Candidate[]; noGroup: { qualified: number }; thinGroup: { qualified: number }; qualifiedTotal: number; state: QualState;
@@ -169,10 +169,13 @@ export function runScan(inp: ScanInput): ScanOutput {
     if (fails > 0) tags.push(`failed qualification ${fails} night(s)`);
     if (r.path === 'ipo') tags.push('IPO path: 3-month return rank, shorter template');
     if (extended) tags.push('extended: more than 25% above the 50-day');
+    let sawGeometry = false, sawWidthPass = false;
     const buildSetup = (id: SetupId, basis: number, stopRaw: number, roomRef: number) => {
+      sawGeometry = true;
       const sp = SETUPS[id], trigger = basis * (1 + sp.trig / 100), limit = trigger * (1 + sp.lim / 100);
       let stop = stopRaw; if (ok(a14) && stop > trigger - SCAN.atrStopMult * a14) stop = trigger - SCAN.atrStopMult * a14;
       const width = (trigger - stop) / trigger; if (!(width > 0) || width * 100 > sp.maxStop) return null;
+      sawWidthPass = true;
       let roomR: number | null = null;
       if (ok(overhead) && overhead > roomRef) { roomR = (overhead - trigger) / (trigger - stop); if (roomR < SCAN.roomR) return null; }
       return { id, short: sp.short, basis: r2(basis), trigger: r2(trigger), limit: r2(limit), stop: r2(stop), stopWidthPct: r2(width * 100), roomR: roomR === null ? null : r2(roomR) };
@@ -184,6 +187,7 @@ export function runScan(inp: ScanInput): ScanOutput {
       if (!setup && r.path === 'main' && allowed.has('2') && ok(ema20) && close >= ema20 && lowN <= ema20 && close > r.sma50) setup = buildSetup('2', s.h[t], lowN, s.h[t]);
       if (!setup && r.path === 'main' && allowed.has('4') && close >= r.sma50 && lowN <= r.sma50) setup = buildSetup('4', s.h[t], lowN, s.h[t]);
     }
+    if (inp.diag) { const d = inp.diag, bump = (k: string) => { d[k] = (d[k] ?? 0) + 1; }; bump('qualified'); if (extended) bump('extended'); else if (setup) bump('setup'); else if (!sawGeometry) bump('noGeometry'); else if (!sawWidthPass) bump('failStopWidth'); else bump('failRoom'); }
     if (tight && dist <= SCAN.pivotWithin && !extended) baseOk++;
     const tightScore = ok(ratio) ? 100 * clamp01(1 - ratio / SCAN.atrTightRatio) : 0, pivotScore = 100 * clamp01(1 - dist / SCAN.pivotWithin);
     const composite = (SCAN.weights.rs * r.rsp + SCAN.weights.tightness * tightScore + SCAN.weights.pivot * pivotScore) / (SCAN.weights.rs + SCAN.weights.tightness + SCAN.weights.pivot);

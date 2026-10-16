@@ -36,3 +36,18 @@ Removing the gate was not enough: Ready names are still rare because a setup als
 
 ## Limits
 Delisted names are missing (flatters results); one year; stage 2 fills at the stop and next close without opens, rules 8 and 9 not modelled; fewer than 150 picks so no interval here is tight.
+
+## Addendum: where candidates drop out of the setup layer (16 Oct 2026, after the external review)
+Counts only, no returns (scripts/funnel-waterfall-us.mjs, outputs data/replay/us-funnel-waterfall-*.json). Candidate-nights summed over 228 nights, Yellow light, stocks that passed steps 1 to 5 (7,891), each counted once at the first test it fails:
+
+| Outcome | US-SCAN-1 (gate on) | Gate off |
+| --- | --- | --- |
+| Extended (more than 25% above the 50-day) | 2,293 | 2,293 |
+| No setup geometry (not within 5% of the pivot, no pullback to the 20 EMA or 50-day) | 4,190 | 2,511 |
+| Stop wider than the setup's limit (6 to 8%) | 1,341 | 2,890 |
+| Fails the 3R room test | 32 | 36 |
+| Gets a setup | 35 | 161 |
+
+The room test is not the choke: at 2R it frees about 10 more candidate-nights out of 7,891. The tests that remove candidates are extension, setup geometry and, with the gate off, the stop-width limit (1.5 ATR on momentum leaders is often wider than 6 to 8%). The setup order checks width before room, so room is only ever tested on candidates that already passed width; even so, a 2R room rule would change almost nothing here. No rule changed. Whether the stop-width limits suit stocks this volatile is a rule question for the owner and the reviewer, not something to tune on this year.
+
+Fill model: stage 2 already filled at the trigger when the next session's high reached it, within the limit. Only stage 1 enters at the next close, by design, to measure pick quality without a fill model. The stage-2 fills use highs and lows only (no opens), so a gap above the limit is approximated by the limit test against the day's low.
