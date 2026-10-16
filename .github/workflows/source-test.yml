@@ -1,15 +1,9 @@
-name: source-test
+name: source-test   # manual probe only since 16 Oct 2026; scheduling is done by tick.yml
 on:
   workflow_dispatch:
-    inputs:
-      now:
-        description: 'Test only: pretend it is this time (ISO, e.g. 2026-10-12T14:00:00Z) for the nightly-start step. Blank in normal use.'
-        required: false
-        default: ''
 concurrency: source-test
 permissions:
   contents: write
-  actions: write      # lets the nightly step start the India jobs
 jobs:
   probe:
     runs-on: ubuntu-24.04
@@ -30,24 +24,6 @@ jobs:
         run: node scripts/record-run.mjs
         env:
           JOB_STATUS: ${{ job.status }}
-      - name: Start the India nightly jobs when a day is missing
-        if: always()
-        continue-on-error: true
-        run: node scripts/dispatch-nightly.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NOW_OVERRIDE: ${{ inputs.now }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      - name: Start the US daily job and the weekly screen when due
-        if: always()
-        continue-on-error: true
-        run: node scripts/dispatch-us.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NOW_OVERRIDE: ${{ inputs.now }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - name: Commit log
         if: always()
         run: |
