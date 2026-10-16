@@ -1,6 +1,6 @@
 # US-SCAN-2: changes and test criteria (C-52), written 16 Oct 2026 before any run
 
-Status: DRAFT for owner confirmation. Nothing has been built or run. Numbers marked (analyst) become fixed when this file is committed with "CONFIRMED" below; any change after a run voids the run. Source of the three changes: external review of 16 Oct 2026 of the C-51 replay result.
+Status: CONFIRMED 16 Oct 2026 by the owner. Nothing has been built or run at the time of this commit. Numbers marked (analyst) become fixed when this file is committed with "CONFIRMED" below; any change after a run voids the run. Source of the three changes: external review of 16 Oct 2026 of the C-51 replay result.
 
 ## Why
 The C-51 replay could not run its pre-registered test: Ready names appeared 11 times in 229 nights (the tight-base gate almost never passes). On the top-10 fallback, 76 of 330 picks came from Metal mining at +3.7%; the other 254 averaged -0.33%. So the first version found one group's rally and nothing else. This year has now been seen, so US-SCAN-2 is a reasoned set of changes, not a fit, and the forward log decides regardless.
@@ -32,4 +32,4 @@ All seven pass: US-SCAN-2 becomes the frozen configuration and a new forward clo
 ## Known limits
 Same as C-51: today's stock list leaves out delisted names (true numbers are lower), one year is one market, no earnings-date check. This year has been seen, which is why criterion 3 requires the result without its top group.
 
-CONFIRMED: (pending owner)
+CONFIRMED: owner, 16 Oct 2026 (cap of 4 and the cost tiers stand as the analyst's figures).
