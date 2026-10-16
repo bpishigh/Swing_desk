@@ -3,6 +3,7 @@
 // Items marked PROPOSED were set in the 16 Oct brief for owner sign-off; items marked PROVISIONAL are mechanical definitions the brief did not give.
 
 export const SCAN_VERSION = 'US-SCAN-1';
+// FROZEN 16 Oct 2026 (owner sign-off, C-20a). The forward-test clock starts with the first nightly run after this commit. Any change here restarts it and must be logged.
 
 export const SCAN = {
   // 2. Universe
@@ -43,7 +44,7 @@ export const SCAN = {
   pullbackLookback: 5,         // PROVISIONAL: sessions in which a pullback must have touched the average
   stopLookback: 10,
   // 8. Ordered output
-  weights: { rs: 60, tightness: 25, pivot: 15 },   // PROPOSED, owner sign-off pending
+  weights: { rs: 60, tightness: 25, pivot: 15 },   // signed off 16 Oct 2026
   top: 10, maxPerIndustry: 3,
   // Hysteresis: qualification (steps 2 to 5)
   failsToLeave: 2,

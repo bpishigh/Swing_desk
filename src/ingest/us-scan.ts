@@ -199,7 +199,7 @@ export function runScan(inp: ScanInput): ScanOutput {
   const order = (a: Candidate, b: Candidate) => b.composite - a.composite || b.rsPct - a.rsPct || (a.sym < b.sym ? -1 : 1);
   const cap = (list: Candidate[]): Candidate[] => { const n = new Map<string, number>(); const out: Candidate[] = []; for (const x of [...list].sort(order)) { const g = x.group ?? x.sym; const k = n.get(g) ?? 0; if (k >= SCAN.maxPerIndustry) continue; n.set(g, k + 1); out.push(x); if (out.length >= SCAN.top) break; } return out; };
   const notes = ['C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.', 'Setup detection definitions are provisional (see us-scan-settings.ts).'];
-  notes.push('Composite weights are proposed, owner sign-off pending.');
+  notes.push('Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running.');
   if (!sic.size) notes.push('No SIC file: the group step cannot run, so no stock is shortlisted. Run the backfill-us-sic workflow.');
   return { version: SCAN_VERSION, asOf, light, funnel, groups, ready: cap(ready), watch: cap(watch), noGroup: { qualified: noGroupQ }, thinGroup: { qualified: thinQ }, qualifiedTotal: qualified.length, state, notes };
 }
