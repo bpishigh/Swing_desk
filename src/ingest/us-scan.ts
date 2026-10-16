@@ -60,7 +60,8 @@ export interface Candidate {
   setup: null | { id: SetupId; short: string; basis: number; trigger: number; limit: number; stop: number; stopWidthPct: number; roomR: number | null };
   diag: { rs121: number | null; rs6m2w: number | null; atr14: number | null; sma50: number | null; sma200: number | null; high52: number | null; low52: number | null; failingNights: number };
 }
-export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState }
+/** noTightGate: US-SCAN-2 change 1 (C-52). Off by default, so the live US-SCAN-1 scan is unchanged. */
+export interface ScanInput { hist: Hist; types: Map<string, string>; sic: Map<string, number>; light: Light; prev: QualState; noTightGate?: boolean }
 export interface ScanOutput {
   version: string; asOf: string; light: Light; funnel: Record<string, number>; groups: Array<{ group: string; members: number; medianRs: number; passes: boolean }>;
   ready: Candidate[]; watch: Candidate[]; noGroup: { qualified: number }; thinGroup: { qualified: number }; qualifiedTotal: number; state: QualState;
@@ -179,7 +180,7 @@ export function runScan(inp: ScanInput): ScanOutput {
     let setup: Candidate['setup'] = null;
     if (!extended) {
       const sid: SetupId = r.path === 'ipo' ? '1ipo' : '1';
-      if (allowed.has(sid) && (r.path === 'ipo' || tight) && dist <= SCAN.pivotWithin) setup = buildSetup(sid, pivot, low10, pivot);
+      if (allowed.has(sid) && (r.path === 'ipo' || tight || inp.noTightGate) && dist <= SCAN.pivotWithin) setup = buildSetup(sid, pivot, low10, pivot);
       if (!setup && r.path === 'main' && allowed.has('2') && ok(ema20) && close >= ema20 && lowN <= ema20 && close > r.sma50) setup = buildSetup('2', s.h[t], lowN, s.h[t]);
       if (!setup && r.path === 'main' && allowed.has('4') && close >= r.sma50 && lowN <= r.sma50) setup = buildSetup('4', s.h[t], lowN, s.h[t]);
     }
