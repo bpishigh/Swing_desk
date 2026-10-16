@@ -9,7 +9,9 @@ Run exactly as pre-registered (docs/replay/US-SCAN-REPLAY-PREREG.md, commit bacb
 4. Both halves positive: FAIL. Earlier half +3.2%, later half -1.8%.
 5. Beats random control: PASS. Picks +0.60% against a control 95th percentile of +0.14%.
 
-Result: 2 of 5 pass. Per the decision rule, the replay does not support the scan as designed. No tuning on this data.
+FORMAL STATUS (corrected after external review): the pre-registered test was not executable, because criterion 1 failed. Criteria 2 to 5 above were read on the top-10 list as a fallback, so they are an exploratory result. It does not support the scan as designed. No tuning on this data.
+
+Ex-top-group check: Metal mining gave 76 of the 330 picks at +3.7% (about 280 points of pick return against 197 for the whole set). The other 254 picks average -0.33%. The year's result is one group, which also explains most of the earlier-half/later-half gap. An ex-top-group line is now a standing part of every replay.
 
 ## Reported, not judged
 - Ready (set A): 11 picks in 229 nights (0.05 a night), mean excess +0.75%, hit rate 45%, worst -11.2%. Too few to read anything. The base test (ATR10/ATR50 below 0.7 with the pivot within 5%) is almost never met.
