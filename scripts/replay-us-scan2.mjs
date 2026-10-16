@@ -178,7 +178,7 @@ for (const set of ['A', 'B']) {
 if (STAGE2) {
   const tr = picks.filter((p) => p.set === 'A' && p.s2).map((p) => ({ t: p.t, R: p.s2.R, held: p.s2.held, reason: p.s2.reason, group: p.group }));
   const reasons = {}; for (const x of tr) reasons[x.reason] = (reasons[x.reason] ?? 0) + 1;
-  res.stage2 = { picksWithSetup: picks.filter((p) => p.set === 'A').length, trades: tr.length, meanR: tr.length ? mean(tr.map((x) => x.R)) : null, ci: bootstrap(tr, 'R'), winRate: tr.length ? mean(tr.map((x) => (x.R > 0 ? 1 : 0))) : null, avgHeld: tr.length ? mean(tr.map((x) => x.held)) : null, reasons, note: 'exit rules at daily-close resolution: stops fill at the stop, signals fill at the next close; rules 8 and 9 not modelled' };
+  res.stage2 = { picksWithSetup: picks.filter((p) => p.set === 'A').length, stage2Count: tr.length, meanR: tr.length ? mean(tr.map((x) => x.R)) : null, ci: bootstrap(tr, 'R'), winRate: tr.length ? mean(tr.map((x) => (x.R > 0 ? 1 : 0))) : null, avgHeld: tr.length ? mean(tr.map((x) => x.held)) : null, reasons, note: 'exit rules at daily-close resolution: stops fill at the stop, signals fill at the next close; rules 8 and 9 not modelled' };
 }
 // criteria (judged set A)
 const A = res.sets.A;
@@ -188,7 +188,7 @@ res.criteria = {
   c4_halves: { earlier: A.earlier.mean, later: A.later.mean, pass: A.earlier.mean > 0 && A.later.mean > 0 },
   c5_control: { picks: A.all.mean, p95: A.control.p95, pass: A.all.mean > A.control.p95 },
   c6_concentration: { maxGroupShare: A.maxGroupShare, pass: A.maxGroupShare <= 0.25 },
-  c7_stage2: res.stage2 ? { trades: res.stage2.trades, meanR: res.stage2.meanR, ci: res.stage2.ci, pass: res.stage2.trades >= 150 && res.stage2.ci && res.stage2.ci.lo > 0 } : null,
+  c7_stage2: res.stage2 ? { stage2Count: res.stage2.stage2Count, meanR: res.stage2.meanR, ci: res.stage2.ci, pass: res.stage2.stage2Count >= 150 && res.stage2.ci && res.stage2.ci.lo > 0 } : null,
 };
 // criterion 2: leak test (10 seeded nights): full-data build cut at the night against the real-time build
 if (LEAK) {

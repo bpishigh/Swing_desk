@@ -371,7 +371,7 @@
  },
  "stage2": {
   "picksWithSetup": 52,
-  "trades": 19,
+  "stage2Count": 19,
   "meanR": -0.18718950081269853,
   "ci": {
    "lo": -0.5239806923875361,
@@ -426,7 +426,7 @@
    "pass": true
   },
   "c7_stage2": {
-   "trades": 19,
+   "stage2Count": 19,
    "meanR": -0.18718950081269853,
    "ci": {
     "lo": -0.5239806923875361,
