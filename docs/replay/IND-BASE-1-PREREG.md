@@ -1,6 +1,6 @@
 # IND-BASE-1: the simple momentum baseline on six years of India history (C-54), written 17 Oct 2026 before any run
 
-Status: DRAFT for owner confirmation (17 Oct 2026). Nothing has been run. Numbers marked (analyst) become fixed when this file is committed with "CONFIRMED" below; any change after a run voids the run. Source: the external review of 17 Oct 2026 (test the design against its simplest evidenced version, add a holding-period curve, India first).
+Status: CONFIRMED 17 Oct 2026 by the owner. Nothing has been run at the time of this commit. Numbers marked (analyst) become fixed when this file is committed with "CONFIRMED" below; any change after a run voids the run. Source: the external review of 17 Oct 2026 (test the design against its simplest evidenced version, add a holding-period curve, India first).
 
 ## Why
 The US replays covered one year and could not tell a rule from luck. India has six years of daily history in the repo (Jan 2020 to Oct 2025, two full cycles) and an as-of data view that applies corporate actions only as they were known. The first question is not about the Swing Desk's pattern layer; it is whether plain relative-strength momentum, with an index filter, earns anything on this data after cost. That is the yardstick the full funnel must later beat. The India scan is not built, so the funnel comparison is a later test (it needs its own entry in this log once the scan exists).
@@ -26,15 +26,16 @@ The US replays covered one year and could not tell a rule from luck. India has s
 - **P2, it beats the index.** Net excess over Nifty 500 (a) is above zero in the fit window and in the holdout, compounded.
 - **P3, not a few months.** The fit-window mean excess stays above zero after the three best months are dropped.
 - **P4, every calendar year reported.** Net excess by calendar year is printed; no criterion, but a single year that carries the whole result is stated as such.
+- **P5, robust to cost.** P1 to P3 are recomputed with every cost doubled. A Pass is labelled "robust" only if they still hold; otherwise it is labelled "cost-sensitive" (added 17 Oct 2026 at confirmation, before any run).
 - **Outcomes.** Pass: P1, P2 and P3 all hold. Fail: mean excess below zero in both windows. Anything else: inconclusive, reported as "cannot tell", with no adoption. Passing does not adopt anything; it sets the yardstick the Swing Desk funnel has to beat.
 
 ## Holding-curve rule (reported, one decision attached)
 The 20, 60 and 120-session annualised net excess over the eligible universe is printed with intervals. If the 20-session figure is less than 75% of the best of the three, the horizon question goes to the owner as a finding ("swing" may be the wrong horizon for this signal); nothing changes automatically.
 
 ## Reported alongside, never used to choose
-Sensitivity to the skip month (0 or 1 month), the cut (top 5%, 10% or 20%) and the index filter (on or off), shown as a plateau check. A parameter taken from this table carries sweep size 9 and does not become a rule from this test.
+Four one-at-a-time variants of the baseline, fit window only, shown as a plateau check: no skip month; top 5%; top 20%; index filter off. A parameter taken from this table carries sweep size 5 (the baseline plus four) and does not become a rule from this test.
 
 ## Known limits
 Survivorship is handled (delisted names are in); adjustment is as-of but 336 unresolved breaks in thin stocks and demergers drop history, which slightly favours liquid, clean names. No dividends in the price return (the benchmarks have none either). Costs are assumed, not measured. Six years is two cycles, not a long sample; this test can fail a rule more reliably than it can prove one.
 
-CONFIRMED: (pending owner)
+CONFIRMED: owner, 17 Oct 2026 (definitions as written; two corrections made at confirmation before any run: sweep size stated as 5, and the double-cost label P5 added).
