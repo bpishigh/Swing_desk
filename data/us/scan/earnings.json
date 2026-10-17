@@ -1,0 +1,34 @@
+{
+ "asOf": "2026-10-16",
+ "source": "Nasdaq earnings-date (estimates)",
+ "dates": {
+  "EQNR": {
+   "date": "2026-11-04",
+   "sessions": 13,
+   "inWindow": false,
+   "estimated": true
+  },
+  "MPC": {
+   "date": "2026-11-03",
+   "sessions": 12,
+   "inWindow": false
+  },
+  "COP": {
+   "date": "2026-11-05",
+   "sessions": 14,
+   "inWindow": false
+  },
+  "P": {
+   "date": "2026-12-01",
+   "sessions": 31,
+   "inWindow": false,
+   "estimated": true
+  },
+  "NTAP": {
+   "date": "2026-11-24",
+   "sessions": 27,
+   "inWindow": false,
+   "estimated": true
+  }
+ }
+}

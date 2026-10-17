@@ -1,0 +1,36 @@
+{
+ "asOf": "2026-10-16",
+ "source": "NSE event calendar",
+ "dates": {
+  "SHYAMMETL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "WELCORP": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "CPPLUS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "WELSPUNLIV": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "BBOX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "LTM": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  }
+ }
+}
