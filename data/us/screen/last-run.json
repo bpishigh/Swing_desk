@@ -1,15 +1,12 @@
 {
- "ts": "2026-10-10T19:38:41.619Z",
+ "ts": "2026-10-17T03:07:41.648Z",
  "status": "written",
  "sectors": [
-  "IGV",
   "XLE",
-  "XLK",
-  "XLV"
+  "XLV",
+  "XLP"
  ],
- "stocks": 38,
+ "stocks": 30,
  "skipped": [],
- "flags": [
-  "38 stock(s) screened from Nasdaq's public history instead of Tiingo"
- ]
+ "flags": []
 }
