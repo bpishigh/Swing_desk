@@ -1,5 +1,5 @@
 // Weekly US stock screen (Repo Desk version of the Claude Desk's Saturday task). Pure functions, no I/O.
-//   1. Sectors: a sector passes the gate if r3m > benchmark r3m AND close > sma50. Score = 2*r3m + r1m. Top 4 passing sectors.
+//   1. Sectors: a sector passes the gate if r3m > benchmark r3m AND r3m > 0 (C-58) AND close > sma50. Score = 2*r3m + r1m. Top 4 passing sectors.
 //   2. Holdings: the top 10 holdings of each chosen sector ETF (equities only). A stock under two ETFs is kept once, under the first.
 //   3. Per stock, from Tiingo bars (split-adjusted): close, sma50, sma200, ema20, atr14, high50, high1, low10, low3, r1m, avgVol, adv,
 //      volRatio, chg52. From the StockAnalysis statistics page: the next earnings date (Tiingo does not carry it), and cross-checks.
@@ -17,7 +17,7 @@ export function pickSectors(feed: Feed, max = 4): Array<{ etf: string; key: stri
   for (const [key, s] of Object.entries(feed.sectors)) {
     const m = /\(([A-Z]+)\)\s*$/.exec(key);
     if (!m || typeof s.close !== 'number' || typeof s.sma50 !== 'number' || typeof s.r3m !== 'number' || typeof s.r1m !== 'number') continue;
-    if (s.r3m > b3 && s.close > s.sma50) out.push({ etf: m[1], key, score: Math.round((2 * s.r3m + s.r1m) * 100) / 100 });
+    if (s.r3m > b3 && s.r3m > 0 && s.close > s.sma50) out.push({ etf: m[1], key, score: Math.round((2 * s.r3m + s.r1m) * 100) / 100 });
   }
   return out.sort((a, b) => b.score - a.score).slice(0, max);
 }

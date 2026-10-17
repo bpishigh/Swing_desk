@@ -16,6 +16,10 @@ test('sector gate: r3m above the benchmark and close above the 50 SMA; score 2*r
   assert.deepEqual(pickSectors(feed).map((s) => s.etf), ['XLE', 'IGV', 'XLK', 'XLU']);
   assert.deepEqual(pickSectors({ sectors: feed.sectors }), []);        // no benchmark -> nothing
 });
+test('C-58: a falling sector that beats a falling benchmark does not pass', () => {
+  const feed = { bench: { r1m: -2, r3m: -4 }, sectors: { 'Utilities (XLU)': { close: 80, sma50: 79, r1m: 1, r3m: -1 }, 'Energy (XLE)': { close: 62, sma50: 60, r1m: 1, r3m: 3 } } };
+  assert.deepEqual(pickSectors(feed).map((s) => s.etf), ['XLE']);
+});
 test('holdings: top ten rows, equities only, symbol and weight as shown', () => {
   const row = (...c: string[]) => `<tr>${c.map((x) => `<td>${x}</td>`).join('')}</tr>`;
   const html = '<table><tr><th>No.</th><th>Symbol</th><th>Name</th><th>% Weight</th><th>Shares</th></tr>' +

@@ -1,4 +1,4 @@
-// Sector ranking. Implements Engine Rules "Sector ranking": gate (3M beats benchmark and above 50 SMA; Red: 3M only),
+// Sector ranking. Implements Engine Rules "Sector ranking": gate (3M beats benchmark AND is above zero (C-58), and above 50 SMA; Red: the two 3M tests only),
 // score = 2 x 3M + 1M, ranked high to low. Ported from app v9 computeSectors / sectorStatus.
 
 export interface SectorInput { name: string; m1?: number | null; m3?: number | null; above50?: boolean; above200?: boolean }
@@ -11,7 +11,7 @@ export function rankSectors(inputs: SectorInput[], benchmarkM3: number | undefin
   const rows: SectorRow[] = inputs.map((r) => {
     const m1 = ok(r.m1) ? r.m1 : NaN, m3 = ok(r.m3) ? r.m3 : NaN;
     const above = !!r.above50, a200 = !!r.above200;
-    const pass = ok(m3) && ok(benchmarkM3) && m3 > benchmarkM3 && (mode === 'red' || above);
+    const pass = ok(m3) && ok(benchmarkM3) && m3 > benchmarkM3 && m3 > 0 && (mode === 'red' || above);
     const score = pass && ok(m1) ? 2 * m3 + m1 : pass ? 2 * m3 : NaN;
     return { name: r.name, m1: ok(m1) ? m1 : null, m3: ok(m3) ? m3 : null, above50: above, above200: a200, pass, score: ok(score) ? +score.toFixed(2) : null, rank: null };
   });

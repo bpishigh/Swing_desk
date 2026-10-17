@@ -170,7 +170,7 @@ function sectorTable(name, m, st) {
   const rows = sortRows(m.sectors.map((s) => ({ ...s, v50: pctVs(s.close, s.sma50), v200: pctVs(s.close, s.sma200), rank: s.rank ?? null })), st);
   if (!rows.length) return '';
   return `<section class="card"><h2>${name} sectors</h2>
-  <div class="note">Gate: 3-month return beats the benchmark (${fmt(m.benchmarkR3m, 2)}%)${m.mode === 'red' ? ' (Red: 3-month only)' : ' and close above the 50-day'}. Score = 2 × 3M + 1M. Top 4 are the leaders.</div>
+  <div class="note">Gate: 3-month return beats the benchmark (${fmt(m.benchmarkR3m, 2)}%) and is above zero${m.mode === 'red' ? ' (Red: these two only)' : ', and close above the 50-day'}. Score = 2 × 3M + 1M. Top 4 are the leaders.</div>
   <div class="tablewrap"><table><thead><tr>${th('Sector', 'name', st)}${th('Rank', 'rank', st, 1)}${th('Score', 'score', st, 1)}${th('1M', 'r1m', st, 1)}${th('3M', 'r3m', st, 1)}${th('vs 50d', 'v50', st, 1)}${th('vs 200d', 'v200', st, 1)}<th>Gate</th></tr></thead><tbody>
   ${rows.map((s) => `<tr class="${s.pass ? '' : 'dim'}"><td>${esc(s.name)}</td><td class="num">${s.rank ?? '–'}</td><td class="num">${fmt(s.score, 1)}</td><td class="num">${sgn(s.r1m, 2)}</td><td class="num">${sgn(s.r3m, 2)}</td><td class="num">${sgn(s.v50, 1, '%')}</td><td class="num">${sgn(s.v200, 1, '%')}</td><td>${s.pass ? '<span class="chip ok">pass</span>' : '<span class="chip">no</span>'}</td></tr>`).join('')}
   </tbody></table></div></section>`;
