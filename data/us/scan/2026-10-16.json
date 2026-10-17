@@ -510,6 +510,7 @@
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
  ],
+ "source": "nasdaq",
  "regimeDate": "2026-10-16",
  "sicCovered": 2181
 }
