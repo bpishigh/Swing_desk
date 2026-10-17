@@ -1,114 +1,81 @@
-[
- {
-  "name": "TER 16-Oct-2026 D=-1&strCat=-1&strType=1",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&date=16-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 67,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":10,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 16-Oct-2026 e=1&page=1&pageSize=5000",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&page=1&pageSize=5000&date=16-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 16-Oct-2026 1&strCat=-1&pageSize=100",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?strType=1&MF_ID=-1&strCat=-1&pageSize=100&date=16-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 15-Oct-2026 D=-1&strCat=-1&strType=1",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&date=15-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 67,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":10,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 15-Oct-2026 e=1&page=1&pageSize=5000",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&page=1&pageSize=5000&date=15-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 15-Oct-2026 1&strCat=-1&pageSize=100",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?strType=1&MF_ID=-1&strCat=-1&pageSize=100&date=15-Oct-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 30-Sep-2026 D=-1&strCat=-1&strType=1",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&date=30-Sep-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 67,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":10,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 30-Sep-2026 e=1&page=1&pageSize=5000",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&page=1&pageSize=5000&date=30-Sep-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER 30-Sep-2026 1&strCat=-1&pageSize=100",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?strType=1&MF_ID=-1&strCat=-1&pageSize=100&date=30-Sep-2026",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER no date",
-  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&pageSize=100",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 68,
-  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":100,\"total\":0,\"pageCount\":0}}"
- },
- {
-  "name": "TER other path",
-  "url": "https://www.amfiindia.com/api/ter-of-mf-schemes",
-  "status": 404,
-  "type": "application/json; charset=utf-8",
-  "bytes": 94,
-  "head": "{\"data\":null,\"error\":{\"status\":404,\"name\":\"NotFoundError\",\"message\":\"Not Found\",\"details\":{}}}"
- },
- {
-  "name": "TER other path 2",
-  "url": "https://www.amfiindia.com/api/populate-ter-data",
-  "status": 200,
-  "type": "application/json; charset=utf-8",
-  "bytes": 11,
-  "head": "{\"data\":[]}"
- },
- {
-  "name": "page1",
-  "url": "https://www.amfiindia.com/otherdata/ter-of-mf-scheme",
-  "status": 404,
-  "type": "text/html; charset=utf-8",
-  "bytes": 156953,
-  "head": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/904be59b21bd51cb-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/><link rel=\"preload\" as=\"image\" href=\"/logo.svg\"/><link rel=\"preload\" as=\"image\" href=\"/searchIcon.svg\"/><link rel=\"preload\" as=\"image\" href=\"/menuIcon.svg\"/><link rel=\"stylesheet\" href=\"/_next/static/css/be9448e25bcce8e7.css\" data-precedence=\"next\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/webpack-77d31d177088ef08.js\"/><script src=\"/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js\" async=\"\"></script><script src="
- },
- {
-  "name": "page2",
-  "url": "https://www.amfiindia.com/investor/ter-of-mf-schemes",
-  "status": 404,
-  "type": "text/html; charset=utf-8",
-  "bytes": 156953,
-  "head": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/904be59b21bd51cb-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/><link rel=\"preload\" as=\"image\" href=\"/logo.svg\"/><link rel=\"preload\" as=\"image\" href=\"/searchIcon.svg\"/><link rel=\"preload\" as=\"image\" href=\"/menuIcon.svg\"/><link rel=\"stylesheet\" href=\"/_next/static/css/be9448e25bcce8e7.css\" data-precedence=\"next\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/webpack-77d31d177088ef08.js\"/><script src=\"/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js\" async=\"\"></script><script src="
- }
-]
+{
+ "links": [
+  "/terms-of-use"
+ ],
+ "pages": [
+  {
+   "u": "https://www.amfiindia.com/terms-of-use",
+   "status": 200,
+   "bytes": 183138
+  },
+  {
+   "u": "https://www.amfiindia.com/otherdata",
+   "status": 200,
+   "bytes": 163057
+  },
+  {
+   "u": "https://www.amfiindia.com/otherdata/ter-of-mf-schemes",
+   "status": 404,
+   "bytes": 156953
+  },
+  {
+   "u": "https://www.amfiindia.com/ter-of-mf-schemes",
+   "status": 200,
+   "bytes": 196726
+  }
+ ],
+ "contexts": [
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "encodeURIComponent(arguments[t])}return\"Minified React error #\"+e+\"; visit \"+n+\" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.\"}function s(e){return!(!e||1!==e.nodeType&&9!==e.nodeType&&11!==e.nodeType)}function c(e){var n=e,t=e;if(e.alternate)for(;n.return;)n=n.return;else{e=n;do 0!=(4098&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.f"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "){return!(!e||1!==e.nodeType&&9!==e.nodeType&&11!==e.nodeType)}function c(e){var n=e,t=e;if(e.alternate)for(;n.return;)n=n.return;else{e=n;do 0!=(4098&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.for(\"react.element\"),g=Symbol.for(\"react.transitional.element\"),y=Symbol.for(\"react.portal\"),v=Symbol.for(\"react.fragment\"),b=Symbol.for(\"react.strict_mode\"),k=Symbol.for(\"react.profiler\"),w=Symbol.for(\"re"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "8&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.for(\"react.element\"),g=Symbol.for(\"react.transitional.element\"),y=Symbol.for(\"react.portal\"),v=Symbol.for(\"react.fragment\"),b=Symbol.for(\"react.strict_mode\"),k=Symbol.for(\"react.profiler\"),w=Symbol.for(\"react.consumer\"),S=Symbol.for(\"react.context\"),x=Symbol.for(\"react.forward_ref\"),E=Symbol.for(\"react.suspense\"),z=Symbol.for(\"react.suspense_list\"),C=S"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "act.suspense_list\"),C=Symbol.for(\"react.memo\"),P=Symbol.for(\"react.lazy\");Symbol.for(\"react.scope\");var N=Symbol.for(\"react.activity\");Symbol.for(\"react.legacy_hidden\"),Symbol.for(\"react.tracing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": ";var N=Symbol.for(\"react.activity\");Symbol.for(\"react.legacy_hidden\"),Symbol.for(\"react.tracing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){c"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "ing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){case 9:case 11:e=(e=n.documentElement)&&(e=e.namespaceURI)?sg(e):0;break;default:if(e=n.tagNa"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": ".for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){case 9:case 11:e=(e=n.documentElement)&&(e=e.namespaceURI)?sg(e):0;break;default:if(e=n.tagName,n=n.namespaceURI)e=sy(n=sg(n),e);else switch(e){case\"svg\":e=1;"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "atch(e){var n=e.stack.trim().match(/\\n( *(at )?)/);nI=n&&n[1]||\"\",nU=-1<e.stack.indexOf(\"\\n    at\")?\" (<anonymous>)\":-1<e.stack.indexOf(\"@\")?\"@unknown:0:0\":\"\"}return\"\\n\"+nI+e+nU}var G=!1;function Z(e,n){if(!e||G)return\"\";G=!0;var t=Error.prepareStackTrace;Error.prepareStackTrace=void 0;try{var r={DetermineComponentFrameRoot:function(){try{if(n){var t=function(){throw Error()};if(Object.defineProperty(t.prototype,\"props\",{set:function(){throw Error()}}),\"object\"==typeof Reflect&&Reflect.construct){try{Reflect.construct(t,[])}catch(e){var r=e}Reflect.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "t.construct(t,[])}catch(e){var r=e}Reflect.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;i"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "t.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.leng"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": ")}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l-"
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "atch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l--)if(i[r]!==s[l]){if(1!==r||1!==l)do if(r--,l--,0>l||i[r]!==s[l]){var c=\"\\n\"+i["
+  },
+  {
+   "u": "4bd1b696-100b9d70ed4e49c1.js",
+   "ctx": "ng\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l--)if(i[r]!==s[l]){if(1!==r||1!==l)do if(r--,l--,0>l||i[r]!==s[l]){var c=\"\\n\"+i[r].replace(\" at new \",\" at \");return e.disp"
+  }
+ ]
+}
