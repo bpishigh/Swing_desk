@@ -3,7 +3,7 @@
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const B = 'https://www.amfiindia.com/api/populate-te-rdata-revised';
-const SIZE = 50;
+let SIZE = 50;
 async function page(month, p) {
   for (let a = 0; a < 3; a++) {
     try { const r = await fetch(`${B}?MF_ID=All&Month=${month}&strCat=-1&strType=-1&page=${p}&pageSize=${SIZE}`, { headers: UA, signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error('status ' + r.status); const j = await r.json(); const inner = j?.[0]?.data ?? j?.data ?? j; return Array.isArray(inner?.data) ? inner.data : Array.isArray(inner) ? inner : []; }
@@ -17,6 +17,7 @@ process.on('unhandledRejection', (e) => { LOG.error = String(e?.message || e); f
 const now = new Date(); let month = null;
 for (let i = 0; i < 6 && !month; i++) { const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1)); const m = `${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`; if ((await page(m, 1)).length) month = m; }
 LOG.month = month;
+for (const sz of [5000, 2000, 1000, 500, 200]) { SIZE = sz; try { const t = await page(month, 1); if (t.length > 50) { LOG.pageSize = sz; LOG.firstPage = t.length; break; } } catch {} SIZE = 50; }
 if (!month) { LOG.error = 'no TER month found'; finish(1); }
 const latest = new Map(); let n = 0, empty = false;
 const take = (rows) => { for (const r of rows) { n++; const k = r.NSDLSchemeCode || r.Scheme_Name; const o = latest.get(k); if (!o || r.TER_Date > o.TER_Date) latest.set(k, r); } };
