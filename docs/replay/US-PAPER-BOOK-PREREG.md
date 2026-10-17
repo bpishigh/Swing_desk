@@ -1,30 +1,44 @@
-# US paper book: streams and read rules (C-53), written 16 Oct 2026 before any paper trade
+# US paper book: streams and read rules (C-53), written 16 Oct 2026 before any paper position
 
-Status: DRAFT for owner confirmation. Nothing is logged yet. Source: the external review of 16 Oct 2026 of the C-52 result, plus the stop-width and room diagnostics in docs/replay/US-SCAN-2-RESULT-2026-10-16.md.
+Status: DRAFT v2 for owner confirmation (17 Oct 2026), after the external review of the C-52 diagnostics. Nothing is logging yet; logging starts the first night after "CONFIRMED" below and the engine is committed. Source: docs/replay/US-SCAN-2-RESULT-2026-10-16.md.
 
 ## Purpose
-Measure, on real forward fills, three questions the one-year replay cannot answer: do the pattern setups earn their place (comparator), is the 6 to 8% stop cap the constraint (cap-waived), and does the scan produce positive expectancy in R after cost (official). Nothing here changes a live rule or places a real order.
+Measure on real forward fills three questions the one-year replay cannot answer, one change at a time: does a stop sized in ATR instead of a 6 to 8% cap change the result (the width question), does a mechanical entry do as well as the pattern trigger (the entry question), and does the scan have positive expectancy in R after cost at all. Nothing here changes a live rule or places a real order.
 
-## Candidates and clocks
-- Candidates: the nightly top-10 list of US-SCAN-1 (Ready and Watch, composite order, 3 per industry), unchanged and frozen. The forward-test read point is counted on this list, with Ready as a tagged subset.
-- The paper book starts logging the first night after this file is CONFIRMED and the engine is committed. Orders are created from the night's scan and handled on following sessions' bars. Settings changes restart the clock as before.
+## Candidates
+The nightly top-10 list of US-SCAN-1 (Ready and Watch, composite order, 3 per industry), frozen. Names more than 25% above the 50-day are skipped in every stream (the extension rule stays). Setup allowances follow the regime light of the night (US Yellow: 1, 1ipo and 4; Green and Red: 1, 1ipo, 2 and 4) in every stream. Setup 3 is not in the scan and is not modelled.
 
-## Three streams, all logged from night one
-1. **Official.** Exactly the US-SCAN-1 setups on the Ready list: pending buy at the trigger with the limit, one session to fill (fills if the next session's high reaches the trigger and its low is at or under the limit, at the trigger price), the setup's stop widened to 1.5 ATR14, the stop-width cap of the setup (6 to 8%) and the 3R room test applied, as live.
-2. **Comparator (shadow).** Same candidates, different entry. Breakout shapes: first close above the highest high of the previous 20 sessions. Pullback shapes: first close back above the 20-day average after a close below it within the last 5 sessions. Entry at the next session's close. Stop placement as the official setup (chart level widened to 1.5 ATR14); the stop-width cap and room test are NOT applied and the trade is tagged over cap or room fail where the official rule would have skipped it.
-3. **Cap-waived (shadow).** The official pattern setups and triggers, with the stop set in ATR terms: the nearer of the chart level and trigger minus 2.5 ATR14, never nearer than 1.5 ATR14; a trade whose stop would be wider than 12% of the trigger is skipped (backstop). The 6 to 8% cap is not applied and the trade is tagged over cap where it would have been skipped. The 3R room test is not enforced; room in R is recorded on every trade.
+## Shapes (the same in every stream)
+- Breakout (setup 1, or 1ipo on the IPO path): price within 5% of the 50-session high; for stocks on the main path also a tight base (ATR10/ATR50 below 0.7), as in US-SCAN-1.
+- 20 EMA pullback (setup 2, where allowed): close at or above the 20 EMA, a low in the last 5 sessions at or below it, close above the 50-day.
+- 50-day pullback (setup 4): close at or above the 50-day, a low in the last 5 sessions at or below it.
+The first shape that matches in the order 1, 2, 4 is used.
 
-All streams use the same exit rules at daily-close resolution (stop fills at the stop; rules 3, 4, 5, 6, 7 act on the next close; rule 9 acts when the regime light drops; rule 8 not modelled because no results dates are held, every trade says so). Each trade records: stream, setup, group, regime at entry, signal and entry dates, trigger, fill, stop width in percent and ATR, room in R, tags, cost at the liquidity tier (0.20% from $100M a day, 0.35% from $25M, 0.60% from $10M), exit reason and result in R after cost. No portfolio limits are applied; every trade stands alone in R.
+## Three streams, a chain: each changes one thing from the one before
+1. **Official.** The Ready list as live: buy at trigger (basis plus 0.5% for setup 1, 0.2% for 2 and 4) with the limit (1%), one session to fill (fills at the trigger if the next session's high reaches it and its low is at or under the limit). Stop at the chart level widened to 1.5 ATR14; the setup's stop-width cap (8% setup 1, 10% 1ipo, 7% setup 2, 6% setup 4) and the 3R room test (to the 250-session high, waived when none) applied.
+2. **Cap-waived** (changes only the stop rule). Same shapes, triggers, limits and fills, on the whole top-10 list. Stop: the official stop (chart level, at least 1.5 ATR14 away); if that is farther than 2.5 ATR14 from the trigger, the stop is 2.5 ATR14 below the trigger and the trade is tagged "inside base". A trade whose stop would be wider than 12% of the trigger is skipped. The percent cap and the room test are not applied; trades are tagged "over cap" and "room fail" where the official rule would have skipped them.
+3. **Comparator** (changes only the entry rule on top of stream 2). Same shapes, same stop rule and tags as stream 2, same candidates. Entry at the next session's close if tonight is a signal night: breakout shape, first close above the highest high of the previous 20 sessions (the previous close was not); pullback shapes, first close back above the 20-day average (setup 2) or the 50-day average (setup 4) after a close below it in the last 5 sessions. The stop is placed with the stream-2 rule from tonight's close and re-measured at the actual entry; skipped if the stop is then wider than 12%.
+Cap-waived against official answers the width question; comparator against cap-waived answers the entry question.
+
+## Exits (all streams)
+The exit rules at daily-close resolution: the stop fills at the stop; rule 3 (failed breakout within 3 sessions), 4 (time stop, 10 sessions without a close at +1R), 5 (sell a third at +2R, stop to entry), 6 (trail: first close below the 20 EMA in weeks 1 to 7, a weekly close below the 10-week average from week 8) and 7 (sell a third at 20% above the 20 EMA) act at the next session's close; rule 9 (regime light drops: stops on trades below +1R move to the higher of the day's low and the 10 EMA, never above the close); rule 8 is not modelled because no results dates are held, and every trade says so. A trade closes at the latest after 60 sessions.
+
+## What every trade records
+Stream, setup, group, regime at entry, signal date, entry date, trigger, fill, stop in percent and in ATR14 units, ATR14 as a percent of price, room in R, tags (over cap, room fail, inside base), the 20-day dollar volume and the cost tier (0.20% round trip from $100M a day, 0.35% from $25M, 0.60% from $10M), exit date, exit reason (stop, stop at entry, failed breakout, time stop, trail, extended third, max hold) and the result in R after cost. No portfolio limits or sizing are applied: every trade stands alone in R.
 
 ## Read rules (fixed now)
-- Read at 300 closed trades in the official plus comparator streams (counted on the top-10 list) or 12 months, whichever is later; a first look at 150, judged on nothing.
-- Official: expectancy in R after cost above zero with the 90% block-bootstrap interval excluding zero.
-- Comparator against official: difference in expectancy in R on the same candidates, same interval rule; if the simple entry does as well, the pattern setups are cost without benefit and the scan becomes a watch list with one mechanical entry.
-- Cap-waived against official, trade by trade, answers the width question: expectancy in R of the over-cap trades on their own, same interval rule.
-- Reported, not judged: results by regime at entry, group share, setup, cost tier, win rate, fill versus trigger.
-- A group may not exceed 25% of a stream's trades in a read (reported; if breached the read is also given without that group).
+- Top-10 forward log: read at 300 non-overlapping picks or 12 months, whichever is later, as already decided.
+- The three trade streams are read at 12 months from the first logged night regardless of count, with each stream's trade count reported (the official stream may never reach 300, and that is itself a result). A first look at 150 trades in a stream is allowed and judged on nothing.
+- Official: expectancy in R after cost above zero, 90% block-bootstrap interval (blocks of 5 entry nights, 5,000 resamples) excluding zero.
+- Width: cap-waived against official, and the over-cap trades of stream 2 on their own, same interval rule on the difference or the trades.
+- Entry: comparator against cap-waived on trades that share a candidate, same interval rule; if the mechanical entry does as well, the pattern trigger is cost without benefit and the scan becomes a watch list with one mechanical entry.
+- Reported, not judged: results by regime at entry, by ATR-percent tercile (the question whether the edge lives in the calmer half of the universe is asked at read time, never made a rule now), by group, setup, tag and cost tier, win rate, exit reasons, and the read without any group above 25% of a stream's trades.
+
+## Known items recorded now
+- The India engine uses the same 1.5 ATR floor and the same style of chart-level stops, in a market at least as volatile; the same tension (percentage caps against a very volatile universe) will appear when the India scan is built.
+- A backtester module (one implementation shared with the engine, as-of data, run manifests committed before each run, fit and holdout windows, standard outputs and sensitivity curves) is planned after the India history load; see docs/SCOPE.md. It is for pre-registered tests and plateau checks, not for searching parameters.
 
 ## Limits
-Fills from highs and lows only (no opens), so gaps past the limit are approximated; no earnings dates; no portfolio limits; shadow streams are not live rules. Today's list leaves out delisted names in replays; the paper book has no such bias.
+Fills from highs and lows only (no opens), so gaps past the limit are approximated; no earnings dates; no portfolio limits; shadow streams are not live rules; the stock list is whatever the nightly feed carried, so the paper book has no survivorship bias.
 
 CONFIRMED: (pending owner)
