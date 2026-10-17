@@ -23,5 +23,26 @@ Mean excess over the eligible list / compounded return: no skip month 0.89% / +1
 ## What was checked in the data
 The largest name-months are real, well-known moves (TTML, NDTV, JWL, ADANITRANS), none coincides with a resolved split or bonus, and the worst are the Adani collapse, so losses are not being hidden. Median name-month gross return 1.4% against a mean of 3.7%: the mean is carried by a skewed tail. Many winners trade only Rs 7 to 20 crore a day, where the 0.80% cost tier and real fills matter most. 6 positions lost their price before exit (valued at the last close); 10 names had no entry price and were skipped; no unresolved demerger inside a hold. Two ETF-like symbols among 2,832 picks.
 
-## Not yet decided
-The holdout. The pass rule needs the holdout mean excess above zero for P1 and P2.
+## Holdout reveal (one reveal, 17 Oct 2026, committed after the fit result): signals Jan 2024 to Sep 2025, 21 months
+| | Strategy | Eligible list, same rule | Nifty 500 |
+|---|---|---|---|
+| Compounded | +10.1% | +12.1% | +18.6% |
+| 2024 | +37.8% | +25.4% | +17.5% |
+| 2025 (to Sep) | -20.2% | -10.6% | +0.9% |
+
+Mean monthly net return 0.71%. Mean monthly excess over the eligible list +0.04% (essentially zero). Excess over Nifty 500, compounded, -8.5 points.
+
+Holding curve, holdout, annualised excess over the eligible list with 90% interval: 20 sessions +4.0% (-10.2% to +17.6%); 60 sessions +2.6% (-7.5% to +12.7%); 120 sessions +1.8% (-4.7% to +9.0%). Every interval includes zero.
+
+## Against the pre-registered rule
+- **P1** (mean excess above zero with a positive lower bound in the fit window, and holdout mean above zero): holds on the letter (holdout +0.04%), with no practical margin. At double cost it fails (holdout mean below zero).
+- **P2** (beats Nifty 500 in both windows): holds in the fit window, **fails in the holdout** (-8.5 points).
+- **P3** (survives dropping the best three months): holds.
+- **P5** (double cost): P1 fails in the holdout, so even a pass would have been labelled cost-sensitive.
+- **Outcome: inconclusive ("cannot tell"). Not a Pass, because P2 fails. Not a Fail, because the fit-window excess is positive.** Nothing is adopted.
+
+## Reading it
+Momentum with an index filter beat both benchmarks decisively in 2021 to 2023 and gave all of it back in the holdout: in 2025 the top decile fell 20% while the index was flat and the whole eligible list fell 11%. In 2024 and 2025 large caps led and the broad list itself trailed Nifty 500 (+12.1% against +18.6%), so the small and mid-cap tilt that carried the fit window reversed. The index filter did not help in 2025: the index stayed above its 200-day average while momentum names fell. The baseline is therefore real in some regimes and not a free lunch; it is cyclical with the small-cap cycle. Six years and one reversal is not enough to say whether the holdout is noise or a regime change; the 21-month interval on every holding horizon includes zero.
+
+## What it means for the next steps
+The yardstick the funnel has to beat is not a stable one. A longer history with more cycles is now the most useful single addition (NSE's older files back to about 2010, which adds 2013 to 2019 including the 2015 to 2016 and 2018 corrections), before any funnel comparison.

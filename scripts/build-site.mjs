@@ -93,6 +93,7 @@ const DOCS = [
   ['prereg-paper', 'C-53 paper book (pre-registration)', 'Pre-registrations', 'docs/replay/US-PAPER-BOOK-PREREG.md'],
   ['prereg-scan2', 'C-52 US-SCAN-2 (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-2-PREREG.md'],
   ['prereg-scan1', 'C-51 US-SCAN-1 replay (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-REPLAY-PREREG.md'],
+  ['res-ind1', 'C-54 India baseline result, 17 Oct 2026', 'Results', 'docs/replay/IND-BASE-1-RESULT-2026-10-17.md'],
   ['res-scan2', 'C-52 result, 16 Oct 2026', 'Results', 'docs/replay/US-SCAN-2-RESULT-2026-10-16.md'],
   ['res-scan1', 'C-51 result, 16 Oct 2026', 'Results', 'docs/replay/US-SCAN-REPLAY-RESULT-2026-10-16.md'],
   ['res-b1015c', 'India exit test, 15 Oct (adjusted, dividends)', 'Results', 'docs/replay/BASELINE-2026-10-15-adjusted-div.md'],
