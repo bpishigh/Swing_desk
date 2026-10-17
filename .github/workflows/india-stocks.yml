@@ -103,6 +103,7 @@ jobs:
           git config user.email "noreply@github.com"
           git pull --rebase origin main
           node --max-old-space-size=6000 scripts/book-alerts.mjs india
+          node --max-old-space-size=6000 scripts/holding-alerts.mjs
           git add portfolio/book
           git commit -m "book alerts india: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
