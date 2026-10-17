@@ -1,22 +1,18 @@
-// Probe: where can the Actions runner get scheme expense ratios (TER) and index total-return levels? Writes data/source-test/ter-probe.json (first bytes of each reply).
+// Probe 3: find how AMFI's site calls its TER API by reading its own page scripts. Writes data/source-test/ter-probe.json.
 import { writeFileSync, mkdirSync } from 'node:fs';
-const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', accept: 'application/json, text/plain, */*' };
-const d = new Date(Date.now() - 2 * 86400000), mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getUTCMonth()];
-const dmy = `${String(d.getUTCDate()).padStart(2, '0')}-${mon}-${d.getUTCFullYear()}`;
-const dates = ['16-Oct-2026', '15-Oct-2026', '30-Sep-2026'];
-const tests = [];
-for (const dt of dates) for (const q of ['MF_ID=-1&strCat=-1&strType=1', 'MF_ID=-1&strCat=-1&strType=1&page=1&pageSize=5000', 'strType=1&MF_ID=-1&strCat=-1&pageSize=100']) tests.push([`TER ${dt} ${q.slice(-24)}`, `https://www.amfiindia.com/api/populate-te-rdata-revised?${q}&date=${dt}`]);
-tests.push(['TER no date', 'https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&pageSize=100']);
-tests.push(['TER other path', 'https://www.amfiindia.com/api/ter-of-mf-schemes']);
-tests.push(['TER other path 2', 'https://www.amfiindia.com/api/populate-ter-data']);
-tests.push(['page1', 'https://www.amfiindia.com/otherdata/ter-of-mf-scheme']);
-tests.push(['page2', 'https://www.amfiindia.com/investor/ter-of-mf-schemes']);
-
-const out = [];
-for (const [name, url] of tests) {
-  try { const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(25000) }); const t = await r.text(); out.push({ name, url, status: r.status, type: r.headers.get('content-type'), bytes: t.length, head: t.slice(0, 700) }); }
-  catch (e) { out.push({ name, url, error: String(e.message || e) }); }
-  console.log(name, out[out.length - 1].status ?? out[out.length - 1].error);
-}
+const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
+const get = async (u) => { const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(30000) }); return { status: r.status, text: await r.text() }; };
+const out = { links: [], pages: [], contexts: [] };
+const home = await get('https://www.amfiindia.com/'); 
+const hrefs = [...new Set([...home.text.matchAll(/href="([^"]+)"/g)].map((m) => m[1]))];
+out.links = hrefs.filter((h) => /ter|expense|other-?data/i.test(h)).slice(0, 40);
+const cands = new Set(out.links.filter((h) => !/^https?:/.test(h) || /amfiindia/.test(h)).map((h) => (h.startsWith('http') ? h : 'https://www.amfiindia.com' + h)));
+['https://www.amfiindia.com/otherdata', 'https://www.amfiindia.com/otherdata/ter-of-mf-schemes', 'https://www.amfiindia.com/ter-of-mf-schemes'].forEach((u) => cands.add(u));
+const scripts = new Set();
+for (const u of [...cands].slice(0, 12)) { try { const p = await get(u); out.pages.push({ u, status: p.status, bytes: p.text.length }); for (const m of p.text.matchAll(/src="(\/_next\/static\/[^"]+\.js)"/g)) scripts.add('https://www.amfiindia.com' + m[1]); } catch (e) { out.pages.push({ u, error: String(e.message) }); } }
+for (const m of home.text.matchAll(/src="(\/_next\/static\/[^"]+\.js)"/g)) scripts.add('https://www.amfiindia.com' + m[1]);
+let n = 0;
+for (const u of scripts) { if (n++ > 60) break; try { const j = await get(u); for (const m of j.text.matchAll(/te-rdata|populate-ter|TER|expense-ratio/gi)) { out.contexts.push({ u: u.split('/').pop(), ctx: j.text.slice(Math.max(0, m.index - 300), m.index + 500) }); if (out.contexts.length > 12) break; } } catch {} if (out.contexts.length > 12) break; }
 mkdirSync('data/source-test', { recursive: true });
 writeFileSync('data/source-test/ter-probe.json', JSON.stringify(out, null, 1) + '\n');
+console.log(out.links.length, out.pages.length, out.contexts.length);
