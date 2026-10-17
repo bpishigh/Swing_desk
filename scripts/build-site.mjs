@@ -88,6 +88,7 @@ if (!same) writeFileSync('site/data/dashboard.json', JSON.stringify(out) + '\n')
 // Reference documents shown on the Docs tab. Public-safe set only: the Portfolio Manager design and the save-setup note carry household detail and stay out.
 const DOCS = [
   ['rules', 'Engine Rules', 'Rules', 'docs/ENGINE_RULES.md'], ['arch', 'Code and Architecture', 'Rules', 'docs/ARCHITECTURE.md'], ['screener', 'Screener brief', 'Rules', 'docs/SCREENER_BRIEF.md'],
+  ['prereg-ind', 'C-54 India baseline (pre-registration)', 'Pre-registrations', 'docs/replay/IND-BASE-1-PREREG.md'],
   ['prereg-paper', 'C-53 paper book (pre-registration)', 'Pre-registrations', 'docs/replay/US-PAPER-BOOK-PREREG.md'],
   ['prereg-scan2', 'C-52 US-SCAN-2 (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-2-PREREG.md'],
   ['prereg-scan1', 'C-51 US-SCAN-1 replay (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-REPLAY-PREREG.md'],
