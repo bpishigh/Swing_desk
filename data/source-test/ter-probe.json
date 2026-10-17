@@ -1,5 +1,106 @@
-{
- "code": "let eg=()=>{if(\"1\"===j||\"-1\"===j){if(\"-1\"===I)return\"-1\";if(!I)return\"\";let e=_.find(e=>e.SubCat_Desc===I);return e?e.SchemeCat_Id:\"\"}{if(\"-1\"===E)return\"-1\";if(!E)return\"\";let e=R.find(e=>e.SchemeCat_Desc===E);return e?e.SchemeCat_Id:\"\"}},em=()=>\"-1\"===j?\"-1\":\"1\"===j?\"1\":\"3\"===j?\"3\":\"2\"===j?\"2\":\"\",ef=async function(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:Y,t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:q;O(!0),W(\"\");try{let a=\"-1\"===M?\"All\":M,l=v.find(e=>e.MonthYear===k),r=(null==l?void 0:l.MonthNumber)||\"\",o=eg(),i=em();if(!a||!r||!o||!i)throw Error(\"Missing required parameters\");let c=\"/api/populate-te-rdata-revised?MF_ID=\".concat(a,\"&Month=\").concat(r,\"&strCat=\").concat(o,\"&strType=\").concat(i,\"&page=\").concat(e+1,\"&pageSize=\").concat(t),d=await (0,p.A)(c),n=[],s=null;d[0]&&\"object\"==typeof d[0]&&d[0].data&&\"object\"==typeof d[0].data&&(n=Array.isArray(d[0].data.data)?d[0].data.data:[],s=\"meta\"in d[0].data?d[0].data.meta:null),L(n),J(s)}catch(e){W(e.message||\"Failed to fetch data\"),L([]),J(null)}O(!1)};(0,r.useEffect)(()=>{U&&ef(Y,q)},[Y,q]);let eb=async()=>{try{eo(!0);let e=\"-1\"===M?\"All\":M,t=v.find(e=>e.MonthYear===k),a=(null==t?void 0:t.MonthNumber)||\"\",l=eg(),r=em();if(!e||!a||!l||!r)throw eo(!1),Error(\"Missing required parameters\");let o=\"\".concat(f.QU,\"/api/populate-te-rdata-revised?MF_ID=\").concat(e,\"&Month=\").concat(a,\"&strCat=\").concat(l,\"&strType=\").concat(r,\"&excel=true\"),i=await fetch(o);if(!i.ok)throw eo(!1),Error(\"Failed to download Excel file\");let c=await i.blob(),d=document.createElement(\"a\");d.href=window.URL.createObjectURL(c),d.download=\"ter-of-mf-schemes.xlsx\",document.body.appendChild(d),d.click(),d.remove(),eo(!1)}catch(e){eo(!1),alert(\"Failed to download Excel file.\")}};return(0,l.jsxs)(i.default,{className:\"maxWidth\",sx:{p:{xs:\"16px\",md:\"8px 40px 8px 40px\",lg:\"8px\"}},children:[(0,l.jsx)(u.A,{title:\"TER of MF Schemes | AMFI\",description:\"Access AMFI's latest Total Expense Ratio (TER) data for mutual fund schemes, including scheme-wise expense ratios and other key information for investors.\",keywords:\"AMFI, TER, Total Expense Ratio, mutual fund TER, scheme expense ratio, fund charges\"}),(0,l.jsxs)(i.default,{sx:{display:\"flex\",alignItems:\"center\",gap:.5,px:{xs:2,md:1}},children:[(0,l.jsx)(s(),{href:\"/\",style:{textDecoration:\"none\"},children:(0,l.jsx)(c.A,{component:\"span\",color:\"primary.main\",sx:{cursor:\"pointer\"},children:\"Home\"})}),(0,l.jsx)(c.A,{sx:{color:\"text.secondary\"},children:\"/\"}),(0,l.jsx)(c.A,{sx:{color:\"text.secondary\"},children:\"TER of MF Schemes\"})]}),(0,l.jsx)(c.A,{variant:\"h2\",component:\"h1\",sx:{px:{xs:2,md:1},mb:3,color:ei.palette.fontSizeBackground.thumb,fontSize:{xs:\"20px\",md:\"2rem\"}},children:\"Total Expense Ratio (TER) of Mutual Fund Schemes\"}),(0,l.jsxs)(i.default,{sx:{display:\"flex\",gap:2,flexWrap:\"wrap\",mb:2,px:{xs:2,md:1},py:{xs:1,md:1}},children:[(0,l.jsx)(h.A,{label:\"Financial Year\",value:y,options:es,onChange:w,placeholder:\"Select Year\"}),(0,l.jsx)(h.A,{label:\"Month\",value:k,options:ep,onChange:z,placeholder:\"Select Month\",disabled:!y,loading:$}),(0,l.jsx)(h.A,{label:\"Fund Type\",value:j,options:[{label:\"All\",value:\"-1\"},{label:\"Open Ended\",value:\"1\"},{label:\"Interval Fund\",value:\"3\"},{label:\"Close Ended\",value:\"2\"}],onChange:A,placeholder:\"Select Fund Type\"})]}),(0,l.jsxs)(i.default,{sx:{display:\"flex\",gap:2,flexWrap:\"wrap\",mb:2,px:{xs:2,md:1},py:{xs:1,md:1}},children:[(0,l.jsx)(h.A,{label:\"Category\",value:E,options:eh,onChange:H,placeholder:\"Select C",
- "months": "[]",
- "years": "{\"data\":null,\"error\":{\"status\":404,\"name\":\"NotFoundError\",\"message\":\"Not Found\",\"details\":{}}}"
-}
+[
+ {
+  "name": "month 2026",
+  "path": "/api/populate-ter-month?year=2026",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 2,
+  "head": "[]"
+ },
+ {
+  "name": "month 2025",
+  "path": "/api/populate-ter-month?year=2025",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 2,
+  "head": "[]"
+ },
+ {
+  "name": "month 2025-26",
+  "path": "/api/populate-ter-month?year=2025-26",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 2,
+  "head": "[]"
+ },
+ {
+  "name": "month 2026-27",
+  "path": "/api/populate-ter-month?year=2026-27",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 2,
+  "head": "[]"
+ },
+ {
+  "name": "month 2025-2026",
+  "path": "/api/populate-ter-month?year=2025-2026",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 939,
+  "head": "[{\"MonthYear\":\"May-2026\",\"MonthNumber\":\"05-2026\"},{\"MonthYear\":\"April-2026\",\"MonthNumber\":\"04-2026\"},{\"MonthYear\":\"March-2026\",\"MonthNumber\":\"03-2026\"},{\"MonthYear\":\"February-2026\",\"MonthNumber\":\"02-2026\"},{\"MonthYear\":\"January-2026\",\"MonthNumber\":\"01-2026\"},{\"MonthYear\":\"December-2025\",\"MonthNumber\":\"12-2025\"},{\"MonthYear\":\"November-2025\",\"MonthNumber\":\"11-2025\"},{\"MonthYear\":\"October-2025\",\"MonthNumber\":\"10-2025\"},{\"MonthYear\":\"September-2025\",\"MonthNumber\":\"09-2025\"},{\"MonthYear\":\"August-2025"
+ },
+ {
+  "name": "years",
+  "path": "/api/populate-ter-year",
+  "status": 404,
+  "type": "application/json; charset=utf-8",
+  "bytes": 94,
+  "head": "{\"data\":null,\"error\":{\"status\":404,\"name\":\"NotFoundError\",\"message\":\"Not Found\",\"details\":{}}}"
+ },
+ {
+  "name": "years2",
+  "path": "/api/populate-te-ryear",
+  "status": 404,
+  "type": "application/json; charset=utf-8",
+  "bytes": 94,
+  "head": "{\"data\":null,\"error\":{\"status\":404,\"name\":\"NotFoundError\",\"message\":\"Not Found\",\"details\":{}}}"
+ },
+ {
+  "name": "data m=10",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=10&strCat=-1&strType=-1&page=1&pageSize=3",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ },
+ {
+  "name": "data m=9",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=9&strCat=-1&strType=-1&page=1&pageSize=3",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ },
+ {
+  "name": "data m=202610",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=202610&strCat=-1&strType=-1&page=1&pageSize=3",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ },
+ {
+  "name": "data m=2026-10",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=2026-10&strCat=-1&strType=-1&page=1&pageSize=3",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ },
+ {
+  "name": "data m=October 2026",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=October%202026&strCat=-1&strType=-1&page=1&pageSize=3",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ },
+ {
+  "name": "excel",
+  "path": "/api/populate-te-rdata-revised?MF_ID=All&Month=10&strCat=-1&strType=-1&excel=true",
+  "status": 400,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"message\":\"Month must be in valid format MM-YYYY (e.g., 08-2026)\"}"
+ }
+]
