@@ -90,6 +90,8 @@ const addN = (mk, syms) => { for (const s of syms) { const n = nm[mk]?.[s]; if (
 for (const [mk, sc, pp] of [['us', scan, paper], ['india', scanIndia, paperIndia]]) addN(mk, [...(sc?.ready || []), ...(sc?.watch || []), ...(pp?.live || []), ...(pp?.recent || [])].map((x) => x.sym));
 addN('us', (us.screen?.stocks || []).map((x) => x.sym));
 for (const s of us.sectors || []) { const m = /^(.*) \(([A-Z]+)\)$/.exec(s.name); if (m) names[m[2]] = m[1] + ' sector ETF'; }
+// Shortlist chart data written by the nightly scans (data/{us,india}/scan/charts.json), served beside the dashboard.
+for (const [mk, dir] of [['us', 'data/us/scan'], ['india', 'data/india/scan']]) { const f = `${dir}/charts.json`; if (existsSync(f)) { const txt = readFileSync(f, 'utf8'); const o = `site/data/charts-${mk}.json`; if (!existsSync(o) || readFileSync(o, 'utf8') !== txt) writeFileSync(o, txt); } }
 // Fund scores (FUND-1): a separate small file, written only when the weekly job has produced scores.
 const fs = read('data/funds/scores.json', null);
 if (fs) { const o = { asOf: fs.asOf, version: fs.version, source: fs.source, funds: fs.funds.map((x) => ({ n: x.name, c: x.cat, r1: x.r1, r3: x.r3, r5: x.r5, k: x.consistency, s: x.score, rk: x.rank, p: x.peers, b: x.band, rp: x.replace ? 1 : 0, d: x.d3 ?? null, g: x.g, note: x.note })) }; const txt = JSON.stringify(o) + '\n'; if (!existsSync('site/data/funds.json') || readFileSync('site/data/funds.json', 'utf8') !== txt) writeFileSync('site/data/funds.json', txt); }

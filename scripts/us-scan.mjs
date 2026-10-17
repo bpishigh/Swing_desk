@@ -1,6 +1,7 @@
 // Nightly US whole-market scan (C-20a). Reads the stored Massive grouped bars, the tickers reference list, splits and (if present) the SIC file;
 // writes data/us/scan/<date>.json, latest.json and state.json (qualification hysteresis). Changes no rule.
 // Usage: node scripts/us-scan.mjs [--asof=YYYY-MM-DD] [--dry]   (--dry prints the summary and writes nothing)
+import { chartFor } from '../src/ingest/scan-chart.ts';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { buildHistories, runScan } from '../src/ingest/us-scan.ts';
@@ -50,6 +51,10 @@ out.regimeDate = regime?.date ?? null;
 out.sicCovered = sic.size;
 const summary = { asOf: out.asOf, light, funnel: out.funnel, sicCovered: sic.size, groupsRanked: out.groups.length, ready: out.ready.length, watch: out.watch.length, noGroupQualified: out.noGroup.qualified, thinGroupQualified: out.thinGroup.qualified };
 console.log(JSON.stringify(summary));
+{ // chart data for the Ready and Watch names (output only); --charts writes it even on a dry run
+  const charts = {}; for (const c of [...out.ready, ...out.watch]) { const d = chartFor(hist, c.sym, c.setup); if (d) charts[c.sym] = d; }
+  if (!DRY || process.argv.includes('--charts')) { mkdirSync(`${OUT}`, { recursive: true }); writeFileSync(`${OUT}/charts.json`, JSON.stringify({ asOf: out.asOf, charts }) + '\n'); }
+}
 if (!DRY) {
   mkdirSync(OUT, { recursive: true });
   const { state, ...doc } = out;

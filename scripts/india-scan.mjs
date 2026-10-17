@@ -1,6 +1,7 @@
 // Nightly India whole-market scan (IND-SCAN-1). Same engine as the US scan (runScan) with India settings. Reads NSE bhav history, corporate actions and the
 // industry map; writes data/india/scan/<date>.json, latest.json and state.json (qualification hysteresis). Changes no rule.
 // Usage: node --max-old-space-size=6000 scripts/india-scan.mjs [--asof=YYYY-MM-DD] [--dry]
+import { chartFor } from '../src/ingest/scan-chart.ts';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { runScan } from '../src/ingest/us-scan.ts';
@@ -34,6 +35,10 @@ out.notes = out.notes.filter((n) => !/SIC|US-SCAN|signed off|C-20a/.test(n));
 out.notes.push('IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE\'s broad industries. Results dates are not checked.');
 const summary = { asOf: out.asOf, light, funnel: out.funnel, industryCovered: out.industryCovered, groupsRanked: out.groups.length, ready: out.ready.length, watch: out.watch.length, noGroupQualified: out.noGroup.qualified, thinGroupQualified: out.thinGroup.qualified };
 console.log(JSON.stringify(summary));
+{ // chart data for the Ready and Watch names (output only); --charts writes it even on a dry run
+  const charts = {}; for (const c of [...out.ready, ...out.watch]) { const d = chartFor(hist, c.sym, c.setup); if (d) charts[c.sym] = d; }
+  if (!DRY || process.argv.includes('--charts')) { mkdirSync(`data/india/scan`, { recursive: true }); writeFileSync(`data/india/scan/charts.json`, JSON.stringify({ asOf: out.asOf, charts }) + '\n'); }
+}
 if (!DRY) {
   mkdirSync('data/india/scan', { recursive: true });
   const { state, ...doc } = out;
