@@ -57,6 +57,7 @@ export interface Member { sym: string; type: string; sessions: number; price: nu
 export interface Candidate {
   sym: string; type: string; group: string | null; path: 'main' | 'ipo'; rsPct: number; close: number;
   tags: string[]; clears50M: boolean; composite: number; tightness: number; distPivot: number;
+  why?: string[];   // plain-language reasons for the listing (output only; no rule)
   setup: null | { id: SetupId; short: string; basis: number; trigger: number; limit: number; stop: number; stopWidthPct: number; roomR: number | null };
   diag: { rs121: number | null; rs6m2w: number | null; atr14: number | null; sma50: number | null; sma200: number | null; high52: number | null; low52: number | null; failingNights: number };
 }
@@ -202,6 +203,26 @@ export function runScan(inp: ScanInput): ScanOutput {
       diag: { rs121: ok(rs121.get(r.m.sym) ?? NaN) ? r2((rs121.get(r.m.sym) as number) * 100) : null, rs6m2w: ok(rs6m2w.get(r.m.sym) ?? NaN) ? r2((rs6m2w.get(r.m.sym) as number) * 100) : null,
         atr14: ok(a14) ? r2(a14) : null, sma50: ok(r.sma50) ? r2(r.sma50) : null, sma200: ok(r.sma200) ? r2(r.sma200) : null, high52: ok(r.hi52) ? r2(r.hi52) : null, low52: ok(r.lo52) ? r2(r.lo52) : null, failingNights: fails },
     };
+    {   // Reasons shown on the desk: why it qualified, and why it is Ready or only Watch. Output text only; no rule depends on it.
+      const gi = ranked.findIndex((x) => x.group === cand.group), gm = gi >= 0 ? ranked[gi] : null, pc = (x: number) => (Math.round(x * 10) / 10).toString();
+      const why: string[] = [];
+      why.push(`Strength: ${pc(r.rsp)}th percentile on the weighted four-quarter return (needs ${pc(cut)} or more).`);
+      if (r.path === 'main') why.push(`Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; ${pc(((r.hi52 - close) / r.hi52) * 100)}% below its 52-week high (limit ${pc(S.tplHighPct * 100)}%) and ${pc((close / r.lo52 - 1) * 100)}% above its 52-week low (needs ${pc(S.tplLowPct * 100)}%).`);
+      else why.push(`IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.`);
+      if (gm) why.push(`Group: ${gm.group} ranks ${gi + 1} of ${ranked.length} (median strength ${pc(gm.medianRs)}); the ${nTop} strongest groups are traded in the ${light} light.`);
+      if (fails > 0) why.push(`Kept for now: it failed qualification ${fails} night(s) and leaves after ${S.failsToLeave}.`);
+      if (setup) {
+        const sp = SETUPS[setup.id];
+        why.push(`Ready: ${setup.short}. Buy above ${setup.trigger} (limit ${setup.limit}), stop ${setup.stop}, ${pc(setup.stopWidthPct)}% wide (cap ${sp.maxStop}%)${setup.roomR !== null ? `, ${pc(setup.roomR)}R of room to the next high` : ''}.`);
+      } else if (extended) why.push(`Watch: extended, ${pc((close / r.sma50 - 1) * 100)}% above its 50-day (limit ${pc(S.extendedAbove50 * 100)}%). Wait for a pullback.`);
+      else if (!sawGeometry) {
+        const tightTxt = r.path === 'ipo' ? 'tight base not required on the IPO path' : tight ? `base is tight (volatility ratio ${pc(ratio)}, under ${S.atrTightRatio})` : `base is NOT tight (volatility ratio ${pc(ratio)}, needs under ${S.atrTightRatio})`;
+        const nearTxt = dist <= S.pivotWithin ? `price is ${pc(dist * 100)}% below its ${S.pivotSessions}-day high (within ${pc(S.pivotWithin * 100)}%)` : `price is ${pc(dist * 100)}% below its ${S.pivotSessions}-day high (needs within ${pc(S.pivotWithin * 100)}%)`;
+        why.push(`Watch: no entry pattern yet. Breakout needs a tight base and price near its high: ${tightTxt}; ${nearTxt}. A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened.`);
+      } else if (!sawWidthPass) why.push('Watch: a pattern is forming but the stop would be wider than the setup allows.');
+      else why.push(`Watch: a pattern is forming but there is under ${S.roomR}R of room before the next overhead high.`);
+      cand.why = why;
+    }
     (setup ? ready : watch).push(cand);
   }
   funnel.baseQuality = baseOk;

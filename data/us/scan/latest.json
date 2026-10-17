@@ -391,7 +391,13 @@
     "high52": 47.01,
     "low52": 22.26,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 94th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.1% below its 52-week high (limit 25%) and 111.1% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 93.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 0.1% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "MPC",
@@ -417,7 +423,13 @@
     "high52": 485.22,
     "low52": 161.93,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 98.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.5% below its 52-week high (limit 25%) and 195.2% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 93.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 1.5% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "COP",
@@ -443,7 +455,13 @@
     "high52": 146.59,
     "low52": 85.57,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 90.1th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.1% below its 52-week high (limit 25%) and 71.2% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 93.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 0.1% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "P",
@@ -469,7 +487,13 @@
     "high52": 157.57,
     "low52": 56.78,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 96.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 21.3% below its 52-week high (limit 25%) and 118.4% above its 52-week low (needs 30%).",
+    "Group: Computer hardware ranks 2 of 58 (median strength 90.4); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 21.3% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "NTAP",
@@ -495,7 +519,13 @@
     "high52": 240.87,
     "low52": 93.69,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 92th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 15.4% below its 52-week high (limit 25%) and 117.5% above its 52-week low (needs 30%).",
+    "Group: Computer hardware ranks 2 of 58 (median strength 90.4); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 15.4% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   }
  ],
  "noGroup": {

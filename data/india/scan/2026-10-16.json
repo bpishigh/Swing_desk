@@ -150,7 +150,13 @@
     "high52": 1223,
     "low52": 746,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 87.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2% below its 52-week high (limit 25%) and 60.7% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 2 of 18 (median strength 64); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
   },
   {
    "sym": "WELCORP",
@@ -176,7 +182,13 @@
     "high52": 2900,
     "low52": 710,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 99.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 11.3% below its 52-week high (limit 25%) and 262.2% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 2 of 18 (median strength 64); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 11.3% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "CPPLUS",
@@ -202,7 +214,13 @@
     "high52": 4620,
     "low52": 1304,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 98.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12% below its 52-week high (limit 25%) and 211.6% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 2 of 18 (median strength 64); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.4, needs under 0.7); price is 12% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "WELSPUNLIV",
@@ -228,7 +246,13 @@
     "high52": 245.5,
     "low52": 107.1,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 97.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 10.7% below its 52-week high (limit 25%) and 104.8% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 1 of 18 (median strength 66.2); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 10.7% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "BBOX",
@@ -254,7 +278,13 @@
     "high52": 1103,
     "low52": 444.3,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 93.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 17.7% below its 52-week high (limit 25%) and 104.2% above its 52-week low (needs 30%).",
+    "Group: Information Technology ranks 4 of 18 (median strength 58.5); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 4.7% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   },
   {
    "sym": "LTM",
@@ -281,7 +311,13 @@
     "high52": 4850,
     "low52": 3528,
     "failingNights": 0
-   }
+   },
+   "why": [
+    "Strength: 83.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.",
+    "Group: Information Technology ranks 4 of 18 (median strength 58.5); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: tight base not required on the IPO path; price is 9.5% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
   }
  ],
  "noGroup": {

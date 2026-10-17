@@ -82,6 +82,16 @@ ul.flat { margin: 6px 0 0; padding-left: 18px; } ul.flat li { margin: 2px 0; }
 svg text { fill: var(--muted); font: 10.5px var(--mono); }
 .spark path.l { fill: none; stroke-width: 1.6; } .spark .c { stroke: var(--ink); } .spark .s50 { stroke: var(--accent); stroke-dasharray: 3 2; } .spark .s200 { stroke: var(--warn); stroke-dasharray: 1 3; }
 .doc h2,.doc h3,.doc h4,.doc h5{margin:18px 0 6px}.doc pre{overflow:auto;background:var(--bg,#0001);padding:8px;border-radius:6px}.doc ul,.doc ol{padding-left:22px}.doc table{font-size:12.5px}.docgrid{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:18px;align-items:start}@media(max-width:700px){.docgrid{grid-template-columns:1fr}}
+footer { margin: 28px 0 8px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 12.5px; }
+footer button { font: inherit; background: none; border: 0; padding: 2px 0; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+footer button[aria-current="page"] { color: var(--ink); font-weight: 600; }
+footer button:hover { color: var(--accent); }
+.info { display: inline-block; width: 15px; height: 15px; line-height: 14px; text-align: center; border: 1px solid var(--muted); color: var(--muted); border-radius: 50%; font-size: 10px; font-weight: 700; margin-left: 6px; cursor: help; position: relative; vertical-align: 1px; }
+.info:hover, .info:focus { color: var(--accent); border-color: var(--accent); outline: none; }
+#tip { position: fixed; display: none; max-width: 300px; padding: 8px 10px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,.18); font-size: 12.5px; line-height: 1.45; z-index: 50; pointer-events: none; }
+details.why > summary { cursor: pointer; color: var(--accent); font-size: 12.5px; }
+details.why ul { margin: 6px 0 2px; padding-left: 18px; }
+details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
 </style>
 </head>
 <body>
@@ -93,15 +103,14 @@ svg text { fill: var(--muted); font: 10.5px var(--mono); }
   <nav role="tablist" aria-label="Sections">
     <button role="tab" id="t-market" aria-selected="true">Market</button>
     <button role="tab" id="t-screens" aria-selected="false">Screens</button>
-    <button role="tab" id="t-health" aria-selected="false">Data health</button>
     <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
-    <button role="tab" id="t-store" aria-selected="false">Data store</button>
     <button role="tab" id="t-scan" aria-selected="false">Scans</button>
-    <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
     <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
     <button role="tab" id="t-docs" aria-selected="false">Docs</button>
   </nav>
   <main id="main"></main>
+  <footer id="foot"></footer>
+  <div id="tip" role="tooltip"></div>
 </div>
 <script>
 const $ = (s) => document.querySelector(s);
@@ -113,8 +122,7 @@ const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'A
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
 let D = null; let tab = 'market';
 const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
-let screenSector = 'all'; let cmpFilter = 'differs'; let cmpMarket = 'all';
-
+let screenSector = 'all'; 
 function spark(rows) {
   const W = 420, H = 110, P = { l: 4, r: 44, t: 8, b: 16 };
   const pts = rows.filter((r) => typeof r.close === 'number');
@@ -229,6 +237,11 @@ function viewStore() {
 }
 
 let scanMkt = 'us';
+const INFO = {
+ "official": "Follows the live trading rules exactly: enter at the pattern's trigger price, stop at the chart level, and only if the stop-width cap and the 3R-of-room test pass. This is the result you would get trading the desk as written.",
+ "capwaived": "Same patterns, triggers and fills as official, but the stop-width cap and room test are not applied: the stop sits at the chart level, never wider than 2.5 ATR (average daily range), and trades with stops wider than 12% are skipped. Shows what those two rules cost or save.",
+ "comparator": "A plain yardstick: same stop rule as cap-waived, but it buys at the next close after a mechanical signal (a 20-day breakout or a pullback back above the average) instead of waiting for the pattern's trigger. Shows whether the trigger rules add anything over simply buying the signal."
+};
 function viewScan() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
   const mk = `<div class="chips" style="margin-bottom:14px" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
@@ -236,33 +249,19 @@ function viewScan() {
   const f = sc.funnel || {};
   const chipLight = `<span class="chip ${sc.light === 'green' ? 'ok' : sc.light === 'red' ? 'bad' : 'warn'}">${esc(cap(sc.light))} light</span>`;
   const funnel = [['Tickers', f.tickers], ['Pass floors', f.passFloors], ['Universe', f.universe], ['RS gate', f.rsGate], ['Template', f.template], ['Qualified', f.qualified], ['Base quality', f.baseQuality], ['Setup', f.withSetup]].map(([k, v]) => `<div><dt>${k}</dt><dd>${v ?? '–'}</dd></div>`).join('');
-  const row = (c) => `<tr><td><b>${esc(c.sym)}</b></td><td>${esc(c.group || '–')}</td><td class="num">${fmt(c.rsPct, 0)}</td><td class="num">${fmt(c.close)}</td><td class="num">${fmt(c.composite, 1)}</td><td>${c.setup ? `${esc(c.setup.id)} · trigger ${fmt(c.setup.trigger)} · stop ${fmt(c.setup.stop)} (${fmt(c.setup.stopWidthPct, 1)}%)` : '–'}</td><td class="note wrapnote">${esc((c.tags || []).join(', '))}</td></tr>`;
+  const row = (c) => `<tr><td><b>${esc(c.sym)}</b></td><td>${esc(c.group || '–')}</td><td class="num">${fmt(c.rsPct, 0)}</td><td class="num">${fmt(c.close)}</td><td class="num">${fmt(c.composite, 1)}</td><td>${c.setup ? `${esc(c.setup.id)} · trigger ${fmt(c.setup.trigger)} · stop ${fmt(c.setup.stop)} (${fmt(c.setup.stopWidthPct, 1)}%)` : '–'}</td><td class="note wrapnote">${esc((c.tags || []).join(', '))}</td></tr>${(c.why || []).length ? `<tr><td></td><td colspan="6"><ul class="why" style="margin:0 0 6px;padding-left:18px">${c.why.map((w) => `<li style="font-size:12.5px;line-height:1.45;margin:2px 0">${esc(w)}</li>`).join('')}</ul></td></tr>` : ''}`;
   const tbl = (rows) => rows.length ? `<div class="tablewrap"><table><thead><tr><th>Ticker</th><th>Group</th><th class="num">RS</th><th class="num">Close</th><th class="num">Score</th><th>Setup</th><th>Notes</th></tr></thead><tbody>${rows.map(row).join('')}</tbody></table></div>` : '<div class="empty">None tonight.</div>';
-  const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${k}</td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
+  const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${k}<span class="info" tabindex="0" role="img" aria-label="About the ${k} stream" data-tip="${INFO[k]}">i</span></td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
   const pr = (p) => `<tr><td>${esc(p.stream)}</td><td><b>${esc(p.sym)}</b></td><td>${esc(p.setup)}</td><td>${esc(p.signalDate)}</td><td>${esc(p.status)}${p.exitReason ? ' · ' + esc(p.exitReason) : ''}</td><td class="num">${fmt(p.trigger)}</td><td class="num">${fmt(p.stop)}</td><td class="num">${p.resultR === null ? '–' : sgn(p.resultR, 2, 'R')}</td><td class="note wrapnote">${esc((p.tags || []).join(', '))}</td></tr>`;
   const ptbl = (rows, empty) => rows.length ? `<div class="tablewrap"><table><thead><tr><th>Stream</th><th>Ticker</th><th>Setup</th><th>Signal</th><th>Status</th><th class="num">Trigger</th><th class="num">Stop</th><th class="num">Result</th><th>Tags</th></tr></thead><tbody>${rows.map(pr).join('')}</tbody></table></div>` : `<div class="empty">${empty}</div>`;
   return mk + `<section class="card"><div class="row" style="justify-content:space-between"><h2>${scanMkt === 'us' ? 'US' : 'India'} scan, ${esc(sc.version)}, ${esc(sc.asOf)}</h2>${chipLight}</div>
   <dl class="kv">${funnel}</dl><p class="note">Frozen settings; the forward-test clock runs from ${scanMkt === 'us' ? '16' : '17'} Oct 2026${sc.source ? '; data source: ' + esc(sc.source) : ''}. Names are candidates for a trigger, not orders. Results dates are not checked.</p>
   <h3>Ready</h3>${tbl(sc.ready)}<h3>Watch</h3>${tbl(sc.watch)}</section>
   ${pb ? `<section class="card"><div class="row" style="justify-content:space-between"><h2>Paper book, ${esc(pb.version)}</h2><span class="chip">since ${esc(pb.startDate)} · as of ${esc(pb.asOf)}</span></div>
-  <p class="note">Three chained streams on the scan's top ten, simulated fills, no real orders. Official = live rules; cap-waived = stop at the chart level capped at 2.5 ATR; comparator = enters at the next close after a mechanical signal. Read at 300 picks or 12 months.</p>
+  <p class="note">Three chained streams on the scan's top ten, simulated fills, no real orders. Hover the i beside each stream for what it tests. Read at 300 picks or 12 months.</p>
   <div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Pending</th><th class="num">Open</th><th class="num">Not filled</th><th class="num">Closed</th><th class="num">Mean R</th><th class="num">Win rate</th></tr></thead><tbody>${streams}</tbody></table></div>
   <h3>Live</h3>${ptbl(pb.live || [], 'No pending or open paper positions.')}<h3>Recently closed</h3>${ptbl(pb.recent || [], 'Nothing closed yet.')}</section>` : ''}`;
 }
-function viewCompare() {
-  const c = D.compare;
-  if (!c) return '<div class="empty">No comparison yet. Ask Claude for the morning comparison; it reads the Claude Desk\'s stored numbers and writes the result here.</div>';
-  const sums = Object.entries(c.summary).map(([m, s]) => `<div><dt>${m}</dt><dd>${s.match} match<small>${s.differs} differ · ${s.missing} missing</small></dd></div>`).join('');
-  const rows = c.rows.filter((r) => (cmpFilter === 'all' || r.status === cmpFilter) && (cmpMarket === 'all' || r.market === cmpMarket));
-  const chip = (st) => `<span class="chip ${st === 'match' ? 'ok' : st === 'differs' ? 'bad' : 'warn'}">${st}</span>`;
-  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>Repo Desk against Claude Desk, ${esc(c.date)}</h2><span class="chip">made ${ist(c.generatedAt)}</span></div>
-  <dl class="kv">${sums}</dl>
-  <div class="chips" style="margin:14px 0" role="group" aria-label="Filters">${['differs', 'missing', 'match', 'all'].map((f) => `<button class="chip-btn" data-cf="${f}" aria-pressed="${cmpFilter === f}">${f}</button>`).join('')}<span style="width:8px"></span>${['all', 'India', 'US'].map((f) => `<button class="chip-btn" data-cm="${f}" aria-pressed="${cmpMarket === f}">${f === 'all' ? 'both markets' : f}</button>`).join('')}</div>
-  ${rows.length ? `<div class="tablewrap"><table><thead><tr><th>Market</th><th>Item</th><th>Field</th><th class="num">Claude Desk</th><th class="num">Repo Desk</th><th class="num">Difference</th><th>Status</th><th>Why</th></tr></thead><tbody>
-  ${rows.map((r) => `<tr><td>${r.market}</td><td>${esc(r.item)}</td><td>${esc(r.field)}</td><td class="num">${fmt(r.claude)}</td><td class="num">${fmt(r.repo)}</td><td class="num">${r.diff === null ? '–' : `${r.diff > 0 ? '+' : ''}${fmt(r.diff)} ${r.unit}`}</td><td>${chip(r.status)}</td><td class="note wrapnote">${esc(r.note || '')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">Nothing in this filter.</div>'}
-  <p class="note">Tolerances: prices and averages 0.05–0.5%, volume 5%, returns 0.1 points, breadth 3 points. Differences with a known cause say so in "Why".</p></section>`;
-}
-
 let DOCS = null, docId = 'status';
 function md(src) {
   const inl = (t) => esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<i>$2</i>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
@@ -288,18 +287,26 @@ function md(src) {
   }
   endList(); return o;
 }
-function viewRules() {
-  if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'rules') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'rules') render(); }); return '<div class="empty">Loading the rules…</div>'; }
+function splitRules(md) {
+  const i = md.search(/^## Change log/m);
+  return i < 0 ? { rules: md, log: '' } : { rules: md.slice(0, i), log: md.slice(i) };
+}
+function docView(which) {
+  if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === which) render(); }).catch(() => { DOCS = { docs: [] }; if (tab === which) render(); }); return '<div class="empty">Loading…</div>'; }
   const cur = DOCS.docs.find((d) => d.id === 'rules');
   if (!cur) return '<div class="empty">The rules were not published with this build.</div>';
+  const sp = splitRules(cur.md), src = which === 'log' ? sp.log : sp.rules;
   const ver = (cur.md.match(/Rules version:\*\*\s*(R-[\d.]+)/) || [])[1] || '', rev = (cur.md.match(/doc rev (\d+)/) || [])[1] || '';
-  const heads = [...cur.md.matchAll(/^## (.+)$/gm)].map((m) => m[1]);
+  const heads = [...src.matchAll(/^## (.+)$/gm)].map((m) => m[1]);
   const toc = heads.map((h, i) => `<button class="chip-btn" style="display:block;margin:2px 0;text-align:left" data-jump="rules-h${i}">${esc(h)}</button>`).join('');
-  let n = 0; const body = md(cur.md).replace(/<h2>/g, () => `<h2 id="rules-h${n++}">`);
-  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>Engine Rules</h2><span class="chip">${esc(ver)}${rev ? ' · doc rev ' + esc(rev) : ''} · updated ${ist(DOCS.generatedAt)}</span></div>
+  let n = 0; const body = md(src).replace(/<h2>/g, () => `<h2 id="rules-h${n++}">`);
+  const title = which === 'log' ? 'Engine Rules change log' : 'Engine Rules';
+  const foot = which === 'log' ? 'Every rule change, tried idea and open question, newest last. Only changes marked Adopted alter the rules.' : 'The rules the desk runs on, shown as they stand. The change log is linked at the bottom of the page. The live document is the source of truth; this view refreshes with every update.';
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>${title}</h2><span class="chip">${esc(ver)}${rev ? ' · doc rev ' + esc(rev) : ''} · updated ${ist(DOCS.generatedAt)}</span></div>
   <div class="docgrid"><div style="position:sticky;top:8px">${toc}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${body}</div></div>
-  <p class="note">The rules the desk runs on, shown as they stand. The live document is the source of truth; this view refreshes with every update.</p></section>`;
+  <p class="note">${foot}</p></section>`;
 }
+const viewRules = () => docView('rules'), viewLog = () => docView('log');
 function viewDocs() {
   if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'docs') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'docs') render(); }); return '<div class="empty">Loading documents…</div>'; }
   if (!DOCS.docs.length) return '<div class="empty">No documents were published with this build.</div>';
@@ -312,26 +319,32 @@ function viewDocs() {
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare, scan: viewScan, rules: viewRules, docs: viewDocs }[tab]();
+  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, rules: viewRules, log: viewLog, docs: viewDocs }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
+  $('#foot').innerHTML = [['log', 'Engine Rules change log'], ['store', 'Data store'], ['health', 'Data health']].map(([k, l]) => `<button data-foot="${k}" ${tab === k ? 'aria-current="page"' : ''}>${l}</button>`).join('');
 }
 document.addEventListener('click', (e) => {
   const t = e.target.closest('button'); if (!t) return;
   if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : 1; s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
+  if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.sm) { scanMkt = t.dataset.sm; return render(); }
   if (t.dataset.jump) { document.getElementById(t.dataset.jump)?.scrollIntoView({ behavior: 'smooth' }); return; }
   if (t.dataset.doc) { docId = t.dataset.doc; return render(); }
-  if (t.dataset.cf) { cmpFilter = t.dataset.cf; return render(); }
-  if (t.dataset.cm) { cmpMarket = t.dataset.cm; return render(); }
 });
+(() => {
+  const tip = document.getElementById('tip');
+  const show = (e) => { const i = e.target.closest?.('.info'); if (!i) return; tip.textContent = i.dataset.tip; tip.style.display = 'block'; const r = i.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left)) + 'px'; tip.style.top = (r.bottom + h + 10 < innerHeight ? r.bottom + 6 : Math.max(8, r.top - h - 6)) + 'px'; };
+  const hide = (e) => { if (e.target.closest?.('.info')) tip.style.display = 'none'; };
+  document.addEventListener('mouseover', show); document.addEventListener('mouseout', hide); document.addEventListener('focusin', show); document.addEventListener('focusout', hide);
+})();
 fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => {
   D = d;
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare', 'scan', 'rules', 'docs'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'scan', 'rules', 'log', 'docs'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>
