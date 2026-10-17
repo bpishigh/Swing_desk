@@ -23,6 +23,9 @@ jobs:
       - run: node scripts/us-hist-update.mjs
       - name: Official scan (US-SCAN-1 settings, Nasdaq-sourced store)
         run: node --max-old-space-size=4000 scripts/us-scan.mjs
+      - name: Next results dates for the scan names (output only)
+        continue-on-error: true
+        run: node scripts/scan-earnings.mjs us
       - name: Paper book (C-53; logs only if data/us/paper/enabled.json exists)
         run: node --max-old-space-size=4000 scripts/paper-book.mjs
       - name: Commit
