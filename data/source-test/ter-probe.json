@@ -1,81 +1,21 @@
 {
- "links": [
-  "/terms-of-use"
- ],
- "pages": [
-  {
-   "u": "https://www.amfiindia.com/terms-of-use",
-   "status": 200,
-   "bytes": 183138
-  },
-  {
-   "u": "https://www.amfiindia.com/otherdata",
-   "status": 200,
-   "bytes": 163057
-  },
-  {
-   "u": "https://www.amfiindia.com/otherdata/ter-of-mf-schemes",
-   "status": 404,
-   "bytes": 156953
-  },
-  {
-   "u": "https://www.amfiindia.com/ter-of-mf-schemes",
-   "status": 200,
-   "bytes": 196726
-  }
- ],
+ "scripts": 28,
  "contexts": [
   {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "encodeURIComponent(arguments[t])}return\"Minified React error #\"+e+\"; visit \"+n+\" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.\"}function s(e){return!(!e||1!==e.nodeType&&9!==e.nodeType&&11!==e.nodeType)}function c(e){var n=e,t=e;if(e.alternate)for(;n.return;)n=n.return;else{e=n;do 0!=(4098&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.f"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "){return!(!e||1!==e.nodeType&&9!==e.nodeType&&11!==e.nodeType)}function c(e){var n=e,t=e;if(e.alternate)for(;n.return;)n=n.return;else{e=n;do 0!=(4098&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.for(\"react.element\"),g=Symbol.for(\"react.transitional.element\"),y=Symbol.for(\"react.portal\"),v=Symbol.for(\"react.fragment\"),b=Symbol.for(\"react.strict_mode\"),k=Symbol.for(\"react.profiler\"),w=Symbol.for(\"re"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "8&(n=e).flags)&&(t=n.return),e=n.return;while(e)}return 3===n.tag?t:null}function f(e){if(13===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function d(e){if(31===e.tag){var n=e.memoizedState;if(null===n&&null!==(e=e.alternate)&&(n=e.memoizedState),null!==n)return n.dehydrated}return null}function p(e){if(c(e)!==e)throw Error(i(188))}var m=Object.assign,h=Symbol.for(\"react.element\"),g=Symbol.for(\"react.transitional.element\"),y=Symbol.for(\"react.portal\"),v=Symbol.for(\"react.fragment\"),b=Symbol.for(\"react.strict_mode\"),k=Symbol.for(\"react.profiler\"),w=Symbol.for(\"react.consumer\"),S=Symbol.for(\"react.context\"),x=Symbol.for(\"react.forward_ref\"),E=Symbol.for(\"react.suspense\"),z=Symbol.for(\"react.suspense_list\"),C=S"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "act.suspense_list\"),C=Symbol.for(\"react.memo\"),P=Symbol.for(\"react.lazy\");Symbol.for(\"react.scope\");var N=Symbol.for(\"react.activity\");Symbol.for(\"react.legacy_hidden\"),Symbol.for(\"react.tracing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": ";var N=Symbol.for(\"react.activity\");Symbol.for(\"react.legacy_hidden\"),Symbol.for(\"react.tracing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){c"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "ing_marker\");var L=Symbol.for(\"react.memo_cache_sentinel\");Symbol.for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){case 9:case 11:e=(e=n.documentElement)&&(e=e.namespaceURI)?sg(e):0;break;default:if(e=n.tagNa"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": ".for(\"react.view_transition\");var T=Symbol.iterator;function _(e){return null===e||\"object\"!=typeof e?null:\"function\"==typeof(e=T&&e[T]||e[\"@@iterator\"])?e:null}var F=Symbol.for(\"react.client.reference\"),D=Array.isArray,O=o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,M=u.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE,A={pending:!1,data:null,method:null,action:null},R=[],I=-1;function U(e){return{current:e}}function $(e){0>I||(e.current=R[I],R[I]=null,I--)}function j(e,n){R[++I]=e.current,e.current=n}var V=U(null),H=U(null),Q=U(null),B=U(null);function W(e,n){switch(j(Q,n),j(H,e),j(V,null),n.nodeType){case 9:case 11:e=(e=n.documentElement)&&(e=e.namespaceURI)?sg(e):0;break;default:if(e=n.tagName,n=n.namespaceURI)e=sy(n=sg(n),e);else switch(e){case\"svg\":e=1;"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "atch(e){var n=e.stack.trim().match(/\\n( *(at )?)/);nI=n&&n[1]||\"\",nU=-1<e.stack.indexOf(\"\\n    at\")?\" (<anonymous>)\":-1<e.stack.indexOf(\"@\")?\"@unknown:0:0\":\"\"}return\"\\n\"+nI+e+nU}var G=!1;function Z(e,n){if(!e||G)return\"\";G=!0;var t=Error.prepareStackTrace;Error.prepareStackTrace=void 0;try{var r={DetermineComponentFrameRoot:function(){try{if(n){var t=function(){throw Error()};if(Object.defineProperty(t.prototype,\"props\",{set:function(){throw Error()}}),\"object\"==typeof Reflect&&Reflect.construct){try{Reflect.construct(t,[])}catch(e){var r=e}Reflect.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "t.construct(t,[])}catch(e){var r=e}Reflect.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;i"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "t.construct(e,[],t)}else{try{t.call()}catch(e){r=e}e.call(t.prototype)}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.leng"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": ")}}else{try{throw Error()}catch(e){r=e}(t=e())&&\"function\"==typeof t.catch&&t.catch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l-"
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "atch(function(){})}}catch(e){if(e&&r&&\"string\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l--)if(i[r]!==s[l]){if(1!==r||1!==l)do if(r--,l--,0>l||i[r]!==s[l]){var c=\"\\n\"+i["
-  },
-  {
-   "u": "4bd1b696-100b9d70ed4e49c1.js",
-   "ctx": "ng\"==typeof e.stack)return[e.stack,r.stack]}return[null,null]}};r.DetermineComponentFrameRoot.displayName=\"DetermineComponentFrameRoot\";var l=Object.getOwnPropertyDescriptor(r.DetermineComponentFrameRoot,\"name\");l&&l.configurable&&Object.defineProperty(r.DetermineComponentFrameRoot,\"name\",{value:\"DetermineComponentFrameRoot\"});var a=r.DetermineComponentFrameRoot(),o=a[0],u=a[1];if(o&&u){var i=o.split(\"\\n\"),s=u.split(\"\\n\");for(l=r=0;r<i.length&&!i[r].includes(\"DetermineComponentFrameRoot\");)r++;for(;l<s.length&&!s[l].includes(\"DetermineComponentFrameRoot\");)l++;if(r===i.length||l===s.length)for(r=i.length-1,l=s.length-1;1<=r&&0<=l&&i[r]!==s[l];)l--;for(;1<=r&&0<=l;r--,l--)if(i[r]!==s[l]){if(1!==r||1!==l)do if(r--,l--,0>l||i[r]!==s[l]){var c=\"\\n\"+i[r].replace(\" at new \",\" at \");return e.disp"
+   "u": "page-8943205670c7348f.js",
+   "ctx": "=>({label:e.TER_Year,value:e.TER_Year})),ep=v.map(e=>({label:e.MonthYear,value:e.MonthYear})),eh=\"1\"===j||\"-1\"===j?[{label:\"All\",value:\"-1\"},...R.map(e=>({label:e.SchemeCat_Desc,value:e.SchemeCat_Desc}))]:R.map(e=>({label:e.SchemeCat_Desc,value:e.SchemeCat_Desc})),ex=[{label:\"All\",value:\"-1\"},..._.map(e=>({label:e.SubCat_Desc,value:e.SubCat_Desc}))],eu=[{label:\"All\",value:\"-1\"},...a.map(e=>({label:e.mfName,value:e.mfId}))];(0,r.useEffect)(()=>{let e=async()=>{try{Z(!0);let e=await (0,p.A)(\"/api/populate-ter-month?year=\".concat(y));B(e[0].data||[]),z(\"\")}catch(e){console.error(\"Error fetching months:\",e),B([])}finally{Z(!1)}};y?e():(B([]),z(\"\"),Z(!1))},[y]),(0,r.useEffect)(()=>{(async()=>{if(!j){C([]),H(\"\"),T([]),D(\"\"),et(!1);return}try{et(!0);let e=await (0,p.A)(\"/api/populate-sub-category?type=\".concat(j));C(Array.isArray(e[0].data)?e[0].data:[]),H(\"\"),T([]),D(\"\")}catch(e){console.error(\"Error fetching categories:\",e),C([]),H(\"\"),T([]),D(\"\")}finally{et(!1)}})()},[j]),(0,r.useEffect)(()=>{(async()=>{if(!E){T([]),D(\"\"),el(!1);return}try{el(!0);let e=await (0,p.A)(\"/api/populate-sub-category?category=\".concat(encodeURIComponent(E)));T(e[0].data),D(\"\")}catch(e){console.error(\"Error fetching sub categories:\",e),T([]),D(\"\")}finally{el(!1)}})()},[E]);let eg=()=>{if(\"1\"===j||\"-1\"===j){if(\"-1\"===I)return\"-1\";if(!I)return\"\";let e=_.find(e=>e.SubCat_Desc===I);return e?e.SchemeCat_Id:\"\"}{"
   }
+ ],
+ "htmlHints": [
+  "ter-of-mf-schemes/page-8943205670c7348f.js",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes",
+  "ter-of-mf-schemes/page-8943205670c7348f.js"
  ]
 }
