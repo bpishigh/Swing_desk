@@ -28,9 +28,9 @@
    "inWindow": null
   },
   "LTM": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+   "date": "2026-10-16",
+   "sessions": 0,
+   "inWindow": true
   }
  }
 }
