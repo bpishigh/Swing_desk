@@ -1,0 +1,300 @@
+{
+ "version": "IND-SCAN-1",
+ "asOf": "2026-10-16",
+ "light": "red",
+ "funnel": {
+  "tickers": 497,
+  "passFloors": 490,
+  "universe": 490,
+  "universeFloorDollarVolumeM": 50.9,
+  "withRs": 465,
+  "rsGate": 98,
+  "template": 36,
+  "qualified": 12,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Textiles",
+   "members": 5,
+   "medianRs": 66.38,
+   "passes": true
+  },
+  {
+   "group": "Capital Goods",
+   "members": 66,
+   "medianRs": 64.12,
+   "passes": true
+  },
+  {
+   "group": "Information Technology",
+   "members": 23,
+   "medianRs": 58.62,
+   "passes": true
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 17,
+   "medianRs": 57.97,
+   "passes": true
+  },
+  {
+   "group": "Healthcare",
+   "members": 43,
+   "medianRs": 56.03,
+   "passes": false
+  },
+  {
+   "group": "Telecommunication",
+   "members": 10,
+   "medianRs": 54.85,
+   "passes": false
+  },
+  {
+   "group": "Services",
+   "members": 13,
+   "medianRs": 53.02,
+   "passes": false
+  },
+  {
+   "group": "Oil Gas & Consumable Fuels",
+   "members": 17,
+   "medianRs": 51.94,
+   "passes": false
+  },
+  {
+   "group": "Financial Services",
+   "members": 91,
+   "medianRs": 48.92,
+   "passes": false
+  },
+  {
+   "group": "Automobile and Auto Components",
+   "members": 38,
+   "medianRs": 47.41,
+   "passes": false
+  },
+  {
+   "group": "Power",
+   "members": 15,
+   "medianRs": 45.04,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 26,
+   "medianRs": 42.78,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 15,
+   "medianRs": 37.5,
+   "passes": false
+  },
+  {
+   "group": "Fast Moving Consumer Goods",
+   "members": 27,
+   "medianRs": 31.68,
+   "passes": false
+  },
+  {
+   "group": "Consumer Services",
+   "members": 20,
+   "medianRs": 23.81,
+   "passes": false
+  },
+  {
+   "group": "Realty",
+   "members": 11,
+   "medianRs": 20.26,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 11,
+   "medianRs": 18.97,
+   "passes": false
+  },
+  {
+   "group": "Construction",
+   "members": 12,
+   "medianRs": 11.96,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "SHYAMMETL",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 87.5,
+   "close": 1198.5,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 61.49,
+   "tightness": 1.23,
+   "distPivot": 2,
+   "setup": null,
+   "diag": {
+    "rs121": 10.82,
+    "rs6m2w": 35.88,
+    "atr14": 36.93,
+    "sma50": 1057.25,
+    "sma200": 932.45,
+    "high52": 1223,
+    "low52": 746,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "WELCORP",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 99.57,
+   "close": 2571.5,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.74,
+   "tightness": 1.15,
+   "distPivot": 11.33,
+   "setup": null,
+   "diag": {
+    "rs121": 184.58,
+    "rs6m2w": 220.63,
+    "atr14": 155.07,
+    "sma50": 2438.19,
+    "sma200": 1451.76,
+    "high52": 2900,
+    "low52": 710,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "CPPLUS",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 98.71,
+   "close": 4063.6,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.22,
+   "tightness": 1.43,
+   "distPivot": 12.04,
+   "setup": null,
+   "diag": {
+    "rs121": 160.71,
+    "rs6m2w": 111.29,
+    "atr14": 230.01,
+    "sma50": 3737.74,
+    "sma200": 2699.6,
+    "high52": 4620,
+    "low52": 1304,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 97.63,
+   "close": 219.3,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 58.58,
+   "tightness": 1.3,
+   "distPivot": 10.67,
+   "setup": null,
+   "diag": {
+    "rs121": 69.95,
+    "rs6m2w": 120.8,
+    "atr14": 11,
+    "sma50": 203.56,
+    "sma200": 154,
+    "high52": 245.5,
+    "low52": 107.1,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "BBOX",
+   "type": "CS",
+   "group": "Information Technology",
+   "path": "main",
+   "rsPct": 93.53,
+   "close": 907.25,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 57.02,
+   "tightness": 1.29,
+   "distPivot": 4.7,
+   "setup": null,
+   "diag": {
+    "rs121": 39.28,
+    "rs6m2w": 77.98,
+    "atr14": 49.42,
+    "sma50": 792.71,
+    "sma200": 716.13,
+    "high52": 1103,
+    "low52": 444.3,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "LTM",
+   "type": "CS",
+   "group": "Information Technology",
+   "path": "ipo",
+   "rsPct": 83.23,
+   "close": 4390,
+   "tags": [
+    "results date not checked",
+    "IPO path: 3-month return rank, shorter template"
+   ],
+   "clears50M": true,
+   "composite": 49.94,
+   "tightness": 1,
+   "distPivot": 9.48,
+   "setup": null,
+   "diag": {
+    "rs121": null,
+    "rs6m2w": -0.17,
+    "atr14": 145.52,
+    "sma50": 4364.48,
+    "sma200": null,
+    "high52": 4850,
+    "low52": 3528,
+    "failingNights": 0
+   }
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 1
+ },
+ "qualifiedTotal": 12,
+ "notes": [
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
+ ],
+ "regimeDate": "2026-10-16",
+ "industryCovered": 501
+}

@@ -77,3 +77,17 @@ jobs:
             sleep $((i * 3))
           done
           exit 1
+      - name: India whole-market scan (IND-SCAN-1)
+        if: always()
+        continue-on-error: true
+        run: |
+          git pull --rebase origin main
+          node --max-old-space-size=6000 scripts/india-scan.mjs
+          mkdir -p data/india/scan
+          git add data/india/scan
+          git commit -m "india-scan: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
