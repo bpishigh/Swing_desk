@@ -1,0 +1,21 @@
+name: probe-ter
+# One-off probe (18 Oct 2026): can the runner reach expense-ratio (TER) and index total-return sources? Delete once the source is chosen.
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-ter.mjs
+      - run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/source-test/ter-probe.json
+          git commit -m "ter probe" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep $((i * 3)); done
+          exit 1
