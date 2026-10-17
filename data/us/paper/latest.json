@@ -1,0 +1,35 @@
+{
+ "asOf": "2026-10-15",
+ "startDate": "2026-10-15",
+ "version": "PAPER-1",
+ "official": {
+  "orders": 0,
+  "open": 0,
+  "pending": 0,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "capwaived": {
+  "orders": 0,
+  "open": 0,
+  "pending": 0,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "comparator": {
+  "orders": 0,
+  "open": 0,
+  "pending": 0,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "light": "yellow",
+ "newOrdersTonight": [],
+ "open": []
+}

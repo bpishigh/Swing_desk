@@ -1,6 +1,6 @@
 # US paper book: streams and read rules (C-53), written 16 Oct 2026 before any paper position
 
-Status: DRAFT v2 for owner confirmation (17 Oct 2026), after the external review of the C-52 diagnostics. Nothing is logging yet; logging starts the first night after "CONFIRMED" below and the engine is committed. Source: docs/replay/US-SCAN-2-RESULT-2026-10-16.md.
+Status: CONFIRMED v2 (17 Oct 2026), after the external review of the C-52 diagnostics. Logging starts the first night after the confirmation. Source: docs/replay/US-SCAN-2-RESULT-2026-10-16.md.
 
 ## Purpose
 Measure on real forward fills three questions the one-year replay cannot answer, one change at a time: does a stop sized in ATR instead of a 6 to 8% cap change the result (the width question), does a mechanical entry do as well as the pattern trigger (the entry question), and does the scan have positive expectancy in R after cost at all. Nothing here changes a live rule or places a real order.
@@ -41,4 +41,4 @@ Stream, setup, group, regime at entry, signal date, entry date, trigger, fill, s
 ## Limits
 Fills from highs and lows only (no opens), so gaps past the limit are approximated; no earnings dates; no portfolio limits; shadow streams are not live rules; the stock list is whatever the nightly feed carried, so the paper book has no survivorship bias.
 
-CONFIRMED: (pending owner)
+CONFIRMED: owner, 17 Oct 2026 (v2 definitions as written above; engine commit 20e2d7b; logging starts the next US nightly run).
