@@ -81,6 +81,7 @@ tr.dim td { color: var(--muted); }
 ul.flat { margin: 6px 0 0; padding-left: 18px; } ul.flat li { margin: 2px 0; }
 svg text { fill: var(--muted); font: 10.5px var(--mono); }
 .spark path.l { fill: none; stroke-width: 1.6; } .spark .c { stroke: var(--ink); } .spark .s50 { stroke: var(--accent); stroke-dasharray: 3 2; } .spark .s200 { stroke: var(--warn); stroke-dasharray: 1 3; }
+.doc h2,.doc h3,.doc h4,.doc h5{margin:18px 0 6px}.doc pre{overflow:auto;background:var(--bg,#0001);padding:8px;border-radius:6px}.doc ul,.doc ol{padding-left:22px}.doc table{font-size:12.5px}.docgrid{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:18px;align-items:start}@media(max-width:700px){.docgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -96,6 +97,7 @@ svg text { fill: var(--muted); font: 10.5px var(--mono); }
     <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
     <button role="tab" id="t-store" aria-selected="false">Data store</button>
     <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
+    <button role="tab" id="t-docs" aria-selected="false">Docs</button>
   </nav>
   <main id="main"></main>
 </div>
@@ -236,9 +238,45 @@ function viewCompare() {
   ${rows.map((r) => `<tr><td>${r.market}</td><td>${esc(r.item)}</td><td>${esc(r.field)}</td><td class="num">${fmt(r.claude)}</td><td class="num">${fmt(r.repo)}</td><td class="num">${r.diff === null ? '–' : `${r.diff > 0 ? '+' : ''}${fmt(r.diff)} ${r.unit}`}</td><td>${chip(r.status)}</td><td class="note wrapnote">${esc(r.note || '')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">Nothing in this filter.</div>'}
   <p class="note">Tolerances: prices and averages 0.05–0.5%, volume 5%, returns 0.1 points, breadth 3 points. Differences with a known cause say so in "Why".</p></section>`;
 }
+
+let DOCS = null, docId = 'rules';
+function md(src) {
+  const inl = (t) => esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<i>$2</i>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const L = src.replace(/\r/g, '').split('\n'); let o = '', i = 0, list = null;
+  const endList = () => { if (list) { o += `</${list}>`; list = null; } };
+  while (i < L.length) {
+    const l = L[i];
+    if (/^```/.test(l)) { endList(); let b = ''; i++; while (i < L.length && !/^```/.test(L[i])) b += esc(L[i++]) + '\n'; i++; o += `<pre>${b}</pre>`; continue; }
+    if (/^\|.*\|\s*$/.test(l) && /^\|[\s:|-]+\|\s*$/.test(L[i + 1] || '')) {
+      endList(); const cells = (r) => r.replace(/^\||\|\s*$/g, '').split('|').map((c) => c.trim());
+      const head = cells(l); i += 2; let rows = '';
+      while (i < L.length && /^\|.*\|\s*$/.test(L[i])) { rows += '<tr>' + cells(L[i]).map((c) => `<td>${inl(c)}</td>`).join('') + '</tr>'; i++; }
+      o += `<div class="tablewrap"><table><thead><tr>${head.map((c) => `<th>${inl(c)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`; continue;
+    }
+    let m;
+    if ((m = l.match(/^(#{1,4})\s+(.*)/))) { endList(); const n = Math.min(m[1].length + 1, 5); o += `<h${n}>${inl(m[2])}</h${n}>`; }
+    else if ((m = l.match(/^\s*[-*]\s+(.*)/))) { if (list !== 'ul') { endList(); o += '<ul>'; list = 'ul'; } o += `<li>${inl(m[1])}</li>`; }
+    else if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== 'ol') { endList(); o += '<ol>'; list = 'ol'; } o += `<li>${inl(m[1])}</li>`; }
+    else if (/^\s*$/.test(l)) endList();
+    else if (/^---+\s*$/.test(l)) { endList(); o += '<hr>'; }
+    else { endList(); o += `<p>${inl(l)}</p>`; }
+    i++;
+  }
+  endList(); return o;
+}
+function viewDocs() {
+  if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'docs') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'docs') render(); }); return '<div class="empty">Loading documents…</div>'; }
+  if (!DOCS.docs.length) return '<div class="empty">No documents were published with this build.</div>';
+  const cur = DOCS.docs.find((d) => d.id === docId) || DOCS.docs[0];
+  const groups = [...new Set(DOCS.docs.map((d) => d.group))];
+  const nav = groups.map((g) => `<div class="note" style="margin:10px 0 4px">${esc(g)}</div>` + DOCS.docs.filter((d) => d.group === g).map((d) => `<button class="chip-btn" style="display:block;margin:2px 0;text-align:left" data-doc="${d.id}" aria-pressed="${d.id === cur.id}">${esc(d.title)}</button>`).join('')).join('');
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>${esc(cur.title)}</h2><span class="chip">${esc(cur.file)} · built ${ist(DOCS.generatedAt)}</span></div>
+  <div class="docgrid"><div>${nav}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${md(cur.md)}</div></div>
+  <p class="note">Read-only copies from the repo's docs folder. The repo copy is the one the desk reads; changes land here with the next tick.</p></section>`;
+}
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare }[tab]();
+  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare, docs: viewDocs }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
 }
 document.addEventListener('click', (e) => {
@@ -246,6 +284,7 @@ document.addEventListener('click', (e) => {
   if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : 1; s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
+  if (t.dataset.doc) { docId = t.dataset.doc; return render(); }
   if (t.dataset.cf) { cmpFilter = t.dataset.cf; return render(); }
   if (t.dataset.cm) { cmpMarket = t.dataset.cm; return render(); }
 });
@@ -254,7 +293,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare', 'docs'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>

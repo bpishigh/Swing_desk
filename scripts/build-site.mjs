@@ -84,4 +84,19 @@ mkdirSync('site/data', { recursive: true });
 const prev = read('site/data/dashboard.json', null);
 const same = prev && JSON.stringify({ ...prev, generatedAt: 0 }) === JSON.stringify({ ...out, generatedAt: 0 });
 if (!same) writeFileSync('site/data/dashboard.json', JSON.stringify(out) + '\n');
+
+// Reference documents shown on the Docs tab. Public-safe set only: the Portfolio Manager design and the save-setup note carry household detail and stay out.
+const DOCS = [
+  ['rules', 'Engine Rules', 'Rules', 'docs/ENGINE_RULES.md'], ['arch', 'Code and Architecture', 'Rules', 'docs/ARCHITECTURE.md'], ['screener', 'Screener brief', 'Rules', 'docs/SCREENER_BRIEF.md'],
+  ['prereg-paper', 'C-53 paper book (pre-registration)', 'Pre-registrations', 'docs/replay/US-PAPER-BOOK-PREREG.md'],
+  ['prereg-scan2', 'C-52 US-SCAN-2 (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-2-PREREG.md'],
+  ['prereg-scan1', 'C-51 US-SCAN-1 replay (pre-registration)', 'Pre-registrations', 'docs/replay/US-SCAN-REPLAY-PREREG.md'],
+  ['res-scan2', 'C-52 result, 16 Oct 2026', 'Results', 'docs/replay/US-SCAN-2-RESULT-2026-10-16.md'],
+  ['res-scan1', 'C-51 result, 16 Oct 2026', 'Results', 'docs/replay/US-SCAN-REPLAY-RESULT-2026-10-16.md'],
+  ['res-b1015c', 'India exit test, 15 Oct (adjusted, dividends)', 'Results', 'docs/replay/BASELINE-2026-10-15-adjusted-div.md'],
+  ['res-b1015', 'India exit test, 15 Oct (C-50)', 'Results', 'docs/replay/BASELINE-2026-10-15-c50.md'],
+];
+const docs = DOCS.filter(([, , , f]) => existsSync(f)).map(([id, title, group, f]) => ({ id, title, group, file: f, md: readFileSync(f, 'utf8') }));
+const prevDocs = read('site/data/docs.json', null);
+if (!prevDocs || JSON.stringify(prevDocs.docs) !== JSON.stringify(docs)) writeFileSync('site/data/docs.json', JSON.stringify({ generatedAt: new Date(now).toISOString(), docs }) + '\n');
 console.log(`site/data/dashboard.json ${Math.round(JSON.stringify(out).length / 1024)} KB; India ${india.date} (${india.regime?.name}), US ${us.date} (${us.regime?.name})`);
