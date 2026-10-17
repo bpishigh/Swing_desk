@@ -5,6 +5,7 @@ import type { Calendar } from '../engine/calendar.ts';
 
 export const US_START_MIN_ET = 17 * 60 + 30;   // same threshold the daily job itself uses for "today's close"
 export const US_ALERT_MIN_ET = 22 * 60 + 30;
+export const US_BREADTH_START_MIN_ET = 20 * 60 + 45;   // Nasdaq's daily history carries the close from about 21:10 to 21:40 ET; trying from 17:40 burned all eight attempts a night (about 28 Actions minutes)
 export const US_MAX_ATTEMPTS = 8;              // Tiingo's free tier allows about 50 requests an hour; a daily run uses 16
 export const SCREEN_START_MIN_IST = 8 * 60 + 30; // Saturday morning India time, as the Claude Desk's weekly task ran
 export const SCREEN_ALERT_MIN_IST = 12 * 60;
@@ -68,7 +69,8 @@ export function planUs(i: UsPlanInput): UsPlan {
   const bFresh = b0?.target === target;
   let bAtt = bFresh ? b0!.attempts : 0;
   let bAlerted = bFresh ? b0!.alertedFor : undefined;
-  if (i.breadthDate < target && !i.inflight.breadth && bAtt < US_MAX_ATTEMPTS) { dispatch.push({ workflow: 'us-breadth.yml', inputs: { date: target } }); bAtt++; }
+  const bReady = target < today || minutes >= US_BREADTH_START_MIN_ET;
+  if (i.breadthDate < target && bReady && !i.inflight.breadth && bAtt < US_MAX_ATTEMPTS) { dispatch.push({ workflow: 'us-breadth.yml', inputs: { date: target } }); bAtt++; }
   if (i.breadthDate < target && (dLate || bAtt >= US_MAX_ATTEMPTS) && bAlerted !== target) {
     alerts.push(`US breadth for ${target} is not written yet at ${hhmm(minutes)} ET (latest ${i.breadthDate})${bAtt >= US_MAX_ATTEMPTS ? '; retries used up' : ''}.`);
     bAlerted = target;

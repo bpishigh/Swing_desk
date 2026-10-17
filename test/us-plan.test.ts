@@ -49,7 +49,8 @@ test('screen alert after midday Saturday if still not done', () => {
 });
 
 test('breadth job starts when the close is due and breadth is behind; alerts once when late', () => {
-  const p = planUs({ ...base, feedDate: '2026-10-09', breadthDate: '2026-10-08', nowMs: at('2026-10-09T21:37:00Z') });
+  assert.equal(planUs({ ...base, feedDate: '2026-10-09', breadthDate: '2026-10-08', nowMs: at('2026-10-09T21:37:00Z') }).dispatch.filter((d) => d.workflow === 'us-breadth.yml').length, 0, 'not before 20:45 ET: the data is not there yet');
+  const p = planUs({ ...base, feedDate: '2026-10-09', breadthDate: '2026-10-08', nowMs: at('2026-10-10T00:50:00Z') });
   assert.deepEqual(p.dispatch.map((d) => d.workflow), ['us-breadth.yml']);
   assert.equal(p.dispatch[0].inputs.date, '2026-10-09');
   const late = at('2026-10-10T02:37:00Z');
