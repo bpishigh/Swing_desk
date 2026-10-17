@@ -36,16 +36,16 @@ export function buildHistories(days: Day[], splits: SplitRow[], allowed: Set<str
   return { dates, series };
 }
 
-const meanOf = (a: Float64Array, from: number, to: number): number => { let s = 0, n = 0; for (let i = from; i <= to; i++) if (ok(a[i])) { s += a[i]; n++; } return n ? s / n : NaN; };
-const smaAt = (c: Float64Array, t: number, n: number): number => { if (t - n + 1 < 0) return NaN; let s = 0; for (let i = t - n + 1; i <= t; i++) { if (!ok(c[i])) return NaN; s += c[i]; } return s / n; };
-const maxOf = (a: Float64Array, from: number, to: number): number => { let m = -Infinity; for (let i = Math.max(0, from); i <= to; i++) if (ok(a[i]) && a[i] > m) m = a[i]; return m === -Infinity ? NaN : m; };
-const minOf = (a: Float64Array, from: number, to: number): number => { let m = Infinity; for (let i = Math.max(0, from); i <= to; i++) if (ok(a[i]) && a[i] < m) m = a[i]; return m === Infinity ? NaN : m; };
-function emaAt(c: Float64Array, t: number, n: number): number {
+export const meanOf = (a: Float64Array, from: number, to: number): number => { let s = 0, n = 0; for (let i = from; i <= to; i++) if (ok(a[i])) { s += a[i]; n++; } return n ? s / n : NaN; };
+export const smaAt = (c: Float64Array, t: number, n: number): number => { if (t - n + 1 < 0) return NaN; let s = 0; for (let i = t - n + 1; i <= t; i++) { if (!ok(c[i])) return NaN; s += c[i]; } return s / n; };
+export const maxOf = (a: Float64Array, from: number, to: number): number => { let m = -Infinity; for (let i = Math.max(0, from); i <= to; i++) if (ok(a[i]) && a[i] > m) m = a[i]; return m === -Infinity ? NaN : m; };
+export const minOf = (a: Float64Array, from: number, to: number): number => { let m = Infinity; for (let i = Math.max(0, from); i <= to; i++) if (ok(a[i]) && a[i] < m) m = a[i]; return m === Infinity ? NaN : m; };
+export function emaAt(c: Float64Array, t: number, n: number): number {
   const first = t - 60; if (first < 0) return NaN; let e = NaN;
   for (let i = first; i <= t; i++) { if (!ok(c[i])) return NaN; e = i === first ? c[i] : e + (2 / (n + 1)) * (c[i] - e); }
   return e;
 }
-function atrAt(s: Series, t: number, n: number): number {     // simple mean of true range over n sessions
+export function atrAt(s: Series, t: number, n: number): number {     // simple mean of true range over n sessions
   let sum = 0; for (let i = t - n + 1; i <= t; i++) { if (i < 1 || !ok(s.h[i]) || !ok(s.l[i]) || !ok(s.c[i - 1])) return NaN; sum += Math.max(s.h[i] - s.l[i], Math.abs(s.h[i] - s.c[i - 1]), Math.abs(s.l[i] - s.c[i - 1])); }
   return sum / n;
 }

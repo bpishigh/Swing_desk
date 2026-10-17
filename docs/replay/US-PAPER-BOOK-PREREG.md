@@ -12,7 +12,7 @@ The nightly top-10 list of US-SCAN-1 (Ready and Watch, composite order, 3 per in
 - Breakout (setup 1, or 1ipo on the IPO path): price within 5% of the 50-session high; for stocks on the main path also a tight base (ATR10/ATR50 below 0.7), as in US-SCAN-1.
 - 20 EMA pullback (setup 2, where allowed): close at or above the 20 EMA, a low in the last 5 sessions at or below it, close above the 50-day.
 - 50-day pullback (setup 4): close at or above the 50-day, a low in the last 5 sessions at or below it.
-The first shape that matches in the order 1, 2, 4 is used.
+The first shape in the order 1, 2, 4 that matches and builds under the stream's own stop rule is used (so a stream can use a later shape when an earlier one cannot be built under its rules).
 
 ## Three streams, a chain: each changes one thing from the one before
 1. **Official.** The Ready list as live: buy at trigger (basis plus 0.5% for setup 1, 0.2% for 2 and 4) with the limit (1%), one session to fill (fills at the trigger if the next session's high reaches it and its low is at or under the limit). Stop at the chart level widened to 1.5 ATR14; the setup's stop-width cap (8% setup 1, 10% 1ipo, 7% setup 2, 6% setup 4) and the 3R room test (to the 250-session high, waived when none) applied.

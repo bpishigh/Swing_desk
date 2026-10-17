@@ -11,7 +11,7 @@ import { makeCalendar } from '../src/engine/calendar.ts';
 
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const GATE_OFF = arg('gate', 'off') === 'off', REGIME = arg('regime', 'hist'), CAP = +arg('cap', 4);
-const STAGE2 = process.argv.includes('--stage2'), LEAK = process.argv.includes('--leak'), LIMIT = +arg('limit', 0);
+const DUMP = arg('dump', ''), STAGE2 = process.argv.includes('--stage2'), LEAK = process.argv.includes('--leak'), LIMIT = +arg('limit', 0);
 const TAG = `gate-${GATE_OFF ? 'off' : 'on'}_regime-${REGIME}_cap-${CAP}`;
 const OUT = arg('out', `data/replay/us-scan2-${TAG}.json`);
 const HOLD = 20, SEED = 20261016, CAPWIN = 20, MAXHOLD = 60;
@@ -205,6 +205,7 @@ if (LEAK) {
   }
   res.criteria.c2_leak = { nights: diffs, pass: diffs.every((d) => d.same) };
 }
+if (DUMP) writeFileSync(DUMP, JSON.stringify(picks.filter((p) => p.set === 'A' && p.s2).map((p) => ({ date: p.date, sym: p.sym, R: p.s2.R, reason: p.s2.reason, held: p.s2.held }))) + '\n');
 mkdirSync('data/replay', { recursive: true });
 writeFileSync(OUT, JSON.stringify({ ...res, perNight }, null, 1) + '\n');
 console.log(JSON.stringify({ run: res.run, criteria: res.criteria, stage2: res.stage2 ?? null, A: { all: A.all, earlier: A.earlier.mean, later: A.later.mean, topGroup: A.topGroup, maxShare: A.maxGroupShare }, B: res.sets.B.all }, null, 1));

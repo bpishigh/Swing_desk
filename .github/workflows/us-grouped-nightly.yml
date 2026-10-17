@@ -22,11 +22,14 @@ jobs:
         env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
       - name: Whole-market scan (C-20a; no rule change, about 10 seconds)
         run: node scripts/us-scan.mjs
+      - name: Paper book (C-53; logs only if data/us/paper/enabled.json exists)
+        run: node scripts/paper-book.mjs
       - name: Commit new days
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/us/grouped data/us/grouped-meta.json data/us/scan
+          mkdir -p data/us/paper
+          git add data/us/grouped data/us/grouped-meta.json data/us/scan data/us/paper
           git commit -m "us-grouped-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
