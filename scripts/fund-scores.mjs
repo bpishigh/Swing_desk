@@ -42,12 +42,15 @@ const fetchMf = async (s) => {
 const usSeries = new Map(); let usFailed = 0;
 const fetchUs = async (s) => {
   for (let a = 0; a < 3; a++) {
-    try { const bars = await nasdaqBars(s.code, 'etf', '2019-06-01'); const m = {}; for (const b of bars) if (b[4] > 0) m[b[0]] = b[4]; if (Object.keys(m).length > 250) usSeries.set(s.code, m); return; }
+    try { const { bars } = await nasdaqBars(s.code, 'etf', '2019-06-01'); const m = {}; for (const b of bars) if (b[4] > 0) m[b[0]] = b[4]; if (Object.keys(m).length > 250) usSeries.set(s.code, m); return; }
     catch { if (a === 2) usFailed++; else await new Promise((r) => setTimeout(r, 1500 * (a + 1))); }
   }
 };
 await pool([...mf, ...idx], fetchMf, 8);
 await pool(usSchemes, fetchUs, 3);
+// A one-day move over 40% in a fund's NAV is a data break (unit split or consolidation, bad print), not performance: leave that scheme out rather than score it on a false return.
+const broken = (m) => { const d = Object.keys(m).sort(); for (let i = 1; i < d.length; i++) { const r = m[d[i]] / m[d[i - 1]]; if (r > 1.4 || r < 0.6) return d[i]; } return null; };
+for (const mp of [series, usSeries]) for (const [k, m] of [...mp]) { const b = broken(m); if (b) { console.log('dropped (data break on', b + '):', k); mp.delete(k); } }
 const need = [...new Set([...mf, ...idx].map((x) => x.code))].length;
 console.log('india fetched', series.size, 'of', need, 'failed', failed, '| us fetched', usSeries.size, 'of', usSchemes.length, 'failed', usFailed);
 if (series.size < need * 0.8) { console.error('too many India fetch failures; keeping the previous scores'); process.exit(1); }
