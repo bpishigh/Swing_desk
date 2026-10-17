@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node scripts/fetch-ter.mjs
+        continue-on-error: true
       - run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
