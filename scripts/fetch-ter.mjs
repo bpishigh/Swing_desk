@@ -6,7 +6,7 @@ const B = 'https://www.amfiindia.com/api/populate-te-rdata-revised';
 const SIZE = 50;
 async function page(month, p) {
   for (let a = 0; a < 3; a++) {
-    try { const r = await fetch(`${B}?MF_ID=All&Month=${month}&strCat=-1&strType=-1&page=${p}&pageSize=${SIZE}`, { headers: UA, signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error('status ' + r.status); const j = await r.json(); const inner = j?.[0]?.data ?? j?.data ?? j; return Array.isArray(inner?.data) ? inner.data : []; }
+    try { const r = await fetch(`${B}?MF_ID=All&Month=${month}&strCat=-1&strType=-1&page=${p}&pageSize=${SIZE}`, { headers: UA, signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error('status ' + r.status); const j = await r.json(); const inner = j?.[0]?.data ?? j?.data ?? j; return Array.isArray(inner?.data) ? inner.data : Array.isArray(inner) ? inner : []; }
     catch (e) { if (a === 2) throw e; await new Promise((r) => setTimeout(r, 1000 * (a + 1))); }
   }
 }
