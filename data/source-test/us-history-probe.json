@@ -1,0 +1,159 @@
+{
+ "ts": "2026-10-17T11:37:10.876Z",
+ "nasdaq": [
+  {
+   "sym": "AAPL",
+   "from": "2005-01-01",
+   "status": 200,
+   "rows": 2514,
+   "oldest": "10/17/2016",
+   "newest": "10/16/2026",
+   "msg": null
+  },
+  {
+   "sym": "AAPL",
+   "from": "2015-01-01",
+   "status": 200,
+   "rows": 2514,
+   "oldest": "10/17/2016",
+   "newest": "10/16/2026",
+   "msg": null
+  },
+  {
+   "sym": "SHLD",
+   "from": "2012-01-01",
+   "status": 200,
+   "rows": 0,
+   "oldest": null,
+   "newest": null,
+   "msg": "Symbol not exists."
+  },
+  {
+   "sym": "BBBY",
+   "from": "2018-01-01",
+   "status": 200,
+   "rows": 0,
+   "oldest": null,
+   "newest": null,
+   "msg": "Symbol not exists."
+  },
+  {
+   "sym": "TWTR",
+   "from": "2018-01-01",
+   "status": 200,
+   "rows": 0,
+   "oldest": null,
+   "newest": null,
+   "msg": "Symbol not exists."
+  },
+  {
+   "sym": "SIVB",
+   "from": "2020-01-01",
+   "status": 200,
+   "rows": 0,
+   "oldest": null,
+   "newest": null,
+   "msg": "Symbol not exists."
+  },
+  {
+   "sym": "GE",
+   "from": "2010-01-01",
+   "status": 200,
+   "rows": 2514,
+   "oldest": "10/17/2016",
+   "newest": "10/16/2026",
+   "msg": null
+  }
+ ],
+ "tiingo": [
+  {
+   "s": "AAPL",
+   "f": "2005-01-01",
+   "status": 200,
+   "rows": 5482,
+   "first": "2005-01-03",
+   "last": "2026-10-16",
+   "msg": ""
+  },
+  {
+   "s": "SHLD",
+   "f": "2012-01-01",
+   "status": 200,
+   "rows": 777,
+   "first": "2023-09-13",
+   "last": "2026-10-16",
+   "msg": ""
+  },
+  {
+   "s": "BBBY",
+   "f": "2018-01-01",
+   "status": 200,
+   "rows": 0,
+   "msg": ""
+  },
+  {
+   "s": "TWTR",
+   "f": "2018-01-01",
+   "status": 200,
+   "rows": 1216,
+   "first": "2018-01-02",
+   "last": "2022-10-28",
+   "msg": ""
+  },
+  {
+   "s": "SIVB",
+   "f": "2020-01-01",
+   "status": 200,
+   "rows": 1391,
+   "first": "2020-01-02",
+   "last": "2026-10-16",
+   "msg": ""
+  }
+ ],
+ "massive": [
+  {
+   "d": "2023-10-16",
+   "status": 403,
+   "n": null,
+   "msg": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  },
+  {
+   "d": "2020-10-16",
+   "status": 403,
+   "n": null,
+   "msg": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  },
+  {
+   "d": "2015-10-16",
+   "status": 403,
+   "n": null,
+   "msg": "Attempted to request data past historical entitlements. Please upgrade your plan at https://polygon.io/pricing"
+  }
+ ],
+ "other": [
+  {
+   "name": "stooq_aapl",
+   "status": 403,
+   "bytes": 226,
+   "head": "<meta charset=utf-8><title>Stooq</title><center style=font-family:arial;margin-top:50px><p><a href=/><img src=//static.s"
+  },
+  {
+   "name": "cboe_vix",
+   "status": 200,
+   "bytes": 473839,
+   "head": "DATE,OPEN,HIGH,LOW,CLOSE 01/02/1990,17.240000,17.240000,17.240000,17.240000 01/03/1990,18.190000,18.190000,18.190000,18."
+  },
+  {
+   "name": "datalink_wiki",
+   "status": 403,
+   "bytes": 888,
+   "head": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"t"
+  },
+  {
+   "name": "marketparquet_manifest",
+   "status": 200,
+   "bytes": 227484,
+   "head": "PAR1\u0015\u0004\u0015\b\u0015 L\u0015\u0002\u0015\u0000\u0012\u0000\u0000\u0004 \u0006Q\u0000\u0000\u0015\u0000\u0015\u0016\u0015\u001a,\u0015�e\u0015\u0010\u0015\u0006\u0015\u0006\u001c\u0018\u0004\u0006Q\u0000\u0000\u0018\u0004\u0006Q\u0000\u0000\u0016\u0000(\u0004\u0006Q\u0000\u0000\u0018\u0004\u0006Q\u0000\u0000\u0011\u0011\u0000\u0000\u0000 (\u0003\u0000\u0000\u0000�e\u0001\u0001�e\u0000\u0015\u0004\u0015ڑ\u0006\u0015��\u0003L\u0015�e\u0015\u0000\u0012\u0000\u0000�\u0003\u0014\u0001\u0000\u0000\u0000A\u0002\u0001\u0005\u0004A\u0003\u0005\u0006\u0004"
+  }
+ ]
+}
