@@ -1,0 +1,3872 @@
+{
+ "days": 1686,
+ "first": "2020-01-01",
+ "last": "2026-10-16",
+ "actions": 20314,
+ "resolved": {
+  "2020": 19,
+  "2021": 49,
+  "2022": 90,
+  "2023": 77,
+  "2024": 118,
+  "2025": 100,
+  "2026": 58
+ },
+ "real": {
+  "2020": 215,
+  "2021": 35,
+  "2022": 29,
+  "2023": 24,
+  "2024": 39,
+  "2025": 39,
+  "2026": 24
+ },
+ "unresolved": {
+  "2020": 159,
+  "2021": 40,
+  "2022": 41,
+  "2023": 56,
+  "2024": 60,
+  "2025": 45,
+  "2026": 52
+ },
+ "totals": {
+  "resolved": 511,
+  "real": 405,
+  "unresolved": 453,
+  "unresolvedDelisted": 323
+ },
+ "unresolvedByReason": {
+  "no action on the list for a large move": 294,
+  "no action on the list and a clean 1/n price break (likely an ETF unit split)": 108,
+  "demerger: the list gives no price ratio": 38,
+  "only a cash action listed for a large move": 3,
+  "other: the list gives no price ratio": 4,
+  "list ratio does not match the price move": 6
+ },
+ "unresolvedList": [
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-02",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-01-03",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-03",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-01-10",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-10",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-01-14",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-14",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-01-16",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-01-16",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-01-17",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-17",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-20",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-01-21",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUVEN",
+   "date": "2020-01-21",
+   "ratio": 0.0529,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.05,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-21",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-01-22",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-23",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-24",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-01-27",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-28",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-01-30",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-30",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-01-31",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-03",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-03",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-03",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-04",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-02-05",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-05",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-07",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-07",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-10",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-02-11",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-02-11",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-11",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-12",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-02-13",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-13",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-13",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-02-14",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-14",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-02-17",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-17",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-17",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-18",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-02-19",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-20",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-24",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-24",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-26",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-26",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-02-27",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-27",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-02-28",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-02-28",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-02-28",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-02",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-02",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VISESHINFO",
+   "date": "2020-03-02",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-03",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-03",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-04",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-04",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TATACHEM",
+   "date": "2020-03-04",
+   "ratio": 0.4347,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-03-05",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BORORENEW",
+   "date": "2020-03-06",
+   "ratio": 0.264,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-03-06",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "YESBANK",
+   "date": "2020-03-06",
+   "ratio": 0.4389,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-09",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-11",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-03-11",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-03-11",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ADANIPOWER",
+   "date": "2020-03-12",
+   "ratio": 0.7354,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-03-12",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-12",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "CCCL",
+   "date": "2020-03-13",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-16",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-16",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "WEIZMANIND",
+   "date": "2020-03-16",
+   "ratio": 0.5996,
+   "reason": "only a cash action listed for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-03-17",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-17",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-17",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BANCOINDIA",
+   "date": "2020-03-18",
+   "ratio": 0.7063,
+   "reason": "only a cash action listed for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2020-03-18",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "IDEA",
+   "date": "2020-03-18",
+   "ratio": 0.6495,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-03-18",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-18",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ASHOKLEY",
+   "date": "2020-03-19",
+   "ratio": 0.7479,
+   "reason": "only a cash action listed for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-03-19",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2020-03-19",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-19",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "IBULHSGFIN",
+   "date": "2020-03-19",
+   "ratio": 0.6626,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-19",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VIVIDHA",
+   "date": "2020-03-19",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "AXISBANK",
+   "date": "2020-03-23",
+   "ratio": 0.7209,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "BAJAJFINSV",
+   "date": "2020-03-23",
+   "ratio": 0.7414,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "BANDHANBNK",
+   "date": "2020-03-23",
+   "ratio": 0.7498,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "CHOLAFIN",
+   "date": "2020-03-23",
+   "ratio": 0.704,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "EQUITAS",
+   "date": "2020-03-23",
+   "ratio": 0.7403,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-23",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "M&MFIN",
+   "date": "2020-03-23",
+   "ratio": 0.7136,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "MFSL",
+   "date": "2020-03-23",
+   "ratio": 0.7077,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-03-23",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SPYL",
+   "date": "2020-03-23",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-24",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-24",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-03-25",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-25",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-26",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-26",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-03-27",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-03-27",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SCAPDVR",
+   "date": "2020-03-27",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-03-30",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-30",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VIVIDHA",
+   "date": "2020-03-30",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-03-31",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-03-31",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2020-04-01",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-04-01",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-01",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2020-04-03",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "FCSSOFT",
+   "date": "2020-04-03",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-03",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VIVIDHA",
+   "date": "2020-04-03",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "ATNINTER",
+   "date": "2020-04-07",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-07",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-04-08",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-08",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-04-09",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-04-13",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-16",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-04-17",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-04-23",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUJANAUNI",
+   "date": "2020-04-24",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-24",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-04-27",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UVSL",
+   "date": "2020-04-30",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-05-05",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-05-18",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-05-21",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-05-26",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KSERASERA",
+   "date": "2020-05-29",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KARDA",
+   "date": "2020-07-02",
+   "ratio": 0.21,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ARVINDF-RE",
+   "date": "2020-07-13",
+   "ratio": 0.7274,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ABFRL-RE",
+   "date": "2020-07-16",
+   "ratio": 0.7162,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AXISGOLD",
+   "date": "2020-07-23",
+   "ratio": 0.012,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AXISNIFTY",
+   "date": "2020-07-23",
+   "ratio": 0.12,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.125,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "REFEX-RE",
+   "date": "2020-08-04",
+   "ratio": 0.7069,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "REFEX-RE",
+   "date": "2020-08-05",
+   "ratio": 0.7147,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "REFEX-RE",
+   "date": "2020-08-06",
+   "ratio": 0.7202,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2020-09-17",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "RUSHIL-RE",
+   "date": "2020-09-23",
+   "ratio": 0.7409,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUVENPHAR",
+   "date": "2020-09-25",
+   "ratio": 0.5194,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ANANTRAJ",
+   "date": "2020-10-06",
+   "ratio": 0.5614,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "CCCL",
+   "date": "2020-10-22",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "MOLDTEK-RE",
+   "date": "2020-11-06",
+   "ratio": 0.6034,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DEEPENR",
+   "date": "2020-11-10",
+   "ratio": 0.6147,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": true
+  },
+  {
+   "symbol": "MAJESCO",
+   "date": "2020-12-23",
+   "ratio": 0.0124,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "HDFCMFGETF",
+   "date": "2021-02-17",
+   "ratio": 0.0099,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HDFCNIFETF",
+   "date": "2021-02-17",
+   "ratio": 0.0998,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HDFCSENETF",
+   "date": "2021-02-17",
+   "ratio": 0.0993,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UTIBANKETF",
+   "date": "2021-02-17",
+   "ratio": 0.106,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UTISXN50",
+   "date": "2021-02-17",
+   "ratio": 0.12,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.125,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "AFL-RE",
+   "date": "2021-03-12",
+   "ratio": 0.6187,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2021-03-17",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "INFIBEAM",
+   "date": "2021-03-18",
+   "ratio": 0.4282,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GOLDSHARE",
+   "date": "2021-03-25",
+   "ratio": 0.01,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "UTINEXT50",
+   "date": "2021-03-25",
+   "ratio": 0.106,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BLUECHIP",
+   "date": "2021-03-26",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "GFLLIMITED",
+   "date": "2021-03-26",
+   "ratio": 0.7453,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "KDDL-RE",
+   "date": "2021-04-22",
+   "ratio": 0.6236,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KDDL-RE",
+   "date": "2021-04-26",
+   "ratio": 0.6757,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VLIFE-RE",
+   "date": "2021-05-28",
+   "ratio": 0.6571,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VECO-RE",
+   "date": "2021-06-16",
+   "ratio": 0.7273,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MON100",
+   "date": "2021-06-17",
+   "ratio": 0.0993,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "VECO-RE",
+   "date": "2021-06-18",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VECO-RE",
+   "date": "2021-06-22",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KOTAKGOLD",
+   "date": "2021-07-22",
+   "ratio": 0.0996,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "TIDEWATER",
+   "date": "2021-07-26",
+   "ratio": 0.21,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "MAANALU",
+   "date": "2021-08-02",
+   "ratio": 0.5249,
+   "reason": "other: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "DTIL",
+   "date": "2021-08-05",
+   "ratio": 0.6652,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "KARDA",
+   "date": "2021-08-12",
+   "ratio": 0.1049,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BASML",
+   "date": "2021-09-08",
+   "ratio": 0.6758,
+   "reason": "other: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "VISHWARAJ",
+   "date": "2021-10-21",
+   "ratio": 0.24,
+   "reason": "list ratio does not match the price move",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ICICI500",
+   "date": "2021-10-28",
+   "ratio": 0.0995,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "PATINTLOG",
+   "date": "2021-10-28",
+   "ratio": 0.5917,
+   "reason": "other: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "PATINT-RE1",
+   "date": "2021-11-10",
+   "ratio": 0.7101,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VLIFE-RE1",
+   "date": "2021-11-15",
+   "ratio": 0.65,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NXTDIG-RE",
+   "date": "2021-11-24",
+   "ratio": 0.6036,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ABSLBANETF",
+   "date": "2021-11-25",
+   "ratio": 0.0999,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ABSLNN50ET",
+   "date": "2021-11-25",
+   "ratio": 0.1009,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BSLGOLDETF",
+   "date": "2021-11-25",
+   "ratio": 0.01,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BSLNIFTY",
+   "date": "2021-11-25",
+   "ratio": 0.101,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BSLSENETFG",
+   "date": "2021-11-25",
+   "ratio": 0.1009,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "IHCL-RE",
+   "date": "2021-11-26",
+   "ratio": 0.6347,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "IHCL-RE",
+   "date": "2021-11-29",
+   "ratio": 0.6734,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BGEAR-RE",
+   "date": "2021-12-02",
+   "ratio": 0.6001,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "QGOLDHALF",
+   "date": "2021-12-16",
+   "ratio": 0.0202,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.02,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SETFGOLD",
+   "date": "2022-01-06",
+   "ratio": 0.0099,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "GODHA",
+   "date": "2022-01-20",
+   "ratio": 0.5248,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "INFIBEAM",
+   "date": "2022-03-14",
+   "ratio": 0.4804,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "GODHA",
+   "date": "2022-03-24",
+   "ratio": 0.1046,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ASIAN-RE1",
+   "date": "2022-04-26",
+   "ratio": 0.6034,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ASIAN-RE1",
+   "date": "2022-04-27",
+   "ratio": 0.6364,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NGIL-RE",
+   "date": "2022-04-27",
+   "ratio": 0.7425,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ASIAN-RE1",
+   "date": "2022-05-02",
+   "ratio": 0.7379,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ASIAN-RE1",
+   "date": "2022-05-04",
+   "ratio": 0.6053,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ASIAN-RE1",
+   "date": "2022-05-05",
+   "ratio": 0.6087,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE",
+   "date": "2022-05-19",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE",
+   "date": "2022-05-23",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE",
+   "date": "2022-05-26",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE",
+   "date": "2022-05-30",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE",
+   "date": "2022-06-06",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "COSMOFILMS",
+   "date": "2022-06-16",
+   "ratio": 0.6578,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AJANTPHARM",
+   "date": "2022-06-22",
+   "ratio": 0.6599,
+   "reason": "other: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "MINDAIND",
+   "date": "2022-07-07",
+   "ratio": 0.5123,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SONAMCLOCK",
+   "date": "2022-07-14",
+   "ratio": 0.5093,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "MOLOWVOL",
+   "date": "2022-08-11",
+   "ratio": 0.2003,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "MOMOMENTUM",
+   "date": "2022-08-11",
+   "ratio": 0.2,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ICICIMOM30",
+   "date": "2022-08-12",
+   "ratio": 0.1012,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "TEMBO-RE",
+   "date": "2022-08-23",
+   "ratio": 0.6025,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TEMBO-RE",
+   "date": "2022-08-25",
+   "ratio": 0.7,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "PEL",
+   "date": "2022-08-30",
+   "ratio": 0.5521,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": true
+  },
+  {
+   "symbol": "ICICIBANKN",
+   "date": "2022-09-01",
+   "ratio": 0.0995,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ICICITECH",
+   "date": "2022-09-01",
+   "ratio": 0.0984,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "KAMDHENU",
+   "date": "2022-09-06",
+   "ratio": 0.5344,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "EXCEL",
+   "date": "2022-09-28",
+   "ratio": 0.0739,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AHLEAST",
+   "date": "2022-10-06",
+   "ratio": 0.5016,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SUZLON-RE",
+   "date": "2022-10-12",
+   "ratio": 0.6389,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SUVEN-RE",
+   "date": "2022-11-01",
+   "ratio": 0.6049,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "EASEMYTRIP",
+   "date": "2022-11-21",
+   "ratio": 0.15,
+   "reason": "list ratio does not match the price move",
+   "delisted": false
+  },
+  {
+   "symbol": "NXTDIGITAL",
+   "date": "2022-11-22",
+   "ratio": 0.1578,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.16666666666666666,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "COMP-RE",
+   "date": "2022-11-24",
+   "ratio": 0.6389,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE1",
+   "date": "2022-12-05",
+   "ratio": 0.7097,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE1",
+   "date": "2022-12-06",
+   "ratio": 0.6136,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ESSEN-RE1",
+   "date": "2022-12-07",
+   "ratio": 0.6296,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AJOONI-RE",
+   "date": "2022-12-08",
+   "ratio": 0.6316,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AJOONI-RE",
+   "date": "2022-12-09",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AKG-RE",
+   "date": "2022-12-30",
+   "ratio": 0.7034,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GAL-RE",
+   "date": "2023-01-03",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GAL-RE",
+   "date": "2023-01-04",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "4THDIM",
+   "date": "2023-01-23",
+   "ratio": 0.204,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "JETFRE-RE",
+   "date": "2023-01-23",
+   "ratio": 0.6129,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "JETFRE-RE",
+   "date": "2023-01-24",
+   "ratio": 0.6053,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ADANIENT",
+   "date": "2023-02-01",
+   "ratio": 0.718,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "ADANIENT",
+   "date": "2023-02-02",
+   "ratio": 0.733,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "PATEL-RE",
+   "date": "2023-02-15",
+   "ratio": 0.619,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VCL",
+   "date": "2023-02-15",
+   "ratio": 0.605,
+   "reason": "list ratio does not match the price move",
+   "delisted": false
+  },
+  {
+   "symbol": "PATEL-RE",
+   "date": "2023-02-17",
+   "ratio": 0.6154,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ROML-RE",
+   "date": "2023-02-22",
+   "ratio": 0.6957,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MITTAL-RE",
+   "date": "2023-02-24",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MIRZAINT",
+   "date": "2023-03-29",
+   "ratio": 0.137,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "SCI",
+   "date": "2023-03-31",
+   "ratio": 0.7758,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "SEPC-RE",
+   "date": "2023-04-11",
+   "ratio": 0.6471,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SEPC-RE",
+   "date": "2023-04-12",
+   "ratio": 0.6364,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SEPC-RE",
+   "date": "2023-04-13",
+   "ratio": 0.7143,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SEPC-RE",
+   "date": "2023-04-17",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SEPC-RE",
+   "date": "2023-04-18",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TIPSINDLTD",
+   "date": "2023-04-21",
+   "ratio": 0.096,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "GISO-RE",
+   "date": "2023-04-28",
+   "ratio": 0.6023,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GISO-RE",
+   "date": "2023-05-02",
+   "ratio": 0.6038,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GODHA-RE",
+   "date": "2023-05-26",
+   "ratio": 0.7143,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GODHA-RE",
+   "date": "2023-05-29",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GODHA-RE",
+   "date": "2023-05-30",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GODHA-RE",
+   "date": "2023-06-01",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "EDELWEISS",
+   "date": "2023-06-02",
+   "ratio": 0.5526,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "GODHA-RE",
+   "date": "2023-06-02",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NIITLTD",
+   "date": "2023-06-08",
+   "ratio": 0.2387,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SHRERA-RE",
+   "date": "2023-06-13",
+   "ratio": 0.6087,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SHRERA-RE",
+   "date": "2023-06-15",
+   "ratio": 0.6923,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DIL-RE",
+   "date": "2023-06-21",
+   "ratio": 0.6486,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ANMOL",
+   "date": "2023-07-18",
+   "ratio": 0.24,
+   "reason": "list ratio does not match the price move",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-07-18",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-07-19",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-07-20",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-07-21",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-07-24",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SRPL-RE",
+   "date": "2023-08-02",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VCL-RE",
+   "date": "2023-08-08",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VCL-RE",
+   "date": "2023-08-09",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VCL-RE",
+   "date": "2023-08-10",
+   "ratio": 0.5,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VCL-RE",
+   "date": "2023-08-11",
+   "ratio": 2,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NGIL-RE1",
+   "date": "2023-09-21",
+   "ratio": 0.7302,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UTINIFTETF",
+   "date": "2023-09-25",
+   "ratio": 0.0999,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BHANDA-RE",
+   "date": "2023-10-09",
+   "ratio": 0.7222,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MARSHAL-RE",
+   "date": "2023-10-12",
+   "ratio": 0.6047,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MARSHAL-RE",
+   "date": "2023-10-13",
+   "ratio": 0.6058,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MARSHAL-RE",
+   "date": "2023-10-16",
+   "ratio": 0.6032,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "HDFCLOWVOL",
+   "date": "2023-10-20",
+   "ratio": 0.0991,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCMID150",
+   "date": "2023-10-20",
+   "ratio": 0.0991,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCMOMENT",
+   "date": "2023-10-20",
+   "ratio": 0.0981,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCNEXT50",
+   "date": "2023-10-20",
+   "ratio": 0.0991,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCNIF100",
+   "date": "2023-10-20",
+   "ratio": 0.0996,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "TALBROAUTO",
+   "date": "2023-10-27",
+   "ratio": 0.24,
+   "reason": "list ratio does not match the price move",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SEPC-RE1",
+   "date": "2023-12-07",
+   "ratio": 0.7273,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ZEEL",
+   "date": "2024-01-23",
+   "ratio": 0.6739,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCNIFBAN",
+   "date": "2024-02-02",
+   "ratio": 0.0995,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCNIFIT",
+   "date": "2024-02-02",
+   "ratio": 0.1022,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCPVTBAN",
+   "date": "2024-02-02",
+   "ratio": 0.0994,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "HDFCSENSEX",
+   "date": "2024-02-02",
+   "ratio": 0.0999,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ADRO-RE",
+   "date": "2024-02-09",
+   "ratio": 0.6216,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ADRO-RE",
+   "date": "2024-02-12",
+   "ratio": 0.6087,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AUTOIETF",
+   "date": "2024-03-01",
+   "ratio": 0.1025,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "LOWVOLIETF",
+   "date": "2024-03-01",
+   "ratio": 0.1006,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "NV20IETF",
+   "date": "2024-03-01",
+   "ratio": 0.1016,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "PVTBANIETF",
+   "date": "2024-03-01",
+   "ratio": 0.1023,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "CGCL",
+   "date": "2024-03-05",
+   "ratio": 0.3,
+   "reason": "list ratio does not match the price move",
+   "delisted": false
+  },
+  {
+   "symbol": "GLOBE-RE",
+   "date": "2024-03-11",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SILGO-RE",
+   "date": "2024-03-11",
+   "ratio": 0.6111,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GLOBE-RE",
+   "date": "2024-03-12",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SOUTH-RE",
+   "date": "2024-03-13",
+   "ratio": 0.7363,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MHLXMIRU",
+   "date": "2024-04-19",
+   "ratio": 0.7253,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "SAKUMA-RE",
+   "date": "2024-04-26",
+   "ratio": 0.7273,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TIL-RE",
+   "date": "2024-04-29",
+   "ratio": 0.7483,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SEMAC",
+   "date": "2024-05-03",
+   "ratio": 0.6466,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "SAKUMA-RE",
+   "date": "2024-05-07",
+   "ratio": 0.7241,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ALPL30IETF",
+   "date": "2024-05-10",
+   "ratio": 0.1014,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "FMCGIETF",
+   "date": "2024-05-10",
+   "ratio": 0.1014,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "MIDCAPIETF",
+   "date": "2024-05-10",
+   "ratio": 0.1015,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "MIDSELIETF",
+   "date": "2024-05-10",
+   "ratio": 0.101,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "NIF100IETF",
+   "date": "2024-05-10",
+   "ratio": 0.101,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "QUAL30IETF",
+   "date": "2024-05-10",
+   "ratio": 0.1007,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SANG-RE",
+   "date": "2024-05-16",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SANG-RE",
+   "date": "2024-05-17",
+   "ratio": 0.6042,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AJOONI-RE1",
+   "date": "2024-05-22",
+   "ratio": 0.6111,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "RECLTD",
+   "date": "2024-06-04",
+   "ratio": 0.7481,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SANOFI",
+   "date": "2024-06-13",
+   "ratio": 0.6466,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "OCCL",
+   "date": "2024-07-01",
+   "ratio": 0.2587,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BHANDA-RE1",
+   "date": "2024-07-09",
+   "ratio": 0.596,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "RAYMOND",
+   "date": "2024-07-11",
+   "ratio": 0.6341,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "INDO-RE1",
+   "date": "2024-07-29",
+   "ratio": 0.7191,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GACMDVR-RE",
+   "date": "2024-08-01",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GATECH-RE",
+   "date": "2024-08-05",
+   "ratio": 0.7143,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VINNY-RE",
+   "date": "2024-08-28",
+   "ratio": 0.5976,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VINNY-RE",
+   "date": "2024-08-29",
+   "ratio": 0.5941,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ATAL-RE",
+   "date": "2024-09-03",
+   "ratio": 0.5897,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ATAL-RE",
+   "date": "2024-09-04",
+   "ratio": 0.6957,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AKSH-RE",
+   "date": "2024-09-10",
+   "ratio": 0.587,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "AKSH-RE",
+   "date": "2024-09-11",
+   "ratio": 0.6296,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DUCON-RE",
+   "date": "2024-09-18",
+   "ratio": 0.6882,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DUCON-RE",
+   "date": "2024-09-19",
+   "ratio": 0.6563,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ORIENT-RE",
+   "date": "2024-09-20",
+   "ratio": 0.5989,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ROSSELLIND",
+   "date": "2024-09-20",
+   "ratio": 0.2748,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "ORIENT-RE",
+   "date": "2024-09-23",
+   "ratio": 0.5991,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NARMA-RE",
+   "date": "2024-10-01",
+   "ratio": 0.598,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "NARMA-RE",
+   "date": "2024-10-03",
+   "ratio": 0.5984,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "HERCULES",
+   "date": "2024-10-11",
+   "ratio": 0.2939,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": true
+  },
+  {
+   "symbol": "MITTAL-RE1",
+   "date": "2024-10-16",
+   "ratio": 0.6842,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "HEG",
+   "date": "2024-10-18",
+   "ratio": 0.1931,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.2,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "STAR",
+   "date": "2024-12-06",
+   "ratio": 0.4596,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "VHLTD-RE",
+   "date": "2024-12-13",
+   "ratio": 0.6398,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "VHLTD-RE",
+   "date": "2024-12-16",
+   "ratio": 0.7006,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SIKKO-RE",
+   "date": "2024-12-27",
+   "ratio": 0.7386,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SIKKO-RE",
+   "date": "2024-12-30",
+   "ratio": 0.7345,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "MOKSH-RE",
+   "date": "2024-12-31",
+   "ratio": 0.5976,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DHAN-RE",
+   "date": "2025-01-10",
+   "ratio": 0.7231,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "CALSOFT-RE",
+   "date": "2025-01-27",
+   "ratio": 0.5993,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GLOBE-RE1",
+   "date": "2025-01-27",
+   "ratio": 0.7069,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "CALSOFT-RE",
+   "date": "2025-01-28",
+   "ratio": 0.6145,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GLOBE-RE1",
+   "date": "2025-01-31",
+   "ratio": 0.734,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "JYOTI-RE1",
+   "date": "2025-02-24",
+   "ratio": 0.5929,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "THANG-RE",
+   "date": "2025-02-24",
+   "ratio": 0.6335,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "KESORAMIND",
+   "date": "2025-03-10",
+   "ratio": 0.0474,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.05,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "INDUSINDBK",
+   "date": "2025-03-11",
+   "ratio": 0.7284,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "KBCGLOBAL",
+   "date": "2025-04-04",
+   "ratio": 0.5243,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SIEMENS",
+   "date": "2025-04-07",
+   "ratio": 0.5707,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "QUESS",
+   "date": "2025-04-15",
+   "ratio": 0.493,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BTML-RE1",
+   "date": "2025-04-16",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "BTML-RE1",
+   "date": "2025-04-17",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "STLTECH",
+   "date": "2025-04-24",
+   "ratio": 0.748,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "AMIORG",
+   "date": "2025-04-25",
+   "ratio": 0.4857,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.5,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "CHEMBOND",
+   "date": "2025-05-09",
+   "ratio": 0.6242,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "CPCAP",
+   "date": "2025-05-09",
+   "ratio": 0.6249,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "RAYMOND",
+   "date": "2025-05-14",
+   "ratio": 0.3524,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.3333333333333333,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ABFRL",
+   "date": "2025-05-22",
+   "ratio": 0.3341,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.3333333333333333,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SEPC-RE3",
+   "date": "2025-06-10",
+   "ratio": 0.5978,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "UGRO-RE",
+   "date": "2025-06-18",
+   "ratio": 0.5993,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GVPTECH-RE",
+   "date": "2025-07-15",
+   "ratio": 0.6979,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GVPTECH-RE",
+   "date": "2025-07-16",
+   "ratio": 0.6269,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "GVPTECH-RE",
+   "date": "2025-07-17",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TTL-RE",
+   "date": "2025-07-18",
+   "ratio": 0.6806,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TTL-RE",
+   "date": "2025-07-21",
+   "ratio": 0.7143,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "IEX",
+   "date": "2025-07-24",
+   "ratio": 0.7042,
+   "reason": "no action on the list for a large move",
+   "delisted": false
+  },
+  {
+   "symbol": "SPAND-RE",
+   "date": "2025-08-04",
+   "ratio": 0.5999,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "PRAXIS-RE2",
+   "date": "2025-08-08",
+   "ratio": 0.5897,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "PRAXIS-RE2",
+   "date": "2025-08-11",
+   "ratio": 0.5652,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SARVES-RE",
+   "date": "2025-09-03",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SARVES-RE",
+   "date": "2025-09-04",
+   "ratio": 0.6032,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SHANKARA",
+   "date": "2025-09-24",
+   "ratio": 0.2446,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.25,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "3IINFO-RE",
+   "date": "2025-10-08",
+   "ratio": 0.6284,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "TATAMOTORS",
+   "date": "2025-10-14",
+   "ratio": 0.5985,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "SKFINDIA",
+   "date": "2025-10-15",
+   "ratio": 0.4525,
+   "reason": "demerger: the list gives no price ratio",
+   "delisted": false
+  },
+  {
+   "symbol": "UTKAR-RE",
+   "date": "2025-10-27",
+   "ratio": 0.6014,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DELPH-RE",
+   "date": "2025-10-28",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "DELPH-RE",
+   "date": "2025-10-29",
+   "ratio": 0.729,
+   "reason": "no action on the list for a large move",
+   "delisted": true
+  },
+  {
+   "symbol": "ALLCARGO",
+   "date": "2025-11-12",
+   "ratio": 0.3508,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.3333333333333333,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "INDO-RE2",
+   "date": "2025-12-02",
+   "ratio": 0.5974,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.5999153634200701,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "PATELEG-RE",
+   "date": "2025-12-15",
+   "ratio": 0.6027,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6027039738939428,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "DCMSRIND",
+   "date": "2025-12-26",
+   "ratio": 0.3167,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.3333333333333333,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "KRISHFL-RE",
+   "date": "2025-12-29",
+   "ratio": 0.6394,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6420867522751925,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VINEET-RE",
+   "date": "2026-01-02",
+   "ratio": 0.602,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.5972333565076003,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VINEET-RE",
+   "date": "2026-01-05",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6010112870945551,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HILTON-RE1",
+   "date": "2026-01-06",
+   "ratio": 0.6013,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6025371973258359,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SILGO-RE1",
+   "date": "2026-01-16",
+   "ratio": 0.6009,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6006550724917726,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "GROWWGOLD",
+   "date": "2026-02-06",
+   "ratio": 0.0989,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "GROWWSLVR",
+   "date": "2026-02-06",
+   "ratio": 0.0949,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "QNIFTY",
+   "date": "2026-02-13",
+   "ratio": 0.0989,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "STALL-RE",
+   "date": "2026-02-23",
+   "ratio": 0.6002,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.5979297152628987,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ONECAP-RE",
+   "date": "2026-02-24",
+   "ratio": 0.6026,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6072272349884924,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "ONECAP-RE",
+   "date": "2026-02-25",
+   "ratio": 0.617,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.61440595298854,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BANKNIFTY1",
+   "date": "2026-02-27",
+   "ratio": 0.0991,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "CONS",
+   "date": "2026-02-27",
+   "ratio": 0.0989,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "MIDCAP",
+   "date": "2026-02-27",
+   "ratio": 0.0992,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "NV20",
+   "date": "2026-02-27",
+   "ratio": 0.0992,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SILVER1",
+   "date": "2026-02-27",
+   "ratio": 0.1032,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SADHNA-RE",
+   "date": "2026-03-02",
+   "ratio": 0.6094,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6182050327991608,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SICAL-RE",
+   "date": "2026-03-02",
+   "ratio": 0.6321,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6412344413746497,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SADHNA-RE",
+   "date": "2026-03-04",
+   "ratio": 0.6154,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6270869132117336,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SICAL-RE",
+   "date": "2026-03-04",
+   "ratio": 0.6269,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6387862959209077,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SICAL-RE",
+   "date": "2026-03-05",
+   "ratio": 0.619,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6111928615695501,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "LICMFGOLD",
+   "date": "2026-03-06",
+   "ratio": 0.0099,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BHANDA-RE2",
+   "date": "2026-03-09",
+   "ratio": 0.6364,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6486182933496771,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BHANDA-RE2",
+   "date": "2026-03-10",
+   "ratio": 0.7143,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.7051297421078492,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HILTON-RE2",
+   "date": "2026-03-10",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.5923089833705933,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BHANDA-RE2",
+   "date": "2026-03-11",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6081838102194418,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "BHANDA-RE2",
+   "date": "2026-03-12",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6710750846748107,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "PRABHA-RE",
+   "date": "2026-03-23",
+   "ratio": 0.6015,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6207929295862639,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "PRABHA-RE",
+   "date": "2026-03-24",
+   "ratio": 0.6288,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6168125664510046,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "IVZINGOLD",
+   "date": "2026-04-30",
+   "ratio": 0.0102,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.01,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "VEDL",
+   "date": "2026-04-30",
+   "ratio": 0.351,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.3333333333333333,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "ESSEN-RE3",
+   "date": "2026-06-01",
+   "ratio": 0.6667,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6731749855341805,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "AVG-RE",
+   "date": "2026-06-02",
+   "ratio": 0.75,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.7472309301055455,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "AVG-RE",
+   "date": "2026-06-03",
+   "ratio": 0.7009,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.7030164019187195,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "RELTD-RE",
+   "date": "2026-06-18",
+   "ratio": 0.6594,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.656641796801351,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SUMEET-RE",
+   "date": "2026-06-23",
+   "ratio": 0.6058,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6124194487386869,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "SUMEET-RE",
+   "date": "2026-06-24",
+   "ratio": 0.6718,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6684342808081432,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HEALTHADD",
+   "date": "2026-07-03",
+   "ratio": 0.1026,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "MIDQ50ADD",
+   "date": "2026-07-03",
+   "ratio": 0.0998,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "PSUBANK",
+   "date": "2026-07-10",
+   "ratio": 0.1037,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "GANGAFO-RE",
+   "date": "2026-07-13",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6000346938906629,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "GANGAFO-RE",
+   "date": "2026-07-14",
+   "ratio": 0.6111,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6149991343185579,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "TRIVENI",
+   "date": "2026-07-22",
+   "ratio": 0.5843,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.5895337249116638,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "IVZINNIFTY",
+   "date": "2026-07-31",
+   "ratio": 0.1007,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "GOLDADD",
+   "date": "2026-08-28",
+   "ratio": 0.1004,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "SILVERADD",
+   "date": "2026-08-28",
+   "ratio": 0.1016,
+   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
+   "estimate": {
+    "factor": 0.1,
+    "basis": "nearest clean ratio"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "INDIAGLYCO",
+   "date": "2026-09-02",
+   "ratio": 0.2125,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.21353875024220867,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "RATNA-RE",
+   "date": "2026-09-03",
+   "ratio": 0.6018,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6010149462541902,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "DUCON-RE1",
+   "date": "2026-09-04",
+   "ratio": 0.6,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.5999974198153877,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "HEG",
+   "date": "2026-09-07",
+   "ratio": 0.3738,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.37535378986049495,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": true
+  },
+  {
+   "symbol": "VERANDA",
+   "date": "2026-10-06",
+   "ratio": 0.1397,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.13823301562968315,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "BHAGYANGR",
+   "date": "2026-10-08",
+   "ratio": 0.0911,
+   "reason": "demerger: the list gives no price ratio",
+   "estimate": {
+    "factor": 0.0929488183623818,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": false
+  },
+  {
+   "symbol": "NATCO-RE",
+   "date": "2026-10-13",
+   "ratio": 0.6696,
+   "reason": "no action on the list for a large move",
+   "estimate": {
+    "factor": 0.6615301530127129,
+    "basis": "price ratio less the market move that day"
+   },
+   "delisted": false
+  }
+ ]
+}

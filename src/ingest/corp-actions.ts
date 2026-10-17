@@ -56,14 +56,14 @@ export interface ResolveResult { options: CorpAdjustments; resolved: Resolved[];
 /**
  * Resolve every break. `marketReturn(date)` is the broad-market (Nifty 500) return that day as a fraction, or null.
  */
-export function resolveBreaks(days: BhavDay[], actions: Action[], overrides: Overrides, consecutive: (a: string, b: string) => boolean, marketReturn: (date: string) => number | null): ResolveResult {
+export function resolveBreaks(days: BhavDay[], actions: Action[], overrides: Overrides, consecutive: (a: string, b: string) => boolean, marketReturn: (date: string) => number | null, allSymbols = false): ResolveResult {
   const bySym = new Map<string, Action[]>();
   for (const a of actions) { const l = bySym.get(a.symbol) ?? []; l.push(a); bySym.set(a.symbol, l); }
   const factors: Record<string, Array<{ date: string; factor: number }>> = {};
   const accepted: Record<string, string[]> = {};
   const resolved: Resolved[] = [], unresolved: Unresolved[] = [], real: Real[] = [], circularMismatch: CircularMismatch[] = [];
 
-  for (const b of detectBreaks(days, consecutive)) {
+  for (const b of detectBreaks(days, consecutive, allSymbols)) {
     const key = `${b.symbol}|${b.date}`;
     const ov = overrides[key];
     const prevClose = days[b.index - 1].rows[b.symbol][5], close = days[b.index].rows[b.symbol][5];

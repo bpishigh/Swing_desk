@@ -144,7 +144,7 @@ export function computeStocks(days: BhavDay[], date: string, consecutive: (a: st
 
 export interface Break { symbol: string; date: string; index: number; prevDate: string; ratio: number }
 /** Raw one-day moves beyond BREAK_PCT between consecutive stored sessions, for every symbol in the last stored session. */
-export function detectBreaks(days: BhavDay[], consecutive: (a: string, b: string) => boolean = () => true): Break[] {
+export function detectBreaks(days: BhavDay[], consecutive: (a: string, b: string) => boolean = () => true, allSymbols = false): Break[] {
   const out: Break[] = [];
   const live = days[days.length - 1].rows;   // only stocks that trade in the last stored session
   const marketWide = new Set<string>();
@@ -156,7 +156,7 @@ export function detectBreaks(days: BhavDay[], consecutive: (a: string, b: string
   for (let i = 1; i < days.length; i++) {
     if (marketWide.has(days[i].date) || !consecutive(days[i - 1].date, days[i].date)) continue;
     for (const [sym, r] of Object.entries(days[i].rows)) {
-      if (!(sym in live)) continue;
+      if (!allSymbols && !(sym in live)) continue;   // live nightly job: only stocks still trading; history audits and backtests pass allSymbols so delisted names count
       const q = days[i - 1].rows[sym]; if (!q) continue;
       const ratio = r[5] / q[5];
       if (Math.abs(ratio - 1) * 100 > BREAK_PCT) out.push({ symbol: sym, date: days[i].date, index: i, prevDate: days[i - 1].date, ratio });
