@@ -4,13 +4,13 @@
  "last": "2026-10-16",
  "actions": 20314,
  "resolved": {
-  "2020": 22,
-  "2021": 51,
-  "2022": 96,
+  "2020": 23,
+  "2021": 52,
+  "2022": 97,
   "2023": 82,
   "2024": 126,
   "2025": 111,
-  "2026": 70
+  "2026": 71
  },
  "real": {
   "2020": 227,
@@ -22,26 +22,26 @@
   "2026": 25
  },
  "unresolved": {
-  "2020": 144,
-  "2021": 36,
-  "2022": 33,
+  "2020": 143,
+  "2021": 35,
+  "2022": 32,
   "2023": 49,
   "2024": 49,
   "2025": 31,
-  "2026": 39
+  "2026": 38
  },
  "totals": {
-  "resolved": 558,
+  "resolved": 562,
   "real": 430,
-  "unresolved": 381,
-  "unresolvedDelisted": 304
+  "unresolved": 377,
+  "unresolvedDelisted": 301
  },
  "unresolvedByReason": {
-  "no action on the list for a large move": 269,
+  "no action on the list for a large move": 266,
   "no action on the list and a clean 1/n price break (likely an ETF unit split)": 94,
   "demerger: the list gives no price ratio": 10,
   "only a cash action listed for a large move": 2,
-  "other: the list gives no price ratio": 4,
+  "other: the list gives no price ratio": 3,
   "list ratio does not match the price move": 2
  },
  "unresolvedList": [
@@ -1187,13 +1187,6 @@
    "delisted": true
   },
   {
-   "symbol": "MAJESCO",
-   "date": "2020-12-23",
-   "ratio": 0.0124,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "HDFCMFGETF",
    "date": "2021-02-17",
    "ratio": 0.0099,
@@ -1261,13 +1254,6 @@
    "ratio": 0.75,
    "reason": "no action on the list for a large move",
    "delisted": false
-  },
-  {
-   "symbol": "INFIBEAM",
-   "date": "2021-03-18",
-   "ratio": 0.4282,
-   "reason": "no action on the list for a large move",
-   "delisted": true
   },
   {
    "symbol": "GOLDSHARE",
@@ -1622,13 +1608,6 @@
    "ratio": 0.6667,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "AJANTPHARM",
-   "date": "2022-06-22",
-   "ratio": 0.6599,
-   "reason": "other: the list gives no price ratio",
-   "delisted": false
   },
   {
    "symbol": "SONAMCLOCK",
@@ -3225,17 +3204,6 @@
    "reason": "no action on the list for a large move",
    "estimate": {
     "factor": 0.5999974198153877,
-    "basis": "price ratio less the market move that day"
-   },
-   "delisted": true
-  },
-  {
-   "symbol": "HEG",
-   "date": "2026-09-07",
-   "ratio": 0.3738,
-   "reason": "no action on the list for a large move",
-   "estimate": {
-    "factor": 0.37535378986049495,
     "basis": "price ratio less the market move that day"
    },
    "delisted": true
