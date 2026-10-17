@@ -1,5 +1,10 @@
 {
- "start": "2026-10-17T19:11:56.328Z",
- "month": null,
- "error": "no TER month found"
+ "start": "2026-10-17T19:24:57.041Z",
+ "month": "10-2026",
+ "pageSize": 5000,
+ "firstPage": 100,
+ "rows": 33783,
+ "schemes": 2157,
+ "lastPage": 343,
+ "ok": true
 }
