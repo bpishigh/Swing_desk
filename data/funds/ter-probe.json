@@ -1,0 +1,120 @@
+{
+ "log": [
+  {
+   "month": "10-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "09-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "08-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "07-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "06-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "05-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "04-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  },
+  {
+   "month": "03-2026",
+   "type": "-1",
+   "n": 50,
+   "meta": null
+  }
+ ],
+ "found": {
+  "month": "03-2026",
+  "type": "-1",
+  "meta": null,
+  "sample": [
+   {
+    "NSDLSchemeCode": "360O/O/H/BHF/23/07/0007",
+    "Scheme_Name": "360 ONE Balanced Hybrid Fund",
+    "SchemeType_Desc": "Open Ended",
+    "SchemeCat_Desc": "Hybrid Schemes - Balanced Hybrid Fund",
+    "R_BaseTER": "1.8500",
+    "TER_Year": "2025-2026",
+    "TER_Date": "2026-03-01T00:00:00.000Z",
+    "R_6A_B": "0.0000",
+    "R_6A_C": "0.0500",
+    "R_GST": "0.0400",
+    "R_TER": "1.9400",
+    "D_BaseTER": "0.3600",
+    "D_6A_B": "0.0000",
+    "D_6A_C": "0.0500",
+    "D_GST": "0.0400",
+    "D_TER": "0.4500",
+    "MF_ID": 62,
+    "Month": "03-2026"
+   },
+   {
+    "NSDLSchemeCode": "360O/O/H/BHF/23/07/0007",
+    "Scheme_Name": "360 ONE Balanced Hybrid Fund",
+    "SchemeType_Desc": "Open Ended",
+    "SchemeCat_Desc": "Hybrid Schemes - Balanced Hybrid Fund",
+    "R_BaseTER": "1.8500",
+    "TER_Year": "2025-2026",
+    "TER_Date": "2026-03-02T00:00:00.000Z",
+    "R_6A_B": "0.0000",
+    "R_6A_C": "0.0500",
+    "R_GST": "0.0400",
+    "R_TER": "1.9400",
+    "D_BaseTER": "0.3600",
+    "D_6A_B": "0.0000",
+    "D_6A_C": "0.0500",
+    "D_GST": "0.0400",
+    "D_TER": "0.4500",
+    "MF_ID": 62,
+    "Month": "03-2026"
+   },
+   {
+    "NSDLSchemeCode": "360O/O/H/BHF/23/07/0007",
+    "Scheme_Name": "360 ONE Balanced Hybrid Fund",
+    "SchemeType_Desc": "Open Ended",
+    "SchemeCat_Desc": "Hybrid Schemes - Balanced Hybrid Fund",
+    "R_BaseTER": "1.8500",
+    "TER_Year": "2025-2026",
+    "TER_Date": "2026-03-03T00:00:00.000Z",
+    "R_6A_B": "0.0000",
+    "R_6A_C": "0.0500",
+    "R_GST": "0.0400",
+    "R_TER": "1.9400",
+    "D_BaseTER": "0.3600",
+    "D_6A_B": "0.0000",
+    "D_6A_C": "0.0500",
+    "D_GST": "0.0400",
+    "D_TER": "0.4500",
+    "MF_ID": 62,
+    "Month": "03-2026"
+   }
+  ],
+  "got": 0
+ }
+}
