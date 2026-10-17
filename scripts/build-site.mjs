@@ -78,7 +78,13 @@ const store = {
   rules: ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides'].map((n) => { const j = read(`data/rules/${n}.json`, {}); return { name: n, records: Array.isArray(j.records) ? j.records.length : null, estimates: Array.isArray(j.records) ? j.records.filter((r) => r.estimate).length : null }; }),
 };
 const compare = read('data/compare/latest.json', null);
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare, store };
+// US whole-market scan (US-SCAN-1) and the paper book (PAPER-1): both are rules-testing data, nothing personal.
+const scanRaw = read('data/us/scan/latest.json', null), paperSum = read('data/us/paper/latest.json', null), paperBook = read('data/us/paper/book.json', null);
+const cand = (c) => ({ sym: c.sym, group: c.group, path: c.path, rsPct: c.rsPct, close: c.close, composite: c.composite, tags: c.tags, setup: c.setup ? { id: c.setup.id, trigger: c.setup.trigger, stop: c.setup.stop, stopWidthPct: c.setup.stopWidthPct, roomR: c.setup.roomR } : null });
+const scan = scanRaw ? { version: scanRaw.version, asOf: scanRaw.asOf, light: scanRaw.light, funnel: scanRaw.funnel, qualifiedTotal: scanRaw.qualifiedTotal, notes: scanRaw.notes, ready: (scanRaw.ready || []).map(cand), watch: (scanRaw.watch || []).map(cand), topGroups: (scanRaw.groups || []).slice(0, 8) } : null;
+const pp = (p) => ({ id: p.id, stream: p.stream, sym: p.sym, setup: p.setup, regime: p.regime, signalDate: p.signalDate, status: p.status, trigger: p.trigger, stop: p.stop, entry: p.entry ?? null, entryDate: p.entryDate ?? null, exitDate: p.exitDate ?? null, exitReason: p.exitReason ?? null, resultR: p.resultR ?? null, tags: p.tags });
+const paper = paperSum ? { ...paperSum, live: (paperBook?.ledger || []).filter((p) => p.status !== 'closed').map(pp), recent: (paperBook?.ledger || []).filter((p) => p.status === 'closed').slice(-25).reverse().map(pp) } : null;
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare, store, scan, paper };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);
