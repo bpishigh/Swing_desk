@@ -8,7 +8,7 @@ for (const f of readdirSync('data/india/bhav-hist').filter((x) => x.endsWith('.j
 for (const f of readdirSync('data/india/bhav').filter((x) => x.endsWith('.json')).sort()) bhav.push(JSON.parse(readFileSync('data/india/bhav/' + f)));
 bhav.sort((a, b) => (a.date < b.date ? -1 : 1));
 const actions = [...JSON.parse(readFileSync('data/india/corp-actions-history.json')), ...(existsSync('data/india/corp-actions.json') ? JSON.parse(readFileSync('data/india/corp-actions.json')) : [])];
-const ov = existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {};
+const ov = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides-hist.json')) : {}), ...(existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {}) };   // hand overrides win over rule-derived ones
 const full = resolveHistory(bhav, actions, ov);
 console.log('full', JSON.stringify(full.counts));
 let seed = 20261017; const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);

@@ -11,7 +11,7 @@ for (const f of readdirSync('data/india/bhav-hist').filter((x) => x.endsWith('.j
 for (const f of readdirSync('data/india/bhav').filter((x) => x.endsWith('.json')).sort()) days.push(JSON.parse(readFileSync('data/india/bhav/' + f)));
 days.sort((a, b) => (a.date < b.date ? -1 : 1));
 const actions = [...JSON.parse(readFileSync('data/india/corp-actions-history.json')), ...(existsSync('data/india/corp-actions.json') ? JSON.parse(readFileSync('data/india/corp-actions.json')) : [])];
-const overrides = existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {};
+const overrides = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides-hist.json')) : {}), ...(existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {}) };   // hand overrides win over rule-derived ones
 const idx = existsSync('data/india/idx_closes.json') ? JSON.parse(readFileSync('data/india/idx_closes.json')).closes['Nifty 500'] || {} : {};
 const md = Object.keys(idx).sort(); const mr = (d) => { const i = md.indexOf(d); return i > 0 ? idx[d] / idx[md[i - 1]] - 1 : null; };
 const res = resolveBreaks(days, actions, overrides, () => true, mr, true);

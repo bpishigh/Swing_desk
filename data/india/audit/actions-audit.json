@@ -4,45 +4,45 @@
  "last": "2026-10-16",
  "actions": 20314,
  "resolved": {
-  "2020": 19,
-  "2021": 49,
-  "2022": 90,
-  "2023": 77,
-  "2024": 118,
-  "2025": 100,
-  "2026": 58
+  "2020": 22,
+  "2021": 51,
+  "2022": 96,
+  "2023": 82,
+  "2024": 126,
+  "2025": 111,
+  "2026": 70
  },
  "real": {
-  "2020": 215,
-  "2021": 35,
-  "2022": 29,
-  "2023": 24,
-  "2024": 39,
-  "2025": 39,
-  "2026": 24
+  "2020": 227,
+  "2021": 37,
+  "2022": 31,
+  "2023": 26,
+  "2024": 42,
+  "2025": 42,
+  "2026": 25
  },
  "unresolved": {
-  "2020": 159,
-  "2021": 40,
-  "2022": 41,
-  "2023": 56,
-  "2024": 60,
-  "2025": 45,
-  "2026": 52
+  "2020": 144,
+  "2021": 36,
+  "2022": 33,
+  "2023": 49,
+  "2024": 49,
+  "2025": 31,
+  "2026": 39
  },
  "totals": {
-  "resolved": 511,
-  "real": 405,
-  "unresolved": 453,
-  "unresolvedDelisted": 323
+  "resolved": 558,
+  "real": 430,
+  "unresolved": 381,
+  "unresolvedDelisted": 304
  },
  "unresolvedByReason": {
-  "no action on the list for a large move": 294,
-  "no action on the list and a clean 1/n price break (likely an ETF unit split)": 108,
-  "demerger: the list gives no price ratio": 38,
-  "only a cash action listed for a large move": 3,
+  "no action on the list for a large move": 269,
+  "no action on the list and a clean 1/n price break (likely an ETF unit split)": 94,
+  "demerger: the list gives no price ratio": 10,
+  "only a cash action listed for a large move": 2,
   "other: the list gives no price ratio": 4,
-  "list ratio does not match the price move": 6
+  "list ratio does not match the price move": 2
  },
  "unresolvedList": [
   {
@@ -147,17 +147,6 @@
    "ratio": 0.6667,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "SUVEN",
-   "date": "2020-01-21",
-   "ratio": 0.0529,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.05,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
   },
   {
    "symbol": "VISESHINFO",
@@ -563,13 +552,6 @@
    "delisted": true
   },
   {
-   "symbol": "TATACHEM",
-   "date": "2020-03-04",
-   "ratio": 0.4347,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
    "symbol": "SCAPDVR",
    "date": "2020-03-05",
    "ratio": 0.75,
@@ -593,13 +575,6 @@
    "ratio": 0.6667,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "YESBANK",
-   "date": "2020-03-06",
-   "ratio": 0.4389,
-   "reason": "no action on the list for a large move",
-   "delisted": false
   },
   {
    "symbol": "KSERASERA",
@@ -632,13 +607,6 @@
    "ratio": 0.6667,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "ADANIPOWER",
-   "date": "2020-03-12",
-   "ratio": 0.7354,
-   "reason": "no action on the list for a large move",
-   "delisted": false
   },
   {
    "symbol": "ATNINTER",
@@ -730,13 +698,6 @@
    "delisted": false
   },
   {
-   "symbol": "IDEA",
-   "date": "2020-03-18",
-   "ratio": 0.6495,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
    "symbol": "SCAPDVR",
    "date": "2020-03-18",
    "ratio": 0.75,
@@ -749,13 +710,6 @@
    "ratio": 2,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "ASHOKLEY",
-   "date": "2020-03-19",
-   "ratio": 0.7479,
-   "reason": "only a cash action listed for a large move",
-   "delisted": false
   },
   {
    "symbol": "ATNINTER",
@@ -779,13 +733,6 @@
    "delisted": false
   },
   {
-   "symbol": "IBULHSGFIN",
-   "date": "2020-03-19",
-   "ratio": 0.6626,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "UVSL",
    "date": "2020-03-19",
    "ratio": 0.5,
@@ -804,41 +751,6 @@
    "delisted": false
   },
   {
-   "symbol": "AXISBANK",
-   "date": "2020-03-23",
-   "ratio": 0.7209,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "BAJAJFINSV",
-   "date": "2020-03-23",
-   "ratio": 0.7414,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "BANDHANBNK",
-   "date": "2020-03-23",
-   "ratio": 0.7498,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "CHOLAFIN",
-   "date": "2020-03-23",
-   "ratio": 0.704,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "EQUITAS",
-   "date": "2020-03-23",
-   "ratio": 0.7403,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "KSERASERA",
    "date": "2020-03-23",
    "ratio": 0.5,
@@ -848,20 +760,6 @@
     "basis": "nearest clean ratio"
    },
    "delisted": true
-  },
-  {
-   "symbol": "M&MFIN",
-   "date": "2020-03-23",
-   "ratio": 0.7136,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "MFSL",
-   "date": "2020-03-23",
-   "ratio": 0.7077,
-   "reason": "no action on the list for a large move",
-   "delisted": false
   },
   {
    "symbol": "SCAPDVR",
@@ -1261,17 +1159,6 @@
    "delisted": true
   },
   {
-   "symbol": "SUVENPHAR",
-   "date": "2020-09-25",
-   "ratio": 0.5194,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.5,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
    "symbol": "ANANTRAJ",
    "date": "2020-10-06",
    "ratio": 0.5614,
@@ -1479,17 +1366,6 @@
    "delisted": true
   },
   {
-   "symbol": "TIDEWATER",
-   "date": "2021-07-26",
-   "ratio": 0.21,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.2,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
    "symbol": "MAANALU",
    "date": "2021-08-02",
    "ratio": 0.5249,
@@ -1523,17 +1399,6 @@
    "date": "2021-09-08",
    "ratio": 0.6758,
    "reason": "other: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "VISHWARAJ",
-   "date": "2021-10-21",
-   "ratio": 0.24,
-   "reason": "list ratio does not match the price move",
-   "estimate": {
-    "factor": 0.25,
-    "basis": "nearest clean ratio"
-   },
    "delisted": false
   },
   {
@@ -1631,20 +1496,6 @@
    "delisted": false
   },
   {
-   "symbol": "IHCL-RE",
-   "date": "2021-11-26",
-   "ratio": 0.6347,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
-   "symbol": "IHCL-RE",
-   "date": "2021-11-29",
-   "ratio": 0.6734,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "BGEAR-RE",
    "date": "2021-12-02",
    "ratio": 0.6001,
@@ -1677,17 +1528,6 @@
    "symbol": "GODHA",
    "date": "2022-01-20",
    "ratio": 0.5248,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.5,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
-   "symbol": "INFIBEAM",
-   "date": "2022-03-14",
-   "ratio": 0.4804,
    "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
    "estimate": {
     "factor": 0.5,
@@ -1784,29 +1624,11 @@
    "delisted": true
   },
   {
-   "symbol": "COSMOFILMS",
-   "date": "2022-06-16",
-   "ratio": 0.6578,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "AJANTPHARM",
    "date": "2022-06-22",
    "ratio": 0.6599,
    "reason": "other: the list gives no price ratio",
    "delisted": false
-  },
-  {
-   "symbol": "MINDAIND",
-   "date": "2022-07-07",
-   "ratio": 0.5123,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.5,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
   },
   {
    "symbol": "SONAMCLOCK",
@@ -1867,13 +1689,6 @@
    "delisted": true
   },
   {
-   "symbol": "PEL",
-   "date": "2022-08-30",
-   "ratio": 0.5521,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": true
-  },
-  {
    "symbol": "ICICIBANKN",
    "date": "2022-09-01",
    "ratio": 0.0995,
@@ -1883,24 +1698,6 @@
     "basis": "nearest clean ratio"
    },
    "delisted": true
-  },
-  {
-   "symbol": "ICICITECH",
-   "date": "2022-09-01",
-   "ratio": 0.0984,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
-   "symbol": "KAMDHENU",
-   "date": "2022-09-06",
-   "ratio": 0.5344,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
   },
   {
    "symbol": "EXCEL",
@@ -1921,25 +1718,11 @@
    "delisted": false
   },
   {
-   "symbol": "SUZLON-RE",
-   "date": "2022-10-12",
-   "ratio": 0.6389,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
    "symbol": "SUVEN-RE",
    "date": "2022-11-01",
    "ratio": 0.6049,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "EASEMYTRIP",
-   "date": "2022-11-21",
-   "ratio": 0.15,
-   "reason": "list ratio does not match the price move",
-   "delisted": false
   },
   {
    "symbol": "NXTDIGITAL",
@@ -2041,20 +1824,6 @@
    "delisted": true
   },
   {
-   "symbol": "ADANIENT",
-   "date": "2023-02-01",
-   "ratio": 0.718,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "ADANIENT",
-   "date": "2023-02-02",
-   "ratio": 0.733,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
    "symbol": "PATEL-RE",
    "date": "2023-02-15",
    "ratio": 0.619,
@@ -2088,20 +1857,6 @@
    "ratio": 0.6,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "MIRZAINT",
-   "date": "2023-03-29",
-   "ratio": 0.137,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "SCI",
-   "date": "2023-03-31",
-   "ratio": 0.7758,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
   },
   {
    "symbol": "SEPC-RE",
@@ -2196,29 +1951,11 @@
    "delisted": true
   },
   {
-   "symbol": "EDELWEISS",
-   "date": "2023-06-02",
-   "ratio": 0.5526,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
    "symbol": "GODHA-RE",
    "date": "2023-06-02",
    "ratio": 2,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "NIITLTD",
-   "date": "2023-06-08",
-   "ratio": 0.2387,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.25,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
   },
   {
    "symbol": "SHRERA-RE",
@@ -2432,29 +2169,11 @@
    "delisted": false
   },
   {
-   "symbol": "TALBROAUTO",
-   "date": "2023-10-27",
-   "ratio": 0.24,
-   "reason": "list ratio does not match the price move",
-   "estimate": {
-    "factor": 0.25,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "SEPC-RE1",
    "date": "2023-12-07",
    "ratio": 0.7273,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "ZEEL",
-   "date": "2024-01-23",
-   "ratio": 0.6739,
-   "reason": "no action on the list for a large move",
-   "delisted": false
   },
   {
    "symbol": "HDFCNIFBAN",
@@ -2559,13 +2278,6 @@
    "delisted": false
   },
   {
-   "symbol": "CGCL",
-   "date": "2024-03-05",
-   "ratio": 0.3,
-   "reason": "list ratio does not match the price move",
-   "delisted": false
-  },
-  {
    "symbol": "GLOBE-RE",
    "date": "2024-03-11",
    "ratio": 0.6,
@@ -2583,13 +2295,6 @@
    "symbol": "GLOBE-RE",
    "date": "2024-03-12",
    "ratio": 0.6667,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
-   "symbol": "SOUTH-RE",
-   "date": "2024-03-13",
-   "ratio": 0.7363,
    "reason": "no action on the list for a large move",
    "delisted": true
   },
@@ -2716,43 +2421,11 @@
    "delisted": true
   },
   {
-   "symbol": "RECLTD",
-   "date": "2024-06-04",
-   "ratio": 0.7481,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
-   "symbol": "SANOFI",
-   "date": "2024-06-13",
-   "ratio": 0.6466,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "OCCL",
-   "date": "2024-07-01",
-   "ratio": 0.2587,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.25,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
    "symbol": "BHANDA-RE1",
    "date": "2024-07-09",
    "ratio": 0.596,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "RAYMOND",
-   "date": "2024-07-11",
-   "ratio": 0.6341,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
   },
   {
    "symbol": "INDO-RE1",
@@ -2839,13 +2512,6 @@
    "delisted": true
   },
   {
-   "symbol": "ROSSELLIND",
-   "date": "2024-09-20",
-   "ratio": 0.2748,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
    "symbol": "ORIENT-RE",
    "date": "2024-09-23",
    "ratio": 0.5991,
@@ -2867,36 +2533,11 @@
    "delisted": true
   },
   {
-   "symbol": "HERCULES",
-   "date": "2024-10-11",
-   "ratio": 0.2939,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": true
-  },
-  {
    "symbol": "MITTAL-RE1",
    "date": "2024-10-16",
    "ratio": 0.6842,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "HEG",
-   "date": "2024-10-18",
-   "ratio": 0.1931,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.2,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
-   "symbol": "STAR",
-   "date": "2024-12-06",
-   "ratio": 0.4596,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
   },
   {
    "symbol": "VHLTD-RE",
@@ -2983,24 +2624,6 @@
    "delisted": true
   },
   {
-   "symbol": "KESORAMIND",
-   "date": "2025-03-10",
-   "ratio": 0.0474,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.05,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "INDUSINDBK",
-   "date": "2025-03-11",
-   "ratio": 0.7284,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
    "symbol": "KBCGLOBAL",
    "date": "2025-04-04",
    "ratio": 0.5243,
@@ -3010,24 +2633,6 @@
     "basis": "nearest clean ratio"
    },
    "delisted": true
-  },
-  {
-   "symbol": "SIEMENS",
-   "date": "2025-04-07",
-   "ratio": 0.5707,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "QUESS",
-   "date": "2025-04-15",
-   "ratio": 0.493,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.5,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
   },
   {
    "symbol": "BTML-RE1",
@@ -3044,24 +2649,6 @@
    "delisted": true
   },
   {
-   "symbol": "STLTECH",
-   "date": "2025-04-24",
-   "ratio": 0.748,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "AMIORG",
-   "date": "2025-04-25",
-   "ratio": 0.4857,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.5,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": true
-  },
-  {
    "symbol": "CHEMBOND",
    "date": "2025-05-09",
    "ratio": 0.6242,
@@ -3073,28 +2660,6 @@
    "date": "2025-05-09",
    "ratio": 0.6249,
    "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "RAYMOND",
-   "date": "2025-05-14",
-   "ratio": 0.3524,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.3333333333333333,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "ABFRL",
-   "date": "2025-05-22",
-   "ratio": 0.3341,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.3333333333333333,
-    "basis": "nearest clean ratio"
-   },
    "delisted": false
   },
   {
@@ -3147,13 +2712,6 @@
    "delisted": true
   },
   {
-   "symbol": "IEX",
-   "date": "2025-07-24",
-   "ratio": 0.7042,
-   "reason": "no action on the list for a large move",
-   "delisted": false
-  },
-  {
    "symbol": "SPAND-RE",
    "date": "2025-08-04",
    "ratio": 0.5999,
@@ -3189,41 +2747,9 @@
    "delisted": true
   },
   {
-   "symbol": "SHANKARA",
-   "date": "2025-09-24",
-   "ratio": 0.2446,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.25,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "3IINFO-RE",
    "date": "2025-10-08",
    "ratio": 0.6284,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
-   "symbol": "TATAMOTORS",
-   "date": "2025-10-14",
-   "ratio": 0.5985,
-   "reason": "no action on the list for a large move",
-   "delisted": true
-  },
-  {
-   "symbol": "SKFINDIA",
-   "date": "2025-10-15",
-   "ratio": 0.4525,
-   "reason": "demerger: the list gives no price ratio",
-   "delisted": false
-  },
-  {
-   "symbol": "UTKAR-RE",
-   "date": "2025-10-27",
-   "ratio": 0.6014,
    "reason": "no action on the list for a large move",
    "delisted": true
   },
@@ -3240,17 +2766,6 @@
    "ratio": 0.729,
    "reason": "no action on the list for a large move",
    "delisted": true
-  },
-  {
-   "symbol": "ALLCARGO",
-   "date": "2025-11-12",
-   "ratio": 0.3508,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.3333333333333333,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
   },
   {
    "symbol": "INDO-RE2",
@@ -3341,28 +2856,6 @@
    "delisted": true
   },
   {
-   "symbol": "GROWWGOLD",
-   "date": "2026-02-06",
-   "ratio": 0.0989,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "GROWWSLVR",
-   "date": "2026-02-06",
-   "ratio": 0.0949,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "QNIFTY",
    "date": "2026-02-13",
    "ratio": 0.0989,
@@ -3451,17 +2944,6 @@
    "delisted": false
   },
   {
-   "symbol": "SILVER1",
-   "date": "2026-02-27",
-   "ratio": 0.1032,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "SADHNA-RE",
    "date": "2026-03-02",
    "ratio": 0.6094,
@@ -3515,17 +2997,6 @@
     "basis": "price ratio less the market move that day"
    },
    "delisted": true
-  },
-  {
-   "symbol": "LICMFGOLD",
-   "date": "2026-03-06",
-   "ratio": 0.0099,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.01,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
   },
   {
    "symbol": "BHANDA-RE2",
@@ -3611,17 +3082,6 @@
    "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
    "estimate": {
     "factor": 0.01,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "VEDL",
-   "date": "2026-04-30",
-   "ratio": 0.351,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.3333333333333333,
     "basis": "nearest clean ratio"
    },
    "delisted": false
@@ -3715,17 +3175,6 @@
    "delisted": false
   },
   {
-   "symbol": "PSUBANK",
-   "date": "2026-07-10",
-   "ratio": 0.1037,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "GANGAFO-RE",
    "date": "2026-07-13",
    "ratio": 0.6,
@@ -3748,17 +3197,6 @@
    "delisted": true
   },
   {
-   "symbol": "TRIVENI",
-   "date": "2026-07-22",
-   "ratio": 0.5843,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.5895337249116638,
-    "basis": "price ratio less the market move that day"
-   },
-   "delisted": false
-  },
-  {
    "symbol": "IVZINNIFTY",
    "date": "2026-07-31",
    "ratio": 0.1007,
@@ -3766,39 +3204,6 @@
    "estimate": {
     "factor": 0.1,
     "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "GOLDADD",
-   "date": "2026-08-28",
-   "ratio": 0.1004,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "SILVERADD",
-   "date": "2026-08-28",
-   "ratio": 0.1016,
-   "reason": "no action on the list and a clean 1/n price break (likely an ETF unit split)",
-   "estimate": {
-    "factor": 0.1,
-    "basis": "nearest clean ratio"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "INDIAGLYCO",
-   "date": "2026-09-02",
-   "ratio": 0.2125,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.21353875024220867,
-    "basis": "price ratio less the market move that day"
    },
    "delisted": false
   },
@@ -3834,39 +3239,6 @@
     "basis": "price ratio less the market move that day"
    },
    "delisted": true
-  },
-  {
-   "symbol": "VERANDA",
-   "date": "2026-10-06",
-   "ratio": 0.1397,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.13823301562968315,
-    "basis": "price ratio less the market move that day"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "BHAGYANGR",
-   "date": "2026-10-08",
-   "ratio": 0.0911,
-   "reason": "demerger: the list gives no price ratio",
-   "estimate": {
-    "factor": 0.0929488183623818,
-    "basis": "price ratio less the market move that day"
-   },
-   "delisted": false
-  },
-  {
-   "symbol": "NATCO-RE",
-   "date": "2026-10-13",
-   "ratio": 0.6696,
-   "reason": "no action on the list for a large move",
-   "estimate": {
-    "factor": 0.6615301530127129,
-    "basis": "price ratio less the market move that day"
-   },
-   "delisted": false
   }
  ]
 }

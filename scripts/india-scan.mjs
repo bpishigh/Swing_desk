@@ -17,7 +17,7 @@ const uniq = bhav.filter((d, i) => i === 0 || d.date !== bhav[i - 1].date);
 const sel = ASOF ? uniq.filter((d) => d.date <= ASOF) : uniq;
 if (sel.length < INDIA_SCAN.minSessions + 1) { console.error('too few stored days: ' + sel.length); process.exit(1); }
 const actions = [...JSON.parse(readFileSync('data/india/corp-actions-history.json')), ...(existsSync('data/india/corp-actions.json') ? JSON.parse(readFileSync('data/india/corp-actions.json')) : [])];
-const ov = existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {};
+const ov = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides-hist.json')) : {}), ...(existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {}) };   // hand overrides win over rule-derived ones
 const res = resolveHistory(sel, actions, ov);
 const industry = JSON.parse(readFileSync('data/india/segments.json', 'utf8')).industry ?? {};
 const days = toDays(sel), t = days.length - 1;
