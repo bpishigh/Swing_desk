@@ -79,12 +79,13 @@ const store = {
 };
 const compare = read('data/compare/latest.json', null);
 // US whole-market scan (US-SCAN-1) and the paper book (PAPER-1): both are rules-testing data, nothing personal.
-const scanRaw = read('data/us/scan/latest.json', null), paperSum = read('data/us/paper/latest.json', null), paperBook = read('data/us/paper/book.json', null);
 const cand = (c) => ({ sym: c.sym, group: c.group, path: c.path, rsPct: c.rsPct, close: c.close, composite: c.composite, tags: c.tags, setup: c.setup ? { id: c.setup.id, trigger: c.setup.trigger, stop: c.setup.stop, stopWidthPct: c.setup.stopWidthPct, roomR: c.setup.roomR } : null });
-const scan = scanRaw ? { version: scanRaw.version, asOf: scanRaw.asOf, light: scanRaw.light, funnel: scanRaw.funnel, qualifiedTotal: scanRaw.qualifiedTotal, notes: scanRaw.notes, ready: (scanRaw.ready || []).map(cand), watch: (scanRaw.watch || []).map(cand), topGroups: (scanRaw.groups || []).slice(0, 8) } : null;
 const pp = (p) => ({ id: p.id, stream: p.stream, sym: p.sym, setup: p.setup, regime: p.regime, signalDate: p.signalDate, status: p.status, trigger: p.trigger, stop: p.stop, entry: p.entry ?? null, entryDate: p.entryDate ?? null, exitDate: p.exitDate ?? null, exitReason: p.exitReason ?? null, resultR: p.resultR ?? null, tags: p.tags });
-const paper = paperSum ? { ...paperSum, live: (paperBook?.ledger || []).filter((p) => p.status !== 'closed').map(pp), recent: (paperBook?.ledger || []).filter((p) => p.status === 'closed').slice(-25).reverse().map(pp) } : null;
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare, store, scan, paper };
+const scanOf = (dir) => { const r = read(`${dir}/scan/latest.json`, null); return r ? { version: r.version, source: r.source ?? null, asOf: r.asOf, light: r.light, funnel: r.funnel, qualifiedTotal: r.qualifiedTotal, notes: r.notes, ready: (r.ready || []).map(cand), watch: (r.watch || []).map(cand), topGroups: (r.groups || []).slice(0, 8) } : null; };
+const paperOf = (dir) => { const sum = read(`${dir}/paper/latest.json`, null), book = read(`${dir}/paper/book.json`, null); return sum ? { ...sum, live: (book?.ledger || []).filter((p) => p.status !== 'closed').map(pp), recent: (book?.ledger || []).filter((p) => p.status === 'closed').slice(-25).reverse().map(pp) } : null; };
+// whole-market scans (US-SCAN-1, IND-SCAN-1) and their paper books: rules-testing data, nothing personal.
+const scan = scanOf('data/us'), paper = paperOf('data/us'), scanIndia = scanOf('data/india'), paperIndia = paperOf('data/india');
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, compare, store, scan, paper, scanIndia, paperIndia };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);

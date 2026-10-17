@@ -96,7 +96,7 @@ svg text { fill: var(--muted); font: 10.5px var(--mono); }
     <button role="tab" id="t-health" aria-selected="false">Data health</button>
     <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
     <button role="tab" id="t-store" aria-selected="false">Data store</button>
-    <button role="tab" id="t-scan" aria-selected="false">US scan</button>
+    <button role="tab" id="t-scan" aria-selected="false">Scans</button>
     <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
     <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
     <button role="tab" id="t-docs" aria-selected="false">Docs</button>
@@ -228,9 +228,11 @@ function viewStore() {
   <p class="note">The Portfolio tab reads your tradebooks inside your browser only; nothing personal is stored in the repo.</p></section>`;
 }
 
+let scanMkt = 'us';
 function viewScan() {
-  const sc = D.scan, pb = D.paper;
-  if (!sc) return '<div class="empty">No scan has run yet.</div>';
+  const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
+  const mk = `<div class="chips" style="margin-bottom:14px" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
+  if (!sc) return mk + `<div class="empty">No ${scanMkt === 'us' ? 'US' : 'India'} scan has run yet.</div>`;
   const f = sc.funnel || {};
   const chipLight = `<span class="chip ${sc.light === 'green' ? 'ok' : sc.light === 'red' ? 'bad' : 'warn'}">${esc(cap(sc.light))} light</span>`;
   const funnel = [['Tickers', f.tickers], ['Pass floors', f.passFloors], ['Universe', f.universe], ['RS gate', f.rsGate], ['Template', f.template], ['Qualified', f.qualified], ['Base quality', f.baseQuality], ['Setup', f.withSetup]].map(([k, v]) => `<div><dt>${k}</dt><dd>${v ?? '–'}</dd></div>`).join('');
@@ -239,8 +241,8 @@ function viewScan() {
   const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${k}</td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
   const pr = (p) => `<tr><td>${esc(p.stream)}</td><td><b>${esc(p.sym)}</b></td><td>${esc(p.setup)}</td><td>${esc(p.signalDate)}</td><td>${esc(p.status)}${p.exitReason ? ' · ' + esc(p.exitReason) : ''}</td><td class="num">${fmt(p.trigger)}</td><td class="num">${fmt(p.stop)}</td><td class="num">${p.resultR === null ? '–' : sgn(p.resultR, 2, 'R')}</td><td class="note wrapnote">${esc((p.tags || []).join(', '))}</td></tr>`;
   const ptbl = (rows, empty) => rows.length ? `<div class="tablewrap"><table><thead><tr><th>Stream</th><th>Ticker</th><th>Setup</th><th>Signal</th><th>Status</th><th class="num">Trigger</th><th class="num">Stop</th><th class="num">Result</th><th>Tags</th></tr></thead><tbody>${rows.map(pr).join('')}</tbody></table></div>` : `<div class="empty">${empty}</div>`;
-  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>US scan, ${esc(sc.version)}, ${esc(sc.asOf)}</h2>${chipLight}</div>
-  <dl class="kv">${funnel}</dl><p class="note">Frozen settings; the forward-test clock runs from 16 Oct 2026. Names are candidates for a trigger, not orders. Results dates are not checked.</p>
+  return mk + `<section class="card"><div class="row" style="justify-content:space-between"><h2>${scanMkt === 'us' ? 'US' : 'India'} scan, ${esc(sc.version)}, ${esc(sc.asOf)}</h2>${chipLight}</div>
+  <dl class="kv">${funnel}</dl><p class="note">Frozen settings; the forward-test clock runs from ${scanMkt === 'us' ? '16' : '17'} Oct 2026${sc.source ? '; data source: ' + esc(sc.source) : ''}. Names are candidates for a trigger, not orders. Results dates are not checked.</p>
   <h3>Ready</h3>${tbl(sc.ready)}<h3>Watch</h3>${tbl(sc.watch)}</section>
   ${pb ? `<section class="card"><div class="row" style="justify-content:space-between"><h2>Paper book, ${esc(pb.version)}</h2><span class="chip">since ${esc(pb.startDate)} · as of ${esc(pb.asOf)}</span></div>
   <p class="note">Three chained streams on the scan's top ten, simulated fills, no real orders. Official = live rules; cap-waived = stop at the chart level capped at 2.5 ATR; comparator = enters at the next close after a mechanical signal. Read at 300 picks or 12 months.</p>
@@ -318,6 +320,7 @@ document.addEventListener('click', (e) => {
   if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : 1; s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
+  if (t.dataset.sm) { scanMkt = t.dataset.sm; return render(); }
   if (t.dataset.jump) { document.getElementById(t.dataset.jump)?.scrollIntoView({ behavior: 'smooth' }); return; }
   if (t.dataset.doc) { docId = t.dataset.doc; return render(); }
   if (t.dataset.cf) { cmpFilter = t.dataset.cf; return render(); }

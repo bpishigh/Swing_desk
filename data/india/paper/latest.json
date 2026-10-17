@@ -1,0 +1,43 @@
+{
+ "asOf": "2026-10-16",
+ "startDate": "2026-10-16",
+ "version": "IND-PAPER-1",
+ "official": {
+  "orders": 0,
+  "open": 0,
+  "pending": 0,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "capwaived": {
+  "orders": 1,
+  "open": 0,
+  "pending": 1,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "comparator": {
+  "orders": 0,
+  "open": 0,
+  "pending": 0,
+  "notFilled": 0,
+  "closed": 0,
+  "meanR": null,
+  "winRate": null
+ },
+ "light": "red",
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "SHYAMMETL",
+   "setup": "4",
+   "trigger": 1225.45,
+   "stop": 1133.12,
+   "status": "pending"
+  }
+ ]
+}
