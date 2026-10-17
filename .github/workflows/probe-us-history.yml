@@ -1,0 +1,33 @@
+name: probe-us-history
+# One-off: US history depth and delisted coverage across free sources. Manual only.
+on:
+  workflow_dispatch:
+concurrency: probe-us-history
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-us-history.mjs
+        env:
+          TIINGO_KEY: ${{ secrets.TIINGO_KEY }}
+          POLYGON_KEY: ${{ secrets.POLYGON_KEY }}
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/source-test/us-history-probe.json
+          git commit -m "probe-us-history: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
