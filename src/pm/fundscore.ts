@@ -46,11 +46,13 @@ const median = (a: number[]): number => { const s = [...a].sort((x, y) => x - y)
 const pctRank = (v: number, all: number[]): number => (all.filter((x) => x < v).length + 0.5 * all.filter((x) => x === v).length) / all.length * 100;
 
 /** Score every scheme against the others in its category. `series` holds each scheme's NAVs; schemes without a series are left out. */
-export function scoreAll(schemes: Scheme[], series: Map<string, Nav>, asOf: string, s = SETTINGS): Scored[] {
+export type CatOf = (x: Scheme) => string | null;
+const defaultCat: CatOf = (x) => { const c = normCategory(x.category); return scorable(c) ? c : null; };
+export function scoreAll(schemes: Scheme[], series: Map<string, Nav>, asOf: string, s = SETTINGS, catOf: CatOf = defaultCat): Scored[] {
   const info = new Map<string, { dates: string[]; nav: Nav }>();
   for (const x of schemes) { const nav = series.get(x.code); if (nav) info.set(x.code, { dates: Object.keys(nav).sort(), nav }); }
   const byCat = new Map<string, Scheme[]>();
-  for (const x of schemes) { if (!info.has(x.code)) continue; const c = normCategory(x.category); if (!scorable(c)) continue; (byCat.get(c) ?? byCat.set(c, []).get(c)!).push(x); }
+  for (const x of schemes) { if (!info.has(x.code)) continue; const c = catOf(x); if (!c) continue; (byCat.get(c) ?? byCat.set(c, []).get(c)!).push(x); }
   const out: Scored[] = [];
   for (const [cat, list] of byCat) {
     const m = list.map((x) => { const i = info.get(x.code)!; return { x, r1: cagr(i.dates, i.nav, asOf, 1), r3: cagr(i.dates, i.nav, asOf, 3), r5: cagr(i.dates, i.nav, asOf, 5) }; });
@@ -90,4 +92,30 @@ export function scoreAll(schemes: Scheme[], series: Map<string, Nav>, asOf: stri
 export function replaceCandidate(history: Record<string, Record<string, string>>, code: string, s = SETTINGS): boolean {
   const months = Object.keys(history).sort().slice(-s.weakMonthsToReplace);
   return months.length >= s.weakMonthsToReplace && months.every((m) => history[m][code] === 'Weak');
+}
+
+// ---- Index funds and ETFs: judged against others that track the same index, not against the market ----
+export const INDEX_SETTINGS = { ...SETTINGS, minPeers: 3, leadsPp: 0.15, lagsPp: -0.30 };   // pp = percentage points a year over 3 years against the median of the same-index group
+const INDEX_WORD = /(nifty|sensex|bse|s&p|msci|crisil|hang seng|nasdaq|nyse|gold|silver)/i;
+const EXCLUDE_INDEX = /debt|liquid|gilt|bond|sdl|g-sec|target|overnight|money|treasury|fund of fund|fof|ibx|maturity|income|alpha|momentum|quality|low vol|value 20|equal weight|factor|dividend opp|ev &|esg/i;
+/** The index a scheme tracks, read from its name ("UTI Nifty 50 Index Fund" and "HDFC NIFTY 50 ETF" both give "Nifty 50"); null when the name does not say or it is a factor, debt or fund-of-funds product. */
+export function indexKey(name: string): string | null {
+  if (EXCLUDE_INDEX.test(name)) return null;
+  const m = INDEX_WORD.exec(name); if (!m) return null;
+  let t = name.slice(m.index).split(/\s+-\s+|\s+(?:index fund|index|etf|exchange traded|plan|direct|growth|\()/i)[0];
+  t = t.replace(/\bbees\b/gi, '').replace(/\s+/g, ' ').trim();
+  if (!t) return null;
+  const k = t.toLowerCase().replace(/[\s-]/g, '');
+  const canon: Record<string, string> = { nifty: 'Nifty 50', nifty50: 'Nifty 50', sensex: 'BSE Sensex', bsesensex: 'BSE Sensex', gold: 'Gold', silver: 'Silver' };
+  return canon[k] ?? t.replace(/\b(\w)(\w*)/g, (_, a, b) => a.toUpperCase() + b.toLowerCase()).replace(/([A-Za-z])(\d)/g, '$1 $2');
+}
+/** Score each same-index group; the Index/ETF band is Leads, In line or Lags by the 3-year gap to the group median (in line is the normal answer: a good index fund matches its index). */
+export function scoreIndexGroups(schemes: Scheme[], series: Map<string, Nav>, asOf: string, s = INDEX_SETTINGS): (Scored & { d3: number | null })[] {
+  const scored = scoreAll(schemes, series, asOf, s, (x) => indexKey(x.name));
+  const med = new Map<string, number>(); const by = new Map<string, number[]>();
+  for (const x of scored) if (x.r3 !== null) (by.get(x.cat) ?? by.set(x.cat, []).get(x.cat)!).push(x.r3);
+  for (const [k, v] of by) med.set(k, median(v));
+  const out = scored.map((x) => ({ ...x, d3: x.r3 === null || !med.has(x.cat) ? null : x.r3 - med.get(x.cat)! }));
+  for (const x of out) if (x.rank !== null) x.band = x.d3! >= s.leadsPp ? 'Strong' : x.d3! <= s.lagsPp ? 'Weak' : 'Average';
+  return out;
 }

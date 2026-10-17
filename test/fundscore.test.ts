@@ -29,3 +29,19 @@ test('replace only after three Weak months in a row', () => {
   assert.equal(replaceCandidate({ '2026-08': { A: 'Weak' }, '2026-09': { A: 'Weak' }, '2026-10': { A: 'Weak' } }, 'A'), true);
   assert.equal(SETTINGS.weakMonthsToReplace, 3);
 });
+import { indexKey, scoreIndexGroups } from '../src/pm/fundscore.ts';
+test('index key reads the index from the name', () => {
+  assert.equal(indexKey('UTI Nifty 50 Index Fund - Direct Plan - Growth'), 'Nifty 50');
+  assert.equal(indexKey('HDFC NIFTY 50 ETF'), 'Nifty 50');
+  assert.equal(indexKey('Nippon India Index Fund - Nifty 50 Plan - Direct Plan - Growth Option'), 'Nifty 50');
+  assert.equal(indexKey('Kotak Nifty Next 50 Index Fund - Direct Plan - Growth'), 'Nifty Next 50');
+  assert.equal(indexKey('Nippon India ETF Gold BeES'), 'Gold');
+  assert.equal(indexKey('Navi Nifty200 Momentum 30 Index Fund'), null);
+  assert.equal(indexKey('Some Liquid Fund'), null);
+});
+test('same-index funds are compared with their own median', () => {
+  const schemes = [], map = new Map<string, Record<string, number>>();
+  [0.1, 0.1, 0.1, 0.0995, 0.095].forEach((g, i) => { schemes.push({ code: 'X' + i, isin: '', name: `Brand${i} Nifty 50 Index Fund`, category: 'Index' }); map.set('X' + i, series(g)); });
+  const r = scoreIndexGroups(schemes, map, '2026-10-16');
+  assert.equal(r.find((x) => x.code === 'X4')!.band, 'Weak'); assert.equal(r.find((x) => x.code === 'X0')!.band, 'Average');
+});

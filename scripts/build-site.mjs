@@ -92,7 +92,7 @@ addN('us', (us.screen?.stocks || []).map((x) => x.sym));
 for (const s of us.sectors || []) { const m = /^(.*) \(([A-Z]+)\)$/.exec(s.name); if (m) names[m[2]] = m[1] + ' sector ETF'; }
 // Fund scores (FUND-1): a separate small file, written only when the weekly job has produced scores.
 const fs = read('data/funds/scores.json', null);
-if (fs) { const o = { asOf: fs.asOf, version: fs.version, source: fs.source, funds: fs.funds.map((x) => ({ n: x.name, c: x.cat, r1: x.r1, r3: x.r3, r5: x.r5, k: x.consistency, s: x.score, rk: x.rank, p: x.peers, b: x.band, rp: x.replace ? 1 : 0, note: x.note })) }; const txt = JSON.stringify(o) + '\n'; if (!existsSync('site/data/funds.json') || readFileSync('site/data/funds.json', 'utf8') !== txt) writeFileSync('site/data/funds.json', txt); }
+if (fs) { const o = { asOf: fs.asOf, version: fs.version, source: fs.source, funds: fs.funds.map((x) => ({ n: x.name, c: x.cat, r1: x.r1, r3: x.r3, r5: x.r5, k: x.consistency, s: x.score, rk: x.rank, p: x.peers, b: x.band, rp: x.replace ? 1 : 0, d: x.d3 ?? null, g: x.g, note: x.note })) }; const txt = JSON.stringify(o) + '\n'; if (!existsSync('site/data/funds.json') || readFileSync('site/data/funds.json', 'utf8') !== txt) writeFileSync('site/data/funds.json', txt); }
 const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
