@@ -7,8 +7,8 @@
   "passFloors": 490,
   "universe": 490,
   "universeFloorDollarVolumeM": 50.9,
-  "withRs": 465,
-  "rsGate": 98,
+  "withRs": 466,
+  "rsGate": 99,
   "template": 36,
   "qualified": 12,
   "baseQuality": 0,
@@ -18,109 +18,109 @@
   {
    "group": "Textiles",
    "members": 5,
-   "medianRs": 66.38,
+   "medianRs": 66.24,
    "passes": true
   },
   {
    "group": "Capital Goods",
    "members": 66,
-   "medianRs": 64.12,
+   "medianRs": 63.98,
+   "passes": true
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 18,
+   "medianRs": 58.6,
    "passes": true
   },
   {
    "group": "Information Technology",
    "members": 23,
-   "medianRs": 58.62,
-   "passes": true
-  },
-  {
-   "group": "Metals & Mining",
-   "members": 17,
-   "medianRs": 57.97,
+   "medianRs": 58.49,
    "passes": true
   },
   {
    "group": "Healthcare",
    "members": 43,
-   "medianRs": 56.03,
+   "medianRs": 55.91,
    "passes": false
   },
   {
    "group": "Telecommunication",
    "members": 10,
-   "medianRs": 54.85,
+   "medianRs": 54.73,
    "passes": false
   },
   {
    "group": "Services",
    "members": 13,
-   "medianRs": 53.02,
+   "medianRs": 52.9,
    "passes": false
   },
   {
    "group": "Oil Gas & Consumable Fuels",
    "members": 17,
-   "medianRs": 51.94,
+   "medianRs": 51.83,
    "passes": false
   },
   {
    "group": "Financial Services",
    "members": 91,
-   "medianRs": 48.92,
+   "medianRs": 48.82,
    "passes": false
   },
   {
    "group": "Automobile and Auto Components",
    "members": 38,
-   "medianRs": 47.41,
+   "medianRs": 47.31,
    "passes": false
   },
   {
    "group": "Power",
    "members": 15,
-   "medianRs": 45.04,
+   "medianRs": 44.95,
    "passes": false
   },
   {
    "group": "Chemicals",
    "members": 26,
-   "medianRs": 42.78,
+   "medianRs": 42.69,
    "passes": false
   },
   {
    "group": "Consumer Durables",
    "members": 15,
-   "medianRs": 37.5,
+   "medianRs": 37.42,
    "passes": false
   },
   {
    "group": "Fast Moving Consumer Goods",
    "members": 27,
-   "medianRs": 31.68,
+   "medianRs": 31.61,
    "passes": false
   },
   {
    "group": "Consumer Services",
    "members": 20,
-   "medianRs": 23.81,
+   "medianRs": 23.76,
    "passes": false
   },
   {
    "group": "Realty",
    "members": 11,
-   "medianRs": 20.26,
+   "medianRs": 20.22,
    "passes": false
   },
   {
    "group": "Construction Materials",
    "members": 11,
-   "medianRs": 18.97,
+   "medianRs": 18.92,
    "passes": false
   },
   {
    "group": "Construction",
    "members": 12,
-   "medianRs": 11.96,
+   "medianRs": 11.94,
    "passes": false
   }
  ],
@@ -131,13 +131,13 @@
    "type": "CS",
    "group": "Capital Goods",
    "path": "main",
-   "rsPct": 87.5,
+   "rsPct": 87.53,
    "close": 1198.5,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 61.49,
+   "composite": 61.51,
    "tightness": 1.23,
    "distPivot": 2,
    "setup": null,
@@ -189,7 +189,7 @@
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 59.22,
+   "composite": 59.23,
    "tightness": 1.43,
    "distPivot": 12.04,
    "setup": null,
@@ -235,13 +235,13 @@
    "type": "CS",
    "group": "Information Technology",
    "path": "main",
-   "rsPct": 93.53,
+   "rsPct": 93.55,
    "close": 907.25,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 57.02,
+   "composite": 57.03,
    "tightness": 1.29,
    "distPivot": 4.7,
    "setup": null,
