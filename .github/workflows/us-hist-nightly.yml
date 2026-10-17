@@ -1,0 +1,37 @@
+name: us-hist-nightly
+# Same-evening US scan (fixes the two-session lag of the Massive free plan). Adds the day's bars from Nasdaq's public history to data/us/hist-tail
+# (Nasdaq carries the close from about 21:10 ET), then runs the same frozen scan code on that store. Output goes to data/us/scan-hist beside the frozen
+# Massive-sourced scan until the two have been compared for a week; switching is an owner decision.
+# 02:45 UTC Tue-Sat = 22:45 ET in summer, 21:45 ET in winter. Resumable: a day with too few symbols is retried next run.
+on:
+  schedule:
+    - cron: '45 2 * * 2-6'
+  workflow_dispatch:
+concurrency: us-hist-nightly
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/us-hist-update.mjs
+      - name: Scan on the Nasdaq-sourced store (same code and settings as US-SCAN-1)
+        run: node --max-old-space-size=4000 scripts/us-scan.mjs --source=hist
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          mkdir -p data/us/hist-tail data/us/scan-hist
+          git add data/us/hist-tail data/us/hist data/us/scan-hist
+          git commit -m "us-hist-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
