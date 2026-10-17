@@ -98,6 +98,7 @@ svg text { fill: var(--muted); font: 10.5px var(--mono); }
     <button role="tab" id="t-store" aria-selected="false">Data store</button>
     <button role="tab" id="t-scan" aria-selected="false">US scan</button>
     <button role="tab" id="t-compare" aria-selected="false">Claude Desk comparison</button>
+    <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
     <button role="tab" id="t-docs" aria-selected="false">Docs</button>
   </nav>
   <main id="main"></main>
@@ -263,7 +264,7 @@ function viewCompare() {
 let DOCS = null, docId = 'status';
 function md(src) {
   const inl = (t) => esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<i>$2</i>').replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  const L = src.replace(/\r/g, '').split('\n'); let o = '', i = 0, list = null;
+  const L = src.replace(/\r/g, '').replace(/<!--[\s\S]*?-->/g, '').split('\n'); let o = '', i = 0, list = null;
   const endList = () => { if (list) { o += `</${list}>`; list = null; } };
   while (i < L.length) {
     const l = L[i];
@@ -285,6 +286,18 @@ function md(src) {
   }
   endList(); return o;
 }
+function viewRules() {
+  if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'rules') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'rules') render(); }); return '<div class="empty">Loading the rules…</div>'; }
+  const cur = DOCS.docs.find((d) => d.id === 'rules');
+  if (!cur) return '<div class="empty">The rules were not published with this build.</div>';
+  const ver = (cur.md.match(/Rules version:\*\*\s*(R-[\d.]+)/) || [])[1] || '', rev = (cur.md.match(/doc rev (\d+)/) || [])[1] || '';
+  const heads = [...cur.md.matchAll(/^## (.+)$/gm)].map((m) => m[1]);
+  const toc = heads.map((h, i) => `<button class="chip-btn" style="display:block;margin:2px 0;text-align:left" data-jump="rules-h${i}">${esc(h)}</button>`).join('');
+  let n = 0; const body = md(cur.md).replace(/<h2>/g, () => `<h2 id="rules-h${n++}">`);
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>Engine Rules</h2><span class="chip">${esc(ver)}${rev ? ' · doc rev ' + esc(rev) : ''} · updated ${ist(DOCS.generatedAt)}</span></div>
+  <div class="docgrid"><div style="position:sticky;top:8px">${toc}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${body}</div></div>
+  <p class="note">The rules the desk runs on, shown as they stand. The live document is the source of truth; this view refreshes with every update.</p></section>`;
+}
 function viewDocs() {
   if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'docs') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'docs') render(); }); return '<div class="empty">Loading documents…</div>'; }
   if (!DOCS.docs.length) return '<div class="empty">No documents were published with this build.</div>';
@@ -297,7 +310,7 @@ function viewDocs() {
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare, scan: viewScan, docs: viewDocs }[tab]();
+  $('#main').innerHTML = { market: viewMarket, screens: viewScreens, health: viewHealth, portfolio: viewPortfolio, store: viewStore, compare: viewCompare, scan: viewScan, rules: viewRules, docs: viewDocs }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
 }
 document.addEventListener('click', (e) => {
@@ -305,6 +318,7 @@ document.addEventListener('click', (e) => {
   if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : 1; s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
+  if (t.dataset.jump) { document.getElementById(t.dataset.jump)?.scrollIntoView({ behavior: 'smooth' }); return; }
   if (t.dataset.doc) { docId = t.dataset.doc; return render(); }
   if (t.dataset.cf) { cmpFilter = t.dataset.cf; return render(); }
   if (t.dataset.cm) { cmpMarket = t.dataset.cm; return render(); }
@@ -314,7 +328,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare', 'scan', 'docs'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'screens', 'health', 'portfolio', 'store', 'compare', 'scan', 'rules', 'docs'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>
