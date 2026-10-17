@@ -1,0 +1,58 @@
+[
+ {
+  "name": "amfi TER api (revised)",
+  "url": "https://www.amfiindia.com/api/populate-te-rdata-revised?MF_ID=-1&strCat=-1&strType=1&date=15-Oct-2026",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 67,
+  "head": "{\"data\":[],\"meta\":{\"page\":1,\"pageSize\":10,\"total\":0,\"pageCount\":0}}"
+ },
+ {
+  "name": "amfi TER api (old)",
+  "url": "https://www.amfiindia.com/modules/PopulateTERData?MF_ID=-1&strCat=-1&strType=1&date=15-Oct-2026",
+  "status": 404,
+  "type": "text/html; charset=utf-8",
+  "bytes": 156953,
+  "head": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/904be59b21bd51cb-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/><link rel=\"preload\" as=\"image\" href=\"/logo.svg\"/><link rel=\"preload\" as=\"image\" href=\"/searchIcon.svg\"/><link rel=\"preload\" as=\"image\" href=\"/menuIcon.svg\"/><link rel=\"stylesheet\" href=\"/_next/static/css/be9448e25bcce8e7.css\" data-precedence=\"next\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/webpack-77d31d177088ef08.js\"/><script src=\"/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js\" async=\"\"></script><script src=\"/_next/static/chunks/1255-f5767ca0d1da046a.js\" async=\"\"></script><script src=\"/_next/static/chunks/main-app-f3336e172256d2ab.js\" async=\"\"></script><script src=\"/_next/static/chunks/7337-04299fab5c336766.js\" async=\"\"></script><script src=\"/_next/static/chunks/2619-04bc32f026a0d946.js\" async=\"\"></script><script src=\"/_next/static/chunks/5239-0a1ac76c84eea57d.js\" async=\"\"></script><script src=\"/_next/static/chunks/5070-5a46b96697b3b520.js\" async=\"\"></script><script src=\"/_next/static/chunks/4381-c"
+ },
+ {
+  "name": "amfi TER page",
+  "url": "https://www.amfiindia.com/otherdata/ter-of-mf-schemes",
+  "status": 404,
+  "type": "text/html; charset=utf-8",
+  "bytes": 156953,
+  "head": "<!DOCTYPE html><html lang=\"en\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/904be59b21bd51cb-s.p.woff2\" as=\"font\" crossorigin=\"\" type=\"font/woff2\"/><link rel=\"preload\" as=\"image\" href=\"/logo.svg\"/><link rel=\"preload\" as=\"image\" href=\"/searchIcon.svg\"/><link rel=\"preload\" as=\"image\" href=\"/menuIcon.svg\"/><link rel=\"stylesheet\" href=\"/_next/static/css/be9448e25bcce8e7.css\" data-precedence=\"next\"/><link rel=\"preload\" as=\"script\" fetchPriority=\"low\" href=\"/_next/static/chunks/webpack-77d31d177088ef08.js\"/><script src=\"/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js\" async=\"\"></script><script src=\"/_next/static/chunks/1255-f5767ca0d1da046a.js\" async=\"\"></script><script src=\"/_next/static/chunks/main-app-f3336e172256d2ab.js\" async=\"\"></script><script src=\"/_next/static/chunks/7337-04299fab5c336766.js\" async=\"\"></script><script src=\"/_next/static/chunks/2619-04bc32f026a0d946.js\" async=\"\"></script><script src=\"/_next/static/chunks/5239-0a1ac76c84eea57d.js\" async=\"\"></script><script src=\"/_next/static/chunks/5070-5a46b96697b3b520.js\" async=\"\"></script><script src=\"/_next/static/chunks/4381-c"
+ },
+ {
+  "name": "amfi TER download",
+  "url": "https://www.amfiindia.com/api/ter-of-mf-schemes-download?date=15-Oct-2026",
+  "status": 404,
+  "type": "application/json; charset=utf-8",
+  "bytes": 94,
+  "head": "{\"data\":null,\"error\":{\"status\":404,\"name\":\"NotFoundError\",\"message\":\"Not Found\",\"details\":{}}}"
+ },
+ {
+  "name": "niftyindices TRI",
+  "url": "https://www.niftyindices.com/Index_Data/Historical_Data.aspx",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 78910,
+  "head": " <!DOCTYPE html> <html> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" /> <link rel=\"icon\" href=\"/assets/images/Nse_Favicon.ico\" type=\"image/gif\" sizes=\"16x16\"> <title>\r\n\tError 404\r\n</title> <!-- Google tag (gtag.js) --> <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-0821T6PLHB\"></script> <script>  \r\n\t\twindow.dataLayer = window.dataLayer || [];  \r\n\t\tfunction gtag(){dataLayer.push(arguments);}  \r\n\t\tgtag('js', new Date());  \r\n\t\tgtag('config', 'G-0821T6PLHB'); \r\n\t\t</script> <link href=\"https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700\" rel=\"stylesheet\" /> <link href=\"https://liveindexsa.niftyindices.com/assets/css/bootstrap.min.css\" rel=\"stylesheet\" /> <link href=\"https://liveindexsa.niftyindices.com/assets/css/header.css\" rel=\"stylesheet\" /> <link href=\"https://liveindexsa.niftyindices.com/assets/css/header 1.css\" rel=\"stylesheet\" /> <link rel=\"stylesheet\" href=\"https://liveindexsa.niftyindices.com/assets/css/styles.css\" /> <link rel=\"stylesheet\" href=\"https://liveindexsa.niftyindices.com/assets/css/developer.css\" "
+ },
+ {
+  "name": "mfapi scheme (has no TER)",
+  "url": "https://api.mfapi.in/mf/120503/latest",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 354,
+  "head": "{\"meta\":{\"fund_house\":\"Axis Mutual Fund\",\"scheme_type\":\"Open Ended Schemes\",\"scheme_category\":\"Equity Schemes - ELSS- Tax Saver Fund\",\"scheme_code\":120503,\"scheme_name\":\"Axis ELSS- Tax Saver Fund - Direct Plan - Growth Option\",\"isin_growth\":\"INF846K01EW2\",\"isin_div_reinvestment\":null},\"data\":[{\"date\":\"16-10-2026\",\"nav\":\"107.01590\"}],\"status\":\"SUCCESS\"}"
+ },
+ {
+  "name": "nse indices live",
+  "url": "https://www.nseindia.com/api/allIndices",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 113814,
+  "head": "{\"data\":[{\"key\":\"INDICES ELIGIBLE IN DERIVATIVES\",\"index\":\"NIFTY 50\",\"indexSymbol\":\"NIFTY 50\",\"last\":23146.15,\"variation\":148.8,\"percentChange\":0.65,\"open\":23065.1,\"high\":23149.85,\"low\":22913.8,\"previousClose\":22997.35,\"yearHigh\":26373.2,\"yearLow\":22179.9,\"indicativeClose\":0,\"pe\":\"19.77\",\"pb\":\"2.84\",\"dy\":\"1.49\",\"declines\":\"24\",\"advances\":\"26\",\"unchanged\":\"0\",\"perChange365d\":-9.53,\"perChange30d\":-0.31,\"date365dAgo\":\"16-Oct-2025\",\"date30dAgo\":\"16-Sep-2026\",\"previousDay\":\"16-Oct-2026\",\"oneWeekAgo\":\"09-Oct-2026\",\"oneMonthAgoVal\":23217.6,\"oneWeekAgoVal\":22520.45,\"oneYearAgoVal\":25585.3,\"previousDayVal\":23146.15,\"chart365dPath\":\"https://nsearchives.nseindia.com/365d/NIFTY-50.svg\",\"chart30dPath\":\"https://nsearchives.nseindia.com/30d/NIFTY-50.svg\",\"chartTodayPath\":\"https://nsearchives.nseindia.com/today/NIFTY-50.svg\"},{\"key\":\"INDICES ELIGIBLE IN DERIVATIVES\",\"index\":\"NIFTY NEXT 50\",\"indexSymbol\":\"NIFTY NEXT 50\",\"last\":68988.6,\"variation\":317,\"percentChange\":0.46,\"open\":68786.35,\"high\":69224.7,\"low\":68447.15,\"previousClose\":68671.6,\"yearHigh\":75000.4,\"yearLow\":59896.1,\"indicativeClose\":0,\"pe\":\"18.03\",\"pb\":\"3.31\",\"dy\":\"1.48\",\"declines\":\"23\",\"advances\":\"27\",\"unchanged\":\"0\",\"perChange365d\":-0."
+ }
+]
