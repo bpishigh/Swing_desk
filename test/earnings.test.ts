@@ -17,3 +17,8 @@ test('flags results inside the 10-session window', () => {
   assert.equal(earnNote('2026-11-20', '2026-10-16', cal.sessionsBetween.bind(cal)).inWindow, false);
   assert.equal(earnNote(null, '2026-10-16', cal.sessionsBetween.bind(cal)).inWindow, null);
 });
+import { boardMeetingDate } from '../src/ingest/earnings.ts';
+test('board meeting rows give the next results meeting', () => {
+  assert.equal(boardMeetingDate([{ bm_date: '17-Jul-2026', bm_desc: 'financial results' }, { bm_date: '28-Oct-2026', bm_purpose: 'Financial Results' }, { bm_date: '30-Oct-2026', bm_desc: 'results' }], '2026-10-17'), '2026-10-28');
+  assert.equal(boardMeetingDate([{ bm_date: '17-Jul-2026', bm_desc: 'financial results' }], '2026-10-17'), null);
+});

@@ -2,7 +2,7 @@
 // US: Nasdaq's earnings-date page per name (an estimate until the company confirms). India: NSE's event calendar (announced board meetings for financial results).
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { makeCalendar } from '../src/engine/calendar.ts';
-import { parseNasdaqEarnings, indiaResultDates, earnNote } from '../src/ingest/earnings.ts';
+import { parseNasdaqEarnings, indiaResultDates, boardMeetingDate, earnNote } from '../src/ingest/earnings.ts';
 const market = process.argv[2]; if (!['us', 'india'].includes(market)) { console.error('usage: scan-earnings.mjs us|india'); process.exit(1); }
 const rd = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const scan = rd(`data/${market}/scan/latest.json`, null); if (!scan) { console.log('no scan'); process.exit(0); }
@@ -14,7 +14,11 @@ if (market === 'india') {
   try {
     const r = await fetch('https://www.nseindia.com/api/event-calendar', { headers: { ...UA, referer: 'https://www.nseindia.com/' }, signal: AbortSignal.timeout(30000) }); if (!r.ok) throw new Error('status ' + r.status);
     const m = indiaResultDates(await r.json(), today);
-    for (const s of names) { const d = m.get(s) ?? null; dates[s] = earnNote(d, today, cal.sessionsBetween.bind(cal)); if (d) found++; }
+    for (const s of names) {
+      let d = m.get(s) ?? null;
+      if (!d) { try { const r2 = await fetch(`https://www.nseindia.com/api/corporate-board-meetings?index=equities&symbol=${encodeURIComponent(s)}`, { headers: { ...UA, referer: 'https://www.nseindia.com/' }, signal: AbortSignal.timeout(20000) }); if (r2.ok) d = boardMeetingDate(await r2.json(), today); } catch { /* leave null */ } await new Promise((z) => setTimeout(z, 300)); }
+ dates[s] = earnNote(d, today, cal.sessionsBetween.bind(cal)); if (d) found++;
+    }
   } catch (e) { console.error('NSE calendar failed:', e.message); failed = names.length; }
 } else {
   for (const s of names) {

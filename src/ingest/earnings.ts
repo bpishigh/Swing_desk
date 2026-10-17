@@ -27,3 +27,16 @@ export function earnNote(date: string | null, today: string, sessionsBetween: (a
   const s = sessionsBetween(today, date);
   return { date, sessions: s, inWindow: s <= MIN_SESSIONS, ...(estimated ? { estimated } : {}) };
 }
+
+/** NSE board-meeting rows for one symbol -> earliest meeting on or after `today` whose description mentions financial results. */
+export function boardMeetingDate(rows: unknown, today: string): string | null {
+  let best: string | null = null;
+  if (!Array.isArray(rows)) return null;
+  for (const r of rows as Array<Record<string, string>>) {
+    const m = /^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/.exec(String(r?.bm_date ?? '')); if (!m || !MON[m[2]]) continue;
+    if (!/financial results|results/i.test(`${r.bm_purpose ?? ''} ${r.bm_desc ?? ''}`)) continue;
+    const d = `${m[3]}-${MON[m[2]]}-${m[1].padStart(2, '0')}`;
+    if (d >= today && (!best || d < best)) best = d;
+  }
+  return best;
+}
