@@ -15,6 +15,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
+      - name: Expense ratios (AMFI)
+        continue-on-error: true
+        run: node scripts/fetch-ter.mjs
       - name: Score funds
         run: node scripts/fund-scores.mjs
       - name: Commit

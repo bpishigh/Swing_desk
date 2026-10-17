@@ -1,24 +1,25 @@
-// Scheme expense ratios (TER) from AMFI's own TER page API, newest month that has data. Writes data/funds/ter-raw.json (public data). Usage: node scripts/fetch-ter.mjs
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+// Scheme expense ratios (TER) from AMFI's TER page API: the newest TER per scheme from the latest month. Writes data/funds/ter.json (public data).
+// The API returns one row per scheme per day; rows carry a scheme name and NSDL code (no AMFI code or ISIN), so fund-scores.mjs matches by name.
+import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const B = 'https://www.amfiindia.com/api/populate-te-rdata-revised';
-const get = async (q) => { const r = await fetch(`${B}?${q}`, { headers: UA, signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error('status ' + r.status); return r.json(); };
-const now = new Date(); const months = []; for (let i = 0; i < 8; i++) { const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1)); months.push(`${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`); }
-const log = []; let found = null;
-for (const month of months) for (const type of ['-1', '1', '2', '3']) {
-  try {
-    const j = await get(`MF_ID=All&Month=${month}&strCat=-1&strType=${type}&page=1&pageSize=50`);
-    const inner = j?.[0]?.data ?? j?.data ?? j; const rows = Array.isArray(inner?.data) ? inner.data : Array.isArray(inner) ? inner : [];
-    const meta = inner?.meta ?? null; log.push({ month, type, n: rows.length, meta });
-    if (rows.length) { found = { month, type, meta, sample: rows.slice(0, 3) }; break; }
-  } catch (e) { log.push({ month, type, error: e.message }); }
-  if (found) break;
+const SIZE = 50;
+async function page(month, p) {
+  for (let a = 0; a < 3; a++) {
+    try { const r = await fetch(`${B}?MF_ID=All&Month=${month}&strCat=-1&strType=-1&page=${p}&pageSize=${SIZE}`, { headers: UA, signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error('status ' + r.status); const j = await r.json(); const inner = j?.[0]?.data ?? j?.data ?? j; return Array.isArray(inner?.data) ? inner.data : []; }
+    catch (e) { if (a === 2) throw e; await new Promise((r) => setTimeout(r, 1000 * (a + 1))); }
+  }
 }
+const now = new Date(); let month = null;
+for (let i = 0; i < 6 && !month; i++) { const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1)); const m = `${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`; if ((await page(m, 1)).length) month = m; }
+if (!month) { console.log('no TER month found'); process.exit(1); }
+const latest = new Map(); let n = 0, empty = false;
+const take = (rows) => { for (const r of rows) { n++; const k = r.NSDLSchemeCode || r.Scheme_Name; const o = latest.get(k); if (!o || r.TER_Date > o.TER_Date) latest.set(k, r); } };
+let next = 1; const workers = Array.from({ length: 6 }, async () => { while (!empty) { const p = next++; const rows = await page(month, p); if (!rows.length) { empty = true; break; } take(rows); if (p % 100 === 0) console.log('page', p, 'rows', n); } });
+await Promise.all(workers);
+console.log('TER rows', n, 'schemes', latest.size, 'month', month);
+if (latest.size < 500) { console.error('too few schemes; keeping the previous file'); process.exit(1); }
+const num = (x) => { const v = Number(x); return Number.isFinite(v) && v > 0 ? v : null; };
+const rows = [...latest.values()].map((r) => ({ n: r.Scheme_Name, c: r.SchemeCat_Desc, reg: num(r.R_TER), dir: num(r.D_TER), d: String(r.TER_Date).slice(0, 10) }));
 mkdirSync('data/funds', { recursive: true });
-if (!found) { writeFileSync('data/funds/ter-probe.json', JSON.stringify({ log }, null, 1) + '\n'); console.log('no TER data found'); process.exit(0); }
-// pull every page for that month/type
-const all = []; const size = 500; const total = found.meta?.total ?? 0; const pages = Math.max(1, Math.ceil(total / size));
-for (let p = 1; p <= pages; p++) { const j = await get(`MF_ID=All&Month=${found.month}&strCat=-1&strType=${found.type}&page=${p}&pageSize=${size}`); const inner = j?.[0]?.data ?? j?.data ?? j; all.push(...(Array.isArray(inner?.data) ? inner.data : [])); }
-writeFileSync('data/funds/ter-probe.json', JSON.stringify({ log, found: { ...found, got: all.length } }, null, 1) + '\n');
-writeFileSync('data/funds/ter-raw.json', JSON.stringify({ month: found.month, type: found.type, rows: all }) + '\n');
-console.log('TER rows', all.length, 'month', found.month);
+writeFileSync('data/funds/ter.json', JSON.stringify({ month, source: 'AMFI TER of MF schemes', rows }) + '\n');
