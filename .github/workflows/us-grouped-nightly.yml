@@ -1,6 +1,6 @@
 name: us-grouped-nightly
-# Nightly extension of the stored US whole-market daily bars (Massive free plan, one call per new trading day), then the C-20a whole-market scan on them
-# (a step in this job rather than a new workflow, to add no job start-up minutes).
+# Nightly extension of the stored US whole-market daily bars (Massive free plan, one call per new trading day), then a cross-check scan on them
+# (the official scan and the paper book run from the Nasdaq-sourced store in us-hist-nightly since 17 Oct 2026).
 # 22:30 UTC Mon-Fri = 04:00 IST Tue-Sat, well after the US close in both daylight and standard time. Resumable: missing days are filled next run.
 on:
   schedule:
@@ -20,16 +20,14 @@ jobs:
         with: { node-version: 22 }
       - run: node scripts/backfill-us-grouped.mjs 12
         env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
-      - name: Whole-market scan (C-20a; no rule change, about 10 seconds)
-        run: node scripts/us-scan.mjs
-      - name: Paper book (C-53; logs only if data/us/paper/enabled.json exists)
-        run: node scripts/paper-book.mjs
+      - name: Cross-check scan on the Massive files (same code; the official scan now runs from the Nasdaq store in us-hist-nightly)
+        run: node scripts/us-scan.mjs --source=massive
       - name: Commit new days
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          mkdir -p data/us/paper
-          git add data/us/grouped data/us/grouped-meta.json data/us/scan data/us/paper
+          mkdir -p data/us/scan-massive
+          git add data/us/grouped data/us/grouped-meta.json data/us/scan-massive
           git commit -m "us-grouped-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0

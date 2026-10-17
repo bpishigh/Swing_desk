@@ -18,7 +18,10 @@ export const PAPER = {
   backInLookback: 5,       // comparator pullbacks: a close below the average within the last 5 sessions
   tiers: [[100e6, 0.002], [25e6, 0.0035], [0, 0.006]] as Array<[number, number]>,
 };
-export const tierCost = (dv: number): number => { for (const [min, c] of PAPER.tiers) if (dv >= min) return c; return PAPER.tiers[PAPER.tiers.length - 1][1]; };
+let tiers: Array<[number, number]> = PAPER.tiers;
+/** Cost tiers by 20-day traded value in the market's own currency (descending). The US default is above; the India book sets its own before any call. */
+export const useTiers = (t: Array<[number, number]>): void => { tiers = t; };
+export const tierCost = (dv: number): number => { for (const [min, c] of tiers) if (dv >= min) return c; return tiers[tiers.length - 1][1]; };
 const ok = (x: number): boolean => x === x;
 
 export interface PaperPos {

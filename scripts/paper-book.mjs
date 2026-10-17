@@ -7,6 +7,9 @@ import { gunzipSync } from 'node:zlib';
 import { buildHistories, runScan } from '../src/ingest/us-scan.ts';
 import { SCAN } from '../src/ingest/us-scan-settings.ts';
 import { advance, applySplits, newBook, newOrders, summarize } from '../src/ingest/paper-book.ts';
+import { loadDays } from './us-hist-lib.mjs';
+// Nightly bars come from the Nasdaq-sourced store (data/us/hist plus tails, split-adjusted by Nasdaq) so the book moves the same evening; the Massive files are used only by --replay.
+const NASDAQ = !process.argv.includes('--source=massive');
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
 const REPLAY = process.argv.includes('--replay'), FORCE = process.argv.includes('--force');
@@ -17,7 +20,8 @@ const gdir = 'data/us/grouped', files = readdirSync(gdir).filter((f) => /^\d{4}-
 const tk = JSON.parse(readFileSync('data/us/' + readdirSync('data/us').filter((f) => /^tickers-\d{4}-\d\d-\d\d\.json$/.test(f)).sort().pop(), 'utf8'));
 const types = new Map(); for (const [s, t] of tk.rows) if (SCAN.types.includes(t)) types.set(s, t);
 const allowed = new Set(types.keys());
-const days = files.map((f) => { const L = gunzipSync(readFileSync(`${gdir}/${f}`)).toString().split('\n'); const rows = []; for (let i = 1; i < L.length; i++) { const p = L[i].split(','); if (p.length < 5) continue; if (allowed.has(p[0]) && +p[1] > 0 && +p[2] > 0 && +p[3] > 0) rows.push([p[0], +p[1], +p[2], +p[3], +p[4]]); } return { date: f.slice(0, 10), rows }; });
+const massiveDays = () => files.map((f) => { const L = gunzipSync(readFileSync(`${gdir}/${f}`)).toString().split('\n'); const rows = []; for (let i = 1; i < L.length; i++) { const p = L[i].split(','); if (p.length < 5) continue; if (allowed.has(p[0]) && +p[1] > 0 && +p[2] > 0 && +p[3] > 0) rows.push([p[0], +p[1], +p[2], +p[3], +p[4]]); } return { date: f.slice(0, 10), rows }; });
+const days = REPLAY || !NASDAQ ? massiveDays() : loadDays().map((d) => ({ date: d.date, rows: d.rows.filter((r) => allowed.has(r[0])) }));
 const splits = JSON.parse(readFileSync('data/us/splits.json', 'utf8')).rows;
 const sic = new Map(JSON.parse(readFileSync('data/us/sic.json', 'utf8')).rows.filter((r) => r[1]).map((r) => [r[0], +r[1]]));
 const top10 = (ready, watch) => [...ready, ...watch].sort((a, b) => b.composite - a.composite).slice(0, SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
@@ -50,7 +54,7 @@ const regime = JSON.parse(readFileSync('data/us/regime.json', 'utf8')).latest;
 const light = ['green', 'yellow', 'red'].includes(regime?.name) ? regime.name : 'yellow';
 const from = book.asOf ? days.findIndex((d) => d.date > book.asOf) : t;
 for (let i = from; i <= t; i++) {
-  const hist = buildHistories(days.slice(0, i + 1), splits.filter((r) => r[1] <= days[i].date), allowed);
+  const hist = buildHistories(days.slice(0, i + 1), NASDAQ ? [] : splits.filter((r) => r[1] <= days[i].date), allowed);   // Nasdaq history is already split-adjusted
   applySplits(book, splits, days[i].date);
   advance(book, hist, i, light, book.lastLight);
   if (i === t) newOrders(book, hist, t, light, top10(scan.ready, scan.watch));

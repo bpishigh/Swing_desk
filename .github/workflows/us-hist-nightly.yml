@@ -1,7 +1,6 @@
 name: us-hist-nightly
-# Same-evening US scan (fixes the two-session lag of the Massive free plan). Adds the day's bars from Nasdaq's public history to data/us/hist-tail
-# (Nasdaq carries the close from about 21:10 ET), then runs the same frozen scan code on that store. Output goes to data/us/scan-hist beside the frozen
-# Massive-sourced scan until the two have been compared for a week; switching is an owner decision.
+# The official US scan and the US paper book (change C-55, 17 Oct 2026). Adds the day's bars from Nasdaq's public history to data/us/hist-tail
+# (Nasdaq carries the close from about 21:10 ET), runs the frozen US-SCAN-1 code on that store, then advances the paper book. New listings are added on the first run of each month.
 # 02:45 UTC Tue-Sat = 22:45 ET in summer, 21:45 ET in winter. Resumable: a day with too few symbols is retried next run.
 on:
   schedule:
@@ -19,16 +18,20 @@ jobs:
         with: { fetch-depth: 1 }
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
+      - name: New listings (first run of the month only)
+        run: if [ "$(date -u +%d)" -le 3 ]; then node scripts/backfill-us-history.mjs --new-only; fi
       - run: node scripts/us-hist-update.mjs
-      - name: Scan on the Nasdaq-sourced store (same code and settings as US-SCAN-1)
-        run: node --max-old-space-size=4000 scripts/us-scan.mjs --source=hist
+      - name: Official scan (US-SCAN-1 settings, Nasdaq-sourced store)
+        run: node --max-old-space-size=4000 scripts/us-scan.mjs
+      - name: Paper book (C-53; logs only if data/us/paper/enabled.json exists)
+        run: node --max-old-space-size=4000 scripts/paper-book.mjs
       - name: Commit
         if: always()
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          mkdir -p data/us/hist-tail data/us/scan-hist
-          git add data/us/hist-tail data/us/hist data/us/scan-hist
+          mkdir -p data/us/hist-tail data/us/paper
+          git add data/us/hist-tail data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper
           git commit -m "us-hist-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0

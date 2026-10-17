@@ -14,6 +14,7 @@ const readJson = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) 
 const feedDate = readJson('data/us/feed/latest.json', {}).date || '0000-00-00';
 const screenDate = readJson('data/us/screen/latest.json', {}).feedDate || '0000-00-00';
 const breadthDate = Object.keys(readJson('data/us/breadth.json', {})).sort().pop() || '0000-00-00';
+const scanDate = readJson('data/us/scan/latest.json', {}).asOf || '0000-00-00';
 const statePath = 'data/us/orchestrator.json';
 const state = readJson(statePath, {});
 const repo = process.env.GITHUB_REPOSITORY, token = process.env.GITHUB_TOKEN;
@@ -29,9 +30,9 @@ async function running(workflow) {
   return false;
 }
 
-const inflight = { daily: await running('us-nightly.yml'), screen: await running('us-screen.yml'), breadth: await running('us-breadth.yml') };
-const plan = planUs({ nowMs: NOW ? Date.parse(NOW) : Date.now(), cal, feedDate, screenDate, breadthDate, inflight, state });
-console.log(JSON.stringify({ feedDate, screenDate, breadthDate, inflight, dispatch: plan.dispatch.map((d) => `${d.workflow} ${JSON.stringify(d.inputs)}`), alerts: plan.alerts }));
+const inflight = { daily: await running('us-nightly.yml'), screen: await running('us-screen.yml'), breadth: await running('us-breadth.yml'), scan: await running('us-hist-nightly.yml') };
+const plan = planUs({ nowMs: NOW ? Date.parse(NOW) : Date.now(), cal, feedDate, screenDate, breadthDate, scanDate, inflight, state });
+console.log(JSON.stringify({ feedDate, screenDate, breadthDate, scanDate, inflight, dispatch: plan.dispatch.map((d) => `${d.workflow} ${JSON.stringify(d.inputs)}`), alerts: plan.alerts }));
 if (DRY) process.exit(0);
 
 let failed = false;
@@ -43,7 +44,7 @@ for (const [i, a] of plan.alerts.entries()) {
   try { execFileSync('node', ['scripts/alert.mjs', a], { stdio: 'inherit' }); }
   catch {
     console.error('alert could not be sent; will try again next tick'); failed = true;
-    const k = a.startsWith('The weekly') ? 'screen' : a.startsWith('US breadth') ? 'breadth' : 'daily';
+    const k = a.startsWith('The weekly') ? 'screen' : a.startsWith('US breadth') ? 'breadth' : a.startsWith('US scan') ? 'scan' : 'daily';
     delete plan.state[k].alertedFor;
   }
 }

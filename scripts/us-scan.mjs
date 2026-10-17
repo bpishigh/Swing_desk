@@ -9,8 +9,10 @@ import { loadDays } from './us-hist-lib.mjs';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
 const DRY = process.argv.includes('--dry');
-const HIST = arg('source') === 'hist';   // Nasdaq-sourced store (data/us/hist + tails); writes to data/us/scan-hist so the frozen Massive-sourced output is untouched during the parity check
-const OUT = HIST ? 'data/us/scan-hist' : 'data/us/scan';
+// Default source (official since 17 Oct 2026, change C-55): the Nasdaq-sourced store (data/us/hist plus daily tails), so the scan runs the same evening.
+// --source=massive runs the same code on the Massive whole-market files (two sessions late) and writes data/us/scan-massive as a cross-check.
+const HIST = arg('source') !== 'massive';
+const OUT = HIST ? 'data/us/scan' : 'data/us/scan-massive';
 const ASOF = arg('asof');
 const dir = 'data/us/grouped';
 let files = HIST ? [] : readdirSync(dir).filter((f) => /^\d{4}-\d\d-\d\d\.csv\.gz$/.test(f)).sort();
@@ -43,6 +45,7 @@ const prev = !ASOF && existsSync(stateFile) ? JSON.parse(readFileSync(stateFile,
 
 const hist = buildHistories(days, splits, allowed);
 const out = runScan({ hist, types, sic, light, prev });
+out.source = HIST ? 'nasdaq' : 'massive';
 out.regimeDate = regime?.date ?? null;
 out.sicCovered = sic.size;
 const summary = { asOf: out.asOf, light, funnel: out.funnel, sicCovered: sic.size, groupsRanked: out.groups.length, ready: out.ready.length, watch: out.watch.length, noGroupQualified: out.noGroup.qualified, thinGroupQualified: out.thinGroup.qualified };

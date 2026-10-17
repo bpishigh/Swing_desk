@@ -1,6 +1,6 @@
 // US price history from Nasdaq's public quote API: about 10 years of daily bars for today's liquid common stocks and ADRs. Listed names only: delisted tickers are
 // not served (survivorship bias, accepted by the owner 17 Oct 2026; every test using this store must say so). Prices and highs/lows are split-adjusted by Nasdaq.
-// Resumable: a symbol whose file already runs to the target date is skipped. Usage: node scripts/backfill-us-history.mjs [--from=YYYY-MM-DD] [--limit=N] [--workers=5] [--sym=A,B]
+// Resumable: a symbol whose file already runs to the target date is skipped. Usage: node scripts/backfill-us-history.mjs [--new-only] [--from=YYYY-MM-DD] [--limit=N] [--workers=5] [--sym=A,B]
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { nasdaqBars } from './nasdaq.mjs';
@@ -16,7 +16,8 @@ let syms = arg('sym', '') ? arg('sym').split(',') : [...dv].filter(([s, v]) => v
 syms = syms.slice(0, LIMIT);
 mkdirSync('data/us/hist', { recursive: true });
 const path = (s) => `data/us/hist/${s.replace(/[^A-Z0-9.\-]/g, '_')}.json.gz`;
-const todo = syms.filter((s) => { if (!existsSync(path(s))) return true; try { return JSON.parse(gunzipSync(readFileSync(path(s)))).to < last; } catch { return true; } });
+const NEW_ONLY = process.argv.includes('--new-only');   // monthly: only symbols with no file yet (the nightly tails keep existing ones current)
+const todo = syms.filter((s) => { if (!existsSync(path(s))) return true; if (NEW_ONLY) return false; try { return JSON.parse(gunzipSync(readFileSync(path(s)))).to < last; } catch { return true; } });
 console.log(`target ${last}; ${syms.length} liquid symbols, ${todo.length} to fetch from ${FROM}`);
 let next = 0, done = 0; const failed = [], empty = [];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -34,4 +35,5 @@ async function worker() {
 }
 await Promise.all(Array.from({ length: WORKERS }, worker));
 console.log(JSON.stringify({ fetched: done, failed: failed.length, empty: empty.length, failedList: failed.slice(0, 40), emptyList: empty.slice(0, 40) }));
+if (!existsSync('data/us/hist-through.json') && done) writeFileSync('data/us/hist-through.json', JSON.stringify({ through: JSON.parse(gunzipSync(readFileSync(path(syms[0])))).to }) + '\n');
 writeFileSync('data/us/hist-meta.json', JSON.stringify({ at: new Date().toISOString(), target: last, from: FROM, symbols: syms.length, failed, empty }) + '\n');

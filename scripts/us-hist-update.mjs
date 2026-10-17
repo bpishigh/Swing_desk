@@ -8,7 +8,7 @@ import { histSymbols, readBase, tailDates } from './us-hist-lib.mjs';
 const WORKERS = Number((process.argv.find((a) => a.startsWith('--workers=')) || '--workers=5').slice(10));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const syms = histSymbols();
-const through = readBase('AAPL').to;                     // every base file was fetched in one run, so AAPL's last date is the base's
+const through = existsSync('data/us/hist-through.json') ? JSON.parse(readFileSync('data/us/hist-through.json', 'utf8')).through : readBase('AAPL').to;   // the last date of the one-run base; fixed, so a re-fetched symbol never moves it
 const FROM_FULL = readBase('AAPL').from, from = new Date(Date.parse(through) - 10 * 864e5).toISOString().slice(0, 10);
 const have = new Set(tailDates());
 const probe = await nasdaqBars('AAPL', 'stocks', from);

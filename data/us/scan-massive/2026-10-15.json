@@ -1,0 +1,541 @@
+{
+ "version": "US-SCAN-1",
+ "asOf": "2026-10-15",
+ "light": "yellow",
+ "funnel": {
+  "tickers": 5698,
+  "passFloors": 2280,
+  "universe": 1500,
+  "universeFloorDollarVolumeM": 44.7,
+  "withRs": 1452,
+  "rsGate": 301,
+  "template": 139,
+  "qualified": 19,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Computer hardware",
+   "members": 17,
+   "medianRs": 92.21,
+   "passes": true
+  },
+  {
+   "group": "Petroleum refining",
+   "members": 17,
+   "medianRs": 91.32,
+   "passes": true
+  },
+  {
+   "group": "Shipping",
+   "members": 17,
+   "medianRs": 84.08,
+   "passes": false
+  },
+  {
+   "group": "Oilfield services",
+   "members": 8,
+   "medianRs": 79.6,
+   "passes": false
+  },
+  {
+   "group": "Pipelines",
+   "members": 5,
+   "medianRs": 79.19,
+   "passes": false
+  },
+  {
+   "group": "Oil and gas production",
+   "members": 32,
+   "medianRs": 79.05,
+   "passes": false
+  },
+  {
+   "group": "Semiconductors and components",
+   "members": 64,
+   "medianRs": 76.77,
+   "passes": false
+  },
+  {
+   "group": "Instruments and test equipment",
+   "members": 34,
+   "medianRs": 75.47,
+   "passes": false
+  },
+  {
+   "group": "Healthcare services",
+   "members": 23,
+   "medianRs": 73.74,
+   "passes": false
+  },
+  {
+   "group": "Steel and metals",
+   "members": 12,
+   "medianRs": 73.36,
+   "passes": false
+  },
+  {
+   "group": "Metal mining",
+   "members": 30,
+   "medianRs": 72.64,
+   "passes": false
+  },
+  {
+   "group": "Pharma and biotech",
+   "members": 108,
+   "medianRs": 70.4,
+   "passes": false
+  },
+  {
+   "group": "Apparel retail",
+   "members": 7,
+   "medianRs": 69.47,
+   "passes": false
+  },
+  {
+   "group": "General merchandise retail",
+   "members": 12,
+   "medianRs": 67.2,
+   "passes": false
+  },
+  {
+   "group": "Software and IT services",
+   "members": 128,
+   "medianRs": 61.44,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 9,
+   "medianRs": 59.41,
+   "passes": false
+  },
+  {
+   "group": "Wholesale",
+   "members": 27,
+   "medianRs": 57.48,
+   "passes": false
+  },
+  {
+   "group": "Specialty retail",
+   "members": 14,
+   "medianRs": 56.27,
+   "passes": false
+  },
+  {
+   "group": "Railroads",
+   "members": 5,
+   "medianRs": 55.07,
+   "passes": false
+  },
+  {
+   "group": "Medical devices",
+   "members": 36,
+   "medianRs": 55.03,
+   "passes": false
+  },
+  {
+   "group": "Trucking and transit",
+   "members": 7,
+   "medianRs": 55,
+   "passes": false
+  },
+  {
+   "group": "Communications equipment",
+   "members": 9,
+   "medianRs": 54.93,
+   "passes": false
+  },
+  {
+   "group": "Electrical equipment",
+   "members": 15,
+   "medianRs": 53.62,
+   "passes": false
+  },
+  {
+   "group": "Specialty chemicals",
+   "members": 23,
+   "medianRs": 53.41,
+   "passes": false
+  },
+  {
+   "group": "Fabricated metal",
+   "members": 14,
+   "medianRs": 52.58,
+   "passes": false
+  },
+  {
+   "group": "Engineering and research services",
+   "members": 18,
+   "medianRs": 52.38,
+   "passes": false
+  },
+  {
+   "group": "Industrial machinery",
+   "members": 52,
+   "medianRs": 49.59,
+   "passes": false
+  },
+  {
+   "group": "Textiles and apparel",
+   "members": 11,
+   "medianRs": 49.41,
+   "passes": false
+  },
+  {
+   "group": "Restaurants",
+   "members": 18,
+   "medianRs": 46.14,
+   "passes": false
+  },
+  {
+   "group": "Insurance",
+   "members": 51,
+   "medianRs": 46.04,
+   "passes": false
+  },
+  {
+   "group": "Food and beverages",
+   "members": 33,
+   "medianRs": 45.62,
+   "passes": false
+  },
+  {
+   "group": "Waste and environmental",
+   "members": 7,
+   "medianRs": 43.56,
+   "passes": false
+  },
+  {
+   "group": "Leisure and gaming",
+   "members": 13,
+   "medianRs": 42.66,
+   "passes": false
+  },
+  {
+   "group": "Instruments, other",
+   "members": 6,
+   "medianRs": 42.25,
+   "passes": false
+  },
+  {
+   "group": "Banks",
+   "members": 64,
+   "medianRs": 41.52,
+   "passes": false
+  },
+  {
+   "group": "Media and cable",
+   "members": 14,
+   "medianRs": 40.73,
+   "passes": false
+  },
+  {
+   "group": "Paper and packaging",
+   "members": 6,
+   "medianRs": 38.97,
+   "passes": false
+  },
+  {
+   "group": "Hotels and lodging",
+   "members": 16,
+   "medianRs": 38.9,
+   "passes": false
+  },
+  {
+   "group": "Business services",
+   "members": 56,
+   "medianRs": 38.01,
+   "passes": false
+  },
+  {
+   "group": "Construction and engineering",
+   "members": 17,
+   "medianRs": 37.08,
+   "passes": false
+  },
+  {
+   "group": "Telecom",
+   "members": 8,
+   "medianRs": 36.84,
+   "passes": false
+  },
+  {
+   "group": "Capital markets",
+   "members": 48,
+   "medianRs": 35.46,
+   "passes": false
+  },
+  {
+   "group": "Airlines",
+   "members": 8,
+   "medianRs": 35.25,
+   "passes": false
+  },
+  {
+   "group": "Autos and parts",
+   "members": 22,
+   "medianRs": 34.08,
+   "passes": false
+  },
+  {
+   "group": "Electric and gas utilities",
+   "members": 60,
+   "medianRs": 31.01,
+   "passes": false
+  },
+  {
+   "group": "REITs and trusts",
+   "members": 69,
+   "medianRs": 30.32,
+   "passes": false
+  },
+  {
+   "group": "Logistics services",
+   "members": 10,
+   "medianRs": 29.36,
+   "passes": false
+  },
+  {
+   "group": "Consumer and specialty finance",
+   "members": 28,
+   "medianRs": 28.98,
+   "passes": false
+  },
+  {
+   "group": "Rubber, plastics and leather",
+   "members": 14,
+   "medianRs": 28.67,
+   "passes": false
+  },
+  {
+   "group": "Aerospace and defense",
+   "members": 22,
+   "medianRs": 25.16,
+   "passes": false
+  },
+  {
+   "group": "Real estate services",
+   "members": 7,
+   "medianRs": 24.47,
+   "passes": false
+  },
+  {
+   "group": "Auto retail",
+   "members": 13,
+   "medianRs": 24.4,
+   "passes": false
+  },
+  {
+   "group": "Wood and furniture",
+   "members": 6,
+   "medianRs": 23.12,
+   "passes": false
+  },
+  {
+   "group": "Insurance brokers",
+   "members": 8,
+   "medianRs": 20.5,
+   "passes": false
+  },
+  {
+   "group": "Homebuilding",
+   "members": 10,
+   "medianRs": 18.44,
+   "passes": false
+  },
+  {
+   "group": "Home improvement retail",
+   "members": 7,
+   "medianRs": 13.85,
+   "passes": false
+  },
+  {
+   "group": "Nonmetallic mining",
+   "members": 7,
+   "medianRs": 13.51,
+   "passes": false
+  },
+  {
+   "group": "Glass and building materials",
+   "members": 5,
+   "medianRs": 7.72,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "MPC",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 97.31,
+   "close": 476.92,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 68.26,
+   "tightness": 1.15,
+   "distPivot": 1.71,
+   "setup": null,
+   "diag": {
+    "rs121": 126.04,
+    "rs6m2w": 76.42,
+    "atr14": 16.27,
+    "sma50": 392.25,
+    "sma200": 274.78,
+    "high52": 485.22,
+    "low52": 161.93,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "SU",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 91.32,
+   "close": 75.64,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 65.53,
+   "tightness": 1.01,
+   "distPivot": 1.42,
+   "setup": null,
+   "diag": {
+    "rs121": 75.18,
+    "rs6m2w": 6.41,
+    "atr14": 1.74,
+    "sma50": 68.08,
+    "sma200": 61.69,
+    "high52": 76.73,
+    "low52": 37.77,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "CLMT",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 97.73,
+   "close": 58.24,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 65.49,
+   "tightness": 0.84,
+   "distPivot": 2.71,
+   "setup": null,
+   "diag": {
+    "rs121": 211.55,
+    "rs6m2w": 55.31,
+    "atr14": 2,
+    "sma50": 52.59,
+    "sma200": 36.77,
+    "high52": 59.87,
+    "low52": 17.85,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "HPE",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 96,
+   "close": 58.63,
+   "tags": [
+    "results date not checked",
+    "failed qualification 1 night(s)"
+   ],
+   "clears50M": true,
+   "composite": 57.6,
+   "tightness": 1.15,
+   "distPivot": 20.3,
+   "setup": null,
+   "diag": {
+    "rs121": 126.72,
+    "rs6m2w": 169.31,
+    "atr14": 4.02,
+    "sma50": 59.32,
+    "sma200": 38.89,
+    "high52": 73.56,
+    "low52": 19.84,
+    "failingNights": 1
+   }
+  },
+  {
+   "sym": "FTNT",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 94.56,
+   "close": 181.91,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 56.73,
+   "tightness": 0.89,
+   "distPivot": 7.72,
+   "setup": null,
+   "diag": {
+    "rs121": 106.75,
+    "rs6m2w": 120.23,
+    "atr14": 5.65,
+    "sma50": 169.21,
+    "sma200": 123.43,
+    "high52": 197.13,
+    "low52": 73.55,
+    "failingNights": 0
+   }
+  },
+  {
+   "sym": "NTAP",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 92.56,
+   "close": 214.7,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 55.53,
+   "tightness": 1.22,
+   "distPivot": 10.86,
+   "setup": null,
+   "diag": {
+    "rs121": 58.85,
+    "rs6m2w": 110.75,
+    "atr14": 9.42,
+    "sma50": 201.8,
+    "sma200": 144.13,
+    "high52": 240.87,
+    "low52": 93.69,
+    "failingNights": 0
+   }
+  }
+ ],
+ "noGroup": {
+  "qualified": 1
+ },
+ "thinGroup": {
+  "qualified": 2
+ },
+ "qualifiedTotal": 19,
+ "notes": [
+  "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
+ ],
+ "regimeDate": "2026-10-14",
+ "sicCovered": 2181
+}

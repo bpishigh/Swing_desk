@@ -59,3 +59,17 @@ test('breadth job starts when the close is due and breadth is behind; alerts onc
   assert.equal(planUs({ ...base, feedDate: '2026-10-09', breadthDate: '2026-10-08', nowMs: late, state: p1.state }).alerts.length, 0);
   assert.equal(planUs({ ...base, feedDate: '2026-10-09', breadthDate: '2026-10-09', nowMs: late }).dispatch.length, 0);
 });
+
+test('official scan job starts from 21:45 ET when the scan is behind, alerts once after 23:30 ET', () => {
+  const b = { ...base, feedDate: '2026-10-09', breadthDate: '2026-10-09', scanDate: '2026-10-08' };
+  assert.equal(planUs({ ...b, nowMs: at('2026-10-10T01:30:00Z') }).dispatch.filter((d) => d.workflow === 'us-hist-nightly.yml').length, 0, 'before 21:45 ET Nasdaq has no close yet');
+  const p = planUs({ ...b, nowMs: at('2026-10-10T02:07:00Z') });   // 22:07 ET
+  assert.deepEqual(p.dispatch.map((d) => d.workflow), ['us-hist-nightly.yml']);
+  assert.equal(planUs({ ...b, inflight: { daily: false, screen: false, breadth: false, scan: true }, nowMs: at('2026-10-10T02:07:00Z') }).dispatch.length, 0, 'one at a time');
+  const late = at('2026-10-10T03:37:00Z');   // 23:37 ET
+  const p1 = planUs({ ...b, nowMs: late });
+  assert.equal(p1.alerts.filter((a) => a.startsWith('US scan')).length, 1);
+  assert.equal(planUs({ ...b, nowMs: late, state: p1.state }).alerts.filter((a) => a.startsWith('US scan')).length, 0);
+  assert.equal(planUs({ ...b, scanDate: '2026-10-09', nowMs: late }).dispatch.filter((d) => d.workflow === 'us-hist-nightly.yml').length, 0, 'scan current');
+  assert.equal(planUs({ ...base, nowMs: late }).dispatch.filter((d) => d.workflow === 'us-hist-nightly.yml').length, 0, 'no scanDate given: left to its own schedule');
+});

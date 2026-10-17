@@ -6,6 +6,8 @@ import type { Calendar } from '../engine/calendar.ts';
 export const US_START_MIN_ET = 17 * 60 + 30;   // same threshold the daily job itself uses for "today's close"
 export const US_ALERT_MIN_ET = 22 * 60 + 30;
 export const US_BREADTH_START_MIN_ET = 20 * 60 + 45;   // Nasdaq's daily history carries the close from about 21:10 to 21:40 ET; trying from 17:40 burned all eight attempts a night (about 28 Actions minutes)
+export const US_SCAN_START_MIN_ET = 21 * 60 + 45;   // the official scan and paper book (us-hist-nightly) need Nasdaq's close, there from about 21:10 to 21:40 ET
+export const US_SCAN_ALERT_MIN_ET = 23 * 60 + 30;
 export const US_MAX_ATTEMPTS = 8;              // Tiingo's free tier allows about 50 requests an hour; a daily run uses 16
 export const SCREEN_START_MIN_IST = 8 * 60 + 30; // Saturday morning India time, as the Claude Desk's weekly task ran
 export const SCREEN_ALERT_MIN_IST = 12 * 60;
@@ -16,16 +18,18 @@ export interface UsPlanInput {
   feedDate: string;         // latest day in data/us/feed/latest.json
   screenDate: string;       // feed day the latest screen was run against
   breadthDate: string;      // latest day in data/us/breadth.json
-  inflight: { daily: boolean; screen: boolean; breadth: boolean };
+  scanDate?: string;        // latest day in data/us/scan/latest.json (the official scan); omit to leave the scan job to its own schedule
+  inflight: { daily: boolean; screen: boolean; breadth: boolean; scan?: boolean };
   state: UsPlanState;
 }
 export interface UsPlanState {
   daily?: { target: string; attempts: number; alertedFor?: string };
   screen?: { target: string; attempts: number; alertedFor?: string };
   breadth?: { target: string; attempts: number; alertedFor?: string };
+  scan?: { target: string; attempts: number; alertedFor?: string };
 }
 export interface UsPlan {
-  dispatch: Array<{ workflow: 'us-nightly.yml' | 'us-screen.yml' | 'us-breadth.yml'; inputs: Record<string, string> }>;
+  dispatch: Array<{ workflow: 'us-nightly.yml' | 'us-screen.yml' | 'us-breadth.yml' | 'us-hist-nightly.yml'; inputs: Record<string, string> }>;
   alerts: string[];
   state: UsPlanState;
 }
@@ -74,6 +78,19 @@ export function planUs(i: UsPlanInput): UsPlan {
   if (i.breadthDate < target && (dLate || bAtt >= US_MAX_ATTEMPTS) && bAlerted !== target) {
     alerts.push(`US breadth for ${target} is not written yet at ${hhmm(minutes)} ET (latest ${i.breadthDate})${bAtt >= US_MAX_ATTEMPTS ? '; retries used up' : ''}.`);
     bAlerted = target;
+  }
+  // official scan and paper book: same close, from Nasdaq's history once it is there
+  if (i.scanDate !== undefined) {
+    const c0 = i.state.scan, cFresh = c0?.target === target;
+    let cAtt = cFresh ? c0!.attempts : 0, cAlerted = cFresh ? c0!.alertedFor : undefined;
+    const cReady = target < today || minutes >= US_SCAN_START_MIN_ET;
+    if (i.scanDate < target && cReady && !i.inflight.scan && cAtt < US_MAX_ATTEMPTS) { dispatch.push({ workflow: 'us-hist-nightly.yml', inputs: {} }); cAtt++; }
+    const cLate = target < today || minutes >= US_SCAN_ALERT_MIN_ET;
+    if (i.scanDate < target && (cLate || cAtt >= US_MAX_ATTEMPTS) && cAlerted !== target) {
+      alerts.push(`US scan for ${target} is not written yet at ${hhmm(minutes)} ET (latest ${i.scanDate})${cAtt >= US_MAX_ATTEMPTS ? '; retries used up' : ''}.`);
+      cAlerted = target;
+    }
+    state.scan = { target, attempts: cAtt, ...(cAlerted ? { alertedFor: cAlerted } : {}) };
   }
   state.breadth = { target, attempts: bAtt, ...(bAlerted ? { alertedFor: bAlerted } : {}) };
   state.daily = { target, attempts: dAtt, ...(dAlerted ? { alertedFor: dAlerted } : {}) };
