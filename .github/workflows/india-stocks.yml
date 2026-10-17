@@ -111,3 +111,18 @@ jobs:
             sleep $((i * 3))
           done
           exit 1
+      - name: Company names for the dashboard hover text
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git pull --rebase origin main
+          node scripts/fetch-names.mjs
+          git add data/names.json
+          git commit -m "names: $(date -u +%Y-%m-%d)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

@@ -84,7 +84,13 @@ const scanOf = (dir) => { const r = read(`${dir}/scan/latest.json`, null); retur
 const paperOf = (dir) => { const sum = read(`${dir}/paper/latest.json`, null), book = read(`${dir}/paper/book.json`, null); return sum ? { ...sum, live: (book?.ledger || []).filter((p) => p.status !== 'closed').map(pp), recent: (book?.ledger || []).filter((p) => p.status === 'closed').slice(-25).reverse().map(pp) } : null; };
 // whole-market scans (US-SCAN-1, IND-SCAN-1) and their paper books: rules-testing data, nothing personal.
 const scan = scanOf('data/us'), paper = paperOf('data/us'), scanIndia = scanOf('data/india'), paperIndia = paperOf('data/india');
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia };
+// Company names for hover text: only the symbols the dashboard shows. Sector ETF codes come from the sector labels.
+const nm = read('data/names.json', { india: {}, us: {} }), names = {};
+const addN = (mk, syms) => { for (const s of syms) { const n = nm[mk]?.[s]; if (n && !names[s]) names[s] = n; } };
+for (const [mk, sc, pp] of [['us', scan, paper], ['india', scanIndia, paperIndia]]) addN(mk, [...(sc?.ready || []), ...(sc?.watch || []), ...(pp?.live || []), ...(pp?.recent || [])].map((x) => x.sym));
+addN('us', (us.screen?.stocks || []).map((x) => x.sym));
+for (const s of us.sectors || []) { const m = /^(.*) \(([A-Z]+)\)$/.exec(s.name); if (m) names[m[2]] = m[1] + ' sector ETF'; }
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);
