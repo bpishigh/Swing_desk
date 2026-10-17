@@ -63,9 +63,20 @@ const idxScored = scoreIndexGroups(idx, series, asOf);
 let usScored;
 if (usSeries.size >= usSchemes.length * 0.7) usScored = scoreAll(usSchemes, usSeries, asOf, { ...SETTINGS, minPeers: 3 }, (x) => x.category).map((x) => ({ ...x, name: US_NAME[x.code] ? `${x.code} · ${US_NAME[x.code]}` : x.code }));
 else { console.error('US ETF fetch too thin; keeping the previous US scores'); usScored = (prev?.funds || []).filter((x) => x.g === 'us'); }
+// Expense ratios (AMFI, matched by scheme name): direct-plan TER for funds, the single TER for ETFs. Index groups also get the gap before costs.
+const terFile = J('data/funds/ter.json', null);
+const nn = (x) => x.toLowerCase().replace(/direct plan|regular plan|growth option|growth plan|growth|idcw|option|plan|fund/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+if (terFile) {
+  const by = new Map(); for (const r of terFile.rows) by.set(nn(r.n), r);
+  const apply = (arr) => { let hit = 0; for (const x of arr) { const r = by.get(nn(x.name)); if (!r) continue; const etf = /\bETF\b|BeES|Exchange Traded/i.test(x.name); const v = etf ? (r.dir ?? r.reg) : r.dir; if (v != null) { x.ter = v; hit++; } } console.log('TER matched', hit, 'of', arr.length); };
+  apply(mfScored); apply(idxScored);
+  const grp = new Map(); for (const x of idxScored) if (x.ter != null && x.rank) (grp.get(x.cat) ?? grp.set(x.cat, []).get(x.cat)).push(x.ter);
+  const med = (a) => { const t = [...a].sort((p, q) => p - q), m = t.length >> 1; return t.length % 2 ? t[m] : (t[m - 1] + t[m]) / 2; };
+  for (const x of idxScored) if (x.ter != null && x.d3 != null && grp.get(x.cat)?.length >= 3) x.d3g = x.d3 + (x.ter - med(grp.get(x.cat)));
+}
 const tag = (arr, g) => arr.map((x) => ({ ...x, g }));
 mkdirSync('data/funds', { recursive: true });
 const all = [...tag(mfScored, 'mf'), ...tag(idxScored, 'idx'), ...tag(usScored, 'us')];
-writeFileSync('data/funds/scores.json', JSON.stringify({ asOf, version: 'FUND-2', source: 'AMFI scheme list; NAV history from mfapi.in; US ETF prices from Nasdaq', funds: all }) + '\n');
+writeFileSync('data/funds/scores.json', JSON.stringify({ asOf, version: 'FUND-3', source: 'AMFI scheme list; NAV history from mfapi.in; US ETF prices from Nasdaq', funds: all }) + '\n');
 writeFileSync('data/funds/history.json', JSON.stringify(hist) + '\n');
 console.log('scored', all.filter((x) => x.score !== null).length, 'of', all.length);
