@@ -1,0 +1,10 @@
+{
+ "registered": "2026-10-18",
+ "start": "2026-10-19",
+ "runupCut": 0.0226,
+ "reactionCut": 0.02,
+ "hold": 20,
+ "cost": 0.004,
+ "sample": 9732,
+ "note": "run-up = close(E-11) to close(E-1) minus equal-weight market; cut = two-thirds point of all results events Jan 2020 to Aug 2026. Frozen."
+}

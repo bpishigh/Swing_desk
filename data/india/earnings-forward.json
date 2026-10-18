@@ -1,0 +1,33 @@
+{
+ "events": {},
+ "summary": {
+  "updated": "2026-10-18",
+  "cut": 0.0226,
+  "groups": [
+   {
+    "group": "signal (ran up + reaction >= +2%)",
+    "matured": 0,
+    "open": 0,
+    "meanNet": null,
+    "win": null,
+    "market": null
+   },
+   {
+    "group": "ran up, any reaction",
+    "matured": 0,
+    "open": 0,
+    "meanNet": null,
+    "win": null,
+    "market": null
+   },
+   {
+    "group": "all results stocks",
+    "matured": 0,
+    "open": 0,
+    "meanNet": null,
+    "win": null,
+    "market": null
+   }
+  ]
+ }
+}
