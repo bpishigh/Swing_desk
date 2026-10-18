@@ -69,3 +69,16 @@ for (const k in out.tests) { out.tests[k].verdict = verdict(out.tests[k]); conso
   console.log('CONTROL (non-earnings dates) drift high-low', pct(out.control.diff), 't', out.control.t.toFixed(2), 'months', d.length, JSON.stringify(out.control.years));
 }
 writeFileSync('data/replay/earnings-runup-india.json', JSON.stringify(out, null, 1));
+
+// PROFIT VIEW (added 18 Oct 2026 after the owner asked for profitability, not direction): long-only, absolute returns, after costs.
+// Buy at close E+1 (after the results reaction is known), sell at close E+21. Cost 0.4% round trip (brokerage, taxes, slippage on liquid names; small caps cost more).
+{
+  const COST = 0.004, rows = [];
+  for (const s of syms) for (const d of RD.dates[s]) { const E = first(d); if (E < 15 || E + 21 >= T || Math.abs(new Date(dates[E]) - new Date(d)) > 4 * 864e5) continue; const r = ret(s, E + 1, E + 21), run = ret(s, E - 11, E - 1) - mkt(E - 11, E - 1); if (r === r && Math.abs(r) < 3 && run === run) rows.push({ ym: dates[E].slice(0, 7), y: dates[E].slice(0, 4), run, r, m: mkt(E + 1, E + 21) }); }
+  const g = {}; for (const e of rows) (g[e.ym] ||= []).push(e);
+  const pick = []; const all = []; for (const k in g) { const a = g[k]; if (a.length < 9) continue; const s = [...a].sort((x, y) => x.run - y.run); s.forEach((e, i) => { all.push(e); if (i >= (2 * a.length) / 3) pick.push(e); }); }
+  const med = (a) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
+  const sumry = (n, a) => { const net = a.map((e) => e.r - COST); const ym = {}; for (const e of a) (ym[e.y] ||= []).push(e.r - COST); console.log(n.padEnd(26), `n=${a.length} mean net ${pct(mean(net))} median ${pct(med(net))} win ${(100 * net.filter((v) => v > 0).length / net.length).toFixed(0)}% | market same windows ${pct(mean(a.map((e) => e.m)))} | by year ${Object.entries(ym).map(([y, v]) => y.slice(2) + ':' + (mean(v) * 100).toFixed(1)).join(' ')}`); return { n: a.length, mean: mean(net), median: med(net), win: net.filter((v) => v > 0).length / net.length, market: mean(a.map((e) => e.m)) }; };
+  out.profit = { cost: COST, topThird: sumry('top run-up third', pick), allResults: sumry('all results stocks', all) };
+  writeFileSync('data/replay/earnings-runup-india.json', JSON.stringify(out, null, 1));
+}

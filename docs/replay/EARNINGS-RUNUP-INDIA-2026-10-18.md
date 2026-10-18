@@ -27,3 +27,11 @@ Results dates pulled back to Oct 2019 with NSE's date-range board-meetings feed 
 | Control, non-results dates | -0.63 pp | -1.13 | +0.33 / +1.76 / -0.32 / -0.62 / -3.43 / -0.12 / -1.80 |
 
 Result: H1 stays below the 1 pp bar. H2 passes (t 3.83, 7 of 7 years, 1.66 pp) and the control does not show it. Eligible for an informational tag only, if the owner wants it. 2020 is flat. Nothing changed in the scans.
+
+## Profit view (18 Oct 2026, after the owner asked for profitability and not direction)
+Long-only, absolute returns, buy at the close after the results reaction (E+1), sell at E+21, 0.4% round-trip cost.
+| Group | n | Mean net | Median net | Win rate | Equal-weight market, same windows |
+|---|---|---|---|---|---|
+| Top run-up third | 3,215 | +2.66% | +0.99% | 54% | +2.21% |
+| All results stocks | 9,699 | +1.63% | +0.36% | 52% | +2.23% |
+Top third by year 2020 to 2026: +2.8, +5.1, +1.6, +6.1, +5.4, -0.6, +0.3. About +0.45 pp over the market after costs and flat in the last two years. Most of the 1.66 pp gap is the bottom third doing badly, which a long-only investor can avoid but not earn. Conclusion: too small to trade; no tag recommended. Not tested: liquidity filter, small-cap cost levels.
