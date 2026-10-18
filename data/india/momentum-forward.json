@@ -1,0 +1,90 @@
+{
+ "startedAfter": "2026-10-18",
+ "events": {},
+ "lastLogged": {},
+ "summary": {
+  "updated": "2026-10-18",
+  "groups": [
+   {
+    "group": "valid + room under 3R (reading rule)",
+    "momentum": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "others": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "diffNet": null,
+    "diffWin": null,
+    "t": null
+   },
+   {
+    "group": "valid",
+    "momentum": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "others": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "diffNet": null,
+    "diffWin": null,
+    "t": null
+   },
+   {
+    "group": "room under 3R",
+    "momentum": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "others": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "diffNet": null,
+    "diffWin": null,
+    "t": null
+   },
+   {
+    "group": "stop too wide",
+    "momentum": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "others": {
+     "matured": 0,
+     "open": 0,
+     "meanNet": null,
+     "win": null,
+     "excess": null
+    },
+    "diffNet": null,
+    "diffWin": null,
+    "t": null
+   }
+  ]
+ }
+}

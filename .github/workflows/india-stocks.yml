@@ -86,8 +86,9 @@ jobs:
           node --max-old-space-size=6000 scripts/paper-book-india.mjs
           node scripts/scan-earnings.mjs india || true
           node --max-old-space-size=4000 scripts/scan-last-reaction.mjs india || true
+          node scripts/momentum-forward.mjs india || true
           mkdir -p data/india/scan data/india/paper
-          git add data/india/scan data/india/paper
+          git add data/india/scan data/india/paper data/india/momentum data/india/momentum-forward.json
           git commit -m "india-scan: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
