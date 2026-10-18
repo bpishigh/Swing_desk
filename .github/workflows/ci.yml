@@ -6,6 +6,9 @@ on:
     paths-ignore: ['data/**']
 permissions:
   contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true   # a newer push makes the older check pointless; saves Actions minutes
 jobs:
   checks:
     runs-on: ubuntu-latest

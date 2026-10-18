@@ -15,10 +15,33 @@ for (let page = 1; page <= 15; page++) {
   const r = await fetch(`https://api.github.com/repos/${repo}/actions/runs?created=%3E%3D${month}-01&per_page=100&page=${page}`, { headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' } });
   if (!r.ok) { console.error(`cannot list runs (${r.status})`); process.exit(1); }
   const j = await r.json();
-  for (const x of j.workflow_runs) if (x.status === 'completed' && x.run_started_at) runs.push({ name: x.name, startedAt: x.run_started_at, endedAt: x.updated_at });
+  for (const x of j.workflow_runs) if (x.status === 'completed' && x.run_started_at) runs.push({ id: x.id, name: x.name, startedAt: x.run_started_at, endedAt: x.updated_at });
   if (j.workflow_runs.length < 100) break;
 }
-const { total, byWorkflow } = estimateMinutes(runs);
+// A run's start-to-update time includes waiting for a runner; GitHub bills each job's own time, rounded up. Read the jobs (cached by run id,
+// so only new runs cost a call) and use the billed figure; fall back to the run time when the jobs cannot be read.
+const cachePath = 'data/ops/usage-jobs.json';
+const cache = existsSync(cachePath) ? JSON.parse(readFileSync(cachePath, 'utf8')) : {};
+let fetched = 0;
+for (const r of runs) {
+  if (cache[r.id] != null || fetched >= 250) continue;
+  const jr = await fetch(`https://api.github.com/repos/${repo}/actions/runs/${r.id}/jobs?per_page=50`, { headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' } });
+  fetched++;
+  if (!jr.ok) continue;
+  let m = 0;
+  for (const j of (await jr.json()).jobs || []) { const sec = (Date.parse(j.completed_at) - Date.parse(j.started_at)) / 1000; if (Number.isFinite(sec) && sec >= 0) m += Math.max(1, Math.ceil(sec / 60)); }
+  cache[r.id] = m;
+}
+const byBilled = {}; let total = 0;
+for (const r of runs) {
+  const m = cache[r.id] ?? estimateMinutes([r]).total;
+  byWorkflow_add(r.name, m);
+}
+function byWorkflow_add(n, m) { byBilled[n] = (byBilled[n] ?? 0) + m; total += m; }
+const byWorkflow = byBilled;
+const monthIds = new Set(runs.map((r) => String(r.id)));
+for (const k of Object.keys(cache)) if (!monthIds.has(k)) delete cache[k];
+writeFileSync(cachePath, JSON.stringify(cache) + '\n');
 const dom = ist.getUTCDate(), dim = new Date(Date.UTC(ist.getUTCFullYear(), ist.getUTCMonth() + 1, 0)).getUTCDate();
 const projected = projectMonth(total, dom, dim);
 const alerted = prev.month === month ? prev.alerted || [] : [];

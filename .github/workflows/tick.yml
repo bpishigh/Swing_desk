@@ -52,7 +52,7 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/india/orchestrator.json data/us/orchestrator.json data/ops/usage.json site/data/dashboard.json site/data/docs.json
+          git add data/india/orchestrator.json data/us/orchestrator.json data/ops/usage.json data/ops/usage-jobs.json site/data/dashboard.json site/data/docs.json
           git diff --cached --quiet && exit 0
           git commit -m "tick: $(date -u +%Y-%m-%dT%H:%MZ)"
           for i in 1 2 3 4 5; do
