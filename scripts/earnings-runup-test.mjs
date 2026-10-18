@@ -1,6 +1,7 @@
 // C-59 India pre-earnings run-up test. Pre-registered in the Engine Rules change log (18 Oct 2026) before any result was read.
 // Events: past results dates (data/india/results-dates.json). Run-up = close(E-11)->close(E-1) minus equal-weight market (same symbols) over the same window.
 // Reaction = close(E-1)->close(E+1). Drift = close(E+1)->close(E+21). Terciles of run-up are formed inside each calendar-month cohort (removes market-wide timing).
+// Retest (18 Oct 2026, registered before the new result): year rule scaled to 80% of the years with events (at least 5); the control must not show the same sign at |t|>2.
 // Usage: node --max-old-space-size=8000 scripts/earnings-runup-test.mjs
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs'; import { gunzipSync } from 'node:zlib';
 import { resolveHistory, toDays } from '../src/backtest/india-asof.ts';
@@ -56,7 +57,7 @@ show('run-up itself high-low', diffTest('run'));
 // plain post-earnings drift by reaction sign, for context
 for (const [n, f] of [['reaction>0', (e) => e.rea > 0], ['reaction<=0', (e) => e.rea <= 0]]) { const g = tev.filter(f); console.log(n.padEnd(12), `n=${g.length} drift ${pct(mean(g.map((e) => e.dr)))} t ${tstat(g.map((e) => e.dr)).toFixed(1)}`); }
 // verdict against the pre-registered rule: |t|>2, same sign in >=4 of 5 years, effect >=1pp
-const verdict = (r) => { const ys = Object.values(r.years), s = Math.sign(r.diff), same = ys.filter((v) => Math.sign(v) === s).length; return { pass: Math.abs(r.t) > 2 && same >= Math.min(4, ys.length) && Math.abs(r.diff) >= 0.01, sameSignYears: `${same}/${ys.length}` }; };
+const verdict = (r) => { const ys = Object.values(r.years), s = Math.sign(r.diff), same = ys.filter((v) => Math.sign(v) === s).length; return { pass: Math.abs(r.t) > 2 && same >= Math.ceil(0.8 * ys.length) && ys.length >= 5 && Math.abs(r.diff) >= 0.01, sameSignYears: `${same}/${ys.length}` }; };
 for (const k in out.tests) { out.tests[k].verdict = verdict(out.tests[k]); console.log('VERDICT', k, JSON.stringify(out.tests[k].verdict)); }
 // POST-HOC control (added after the first result, labelled as such): the same stocks 30 sessions after each results date (mid-quarter, no results nearby).
 // If the same run-up -> drift gap shows up here, it is ordinary short-term momentum and not an earnings effect.
