@@ -8,6 +8,7 @@ import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-aso
 import { tierCost } from '../src/backtest/ind-base.ts';
 import { SETUPS } from '../src/engine/setups.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
+const COSTX = Number(arg('costx', 1)), SUF = COSTX === 1 ? '' : `-cost${COSTX}x`;   // C-67: --costx=2 doubles every cost; separate output files
 const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20, MAXHOLD = 60;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
 const bhav = [];
@@ -76,7 +77,7 @@ for (const [ni, t] of nights.entries()) {
       const cls = width <= cap ? (roomOk(room) ? 'valid' : 'lowRoom') : 'tooWide';
       cands[id + cls] = (cands[id + cls] || 0) + 1; lastEntry.set(key, t);
       const setup = { id, trigger: trig, stop: stopAt, limit: trig * (1 + SETUPS[id].lim / 100), basis: id === '1' ? trig / (1 + SETUPS[id].trig / 100) : trig };
-      const cost = tierCost(dv20(r.sym, t)), v = {}; let filled = true;
+      const cost = COSTX * tierCost(dv20(r.sym, t)), v = {}; let filled = true;
       for (const [k, o] of Object.entries(VARS)) { const x = simulate(r.sym, t, setup, cost, o); if (!x) { filled = false; break; } v[k] = { R: x.R, held: x.held, reason: x.reason, pct: x.R * x.width }; }
       if (filled) trades.push({ s: r.sym, id, cls, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), width, room, v });
     }
@@ -102,5 +103,5 @@ const yrsAll = [...new Set(valid.map((x) => x.y))].sort();
 for (const grp of ['all', '1', '2', '4']) { const a = grp === 'all' ? valid : valid.filter((x) => x.id === grp);
   for (const k of Object.keys(VARS).slice(1)) { const d = a.map((x) => ({ ym: x.ym, y: x.y, x: x.v[k].R - x.v.desk.R })), dm = mean(d.map((q) => q.x)), t = clusterT(d), ys = yrsAll.map((y) => mean(d.filter((q) => q.y === y).map((q) => q.x))).filter((v) => v === v), good = ys.filter((v) => v > 0).length;
     const ok = dm >= 0.1 && good >= 4 && t > 2; console.log(`setup ${grp.padEnd(3)} ${k.padEnd(11)} dR ${f2(dm).padStart(6)} (meanR ${f2(SU(a, k).R)} vs ${f2(SU(a).R)}) ret ${pct(SU(a, k).pct)} vs ${pct(SU(a).pct)} t ${t.toFixed(2)} years better ${good}/${ys.length} -> ${ok ? 'SUPPORTED' : 'no'}`); rep[`exit_${grp}_${k}`] = { dR: dm, t, good, ok }; } }
-mkdirSync('data/replay', { recursive: true }); writeFileSync('data/replay/ind-setups.json', JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, cands, rep }, null, 1));
-writeFileSync('data/replay/ind-setups-trades.json', JSON.stringify(trades) + '\n');
+mkdirSync('data/replay', { recursive: true }); writeFileSync(`data/replay/ind-setups${SUF}.json`, JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, cands, rep }, null, 1));
+writeFileSync(`data/replay/ind-setups-trades${SUF}.json`, JSON.stringify(trades) + '\n');

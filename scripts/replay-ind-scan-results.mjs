@@ -8,6 +8,7 @@ import { INDIA_SCAN, INDIA_SCAN_VERSION, INDIA_SETUPS } from '../src/ingest/indi
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { tierCost } from '../src/backtest/ind-base.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
+const COSTX = Number(arg('costx', 1)), SUF = COSTX === 1 ? '' : `-cost${COSTX}x`;   // C-67: --costx=2 doubles every cost; separate output files
 const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
 const bhav = [];
@@ -40,7 +41,7 @@ for (const [ni, t] of nights.entries()) {
   for (const P of ['A', 'B']) for (const sym of pools[P]) {
     if (lastEntry[P].has(sym) && e - lastEntry[P].get(sym) < HOLD) continue;
     const r = ret(sym, e, x); if (!(r === r) || Math.abs(r) > 3) continue; lastEntry[P].set(sym, e);
-    const net = r - tierCost(dv20(sym, t)), m = mkt(e, x);
+    const net = r - COSTX * tierCost(dv20(sym, t)), m = mkt(e, x);
     const ev = EV[sym] || []; const nxt = ev.filter((q) => q.E >= t).sort((a, b) => a.E - b.E)[0], lst = ev.filter((q) => q.E < t).sort((a, b) => b.E - a.E)[0];
     const dNext = nxt ? nxt.E - t : null, dLast = lst ? t - lst.E : null; let lastRea = NaN; if (lst && lst.E + 1 <= t && lst.E >= 2) lastRea = ret(sym, lst.E - 1, lst.E + 1) - mkt(lst.E - 1, lst.E + 1);
     picks[P].push({ s: sym, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), net, ex: net - m, mkt: m, dNext, dLast, lastRea, regimeOn, setup: P === 'A' ? ([...out.ready, ...out.watch].find((c) => c.sym === sym)?.setup?.id ?? 'watch') : null });
@@ -75,5 +76,5 @@ for (const P of ['A', 'B']) {
   console.log(`VERDICT pool ${P}: H1 (gate supported) ${v1 ? 'PASS' : 'FAIL'} | H2 (post-results strength) ${v2 ? 'PASS' : 'FAIL'}`);
   report[P] = { n: all.length, all: S(all), h1, h2, v1, v2, buckets: Object.fromEntries(buckets.map(([n, f]) => [n, S(all.filter(f))])) };
 }
-mkdirSync('data/replay', { recursive: true }); writeFileSync('data/replay/ind-scan-results.json', JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, report }, null, 1));
-writeFileSync('data/replay/ind-scan-results-picks.json', JSON.stringify(picks) + '\n');
+mkdirSync('data/replay', { recursive: true }); writeFileSync(`data/replay/ind-scan-results${SUF}.json`, JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, report }, null, 1));
+writeFileSync(`data/replay/ind-scan-results-picks${SUF}.json`, JSON.stringify(picks) + '\n');
