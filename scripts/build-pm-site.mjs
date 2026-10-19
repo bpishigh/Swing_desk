@@ -18,6 +18,12 @@ if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site
 const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().pop();
 const bhav = JSON.parse(readFileSync('data/india/bhav/' + bf, 'utf8'));
 const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];
+// Next results dates (public NSE board-meeting data) for the held-stock view: the next date on or after the latest stored close, within 70 days.
+if (existsSync('data/india/results-dates.json')) {
+  const rd = JSON.parse(readFileSync('data/india/results-dates.json', 'utf8')), from = bf.slice(0, 10), lim = new Date(Date.parse(from) + 70 * 864e5).toISOString().slice(0, 10), next = {};
+  for (const [sym, ds] of Object.entries(rd.dates || {})) { const d = ds.filter((x) => x >= from && x <= lim).sort()[0]; if (d) next[sym] = d; }
+  put('site/pm-data/results-next.json', JSON.stringify({ asOf: from, fetchedAt: rd.fetchedAt, next }) + '\n');
+}
 put('site/pm-data/prices.json', JSON.stringify({ asOf: bf.slice(0, 10), prices }) + '\n');
 // stored daily closes for the valuation chart (public data), one file per month so closed months never change in git.
 // Older months come from data/india/prices-hist (closes only, back-filled by the manual workflow); the main daily store wins where both have a day.
