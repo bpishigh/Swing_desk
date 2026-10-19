@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-16",
+ "asOf": "2026-10-19",
  "source": "NSE event calendar",
  "dates": {
   "SHYAMMETL": {
@@ -7,12 +7,12 @@
    "sessions": null,
    "inWindow": null
   },
-  "WELCORP": {
+  "PTCIL": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "CPPLUS": {
+  "WELCORP": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -28,9 +28,9 @@
    "inWindow": null
   },
   "LTM": {
-   "date": "2026-10-16",
-   "sessions": 0,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   }
  }
 }
