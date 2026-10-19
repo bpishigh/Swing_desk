@@ -3,7 +3,7 @@ name: fund-scores
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 4 * * 0'
+    - cron: '30 4 1 * *'   # monthly (was weekly) to save Actions minutes; NAVs and TERs move slowly
 concurrency: fund-scores
 permissions:
   contents: write

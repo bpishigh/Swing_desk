@@ -1,7 +1,7 @@
 name: ci
 on:
   push:
-    paths-ignore: ['data/**']   # the bots' data commits are already checked by their own jobs (privacy check before every commit)
+    paths-ignore: ['data/**', 'docs/replay/**', 'docs/STATUS.md']   # data commits are checked by their own jobs; replay notes and STATUS are prose (Actions minutes)
   pull_request:
     paths-ignore: ['data/**']
 permissions:

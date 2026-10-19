@@ -18,29 +18,25 @@ for (let page = 1; page <= 15; page++) {
   for (const x of j.workflow_runs) if (x.status === 'completed' && x.run_started_at) runs.push({ id: x.id, name: x.name, startedAt: x.run_started_at, endedAt: x.updated_at });
   if (j.workflow_runs.length < 100) break;
 }
-// A run's start-to-update time includes waiting for a runner; GitHub bills each job's own time, rounded up. Read the jobs (cached by run id,
-// so only new runs cost a call) and use the billed figure; fall back to the run time when the jobs cannot be read.
+// A run's start-to-update time includes waiting for a runner; GitHub bills each job's own time, rounded up. Read the jobs and keep the billed
+// figure per run in data/ops/usage-jobs.json ({runId: [minutes, workflow, startedAt]}). The runs list only reaches back 1,000 runs, so the
+// month's total is the sum of this file, not of the list; entries from earlier months are dropped.
 const cachePath = 'data/ops/usage-jobs.json';
 const cache = existsSync(cachePath) ? JSON.parse(readFileSync(cachePath, 'utf8')) : {};
 let fetched = 0;
 for (const r of runs) {
-  if (cache[r.id] != null || fetched >= 250) continue;
-  const jr = await fetch(`https://api.github.com/repos/${repo}/actions/runs/${r.id}/jobs?per_page=50`, { headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' } });
-  fetched++;
-  if (!jr.ok) continue;
-  let m = 0;
-  for (const j of (await jr.json()).jobs || []) { const sec = (Date.parse(j.completed_at) - Date.parse(j.started_at)) / 1000; if (Number.isFinite(sec) && sec >= 0) m += Math.max(1, Math.ceil(sec / 60)); }
-  cache[r.id] = m;
+  if (cache[r.id] != null && Array.isArray(cache[r.id])) continue;
+  let m = estimateMinutes([r]).total;                                   // fallback: the run's own time
+  if (fetched < 250) {
+    const jr = await fetch(`https://api.github.com/repos/${repo}/actions/runs/${r.id}/jobs?per_page=50`, { headers: { authorization: `Bearer ${token}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' } });
+    fetched++;
+    if (jr.ok) { let mm = 0; for (const j of (await jr.json()).jobs || []) { const sec = (Date.parse(j.completed_at) - Date.parse(j.started_at)) / 1000; if (Number.isFinite(sec) && sec >= 0) mm += Math.max(1, Math.ceil(sec / 60)); } m = mm; }
+  }
+  cache[r.id] = [m, r.name, r.startedAt];
 }
-const byBilled = {}; let total = 0;
-for (const r of runs) {
-  const m = cache[r.id] ?? estimateMinutes([r]).total;
-  byWorkflow_add(r.name, m);
-}
-function byWorkflow_add(n, m) { byBilled[n] = (byBilled[n] ?? 0) + m; total += m; }
-const byWorkflow = byBilled;
-const monthIds = new Set(runs.map((r) => String(r.id)));
-for (const k of Object.keys(cache)) if (!monthIds.has(k)) delete cache[k];
+for (const k of Object.keys(cache)) if (!Array.isArray(cache[k]) || !String(cache[k][2]).startsWith(month)) delete cache[k];
+const byWorkflow = {}; let total = 0;
+for (const v of Object.values(cache)) { byWorkflow[v[1]] = (byWorkflow[v[1]] ?? 0) + v[0]; total += v[0]; }
 writeFileSync(cachePath, JSON.stringify(cache) + '\n');
 const dom = ist.getUTCDate(), dim = new Date(Date.UTC(ist.getUTCFullYear(), ist.getUTCMonth() + 1, 0)).getUTCDate();
 const projected = projectMonth(total, dom, dim);
