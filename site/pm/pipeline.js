@@ -14,6 +14,7 @@ import { replay } from './ledger.js';
 import { performance,                      } from './performance.js';
 import { inferBooks, bookTotals, attributeSales,                } from './books.js';
 import { buildTrades,                           } from './swingjournal.js';
+import { tradeHistory,              } from './tradehistory.js';
 import { matchBuy, sessionsBetween, gapNights,                                              } from './shortlist.js';
 import { valuationSeries,               } from './valuation.js';
 
@@ -39,6 +40,8 @@ import { valuationSeries,               } from './valuation.js';
                     
                                                                                                                             
                            
+                                                                                      
+                   
                                                                                                                                       
                                                                                                                                                                                                                                                          
                                                                                                                                                                                     
@@ -135,6 +138,18 @@ export function runPipeline(batches           , broker                     , d  
   const saleProposals = saleP.map((p) => ({ key: p.key, name: nameByKey.get(p.key) ?? p.key, date: p.date, qty: Math.round(p.qty * 1000) / 1000, price: Math.round(p.avgPrice * 100) / 100, swingDate: p.swingDate, swingQty: p.swingQty }));
   const swingGaps = d.shortlist?.checked ? gapNights(d.shortlist.checked, cal) : [];
   const swingProposals = books.filter((t) => t.proposal).map((t) => ({ key: t.lot.key, name: nameByKey.get(t.lot.key) ?? t.lot.key, date: t.lot.date, qty: t.lot.qty, price: t.lot.unitCost, why: t.proposal .why, setup: t.proposal .line.setup, stop: t.proposal .line.stop }));
+  const bookByKey = new Map                     ();
+  for (const t of books) (bookByKey.get(t.lot.key) ?? bookByKey.set(t.lot.key, new Set()).get(t.lot.key) ).add(t.book);
+  for (const j of journal) (bookByKey.get(j.key) ?? bookByKey.set(j.key, new Set()).get(j.key) ).add('Swing');
+  const kindOf = (k        )                           => (isFundType(typeByKey.get(k)) ? 'Fund' : isEtf((nameByKey.get(k) ?? k) + ' ' + (symOf.get(k) ?? ''), (typeByKey.get(k) ?? 'listed_equity')             ) ? 'ETF' : 'Stock');
+  const bookOf = (k        ) => { const b = bookByKey.get(k); return b && b.size ? [...b].sort().join(' + ') : kindOf(k) === 'Stock' ? 'Legacy' : 'Long-term'; };
+  const keyOfT = (t       ) => t.isin || t.instrument.toUpperCase();
+  const fundKeys = new Set(funds.map(keyOfT));   // all fund trades, including ones the AMFI list cannot match
+  for (const t of funds) { const k = keyOfT(t); if (!nameByKey.has(k)) nameByKey.set(k, t.instrument); }
+  const kindOf2 = (k        )                           => (fundKeys.has(k) && !typeByKey.has(k) ? 'Fund' : kindOf(k));
+  const openQty = new Map                (); for (const l of combined.open) openQty.set(l.key, (openQty.get(l.key) ?? 0) + l.qty);
+  const matchedFund = new Set(fundTrades.map((t) => t.tradeId + '|' + t.orderId + '|' + t.date));
+  const history = tradeHistory([...stocks, ...fundTrades, ...funds.filter((t) => !matchedFund.has(t.tradeId + '|' + t.orderId + '|' + t.date))].map((t) => ({ key: keyOfT(t), date: t.date, side: t.side, qty: t.qty, price: t.price })), combined.realised, (k) => nameByKey.get(k) ?? k, kindOf2, bookOf, new Date().toISOString().slice(0, 10), openQty);
   const bt = bookTotals(books, priceOf);
   const byName = new Map                                    ();
   for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity')             ) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm) ; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
@@ -193,6 +208,6 @@ export function runPipeline(batches           , broker                     , d  
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
+    books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }

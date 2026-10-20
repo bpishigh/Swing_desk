@@ -197,6 +197,61 @@ function build() {
   return V;
 }
 
+
+
+// ---------- trades: every buy and sell, four views of the same data (display only)
+const TF0 = { acct: 'All', book: 'All', kind: 'All', year: 'All', status: 'All', q: '' };
+function tradesData(V) {
+  const F = { ...TF0, ...(S.tf ?? {}) }, rows = [];
+  for (const a of V.ms) for (const t of a.report.history?.txns ?? []) rows.push({ ...t, acct: a.label });
+  const stocks = [];
+  for (const a of V.ms) for (const x of a.report.history?.stocks ?? []) stocks.push({ ...x, acct: a.label });
+  const q = F.q.trim().toLowerCase();
+  const okTx = (t) => (F.acct === 'All' || t.acct === F.acct) && (F.kind === 'All' || t.kind === F.kind) && (F.book === 'All' || t.book.split(' + ').includes(F.book)) && (F.year === 'All' || t.date.startsWith(F.year)) && (!q || t.name.toLowerCase().includes(q));
+  const tx = rows.filter(okTx), keep = new Set(tx.map((t) => t.acct + '|' + t.key));
+  const st = stocks.filter((x) => keep.has(x.acct + '|' + x.key) && (F.status === 'All' || x.status === F.status));
+  const stTx = new Set(st.map((x) => x.acct + '|' + x.key)), tx2 = tx.filter((t) => stTx.has(t.acct + '|' + t.key));
+  const mm = new Map(); for (const t of tx2) { const ym = t.date.slice(0, 7), m = mm.get(ym) ?? { ym, bought: 0, sold: 0, realised: 0, n: 0 }; if (t.side === 'buy') m.bought += t.value; else { m.sold += t.value; m.realised += t.gain ?? 0; } m.n++; mm.set(ym, m); }
+  const years = [...new Set(rows.map((t) => t.date.slice(0, 4)))].sort().reverse();
+  return { F, rows, tx: tx2, st, months: [...mm.values()].sort((a, b) => a.ym.localeCompare(b.ym)), years, accts: V.ms.map((a) => a.label) };
+}
+const px2 = (x) => Number(x).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+const fmtD = (d) => { const [y, m, dd] = d.split('-'); return `${+dd} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m - 1]} ${y.slice(2)}`; };
+const gcls = (x) => (x > 0 ? 'pos' : x < 0 ? 'neg' : '');
+const gtxt = (x) => (x === null || x === undefined ? '—' : `<span class="${gcls(x)}">${money(x)}</span>`);
+function txLines(list) {
+  return `<table><thead><tr><th>Date</th><th class="num">Units</th><th class="num">Price ₹</th><th class="num">Value ₹</th><th class="num">Realised ₹</th></tr></thead><tbody>${list.map((t) => `<tr><td>${fmtD(t.date)} <span class="sub">· ${t.side === 'buy' ? 'Bought' : 'Sold'}</span></td><td class="num">${+t.qty.toFixed(3)}</td><td class="num">${px2(t.price)}</td><td class="num">${inr(t.value)}</td><td class="num">${t.side === 'sell' ? gtxt(t.gain) : ''}</td></tr>`).join('')}</tbody></table>`;
+}
+function tradesTab(V) {
+  const D = tradesData(V), F = D.F, view = S.tv ?? 'table';
+  if (!D.rows.length) return '<div class="card empty">No trades yet for this selection.</div>';
+  const seg = (f, opts) => `<div class="seg">${opts.map((o) => `<button data-tf="${f}:${esc(o)}" aria-pressed="${F[f] === o}">${esc(o)}</button>`).join('')}</div>`;
+  const bar = `<div class="card"><div class="seg" style="margin-bottom:10px">${[['table', 'Table'], ['timeline', 'Timeline'], ['stocks', 'Stocks'], ['charts', 'Charts']].map(([k, t]) => `<button data-tv="${k}" aria-pressed="${view === k}">${t}</button>`).join('')}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center">${D.accts.length > 1 ? seg('acct', ['All', ...D.accts]) : ''}${seg('kind', ['All', 'Stock', 'ETF', 'Fund'])}${seg('book', ['All', 'Swing', 'Legacy', 'Long-term'])}${seg('status', ['All', 'Open', 'Partly sold', 'Closed'])}${seg('year', ['All', ...D.years.slice(0, 6)])}<input id="tq" placeholder="Search a company or fund" value="${esc(F.q)}" style="max-width:240px"></div></div>`;
+  const closed = D.st.filter((x) => x.status === 'Closed'), real = D.st.reduce((t, x) => t + x.realised, 0), wins = closed.filter((x) => x.realised > 0).length;
+  const sum = `<div class="sub" style="margin:2px 0 10px">${D.tx.length} transactions in ${D.st.length} holdings · ${closed.length} fully sold${closed.length ? ` (${wins} at a profit)` : ''} · realised ${money(real)} <span class="sub">(as the Tax tab counts it, oldest units first)</span></div>`;
+  if (!D.tx.length) return bar + '<div class="card empty">Nothing matches these filters.</div>';
+  const narrowed = F.year !== 'All' || F.book !== 'All' || F.q.trim() ? '<div class="sub" style="margin:-4px 0 10px">The lines under each holding show only what these filters keep; the units, averages and realised figures on the holding itself cover its whole history.</div>' : '';
+  let body = '';
+  if (view === 'table') {
+    body = `<div class="card"><div class="tw"><table><thead><tr><th>Holding</th><th>Account</th><th>Book</th><th>Status</th><th>First bought</th><th>Last sold</th><th class="num">Units bought</th><th class="num">Units held</th><th class="num">Avg buy ₹</th><th class="num">Avg sell ₹</th><th class="num">Realised ₹</th></tr></thead><tbody>${D.st.map((x) => { const id = x.acct + '|' + x.key, open = S.txo?.has(id); return `<tr class="tr" data-tx="${esc(id)}" tabindex="0" role="button" aria-expanded="${!!open}"><td>${open ? '▾ ' : '▸ '}${esc(x.name)}<small>${esc(x.kind)}${x.noBuy ? ' · no buy in the statements (units arrived another way)' : ''}</small></td><td>${esc(x.acct)}</td><td>${esc(x.book)}</td><td>${esc(x.status)}</td><td>${fmtD(x.firstBuy)}</td><td>${x.lastSell ? fmtD(x.lastSell) : '—'}</td><td class="num">${+x.boughtQty.toFixed(3)}</td><td class="num">${+x.heldQty.toFixed(3)}</td><td class="num">${px2(x.avgBuy)}</td><td class="num">${x.avgSell === null ? '—' : px2(x.avgSell)}</td><td class="num">${x.sells ? gtxt(x.realised) : '—'}</td></tr>${open ? `<tr><td colspan="11">${txLines(D.tx.filter((t) => t.acct + '|' + t.key === id))}</td></tr>` : ''}`; }).join('')}</tbody></table></div></div>`;
+  } else if (view === 'timeline') {
+    body = [...D.months].reverse().map((m) => `<div class="card"><h2>${new Date(m.ym + '-15').toLocaleString('en-IN', { month: 'long', year: 'numeric' })} <span class="sub">· ${m.n} transactions · bought ${money(m.bought)} · sold ${money(m.sold)} · realised ${gtxt(m.realised)}</span></h2><div class="tw"><table><thead><tr><th>Date</th><th>Holding</th><th>Account</th><th></th><th class="num">Units</th><th class="num">Price ₹</th><th class="num">Value ₹</th><th class="num">Realised ₹</th></tr></thead><tbody>${D.tx.filter((t) => t.date.startsWith(m.ym)).sort((a, b) => b.date.localeCompare(a.date)).map((t) => `<tr><td>${fmtD(t.date)}</td><td>${esc(t.name)}</td><td>${esc(t.acct)}</td><td>${t.side === 'buy' ? 'Bought' : 'Sold'}</td><td class="num">${+t.qty.toFixed(3)}</td><td class="num">${px2(t.price)}</td><td class="num">${inr(t.value)}</td><td class="num">${t.side === 'sell' ? gtxt(t.gain) : ''}</td></tr>`).join('')}</tbody></table></div></div>`).join('');
+  } else if (view === 'stocks') {
+    body = D.st.map((x) => { const id = x.acct + '|' + x.key; return `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.name)}</b> <span class="sub">· ${esc(x.acct)} · ${esc(x.book)} · ${esc(x.status)} · ${x.days} days · ${x.sells ? 'realised ' : 'bought '}${x.sells ? gtxt(x.realised) : money(x.invested)}</span></summary><div class="tw" style="margin-top:8px">${txLines(D.tx.filter((t) => t.acct + '|' + t.key === id))}</div></details>`; }).join('');
+  } else {
+    const W = 900, H = 240, L = 64, B = 30, T = 12, ms = D.months.slice(-24), vals = ms.map((m) => m.realised), hi = Math.max(1, ...vals, 0), lo = Math.min(0, ...vals), y = (v) => T + (1 - (v - lo) / (hi - lo || 1)) * (H - T - B), bw = Math.max(4, (W - L - 12) / Math.max(ms.length, 1) - 6);
+    const bars = ms.map((m, i) => { const x = L + i * ((W - L - 12) / Math.max(ms.length, 1)) + 3, y0 = y(0), y1 = y(m.realised); return `<rect x="${x.toFixed(1)}" y="${Math.min(y0, y1).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1, Math.abs(y1 - y0)).toFixed(1)}" fill="${m.realised >= 0 ? 'var(--green)' : 'var(--red)'}"><title>${m.ym}: ${money(m.realised)}</title></rect>${i % Math.ceil(ms.length / 8 || 1) === 0 ? `<text x="${x.toFixed(1)}" y="${H - 8}" font-size="11" fill="currentColor" opacity=".7">${m.ym.slice(2)}</text>` : ''}`; }).join('');
+    const axis = [...new Set([lo, 0, hi])].map((v) => `<line x1="${L}" x2="${W - 8}" y1="${y(v)}" y2="${y(v)}" stroke="currentColor" opacity=".12"/><text x="${L - 6}" y="${y(v) + 4}" font-size="11" text-anchor="end" fill="currentColor" opacity=".7">${money(Math.round(v))}</text>`).join('');
+    const avgDays = closed.length ? Math.round(closed.reduce((t, x) => t + x.days, 0) / closed.length) : null, ranked = [...closed].sort((a, b) => b.realised - a.realised);
+    const list = (xs) => xs.map((x) => `<tr><td>${esc(x.name)}<small>${esc(x.acct)}</small></td><td class="num">${gtxt(x.realised)}</td><td class="num">${x.days} days</td></tr>`).join('');
+    body = `<div class="card"><h2>Realised profit or loss by month</h2><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Realised profit or loss by month">${axis}${bars}</svg><div class="sub">Realised on the sale month, by the Tax tab's oldest-first rule. Funds and ETFs included when the filters allow.</div></div>
+      <div class="card"><div class="sub">${closed.length} fully sold holdings: ${wins} at a profit${closed.length ? ` (${Math.round((wins / closed.length) * 100)}%)` : ''}${avgDays !== null ? ` · average holding ${avgDays} days` : ''}.</div>
+      ${ranked.length ? `<div style="display:flex;flex-wrap:wrap;gap:20px">${ranked.some((x) => x.realised > 0) ? `<div style="flex:1;min-width:260px"><h3>Best</h3><table><tbody>${list(ranked.filter((x) => x.realised > 0).slice(0, 5))}</tbody></table></div>` : ''}${ranked.some((x) => x.realised <= 0) ? `<div style="flex:1;min-width:260px"><h3>Worst</h3><table><tbody>${list(ranked.filter((x) => x.realised <= 0).slice(-5).reverse())}</tbody></table></div>` : ''}</div>` : ''}</div>`;
+  }
+  return bar + sum + narrowed + body;
+}
+
 // ---------- chrome
 function drawChrome() {
   const owners = [...new Set([...S.accounts.values()].map(ownerOf))];
@@ -208,7 +263,7 @@ function drawChrome() {
     <div class="h">New</div><input id="newAcct" placeholder="Type a name, press Enter to create" maxlength="40"></div>` : '');
   const V = S.cur;
   $('per').innerHTML = V ? V.periods.map((p) => `<button data-per="${p.id}" aria-pressed="${p.id === (V.periods.find((x) => x.id === S.period) ? S.period : 'all')}">${esc(p.label)}</button>`).join('') : '';
-  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['tax', 'Tax'], ['income', 'Income'], ['alloc', 'Allocation'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
+  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['trades', 'Trades'], ['tax', 'Tax'], ['income', 'Income'], ['alloc', 'Allocation'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
   $('acctList').innerHTML = items.map((a) => `<option value="${esc(a.label)}">`).join(''); $('ownerList').innerHTML = owners.filter((o) => o !== 'Unassigned').map((o) => `<option value="${esc(o)}">`).join('');
 }
 
@@ -657,9 +712,10 @@ function render() {
   if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; S.autoOpen = true; return; }
   if (S.autoOpen) { S.autoOpen = false; $('drawer').hidden = true; }   // opened only because nothing had loaded yet
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
-  main.innerHTML = { home, holdings, tax, income, alloc: allocTab, data: dataTab }[S.tab](S.cur);
+  main.innerHTML = { home, holdings, trades: tradesTab, tax, income, alloc: allocTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
   if (S.tab === 'alloc' || S.tab === 'data') wireAlloc();
+  if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();
@@ -678,10 +734,13 @@ document.addEventListener('click', (e) => {
   if (t.dataset.tab) { S.tab = t.dataset.tab; return render(); }
   if (t.dataset.bench) { S.bench = t.dataset.bench; store.set('bench', S.bench); return render(); }
   if (t.dataset.kind) { S.kind = t.dataset.kind; return render(); }
+  if (t.dataset.tv) { S.tv = t.dataset.tv; return render(); }
+  if (t.dataset.tf) { const i = t.dataset.tf.indexOf(':'); S.tf = { ...(S.tf ?? {}), [t.dataset.tf.slice(0, i)]: t.dataset.tf.slice(i + 1) }; return render(); }
   if (t.dataset.vf) { S.vf = t.dataset.vf; return render(); }
 });
-document.addEventListener('click', (e) => { const tr = e.target.closest('tr.hr[data-sym]'); if (tr) { const k = tr.dataset.sym; S.open.has(k) ? S.open.delete(k) : S.open.add(k); $('hbody').innerHTML = holdingsBody(S.cur); return; } const th = e.target.closest('th[data-sort]'); if (!th) return; const k = th.dataset.sort; S.sort = S.sort.k === k ? { k, d: -S.sort.d } : { k, d: ['name', 'kind', 'book', 'verdict', 'cap'].includes(k) ? 1 : -1 }; render(); });
+document.addEventListener('click', (e) => { const tx = e.target.closest('tr.tr[data-tx]'); if (tx) { (S.txo ??= new Set()); const k = tx.dataset.tx; S.txo.has(k) ? S.txo.delete(k) : S.txo.add(k); return render(); } const tr = e.target.closest('tr.hr[data-sym]'); if (tr) { const k = tr.dataset.sym; S.open.has(k) ? S.open.delete(k) : S.open.add(k); $('hbody').innerHTML = holdingsBody(S.cur); return; } const th = e.target.closest('th[data-sort]'); if (!th) return; const k = th.dataset.sort; S.sort = S.sort.k === k ? { k, d: -S.sort.d } : { k, d: ['name', 'kind', 'book', 'verdict', 'cap'].includes(k) ? 1 : -1 }; render(); });
 document.addEventListener('keydown', (e) => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches?.('tr.tr[data-tx]')) { e.preventDefault(); e.target.click(); return; }
   if (e.target.id === 'newAcct' && e.key === 'Enter') {
     const label = e.target.value.trim(); if (!/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(label)) { e.target.style.borderColor = 'var(--red)'; return; }
     const key = keyOf(label); if (!S.accounts.has(key)) S.accounts.set(key, { key, label, broker: 'groww', owner: '', trades: [], report: null });
