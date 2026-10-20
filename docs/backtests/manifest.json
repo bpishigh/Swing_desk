@@ -45,6 +45,46 @@
     "summary": "Fit (931 trades, entries to 2023): per-20-session excess over market 0.92% (20) / 1.04% (60) / 0.86% (120); H1 60-20 +0.12pp t 0.22, 120-20 -0.06pp t -0.11: FAIL. H2 live minus hold-60 -9.89% t -4.42: FAIL. Holdout not revealed.",
     "file": "data/replay/ind-holdperiod.json"
    }
+  },
+  {
+   "id": "C-72-r1",
+   "changeLog": "C-72",
+   "title": "India skip days: does excluding them improve the 5-distribution-day signal?",
+   "hypothesis": "Excluding expiry, Muhurat and after-holiday sessions from distribution counting (B) makes the 5+ active distribution days signal separate good from bad forward Nifty 500 markets better than counting every day (A).",
+   "script": "scripts/replay-ind-skipflag.mjs",
+   "params": {
+    "index": "Nifty 50 close and volume",
+    "outcome": "Nifty 500 forward 20 and 60 session return and worst 60-session drawdown",
+    "signal": "5+ active distribution days (engine analyze())",
+    "skipB": "monthly F&O expiry, Muhurat sessions, session after a holiday",
+    "omitted": "index rebalancing days and ordinary half-days"
+   },
+   "fit": [
+    "2020-01-01",
+    "2023-12-31"
+   ],
+   "holdout": [
+    "2024-01-01",
+    "2025-10-16"
+   ],
+   "passRule": "B gap (signal off minus on, 60-session return) beats A gap by >=1.0pp, monthly-cluster paired t>2 in fit, same sign in holdout; A and B must differ on >=60 fit sessions, else no detectable difference.",
+   "data": {
+    "sessions": 1687,
+    "first": "2020-01-01",
+    "last": "2026-10-19",
+    "symbols": 497,
+    "splits": 562,
+    "hash": "bcbb2477237b"
+   },
+   "registeredAt": "2026-10-20T09:55:46.894Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-20T09:56:21.018Z",
+    "summary": "Fit (929 sessions to 2023): signal gap (off minus on) in 60-session Nifty 500 return A -0.06pp, B +0.34pp; B minus A +0.40pp (t 2.78) below the 1.0pp bar: FAIL. A and B differ on 63 sessions. Neither version separates good from bad forward markets. Holdout not revealed.",
+    "file": "data/replay/ind-skipflag.json"
+   }
   }
  ]
 }
