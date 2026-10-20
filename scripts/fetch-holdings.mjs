@@ -5,7 +5,7 @@ import { parsePage } from '../src/pm/holdingsparse.ts';
 import { schemeBase } from '../src/pm/lookthrough.ts';
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', accept: 'application/json,text/html,*/*' };
 const LOG = { start: new Date().toISOString(), tried: 0, ok: 0, noMatch: [], noHoldings: [], failed: [] };
-const scores = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.filter((f) => f.g === 'mf');
+const scores = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.filter((f) => f.g === 'mf' || f.g === 'idx');
 const prev = existsSync('data/funds/holdings.json') ? JSON.parse(readFileSync('data/funds/holdings.json', 'utf8')) : { funds: {} };
 const out = { asOf: new Date().toISOString().slice(0, 10), source: 'fund pages (public portfolio disclosures)', funds: {} };
 const J = async (url) => { for (let a = 0; a < 3; a++) { try { const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(40000) }); if (r.ok) return await r.text(); if (r.status === 404) return null; } catch {} await new Promise((r) => setTimeout(r, 1500 * (a + 1))); } throw new Error('failed ' + url); };

@@ -56,6 +56,8 @@ for (const d of Object.keys(byDay).sort()) { const c = (months[d.slice(0, 7)] ??
 mkdirSync('site/pm-data/prices', { recursive: true });
 for (const [m, c] of Object.entries(months)) { for (const a of Object.values(c.px)) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null; put(`site/pm-data/prices/${m}.json`, JSON.stringify(c) + '\n'); }
 put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n');
+// Fund portfolios (Engine Rules C-78): public monthly disclosures, fetched by the fund-holdings workflow.
+if (existsSync('data/funds/holdings.json')) copyFileSync('data/funds/holdings.json', 'site/pm-data/holdings.json');
 // Daily traded volume and delivery % per stock, one file per month, for the trade review (what the market was doing when a buy was made). Public data.
 // Closed months are not read again once their file exists, so the nightly build only touches the current month.
 {

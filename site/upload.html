@@ -92,6 +92,7 @@ import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
 import { sizeOrders, openRiskOf } from './pm/swingorders.js';
 import { journalReport } from './pm/swingjournal.js';
+import { lookThrough, schemeBase } from './pm/lookthrough.js';
 import { isLong, applyQuarterCap } from './pm/rebalance.js';
 import { orderCharges } from './pm/charges.js';
 const $ = (id) => document.getElementById(id);
@@ -617,7 +618,7 @@ function acctInputs(x, compact) {
 function allocTab(V) {
   if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';
   const xs = V.ms.map(calcAccount);
-  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]);
+  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]) + lookThroughCard(xs);
   // household: every account keeps its own money; the roll-up adds the accounts' own targets and holdings
   const C = S.allocCfg, ok = xs.filter((x) => x.res.ok), bad = xs.filter((x) => !x.res.ok);
   const table = `<div class="card"><h2>Accounts: each has its own money, profile and horizon</h2><div style="overflow-x:auto"><table><thead><tr><th>Account</th><th class="num">Holds</th><th class="num">Capital to allocate (₹)</th><th>Risk profile</th><th class="num">Horizon (yrs)</th><th class="num">EPF (₹)</th><th class="num">Slab rate (%)</th></tr></thead><tbody>${xs.map((x) => { const k = esc(x.a.key), held = x.cur.total + x.cur.unclassified; return `<tr><td>${esc(x.a.label)}<span class="sub"> · ${esc(ownerOf(x.a))}</span></td><td class="num">${money(held)}</td><td class="num"><input data-a="${k}" data-f="capital" type="number" min="0" step="10000" value="${x.capital}" style="width:130px"></td><td>${selBox(x.a.key, 'profile', ['Cautious', 'Balanced', 'Aggressive', 'Custom'], x.profile)}</td><td class="num"><input data-a="${k}" data-f="horizon" type="number" min="0" max="60" step="1" value="${x.horizon}" style="width:70px"></td><td class="num"><input data-a="${k}" data-f="epf" type="number" min="0" step="10000" value="${(x.A.outside ?? []).find((o) => o.name === 'EPF')?.value ?? ''}" style="width:110px"></td><td class="num"><input data-a="${k}" data-f="slab" type="number" min="0" max="45" step="1" value="${x.A.slab ?? ''}" style="width:60px"></td></tr>`; }).join('')}</tbody></table></div>
@@ -626,7 +627,31 @@ function allocTab(V) {
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
   const rollHtml = roll ? `<div class="card"><h2>Household: target against what you hold</h2><div style="overflow-x:auto"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th></tr></thead><tbody>${roll.rows.map((r) => `<tr><td>${esc(r.label)}</td><td class="num"><b>${pc(r.target)}</b></td><td class="num">${money(r.targetAmount)}</td><td class="num">${pc(r.current)}</td><td class="num">${money(r.currentAmount)}</td><td style="color:${stateCol(r.state)}">${r.state}${r.state === 'within band' ? '' : ' · ' + (r.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(r.amountToTarget))}</td></tr>`).join('')}${roll.unclassified > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(roll.unclassified / roll.capital)}</td><td class="num">${money(roll.unclassified)}</td><td class="sub">not counted against any target</td></tr>` : ''}</tbody></table></div>
     <div class="sub" style="margin-top:8px">Total capital ${money(roll.capital)}: the sum of the accounts' own capital. Each account's target uses its own profile and horizon. A class is “within band” when the household gap is inside its drift band. A target, not an order: act from each account's own list below.</div>${bad.length ? `<div class="sub" style="margin-top:6px"><b>Left out:</b> ${bad.map((x) => esc(x.a.label) + ' (' + esc(x.res.error) + ')').join('; ')}</div>` : ''}</div>` : '';
-  return table + rollHtml + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
+  return table + rollHtml + lookThroughCard(xs) + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
+}
+
+// Funds opened up (Engine Rules C-78): what the household owns in each company once fund portfolios are counted, and which funds repeat each other.
+function lookThroughCard(xs) {
+  const ports = S.fundPorts;
+  if (!ports?.funds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">Fund portfolios have not loaded yet (they are fetched once a month from the funds\' published disclosures).</div></div>';
+  const EQ = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic']), seen = new Map(), left = new Set();
+  for (const x of xs) for (const h of x.hs) {
+    if (h.value === null || !(h.value > 0)) continue;
+    if (!EQ.has(h.assetClass)) { if (h.kind !== 'Stock') left.add(h.name); continue; }
+    const k = h.kind + '|' + h.name, o = seen.get(k) ?? seen.set(k, { name: h.name, kind: h.kind, value: 0, symbol: h.symbol, fundIsin: h.kind === 'Stock' ? undefined : schemeBase(h.name) }).get(k); o.value += h.value;
+  }
+  const capital = xs.reduce((t, x) => t + x.capital, 0), capW = xs.filter((x) => x.res.ok).reduce((t, x) => t + (x.res.positionCap ?? 0) * x.capital, 0), capOk = xs.filter((x) => x.res.ok).reduce((t, x) => t + x.capital, 0);
+  const fp = {}; for (const [k, v] of Object.entries(ports.funds)) fp[k] = v;
+  const r = lookThrough([...seen.values()], fp, new Date().toISOString().slice(0, 10), capital, { positionCap: capOk > 0 ? capW / capOk : null });
+  const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;
+  if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity funds or ETFs held, so there is nothing to open up.</div></div>';
+  const rows = r.exposures.filter((e) => e.viaFunds > 0).slice(0, 12);
+  const ov = r.overlaps.slice(0, 5);
+  return `<div class="card"><h2>What you really own · funds opened up</h2>
+    <div class="sub">${r.coverage === null ? '' : `Portfolios found for ${Math.round(r.coverage * 100)}% of your equity fund money (${nFunds - r.notCovered.length} of ${nFunds} funds).`} ${r.notCovered.length ? `Not covered, left out and not estimated: ${r.notCovered.slice(0, 6).map(esc).join('; ')}${r.notCovered.length > 6 ? ` and ${r.notCovered.length - 6} more` : ''}.` : ''} ${r.stale.length ? `Older than ${75} days: ${r.stale.map((x) => esc(x.fund) + ' (' + fmtD(x.asOf) + ')').join('; ')}.` : ''}</div>
+    ${rows.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Company</th><th class="num">Held directly ₹</th><th class="num">Through funds ₹</th><th class="num">Total ₹</th><th class="num">% of capital</th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(e.name)}${e.overCap ? ' <span class="neg">above your single-stock limit</span>' : ''}<small>${e.sources.slice(0, 3).map((s) => esc(s.fund)).join(' · ')}</small></td><td class="num">${e.direct ? inr(e.direct) : '—'}</td><td class="num">${inr(e.viaFunds)}</td><td class="num"><b>${inr(e.total)}</b></td><td class="num">${pc(e.pctCapital)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="sub" style="margin-top:8px">No company shows up through your funds yet.</div>'}
+    ${ov.length ? `<div class="sub" style="margin-top:10px"><b>Funds that repeat each other</b> (overlap = the smaller weight of each shared company, added up; ${Math.round(0.4 * 100)}% or more is flagged):</div>${ov.map((o) => `<div class="sub">${o.flag ? '<span class="neg">▲</span> ' : ''}${esc(o.a)} and ${esc(o.b)}: <b>${Math.round(o.overlap * 100)}%</b> · mostly ${o.shared.slice(0, 3).map((x) => esc(x.name)).join(', ')}</div>`).join('')}` : (nFunds - r.notCovered.length >= 2 ? '<div class="sub" style="margin-top:10px">No two of your funds share any company.</div>' : '')}
+    <div class="sub" style="margin-top:8px">From each fund's latest monthly portfolio, so it is a month-end picture. Companies are matched by name; ${Object.values(r.unmatchedWeight).some((v) => v > 0) ? 'lines for companies you do not hold directly keep their own name.' : ''} Hybrid, debt, gold and international holdings${left.size ? ` (${[...left].slice(0, 4).map(esc).join('; ')}${left.size > 4 ? '…' : ''})` : ''} are not opened up. Percent of capital uses your capital figure above. The flags are display choices, not trading rules.</div></div>`;
 }
 function allocDetail(x) {
   const C = S.allocCfg, { A, hs, held, lockedElss, cur, capital, res } = x;
@@ -871,6 +896,7 @@ async function setOwner(key, owner) {
     S.allocCfg = await fetch('pm-data/allocation.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    { S.fundPorts = await fetch('pm-data/holdings.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); }
     { const sj = await fetch('pm-data/shortlist.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); S.shortlist = sj?.lines ?? null; S.shortlistMeta = sj; }
     S.exitLoads = await fetch('pm-data/exit-loads.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundScores = await fetch('data/funds.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);

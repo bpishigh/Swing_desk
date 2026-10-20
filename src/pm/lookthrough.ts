@@ -30,7 +30,8 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
   let covered = 0, fundValue = 0, wFunds = new Map<string, Map<string, { name: string; w: number }>>();
   for (const f of funds) {
     fundValue += f.value; const port = f.fundIsin ? ports[f.fundIsin] : undefined;
-    if (!port || !port.lines.length) { notCovered.push(f.name); continue; }
+    // weights adding to well over 100% (derivative exposure in arbitrage and similar funds) cannot be read as shares of the money: not covered
+    if (!port || !port.lines.length || port.lines.reduce((t, l) => t + (l.weight > 0 ? l.weight : 0), 0) > 105) { notCovered.push(f.name); continue; }
     covered += f.value; const d = days(port.asOf, today); if (d > s.staleDays) stale.push({ fund: f.name, asOf: port.asOf, days: d });
     const m = new Map<string, { name: string; w: number }>(); let unmatched = 0;
     for (const l of port.lines) {
