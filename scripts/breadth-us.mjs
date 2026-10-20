@@ -1,13 +1,14 @@
 // Repo Desk US breadth: share of the S&P 500 above its 50-day average (the S5FI definition), from Nasdaq's public history.
 // Usage: node scripts/breadth-us.mjs [--date=YYYY-MM-DD]   Writes data/us/breadth.json {date: {pct, n, skipped, src}} for the target day and any of the last 30 sessions missing.
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { etParts, usTarget } from '../src/ingest/us-plan.ts';
 import { pctAbove50 } from '../src/ingest/breadth.ts';
 import { nasdaqBars } from './nasdaq.mjs';
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const read = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
-const cal = makeCalendar(JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).us.holidays);
+const cal = makeCalendar(loadCalendarFiles().us.holidays);
 const D = (process.argv.find((a) => a.startsWith('--date=')) || '').slice(7) || usTarget(Date.now(), cal).target;
 const LIST = 'https://stockanalysis.com/list/sp-500-stocks/';
 let symbols;

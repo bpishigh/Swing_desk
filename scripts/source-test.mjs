@@ -1,6 +1,7 @@
 // Phase 0 source test. Probes candidate sources from the runner it executes on
 // and appends one JSON line per probe to data/source-test/log.ndjson.
 import { appendFileSync, mkdirSync, readFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const now = new Date();
@@ -8,7 +9,7 @@ const ist = new Date(now.getTime() + 5.5 * 3600e3);
 const pad = (n) => String(n).padStart(2, '0');
 const ddmmyyyy = (d) => `${pad(d.getUTCDate())}${pad(d.getUTCMonth() + 1)}${d.getUTCFullYear()}`;
 // Previous session = previous weekday that is not an NSE holiday (data/calendar/markets-2026.json).
-const HOLIDAYS = new Set(JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).india.holidays);
+const HOLIDAYS = new Set(loadCalendarFiles().india.holidays);
 const iso = (d) => d.toISOString().slice(0, 10);
 const lastWeekday = (d) => { const x = new Date(d); do { x.setUTCDate(x.getUTCDate() - 1); } while ([0, 6].includes(x.getUTCDay()) || HOLIDAYS.has(iso(x))); return x; };
 const yyyymmdd = (d) => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}`;

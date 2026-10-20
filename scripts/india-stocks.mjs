@@ -4,6 +4,7 @@
 // --backfill=N makes sure the N sessions before D are stored too (fetched oldest first, at most 300 per run).
 // Exit 0 = wrote, or D's file is not published yet. Exit 1 = anything wrong; a failed run never writes latest.json.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { join } from 'node:path';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { parseBhavcopy, computeStocks, detectBreaks } from '../src/ingest/india-stocks.ts';
@@ -17,7 +18,7 @@ const DIR = arg('dir') || 'data/india';
 const OFFLINE = arg('offline');
 const ACTIONS_FILE = arg('actions');      // offline: a JSON array of {symbol, subject, exDate (DD-Mon-YYYY), faceVal}
 const BACKFILL = Math.min(300, Number(arg('backfill') || 0));
-const calFile = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).india;
+const calFile = loadCalendarFiles().india;
 const cal = makeCalendar([...calFile.holidays, ...(calFile.priorHolidays || [])]);
 const extra = (calFile.extraSessions || []).map((e) => e.date);   // special trading days outside Mon-Fri, e.g. the Budget Sunday
 const todayIst = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);

@@ -2,13 +2,14 @@
 // (or a distribution / follow-through day appears). Needs the day's breadth; exits quietly while either input is missing.
 // Usage: node scripts/regime-run.mjs <india|us> [--dry]
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { execFileSync } from 'node:child_process';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { regimeReport } from '../src/ingest/regime-run.ts';
 const market = process.argv[2]; if (!['india', 'us'].includes(market)) { console.error('usage: regime-run.mjs <india|us>'); process.exit(2); }
 const DRY = process.argv.includes('--dry');
 const read = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
-const calFile = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8'))[market];
+const calFile = loadCalendarFiles()[market];
 const cal = makeCalendar([...calFile.holidays, ...(calFile.priorHolidays || [])]);
 const dir = `data/${market}/tracker`;
 const files = readdirSync(dir).filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().slice(-130);

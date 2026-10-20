@@ -44,6 +44,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Holiday calendar check (alerts in December if next year's file is missing)
+        continue-on-error: true
+        run: node scripts/calendar-check.mjs
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - name: Rebuild dashboard data
         continue-on-error: true
         run: node scripts/build-site.mjs
@@ -53,6 +59,7 @@ jobs:
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           git add data/india/orchestrator.json data/us/orchestrator.json data/ops/usage.json data/ops/usage-jobs.json site/data site/pm-data site/pm
+          if [ -f data/ops/calendar-alert.json ]; then git add data/ops/calendar-alert.json; fi
           git diff --cached --quiet && exit 0
           git commit -m "tick: $(date -u +%Y-%m-%dT%H:%MZ)"
           git restore --worktree --staged . 2>/dev/null || true   # the dashboard rebuild also rewrites files the nightly jobs own; drop them so the rebase can run

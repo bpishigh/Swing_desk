@@ -1,6 +1,7 @@
 // Assembles the dashboard's one data file (site/data/dashboard.json) from the Repo Desk's stored data. No network. Run after any data change.
 // Regime and sector ranking use the same engine as the nightly alerts and the app rules.
 import './build-pm-site.mjs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, statSync } from 'node:fs';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { regimeFrom } from '../src/engine/regime.ts';
@@ -9,7 +10,7 @@ import { targetSession } from '../src/ingest/nightly-plan.ts';
 import { usTarget } from '../src/ingest/us-plan.ts';
 
 const read = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
-const calJson = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8'));
+const calJson = loadCalendarFiles();
 const cals = {
   india: makeCalendar([...calJson.india.holidays, ...(calJson.india.priorHolidays || [])]),
   us: makeCalendar(calJson.us.holidays),

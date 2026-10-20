@@ -2,10 +2,11 @@
 // so the regime has the 25+ sessions it needs for distribution days. Same builder and same NSE file as the nightly job; never overwrites a day.
 // Usage: node scripts/india-tracker-history.mjs [--days=60]
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { parseIndexCloseCsv, buildTracker } from '../src/ingest/india-index.ts';
 const days = Number((process.argv.find((a) => a.startsWith('--days=')) || '--days=60').slice(7));
-const cal = makeCalendar(JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).india.holidays);
+const cal = makeCalendar(loadCalendarFiles().india.holidays);
 const store = JSON.parse(readFileSync('data/india/idx_closes.json', 'utf8'));
 const H = { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', accept: '*/*', referer: 'https://www.nseindia.com/' };
 const dd = (iso) => `${iso.slice(8, 10)}${iso.slice(5, 7)}${iso.slice(0, 4)}`;

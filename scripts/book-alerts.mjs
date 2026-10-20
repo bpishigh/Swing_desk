@@ -2,6 +2,7 @@
 // Reads portfolio/book/positions.json; computes from the repo's own price stores; writes portfolio/book/latest.json, updates maxClose and lastEval on open trades, and sends ONE Telegram message
 // per market per date when something fires (state in portfolio/book/state.json). Changes no rule.
 import { execFileSync } from 'node:child_process';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { bookAlerts, regimeDropped } from '../src/ingest/book-alerts.ts';
@@ -18,7 +19,7 @@ const watch = new Set([...positions.trades.filter((t) => t.market === market && 
 const state = rd('portfolio/book/state.json', { alerted: {}, regime: {} });
 const latest = rd('portfolio/book/latest.json', {});
 const cur = rd(`data/${market}/regime.json`, {}).latest?.name ?? null;
-const calJson = rd('data/calendar/markets-2026.json');
+const calJson = loadCalendarFiles();
 const cal = makeCalendar([...(calJson[market]?.holidays ?? []), ...(calJson[market]?.priorHolidays ?? [])]);
 
 let dates = [], series = () => undefined;

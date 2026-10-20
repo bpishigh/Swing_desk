@@ -4,6 +4,7 @@
 //   --offline reads <TICKER>.json (a Tiingo reply), sa-<TICKER>.html and cboe.csv from the folder instead of the network.
 // Needs TIINGO_KEY (GitHub secret). FRED_KEY is optional (cross-checks the previous day's VIX).
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { join } from 'node:path';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { nasdaqBars } from './nasdaq.mjs';
@@ -15,7 +16,7 @@ const OFFLINE = arg('offline');
 const BACKFILL = Math.min(300, Number(arg('backfill') || 0));
 const KEY = process.env.TIINGO_KEY;
 const START = '2024-09-01';   // first fetch for a ticker with nothing stored: ~2 years, enough for a 200 SMA and 3-month returns
-const calFile = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).us;
+const calFile = loadCalendarFiles().us;
 const cal = makeCalendar(calFile.holidays);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const read = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);

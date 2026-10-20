@@ -3,6 +3,7 @@
 // Usage: node scripts/india-nightly.mjs [--date=YYYY-MM-DD] [--dir=data/india] [--offline=<folder of ind_close_all_DDMMYYYY.csv>]
 // Exit 0 = wrote the day, or the day's file is not published yet (nothing written). Exit 1 = anything wrong; a failed run never writes.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { join } from 'node:path';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { parseIndexCloseCsv, mergeDay, buildFeed, buildTracker, jumpFlags } from '../src/ingest/india-index.ts';
@@ -10,7 +11,7 @@ import { parseIndexCloseCsv, mergeDay, buildFeed, buildTracker, jumpFlags } from
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
 const DIR = arg('dir') || 'data/india';
 const OFFLINE = arg('offline');
-const cal = makeCalendar(JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).india.holidays);
+const cal = makeCalendar(loadCalendarFiles().india.holidays);
 const pad = (n) => String(n).padStart(2, '0');
 const istNow = new Date(Date.now() + 5.5 * 3600e3);
 const todayIst = istNow.toISOString().slice(0, 10);

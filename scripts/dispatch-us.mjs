@@ -2,13 +2,14 @@
 // tells the user once if a day or the screen is still missing, and keeps its own small state file.
 // Usage: node scripts/dispatch-us.mjs [--dry] [--now=<ISO time>]   (needs GITHUB_REPOSITORY and GITHUB_TOKEN unless --dry)
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { execFileSync } from 'node:child_process';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { planUs } from '../src/ingest/us-plan.ts';
 
 const DRY = process.argv.includes('--dry');
 const NOW = (process.argv.find((a) => a.startsWith('--now=')) || '').slice(6) || process.env.NOW_OVERRIDE || '';
-const calFile = JSON.parse(readFileSync('data/calendar/markets-2026.json', 'utf8')).us;
+const calFile = loadCalendarFiles().us;
 const cal = makeCalendar(calFile.holidays);
 const readJson = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const feedDate = readJson('data/us/feed/latest.json', {}).date || '0000-00-00';
