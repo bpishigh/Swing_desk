@@ -66,3 +66,36 @@ test('property: planned sales never exceed the need by more than one unit and ne
     for (const l of p.lines) { const src = lots.find((x) => x.name === l.name)!; assert.ok(src.book !== 'Swing' && !src.locked && l.qty <= src.qty); }
   }
 });
+
+import { applyQuarterCap, quarterOf, inLoad } from '../src/pm/rebalance.ts';
+test('quarter cap: held back inside the quarter unless drift passes twice the band', () => {
+  const held: any = { direct_equity: 600, index: 400 }, targets: any = [{ cls: 'direct_equity', target: 0.5 }, { cls: 'index', target: 0.5 }];
+  const base = { held, targets, band: () => 0.05, today: '2026-11-10' };
+  assert.equal(quarterOf('2026-10-01'), '2026Q4'); assert.equal(quarterOf('2026-09-30'), '2026Q3');
+  const a = applyQuarterCap({ direct_equity: 100 }, { ...base, acted: { direct_equity: '2026-10-20' } });
+  assert.deepEqual(a.need, {}); assert.equal(a.held[0].cls, 'direct_equity');
+  const b = applyQuarterCap({ direct_equity: 100 }, { ...base, acted: { direct_equity: '2026-08-20' } });
+  assert.equal(b.need.direct_equity, 100);
+  const c = applyQuarterCap({ direct_equity: 300 }, { ...base, held: { direct_equity: 800, index: 200 } as any, acted: { direct_equity: '2026-10-20' } });
+  assert.equal(c.need.direct_equity, 300, 'drift 30pp is past twice the 5pp band');
+});
+test('slab rate prices slab lines; with none set they carry no figure', () => {
+  const rules: any = { types: { debt_fund: { long_after_days: null, exemption: false, rules: [{ transfer_from: '2020-01-01', stcg: 'slab', ltcg: 'slab' }] } } };
+  const lot: any = { name: 'D', kind: 'Fund', book: 'Legacy', assetClass: 'debt', type: 'debt_fund', date: '2026-01-01', qty: 100, unitCost: 100, price: 200 };
+  const set: any = { minTrade: 1000, maxCostShare: 0.5 };
+  const none = planSales([lot], { debt: 10000 }, { today: '2026-10-20', rules, settings: set });
+  assert.equal(none.lines[0].tax, null); assert.equal(none.slabGains, 5000);
+  const priced = planSales([lot], { debt: 10000 }, { today: '2026-10-20', rules, settings: set, slabRate: 0.3 });
+  assert.equal(priced.lines[0].tax, 1500); assert.equal(priced.slabGains, 0);
+});
+test('exit load: counted in cost, lots outside the window sell first, unknown load on a recent fund lot is flagged', () => {
+  const rules: any = { types: { equity_fund: { long_after_days: 365, exemption: true, rules: [{ transfer_from: '2020-01-01', stcg: 0.2, ltcg: 0.125 }] } } };
+  const mk = (name: string, date: string, exitLoad?: any): any => ({ name, kind: 'Fund', book: 'Legacy', assetClass: 'active_equity_fund', type: 'equity_fund', date, qty: 100, unitCost: 100, price: 100, ...(exitLoad !== undefined ? { exitLoad } : {}) });
+  const set: any = { minTrade: 1000, maxCostShare: 0.5 };
+  const p = planSales([mk('Inside', '2026-09-01', { days: 365, pct: 0.01 }), mk('Outside', '2024-01-01', { days: 365, pct: 0.01 })], { active_equity_fund: 9000 }, { today: '2026-10-20', rules, settings: set });
+  assert.equal(p.lines[0].name, 'Outside'); assert.ok(inLoad(mk('x', '2026-09-01', { days: 365, pct: 0.01 }), '2026-10-20'));
+  const q = planSales([mk('Inside', '2026-09-01', { days: 365, pct: 0.01 })], { active_equity_fund: 9000 }, { today: '2026-10-20', rules, settings: set });
+  assert.equal(q.lines[0].load, 90); assert.match(q.lines[0].loadNote!, /exit load 1.00%/);
+  const u = planSales([mk('Unknown', '2026-09-01')], { active_equity_fund: 9000 }, { today: '2026-10-20', rules, settings: set });
+  assert.match(u.lines[0].loadNote!, /no exit load is recorded/);
+});

@@ -1,7 +1,7 @@
 // Rebalancing suggestions and new-money sizing (Portfolio Manager phase 6, design sections 8 and 9.2). Pure. A suggestion is a dated list of actions, never an order.
 // 1. New money goes first, to the classes furthest below target. 2. Only a class still above its band after that is sold down, and only from lots that may be sold (never the Swing book,
 // never ELSS inside its 3-year lock-in, never a holding with no asset class), cheapest in tax first. 3. A sale below the minimum trade, or whose cost is too large a share of it, is skipped.
-// Estimates exclude surcharge and cess; slab-rate lines carry the gain but no tax figure, because the person's slab rate is not set. Exit loads are not modelled (no data yet): every sale is flagged for that.
+// Estimates exclude surcharge and cess; slab-rate lines are priced at the slab rate the person types (no figure while it is unset). Exit loads come from data/rules/exit-loads.json (typed, with evidence); a fund with no recorded load that was bought inside the usual window is flagged to check. At most one sale suggestion per class per quarter unless the drift passes twice the band.
 import { TARGET_CLASSES,                  } from './allocation.js';
 
                                                                             
@@ -18,9 +18,11 @@ export function routeNewMoney(targets                                        , h
   return { lines };
 }
 
-                                                                                                                                                                                                                                                   
-                                                                         
-                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                               
+                                                                                                     
+/** A recorded exit load: sold within `days` of purchase costs `pct` (fraction) of the sale value. */
+                                                       
+                                                                                                                                                                                                                                            
                                                                                            
                                                                                                                                                                        
                                                                                                                                                                                                                                                   
@@ -40,13 +42,15 @@ function groupOf(rules       , l         , today        , exit             )    
   if (long) return { g: 3, label: 'long-term', long };
   return { g: 4, label: 'short-term', long };
 }
-export function planSales(lots           , need                                      , ctx                                                                                                                                                           )           {
+/** True when a recorded exit load still applies to this lot today. */
+export const inLoad = (l         , today        )          => !!l.exitLoad && days(l.date, today) < l.exitLoad.days;
+export function planSales(lots           , need                                      , ctx                                                                                                                                                                              )           {
   const exit = ctx.exit ?? new Set        (), plan           = { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
   let exemption = ctx.exemptionLeft ?? 125000;
   for (const cls of TARGET_CLASSES) {
     let left = need[cls] ?? 0; if (!(left > 0)) continue;
     const cands = lots.filter((l) => l.assetClass === cls && l.book !== 'Swing' && !l.locked && l.qty > 0 && l.price > 0).map((l) => ({ l, ...groupOf(ctx.rules, l, ctx.today, exit) }))
-      .sort((a, b) => a.g - b.g || (a.l.price - a.l.unitCost) / a.l.price - (b.l.price - b.l.unitCost) / b.l.price);
+      .sort((a, b) => a.g - b.g || Number(inLoad(a.l, ctx.today)) - Number(inLoad(b.l, ctx.today)) || (a.l.price - a.l.unitCost) / a.l.price - (b.l.price - b.l.unitCost) / b.l.price);
     for (const c of cands) {
       if (left <= 0.5) break;
       const l = c.l, lotValue = l.qty * l.price; let qty = lotValue <= left ? l.qty : (left / l.price);
@@ -57,13 +61,14 @@ export function planSales(lots           , need                                 
       if (gain <= 0) tax = 0;
       else if (rule) {
         const rate = c.long ? rule.ltcg : rule.stcg;
-        if (rate === 'slab') { tax = null; plan.slabGains += gain; }
+        if (rate === 'slab') { if (ctx.slabRate && ctx.slabRate > 0) tax = gain * ctx.slabRate; else { tax = null; plan.slabGains += gain; } }
         else if (typeof rate === 'number') { const free = c.long && ctx.rules.types[l.type].exemption ? Math.min(exemption, gain) : 0; usedFree = free; tax = (gain - free) * rate; }
       }
-      const charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0, cost = (tax ?? 0) + charges;
+      const charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0, load = inLoad(l, ctx.today) ? value * l.exitLoad .pct : 0, cost = (tax ?? 0) + charges + load;
+      const checkDays = ctx.settings.exitLoadCheckDays ?? 365, loadNote = l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < checkDays ? `bought ${days(l.date, ctx.today)} days ago and no exit load is recorded for this fund: check the load before selling` : load > 0 ? `exit load ${(100 * l.exitLoad .pct).toFixed(2)}% applies until ${new Date(Date.parse(l.date) + l.exitLoad .days * 86400000).toISOString().slice(0, 10)}` : undefined;
       if (value < ctx.settings.minTrade) { plan.skipped.push({ name: l.name, cls, value, why: `below the minimum trade of ₹${ctx.settings.minTrade.toLocaleString('en-IN')}` }); continue; }
-      if (c.g !== 0 && cost > ctx.settings.maxCostShare * value) { plan.skipped.push({ name: l.name, cls, value, why: `cost ₹${Math.round(cost).toLocaleString('en-IN')} is ${(100 * cost / value).toFixed(1)}% of the sale, above the ${(100 * ctx.settings.maxCostShare).toFixed(0)}% limit` }); continue; }
-      plan.lines.push({ account: l.account, name: l.name, cls, qty, value, gain, long: c.long, tax, charges, group: c.label, reason: `${c.label}; bought ${l.date}` });
+      if (c.g !== 0 && cost > ctx.settings.maxCostShare * value) { plan.skipped.push({ name: l.name, cls, value, why: `cost ₹${Math.round(cost).toLocaleString('en-IN')}${load > 0 ? ' (including an exit load)' : ''} is ${(100 * cost / value).toFixed(1)}% of the sale, above the ${(100 * ctx.settings.maxCostShare).toFixed(0)}% limit` }); continue; }
+      plan.lines.push({ account: l.account, name: l.name, cls, qty, value, gain, long: c.long, tax, charges, group: c.label, reason: `${c.label}; bought ${l.date}`, load, loadNote });
       exemption -= usedFree; plan.taxTotal += tax ?? 0; left -= value;
     }
     if (left > 0.5) plan.unmet.push({ cls, short: left, why: 'not enough sellable lots (Swing book, locked ELSS, unclassified, below the minimum trade or too costly are never sold here)' });
@@ -75,4 +80,15 @@ export function sellNeeds(targets                                        , held 
   const total = TARGET_CLASSES.reduce((a, c) => a + (held[c] ?? 0) + (newMoney[c] ?? 0), 0), out                                       = {};
   for (const t of targets) { const cur = (held[t.cls] ?? 0) + (newMoney[t.cls] ?? 0); if (total > 0 && cur / total > t.target + band(t.cls)) out[t.cls] = cur - t.target * total; }
   return out;
+}
+
+/** One sale suggestion per class per quarter (design 9.2): a class acted on this calendar quarter is held back unless its drift has passed `multiple` x its band. `acted` maps class -> date it was last acted on. */
+export function quarterOf(d        )         { return d.slice(0, 4) + 'Q' + (Math.floor((Number(d.slice(5, 7)) - 1) / 3) + 1); }
+export function applyQuarterCap(need                                      , ctx                                                                                                                                                                                           )                                                                                              {
+  const total = TARGET_CLASSES.reduce((a, c) => a + (ctx.held[c] ?? 0), 0), m = ctx.multiple ?? 2, out                                       = {}, held                                        = [];
+  for (const [c, v] of Object.entries(need)                           ) {
+    const when = ctx.acted[c], t = ctx.targets.find((x) => x.cls === c)?.target ?? 0, drift = total > 0 ? (ctx.held[c] ?? 0) / total - t : 0;
+    if (when && quarterOf(when) === quarterOf(ctx.today) && drift <= m * ctx.band(c)) held.push({ cls: c, since: when }); else out[c] = v;
+  }
+  return { need: out, held };
 }

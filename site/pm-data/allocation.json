@@ -172,6 +172,10 @@
     {
       "date": "2026-10-20",
       "change": "Added swingPools settings (maxPositions 10, cashFunded false, capitalSource own) for phase 7 part 1, from the owner's statement that no money moved between the accounts and new cash comes from the bank."
+    },
+    {
+      "date": "2026-10-20",
+      "change": "Phase 6 gaps: added rebalance.exitLoadCheckDays 365, rebalance.quarterCap (one sale suggestion per class per quarter; override at twice the band, from design 9.2) and rebalance.fundVerdictSales false (switched off: the fund-score back-test gate has not run). PROPOSED values, for the owner to confirm."
     }
   ],
   "bearMarketEquityFall": 0.4,
@@ -179,7 +183,13 @@
   "rebalance": {
     "minTrade": 10000,
     "maxCostShare": 0.03,
-    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges exceed this share of the sale, unless it is an Exit-verdict name. Quarterly cap per class is not enforced yet (needs a stored decision log)."
+    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges plus any exit load exceed this share of the sale, unless it is an Exit-verdict name. A class acted on this calendar quarter gets no new sale suggestion unless its drift passes quarterCap.overrideBandMultiple x its band. fundVerdictSales stays false until the fund-score back-test has run (design section 9.1): when true, a fund flagged Replace candidate is treated as an already-decided sale.",
+    "exitLoadCheckDays": 365,
+    "quarterCap": {
+      "suggestionsPerClass": 1,
+      "overrideBandMultiple": 2
+    },
+    "fundVerdictSales": false
   },
   "swingPools": {
     "maxPositions": 10,
