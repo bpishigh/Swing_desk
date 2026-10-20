@@ -30,6 +30,7 @@ import { valuationSeries,               } from './valuation.js';
                                                                                                                                                  
                                                                        
                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                          
                                                                                                                                                                                     
                                                                
  
@@ -93,6 +94,8 @@ export function runPipeline(batches           , broker                     , d  
   for (const e of byName.values()) { e.category = catByName.get(e.name); e.assetClass = assetClassOf(e.kind, e.name, e.category ?? ''); }
   { const lim = new Date(); lim.setFullYear(lim.getFullYear() - 3); const cut = lim.toISOString().slice(0, 10);
     for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm), px = priceOf(t.lot.key); if (e && px !== undefined && /elss|tax saver|tax advantage/i.test(nm + ' ' + (e.category ?? '')) && t.lot.date > cut) e.locked = (e.locked ?? 0) + t.lot.qty * px; } }  // ELSS units are locked for 3 years from each purchase
+  const lockCut = (() => { const x = new Date(); x.setFullYear(x.getFullYear() - 3); return x.toISOString().slice(0, 10); })();
+  const openLots                     = books.flatMap((t) => { const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm), px = priceOf(t.lot.key); return e && px !== undefined ? [{ name: nm, kind: e.kind, book: t.book, assetClass: e.assetClass ?? null, category: e.category, type: typeByKey.get(t.lot.key) ?? 'listed_equity', date: t.lot.date, qty: t.lot.qty, unitCost: t.lot.unitCost, price: px, locked: /elss|tax saver|tax advantage/i.test(nm + ' ' + (e.category ?? '')) && t.lot.date > lockCut }] : []; });
   holdings.push(...byName.values());
 
   const ords                                                                            = [];
@@ -133,6 +136,6 @@ export function runPipeline(batches           , broker                     , d  
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
+    books: bt, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }
