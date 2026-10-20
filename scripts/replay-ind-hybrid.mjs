@@ -7,6 +7,7 @@ import { INDIA_SCAN, INDIA_SCAN_VERSION, INDIA_SETUPS } from '../src/ingest/indi
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { tierCost, eligible, topShare, BASE } from '../src/backtest/ind-base.ts';
 import { SETUPS } from '../src/engine/setups.ts';
+import { deskSim, dateCalendar } from '../src/backtest/desk-sim.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20, MAXHOLD = 60;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
@@ -39,6 +40,16 @@ const idx = new Float64Array(T).fill(NaN); { let last = NaN; for (let i = 0; i <
 const proxy = mk;
 const regimeOn = (t) => (dates[t] <= '2025-10-16' ? idx[t] >= sma(idx, t, 200) : proxy[t] >= sma(proxy, t, 200));
 // hybrid trade: entry at close of e, ATR stop, desk exits at daily-close resolution (stops filled at the stop price)
+const CAL = dateCalendar(dates), LIVE = process.argv.includes('--exits=live');
+// C-68: the same entry and ATR stop, exits by the live evaluate() (src/backtest/desk-sim.ts) instead of the port below
+function hybridLive(sym, e) {
+  const s = FH.series.get(sym); if (!s || !(s.c[e] > 0)) return null;
+  let a = 0, n = 0; for (let i = e - 13; i <= e; i++) { const pc = s.c[i - 1]; if (s.h[i] > 0 && s.l[i] > 0 && pc > 0) { a += Math.max(s.h[i] - s.l[i], Math.abs(s.h[i] - pc), Math.abs(s.l[i] - pc)); n++; } }
+  if (n < 10) return null; const atr = a / n, E = s.c[e], Rk = 1.5 * atr; if (!(Rk > 0) || Rk >= E) return null;
+  const rd = (RD.dates[sym] || []).filter((d) => d >= dates[e]).sort()[0];
+  const r = deskSim({ dates, c: s.c, h: s.h, l: s.l, e, trigger: E, stop: E - Rk, setup: '2', resultsDate: rd, cal: CAL, maxHold: MAXHOLD, entryAtClose: true }); if (!r) return null;
+  return { ret: r.R * (Rk / E), held: r.held - 1, reason: r.reason, risk: Rk / E };
+}
 function hybrid(sym, e, thirds = true) {
   const s = FH.series.get(sym); if (!s || !(s.c[e] > 0)) return null;
   let a = 0, n = 0; for (let i = e - 13; i <= e; i++) { const pc = s.c[i - 1]; if (s.h[i] > 0 && s.l[i] > 0 && pc > 0) { a += Math.max(s.h[i] - s.l[i], Math.abs(s.h[i] - pc), Math.abs(s.l[i] - pc)); n++; } }
@@ -67,8 +78,8 @@ for (const t of sig) {
   const hist = asOfHistories(days, t, res, allowed), el = eligible(hist, t), top = topShare(el), on = regimeOn(t); lists.push({ t, date: dates[t], names: new Set(top.map((p) => p.sym)), on });
   if (!on) continue; const e = t + 1;
   for (const p of top) {
-    const s = FH.series.get(p.sym); if (!s || !(s.c[e] > 0)) continue; const cost = tierCost(p.value), hold = s.c[e + 20] > 0 ? s.c[e + 20] / s.c[e] - 1 : NaN, h = hybrid(p.sym, e), hn = hybrid(p.sym, e, false); if (!h || !(hold === hold)) continue;
-    H1.push({ s: p.sym, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), w: dates[t] <= '2023-12-31' ? 'fit' : dates[t] <= '2025-09-30' ? 'holdout' : 'fresh', hold: hold - cost, hy: h.ret - cost, hn: hn ? hn.ret - cost : NaN, held: h.held, reason: h.reason, risk: h.risk });
+    const s = FH.series.get(p.sym); if (!s || !(s.c[e] > 0)) continue; const cost = tierCost(p.value), hold = s.c[e + 20] > 0 ? s.c[e + 20] / s.c[e] - 1 : NaN, h = hybrid(p.sym, e), hn = hybrid(p.sym, e, false), hl = LIVE ? hybridLive(p.sym, e) : null; if (!h || !(hold === hold) || (LIVE && !hl)) continue;
+    H1.push({ s: p.sym, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), w: dates[t] <= '2023-12-31' ? 'fit' : dates[t] <= '2025-09-30' ? 'holdout' : 'fresh', hold: hold - cost, hy: h.ret - cost, hn: hn ? hn.ret - cost : NaN, hl: hl ? hl.ret - cost : NaN, hlReason: hl?.reason, hlHeld: hl?.held, held: h.held, reason: h.reason, risk: h.risk });
   }
   if (lists.length % 12 === 0) console.error(`${dates[t]} lists ${lists.length}/${sig.length} trades ${H1.length} ${((Date.now() - t0) / 1000).toFixed(0)}s`);
 }
@@ -87,9 +98,19 @@ const yrs = [...new Set(H1.map((x) => x.y))].sort(); console.log('by year (desk 
 const wins = ['fit', 'holdout', 'fresh'], betterWin = wins.filter((w) => rep.H1[w] && rep.H1[w].diff > 0).length, A = rep.H1.all;
 const profit = A.diff >= 0.005 && A.t > 2 && betterWin >= 2, risk = A.desk.p10 - A.hold.p10 >= 0.02 && A.desk.mean - A.hold.mean >= -0.0025;
 console.log(`H1 PROFIT RULE (diff>=0.5pp, t>2, 2 of 3 windows): ${profit ? 'PASS' : 'FAIL'} (diff ${pct(A.diff)}, t ${A.t.toFixed(2)}, windows better ${betterWin}/3) | RISK RULE (p10 +2pp, mean not lower by >0.25pp): ${risk ? 'PASS' : 'FAIL'} (p10 ${pct(A.desk.p10 - A.hold.p10)}, mean ${pct(A.desk.mean - A.hold.mean)})`);
+if (LIVE) {
+  console.log('\nC-68 LIVE EXITS on the momentum names (same entries and ATR stops; exits by evaluate()): hold 20 sessions vs port vs live, net of cost');
+  rep.live = {};
+  for (const w of ['all', 'fit', 'holdout', 'fresh']) { const a = w === 'all' ? H1 : H1.filter((x) => x.w === w); if (!a.length) continue;
+    const S = (k) => ({ mean: mean(a.map((x) => x[k])), win: a.filter((x) => x[k] > 0).length / a.length, p10: q(a.map((x) => x[k]), 0.1) });
+    const h = S('hold'), y = S('hy'), l = S('hl'), tl = clusterT(a, (x) => x.hl - x.hold), tp = clusterT(a, (x) => x.hl - x.hy);
+    console.log(`${w.padEnd(8)} n=${String(a.length).padStart(5)} | hold20 ${pct(h.mean)} win ${(h.win * 100).toFixed(0)}% p10 ${pct(h.p10)} | port ${pct(y.mean)} win ${(y.win * 100).toFixed(0)}% p10 ${pct(y.p10)} | live ${pct(l.mean)} win ${(l.win * 100).toFixed(0)}% p10 ${pct(l.p10)} | live-hold ${pct(l.mean - h.mean)} t ${tl.toFixed(2)} | live-port ${pct(l.mean - y.mean)} t ${tp.toFixed(2)} | held ${mean(a.map((x) => x.hlHeld)).toFixed(1)}`);
+    rep.live[w] = { n: a.length, hold: h, port: y, live: l, tLiveHold: tl, tLivePort: tp }; }
+  const rs = {}; for (const x of H1) rs[x.hlReason] = (rs[x.hlReason] || 0) + 1; console.log('live exit reasons:', JSON.stringify(rs));
+}
 // ---- H2: momentum membership inside the C-64 trades
-const TR = JSON.parse(readFileSync('data/replay/ind-setups-trades.json', 'utf8')), listAt = (d) => { let best = null; for (const l of lists) if (l.date <= d) best = l; else break; return best; };
-const tagged = TR.map((x) => { const l = listAt(x.d); return { ...x, mom: l ? l.names.has(x.s) : false, R: x.v.desk.R, pc: x.v.desk.pct }; }).filter((x) => x.d >= '2021-02-01');
+const TR = JSON.parse(readFileSync(LIVE ? 'data/replay/ind-setups-trades-live.json' : 'data/replay/ind-setups-trades.json', 'utf8')), listAt = (d) => { let best = null; for (const l of lists) if (l.date <= d) best = l; else break; return best; };
+const tagged = TR.map((x) => { const l = listAt(x.d); return { ...x, mom: l ? l.names.has(x.s) : false, R: x.v[LIVE ? 'live' : 'desk'].R, pc: x.v[LIVE ? 'live' : 'desk'].pct }; }).filter((x) => x.d >= '2021-02-01');
 console.log('\nH2 MOMENTUM MEMBERSHIP inside the C-64 desk trades (desk exits)');
 rep.H2 = {}; for (const cls of ['valid', 'lowRoom', 'tooWide', 'all']) { const a = tagged.filter((x) => cls === 'all' || x.cls === cls), m = a.filter((x) => x.mom), o = a.filter((x) => !x.mom);
   const dR = mean(m.map((x) => x.R)) - mean(o.map((x) => x.R)), dP = mean(m.map((x) => x.pc)) - mean(o.map((x) => x.pc));
@@ -99,4 +120,4 @@ rep.H2 = {}; for (const cls of ['valid', 'lowRoom', 'tooWide', 'all']) { const a
   rep.H2[cls] = { mom: m.length, others: o.length, dR, dP, t, ok }; }
 // comparators
 const mom20 = H1.filter((x) => x.hold === x.hold); console.log('\nCOMPARATORS: momentum held 20 sessions net', pct(mean(mom20.map((x) => x.hold))), 'per trade, wins', (100 * mom20.filter((x) => x.hold > 0).length / mom20.length).toFixed(0) + '%; desk valid trades alone', pct(mean(tagged.filter((x) => x.cls === 'valid').map((x) => x.pc))), 'per trade (n', tagged.filter((x) => x.cls === 'valid').length + ')');
-mkdirSync('data/replay', { recursive: true }); writeFileSync('data/replay/ind-hybrid.json', JSON.stringify({ generated: new Date().toISOString().slice(0, 10), lists: lists.length, rep }, null, 1));
+mkdirSync('data/replay', { recursive: true }); writeFileSync(LIVE ? 'data/replay/ind-hybrid-live.json' : 'data/replay/ind-hybrid.json', JSON.stringify({ generated: new Date().toISOString().slice(0, 10), lists: lists.length, rep }, null, 1));

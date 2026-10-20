@@ -6,9 +6,10 @@ import { runScan, buildHistories } from '../src/ingest/us-scan.ts';
 import { INDIA_SCAN, INDIA_SCAN_VERSION, INDIA_SETUPS } from '../src/ingest/india-scan-settings.ts';
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { tierCost } from '../src/backtest/ind-base.ts';
+import { deskSim, dateCalendar } from '../src/backtest/desk-sim.ts';
 import { SETUPS } from '../src/engine/setups.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
-const COSTX = Number(arg('costx', 1)), SUF = COSTX === 1 ? '' : `-cost${COSTX}x`;   // C-67: --costx=2 doubles every cost; separate output files
+const EXITS = arg('exits', 'port'), COSTX = Number(arg('costx', 1)), SUF = (COSTX === 1 ? '' : `-cost${COSTX}x`) + (EXITS === 'live' ? '-live' : '');   // C-67: --costx=2 doubles every cost; separate output files
 const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20, MAXHOLD = 60;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
 const bhav = [];
@@ -34,8 +35,10 @@ const mean = (a) => a.reduce((x, y) => x + y, 0) / (a.length || 1), sd = (a) => 
 const med = (a) => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : NaN; };
 const wkKey = (d) => { const t = new Date(d + 'T00:00:00Z'); const day = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - day + 3); const y = t.getUTCFullYear(); const j = new Date(Date.UTC(y, 0, 4)); return y * 100 + 1 + Math.round(((t - j) / 86400000 - 3 + ((j.getUTCDay() + 6) % 7)) / 7); };
 const lastOfWeek = dates.map((d, i) => i === T - 1 || wkKey(dates[i + 1]) !== wkKey(d));
-const VARS = { desk: {}, noThirds: { thirds: false }, noTimeStop: { timeStop: false }, noFailBrk: { failBrk: false }, noEmaTrail: { emaTrail: false }, fixed20: { fixed: true } };
+const VARS = { desk: {}, ...(EXITS === 'live' ? { live: { live: true }, liveNoR8: { live: true, rule8: false } } : {}), noThirds: { thirds: false }, noTimeStop: { timeStop: false }, noFailBrk: { failBrk: false }, noEmaTrail: { emaTrail: false }, fixed20: { fixed: true } };
+const CAL = dateCalendar(dates);
 function simulate(sym, t, setup, costPct, o = {}) {
+  if (o.live) { const s = FH.series.get(sym); if (!s) return null; const e = t + 1; if (e >= T || !(s.h[e] >= setup.trigger) || !(s.l[e] <= setup.limit)) return null; const ev = (RD.dates[sym] || []).filter((d) => d >= dates[e]).sort()[0]; const r = deskSim({ dates, c: s.c, h: s.h, l: s.l, e, trigger: setup.trigger, stop: setup.stop, setup: setup.id, pivot: setup.basis, resultsDate: ev, cal: CAL, rules: { rule8: o.rule8 !== false } }); if (!r) return null; const Rk = setup.trigger - setup.stop; return { R: r.R - (costPct * setup.trigger) / Rk, held: r.held, reason: r.reason, width: Rk / setup.trigger }; }
   const { thirds = true, timeStop = true, failBrk = true, emaTrail = true, fixed = false } = o;
   const s = FH.series.get(sym); if (!s) return null;
   const e = t + 1; if (e >= T || !(s.h[e] >= setup.trigger) || !(s.l[e] <= setup.limit)) return null;
@@ -103,5 +106,14 @@ const yrsAll = [...new Set(valid.map((x) => x.y))].sort();
 for (const grp of ['all', '1', '2', '4']) { const a = grp === 'all' ? valid : valid.filter((x) => x.id === grp);
   for (const k of Object.keys(VARS).slice(1)) { const d = a.map((x) => ({ ym: x.ym, y: x.y, x: x.v[k].R - x.v.desk.R })), dm = mean(d.map((q) => q.x)), t = clusterT(d), ys = yrsAll.map((y) => mean(d.filter((q) => q.y === y).map((q) => q.x))).filter((v) => v === v), good = ys.filter((v) => v > 0).length;
     const ok = dm >= 0.1 && good >= 4 && t > 2; console.log(`setup ${grp.padEnd(3)} ${k.padEnd(11)} dR ${f2(dm).padStart(6)} (meanR ${f2(SU(a, k).R)} vs ${f2(SU(a).R)}) ret ${pct(SU(a, k).pct)} vs ${pct(SU(a).pct)} t ${t.toFixed(2)} years better ${good}/${ys.length} -> ${ok ? 'SUPPORTED' : 'no'}`); rep[`exit_${grp}_${k}`] = { dR: dm, t, good, ok }; } }
+if (EXITS === 'live') {
+  console.log('\nC-68 LIVE EXITS (evaluate() in src/engine/exits.ts) beside the port, same trades, net of tiered cost:');
+  const out = {};
+  for (const [name, a] of [['valid all', valid], ['valid setup 1', valid.filter((x) => x.id === '1')], ['valid setup 2', valid.filter((x) => x.id === '2')], ['valid setup 4', valid.filter((x) => x.id === '4')], ['room under 3R', trades.filter((x) => x.cls === 'lowRoom')], ['stop too wide', trades.filter((x) => x.cls === 'tooWide')]]) {
+    out[name] = {}; for (const k of ['desk', 'live', 'liveNoR8']) { const q = SU(a, k); out[name][k] = q; console.log(`${name.padEnd(16)} ${k.padEnd(9)} n=${String(q.n).padStart(4)} meanR ${f2(q.R).padStart(6)} win ${(q.win * 100).toFixed(0)}% ret/trade ${pct(q.pct).padStart(7)} held ${q.held.toFixed(1)}`); }
+  }
+  const rs = {}; for (const x of valid) rs[x.v.live.reason] = (rs[x.v.live.reason] || 0) + 1; console.log('live exit reasons (valid):', JSON.stringify(rs));
+  rep.liveVsPort = out;
+}
 mkdirSync('data/replay', { recursive: true }); writeFileSync(`data/replay/ind-setups${SUF}.json`, JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, cands, rep }, null, 1));
 writeFileSync(`data/replay/ind-setups-trades${SUF}.json`, JSON.stringify(trades) + '\n');
