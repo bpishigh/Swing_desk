@@ -1,0 +1,37 @@
+{
+ "ranAt": "2026-10-20T08:27:10.309Z",
+ "tries": [
+  {
+   "name": "boardmeetings-a",
+   "url": "https://api.bseindia.com/BseIndiaAPI/api/Corpforthresults/w?scripcode=&Fdate=20261020&TDate=20261103&Purposecode=P1&Segment=0&industry=",
+   "status": 403,
+   "type": "text/html",
+   "bytes": 421,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;Corpforthresults&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;71cfdb17&#46;1792484830&#46;26b5efb1\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;71cfdb17&#46;1792484830&#46;26b5efb1</P>\n</BODY>\n</HTML>\n"
+  },
+  {
+   "name": "boardmeetings-b",
+   "url": "https://api.bseindia.com/BseIndiaAPI/api/BoardMeetings/w?strCat=-1&strPrevDate=20261020&strScrip=&strSearch=S&strToDate=20261103&strType=C",
+   "status": 403,
+   "type": "text/html",
+   "bytes": 418,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;BoardMeetings&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;71cfdb17&#46;1792484830&#46;26b5efd3\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;71cfdb17&#46;1792484830&#46;26b5efd3</P>\n</BODY>\n</HTML>\n"
+  },
+  {
+   "name": "calendar-results",
+   "url": "https://api.bseindia.com/BseIndiaAPI/api/Corpforthresults/w?scripcode=500325",
+   "status": 403,
+   "type": "text/html",
+   "bytes": 421,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;Corpforthresults&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;71cfdb17&#46;1792484830&#46;26b5efde\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;71cfdb17&#46;1792484830&#46;26b5efde</P>\n</BODY>\n</HTML>\n"
+  },
+  {
+   "name": "corp-actions-forthcoming",
+   "url": "https://api.bseindia.com/BseIndiaAPI/api/DefaultData/w?Fdate=20261020&Purposecode=&TDate=20261103&ddlcategorys=E&ddlindustrys=&scripcode=&segment=0&strSearch=S",
+   "status": 403,
+   "type": "text/html",
+   "bytes": 416,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;DefaultData&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;79cfdb17&#46;1792484830&#46;29dbffe4\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;79cfdb17&#46;1792484830&#46;29dbffe4</P>\n</BODY>\n</HTML>\n"
+  }
+ ]
+}
