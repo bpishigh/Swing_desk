@@ -62,3 +62,15 @@ test('a line the desk tagged over cap or room fail can only be a near match', ()
   const m = matchBuy('AAA', '2026-10-19', 100.4, [{ ...line, tags: ['over cap'] }], S)!;
   assert.equal(m.tier, 'near'); assert.match(m.why, /over cap/);
 });
+
+test('holiday-aware sessions, extra sessions and gap nights', async () => {
+  const { gapNights } = await import('../src/pm/shortlist.ts');
+  assert.equal(sessionsBetween('2026-10-16', '2026-10-20', { holidays: ['2026-10-19'] }), 1);
+  assert.equal(sessionsBetween('2026-10-16', '2026-10-17', { extra: ['2026-10-17'] }), 1);
+  assert.deepEqual(gapNights(['2026-10-16', '2026-10-20']), ['2026-10-19']);
+  assert.deepEqual(gapNights(['2026-10-16', '2026-10-20'], { holidays: ['2026-10-19'] }), []);
+});
+test('an exact match above the size limit is a near match', () => {
+  const m = matchBuy('AAA', '2026-10-19', 100.4, [line], { ...S, maxExactPctOfAccount: 6 }, undefined, { lotValue: 20000, accountValue: 100000 })!;
+  assert.equal(m.tier, 'near');
+});

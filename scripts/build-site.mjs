@@ -105,6 +105,7 @@ const same = prev && JSON.stringify({ ...prev, generatedAt: 0 }) === JSON.string
 if (!same) writeFileSync('site/data/dashboard.json', JSON.stringify(out) + '\n');
 
 // Reference documents shown on the Docs tab. Public-safe set only: the Portfolio Manager design and the save-setup note carry household detail and stay out.
+import { stripPrivate } from './strip-private.mjs';
 const DOCS = [
   ['status', 'Status: confident, not confident, what is left', 'Status', 'docs/STATUS.md'],
   ['rules', 'Engine Rules', 'Rules', 'docs/ENGINE_RULES.md'], ['arch', 'Code and Architecture', 'Rules', 'docs/ARCHITECTURE.md'], ['screener', 'Screener brief', 'Rules', 'docs/SCREENER_BRIEF.md'],
@@ -118,7 +119,7 @@ const DOCS = [
   ['res-b1015c', 'India exit test, 15 Oct (adjusted, dividends)', 'Results', 'docs/replay/BASELINE-2026-10-15-adjusted-div.md'],
   ['res-b1015', 'India exit test, 15 Oct (C-50)', 'Results', 'docs/replay/BASELINE-2026-10-15-c50.md'],
 ];
-const docs = DOCS.filter(([, , , f]) => existsSync(f)).map(([id, title, group, f]) => ({ id, title, group, file: f, md: readFileSync(f, 'utf8') }));
+const docs = DOCS.filter(([, , , f]) => existsSync(f)).map(([id, title, group, f]) => ({ id, title, group, file: f, md: stripPrivate(readFileSync(f, 'utf8')) }));
 const prevDocs = read('site/data/docs.json', null);
 if (!prevDocs || JSON.stringify(prevDocs.docs) !== JSON.stringify(docs)) writeFileSync('site/data/docs.json', JSON.stringify({ generatedAt: new Date(now).toISOString(), docs }) + '\n');
 console.log(`site/data/dashboard.json ${Math.round(JSON.stringify(out).length / 1024)} KB; India ${india.date} (${india.regime?.name}), US ${us.date} (${us.regime?.name})`);

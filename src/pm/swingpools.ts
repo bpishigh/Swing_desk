@@ -1,6 +1,6 @@
 // Two swing pools with a household layer (Portfolio Manager phase 7, design section 5): part 1. Pure.
 // Swing capital per account is derived from the account's own capital and own risk profile (its direct-equity target x its capital), never typed and never a share of a household pool.
-// The owner stated on 20 Oct 2026 that no money moved between the two accounts and that new cash comes from the bank at the time of a trade, so every account's capital is recorded as own income
+// Every account's capital is recorded as own income
 // and the cash cap of the design does not apply (there is no idle cash to be capped by); both are settings, so either can change.
 export interface PoolAccount { label: string; owner: string; value: number; swingValue: number; swingNames: string[]; capitalSource?: 'own' | 'transferred' }
 export interface PoolRow { label: string; owner: string; swingCapital: number; swingValue: number; room: number; positions: number }

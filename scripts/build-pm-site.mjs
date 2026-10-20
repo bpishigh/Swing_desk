@@ -19,7 +19,10 @@ cp('settings/allocation.json', 'site/pm-data/allocation.json');
 // Saved nightly shortlists (public): every line of every night, for recognising a real buy as a Swing trade.
 if (existsSync('data/india/shortlist')) {
   const lines = []; for (const f of readdirSync('data/india/shortlist').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) { const j = JSON.parse(readFileSync('data/india/shortlist/' + f, 'utf8')); for (const l of j.lines) lines.push({ ...l, signalDate: j.signalDate }); }
-  put('site/pm-data/shortlist.json', JSON.stringify({ lines }) + '\n');
+  const idx = existsSync('data/india/shortlist/index.json') ? JSON.parse(readFileSync('data/india/shortlist/index.json', 'utf8')) : {};
+  const holidays = [], extra = [];
+  if (existsSync('data/calendar')) for (const f of readdirSync('data/calendar').filter((x) => /^markets-\d{4}\.json$/.test(x))) { const c = JSON.parse(readFileSync('data/calendar/' + f, 'utf8')).india ?? {}; for (const h of c.holidays ?? []) holidays.push(typeof h === 'string' ? h : h.date); for (const e of c.extraSessions ?? []) extra.push(typeof e === 'string' ? e : e.date); }
+  put('site/pm-data/shortlist.json', JSON.stringify({ lines, checked: idx.checked ?? [], goLive: idx.goLive ?? null, holidays: holidays.filter(Boolean), extra: extra.filter(Boolean) }) + '\n');
 }
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
 if (existsSync('data/replay/track-record.json')) cp('data/replay/track-record.json', 'site/pm-data/track-record.json');

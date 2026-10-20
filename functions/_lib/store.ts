@@ -35,7 +35,7 @@ const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && 
 const BANNED = new Set(['__proto__', 'constructor', 'prototype']);
 const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k) && !BANNED.has(k);
 /** Keys of stops and swing answers are an ISIN or a broker instrument name plus a date: any printable text, bounded. */
-const mapKey = (k: string) => /^[^\x00-\x1f]{1,120}$/.test(k) && !BANNED.has(k);
+const mapKey = (k: string) => /^[^\x00-\x1f]{1,200}$/.test(k) && !BANNED.has(k);
 const realDate = (x: unknown) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x) && (() => { const t = Date.parse(x + 'T00:00:00Z'); return Number.isFinite(t) && new Date(t).toISOString().slice(0, 10) === x; })();
 export function cleanSettings(input: unknown): SettingsPatch | string | undefined {
   if (input === undefined) return undefined;

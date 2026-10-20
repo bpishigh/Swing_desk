@@ -23,4 +23,11 @@ for (const [date, lines] of byDate) {
   cur.lines.sort((a, b) => (a.sym + a.setup + (a.stream ?? '') < b.sym + b.setup + (b.stream ?? '') ? -1 : 1));
   const text = JSON.stringify(cur, null, 1) + '\n'; if (!existsSync(p) || readFileSync(p, 'utf8') !== text) writeFileSync(p, text);
 }
+// Index: which nights the job ran (so a missing night is known to be a failure, not a no-signal night) and the go-live date (first night saved).
+const ip = `${dir}/index.json`, idx = rd(ip) ?? { goLive: null, checked: [] }, asOf = latest?.asOf ?? scan?.asOf;
+idx.checked ??= [];
+if (asOf && !idx.checked.includes(asOf)) idx.checked.push(asOf);
+for (const d of byDate.keys()) if (!idx.checked.includes(d)) idx.checked.push(d);
+idx.checked.sort(); idx.goLive = idx.goLive ?? idx.checked[0] ?? null;
+const itext = JSON.stringify(idx, null, 1) + '\n'; if (!existsSync(ip) || readFileSync(ip, 'utf8') !== itext) writeFileSync(ip, itext);
 console.log(`shortlist: ${byDate.size} night(s), ${added} new line(s)`);

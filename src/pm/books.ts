@@ -42,3 +42,32 @@ export function bookTotals(tagged: Tagged[], price: (key: string) => number | un
   for (const t of tagged) { const b = out[t.book]; b.cost += t.lot.qty * t.lot.unitCost; b.value += t.lot.qty * (price(t.lot.key) ?? t.lot.unitCost); b.lots++; }
   return out;
 }
+
+export interface SaleGroup { key: string; date: string; qty: number; buyDates: string[]; avgPrice: number }
+export interface SaleProposal { key: string; date: string; qty: number; avgPrice: number; swingDate: string; swingQty: number }
+/** Which book a sale came from (design section 3). The tax replay sells the oldest lot first, and that stays. But if you sold a stock after opening a Swing trade in it and the oldest-first sale used older lots,
+ * the Swing lot still shows open although the sale may have been your Swing exit. Each such sale is put to the owner; "yes" moves that many units of the Swing lot to Legacy (the book view only: tax is untouched),
+ * "no" leaves it, no answer leaves it and lists the question. `answers` is keyed `sale:<key>|<sale date>` with 'yes' or 'no'. */
+export function attributeSales(tagged: Tagged[], sells: SaleGroup[], answers: Record<string, 'yes' | 'no'>): { tagged: Tagged[]; proposals: SaleProposal[] } {
+  const out: Tagged[] = tagged.map((t) => ({ ...t })), proposals: SaleProposal[] = [];
+  const keys = new Set(out.filter((t) => t.book === 'Swing').map((t) => t.lot.key));
+  for (const key of keys) {
+    const groups = sells.filter((g) => g.key === key).sort((a, b) => a.date.localeCompare(b.date));
+    for (const g of groups) {
+      const eligible = (): Tagged[] => out.filter((t) => t.book === 'Swing' && t.lot.key === key && t.lot.date < g.date && !g.buyDates.includes(t.lot.date)).sort((a, b) => a.lot.date.localeCompare(b.lot.date));
+      if (!eligible().length) continue;                                   // the sale already used the Swing lot, or happened before it
+      const ans = answers[`sale:${key}|${g.date}`];
+      if (ans === 'no') continue;
+      if (ans !== 'yes') { const e = eligible()[0]; proposals.push({ key, date: g.date, qty: g.qty, avgPrice: g.avgPrice, swingDate: e.lot.date, swingQty: e.lot.qty }); continue; }
+      let left = g.qty;
+      for (const t of eligible()) {
+        if (left <= 1e-9) break;
+        const take = Math.min(t.lot.qty, left); left -= take;
+        const idx = out.indexOf(t), moved: Tagged = { lot: { ...t.lot, qty: take }, book: 'Legacy', rule: `rule 3: ${take} of these units were your Swing trade, sold on ${g.date} (you said so); the tax view still sells the oldest lot first` };
+        if (take >= t.lot.qty - 1e-9) out[idx] = moved;
+        else { out[idx] = { ...t, lot: { ...t.lot, qty: t.lot.qty - take } }; out.push(moved); }
+      }
+    }
+  }
+  return { tagged: out, proposals };
+}

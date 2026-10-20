@@ -12,8 +12,8 @@ import { FundMaster, fundTaxType,              } from './funds.js';
 import { assetClassOf,                 } from './assetclass.js';
 import { replay } from './ledger.js';
 import { performance,                      } from './performance.js';
-import { inferBooks, bookTotals } from './books.js';
-import { matchBuy,                                    } from './shortlist.js';
+import { inferBooks, bookTotals, attributeSales,                } from './books.js';
+import { matchBuy, sessionsBetween, gapNights,                                              } from './shortlist.js';
 import { valuationSeries,               } from './valuation.js';
 
                              
@@ -21,7 +21,7 @@ import { valuationSeries,               } from './valuation.js';
                                              
                                                                                         
                                                                                                                                
-                                                                                                                                         
+                                                                                                                                                                                                                              
                                                                                                                         
  
                          
@@ -32,6 +32,8 @@ import { valuationSeries,               } from './valuation.js';
                                                                                                                                                  
                                                                        
                                                                                                                                                                                                                                         
+                                                                                                                                
+                      
                                                                                                                                       
                                                                                                                                                                                                                                                          
                                                                                                                                                                                     
@@ -89,9 +91,32 @@ export function runPipeline(batches           , broker                     , d  
     if (px === undefined) notValued.push(`${nameByKey.get(l.key) ?? l.key} (${l.qty} units)`); else heldValue += l.qty * px;
     if (isFundType(typeByKey.get(l.key)) && !navOf.get(l.key)) notValued.push(`${nameByKey.get(l.key) ?? l.key}: valued at last order price`);
   }
-  const books = inferBooks(combined.open, { typeOf: (k) => (typeByKey.get(k) ?? 'listed_equity')             , isFund: (k) => isFundType(typeByKey.get(k)), isEtf: (k) => isEtf((nameByKey.get(k) ?? k) + ' ' + (symOf.get(k) ?? ''), (typeByKey.get(k) ?? 'listed_equity')             ),
-    swingGoLive: d.shortlist?.lines.length ? d.shortlist.lines.map((l) => l.signalDate).sort()[0] : null,
-    swingMatch: d.shortlist ? (lot) => { const sym = symOf.get(lot.key); if (!sym) return null; const m = matchBuy(sym, lot.date, lot.unitCost, d.shortlist .lines, d.shortlist .match); return m ? { ...m, answer: swingAnswers[`${lot.key}|${lot.date}`] } : null; } : undefined });
+  const accountValue = combined.open.reduce((t, l) => t + l.qty * (priceOf(l.key) ?? l.unitCost), 0);
+  const cal                  = d.shortlist ? { holidays: d.shortlist.holidays, extra: d.shortlist.extra } : undefined;
+  // Match every open lot against the saved shortlists. A later buy of a stock that already matched (an add to a Swing trade, or a second order the same day) is proposed too, whatever its price.
+  const direct = new Map                                     ();
+  const lotId = (l                                                 ) => `${l.key}|${l.date}|${l.unitCost}`;
+  if (d.shortlist) for (const l of combined.open) { const sym = symOf.get(l.key); direct.set(lotId(l), sym ? matchBuy(sym, l.date, l.unitCost, d.shortlist.lines, d.shortlist.match, cal, { lotValue: combined.open.filter((o) => o.key === l.key && o.date === l.date).reduce((x, o) => x + o.qty * o.unitCost, 0), accountValue }) : null); }
+  const swingMatch = d.shortlist ? (lot                                                 ) => {
+    let m = direct.get(lotId(lot)) ?? null;
+    if (!m) {
+      const win = d.shortlist .match.addWindowSessions;
+      if (typeof win === 'number' && Number.isFinite(win) && win > 0) {
+        const base = combined.open.filter((o) => o.key === lot.key && o.date <= lot.date && direct.get(lotId(o)) && swingAnswers[`${o.key}|${o.date}`] !== 'no' && (direct.get(lotId(o)) .tier === 'exact' || swingAnswers[`${o.key}|${o.date}`] === 'yes') && sessionsBetween(o.date, lot.date, cal) <= win && lotId(o) !== lotId(lot)).sort((x, y) => y.date.localeCompare(x.date))[0];
+        const bm = base ? direct.get(lotId(base)) : null;
+        if (base && bm) m = { tier: 'near', line: bm.line, sessions: sessionsBetween(bm.line.signalDate, lot.date, cal), outsidePct: 0, why: base.date === lot.date ? `another buy of this stock on the same day matched the ${bm.line.signalDate} shortlist` : `a later buy of a stock you bought on the ${bm.line.signalDate} shortlist (on ${base.date}): an add to that trade?` };
+      }
+    }
+    return m ? { ...m, answer: swingAnswers[`${lot.key}|${lot.date}`] } : null;
+  } : undefined;
+  const tagged0 = inferBooks(combined.open, { typeOf: (k) => (typeByKey.get(k) ?? 'listed_equity')             , isFund: (k) => isFundType(typeByKey.get(k)), isEtf: (k) => isEtf((nameByKey.get(k) ?? k) + ' ' + (symOf.get(k) ?? ''), (typeByKey.get(k) ?? 'listed_equity')             ),
+    swingGoLive: d.shortlist ? (d.shortlist.liveFrom ?? (d.shortlist.lines.length ? d.shortlist.lines.map((l) => l.signalDate).sort()[0] : null)) : null, swingMatch });
+  const sales = new Map                                    ();
+  for (const r of combined.realised) { const k = `${r.key}|${r.sellDate}`, g = sales.get(k) ?? { key: r.key, date: r.sellDate, qty: 0, buyDates: []            , avgPrice: 0, _v: 0 }; g.qty += r.qty; g._v += r.proceeds; if (!g.buyDates.includes(r.buyDate)) g.buyDates.push(r.buyDate); sales.set(k, g); }
+  const saleGroups              = [...sales.values()].map((g) => ({ key: g.key, date: g.date, qty: g.qty, buyDates: g.buyDates, avgPrice: g.qty > 0 ? g._v / g.qty : 0 }));
+  const { tagged: books, proposals: saleP } = d.shortlist ? attributeSales(tagged0, saleGroups, swingAnswers) : { tagged: tagged0, proposals: [] };
+  const saleProposals = saleP.map((p) => ({ key: p.key, name: nameByKey.get(p.key) ?? p.key, date: p.date, qty: Math.round(p.qty * 1000) / 1000, price: Math.round(p.avgPrice * 100) / 100, swingDate: p.swingDate, swingQty: p.swingQty }));
+  const swingGaps = d.shortlist?.checked ? gapNights(d.shortlist.checked, cal) : [];
   const swingProposals = books.filter((t) => t.proposal).map((t) => ({ key: t.lot.key, name: nameByKey.get(t.lot.key) ?? t.lot.key, date: t.lot.date, qty: t.lot.qty, price: t.lot.unitCost, why: t.proposal .why, setup: t.proposal .line.setup, stop: t.proposal .line.stop }));
   const bt = bookTotals(books, priceOf);
   const byName = new Map                                    ();
@@ -151,6 +176,6 @@ export function runPipeline(batches           , broker                     , d  
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, swingProposals, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
+    books: bt, swingProposals, saleProposals, swingGaps, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }
