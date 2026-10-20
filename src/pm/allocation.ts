@@ -141,5 +141,5 @@ export function gapRows(s: AllocSettings, targets: ClassTarget[], current: Recor
 /** Single-holding caps: a stock above the position cap, a fund above the fund cap. Names only; no sale is proposed here. */
 export function capBreaches(held: Held[], base: number, posCap: number, fundCap: number): { name: string; weight: number; cap: number; kind: string }[] {
   if (!(base > 0)) return [];
-  return held.filter((h) => h.value !== null && h.kind && h.kind !== 'ETF').map((h) => ({ name: h.name, weight: (h.value as number) / base, cap: h.kind === 'Fund' ? fundCap : posCap, kind: h.kind as string })).filter((x) => x.weight > x.cap).sort((a, b) => b.weight - a.weight);
+  return held.filter((h) => h.value !== null && (h.kind === 'Stock' || h.kind === 'Fund')).map((h) => ({ name: h.name, weight: (h.value as number) / base, cap: h.kind === 'Fund' ? fundCap : posCap, kind: h.kind as string })).filter((x) => x.weight > x.cap).sort((a, b) => b.weight - a.weight);
 }

@@ -29,7 +29,7 @@ export interface Report {
   warnings: string[];
   tax: TaxYear[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
-  holdings: { name: string; symbol: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null }[];
+  holdings: { name: string; symbol: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number }[];
   flows: Flow[]; divFlows: Flow[];                       // dated cash flows (buys negative, sells positive) and estimated dividends, for periods, benchmarks and the household view
   series: DayValue[] | null; fundCodes: Record<string, string>;
 }
@@ -91,6 +91,8 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity') as AssetType) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm)!; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
   const catByName = new Map<string, string>(); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k)!);
   for (const e of byName.values()) { e.category = catByName.get(e.name); e.assetClass = assetClassOf(e.kind, e.name, e.category ?? ''); }
+  { const lim = new Date(); lim.setFullYear(lim.getFullYear() - 3); const cut = lim.toISOString().slice(0, 10);
+    for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm), px = priceOf(t.lot.key); if (e && px !== undefined && /elss|tax saver|tax advantage/i.test(nm + ' ' + (e.category ?? '')) && t.lot.date > cut) e.locked = (e.locked ?? 0) + t.lot.qty * px; } }  // ELSS units are locked for 3 years from each purchase
   holdings.push(...byName.values());
 
   const ords: { date: string; side: 'buy' | 'sell'; value: number; charges?: number }[] = [];

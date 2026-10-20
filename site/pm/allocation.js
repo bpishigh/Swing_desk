@@ -141,5 +141,5 @@ export function gapRows(s               , targets               , current       
 /** Single-holding caps: a stock above the position cap, a fund above the fund cap. Names only; no sale is proposed here. */
 export function capBreaches(held        , base        , posCap        , fundCap        )                                                                {
   if (!(base > 0)) return [];
-  return held.filter((h) => h.value !== null && h.kind && h.kind !== 'ETF').map((h) => ({ name: h.name, weight: (h.value          ) / base, cap: h.kind === 'Fund' ? fundCap : posCap, kind: h.kind           })).filter((x) => x.weight > x.cap).sort((a, b) => b.weight - a.weight);
+  return held.filter((h) => h.value !== null && (h.kind === 'Stock' || h.kind === 'Fund')).map((h) => ({ name: h.name, weight: (h.value          ) / base, cap: h.kind === 'Fund' ? fundCap : posCap, kind: h.kind           })).filter((x) => x.weight > x.cap).sort((a, b) => b.weight - a.weight);
 }

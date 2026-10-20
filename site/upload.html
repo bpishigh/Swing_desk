@@ -266,7 +266,7 @@ function attentionItems(V) {
 // ---------- holdings
 function mergedHoldings(V) {
   const by = new Map();
-  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; if (h.value === null) e.anyNull = true; else e.value += h.value; }
+  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, locked: 0, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; e.locked += h.locked ?? 0; if (h.value === null) e.anyNull = true; else e.value += h.value; }
   return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 }
 // ---------- verdicts for direct stocks: the exit test and Keep (design doc section 4). Funds and ETFs get none yet.
@@ -399,7 +399,9 @@ const pc = (x) => (x * 100).toFixed(1).replace(/\.0$/, '') + '%';
 function allocTab(V) {
   const C = S.allocCfg; if (!C) return '<div class="card empty">Allocation settings did not load.</div>';
   const A = S.alloc, hs = mergedHoldings(V);
-  const held = hs.map((h) => ({ name: h.name, value: h.value, cls: h.assetClass ?? null, category: h.category, kind: h.kind }));
+  const outside = (A.outside ?? []).filter((o) => o.value > 0);   // typed by you: EPF and the like. Counted toward a class, never sold or scored.
+  const held = [...hs.map((h) => ({ name: h.name, value: h.value, cls: h.assetClass ?? null, category: h.category, kind: h.kind })), ...outside.map((o) => ({ name: o.name, value: o.value, cls: o.cls, kind: 'Outside' }))];
+  const lockedElss = hs.reduce((a, h) => a + (h.locked ?? 0), 0);
   const cur = currentByClass(C, held);
   const capital = A.capital > 0 ? A.capital : Math.round(cur.total + cur.unclassified), profile = A.profile ?? 'Balanced', horizon = A.horizon ?? 10, off = new Set(A.off ?? []);
   const res = allocate(C, { capital, profile, horizonYears: horizon, buffer: A.buffer, inScope: TARGET_CLASSES.filter((c) => !off.has(c)), custom: A.custom });
@@ -410,8 +412,9 @@ function allocTab(V) {
     <label class="sub">Horizon (years)<br><input id="aHor" type="number" min="0" max="60" step="1" value="${horizon}" style="width:80px"></label>
     <label class="sub">Liquidity buffer outside this (₹, optional)<br><input id="aBuf" type="number" min="0" step="10000" value="${A.buffer ?? ''}" style="width:140px"></label></div>
     ${profile === 'Custom' ? `<div style="margin-top:10px" class="sub">Custom weights (%) — must add to 100:<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">${TARGET_CLASSES.map((c) => `<label>${esc(C.labels[c] ?? c)}<br><input data-cw="${c}" type="number" min="0" max="100" step="1" value="${Math.round((A.custom?.[c] ?? 0) * 100)}" style="width:70px"></label>`).join('')}</div></div>` : ''}
+    <div style="margin-top:10px" class="sub">Held outside your brokers, counted but never sold (ESOP-type or provident funds): <label>EPF balance (₹) <input id="aEpf" type="number" min="0" step="10000" value="${(A.outside ?? []).find((o) => o.name === 'EPF')?.value ?? ''}" style="width:140px"></label> counted as debt.</div>
     <details style="margin-top:10px"><summary class="sub">Asset classes to include</summary><div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">${TARGET_CLASSES.map((c) => `<label class="sub"><input type="checkbox" data-scope="${c}" ${off.has(c) ? '' : 'checked'}> ${esc(C.labels[c] ?? c)}</label>`).join('')}</div></details>
-    <div class="sub" style="margin-top:8px">${A.capital > 0 ? 'Capital typed by you.' : 'Capital defaults to the value of everything you hold in this selection.'} Starting values for the presets are not yet reviewed by the owner.</div></div>`;
+    <div class="sub" style="margin-top:8px">${A.capital > 0 ? 'Capital typed by you.' : 'Capital defaults to the value of everything you hold in this selection, plus the figures typed above.'} Starting values for the presets are not yet reviewed by the owner.</div></div>`;
   if (!res.ok) return inputs + `<div class="card"><h2>These inputs cannot all be met</h2><p>${esc(res.error)}</p>${res.clashes.map((c) => `<div class="sub">• ${esc(c)}</div>`).join('')}</div>`;
   const gaps = gapRows(C, res.rows, cur.byClass, capital), gm = Object.fromEntries(gaps.map((g) => [g.cls, g])), by = Object.fromEntries(res.rows.map((r) => [r.cls, r]));
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
@@ -422,12 +425,12 @@ function allocTab(V) {
     <div class="sub" style="margin-top:8px">Equity share ${pc(res.equityShare)}. “Within band” means the gap is inside the drift band for that class; nothing is proposed until it is outside. Hybrid funds are split into equity, debt and gold by their category's mandate (${money(cur.hybridFolded)} here). This is a target, not an order; sizing of trades is the next phase.</div></div>
     <div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)} (equity share × ${pc(C.bearMarketEquityFall)} assumed bear-market fall)<br>${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
       ${br.length ? `<div style="margin-top:10px"><b>Above these limits now:</b>${br.slice(0, 10).map((b) => `<div class="sub">${esc(b.name)} · ${pc(b.weight)} (limit ${pc(b.cap)})</div>`).join('')}</div>` : '<div class="sub" style="margin-top:10px">No single holding is above its limit.</div>'}</div>
-    <div class="card"><h2>Not counted</h2><div class="sub">${unc.length ? `Not classified (${unc.length}): ${unc.slice(0, 8).map((h) => esc(h.name)).join(', ')}${unc.length > 8 ? '…' : ''}. Their category does not settle the asset class, so they are left out of the totals rather than guessed.` : 'Every priced holding has an asset class.'}${cur.unpriced ? `<br>${cur.unpriced} holding(s) have no price and are left out.` : ''}${res.notes.map((n) => `<br>${esc(n)}`).join('')}</div></div></div>`;
+    <div class="card"><h2>Not counted</h2><div class="sub">${lockedElss > 0 ? `${money(lockedElss)} of tax-saving (ELSS) units is inside its 3-year lock-in: it counts toward the targets but cannot be sold until each purchase turns 3 years old.<br>` : ''}${unc.length ? `Not classified (${unc.length}): ${unc.slice(0, 8).map((h) => esc(h.name)).join(', ')}${unc.length > 8 ? '…' : ''}. Their category does not settle the asset class, so they are left out of the totals rather than guessed.` : 'Every priced holding has an asset class.'}${cur.unpriced ? `<br>${cur.unpriced} holding(s) have no price and are left out.` : ''}${res.notes.map((n) => `<br>${esc(n)}`).join('')}</div></div></div>`;
 }
 function wireAlloc() {
   const A = S.alloc, set = (k, v) => { A[k] = v; ALLOC_SAVE(); render(); };
   $('aCap').onchange = (e) => set('capital', Number(e.target.value) || 0); $('aProf').onchange = (e) => set('profile', e.target.value);
-  $('aHor').onchange = (e) => set('horizon', Math.max(0, Number(e.target.value) || 0)); $('aBuf').onchange = (e) => set('buffer', Number(e.target.value) || 0);
+  $('aHor').onchange = (e) => set('horizon', Math.max(0, Number(e.target.value) || 0)); $('aEpf').onchange = (e) => set('outside', [...(A.outside ?? []).filter((o) => o.name !== 'EPF'), ...(Number(e.target.value) > 0 ? [{ name: 'EPF', value: Number(e.target.value), cls: 'debt' }] : [])]); $('aBuf').onchange = (e) => set('buffer', Number(e.target.value) || 0);
   document.querySelectorAll('[data-scope]').forEach((el) => { el.onchange = () => { const off = new Set(A.off ?? []); el.checked ? off.delete(el.dataset.scope) : off.add(el.dataset.scope); set('off', [...off]); }; });
   document.querySelectorAll('[data-cw]').forEach((el) => { el.onchange = () => set('custom', { ...(A.custom ?? {}), [el.dataset.cw]: Math.max(0, Number(el.value) || 0) / 100 }); });
 }
