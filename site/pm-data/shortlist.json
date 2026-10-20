@@ -1,1 +1,1 @@
-{"lines":[{"sym":"SHYAMMETL","setup":"4","trigger":1225.45,"limit":1237.7,"stop":1133.12,"signalDate":"2026-10-16"},{"sym":"WELCORP","setup":"4","trigger":2625.24,"limit":2651.49,"stop":2400.09,"signalDate":"2026-10-19"}]}
+{"lines":[{"sym":"SHYAMMETL","setup":"4","stream":"capwaived","trigger":1225.45,"limit":1237.7,"stop":1133.12,"atrPct":3.08,"tags":["inside base","over cap"],"signalDate":"2026-10-16"},{"sym":"WELCORP","setup":"4","stream":"capwaived","trigger":2625.24,"limit":2651.49,"stop":2400.09,"atrPct":5.79,"tags":["over cap","room fail"],"signalDate":"2026-10-19"}]}

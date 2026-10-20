@@ -5,9 +5,15 @@
   {
    "sym": "WELCORP",
    "setup": "4",
+   "stream": "capwaived",
    "trigger": 2625.24,
    "limit": 2651.49,
-   "stop": 2400.09
+   "stop": 2400.09,
+   "atrPct": 5.79,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
   }
  ]
 }

@@ -43,3 +43,22 @@ test('books: exact is Swing with the line stop; near waits for an answer; yes ma
   assert.equal(no.book, 'Legacy'); assert.equal(no.proposal, undefined);
   assert.equal(inferBooks([lot('K', '2026-10-15', 100.4)], ctx())[0].book, 'Legacy');
 });
+
+test('bad or missing settings never match (they must not fail open)', () => {
+  assert.equal(matchBuy('AAA', '2026-10-19', 100.4, [line], {} as any), null);
+  assert.equal(matchBuy('AAA', '2026-10-19', 100.4, [line], { nearSessions: NaN, nearPricePct: 2 } as any), null);
+  assert.equal(matchBuy('AAA', '2027-03-01', 500, [line], undefined as any), null);
+  assert.equal(matchBuy('AAA', '2026-10-19', 100.4, [line], { nearSessions: 0, nearPricePct: 0 })!.tier, 'exact');   // 0 keeps the entry session and drops near matches
+  assert.equal(matchBuy('AAA', '2026-10-20', 100.4, [line], { nearSessions: 0, nearPricePct: 0 }), null);
+});
+test('volatile stocks (ATR above 3%) enter on a later session at about the confirming close + 1%: never exact, near with room above the limit', () => {
+  const vol: ShortLine = { ...line, atrPct: 5.8 };
+  const S2 = { nearSessions: 3, nearPricePct: 2, volatileExtraPct: 5 };
+  assert.equal(matchBuy('AAA', '2026-10-19', 100.4, [vol], S2)!.tier, 'near');        // even inside the range on the first session
+  assert.equal(matchBuy('AAA', '2026-10-20', 104, [vol], S2)!.tier, 'near');          // chased entry above the limit
+  assert.equal(matchBuy('AAA', '2026-10-20', 104, [line], S2), null);                 // the same price on a calm stock is not a match
+});
+test('a line the desk tagged over cap or room fail can only be a near match', () => {
+  const m = matchBuy('AAA', '2026-10-19', 100.4, [{ ...line, tags: ['over cap'] }], S)!;
+  assert.equal(m.tier, 'near'); assert.match(m.why, /over cap/);
+});

@@ -26,26 +26,46 @@ export function cleanTrades(input: unknown): Trade[] | string {
   }
   return out;
 }
-/** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates): kept with the account so the desk works the same from any browser. Whitelisted and bounded. */
+/** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates, owner answers): kept with the account so the desk works the same from any browser.
+ * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the four maps (custom, stops, acted, swing) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
 export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'> }
+export type SettingsPatch = { [K in keyof AccountSettings]?: AccountSettings[K] | null | Record<string, any> };
+const MAPS = ['custom', 'stops', 'acted', 'swing'] as const;
 const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
-const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k);
-export function cleanSettings(input: unknown): AccountSettings | string | undefined {
+const BANNED = new Set(['__proto__', 'constructor', 'prototype']);
+const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k) && !BANNED.has(k);
+/** Keys of stops and swing answers are an ISIN or a broker instrument name plus a date: any printable text, bounded. */
+const mapKey = (k: string) => /^[^\x00-\x1f]{1,120}$/.test(k) && !BANNED.has(k);
+const realDate = (x: unknown) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x) && (() => { const t = Date.parse(x + 'T00:00:00Z'); return Number.isFinite(t) && new Date(t).toISOString().slice(0, 10) === x; })();
+export function cleanSettings(input: unknown): SettingsPatch | string | undefined {
   if (input === undefined) return undefined;
   if (!input || typeof input !== 'object' || Array.isArray(input)) return 'settings must be an object';
-  const i = input as Record<string, any>, out: AccountSettings = {};
-  for (const f of ['capital', 'money', 'buffer'] as const) if (i[f] !== undefined) { const n = nn(i[f]); if (n === null) return `bad ${f}`; out[f] = n; }
-  if (i.horizon !== undefined) { const n = nn(i.horizon, 60); if (n === null) return 'bad horizon'; out.horizon = n; }
-  if (i.slab !== undefined) { const n = nn(i.slab, 60); if (n === null) return 'bad slab rate'; out.slab = n; }
-  if (i.profile !== undefined) { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; }
-  if (i.off !== undefined) { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; }
-  const rec = (v: any, max: number, what: string, check: (x: any) => boolean): Record<string, any> | string => { if (!v || typeof v !== 'object' || Array.isArray(v)) return `bad ${what}`; const e = Object.entries(v); if (e.length > max) return `too many ${what}`; for (const [k, x] of e) if (!okKey(k) || !check(x)) return `bad ${what}`; return v; };
-  if (i.custom !== undefined) { const r = rec(i.custom, 20, 'custom weights', (x) => nn(x, 1) !== null); if (typeof r === 'string') return r; out.custom = r as any; }
-  if (i.stops !== undefined) { const r = rec(i.stops, 100, 'stops', (x) => nn(x, 1e7) !== null); if (typeof r === 'string') return r; out.stops = r as any; }
-  if (i.acted !== undefined) { const r = rec(i.acted, 20, 'dates', (x) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x)); if (typeof r === 'string') return r; out.acted = r as any; }
-  if (i.swing !== undefined) { if (!i.swing || typeof i.swing !== 'object' || Array.isArray(i.swing)) return 'bad swing answers'; const e = Object.entries(i.swing); if (e.length > 500 || e.some(([k, v]) => !/^[A-Za-z0-9 .,&()'_/|-]{1,100}$/.test(k) || (v !== 'yes' && v !== 'no'))) return 'bad swing answers'; out.swing = i.swing as any; }
-  if (i.outside !== undefined) { if (!Array.isArray(i.outside) || i.outside.length > 10 || i.outside.some((o: any) => !o || typeof o.name !== 'string' || !okKey(o.name) || nn(o.value) === null || typeof o.cls !== 'string' || !okKey(o.cls))) return 'bad outside holdings'; out.outside = i.outside.map((o: any) => ({ name: o.name, value: o.value, cls: o.cls })); }
-  return out;
+  const i = input as Record<string, any>, out: Record<string, any> = {};
+  for (const f of ['capital', 'money', 'buffer'] as const) if (i[f] !== undefined) { if (i[f] === null) { out[f] = null; continue; } const n = nn(i[f]); if (n === null) return `bad ${f}`; out[f] = n; }
+  for (const [f, max] of [['horizon', 60], ['slab', 60]] as const) if (i[f] !== undefined) { if (i[f] === null) { out[f] = null; continue; } const n = nn(i[f], max); if (n === null) return `bad ${f}`; out[f] = n; }
+  if (i.profile !== undefined) { if (i.profile === null) out.profile = null; else { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; } }
+  if (i.off !== undefined) { if (i.off === null) out.off = null; else { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; } }
+  const spec: Record<string, [number, (k: string) => boolean, (v: any) => boolean]> = {
+    custom: [20, okKey, (v) => nn(v, 1) !== null], stops: [100, mapKey, (v) => nn(v, 1e7) !== null], acted: [20, okKey, realDate], swing: [500, mapKey, (v) => v === 'yes' || v === 'no'] };
+  for (const m of MAPS) if (i[m] !== undefined) {
+    if (i[m] === null) { out[m] = null; continue; }
+    if (typeof i[m] !== 'object' || Array.isArray(i[m])) return `bad ${m}`;
+    const e = Object.entries(i[m]); if (e.length > spec[m][0]) return `too many ${m}`;
+    const o: Record<string, any> = {}; for (const [k, v] of e) { if (!spec[m][1](k) || !(v === null || spec[m][2](v))) return `bad ${m}`; o[k] = v; } out[m] = o;
+  }
+  if (i.outside !== undefined) { if (i.outside === null) out.outside = null; else { if (!Array.isArray(i.outside) || i.outside.length > 10 || i.outside.some((o: any) => !o || typeof o.name !== 'string' || !okKey(o.name) || nn(o.value) === null || typeof o.cls !== 'string' || !okKey(o.cls))) return 'bad outside holdings'; out.outside = i.outside.map((o: any) => ({ name: o.name, value: o.value, cls: o.cls })); } }
+  return out as SettingsPatch;
+}
+/** Applies a patch to the stored settings (see above). An empty patch changes nothing. The merged result is re-checked against the same bounds. */
+export function mergeSettings(cur: AccountSettings | undefined, patch: SettingsPatch | undefined): AccountSettings | undefined {
+  if (!patch || !Object.keys(patch).length) return cur;
+  const out: Record<string, any> = { ...(cur ?? {}) };
+  for (const [k, v] of Object.entries(patch)) {
+    if (v === null) { delete out[k]; continue; }
+    if ((MAPS as readonly string[]).includes(k)) { const m: Record<string, any> = { ...(out[k] ?? {}) }; for (const [mk, mv] of Object.entries(v as Record<string, any>)) { if (mv === null) delete m[mk]; else m[mk] = mv; } if (Object.keys(m).length) out[k] = m; else delete out[k]; }
+    else out[k] = v;
+  }
+  return Object.keys(out).length ? (out as AccountSettings) : undefined;
 }
 /** The owner's answers to estimated items. `clear` removes an answer. Keys are company keys (an ISIN or an uppercased name). */
 export function cleanDecisions(input: unknown): Record<string, Decision | 'clear'> | string {
@@ -117,12 +137,20 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = [], settings?: AccountSettings) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = [], settings?: SettingsPatch) {
+  for (let attempt = 0; ; attempt++) {
+    try { return await saveOnce(env, label, broker, incoming, fetchFn, now, owner, decisions, log, settings); }
+    catch (e: any) { if (attempt < 3 && /write failed 409/.test(String(e?.message))) continue; throw e; }   // another save landed first: read again and re-apply
+  }
+}
+export class NoSuchAccount extends Error {}
+async function saveOnce(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch, now: Date, owner: string | undefined, decisions: Record<string, Decision | 'clear'>, log: LogEntry[], settings?: SettingsPatch) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
+  if (!cur && incoming.length === 0) throw new NoSuchAccount('no such account: only an upload creates one');
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
   const dec: Record<string, Decision> = { ...(cur?.data.decisions ?? {}) }; for (const [k, v] of Object.entries(decisions)) { if (v === 'clear') delete dec[k]; else dec[k] = v; }
   const vlog = mergeLog(cur?.data.verdictLog, log);
-  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...((settings ?? cur?.data.settings) ? { settings: settings ?? cur?.data.settings } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...(mergeSettings(cur?.data.settings, settings) ? { settings: mergeSettings(cur?.data.settings, settings) } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }

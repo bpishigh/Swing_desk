@@ -205,6 +205,7 @@
     "status": "PROVISIONAL: proposed 20 Oct 2026, not yet approved by the owner and not yet tested on shortlist history (none exists beyond 2 nights). A wrong near match is only a proposal the owner can reject.",
     "nearSessions": 3,
     "nearPricePct": 2,
-    "note": "A buy is Swing automatically when it is on the entry session inside the shortlist trigger and limit. A buy up to nearSessions weekdays after a shortlist night, or up to nearPricePct percent (of the trigger) outside its trigger-to-limit range, is proposed and needs the owner's yes."
+    "note": "A buy is Swing automatically when it is on the entry session inside the shortlist trigger and limit. A buy up to nearSessions weekdays after a shortlist night, or up to nearPricePct percent (of the trigger) outside its trigger-to-limit range, is proposed and needs the owner's yes. volatileExtraPct widens the top of the range for a stock with ATR above 3% of price, whose entry is an after-market limit at a confirming close + 1% (Engine Rules, entry order type). A line the desk tagged 'over cap' or 'room fail' can only be a near match.",
+    "volatileExtraPct": 5
   }
 }

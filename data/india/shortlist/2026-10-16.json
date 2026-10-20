@@ -5,9 +5,15 @@
   {
    "sym": "SHYAMMETL",
    "setup": "4",
+   "stream": "capwaived",
    "trigger": 1225.45,
    "limit": 1237.7,
-   "stop": 1133.12
+   "stop": 1133.12,
+   "atrPct": 3.08,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
   }
  ]
 }

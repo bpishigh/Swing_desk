@@ -11,16 +11,16 @@ const book = rd('data/india/paper/book.json'), latest = rd('data/india/paper/lat
 const orders = [...(book?.ledger ?? []), ...(latest?.newOrdersTonight ?? [])];
 for (const o of orders) {
   const sp = SETUPS[o.setup]; const signalDate = o.signalDate ?? latest?.asOf;
-  if (!sp || !signalDate || !(o.trigger > 0) || !(o.stop > 0)) continue;
-  found.push({ signalDate, line: { sym: o.sym, setup: o.setup, trigger: r2(o.trigger), limit: r2(o.trigger * (1 + sp.lim / 100)), stop: r2(o.stop) } });
+  if (!sp || !signalDate || !(o.trigger > 0) || !((o.stopInitial ?? o.stop) > 0)) continue;
+  found.push({ signalDate, line: { sym: o.sym, setup: o.setup, stream: o.stream ?? 'paper', trigger: r2(o.trigger), limit: r2(o.limit ?? o.trigger * (1 + sp.lim / 100)), stop: r2(o.stopInitial ?? o.stop), ...(Number.isFinite(o.atrPct) ? { atrPct: r2(o.atrPct) } : {}), ...(o.tags?.length ? { tags: o.tags } : {}) } });
 }
-for (const c of scan?.ready ?? []) if (c.setup && scan.asOf) found.push({ signalDate: scan.asOf, line: { sym: c.sym, setup: c.setup.id, trigger: r2(c.setup.trigger), limit: r2(c.setup.limit), stop: r2(c.setup.stop) } });
+for (const c of scan?.ready ?? []) if (c.setup && scan.asOf && [c.setup.trigger, c.setup.limit, c.setup.stop].every((x) => Number.isFinite(x) && x > 0)) found.push({ signalDate: scan.asOf, line: { sym: c.sym, setup: c.setup.id, stream: 'ready', trigger: r2(c.setup.trigger), limit: r2(c.setup.limit), stop: r2(c.setup.stop), ...(Number.isFinite(c.diag?.atr14) && c.close > 0 ? { atrPct: r2((c.diag.atr14 / c.close) * 100) } : {}) } });
 const byDate = new Map(); for (const f of found) (byDate.get(f.signalDate) ?? byDate.set(f.signalDate, []).get(f.signalDate)).push(f.line);
 let added = 0;
 for (const [date, lines] of byDate) {
   const p = `${dir}/${date}.json`, cur = rd(p) ?? { signalDate: date, market: 'india', lines: [] };
-  for (const l of lines) if (!cur.lines.some((x) => x.sym === l.sym && x.setup === l.setup)) { cur.lines.push(l); added++; }
-  cur.lines.sort((a, b) => (a.sym < b.sym ? -1 : a.sym > b.sym ? 1 : a.setup < b.setup ? -1 : 1));
+  for (const l of lines) if (!cur.lines.some((x) => x.sym === l.sym && x.setup === l.setup && (x.stream ?? 'paper') === (l.stream ?? 'paper'))) { cur.lines.push(l); added++; }
+  cur.lines.sort((a, b) => (a.sym + a.setup + (a.stream ?? '') < b.sym + b.setup + (b.stream ?? '') ? -1 : 1));
   const text = JSON.stringify(cur, null, 1) + '\n'; if (!existsSync(p) || readFileSync(p, 'utf8') !== text) writeFileSync(p, text);
 }
 console.log(`shortlist: ${byDate.size} night(s), ${added} new line(s)`);
