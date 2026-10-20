@@ -1,0 +1,212 @@
+{
+ "at": "2026-10-20T19:11:07.454Z",
+ "results": [
+  {
+   "fund": "INF879O01027",
+   "name": "groww-page",
+   "url": "https://groww.in/mutual-funds/parag-parikh-flexi-cap-fund-direct-growth",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "bytes": 39876,
+   "head": "<!DOCTYPE html><html lang=\"en\" data-theme=\"light\" style=\"color-scheme:light\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-"
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "groww-api",
+   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/parag-parikh-flexi-cap-fund-direct-growth",
+   "status": 502,
+   "type": "application/json; charset=utf-8",
+   "bytes": 862,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-502/\",\"title\":\"Error 502: Bad gateway\",\"status\":502,\"detail\":\"The origin web server ret"
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "kuvera",
+   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF879O01027.json",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "shape": "[0]",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "captnemo",
+   "url": "https://mf.captnemo.in/kuvera/INF879O01027",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 4208,
+   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[28]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[28]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
+   "holdingsAt": 2501,
+   "holdingsSample": "capital growth from an actively managed portfolio primarily of Equity and Equity Related Securities. Scheme shall invest in Indian equities, foreign equities and related instruments and debt securities.\",\"portfolio_turnover\":\"0.43\",\"maturity_type\":\"Open Ended\",\"aum\":1450704,\"fund_rating\":5,\"fund_rating_date\":\"2026-09-30\",\"comparison\":[{\"name\":\"ITI Flexi Cap Growth Direct Plan\",\"short_name\":\"ITI Flexi Cap (G)\",\"code\":\"ITFCG1-GR\",\"slug\":\"iti-flexi-cap-growth--ITFCG1-GR\",\"1y\":7.5,\"3y\":17.35,\"5y\":0,\"inception\":21.81,\"volatility\":15.388,\"expense_ratio\":0.92,\"aum\":15882,\"info_ratio\":1.42},{\"name\":\"Bank Of India Flexi Cap Growth Direct Plan\",\"short_name\":\"Bank Of India Flexi Cap (G)\",\"code\":\"BAMPDG-GR\",\"slug\":\"bank-of-india-flexi-cap-gro"
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "mfdata-holdings",
+   "url": "https://mfdata.in/api/v1/schemes/122639/holdings",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "mfdata-scheme",
+   "url": "https://mfdata.in/api/v1/schemes/122639",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF879O01027",
+   "name": "mfapi-meta",
+   "url": "https://api.mfapi.in/mf/122639/latest",
+   "status": 200,
+   "type": "application/json",
+   "bytes": 342,
+   "shape": "{meta:{fund_house:string,scheme_type:string,scheme_category:string,scheme_code:number,scheme_name:string,isin_growth:string,isin_div_reinvestment:object},data:[1]{date,nav},status:string}",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "groww-page",
+   "url": "https://groww.in/mutual-funds/uti-nifty-50-index-fund-direct-growth",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "bytes": 39872,
+   "head": "<!DOCTYPE html><html lang=\"en\" data-theme=\"light\" style=\"color-scheme:light\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-"
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "groww-api",
+   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/uti-nifty-50-index-fund-direct-growth",
+   "status": 502,
+   "type": "application/json; charset=utf-8",
+   "bytes": 862,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-502/\",\"title\":\"Error 502: Bad gateway\",\"status\":502,\"detail\":\"The origin web server ret"
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "kuvera",
+   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF789F01XA0.json",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "shape": "[0]",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "captnemo",
+   "url": "https://mf.captnemo.in/kuvera/INF789F01XA0",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 4473,
+   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
+   "holdingsAt": 2765,
+   "holdingsSample": "tive of the scheme would be achieved.\",\"portfolio_turnover\":\"0.05\",\"maturity_type\":\"Open Ended\",\"aum\":280635,\"fund_rating\":2,\"fund_rating_date\":\"2018-05-31\",\"comparison\":[{\"name\":\"ICICI Prudential Nifty Pharma Index Growth Direct Plan\",\"short_name\":\"ICICI Pru Nifty Pharma Index (G)\",\"code\":\"IC9711-GR\",\"slug\":\"icici-prudential-nifty-pharma-index-growth--IC9711-GR\",\"1y\":16.78,\"3y\":19.42,\"5y\":0,\"inception\":19.93,\"volatility\":14.4465,\"expense_ratio\":0.52,\"aum\":1631,\"info_ratio\":1.38},{\"name\":\"Aditya Birla Sun Life Nifty Smallcap 50 Index Growth Direct Plan\",\"short_name\":\"ABSL Nifty Smallcap 50 Index (G)\",\"code\":\"BS69Y-GR\",\"slug\":\"aditya-birla-sun-life-nifty-smallcap-50-index-growth--BS69Y-GR\",\"1y\":9.77,\"3y\":16.88,\"5y\":10.8,\"inception\""
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "mfdata-holdings",
+   "url": "https://mfdata.in/api/v1/schemes/120716/holdings",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "mfdata-scheme",
+   "url": "https://mfdata.in/api/v1/schemes/120716",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF789F01XA0",
+   "name": "mfapi-meta",
+   "url": "https://api.mfapi.in/mf/120716/latest",
+   "status": 200,
+   "type": "application/json",
+   "bytes": 333,
+   "shape": "{meta:{fund_house:string,scheme_type:string,scheme_category:string,scheme_code:number,scheme_name:string,isin_growth:string,isin_div_reinvestment:object},data:[1]{date,nav},status:string}",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "groww-page",
+   "url": "https://groww.in/mutual-funds/hdfc-index-fund-nifty-50-plan-direct-plan",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "bytes": 39876,
+   "head": "<!DOCTYPE html><html lang=\"en\" data-theme=\"light\" style=\"color-scheme:light\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-"
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "groww-api",
+   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/hdfc-index-fund-nifty-50-plan-direct-plan",
+   "status": 502,
+   "type": "application/json; charset=utf-8",
+   "bytes": 862,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-502/\",\"title\":\"Error 502: Bad gateway\",\"status\":502,\"detail\":\"The origin web server ret"
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "kuvera",
+   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF179K01WM1.json",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "shape": "[0]",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "captnemo",
+   "url": "https://mf.captnemo.in/kuvera/INF179K01WM1",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "bytes": 4360,
+   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
+   "holdingsAt": 2639,
+   "holdingsSample": "ctive of the Scheme will be realized.\",\"portfolio_turnover\":\"0.060599999999999994\",\"maturity_type\":\"Open Ended\",\"aum\":222457,\"fund_rating\":3,\"fund_rating_date\":\"2018-05-31\",\"comparison\":[{\"name\":\"ICICI Prudential Nifty Pharma Index Growth Direct Plan\",\"short_name\":\"ICICI Pru Nifty Pharma Index (G)\",\"code\":\"IC9711-GR\",\"slug\":\"icici-prudential-nifty-pharma-index-growth--IC9711-GR\",\"1y\":16.78,\"3y\":19.42,\"5y\":0,\"inception\":19.93,\"volatility\":14.4465,\"expense_ratio\":0.52,\"aum\":1631,\"info_ratio\":1.38},{\"name\":\"Aditya Birla Sun Life Nifty Smallcap 50 Index Growth Direct Plan\",\"short_name\":\"ABSL Nifty Smallcap 50 Index (G)\",\"code\":\"BS69Y-GR\",\"slug\":\"aditya-birla-sun-life-nifty-smallcap-50-index-growth--BS69Y-GR\",\"1y\":9.77,\"3y\":16.88,\"5y\":"
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "mfdata-holdings",
+   "url": "https://mfdata.in/api/v1/schemes/119063/holdings",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "mfdata-scheme",
+   "url": "https://mfdata.in/api/v1/schemes/119063",
+   "status": 522,
+   "type": "application/json; charset=utf-8",
+   "bytes": 970,
+   "head": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/\",\"title\":\"Error 522: Connection timed out\",\"status\":522,\"detail\":\"Cloudflare could"
+  },
+  {
+   "fund": "INF179K01WM1",
+   "name": "mfapi-meta",
+   "url": "https://api.mfapi.in/mf/119063/latest",
+   "status": 200,
+   "type": "application/json",
+   "bytes": 342,
+   "shape": "{meta:{fund_house:string,scheme_type:string,scheme_category:string,scheme_code:number,scheme_name:string,isin_growth:string,isin_div_reinvestment:object},data:[1]{date,nav},status:string}",
+   "holdingsAt": -1,
+   "holdingsSample": null
+  }
+ ]
+}
