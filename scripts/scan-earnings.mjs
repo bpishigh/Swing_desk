@@ -14,6 +14,8 @@ if (market === 'india') {
   try {
     const r = await fetch('https://www.nseindia.com/api/event-calendar', { headers: { ...UA, referer: 'https://www.nseindia.com/' }, signal: AbortSignal.timeout(30000) }); if (!r.ok) throw new Error('status ' + r.status);
     const m = indiaResultDates(await r.json(), today);
+    // the whole market's announced results dates from this feed, kept for the Portfolio Manager's second source (build-pm-site.mjs merges it with the per-company board-meeting dates)
+    writeFileSync('data/india/scan/results-calendar.json', JSON.stringify({ asOf: today, fetchedAt: new Date().toISOString(), dates: Object.fromEntries([...m].sort(([a], [b]) => (a < b ? -1 : 1))) }) + '\n');
     for (const s of names) {
       let d = m.get(s) ?? null;
       if (!d) { try { const r2 = await fetch(`https://www.nseindia.com/api/corporate-board-meetings?index=equities&symbol=${encodeURIComponent(s)}`, { headers: { ...UA, referer: 'https://www.nseindia.com/' }, signal: AbortSignal.timeout(20000) }); if (r2.ok) d = boardMeetingDate(await r2.json(), today); } catch { /* leave null */ } await new Promise((z) => setTimeout(z, 300)); }
