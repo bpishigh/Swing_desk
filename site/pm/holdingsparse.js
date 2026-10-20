@@ -6,6 +6,9 @@ const find = (v         , key        , depth = 0)                   => {
   for (const x of Array.isArray(v) ? v : Object.values(v)) { const r = find(x, key, depth + 1); if (r) return r; }
   return null;
 };
+// Futures, options and dated contracts sit under EQUITY in some portfolios; they are not shares of a company and must not appear as one.
+const MONTHS = 'jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec';
+export const isDerivative = (name        ) => new RegExp(`\\bfutures?\\s*$|\\b(call|put)\\b.*\\d|\\d{1,2}-(${MONTHS})[a-z]*-\\d{2,4}|-(${MONTHS})\\d{4}\\b|\\b(${MONTHS})[a-z]*\\.? ?20\\d\\d\\b`, 'i').test(name);
                                                                                             
 /** Equity lines only, as percent of the fund. Lines with a missing or non-positive weight are dropped; the same company on two lines is added together. */
 export function parsePage(html        )                {
@@ -15,7 +18,7 @@ export function parsePage(html        )                {
   const by = new Map                       (); let asOf                = null, code                = null;
   for (const r of h                             ) {
     if (String(r.nature_name ?? '').toUpperCase() !== 'EQUITY') continue;
-    const w = Number(r.corpus_per), name = String(r.company_name ?? '').trim(); if (!(w > 0) || !name) continue;
+    const w = Number(r.corpus_per), name = String(r.company_name ?? '').trim(); if (!(w > 0) || !name || isDerivative(name)) continue;
     const d = typeof r.portfolio_date === 'string' ? r.portfolio_date : null;
     // the date is stored in UTC at 18:30 the evening before (IST midnight): shift to the Indian date
     if (d) { const ist = new Date(Date.parse(d) + 5.5 * 3600000).toISOString().slice(0, 10); if (!asOf || ist > asOf) asOf = ist; }

@@ -9,22 +9,26 @@ const scores = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.
 const prev = existsSync('data/funds/holdings.json') ? JSON.parse(readFileSync('data/funds/holdings.json', 'utf8')) : { funds: {} };
 const out = { asOf: new Date().toISOString().slice(0, 10), source: 'fund pages (public portfolio disclosures)', funds: {} };
 const J = async (url) => { for (let a = 0; a < 3; a++) { try { const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(40000) }); if (r.ok) return await r.text(); if (r.status === 404) return null; } catch {} await new Promise((r) => setTimeout(r, 1500 * (a + 1))); } throw new Error('failed ' + url); };
+// two different schemes can share one base name (a code change, a renamed twin): neither is stored, because a holder of the other would get the wrong portfolio
+const baseCount = new Map(); for (const f of scores) baseCount.set(schemeBase(f.name), (baseCount.get(schemeBase(f.name)) ?? 0) + 1);
+const collide = new Set([...baseCount].filter(([, n]) => n > 1).map(([b]) => b)); LOG.collisions = [...collide];
 let next = 0;
 async function one(f) {
-  LOG.tried++;
+  LOG.tried++; const base = schemeBase(f.name), old = prev.funds?.[base];
+  if (collide.has(base)) return;
   try {
     const q = encodeURIComponent(f.name.replace(/ - /g, ' ').replace(/direct plan|growth option|growth/gi, '').trim());
     const s = await J(`https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=${q}&size=8`); const hit = s ? JSON.parse(s).content?.find((x) => String(x.scheme_code) === String(f.code) || (x.isin && x.isin === f.isin)) : null;
-    if (!hit) { LOG.noMatch.push(f.code); return; }
+    if (!hit) { LOG.noMatch.push(f.code); if (old && old.code === f.code) out.funds[base] = old; return; }
     const html = await J(`https://groww.in/mutual-funds/${hit.search_id}`); const p = html ? parsePage(html) : null;
-    if (!p || !p.lines.length || !p.asOf) { LOG.noHoldings.push(f.code); return; }
+    if (!p || !p.lines.length || !p.asOf) { LOG.noHoldings.push(f.code); if (old && old.code === f.code) out.funds[base] = old; return; }
     if (p.code && String(p.code) !== String(f.code)) { LOG.noMatch.push(f.code + '!' + p.code); return; }   // the page is another scheme: never store it under this one
     out.funds[schemeBase(f.name)] = { code: f.code, isin: f.isin, asOf: p.asOf, lines: p.lines.map((l) => ({ name: l.name, weight: l.weight })) }; LOG.ok++;
   } catch (e) { LOG.failed.push(f.code); const o = prev.funds?.[schemeBase(f.name)]; if (o) out.funds[schemeBase(f.name)] = o; }   // keep last month's portfolio if this month's fetch fails
 }
 await Promise.all(Array.from({ length: 5 }, async () => { while (next < scores.length) { const f = scores[next++]; await one(f); await new Promise((r) => setTimeout(r, 250)); } }));
-LOG.funds = Object.keys(out.funds).length; LOG.end = new Date().toISOString(); LOG.ok_ = LOG.ok >= scores.length * 0.5;
-mkdirSync('data/funds', { recursive: true }); writeFileSync('data/funds/holdings-log.json', JSON.stringify({ ...LOG, noMatch: LOG.noMatch.slice(0, 40), noHoldings: LOG.noHoldings.slice(0, 40), failed: LOG.failed.slice(0, 40) }, null, 1) + '\n');
+LOG.funds = Object.keys(out.funds).length; LOG.end = new Date().toISOString(); const before = Object.keys(prev.funds ?? {}).length; LOG.before = before; LOG.ok_ = LOG.ok >= scores.length * 0.5 && (!before || Object.keys(out.funds).length >= before * 0.9);   // a drop of more than 10% against last month keeps last month's file
+mkdirSync('data/funds', { recursive: true }); writeFileSync('data/funds/holdings-log.json', JSON.stringify({ ...LOG, noMatchCount: LOG.noMatch.length, noHoldingsCount: LOG.noHoldings.length, failedCount: LOG.failed.length, noMatch: LOG.noMatch.slice(0, 200), noHoldings: LOG.noHoldings.slice(0, 200), failed: LOG.failed.slice(0, 200) }, null, 1) + '\n');
 console.log(`tried ${LOG.tried} ok ${LOG.ok} noMatch ${LOG.noMatch.length} noHoldings ${LOG.noHoldings.length} failed ${LOG.failed.length}`);
 if (!LOG.ok_) { console.error('too few portfolios; keeping the previous file'); process.exit(1); }
 const sorted = Object.fromEntries(Object.entries(out.funds).sort(([a], [b]) => a.localeCompare(b)));

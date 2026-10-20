@@ -16,9 +16,13 @@ export interface LookThrough {
   unmatchedWeight: Record<string, number>;   // fund -> percent of its portfolio that could not be tied to a listed stock
 }
 
-const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/\b(limited|ltd|the|corporation|corp|company|co)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+// a few companies renamed: older portfolio lines and newer broker names must meet
+const RENAMED: Record<string, string> = { 'zomato': 'eternal', 'larsen and toubro infotech': 'ltimindtree' };
+const norm = (s: string) => { const n = norm0(s); return RENAMED[n] ?? n; };
+const norm0 = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/\b(limited|ltd|the|corporation|corp|company|co)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
 const days = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 
+const inRange = (lines: PortfolioLine[]) => { const t = lines.reduce((a, l) => a + (l.weight > 0 ? l.weight : 0), 0); return t >= 50 && t <= 105; };
 export function lookThrough(positions: Position[], ports: FundPortfolios, today: string, capital: number, cfg: Partial<Settings> = {}): LookThrough {
   const s = { ...DEFAULTS, ...cfg };
   const by = new Map<string, Exposure>(), tag = (p: { isin?: string; symbol?: string; name: string }) => (p.isin ? 'I:' + p.isin : p.symbol ? 'S:' + p.symbol : 'N:' + norm(p.name));
@@ -30,8 +34,8 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
   let covered = 0, fundValue = 0, wFunds = new Map<string, Map<string, { name: string; w: number }>>();
   for (const f of funds) {
     fundValue += f.value; const port = f.fundIsin ? ports[f.fundIsin] : undefined;
-    // weights adding to well over 100% (derivative exposure in arbitrage and similar funds) cannot be read as shares of the money: not covered
-    if (!port || !port.lines.length || port.lines.reduce((t, l) => t + (l.weight > 0 ? l.weight : 0), 0) > 105) { notCovered.push(f.name); continue; }
+    // weights adding to well over 100% (derivative exposure in arbitrage and similar funds) cannot be read as shares of the money; a portfolio with under half its money in equity lines (mostly debt, REITs or fund units) would show a small slice as if it were the whole: both are not covered
+    if (!port || !port.lines.length || !inRange(port.lines)) { notCovered.push(f.name); continue; }
     covered += f.value; const d = days(port.asOf, today); if (d > s.staleDays) stale.push({ fund: f.name, asOf: port.asOf, days: d });
     const m = new Map<string, { name: string; w: number }>(); let unmatched = 0;
     for (const l of port.lines) {
