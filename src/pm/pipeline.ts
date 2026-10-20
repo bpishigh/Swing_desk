@@ -9,6 +9,7 @@ import { orderCharges } from './charges.ts';
 import { taxView, type TaxYear } from './tax.ts';
 import { computeDividends, type DividendYear } from './dividends.ts';
 import { FundMaster, fundTaxType, type AmfiRow } from './funds.ts';
+import { assetClassOf, type AssetClass } from './assetclass.ts';
 import { replay } from './ledger.ts';
 import { performance, type Perf, type Flow } from './performance.ts';
 import { inferBooks, bookTotals } from './books.ts';
@@ -28,7 +29,7 @@ export interface Report {
   warnings: string[];
   tax: TaxYear[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
-  holdings: { name: string; symbol: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null }[];
+  holdings: { name: string; symbol: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null }[];
   flows: Flow[]; divFlows: Flow[];                       // dated cash flows (buys negative, sells positive) and estimated dividends, for periods, benchmarks and the household view
   series: DayValue[] | null; fundCodes: Record<string, string>;
 }
@@ -58,10 +59,10 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const symKid = new Map<string, string>();
   const fm = masterFor(d.amfi, d.fundOverrides);
   const fundCodes: Record<string, string> = {};
-  const fundTrades: Trade[] = [], unmapped = new Set<string>(), navOf = new Map<string, number>();
+  const catByKey = new Map<string, string>(); const fundTrades: Trade[] = [], unmapped = new Set<string>(), navOf = new Map<string, number>();
   for (const t of funds) {
     const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; }
-    typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
+    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
@@ -88,6 +89,8 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const bt = bookTotals(books, priceOf);
   const byName = new Map<string, Report['holdings'][number]>();
   for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity') as AssetType) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm)!; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
+  const catByName = new Map<string, string>(); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k)!);
+  for (const e of byName.values()) { e.category = catByName.get(e.name); e.assetClass = assetClassOf(e.kind, e.name, e.category ?? ''); }
   holdings.push(...byName.values());
 
   const ords: { date: string; side: 'buy' | 'sell'; value: number; charges?: number }[] = [];

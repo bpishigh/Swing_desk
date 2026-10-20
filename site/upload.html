@@ -86,6 +86,7 @@ import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowRetur
 import { mergeTax, fy } from './pm/tax.js';
 import { stockVerdict } from './pm/verdict.js';
 import { segmentOf } from './pm/segment.js';
+import { allocate, currentByClass, gapRows, capBreaches, TARGET_CLASSES } from './pm/allocation.js';
 const $ = (id) => document.getElementById(id);
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -102,7 +103,7 @@ const cls = (x) => (x < 0 ? 'neg' : x > 0 ? 'pos' : '');
 const num = (x) => `<span class="${cls(x)}">${inr(x)}</span>`;
 
 // ---------- state
-const S = { track: null, ctx: null, regime: null, open: new Set(), accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', vf: 'All', q: '', benchStatus: '', segments: null };
+const S = { track: null, ctx: null, regime: null, open: new Set(), accounts: new Map(), sel: store.get('sel', 'ALL'), period: store.get('period', 'all'), bench: store.get('bench', 'n50'), allocCfg: null, alloc: (() => { try { return JSON.parse(store.get('alloc', '')) || {}; } catch { return {}; } })(), tab: 'home', navs: {}, fundNavs: undefined, fundOn: store.get('fund', '1') === '1', data: null, hist: null, canSave: false, menu: false, sort: { k: 'value', d: -1 }, kind: 'All', vf: 'All', q: '', benchStatus: '', segments: null };
 const ownerOf = (a) => a.owner || 'Unassigned';
 const reports = () => [...S.accounts.values()].filter((a) => a.report);
 
@@ -200,7 +201,7 @@ function drawChrome() {
     <div class="h">New</div><input id="newAcct" placeholder="Type a name, press Enter to create" maxlength="40"></div>` : '');
   const V = S.cur;
   $('per').innerHTML = V ? V.periods.map((p) => `<button data-per="${p.id}" aria-pressed="${p.id === (V.periods.find((x) => x.id === S.period) ? S.period : 'all')}">${esc(p.label)}</button>`).join('') : '';
-  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['tax', 'Tax'], ['income', 'Income'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
+  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['tax', 'Tax'], ['income', 'Income'], ['alloc', 'Allocation'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
   $('acctList').innerHTML = items.map((a) => `<option value="${esc(a.label)}">`).join(''); $('ownerList').innerHTML = owners.filter((o) => o !== 'Unassigned').map((o) => `<option value="${esc(o)}">`).join('');
 }
 
@@ -265,7 +266,7 @@ function attentionItems(V) {
 // ---------- holdings
 function mergedHoldings(V) {
   const by = new Map();
-  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; if (h.value === null) e.anyNull = true; else e.value += h.value; }
+  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; if (h.value === null) e.anyNull = true; else e.value += h.value; }
   return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 }
 // ---------- verdicts for direct stocks: the exit test and Keep (design doc section 4). Funds and ETFs get none yet.
@@ -392,6 +393,45 @@ function logCard(ms) {
   const now = S.data?.prices || {};
   return `<div class="card"><h2>Verdict log</h2><div class="sub" style="margin-bottom:6px">Every change of verdict is recorded with the price it rested on, so the verdicts can be judged later by what the stock did next. Newest first.</div><div class="tw"><table><thead><tr><th>Date</th><th>Account</th><th>Stock</th><th>Verdict</th><th>Close then ₹</th><th>200 SMA ₹</th><th>Swing low ₹</th><th>Since then</th></tr></thead><tbody>${rows.slice(0, 60).map(([a, e]) => { const p = now[e.symbol]; const ch = p && e.close ? (p - e.close) / e.close : null; return `<tr><td>${esc(e.date)}</td><td>${esc(a.label)}</td><td>${esc(e.symbol)}</td><td><span class="tag ${e.verdict === 'Exit' ? 'bad' : 'ok'}">${e.verdict}</span></td><td>${fmt2(e.close)}</td><td>${e.sma200 === null ? '–' : fmt2(e.sma200)}</td><td>${e.swingLow === null ? '–' : fmt2(e.swingLow)}</td><td>${ch === null ? '–' : `<span class="${cls(ch)}">${pct(ch)}</span>`}</td></tr>`; }).join('')}</tbody></table></div>${rows.length > 60 ? `<div class="sub">Showing the latest 60 of ${rows.length}.</div>` : ''}</div>`;
 }
+// ---------- allocation (design doc section 8): targets from your inputs, set against what you hold. A target, never an order.
+const ALLOC_SAVE = () => store.set('alloc', JSON.stringify(S.alloc));
+const pc = (x) => (x * 100).toFixed(1).replace(/\.0$/, '') + '%';
+function allocTab(V) {
+  const C = S.allocCfg; if (!C) return '<div class="card empty">Allocation settings did not load.</div>';
+  const A = S.alloc, hs = mergedHoldings(V);
+  const held = hs.map((h) => ({ name: h.name, value: h.value, cls: h.assetClass ?? null, category: h.category, kind: h.kind }));
+  const cur = currentByClass(C, held);
+  const capital = A.capital > 0 ? A.capital : Math.round(cur.total + cur.unclassified), profile = A.profile ?? 'Balanced', horizon = A.horizon ?? 10, off = new Set(A.off ?? []);
+  const res = allocate(C, { capital, profile, horizonYears: horizon, buffer: A.buffer, inScope: TARGET_CLASSES.filter((c) => !off.has(c)), custom: A.custom });
+  const sel = (id, opts, v) => `<select id="${id}">${opts.map((o) => `<option ${o === v ? 'selected' : ''}>${o}</option>`).join('')}</select>`;
+  const inputs = `<div class="card"><h2>Your inputs</h2><div style="display:flex;flex-wrap:wrap;gap:14px;align-items:end">
+    <label class="sub">Capital to allocate (₹)<br><input id="aCap" type="number" min="0" step="10000" value="${capital}" style="width:140px"></label>
+    <label class="sub">Risk profile<br>${sel('aProf', ['Cautious', 'Balanced', 'Aggressive', 'Custom'], profile)}</label>
+    <label class="sub">Horizon (years)<br><input id="aHor" type="number" min="0" max="60" step="1" value="${horizon}" style="width:80px"></label>
+    <label class="sub">Liquidity buffer outside this (₹, optional)<br><input id="aBuf" type="number" min="0" step="10000" value="${A.buffer ?? ''}" style="width:140px"></label></div>
+    ${profile === 'Custom' ? `<div style="margin-top:10px" class="sub">Custom weights (%) — must add to 100:<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">${TARGET_CLASSES.map((c) => `<label>${esc(C.labels[c] ?? c)}<br><input data-cw="${c}" type="number" min="0" max="100" step="1" value="${Math.round((A.custom?.[c] ?? 0) * 100)}" style="width:70px"></label>`).join('')}</div></div>` : ''}
+    <details style="margin-top:10px"><summary class="sub">Asset classes to include</summary><div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">${TARGET_CLASSES.map((c) => `<label class="sub"><input type="checkbox" data-scope="${c}" ${off.has(c) ? '' : 'checked'}> ${esc(C.labels[c] ?? c)}</label>`).join('')}</div></details>
+    <div class="sub" style="margin-top:8px">${A.capital > 0 ? 'Capital typed by you.' : 'Capital defaults to the value of everything you hold in this selection.'} Starting values for the presets are not yet reviewed by the owner.</div></div>`;
+  if (!res.ok) return inputs + `<div class="card"><h2>These inputs cannot all be met</h2><p>${esc(res.error)}</p>${res.clashes.map((c) => `<div class="sub">• ${esc(c)}</div>`).join('')}</div>`;
+  const gaps = gapRows(C, res.rows, cur.byClass, capital), gm = Object.fromEntries(gaps.map((g) => [g.cls, g])), by = Object.fromEntries(res.rows.map((r) => [r.cls, r]));
+  const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
+  const body = gaps.map((g) => { const r = by[g.cls]; return `<tr><td>${esc(g.label)}</td><td class="num"><b>${pc(g.target)}</b></td><td class="num">${money(g.target * capital)}</td><td class="num">${pc(g.current)}</td><td class="num">${money(g.current * capital)}</td><td style="color:${stateCol(g.state)}">${g.state}${g.state === 'within band' ? '' : ' · ' + (g.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(g.amountToTarget))}</td><td class="sub">${esc(r ? r.rule : 'switched off, but you hold some')}</td></tr>`; }).join('');
+  const br = capBreaches(held, capital, res.positionCap, res.fundCap);
+  const unc = hs.filter((h) => h.value !== null && !h.assetClass);
+  return inputs + `<div class="card"><h2>Target against what you hold</h2><div style="overflow-x:auto"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th><th>Rule behind the target</th></tr></thead><tbody>${body}</tbody></table></div>
+    <div class="sub" style="margin-top:8px">Equity share ${pc(res.equityShare)}. “Within band” means the gap is inside the drift band for that class; nothing is proposed until it is outside. Hybrid funds are split into equity, debt and gold by their category's mandate (${money(cur.hybridFolded)} here). This is a target, not an order; sizing of trades is the next phase.</div></div>
+    <div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>${res.drawdownLimit === null ? '' : `Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)}<br>`}${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
+      ${br.length ? `<div style="margin-top:10px"><b>Above these limits now:</b>${br.slice(0, 10).map((b) => `<div class="sub">${esc(b.name)} · ${pc(b.weight)} (limit ${pc(b.cap)})</div>`).join('')}</div>` : '<div class="sub" style="margin-top:10px">No single holding is above its limit.</div>'}</div>
+    <div class="card"><h2>Not counted</h2><div class="sub">${unc.length ? `Not classified (${unc.length}): ${unc.slice(0, 8).map((h) => esc(h.name)).join(', ')}${unc.length > 8 ? '…' : ''}. Their category does not settle the asset class, so they are left out of the totals rather than guessed.` : 'Every priced holding has an asset class.'}${cur.unpriced ? `<br>${cur.unpriced} holding(s) have no price and are left out.` : ''}${res.notes.map((n) => `<br>${esc(n)}`).join('')}</div></div></div>`;
+}
+function wireAlloc() {
+  const A = S.alloc, set = (k, v) => { A[k] = v; ALLOC_SAVE(); render(); };
+  $('aCap').onchange = (e) => set('capital', Number(e.target.value) || 0); $('aProf').onchange = (e) => set('profile', e.target.value);
+  $('aHor').onchange = (e) => set('horizon', Math.max(0, Number(e.target.value) || 0)); $('aBuf').onchange = (e) => set('buffer', Number(e.target.value) || 0);
+  document.querySelectorAll('[data-scope]').forEach((el) => { el.onchange = () => { const off = new Set(A.off ?? []); el.checked ? off.delete(el.dataset.scope) : off.add(el.dataset.scope); set('off', [...off]); }; });
+  document.querySelectorAll('[data-cw]').forEach((el) => { el.onchange = () => set('custom', { ...(A.custom ?? {}), [el.dataset.cw]: Math.max(0, Number(el.value) || 0) / 100 }); });
+}
+
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
@@ -420,8 +460,9 @@ function render() {
   if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; S.autoOpen = true; return; }
   if (S.autoOpen) { S.autoOpen = false; $('drawer').hidden = true; }   // opened only because nothing had loaded yet
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
-  main.innerHTML = { home, holdings, tax, income, data: dataTab }[S.tab](S.cur);
+  main.innerHTML = { home, holdings, tax, income, alloc: allocTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
+  if (S.tab === 'alloc') wireAlloc();
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();
@@ -492,6 +533,7 @@ async function setOwner(key, owner) {
     const hp = loadHist(), bench = loadBenchmarks().then(() => render());       // the big downloads run side by side
     const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
     S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
+    S.allocCfg = await fetch('pm-data/allocation.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.ctx = await fetch('pm-data/context.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);

@@ -1,0 +1,170 @@
+{
+  "version": "ALLOC-1",
+  "status": "STARTING VALUES, NOT YET REVIEWED BY THE OWNER (design section 8: reviewed before use). Every number below is a proposal; change the number here and add a line to the change log, never in code.",
+  "classes": [
+    "direct_equity",
+    "active_equity_fund",
+    "index",
+    "sector_thematic",
+    "hybrid",
+    "gold",
+    "silver",
+    "international",
+    "debt",
+    "liquid"
+  ],
+  "labels": {
+    "direct_equity": "Direct equity (swing)",
+    "active_equity_fund": "Active equity funds",
+    "index": "Index funds and ETFs",
+    "sector_thematic": "Sector and thematic funds",
+    "hybrid": "Hybrid funds",
+    "gold": "Gold",
+    "silver": "Silver",
+    "international": "International",
+    "debt": "Debt",
+    "liquid": "Liquid and money market"
+  },
+  "horizonAnchors": [
+    0,
+    3,
+    7,
+    15,
+    30
+  ],
+  "equityShare": {
+    "Cautious": [
+      0.1,
+      0.25,
+      0.4,
+      0.5,
+      0.55
+    ],
+    "Balanced": [
+      0.2,
+      0.45,
+      0.6,
+      0.7,
+      0.75
+    ],
+    "Aggressive": [
+      0.3,
+      0.6,
+      0.75,
+      0.85,
+      0.9
+    ]
+  },
+  "note_equityShare": "Share of investable capital in equity (direct, active, index, sector, international), by horizon in years. Linear between anchors, flat beyond the ends, so the targets move continuously with the horizon.",
+  "equitySplit": {
+    "note": "How the equity share divides. Direct equity is the swing allocation (the Swing Desk reads it as its capital line); sector and thematic default to zero with a cap.",
+    "directEquity": {
+      "Cautious": 0.05,
+      "Balanced": 0.15,
+      "Aggressive": 0.25
+    },
+    "directEquityOfEquityMax": 0.5,
+    "rest": {
+      "index": 0.5,
+      "active_equity_fund": 0.35,
+      "international": 0.15,
+      "sector_thematic": 0.0
+    }
+  },
+  "nonEquitySplit": {
+    "debt": 0.6,
+    "gold": 0.25,
+    "silver": 0.05,
+    "liquid": 0.1
+  },
+  "hybridFold": {
+    "note": "Hybrid has no target of its own. A hybrid holding counts as equity and debt (and gold) by its category's mandated midpoint, until fund-level mix is available (phase 8).",
+    "aggressive hybrid": {
+      "equity": 0.75,
+      "debt": 0.25
+    },
+    "balanced advantage": {
+      "equity": 0.5,
+      "debt": 0.5
+    },
+    "dynamic asset allocation": {
+      "equity": 0.5,
+      "debt": 0.5
+    },
+    "multi asset": {
+      "equity": 0.5,
+      "debt": 0.25,
+      "gold": 0.25
+    },
+    "equity savings": {
+      "equity": 0.35,
+      "debt": 0.65
+    },
+    "conservative hybrid": {
+      "equity": 0.2,
+      "debt": 0.8
+    },
+    "arbitrage": {
+      "debt": 1.0
+    },
+    "default": {
+      "equity": 0.5,
+      "debt": 0.5
+    }
+  },
+  "classMin": {
+    "direct_equity": 0,
+    "active_equity_fund": 0,
+    "index": 0,
+    "sector_thematic": 0,
+    "hybrid": 0,
+    "gold": 0,
+    "silver": 0,
+    "international": 0,
+    "debt": 0,
+    "liquid": 0
+  },
+  "classMax": {
+    "direct_equity": 0.3,
+    "active_equity_fund": 0.4,
+    "index": 0.6,
+    "sector_thematic": 0.1,
+    "hybrid": 0.2,
+    "gold": 0.2,
+    "silver": 0.05,
+    "international": 0.2,
+    "debt": 0.7,
+    "liquid": 0.2
+  },
+  "positionCap": {
+    "Cautious": 0.05,
+    "Balanced": 0.08,
+    "Aggressive": 0.12
+  },
+  "fundCap": {
+    "Cautious": 0.15,
+    "Balanced": 0.2,
+    "Aggressive": 0.25
+  },
+  "driftBand": {
+    "default": 0.05,
+    "silver": 0.02,
+    "sector_thematic": 0.03
+  },
+  "drawdownLimit": {
+    "Cautious": 0.12,
+    "Balanced": 0.2,
+    "Aggressive": 0.3
+  },
+  "swingPositionCapOfSwing": 0.2,
+  "changeLog": [
+    {
+      "date": "2026-10-20",
+      "change": "Created with starting values (phase 5). Not yet reviewed by the owner."
+    },
+    {
+      "date": "2026-10-20",
+      "change": "Engine, asset-class mapping and Allocation tab built; two property tests added (test/pm-allocation.test.ts). Values unchanged and still unreviewed."
+    }
+  ]
+}

@@ -12,6 +12,7 @@ for (const f of readdirSync('src/pm').filter((x) => x.endsWith('.ts'))) {
 }
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
+cp('settings/allocation.json', 'site/pm-data/allocation.json');
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
 if (existsSync('data/replay/track-record.json')) cp('data/replay/track-record.json', 'site/pm-data/track-record.json');
 if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site/pm-data/segments.json');

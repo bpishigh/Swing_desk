@@ -9,6 +9,7 @@ import { orderCharges } from './charges.js';
 import { taxView,              } from './tax.js';
 import { computeDividends,                   } from './dividends.js';
 import { FundMaster, fundTaxType,              } from './funds.js';
+import { assetClassOf,                 } from './assetclass.js';
 import { replay } from './ledger.js';
 import { performance,                      } from './performance.js';
 import { inferBooks, bookTotals } from './books.js';
@@ -28,7 +29,7 @@ import { valuationSeries,               } from './valuation.js';
                      
                                                                                                                                                  
                                                                        
-                                                                                                                                                                    
+                                                                                                                                                                                                                       
                                                                                                                                                                                     
                                                                
  
@@ -58,10 +59,10 @@ export function runPipeline(batches           , broker                     , d  
   const symKid = new Map                ();
   const fm = masterFor(d.amfi, d.fundOverrides);
   const fundCodes                         = {};
-  const fundTrades          = [], unmapped = new Set        (), navOf = new Map                ();
+  const catByKey = new Map                (); const fundTrades          = [], unmapped = new Set        (), navOf = new Map                ();
   for (const t of funds) {
     const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; }
-    typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
+    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
@@ -88,6 +89,8 @@ export function runPipeline(batches           , broker                     , d  
   const bt = bookTotals(books, priceOf);
   const byName = new Map                                    ();
   for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity')             ) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm) ; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
+  const catByName = new Map                (); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k) );
+  for (const e of byName.values()) { e.category = catByName.get(e.name); e.assetClass = assetClassOf(e.kind, e.name, e.category ?? ''); }
   holdings.push(...byName.values());
 
   const ords                                                                            = [];
