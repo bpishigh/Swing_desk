@@ -85,7 +85,7 @@ import { runPipeline } from './pm/pipeline.js';
 import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowReturn } from './pm/insight.js';
 import { mergeTax, fy } from './pm/tax.js';
 import { stockVerdict, adjustSeries } from './pm/verdict.js';
-import { reviewTrade, patterns } from './pm/tradereview.js';
+import { reviewTrade, patterns, stopSummary } from './pm/tradereview.js';
 import { segmentOf } from './pm/segment.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES } from './pm/allocation.js';
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
@@ -214,7 +214,7 @@ function tradesData(V) {
   const stTx = new Set(st.map((x) => x.acct + '|' + x.key)), tx2 = tx.filter((t) => stTx.has(t.acct + '|' + t.key));
   const mm = new Map(); for (const t of tx2) { const ym = t.date.slice(0, 7), m = mm.get(ym) ?? { ym, bought: 0, sold: 0, realised: 0, n: 0 }; if (t.side === 'buy') m.bought += t.value; else { m.sold += t.value; m.realised += t.gain ?? 0; } m.n++; mm.set(ym, m); }
   const years = [...new Set(rows.map((t) => t.date.slice(0, 4)))].sort().reverse();
-  return { F, rows, tx: tx2, st, months: [...mm.values()].sort((a, b) => a.ym.localeCompare(b.ym)), years, accts: V.ms.map((a) => a.label) };
+  return { F, rows, all: stocks, tx: tx2, st, months: [...mm.values()].sort((a, b) => a.ym.localeCompare(b.ym)), years, accts: V.ms.map((a) => a.label) };
 }
 const px2 = (x) => Number(x).toLocaleString('en-IN', { maximumFractionDigits: 2 });
 const fmtD = (d) => { const [y, m, dd] = d.split('-'); return `${+dd} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m - 1]} ${y.slice(2)}`; };
@@ -225,6 +225,32 @@ function txLines(list) {
 }
 
 // How each sold holding went (src/pm/tradereview.ts): facts from stored daily closes and the index fund NAV, then a one-line read. Cached per stock.
+// Daily volume and delivery %, one file per month, loaded only for the months a review needs (the buy month and the 3 before it).
+S.vol = new Map(); S.volFail = new Map(); let volBusy = false, volWant = [];   // volFail: month -> failed attempts (a failed month is retried up to 2 times, never cached as empty)
+function volMonths(rev) {
+  const need = new Set();
+  for (const x of rev) { if (x.kind === 'Fund' || !x.sym) continue; const [y, m] = x.firstBuy.split('-').map(Number); for (let k = 0; k <= 3; k++) { const d = new Date(Date.UTC(y, m - 1 - k, 1)); need.add(d.toISOString().slice(0, 7)); } }
+  return [...need].filter((m) => !S.vol.has(m) && m >= '2021-01' && (S.volFail.get(m) ?? 0) < 2).sort();
+}
+async function loadVol(months) {
+  if (volBusy) { volWant = [...new Set([...volWant, ...months])]; return; }   // months asked for while busy are fetched next
+  months = [...new Set([...months, ...volWant])].filter((m) => !S.vol.has(m)); volWant = []; if (!months.length) return; volBusy = true;
+  await Promise.all(months.map(async (m) => { const j = await fetch(`pm-data/volume/${m}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null); if (j) S.vol.set(m, j); else S.volFail.set(m, (S.volFail.get(m) ?? 0) + 1); }));
+  volBusy = false; if (S.tab === 'trades') render();
+}
+function volFor(x) {
+  if (x.kind === 'Fund' || !x.sym) return null;
+  const [y, m] = x.firstBuy.split('-').map(Number), parts = [];
+  for (let k = 3; k >= 0; k--) { const d = new Date(Date.UTC(y, m - 1 - k, 1)).toISOString().slice(0, 7); if (d < '2021-01') continue; if (!S.vol.has(d)) return null; parts.push(S.vol.get(d)); }   // a month still loading, or failed, gives no volume figures rather than a half window
+  const dates = [], v = [], dl = []; for (const c of parts) { c.dates.forEach((dd, i) => { dates.push(dd); v.push(c.v[x.sym]?.[i] ?? null); dl.push(c.d[x.sym]?.[i] ?? null); }); }
+  return dates.length ? { dates, v, d: dl } : null;
+}
+// a split, bonus, demerger or face-value change in the 50 sessions before the buy makes older volumes not comparable
+function volSplit(x) {
+  if (!x.sym || !S.data) return false; const lo = Date.parse(x.firstBuy) - 90 * 86400000, hi = Date.parse(x.firstBuy) + 86400000;
+  const hit = (d) => { const t = Date.parse(d); return t >= lo && t <= hi; };
+  return S.data.feed.some((r) => r.symbol === x.sym && hit(r.exDate) && /split|bonus|sub-?division|consolidat|face value|arrangement|demerg/i.test(r.subject ?? '')) || (S.data.demergers ?? []).some((d) => d.parent === x.sym && hit(d.exDate));
+}
 const rvMemo = new WeakMap();   // per loaded price history: a reload starts a fresh cache
 function seriesFor(x) {
   if (x.kind === 'Fund') { const nav = S.fundNavs?.[x.key]; if (!nav) return null; const dates = Object.keys(nav).sort(); return { dates, px: dates.map((d) => nav[d]) }; }
@@ -241,26 +267,35 @@ function reviewsFor(D, V) {
     if (!x.sells || x.noBuy) { if (x.noBuy && x.sells) skipped.noBuy++; continue; }
     const a = V.ms.find((m) => m.label === x.acct), js = (a?.report.journal ?? []).filter((t) => t.key === x.key), jt = js.length === 1 && js[0].closed && js[0].lots[0].date === x.firstBuy ? js[0] : undefined;   // one round trip only, so its stop and answers belong to this review
     const held = Math.max(0, Math.round((Date.parse(x.lastSell) - Date.parse(x.firstBuy)) / 86400000));
+    const same = D.all.filter((o) => o !== x && o.acct === x.acct && o.kind === x.kind && !o.noBuy), cluster = { buys: same.filter((o) => o.firstBuy === x.firstBuy).length, sells: same.filter((o) => o.lastSell && o.lastSell === x.lastSell).length };   // every holding of the account, whatever the filters
+    const legs = D.rows.filter((t) => t.acct === x.acct && t.key === x.key), buys = legs.filter((t) => t.side === 'buy'), sells = legs.filter((t) => t.side === 'sell');
     const series = seriesFor(x); if (!series && x.kind !== 'Fund') skipped.noPrices++;
-    const r = reviewTrade({ name: x.name, firstBuy: x.firstBuy, lastSell: x.lastSell, status: x.status === 'Closed' ? 'Closed' : 'Partly sold', days: held, gainKnown: x.gainKnown, fund: x.kind === 'Fund', invested: x.invested, proceeds: x.proceeds, realised: x.realised, soldCost: x.proceeds - x.realised, series, bench: S.navs?.n50 ?? null,
+    const r = reviewTrade({ name: x.name, firstBuy: x.firstBuy, lastSell: x.lastSell, status: x.status === 'Closed' ? 'Closed' : 'Partly sold', days: held, gainKnown: x.gainKnown, fund: x.kind === 'Fund', vol: volFor(x), volSplit: volSplit(x), buys, sells, cluster, invested: x.invested, proceeds: x.proceeds, realised: x.realised, soldCost: x.proceeds - x.realised, series, bench: S.navs?.n50 ?? null,
       swing: jt ? { stop: jt.stop0, entry: jt.lots[0].price, rulesFollowed: jt.rulesFollowed, setup: jt.setup } : undefined });
     if (series && r.n.worstDip === null) skipped.noHistory++;
     rev.push({ x, r, days: held, result: r.n.result });
   }
   return { rev, skipped };
 }
+function stopCard(rev) {
+  if (rev.length < 3) return '';
+  const rows = stopSummary(rev), any = rows.some((r) => r.hit);
+  return `<div class="sub" style="margin-top:10px"><b>If you had put a fixed stop under every buy</b> (measured from the buy-day close, only for holdings bought on one day, on units sold after the stop day, at the first close past the stop):</div><div class="tw"><table><thead><tr><th>Stop</th><th class="num">Would have triggered</th><th class="num">Saved on losers ₹</th><th class="num">Cost on trades that later recovered ₹</th><th class="num">Net ₹</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${Math.round(r.lvl * 100)}% below</td><td class="num">${r.hit} of ${r.trades}</td><td class="num">${gtxt(r.saved)}</td><td class="num">${gtxt(r.cost)}</td><td class="num"><b>${gtxt(r.net)}</b></td></tr>`).join('')}</tbody></table></div><div class="sub">${any ? 'A stop saves money on trades that keep falling and costs money on ones that dip through it and then recover; the net figure shows which side won. Still-open holdings are not counted, gaps and buying again later are ignored, and charges and tax are left out, so treat this as a guide.' : 'No stop of these sizes would have triggered.'}</div>`;
+}
 function reviewView(D, V) {
   const { rev, skipped } = reviewsFor(D, V);
+  loadVol(volMonths(D.st.filter((x) => x.sells && !x.noBuy)));
   if (!rev.length) return '<div class="card empty">No sold holdings match these filters yet.</div>';
   const pats = patterns(rev), chip = (g) => `<span class="tag ${g === 'good' ? 'ok' : g === 'poor' ? 'bad' : ''}">${g === 'good' ? 'Went well' : g === 'poor' ? 'Did not go well' : 'Mixed'}</span>`;
   const n = { good: rev.filter((x) => x.r.grade === 'good').length, mixed: rev.filter((x) => x.r.grade === 'mixed').length, poor: rev.filter((x) => x.r.grade === 'poor').length };
   const grp = (list) => { const m = list.length, w = list.filter((x) => (x.result ?? 0) > 0.001).length, b = list.filter((x) => x.r.n.bench !== null && x.result !== null), beat = b.filter((x) => x.result > x.r.n.bench).length; return { m, good: list.filter((x) => x.r.grade === 'good').length, mixed: list.filter((x) => x.r.grade === 'mixed').length, poor: list.filter((x) => x.r.grade === 'poor').length, win: m ? Math.round((w / m) * 100) : 0, real: list.reduce((t, x) => t + x.x.realised, 0), days: m ? Math.round(list.reduce((t, x) => t + x.days, 0) / m) : 0, beat, bn: b.length }; };
   const accts = [...new Set(rev.map((x) => x.x.acct))], row = (label, g, strong) => `<tr${strong ? ' style="font-weight:600"' : ''}><td>${esc(label)}</td><td class="num">${g.m}</td><td class="num">${g.good}</td><td class="num">${g.mixed}</td><td class="num">${g.poor}</td><td class="num">${g.win}%</td><td class="num">${g.bn ? g.beat + ' of ' + g.bn : '—'}</td><td class="num">${g.days}</td><td class="num">${gtxt(g.real)}</td></tr>`;
   const byAcct = accts.length > 1 ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Account</th><th class="num">Sold</th><th class="num">Went well</th><th class="num">Mixed</th><th class="num">Did not</th><th class="num">At a profit</th><th class="num">Beat Nifty 50</th><th class="num">Avg days held</th><th class="num">Realised ₹</th></tr></thead><tbody>${accts.map((a) => row(a, grp(rev.filter((x) => x.x.acct === a)))).join('')}${row(selLabel(), grp(rev), true)}</tbody></table></div>` : '';
-  const head = `<div class="card"><h2>What your trades say · ${esc(selLabel())}</h2>${byAcct}<div class="sub" style="margin-top:8px">${rev.length} sold holdings: ${n.good} went well, ${n.mixed} mixed, ${n.poor} did not go well. "Went well" means a profit that kept up with the Nifty 50 over the same days.</div>${pats.length ? `<ul style="margin:8px 0 0 18px">${pats.map((p) => `<li>${esc(p.text)}</li>`).join('')}</ul>` : '<div class="sub" style="margin-top:6px">Patterns appear once there are at least 5 trades in each group being compared.</div>'}${skipped.noBuy || skipped.noPrices || skipped.noHistory ? `<div class="sub" style="margin-top:6px">Left out of the entry and exit checks: ${skipped.noBuy ? skipped.noBuy + ' with no buy in the statements; ' : ''}${skipped.noPrices ? skipped.noPrices + ' stocks with no usable price history (a split or demerger the history cannot adjust, or a missing symbol); ' : ''}${skipped.noHistory ? skipped.noHistory + ' bought before the stored prices begin (April 2021). ' : ''}</div>` : ''}${S.fundOn ? '' : '<div class="sub" style="margin-top:6px">Funds are reviewed only when fund NAVs are switched on (Data tab).</div>'}<div class="sub" style="margin-top:6px">Price figures use closes adjusted for splits, bonuses and large dividends and are measured from the close on your first buy day, not your exact fill. The index comparison runs from the first buy to the last sale, so a holding bought or sold in several parts is compared roughly. For funds only the result, the index and the dip and run while held are shown.</div></div>`;
+  const head = `<div class="card"><h2>What your trades say · ${esc(selLabel())}</h2>${byAcct}<div class="sub" style="margin-top:8px">${rev.length} sold holdings: ${n.good} went well, ${n.mixed} mixed, ${n.poor} did not go well. "Went well" means a profit that kept up with the Nifty 50 over the same days.</div>${pats.length ? `<ul style="margin:8px 0 0 18px">${pats.map((p) => `<li>${esc(p.text)}</li>`).join('')}</ul>` : '<div class="sub" style="margin-top:6px">Patterns appear once there are at least 5 trades in each group being compared.</div>'}${stopCard(rev)}${skipped.noBuy || skipped.noPrices || skipped.noHistory ? `<div class="sub" style="margin-top:6px">Left out of the entry and exit checks: ${skipped.noBuy ? skipped.noBuy + ' with no buy in the statements; ' : ''}${skipped.noPrices ? skipped.noPrices + ' stocks with no usable price history (a split or demerger the history cannot adjust, or a missing symbol); ' : ''}${skipped.noHistory ? skipped.noHistory + ' bought before the stored prices begin (April 2021). ' : ''}</div>` : ''}${S.fundOn ? '' : '<div class="sub" style="margin-top:6px">Funds are reviewed only when fund NAVs are switched on (Data tab).</div>'}<div class="sub" style="margin-top:6px">Price figures use closes adjusted for splits, bonuses and large dividends and are measured from the close on your first buy day, not your exact fill. The index comparison runs from the first buy to the last sale, so a holding bought or sold in several parts is compared roughly. For funds only the result, the index and the dip and run while held are shown.</div></div>`;
   const num = (v) => (v === null || v === undefined ? '—' : (v >= 0 ? '+' : '–') + Math.abs(v * 100).toFixed(1) + '%');
   const cards = rev.sort((a, b) => b.x.lastSell.localeCompare(a.x.lastSell)).map(({ x, r }) => `<details class="card" style="padding:12px 16px"${r.grade === 'poor' ? '' : ''}><summary>${chip(r.grade)} <b>${esc(x.name)}</b> <span class="sub">· ${esc(x.acct)} · ${esc(x.book)} · ${fmtD(x.firstBuy)} to ${fmtD(x.lastSell)} · ${x.days} days · ${gtxt(x.realised)}</span></summary>
     <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:8px"><div style="flex:1;min-width:240px"><h3>Went well</h3>${r.good.length ? `<ul style="margin:4px 0 0 18px">${r.good.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<div class="sub">Nothing stands out.</div>'}</div><div style="flex:1;min-width:240px"><h3>Did not go well</h3>${r.bad.length ? `<ul style="margin:4px 0 0 18px">${r.bad.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<div class="sub">Nothing stands out.</div>'}</div></div>
+    ${r.issue ? `<div class="sub" style="margin-top:10px"><b>Main issue:</b> ${esc(r.issue.text)}</div>` : ''}${r.entry ? `<div class="sub" style="margin-top:6px"><b>When you bought:</b> ${esc(r.entry.facts.join('; '))}. ${esc(r.entry.read)}${x.kind === 'Fund' ? '' : ' The reason in your head is not in the data: this is a hint.'}</div>` : (x.kind === 'Fund' || !x.sym ? '' : `<div class="sub" style="margin-top:6px"><b>When you bought:</b> not available yet (loading volume history, or the buy is before the stored data).</div>`)}${r.notes.length ? `<div class="sub" style="margin-top:6px">${r.notes.map(esc).join(' ')}</div>` : ''}${r.stops.some((t) => t.hit) ? `<div class="sub" style="margin-top:6px"><b>With a stop:</b> ${r.stops.filter((t) => t.hit && t.saved !== null).map((t) => `${Math.round(t.lvl * 100)}% stop would have sold on ${fmtD(t.hitDate)} at ${num(t.exitRet)}: ${t.saved >= 0 ? 'saves' : 'costs'} ₹${Math.round(Math.abs(t.saved)).toLocaleString('en-IN')}`).join(' · ')}</div>` : r.stops[0].tested && r.n.worstDip !== null ? `<div class="sub" style="margin-top:6px"><b>With a stop:</b> a 8%, 10% or 15% stop would not have triggered on this trade.</div>` : r.n.worstDip !== null && !r.stops[0].tested ? `<div class="sub" style="margin-top:6px"><b>With a stop:</b> not worked out: bought on several days, so there is no single entry to measure a stop from.</div>` : ''}
     <div class="sub" style="margin-top:8px">Result ${num(r.n.result)} · index ${num(r.n.bench)} · run-up before buying ${num(r.n.runUp20)} · vs year high ${num(r.n.belowHigh)} · worst dip ${num(r.n.worstDip)} · best run ${num(r.n.bestRun)} · 20 sessions after the sale ${num(r.n.after20)}</div></details>`).join('');
   return head + cards;
 }

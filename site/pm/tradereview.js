@@ -13,6 +13,15 @@
                       
                                                                                                                
                  
+                                                                                                           
+                                                                               
+                                                                                       
+                                            
+                                                                                                                                                             
+                                                        
+                                                         
+                                                                                                                                      
+                     
  
                           
                                                                                     
@@ -23,8 +32,25 @@
                                                                                            
                                                                                     
                                                                                                         
+                                                                                    
+                                                                                                   
+                                                                                                       
+                                                                
+                                                                                     
  
-                                                                                                                         
+export const STOP_LEVELS = [0.08, 0.1, 0.15];
+                                                                                                                                              
+                         
+                                                                                                
+                                                                                                                                             
+                                                  
+                                                                                                                
+                  
+                                                                                                                                                                                     
+                    
+                                                                         
+                                                                                            
+ 
 
 const pct = (x        ) => (x >= 0 ? '+' : '–') + Math.abs(x * 100).toFixed(1) + '%';
 const upTo = (dates          , d        )         => { let lo = 0, hi = dates.length - 1, r = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (dates[m] <= d) { r = m; lo = m + 1; } else hi = m - 1; } return r; };
@@ -32,18 +58,41 @@ const navOn = (nav                        , d        )                => { for (
 const val = (s        , i        )                => (i >= 0 && i < s.px.length && typeof s.px[i] === 'number' && (s.px[i]          ) > 0 ? (s.px[i]          ) : null);
 
 export function reviewTrade(r          )         {
-  const n          = { result: r.gainKnown !== false && r.soldCost > 0 ? r.realised / r.soldCost : null, bench: null, runUp20: null, belowHigh: null, worstDip: null, bestRun: null, after20: null, gaveBack: null };
+  const n          = { result: r.gainKnown !== false && r.soldCost > 0 ? r.realised / r.soldCost : null, bench: null, runUp20: null, belowHigh: null, worstDip: null, bestRun: null, after20: null, gaveBack: null, runUp5: null, volRatio: null, volSpike5: null, delivery: null, deliveryAvg: null };
+  const oneDay = !!(r.buys && r.buys.length && r.sells && r.buys.every((b) => b.date === r.buys [0].date)), stops             = STOP_LEVELS.map((lvl) => ({ lvl, tested: false, hit: false, hitDate: null, exitRet: null, saved: null }));
+  let crossIdx = -1, i1w = -1, i0w = -1;
   if (r.bench) { const a = navOn(r.bench, r.firstBuy), b = navOn(r.bench, r.lastSell); if (a && b) n.bench = b / a - 1; }
   const s = r.series;
   if (s && s.dates.length) {
     const i0 = upTo(s.dates, r.firstBuy), i1 = upTo(s.dates, r.lastSell), p0 = val(s, i0);
     // only trust the series when it really covers the holding (the stored history starts in 2021)
     if (p0 && i0 >= 0 && s.dates[0] <= r.firstBuy && i1 >= i0) {
+      i0w = i0; i1w = i1;
+      const p5 = val(s, i0 - 5); if (p5 && i0 >= 5) n.runUp5 = p0 / p5 - 1;
+      for (const st of stops) {
+        st.tested = oneDay;
+        for (let i = i0 + 1; i <= i1; i++) { const v = val(s, i); if (v && v / p0 - 1 <= -st.lvl) { st.hit = true; st.hitDate = s.dates[i]; st.exitRet = v / p0 - 1; if (st.lvl === 0.1) crossIdx = i; break; } }
+        // a stop would have sold everything on the hit day: units you sold before it are not affected; each later sale is compared with the stop price on your own cost
+        if (st.hit && oneDay) { const ab = r.buys .reduce((t, x) => t + x.qty * x.price, 0) / r.buys .reduce((t, x) => t + x.qty, 0), stopPx = ab * (1 + st.exitRet ); st.saved = r.sells .filter((x) => x.date > st.hitDate ).reduce((t, x) => t + x.qty * (stopPx - x.price), 0); }
+      }
       const pb = val(s, i0 - 20); if (pb && i0 >= 20 && !r.fund) n.runUp20 = p0 / pb - 1;
       if (i0 >= 250 && !r.fund) { let hi = 0; for (let i = Math.max(0, i0 - 250); i < i0; i++) { const v = val(s, i); if (v && v > hi) hi = v; } if (hi > 0) n.belowHigh = p0 / hi - 1; }
       let lo = Infinity, top = -Infinity; for (let i = i0; i <= i1; i++) { const v = val(s, i); if (v) { lo = Math.min(lo, v); top = Math.max(top, v); } }
       if (lo < Infinity) { n.worstDip = lo / p0 - 1; n.bestRun = top / p0 - 1; const pe = val(s, i1); if (pe && n.bestRun > 0.02) n.gaveBack = (top - pe) / (top - p0); }
       const pe = val(s, i1), pa = val(s, i1 + 20); if (!r.fund && pe && pa && i1 + 20 < s.px.length) n.after20 = pa / pe - 1;
+    }
+  }
+  // volume and delivery around the buy
+  const vv = r.vol;
+  if (vv && !r.fund && !r.volSplit && vv.dates.length) {
+    const j = upTo(vv.dates, r.firstBuy);
+    // the volume session must be the buy day or the last session before it (a weekend or holiday buy), and 50 earlier sessions must exist
+    if (j >= 50 && Date.parse(r.firstBuy) - Date.parse(vv.dates[j]) <= 5 * 86400000) {
+      let sum = 0, cnt = 0; for (let i = j - 50; i < j; i++) { const x = vv.v[i]; if (typeof x === 'number' && x > 0) { sum += x; cnt++; } }
+      const avg = cnt >= 30 ? sum / cnt : 0, today = vv.v[j];
+      if (avg > 0) { if (typeof today === 'number') n.volRatio = today / avg; let mx = 0; for (let i = j - 4; i <= j; i++) { const x = vv.v[i]; if (typeof x === 'number' && x > mx) mx = x; } if (mx > 0) n.volSpike5 = mx / avg; }
+      let ds = 0, dc = 0; for (let i = j - 50; i < j; i++) { const x = vv.d[i]; if (typeof x === 'number') { ds += x; dc++; } }
+      if (dc >= 30) n.deliveryAvg = ds / dc; if (typeof vv.d[j] === 'number') n.delivery = vv.d[j]          ;
     }
   }
   const good           = [], bad           = [];
@@ -54,7 +103,7 @@ export function reviewTrade(r          )         {
     if (n.bench !== null) { const d = n.result - n.bench; if (d > 0.02) good.push(`Ahead of the Nifty 50 index fund between the first buy and the last sale (it made ${pct(n.bench)}).`); else if (d < -0.02) bad.push(`Behind the Nifty 50 index fund between the first buy and the last sale (it made ${pct(n.bench)}).`); else good.push(`About level with the Nifty 50 index fund (it made ${pct(n.bench)}).`); }
   }
   if (n.runUp20 !== null && n.runUp20 > 0.2) bad.push(`Bought after a ${pct(n.runUp20)} run in the 20 sessions before: a late entry.`);
-  else if (n.runUp20 !== null && n.runUp20 < 0.1 && n.belowHigh !== null && n.belowHigh > -0.1) good.push('Entry was close to the recent high without a runaway move before it.');
+
   if (n.belowHigh !== null && n.belowHigh < -0.3) bad.push(`Bought ${(Math.abs(n.belowHigh) * 100).toFixed(0)}% below its year high: a falling stock.`);
   if (n.worstDip !== null && n.worstDip < -0.15) bad.push(`The close fell ${(Math.abs(n.worstDip) * 100).toFixed(0)}% below the buy-day close at its worst while you held.`);
   else if (n.worstDip !== null && n.worstDip > -0.05) good.push(n.worstDip > -0.001 ? 'No close fell below the buy-day close while you held.' : `No close fell more than ${(Math.abs(n.worstDip) * 100).toFixed(1)}% below the buy-day close.`);
@@ -70,7 +119,30 @@ export function reviewTrade(r          )         {
   }
   const grade                  = n.result === null || flat ? 'mixed' : n.result < 0 ? 'poor' : n.bench !== null && n.result - n.bench < -0.02 ? 'mixed' : 'good';
   const headline = grade === 'good' ? 'Went well' : grade === 'poor' ? 'Did not go well' : 'Mixed';
-  return { grade, headline, good, bad, n };
+  // what the market was doing at the buy
+  const facts           = [];
+  if (n.runUp5 !== null) facts.push(`${pct(n.runUp5)} in the 5 sessions before you bought`);
+  if (n.runUp20 !== null) facts.push(`${pct(n.runUp20)} in the 20 sessions before`);
+  if (n.belowHigh !== null) facts.push(n.belowHigh > -0.02 ? 'at its year high' : `${(Math.abs(n.belowHigh) * 100).toFixed(0)}% below its year high`);
+  if (n.volRatio !== null) facts.push(`volume on the buy day ${n.volRatio.toFixed(1)}x its 50-day average${n.volSpike5 !== null && n.volSpike5 > n.volRatio * 1.2 ? ` (peak of ${n.volSpike5.toFixed(1)}x in the 5 days up to it)` : ''}`);
+  if (n.delivery !== null && n.deliveryAvg !== null) facts.push(`delivery ${n.delivery.toFixed(0)}% against a usual ${n.deliveryAvg.toFixed(0)}%`);
+  const mom = (n.runUp5 !== null && n.runUp5 >= 0.08) || (n.runUp20 !== null && n.runUp20 >= 0.2), spike = (n.volRatio !== null && n.volRatio >= 1.5) || (n.volSpike5 !== null && n.volSpike5 >= 2), nearHi = n.belowHigh !== null && n.belowHigh > -0.05;
+  let read = '';
+  if (facts.length) read = mom && spike ? 'Looks like chasing a move: the price had run up on unusual volume.' : nearHi && spike ? 'Looks like a breakout entry: at the high on heavy volume.' : mom ? 'Looks like buying a price run-up, without a volume spike.' : spike ? 'Looks like a volume-driven entry: unusual volume, no big price run first.' : n.runUp5 !== null && n.runUp5 <= -0.05 ? 'Looks like a dip buy: the price was falling into your entry.' : 'No sign of chasing: price and volume looked ordinary before the buy, so the reason was not a market signal.';
+  const entry = facts.length ? { facts, read } : null;
+  // the main driver of a loss
+  let issue                  = null;
+  if (n.result !== null && n.result < -0.02) {
+    const s10 = stops.find((x) => x.lvl === 0.1) , loss = r.soldCost * -n.result;
+    if (s10.hit && s10.saved !== null && s10.saved >= 0.35 * loss && i1w - crossIdx >= 10 && (n.bench === null || n.result - n.bench < -0.05)) issue = { kind: 'holding', text: `The close was 10% below the buy-day close on ${s10.hitDate}, and you held ${i1w - crossIdx} more sessions before the last sale, which was at ${pct(n.result)} on cost. A 10% stop would have saved about ₹${Math.round(s10.saved).toLocaleString('en-IN')} on the units sold after that day.` };
+    else if (mom && spike) issue = { kind: 'entry', text: 'You bought after a sharp run on unusual volume, and it did not follow through.' };
+    else if (n.bench !== null && n.bench < -0.05 && n.result - n.bench > -0.12) issue = { kind: 'market', text: `The market fell too (index ${pct(n.bench)}); most of this loss was the market, not the stock.` };
+    else if (n.after20 !== null && n.after20 > 0.1 && n.worstDip !== null && r.series && n.worstDip < -0.1) issue = { kind: 'exit', text: `You sold near the low and it rose ${pct(n.after20)} over the next 20 sessions.` };
+    else issue = { kind: 'unclear', text: 'No single cause stands out in the price and volume data.' };
+  }
+  const notes           = [];
+  if (r.cluster && (r.cluster.buys >= 3 || r.cluster.sells >= 3)) notes.push(`${r.cluster.buys >= 3 ? `${r.cluster.buys} other stocks in this account were bought the same day` : ''}${r.cluster.buys >= 3 && r.cluster.sells >= 3 ? ' and ' : ''}${r.cluster.sells >= 3 ? `${r.cluster.sells} others were sold the same day` : ''}: this looks like one decision for a group of stocks, not a decision on this stock.`);
+  return { grade, headline, good, bad, n, entry, notes, stops, issue };
 }
 
                                          
@@ -81,6 +153,10 @@ export function patterns(rs                                                     
   if (w.length >= 5 && l.length >= 5) { const dw = avg(w.map((x) => x.days)), dl = avg(l.map((x) => x.days)); out.push({ text: `Winners were held ${Math.round(dw)} days on average and losers ${Math.round(dl)} days${dl > dw * 1.3 ? ': losers are held longer than winners' : dw > dl * 1.3 ? ': winners are given more time than losers' : ''}.` }); }
   const late = rs.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 > 0.2), calm = rs.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 <= 0.2);
   if (late.length >= 5 && calm.length >= 5) out.push({ text: `Trades bought after a run of over 20% in 20 sessions averaged ${pct(avg(late.map((x) => x.result ?? 0)))} (${late.length} trades); the rest averaged ${pct(avg(calm.map((x) => x.result ?? 0)))} (${calm.length} trades).` });
+  const spk = rs.filter((x) => x.r.n.volRatio !== null && (x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2)), qui = rs.filter((x) => x.r.n.volRatio !== null && !(x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2));
+  if (spk.length >= 5 && qui.length >= 5) out.push({ text: `Buys made on unusual volume (1.5x normal or more) averaged ${pct(avg(spk.map((x) => x.result ?? 0)))} (${spk.length} trades); buys on ordinary volume averaged ${pct(avg(qui.map((x) => x.result ?? 0)))} (${qui.length} trades).` });
+  const losers = rs.filter((x) => x.r.issue);
+  if (losers.length >= 5) { const k = (t        ) => losers.filter((x) => x.r.issue .kind === t).length; out.push({ text: `Main issue in your ${losers.length} trades that lost more than 2%: held while falling ${k('holding')}, chased an entry ${k('entry')}, market fell ${k('market')}, sold near the low ${k('exit')}, unclear ${k('unclear')}.` }); }
   const gb = rs.filter((x) => x.r.n.gaveBack !== null && (x.r.n.bestRun ?? 0) > 0.1);
   if (gb.length >= 5) out.push({ text: `Among ${gb.length} trades that were up over 10% at some point, ${gb.filter((x) => x.r.n.gaveBack  > 0.5).length} gave back more than half of the peak gain before the sale.` });
   const ea = rs.filter((x) => x.r.n.after20 !== null);
@@ -88,4 +164,14 @@ export function patterns(rs                                                     
   const bb = rs.filter((x) => x.r.n.bench !== null && x.result !== null);
   if (bb.length >= 5) out.push({ text: `${bb.filter((x) => x.result  > x.r.n.bench ).length} of ${bb.length} trades beat the Nifty 50 over their holding days.` });
   return out;
+}
+
+/** What a fixed stop under the buy-day close would have done across all reviewed trades, in money: saved on losers, cost on trades that dipped through the stop and then recovered. */
+                                                                                                               
+export function stopSummary(rs                 )            {
+  return STOP_LEVELS.map((lvl) => {
+    const tested = rs.filter((x) => x.r.stops.find((t) => t.lvl === lvl)?.tested), rows = tested.map((x) => x.r.stops.find((t) => t.lvl === lvl)).filter((t)                => !!t && t.hit && t.saved !== null);
+    const saved = rows.filter((t) => t.saved  > 0).reduce((a, t) => a + t.saved , 0), cost = rows.filter((t) => t.saved  < 0).reduce((a, t) => a + t.saved , 0);
+    return { lvl, trades: tested.length, hit: rows.length, saved, cost, net: saved + cost };
+  });
 }

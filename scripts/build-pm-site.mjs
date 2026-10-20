@@ -56,6 +56,27 @@ for (const d of Object.keys(byDay).sort()) { const c = (months[d.slice(0, 7)] ??
 mkdirSync('site/pm-data/prices', { recursive: true });
 for (const [m, c] of Object.entries(months)) { for (const a of Object.values(c.px)) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null; put(`site/pm-data/prices/${m}.json`, JSON.stringify(c) + '\n'); }
 put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n');
+// Daily traded volume and delivery % per stock, one file per month, for the trade review (what the market was doing when a buy was made). Public data.
+// Closed months are not read again once their file exists, so the nightly build only touches the current month.
+{
+  mkdirSync('site/pm-data/volume', { recursive: true });
+  const files = new Map();   // date -> path
+  for (const [dir, gz] of [['data/india/bhav-hist', true], ['data/india/bhav', false]]) if (existsSync(dir)) for (const f of readdirSync(dir)) { const m = /^(\d{4}-\d\d-\d\d)\.json(\.gz)?$/.exec(f); if (m && m[1] >= '2021-01-01') files.set(m[1], `${dir}/${f}`); }
+  const byMonth = new Map(); for (const d of [...files.keys()].sort()) (byMonth.get(d.slice(0, 7)) ?? byMonth.set(d.slice(0, 7), []).get(d.slice(0, 7))).push(d);
+  const recent = [...byMonth.keys()].slice(-2)[0] ?? '0000-00';   // months before the second-last are closed
+  const { gunzipSync } = await import('node:zlib');
+  for (const [m, ds] of byMonth) {
+    const out = `site/pm-data/volume/${m}.json`;
+    // a closed month is kept as built unless its date list differs from the stored one (a late or corrected file); the last two months are always rebuilt, so a month boundary in any time zone is safe
+    if (m < recent && existsSync(out)) { try { if (JSON.stringify(JSON.parse(readFileSync(out, 'utf8')).dates) === JSON.stringify(ds)) continue; } catch {} }
+    const c = { dates: [], v: {}, d: {} };
+    ds.forEach((d, i) => { const p = files.get(d), raw = p.endsWith('.gz') ? gunzipSync(readFileSync(p)).toString('utf8') : readFileSync(p, 'utf8'); c.dates.push(d);
+      for (const [sym, r] of Object.entries(JSON.parse(raw).rows)) { if (r[6] == null) continue; (c.v[sym] ??= [])[i] = r[6]; if (r[7] != null) (c.d[sym] ??= [])[i] = r[7]; } });
+    for (const k of ['v', 'd']) for (const a of Object.values(c[k])) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null;
+    put(out, JSON.stringify(c) + '\n');
+  }
+  put('site/pm-data/volume/index.json', JSON.stringify([...byMonth.keys()]) + '\n');
+}
 // context for each stock (trend, relative strength, liquidity, delivery): public data only, never part of a verdict
 {
   const dts = [], px = {}; for (const m of Object.keys(months)) { const c = months[m]; const base = dts.length; dts.push(...c.dates); for (const [sym, a] of Object.entries(c.px)) { const arr = (px[sym] ??= []); while (arr.length < base) arr.push(null); arr.push(...a); } }
