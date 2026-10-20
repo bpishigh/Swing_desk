@@ -13,8 +13,9 @@ export interface Morning {
 }
 const key = (r: { account: string; symbol: string }) => `${r.account}|${r.symbol}`;
 
-export function morningSummary(a: { asOf: string; previousAsOf: string | null; rows: HoldingRow[]; prev: Record<string, string>; seeded: boolean; resultsNext?: Record<string, string>; within?: number }): Morning {
-  const cal = makeCalendar(), within = a.within ?? 10;
+export function morningSummary(a: { asOf: string; previousAsOf: string | null; rows: HoldingRow[]; prev: Record<string, string>; seeded: boolean; resultsNext?: Record<string, string>; within?: number; names?: Record<string, string> }): Morning {
+  const cal = makeCalendar(), within = a.within ?? 10, full = (r: HoldingRow): HoldingRow => ({ ...r, name: a.names?.[r.symbol] ?? r.name });
+  a = { ...a, rows: a.rows.map(full) };
   const exits = a.rows.filter((r) => r.label === 'Exit').sort((x, y) => (y.value ?? 0) - (x.value ?? 0));
   const newExits = a.seeded ? exits.filter((r) => a.prev[key(r)] !== 'Exit') : [];
   const recovered = a.seeded ? a.rows.filter((r) => r.label !== 'Exit' && a.prev[key(r)] === 'Exit').map((r) => ({ account: r.account, symbol: r.symbol, name: r.name })) : [];

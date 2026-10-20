@@ -75,8 +75,6 @@ details.fold > summary { cursor: pointer; font-weight: 600; font-size: 14px; pad
 .strip i { width: 9px; height: 18px; border-radius: 2px; display: block; }
 .strip i.green { background: var(--green); } .strip i.yellow { background: var(--yellow); } .strip i.red { background: var(--red); }
 .note { color: var(--muted); font-size: 12.5px; }
-ul.plain { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; }
-ul.plain li { margin: 2px 0; }
 .empty { padding: 28px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; }
 .bar { height: 10px; background: var(--neutral-bg); border-radius: 5px; overflow: hidden; position: relative; }
 .bar > span { display: block; height: 100%; background: var(--accent); }
@@ -185,15 +183,18 @@ let MORN; // undefined = not asked yet, false = unavailable (not signed in, or n
 function holdingsCard() {
   if (MORN === undefined) { MORN = null; fetch('/api/portfolio?view=morning', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { MORN = d && d.morning ? d.morning : false; if (tab === 'market') render(); }).catch(() => { MORN = false; }); }
   const m = MORN; if (!m) return '';
-  const c = m.counts, nm = (r) => esc(r.name || r.symbol), who = (r) => esc(r.account), money = (v) => (v == null ? '' : ' ₹' + Math.round(v).toLocaleString('en-IN'));
-  const li = (a) => a.length ? `<ul class="plain">${a.join('')}</ul>` : '';
-  const first = !m.seeded || m.previousAsOf === m.asOf;
-  const changes = first ? '<div class="note">First night of this card: changes show from tomorrow.</div>'
-    : (m.newExits.length || m.recovered.length ? `${m.newExits.length ? `<h3>Newly fail the exit test (${m.newExits.length})</h3>${li(m.newExits.map((r) => `<li>${nm(r)} <span class="note">${who(r)}${money(r.value)}${r.why ? ' · ' + esc(r.why) : ''}</span></li>`))}` : ''}${m.recovered.length ? `<h3>Back above the test (${m.recovered.length})</h3>${li(m.recovered.map((r) => `<li>${nm(r)} <span class="note">${who(r)}</span></li>`))}` : ''}` : `<div class="note">No change in verdicts since ${esc(m.previousAsOf || 'the last run')}.</div>`);
-  const due = m.resultsDue.length ? `<h3>Results due within 10 sessions (${m.resultsDue.length})</h3>${li(m.resultsDue.map((r) => `<li>${nm(r)} <span class="note">${who(r)} · ${esc(r.date.slice(5))}${r.sessions === 0 ? ' (today)' : ' · in ' + r.sessions + ' session' + (r.sessions === 1 ? '' : 's')}</span></li>`))}` : '';
-  return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2>Your holdings: what changed</h2><span class="chip ok">data ${esc(m.asOf)}</span></div>
-    <div class="note">${c.stocks} direct stocks across your accounts · ${c.exit} fail the exit test · ${c.keep} pass${c.noVerdict ? ' · ' + c.noVerdict + ' no verdict yet' : ''}. Information only: it changes no rule. Full detail is on the Portfolio tab.</div>
-    ${changes}${due}</section>`;
+  const c = m.counts, nm = (r) => esc(r.name || r.symbol), first = !m.seeded || m.previousAsOf === m.asOf, nNew = m.newExits.length, nBack = m.recovered.length;
+  const day = (d) => { const t = new Date(d + 'T00:00:00Z'); return t.getUTCDate() + ' ' + t.toLocaleString('en-GB', { month: 'short', timeZone: 'UTC' }); };
+  const money = (v) => (v == null ? '' : '₹' + Math.round(v).toLocaleString('en-IN'));
+  const chg = first ? '<div class="note">Changes show from tomorrow night, once there is an earlier night to compare with.</div>'
+    : (nNew || nBack) ? `<table><tbody>${m.newExits.map((r) => `<tr><td><span class="chip bad">Fails</span></td><td>${nm(r)}<div class="note">${esc(r.account)}${r.value ? ' · ' + money(r.value) : ''}</div></td></tr>`).join('')}${m.recovered.map((r) => `<tr><td><span class="chip ok">Back</span></td><td>${nm(r)}<div class="note">${esc(r.account)}</div></td></tr>`).join('')}</tbody></table>`
+    : `<div class="note">No verdict changed since ${esc(day(m.previousAsOf))}.</div>`;
+  const shown = m.resultsDue.slice(0, 6), more = m.resultsDue.length - shown.length;
+  const due = m.resultsDue.length ? `<div class="tablewrap"><table><thead><tr><th>Company</th><th>Account</th><th class="num">Results</th></tr></thead><tbody>${shown.map((r) => `<tr><td>${nm(r)}</td><td class="note">${esc(r.account)}</td><td class="num">${r.sessions === 0 ? 'today' : esc(day(r.date))}</td></tr>`).join('')}</tbody></table></div>${more > 0 ? `<div class="note" style="margin-top:6px">+${more} more within 10 sessions</div>` : ''}` : '<div class="note">None within 10 sessions.</div>';
+  return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2>Your holdings</h2><span class="chip ok">data ${esc(m.asOf)}</span></div>
+    <dl class="kv"><div><dt>Direct stocks</dt><dd>${c.stocks}</dd></div><div><dt>Fail exit test</dt><dd>${c.exit}<small>${first ? '' : nNew ? nNew + ' new since ' + esc(day(m.previousAsOf)) : 'no new'}</small></dd></div><div><dt>Pass</dt><dd>${c.keep}<small>${c.noVerdict ? c.noVerdict + ' no verdict yet' : ''}</small></dd></div><div><dt>Results within 10 sessions</dt><dd>${m.resultsDue.length}</dd></div></dl>
+    <div class="grid2" style="margin-top:14px"><div><h3>Changes</h3>${chg}</div><div><h3>Results due</h3>${due}</div></div>
+    <div class="note" style="margin-top:10px">Information only; no rule changes. Full detail on the Portfolio tab.</div></section>`;
 }
 function viewMarket() {
   return `${holdingsCard()}<div class="grid2">${marketCard('India', D.india)}${marketCard('US', D.us)}</div><div class="grid2 wide" style="margin-top:16px">${sectorTable('India', D.india, 'sectIndia')}${sectorTable('US', D.us, 'sectUS')}</div>

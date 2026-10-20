@@ -53,7 +53,7 @@ if (msg) { try { execFileSync('node', ['scripts/alert.mjs', msg], { stdio: 'inhe
 if (ok) writeFileSync('portfolio/book/holdings-state.json', JSON.stringify({ seeded: true, asOf, verdicts: now }, null, 1) + '\n');
 // the front-page card (src/pm/morning.ts): what changed since the last evening; a second run on the same day keeps the first run's changes
 const prevLatest = J('portfolio/book/holdings-latest.json', null), sameDay = prevLatest?.asOf === asOf && prevLatest?.morning;
-const morning = sameDay ? { ...morningSummary({ asOf, previousAsOf: prevLatest.morning.previousAsOf, rows, prev: {}, seeded: false, resultsNext: J('site/pm-data/results-next.json', { next: {} }).next }), newExits: prevLatest.morning.newExits, recovered: prevLatest.morning.recovered, seeded: prevLatest.morning.seeded }
-  : morningSummary({ asOf, previousAsOf: state.asOf ?? null, rows, prev: state.verdicts, seeded: state.seeded, resultsNext: J('site/pm-data/results-next.json', { next: {} }).next });
+const morning = sameDay ? { ...morningSummary({ asOf, previousAsOf: prevLatest.morning.previousAsOf, rows, prev: {}, seeded: false, resultsNext: J('site/pm-data/results-next.json', { next: {} }).next, names: J('data/names.json', { india: {} }).india }), newExits: prevLatest.morning.newExits, recovered: prevLatest.morning.recovered, seeded: prevLatest.morning.seeded }
+  : morningSummary({ asOf, previousAsOf: state.asOf ?? null, rows, prev: state.verdicts, seeded: state.seeded, resultsNext: J('site/pm-data/results-next.json', { next: {} }).next, names: J('data/names.json', { india: {} }).india });
 writeFileSync('portfolio/book/holdings-latest.json', JSON.stringify({ asOf, rows, morning }, null, 1) + '\n');
 if (!ok) process.exit(1);
