@@ -27,7 +27,8 @@ test('new money property: random inputs always sum to the amount with no negativ
 test('sale needs only for classes above target plus band, after new money', () => {
   const held = { ...zero(), direct_equity: 500, debt: 300, gold: 200 };
   assert.deepEqual(Object.keys(sellNeeds(T, held, () => 0.05)), ['direct_equity']);
-  assert.deepEqual(sellNeeds(T, held, () => 0.05, { debt: 700 }), {});
+  assert.deepEqual(Object.keys(sellNeeds(T, held, () => 0.05, { debt: 700 })), ['debt']);   // too much new money in one class pushes it over its band
+  assert.deepEqual(sellNeeds(T, held, () => 0.05, { debt: 600, gold: 200 }), {});
   assert.ok(!('direct_equity' in sellNeeds(T, held, () => 0.5)));
 });
 test('sale order: exit names, then loss lots, then long-term equity, then short-term; Swing book and locked ELSS never sold', () => {
