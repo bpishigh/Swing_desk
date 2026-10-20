@@ -4,24 +4,12 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs'; import { gunzipSync } from 'node:zlib';
 import { runScan, buildHistories } from '../src/ingest/us-scan.ts';
 import { INDIA_SCAN, INDIA_SCAN_VERSION, INDIA_SETUPS } from '../src/ingest/india-scan-settings.ts';
-import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
+import { asOfHistories } from '../src/backtest/india-asof.ts';
+import { loadIndia } from '../src/backtest/india-loader.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
 const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
-const bhav = [];
-for (const f of readdirSync('data/india/bhav-hist').filter((x) => x.endsWith('.json.gz')).sort()) bhav.push(JSON.parse(gunzipSync(readFileSync('data/india/bhav-hist/' + f))));
-for (const f of readdirSync('data/india/bhav').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) bhav.push(R('data/india/bhav/' + f));
-bhav.sort((a, b) => (a.date < b.date ? -1 : 1));
-const sel = bhav.filter((d, i) => i === 0 || d.date !== bhav[i - 1].date);
-const actions = [...R('data/india/corp-actions-history.json'), ...(existsSync('data/india/corp-actions.json') ? R('data/india/corp-actions.json') : [])];
-const ov = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? R('data/india/corp-action-overrides-hist.json') : {}), ...(existsSync('data/india/corp-action-overrides.json') ? R('data/india/corp-action-overrides.json') : {}) };
-const res = resolveHistory(sel, actions, ov);
-const industry = R('data/india/segments.json').industry ?? {}, allowed = new Set(Object.keys(industry)), types = new Map([...allowed].map((s) => [s, 'CS']));
-const days = toDays(sel), dates = days.map((d) => d.date), T = days.length;
-const FH = buildHistories(days, res.splits, allowed);       // fully adjusted: realised returns only
-const RD = R('data/india/results-dates.json'), syms = [...allowed].filter((s) => FH.series.has(s));
-const first = (d) => { let lo = 0, hi = T; while (lo < hi) { const m = (lo + hi) >> 1; if (dates[m] < d) lo = m + 1; else hi = m; } return lo; };
-const cc = (s, i) => { const v = FH.series.get(s)?.c[i]; return v > 0 ? v : NaN; }, ret = (s, a, b) => cc(s, b) / cc(s, a) - 1;
+const D = loadIndia(), { dates, T, days, res, industry, allowed, types, FH, RD, syms, first, cc, ret, mkt, mk, sma, dv20 } = D;   // C-69: the shared loader
 
 const N = +arg('n', 60), LIGHT = arg('light', 'red');
 const first0 = T - N - 1, warm = Math.max(260, first0 - 30);
