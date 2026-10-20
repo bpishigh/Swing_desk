@@ -168,6 +168,10 @@
     {
       "date": "2026-10-20",
       "change": "Owner approved the values as proposed. Added rebalance settings (minTrade 10,000; maxCostShare 3%) for phase 6."
+    },
+    {
+      "date": "2026-10-20",
+      "change": "Added swingPools settings (maxPositions 10, cashFunded false, capitalSource own) for phase 7 part 1, from the owner's statement that no money moved between the accounts and new cash comes from the bank."
     }
   ],
   "bearMarketEquityFall": 0.4,
@@ -176,5 +180,11 @@
     "minTrade": 10000,
     "maxCostShare": 0.03,
     "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges exceed this share of the sale, unless it is an Exit-verdict name. Quarterly cap per class is not enforced yet (needs a stored decision log)."
+  },
+  "swingPools": {
+    "maxPositions": 10,
+    "cashFunded": false,
+    "capitalSource": "own",
+    "note": "Owner stated 20 Oct 2026: no money moved between the two accounts, and new cash comes from the bank when a trade is made, so capital is recorded as own income and the cash step of routing is skipped."
   }
 }
