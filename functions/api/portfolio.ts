@@ -1,7 +1,7 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
 // Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on this repo only), REPO ("owner/name"), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
 import { checkAccess } from '../_lib/access.ts';
-import { cleanTrades, loadAccounts, loadMorning, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, deleteAccount, renameAccount } from '../_lib/store.ts';
+import { cleanTrades, loadAccounts, loadMorning, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, deleteAccount, renameAccount } from '../_lib/store.ts';
 
 const reply = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -17,9 +17,10 @@ export async function handle(req: Request, env: any, fetchFn: typeof fetch = fet
     if (!validOwner(b.owner)) return reply(400, { error: 'bad owner name' });
     const decisions = cleanDecisions(b.decisions); if (typeof decisions === 'string') return reply(400, { error: decisions });
     const vlog = cleanLog(b.verdictLog); if (typeof vlog === 'string') return reply(400, { error: vlog });
+    const settings = cleanSettings(b.settings); if (typeof settings === 'string') return reply(400, { error: settings });
     if (b.broker !== 'groww' && b.broker !== 'zerodha') return reply(400, { error: 'bad broker' });
     const trades = cleanTrades(b.trades); if (typeof trades === 'string') return reply(400, { error: trades });
-    try { return reply(200, await saveAccount(env, b.label, b.broker, trades, fetchFn, new Date(), b.owner, decisions, vlog)); } catch (e: any) { return reply(502, { error: e.message }); }
+    try { return reply(200, await saveAccount(env, b.label, b.broker, trades, fetchFn, new Date(), b.owner, decisions, vlog, settings)); } catch (e: any) { return reply(502, { error: e.message }); }
   }
   if (req.method === 'DELETE' || req.method === 'PATCH') {
     let b: any; try { b = await req.json(); } catch { return reply(400, { error: 'bad json' }); }

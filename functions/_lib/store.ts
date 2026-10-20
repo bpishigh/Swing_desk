@@ -2,7 +2,7 @@
 import { mergeTrades, type Trade } from '../../src/pm/reader.ts';
 import type { Decision } from '../../src/pm/resolver.ts';
 export interface StoreEnv { GITHUB_TOKEN: string; REPO: string; BRANCH?: string }
-export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; verdictLog?: LogEntry[]; savedAt: string; trades: Trade[] }
+export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; verdictLog?: LogEntry[]; settings?: AccountSettings; savedAt: string; trades: Trade[] }
 const DIR = 'portfolio/accounts';
 const LABEL = /^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/;
 const DATE = /^\d{4}-\d\d-\d\d$/;
@@ -24,6 +24,26 @@ export function cleanTrades(input: unknown): Trade[] | string {
     if (x.symbol !== undefined) { if (!str(x.symbol, 40)) return `trade ${i}: bad symbol`; o.symbol = x.symbol as string; }
     out.push(o);
   }
+  return out;
+}
+/** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates): kept with the account so the desk works the same from any browser. Whitelisted and bounded. */
+export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string> }
+const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
+const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k);
+export function cleanSettings(input: unknown): AccountSettings | string | undefined {
+  if (input === undefined) return undefined;
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return 'settings must be an object';
+  const i = input as Record<string, any>, out: AccountSettings = {};
+  for (const f of ['capital', 'money', 'buffer'] as const) if (i[f] !== undefined) { const n = nn(i[f]); if (n === null) return `bad ${f}`; out[f] = n; }
+  if (i.horizon !== undefined) { const n = nn(i.horizon, 60); if (n === null) return 'bad horizon'; out.horizon = n; }
+  if (i.slab !== undefined) { const n = nn(i.slab, 60); if (n === null) return 'bad slab rate'; out.slab = n; }
+  if (i.profile !== undefined) { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; }
+  if (i.off !== undefined) { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; }
+  const rec = (v: any, max: number, what: string, check: (x: any) => boolean): Record<string, any> | string => { if (!v || typeof v !== 'object' || Array.isArray(v)) return `bad ${what}`; const e = Object.entries(v); if (e.length > max) return `too many ${what}`; for (const [k, x] of e) if (!okKey(k) || !check(x)) return `bad ${what}`; return v; };
+  if (i.custom !== undefined) { const r = rec(i.custom, 20, 'custom weights', (x) => nn(x, 1) !== null); if (typeof r === 'string') return r; out.custom = r as any; }
+  if (i.stops !== undefined) { const r = rec(i.stops, 100, 'stops', (x) => nn(x, 1e7) !== null); if (typeof r === 'string') return r; out.stops = r as any; }
+  if (i.acted !== undefined) { const r = rec(i.acted, 20, 'dates', (x) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x)); if (typeof r === 'string') return r; out.acted = r as any; }
+  if (i.outside !== undefined) { if (!Array.isArray(i.outside) || i.outside.length > 10 || i.outside.some((o: any) => !o || typeof o.name !== 'string' || !okKey(o.name) || nn(o.value) === null || typeof o.cls !== 'string' || !okKey(o.cls))) return 'bad outside holdings'; out.outside = i.outside.map((o: any) => ({ name: o.name, value: o.value, cls: o.cls })); }
   return out;
 }
 /** The owner's answers to estimated items. `clear` removes an answer. Keys are company keys (an ISIN or an uppercased name). */
@@ -96,12 +116,12 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = []) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = [], settings?: AccountSettings) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
   const dec: Record<string, Decision> = { ...(cur?.data.decisions ?? {}) }; for (const [k, v] of Object.entries(decisions)) { if (v === 'clear') delete dec[k]; else dec[k] = v; }
   const vlog = mergeLog(cur?.data.verdictLog, log);
-  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...((settings ?? cur?.data.settings) ? { settings: settings ?? cur?.data.settings } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }
