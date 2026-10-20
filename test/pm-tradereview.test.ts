@@ -107,7 +107,7 @@ test('entry facts and reads come from price and volume before the buy: chase, br
   const run = mk((i) => (i < 190 ? 100 : i <= 200 ? 100 + (i - 190) * 3 : 130));   // +30% in the 10 sessions to the buy
   const spike = volOf((i) => (i === 200 ? 5000 : 1000));
   const a = reviewTrade(base({ series: run, vol: spike }));
-  assert.match(a.entry!.read, /chasing a move/); assert.ok(a.entry!.facts.some((f) => /5\.0x/.test(f)));
+  assert.match(a.entry!.read, /chasing a move.*run up fast on heavy volume that day/); assert.ok(a.entry!.facts.some((f) => /5\.0x/.test(f)));
   const quiet = reviewTrade(base({ series: mk(() => 100), vol: volOf(() => 1000) }));
   assert.match(quiet.entry!.read, /No sign of chasing/);
   assert.equal(reviewTrade(base({ series: mk(() => 100), vol: null })).n.volRatio, null);
@@ -140,4 +140,22 @@ test('volume is read for a weekend buy from the previous session; the main issue
   const down: Record<string, number> = Object.fromEntries(dates.map((d, i) => [d, i <= 200 ? 100 : 100 * Math.pow(0.992, i - 200)]));
   const m = reviewTrade(base({ series: fall, bench: down, realised: -260, proceeds: 740 }));
   assert.equal(m.issue?.kind, 'market');
+});
+
+test('entry wording separates the buy-day volume from an earlier surge, and says what delivery means', () => {
+  // at the high, big volume 3 sessions before, quiet on the buy day, delivery below usual
+  const hi = mk((i) => (i < 295 ? 100 : 100 + (i - 294)));
+  const v = { ...volOf((i) => (i === 297 ? 8000 : i === 300 ? 800 : 1000)), d: Array.from({ length: dates.length }, (_, i) => (i === 300 ? 29 : 40)) };
+  const a = reviewTrade(base({ firstBuy: dates[300], lastSell: dates[330], series: hi, vol: v })).entry!;
+  assert.match(a.read, /breakout entry.*volume on your buy day was quiet.*joined after the move/);
+  assert.ok(a.facts.some((f) => /volume on the buy day was 0\.7x its average of the 50 sessions before \(light\)/.test(f)));
+  assert.ok(a.facts.some((f) => /busiest of the last 5 sessions up to your buy was 7\.0x/.test(f)));
+  assert.ok(a.facts.some((f) => /delivery on the buy day was 29% of shares traded, against a usual 40% \(lower than usual\)/.test(f)));
+  assert.match(a.read, /Delivery was below its usual level/);
+  // sharp bounce, still well below the high, heavy volume on the buy day: chasing
+  const bounce = mk((i) => (i < 250 ? 140 : i < 290 ? 100 : i <= 300 ? 100 + (i - 290) * 2 : 120));
+  const b = reviewTrade(base({ firstBuy: dates[300], lastSell: dates[330], series: bounce, vol: volOf((i) => (i === 300 ? 2000 : 1000)) })).entry!;
+  assert.match(b.read, /chasing a move.*run up fast on heavy volume that day/);
+  assert.ok(b.facts.some((f) => /below its 1-year high/.test(f)));
+  assert.ok(b.facts.some((f) => /price rose \d+\.\d% in the 5 trading days before your buy/.test(f)));
 });

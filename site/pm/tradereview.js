@@ -121,14 +121,20 @@ export function reviewTrade(r          )         {
   const headline = grade === 'good' ? 'Went well' : grade === 'poor' ? 'Did not go well' : 'Mixed';
   // what the market was doing at the buy
   const facts           = [];
-  if (n.runUp5 !== null) facts.push(`${pct(n.runUp5)} in the 5 sessions before you bought`);
-  if (n.runUp20 !== null) facts.push(`${pct(n.runUp20)} in the 20 sessions before`);
-  if (n.belowHigh !== null) facts.push(n.belowHigh > -0.02 ? 'at its year high' : `${(Math.abs(n.belowHigh) * 100).toFixed(0)}% below its year high`);
-  if (n.volRatio !== null) facts.push(`volume on the buy day ${n.volRatio.toFixed(1)}x its 50-day average${n.volSpike5 !== null && n.volSpike5 > n.volRatio * 1.2 ? ` (peak of ${n.volSpike5.toFixed(1)}x in the 5 days up to it)` : ''}`);
-  if (n.delivery !== null && n.deliveryAvg !== null) facts.push(`delivery ${n.delivery.toFixed(0)}% against a usual ${n.deliveryAvg.toFixed(0)}%`);
+  const mv = (x        ) => `${x >= 0 ? 'rose' : 'fell'} ${Math.abs(x * 100).toFixed(1)}%`;
+  if (n.runUp5 !== null) facts.push(`price ${mv(n.runUp5)} in the 5 trading days before your buy`);
+  if (n.runUp20 !== null) facts.push(`price ${mv(n.runUp20)} in the 20 trading days before your buy`);
+  if (n.belowHigh !== null) facts.push(n.belowHigh > -0.02 ? 'price was at its 1-year high' : `price was ${(Math.abs(n.belowHigh) * 100).toFixed(0)}% below its 1-year high`);
+  const vtag = (x        ) => (x >= 1.5 ? 'heavy' : x < 0.8 ? 'light' : 'normal');
+  if (n.volRatio !== null) facts.push(`volume on the buy day was ${n.volRatio.toFixed(1)}x its average of the 50 sessions before (${vtag(n.volRatio)})`);
+  if (n.volSpike5 !== null && (n.volRatio === null || n.volSpike5 > n.volRatio * 1.2)) facts.push(`the busiest of the last 5 sessions up to your buy was ${n.volSpike5.toFixed(1)}x average`);
+  if (n.delivery !== null && n.deliveryAvg !== null) facts.push(`delivery on the buy day was ${n.delivery.toFixed(0)}% of shares traded, against a usual ${n.deliveryAvg.toFixed(0)}% (${n.delivery < n.deliveryAvg * 0.85 ? 'lower than usual' : n.delivery > n.deliveryAvg * 1.15 ? 'higher than usual' : 'about usual'})`);
   const mom = (n.runUp5 !== null && n.runUp5 >= 0.08) || (n.runUp20 !== null && n.runUp20 >= 0.2), spike = (n.volRatio !== null && n.volRatio >= 1.5) || (n.volSpike5 !== null && n.volSpike5 >= 2), nearHi = n.belowHigh !== null && n.belowHigh > -0.05;
+  const buyDayHeavy = n.volRatio !== null && n.volRatio >= 1.5, buyDayQuiet = n.volRatio !== null && n.volRatio < 1.2;
+  const when = buyDayHeavy ? 'on heavy volume that day' : buyDayQuiet ? 'but volume on your buy day was quiet: the surge came a few days earlier, so you may have joined after the move' : 'on a volume surge in the days before';
   let read = '';
-  if (facts.length) read = mom && spike ? 'Looks like chasing a move: the price had run up on unusual volume.' : nearHi && spike ? 'Looks like a breakout entry: at the high on heavy volume.' : mom ? 'Looks like buying a price run-up, without a volume spike.' : spike ? 'Looks like a volume-driven entry: unusual volume, no big price run first.' : n.runUp5 !== null && n.runUp5 <= -0.05 ? 'Looks like a dip buy: the price was falling into your entry.' : 'No sign of chasing: price and volume looked ordinary before the buy, so the reason was not a market signal.';
+  if (facts.length) read = nearHi && spike ? `Looks like a breakout entry: the price was at its 1-year high ${when}.` : mom && spike ? `Looks like chasing a move: the price had run up fast ${when}.` : mom ? 'Looks like buying after a price run-up, with no unusual volume.' : spike ? `Looks like a volume-driven entry: unusual volume ${buyDayHeavy ? 'that day' : 'in the days before'}, no big price run first.` : n.runUp5 !== null && n.runUp5 <= -0.05 ? 'Looks like a dip buy: the price was falling into your entry.' : 'No sign of chasing: price and volume looked ordinary before the buy, so the reason was not a market signal.';
+  if (facts.length && n.delivery !== null && n.deliveryAvg !== null) { if (n.delivery < n.deliveryAvg * 0.85) read += ' Delivery was below its usual level, so more of that day\'s buying was short-term trading than usual.'; else if (n.delivery > n.deliveryAvg * 1.15) read += ' Delivery was above its usual level, so more buyers were taking the shares to hold.'; }
   const entry = facts.length ? { facts, read } : null;
   // the main driver of a loss
   let issue                  = null;
