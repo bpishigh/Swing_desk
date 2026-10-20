@@ -4,8 +4,11 @@
                                                 
 // Names are matched as substrings, not whole words: exchange-traded funds are often listed as one run-together symbol (GOLDBEES, SILVERBEES, BANKBEES).
 const SECTOR = /bank|psu|cpse|pharma|healthcare|itbees|nifty it\b|infra|energy|autobees|nifty auto|fmcg|consum|realty|metal|financ|defen|manufactur|capital market|chemical/;
-export function assetClassOf(kind                          , name        , category = '')                    {
+/** `taxType` is the tax class the pipeline already settled from the order (classify.ts, funds.ts); it is trusted before any name rule, so an ETF the name rules miss is still placed. */
+export function assetClassOf(kind                          , name        , category = '', taxType = '')                    {
   const n = name.toLowerCase(), c = category.toLowerCase();
+  if (taxType === 'gold_silver_etf') return /silv/.test(n) ? 'silver' : 'gold';
+  if (taxType === 'intl_etf' || taxType === 'us_stock' || taxType === 'overseas_fof') return /silver/.test(n) ? 'silver' : /gold(?!man)/.test(n) ? 'gold' : 'international';
   if (kind === 'Stock') return 'direct_equity';
   if (/silver/.test(n)) return 'silver';
   if (/gold(?!man)/.test(n)) return 'gold';
@@ -17,5 +20,8 @@ export function assetClassOf(kind                          , name        , categ
   if (/index funds|etf/.test(c)) return SECTOR.test(n) && !/nifty 50|nifty next|sensex|nifty 100|nifty 200|nifty 500|midcap|smallcap/.test(n) ? 'sector_thematic' : 'index';
   if (/^equity scheme|elss/.test(c)) return 'active_equity_fund';
   if (/debt|income|gilt|ultra short|low duration|floater|corporate bond|credit risk|banking and psu|short duration|medium duration|long duration|dynamic bond|fixed maturity|fmp/.test(c)) return 'debt';
+  if (taxType === 'equity_fund') return 'active_equity_fund';
+  if (taxType === 'debt_fund') return 'debt';
+  if (taxType === 'hybrid_other') return 'hybrid';
   return null;
 }
