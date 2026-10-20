@@ -183,16 +183,17 @@ let MORN; // undefined = not asked yet, false = unavailable (not signed in, or n
 function holdingsCard() {
   if (MORN === undefined) { MORN = null; fetch('/api/portfolio?view=morning', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { MORN = d && d.morning ? d.morning : false; if (tab === 'market') render(); }).catch(() => { MORN = false; }); }
   const m = MORN; if (!m) return '';
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }), live = m.resultsDue.filter((r) => r.date >= today); // a date already past is dropped: the data day can be a day behind
   const c = m.counts, nm = (r) => esc(r.name || r.symbol), first = !m.seeded || m.previousAsOf === m.asOf, nNew = m.newExits.length, nBack = m.recovered.length;
   const day = (d) => { const t = new Date(d + 'T00:00:00Z'); return t.getUTCDate() + ' ' + t.toLocaleString('en-GB', { month: 'short', timeZone: 'UTC' }); };
   const money = (v) => (v == null ? '' : '₹' + Math.round(v).toLocaleString('en-IN'));
   const chg = first ? '<div class="note">Changes show from tomorrow night, once there is an earlier night to compare with.</div>'
     : (nNew || nBack) ? `<table><tbody>${m.newExits.map((r) => `<tr><td><span class="chip bad">Fails</span></td><td>${nm(r)}<div class="note">${esc(r.account)}${r.value ? ' · ' + money(r.value) : ''}</div></td></tr>`).join('')}${m.recovered.map((r) => `<tr><td><span class="chip ok">Back</span></td><td>${nm(r)}<div class="note">${esc(r.account)}</div></td></tr>`).join('')}</tbody></table>`
     : `<div class="note">No verdict changed since ${esc(day(m.previousAsOf))}.</div>`;
-  const shown = m.resultsDue.slice(0, 6), more = m.resultsDue.length - shown.length;
-  const due = m.resultsDue.length ? `<div class="tablewrap"><table><thead><tr><th>Company</th><th>Account</th><th class="num">Results</th></tr></thead><tbody>${shown.map((r) => `<tr><td>${nm(r)}</td><td class="note">${esc(r.account)}</td><td class="num">${r.sessions === 0 ? 'today' : esc(day(r.date))}</td></tr>`).join('')}</tbody></table></div>${more > 0 ? `<div class="note" style="margin-top:6px">+${more} more within 10 sessions</div>` : ''}` : '<div class="note">None within 10 sessions.</div>';
+  const shown = live.slice(0, 6), more = live.length - shown.length;
+  const due = live.length ? `<div class="tablewrap"><table><thead><tr><th>Company</th><th>Account</th><th class="num">Results</th></tr></thead><tbody>${shown.map((r) => `<tr><td>${nm(r)}</td><td class="note">${esc(r.account)}</td><td class="num">${r.date === today ? 'today' : esc(day(r.date))}</td></tr>`).join('')}</tbody></table></div>${more > 0 ? `<div class="note" style="margin-top:6px">+${more} more within 10 sessions</div>` : ''}` : '<div class="note">None within 10 sessions.</div>';
   return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2>Your holdings</h2><span class="chip ok">data ${esc(m.asOf)}</span></div>
-    <dl class="kv"><div><dt>Direct stocks</dt><dd>${c.stocks}</dd></div><div><dt>Fail exit test</dt><dd>${c.exit}<small>${first ? '' : nNew ? nNew + ' new since ' + esc(day(m.previousAsOf)) : 'no new'}</small></dd></div><div><dt>Pass</dt><dd>${c.keep}<small>${c.noVerdict ? c.noVerdict + ' no verdict yet' : ''}</small></dd></div><div><dt>Results within 10 sessions</dt><dd>${m.resultsDue.length}</dd></div></dl>
+    <dl class="kv"><div><dt>Direct stocks</dt><dd>${c.stocks}</dd></div><div><dt>Fail exit test</dt><dd>${c.exit}<small>${first ? '' : nNew ? nNew + ' new since ' + esc(day(m.previousAsOf)) : 'no new'}</small></dd></div><div><dt>Pass</dt><dd>${c.keep}<small>${c.noVerdict ? c.noVerdict + ' no verdict yet' : ''}</small></dd></div><div><dt>Results within 10 sessions</dt><dd>${live.length}</dd></div></dl>
     <div class="grid2" style="margin-top:14px"><div><h3>Changes</h3>${chg}</div><div><h3>Results due</h3>${due}</div></div>
     <div class="note" style="margin-top:10px">Information only; no rule changes. Full detail on the Portfolio tab.</div></section>`;
 }
