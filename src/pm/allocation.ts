@@ -14,7 +14,7 @@ export interface AllocSettings {
   nonEquitySplit: Record<string, number>;
   classMin: Record<string, number>; classMax: Record<string, number>;
   positionCap: Record<Profile, number>; fundCap: Record<Profile, number>;
-  driftBand: Record<string, number>; drawdownLimit: Record<Profile, number>;
+  driftBand: Record<string, number>; bearMarketEquityFall: number;
   hybridFold: Record<string, Record<string, number>>;
 }
 export interface AllocInput {
@@ -27,7 +27,7 @@ export interface AllocInput {
 }
 export interface ClassTarget { cls: TargetClass; label: string; target: number; amount: number; min: number; max: number; rule: string }
 export type AllocResult =
-  | { ok: true; rows: ClassTarget[]; equityShare: number; positionCap: number; positionCapAmount: number; fundCap: number; fundCapAmount: number; drawdownLimit: number | null; buffer: number | null; notes: string[] }
+  | { ok: true; rows: ClassTarget[]; equityShare: number; positionCap: number; positionCapAmount: number; fundCap: number; fundCapAmount: number; drawdownLimit: number; buffer: number | null; notes: string[] }
   | { ok: false; error: string; clashes: string[] };
 
 const pct = (x: number) => `${(x * 100).toFixed(1).replace(/\.0$/, '')}%`;
@@ -109,7 +109,8 @@ export function allocate(s: AllocSettings, i: AllocInput): AllocResult {
     return { cls: c, label: s.labels[c] ?? c, target: t, amount: t * i.capital, min: lo[c], max: hi[c], rule: bd === 'max' ? `held at its maximum ${pct(hi[c])} (preset wanted more)` : bd === 'min' ? `held at its minimum ${pct(lo[c])}` : why(c) };
   });
   const eqKeys = ['direct_equity', 'active_equity_fund', 'index', 'sector_thematic', 'international'];
-  return { ok: true, rows, equityShare: rows.filter((r) => eqKeys.includes(r.cls)).reduce((a, r) => a + r.target, 0), positionCap: posCap, positionCapAmount: posCap * i.capital, fundCap, fundCapAmount: fundCap * i.capital, drawdownLimit: i.profile === 'Custom' ? null : s.drawdownLimit[i.profile], buffer: i.buffer && i.buffer > 0 ? i.buffer : null, notes };
+  const equityShareOut = rows.filter((r) => eqKeys.includes(r.cls)).reduce((a, r) => a + r.target, 0);
+  return { ok: true, rows, equityShare: equityShareOut, positionCap: posCap, positionCapAmount: posCap * i.capital, fundCap, fundCapAmount: fundCap * i.capital, drawdownLimit: equityShareOut * s.bearMarketEquityFall, buffer: i.buffer && i.buffer > 0 ? i.buffer : null, notes };
 }
 
 // ---------- current position against the targets

@@ -72,8 +72,8 @@
     }
   },
   "nonEquitySplit": {
-    "debt": 0.6,
-    "gold": 0.25,
+    "debt": 0.65,
+    "gold": 0.2,
     "silver": 0.05,
     "liquid": 0.1
   },
@@ -84,12 +84,12 @@
       "debt": 0.25
     },
     "balanced advantage": {
-      "equity": 0.5,
-      "debt": 0.5
+      "equity": 0.4,
+      "debt": 0.6
     },
     "dynamic asset allocation": {
-      "equity": 0.5,
-      "debt": 0.5
+      "equity": 0.4,
+      "debt": 0.6
     },
     "multi asset": {
       "equity": 0.5,
@@ -97,8 +97,8 @@
       "gold": 0.25
     },
     "equity savings": {
-      "equity": 0.35,
-      "debt": 0.65
+      "equity": 0.25,
+      "debt": 0.75
     },
     "conservative hybrid": {
       "equity": 0.2,
@@ -151,11 +151,6 @@
     "silver": 0.02,
     "sector_thematic": 0.03
   },
-  "drawdownLimit": {
-    "Cautious": 0.12,
-    "Balanced": 0.2,
-    "Aggressive": 0.3
-  },
   "swingPositionCapOfSwing": 0.2,
   "changeLog": [
     {
@@ -165,6 +160,12 @@
     {
       "date": "2026-10-20",
       "change": "Engine, asset-class mapping and Allocation tab built; two property tests added (test/pm-allocation.test.ts). Values unchanged and still unreviewed."
+    },
+    {
+      "date": "2026-10-20",
+      "change": "After external review: gold share of non-equity 25% to 20% (debt 60% to 65%) so the default no longer hits the 20% gold maximum; drawdown limit now derived as equity share x bearMarketEquityFall (40%) instead of a flat figure per profile; hybrid fold for balanced advantage and dynamic asset allocation 50/50 to 40/60 and equity savings 35/65 to 25/75 (unhedged equity, arbitrage counted as debt). Still unreviewed by the owner."
     }
-  ]
+  ],
+  "bearMarketEquityFall": 0.4,
+  "bearMarketEquityFallNote": "Drawdown limit before the portfolio is reviewed = equity share x this fall, so it moves with the horizon."
 }

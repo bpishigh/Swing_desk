@@ -14,7 +14,7 @@ export const TARGET_CLASSES = ['direct_equity', 'active_equity_fund', 'index', '
                                          
                                                                      
                                                                          
-                                                                            
+                                                                  
                                                      
  
                              
@@ -27,7 +27,7 @@ export const TARGET_CLASSES = ['direct_equity', 'active_equity_fund', 'index', '
  
                                                                                                                                         
                          
-                                                                                                                                                                                                                        
+                                                                                                                                                                                                                 
                                                     
 
 const pct = (x        ) => `${(x * 100).toFixed(1).replace(/\.0$/, '')}%`;
@@ -109,7 +109,8 @@ export function allocate(s               , i            )              {
     return { cls: c, label: s.labels[c] ?? c, target: t, amount: t * i.capital, min: lo[c], max: hi[c], rule: bd === 'max' ? `held at its maximum ${pct(hi[c])} (preset wanted more)` : bd === 'min' ? `held at its minimum ${pct(lo[c])}` : why(c) };
   });
   const eqKeys = ['direct_equity', 'active_equity_fund', 'index', 'sector_thematic', 'international'];
-  return { ok: true, rows, equityShare: rows.filter((r) => eqKeys.includes(r.cls)).reduce((a, r) => a + r.target, 0), positionCap: posCap, positionCapAmount: posCap * i.capital, fundCap, fundCapAmount: fundCap * i.capital, drawdownLimit: i.profile === 'Custom' ? null : s.drawdownLimit[i.profile], buffer: i.buffer && i.buffer > 0 ? i.buffer : null, notes };
+  const equityShareOut = rows.filter((r) => eqKeys.includes(r.cls)).reduce((a, r) => a + r.target, 0);
+  return { ok: true, rows, equityShare: equityShareOut, positionCap: posCap, positionCapAmount: posCap * i.capital, fundCap, fundCapAmount: fundCap * i.capital, drawdownLimit: equityShareOut * s.bearMarketEquityFall, buffer: i.buffer && i.buffer > 0 ? i.buffer : null, notes };
 }
 
 // ---------- current position against the targets
