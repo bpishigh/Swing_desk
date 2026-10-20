@@ -85,6 +85,48 @@
     "summary": "Fit (929 sessions to 2023): signal gap (off minus on) in 60-session Nifty 500 return A -0.06pp, B +0.34pp; B minus A +0.40pp (t 2.78) below the 1.0pp bar: FAIL. A and B differ on 63 sessions. Neither version separates good from bad forward markets. Holdout not revealed.",
     "file": "data/replay/ind-skipflag.json"
    }
+  },
+  {
+   "id": "C-74-r1",
+   "changeLog": "C-74",
+   "title": "Tactical tilt of asset-class weights with market performance",
+   "hypothesis": "Tilting the strategic asset-class weights each month toward risk sleeves in an uptrend (above 200-session average and positive 6-month return) and away from those in a downtrend, bounded by tau per profile, earns more after costs than the same strategic weights rebalanced monthly without a tilt, without a deeper drawdown.",
+   "script": "scripts/replay-tactical-tilt.mjs",
+   "params": {
+    "sleeves": "equity NIFTYBEES, international MON100 (from 2021-06-18), gold GOLDBEES, silver SILVERBEES (from 2022-05-10, folded into gold before), debt+liquid fixed 6% a year",
+    "strategic": "allocation engine, horizon 10 years, profiles Cautious/Balanced/Aggressive, collapsed to the five sleeves (equity = direct + active + index + sector)",
+    "signal": "close above 200-session SMA and 6-month (126-session) return above zero, at month-end close",
+    "tilt": "weight x (1 + tau) if up, x (1 - tau) if down; tau 0.25 / 0.35 / 0.50 by profile; difference moves to or from debt; each class held inside its maximum from settings/allocation.json",
+    "trade": "next session close after month-end",
+    "cost": "0.30% of traded value in both arms",
+    "metrics": "annual return after costs, maximum drawdown on daily portfolio value, calendar-year comparison, turnover"
+   },
+   "fit": [
+    "2021-06-18",
+    "2024-03-28"
+   ],
+   "holdout": [
+    "2024-04-01",
+    "2026-10-19"
+   ],
+   "passRule": "Balanced, fit: tilt minus static annual return after costs >= +1.0pp; tilt max drawdown no worse than static by more than 1.0pp; tilt ahead in at least 2 of the 3 fit calendar-year periods; holdout same signs. Any pass repeated at double cost and must hold in at least 2 of 3 profiles. Result is before tax; a pass needs a tax check before any rule.",
+   "data": {
+    "sessions": 1687,
+    "first": "2020-01-01",
+    "last": "2026-10-19",
+    "symbols": 497,
+    "splits": 562,
+    "hash": "bcbb2477237b"
+   },
+   "registeredAt": "2026-10-20T11:40:38.095Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-20T11:42:01.276Z",
+    "summary": "Fit (18 Jun 2021 to 28 Mar 2024, 689 sessions): annual return after 0.30% cost, tilt minus static: Cautious -0.49pp, Balanced -0.80pp, Aggressive -2.00pp; at double cost -0.86, -1.46, -2.84pp. Balanced bar +1.0pp: FAIL; no profile meets the bars. Tilt ahead in 2 of 3 yearly blocks (+1.8pp, -7.4pp, +4.2pp for Balanced) but the middle year (Jun 2022 to Jun 2023, trend whipsaw in gold, silver and international) cost more than the other two earned. Turnover 12x the start value for tilt against 1.8x for static. Holdout not revealed.",
+    "file": "data/replay/tactical-tilt.json"
+   }
   }
  ]
 }
