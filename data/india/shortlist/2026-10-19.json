@@ -1,0 +1,13 @@
+{
+ "signalDate": "2026-10-19",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "WELCORP",
+   "setup": "4",
+   "trigger": 2625.24,
+   "limit": 2651.49,
+   "stop": 2400.09
+  }
+ ]
+}

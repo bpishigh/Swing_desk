@@ -1,0 +1,13 @@
+{
+ "signalDate": "2026-10-16",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "SHYAMMETL",
+   "setup": "4",
+   "trigger": 1225.45,
+   "limit": 1237.7,
+   "stop": 1133.12
+  }
+ ]
+}

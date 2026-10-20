@@ -16,6 +16,11 @@ for (const f of ['sizing', 'setups']) put(`site/pm/engine/${f}.js`, stripTypeScr
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes', 'exit-loads']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('settings/allocation.json', 'site/pm-data/allocation.json');
+// Saved nightly shortlists (public): every line of every night, for recognising a real buy as a Swing trade.
+if (existsSync('data/india/shortlist')) {
+  const lines = []; for (const f of readdirSync('data/india/shortlist').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) { const j = JSON.parse(readFileSync('data/india/shortlist/' + f, 'utf8')); for (const l of j.lines) lines.push({ ...l, signalDate: j.signalDate }); }
+  put('site/pm-data/shortlist.json', JSON.stringify({ lines }) + '\n');
+}
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
 if (existsSync('data/replay/track-record.json')) cp('data/replay/track-record.json', 'site/pm-data/track-record.json');
 if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site/pm-data/segments.json');

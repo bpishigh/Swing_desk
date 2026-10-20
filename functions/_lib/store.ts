@@ -27,7 +27,7 @@ export function cleanTrades(input: unknown): Trade[] | string {
   return out;
 }
 /** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates): kept with the account so the desk works the same from any browser. Whitelisted and bounded. */
-export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string> }
+export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'> }
 const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
 const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k);
 export function cleanSettings(input: unknown): AccountSettings | string | undefined {
@@ -43,6 +43,7 @@ export function cleanSettings(input: unknown): AccountSettings | string | undefi
   if (i.custom !== undefined) { const r = rec(i.custom, 20, 'custom weights', (x) => nn(x, 1) !== null); if (typeof r === 'string') return r; out.custom = r as any; }
   if (i.stops !== undefined) { const r = rec(i.stops, 100, 'stops', (x) => nn(x, 1e7) !== null); if (typeof r === 'string') return r; out.stops = r as any; }
   if (i.acted !== undefined) { const r = rec(i.acted, 20, 'dates', (x) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x)); if (typeof r === 'string') return r; out.acted = r as any; }
+  if (i.swing !== undefined) { if (!i.swing || typeof i.swing !== 'object' || Array.isArray(i.swing)) return 'bad swing answers'; const e = Object.entries(i.swing); if (e.length > 500 || e.some(([k, v]) => !/^[A-Za-z0-9 .,&()'_/|-]{1,100}$/.test(k) || (v !== 'yes' && v !== 'no'))) return 'bad swing answers'; out.swing = i.swing as any; }
   if (i.outside !== undefined) { if (!Array.isArray(i.outside) || i.outside.length > 10 || i.outside.some((o: any) => !o || typeof o.name !== 'string' || !okKey(o.name) || nn(o.value) === null || typeof o.cls !== 'string' || !okKey(o.cls))) return 'bad outside holdings'; out.outside = i.outside.map((o: any) => ({ name: o.name, value: o.value, cls: o.cls })); }
   return out;
 }

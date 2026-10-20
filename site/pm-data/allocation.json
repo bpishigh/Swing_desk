@@ -176,6 +176,10 @@
     {
       "date": "2026-10-20",
       "change": "Phase 6 gaps: added rebalance.exitLoadCheckDays 365, rebalance.quarterCap (one sale suggestion per class per quarter; override at twice the band, from design 9.2) and rebalance.fundVerdictSales false (switched off: the fund-score back-test gate has not run). PROPOSED values, for the owner to confirm."
+    },
+    {
+      "date": "2026-10-20",
+      "change": "Added swingMatch (nearSessions 3, nearPricePct 2) for near-match recognition of Swing buys. PROVISIONAL."
     }
   ],
   "bearMarketEquityFall": 0.4,
@@ -196,5 +200,11 @@
     "cashFunded": false,
     "capitalSource": "own",
     "note": "Owner stated 20 Oct 2026: no money moved between the two accounts, and new cash comes from the bank when a trade is made, so capital is recorded as own income and the cash step of routing is skipped."
+  },
+  "swingMatch": {
+    "status": "PROVISIONAL: proposed 20 Oct 2026, not yet approved by the owner and not yet tested on shortlist history (none exists beyond 2 nights). A wrong near match is only a proposal the owner can reject.",
+    "nearSessions": 3,
+    "nearPricePct": 2,
+    "note": "A buy is Swing automatically when it is on the entry session inside the shortlist trigger and limit. A buy up to nearSessions weekdays after a shortlist night, or up to nearPricePct percent (of the trigger) outside its trigger-to-limit range, is proposed and needs the owner's yes."
   }
 }

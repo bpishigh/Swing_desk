@@ -69,10 +69,14 @@ export function sizeOrders(cands        , accts             , rows           , c
   return out;
 }
 
-/** Open risk and missing stops for one account from its open Swing lots and the stops typed for them (stops keyed by lot name). */
-export function openRiskOf(lots                                                                 , stops                         = {})                                               {
-  let risk = 0; const missing = new Set        (); const by = new Map                                       ();
-  for (const l of lots) if (l.book === 'Swing') { const b = by.get(l.name) ?? { qty: 0, cost: 0 }; b.qty += l.qty; b.cost += l.qty * l.unitCost; by.set(l.name, b); }
-  for (const [n, b] of by) { const st = stops[n]; if (!(st > 0)) { missing.add(n); continue; } risk += Math.max(0, b.cost - b.qty * st); }
+/** Open risk and missing stops for one account from its open Swing lots. A stop typed for a name wins; otherwise the stop of the shortlist line the lot was recognised from is used. */
+export function openRiskOf(lots                                                                                , stops                         = {})                                               {
+  let risk = 0; const missing = new Set        ();
+  for (const l of lots) {
+    if (l.book !== 'Swing') continue;
+    const st = stops[l.name] > 0 ? stops[l.name] : l.stop;
+    if (!(st && st > 0)) { missing.add(l.name); continue; }
+    risk += l.qty * Math.max(0, l.unitCost - st);
+  }
   return { openRisk: risk, stopsMissing: [...missing] };
 }

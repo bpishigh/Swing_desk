@@ -136,7 +136,8 @@ async function loadFundNavs() {
 }
 function compute(a) {
   const d = S.data; d.priceHistory = S.hist; d.navHistory = S.fundOn ? S.fundNavs : undefined;
-  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {});
+  d.shortlist = S.shortlist && S.allocCfg?.swingMatch ? { lines: S.shortlist, match: S.allocCfg.swingMatch } : undefined;
+  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {}, S.alloc?.acct?.[a.key]?.swing || {});
   a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
 }
 async function recomputeAll(withFunds) {
@@ -540,17 +541,24 @@ function wireAlloc() {
   document.querySelectorAll('[data-stop]').forEach((el) => { el.onchange = () => { const A = acctCfg(el.dataset.a); A.stops = { ...(A.stops ?? {}), [el.dataset.stop]: Number(el.value) || 0 }; ALLOC_SAVE(); render(); }; });
   document.querySelectorAll('[data-acted]').forEach((el) => { el.onclick = () => { const A = acctCfg(el.dataset.a); A.acted = { ...(A.acted ?? {}), [el.dataset.acted]: new Date().toISOString().slice(0, 10) }; ALLOC_SAVE(); render(); }; });
   document.querySelectorAll('[data-acted-clear]').forEach((el) => { el.onclick = (e) => { e.preventDefault(); const A = acctCfg(el.dataset.a), m = { ...(A.acted ?? {}) }; delete m[el.dataset.actedClear]; A.acted = m; ALLOC_SAVE(); render(); }; });
+  document.querySelectorAll('[data-swing]').forEach((el) => { el.onclick = () => { const A = acctCfg(el.dataset.a); A.swing = { ...(A.swing ?? {}), [el.dataset.k]: el.dataset.swing }; ALLOC_SAVE(); const a = S.accounts.get(el.dataset.a); if (a) compute(a); render(); }; });
   document.querySelectorAll('[data-reset]').forEach((el) => { el.onclick = (e) => { e.preventDefault(); set(el.dataset.a, el.dataset.reset, 0); }; });
   document.querySelectorAll('[data-scope]').forEach((el) => { el.onchange = () => { const A = acctCfg(el.dataset.a), off = new Set(A.off ?? []); el.checked ? off.delete(el.dataset.scope) : off.add(el.dataset.scope); set(el.dataset.a, 'off', [...off]); }; });
   document.querySelectorAll('[data-cw]').forEach((el) => { el.onchange = () => { const A = acctCfg(el.dataset.a); set(el.dataset.a, 'custom', { ...(A.custom ?? {}), [el.dataset.cw]: Math.max(0, Number(el.value) || 0) / 100 }); }; });
 }
 
+// Near matches: a buy close to a saved shortlist line is proposed as a Swing trade; your answer is saved with the account and re-sorts the lot.
+function swingProposalsCard(ms) {
+  const rows = ms.flatMap((a) => (a.report.swingProposals ?? []).map((p) => ({ a, p }))); if (!rows.length) return '';
+  return `<div class="card"><h2>Is this a Swing trade?</h2><div class="sub">Each buy below is close to, but not exactly on, a Swing Desk shortlist line. If you confirm, it becomes a Swing lot with that line's stop and setup; if you reject, it stays Legacy. The matching window is provisional (settings/allocation.json, swingMatch).</div><div class="tw"><table><thead><tr><th>Account</th><th>Stock</th><th>Bought</th><th class="num">Units</th><th class="num">At</th><th>Closest shortlist line</th><th></th></tr></thead><tbody>${rows.map(({ a, p }) => `<tr><td>${esc(a.label)}</td><td>${esc(p.name)}</td><td>${esc(p.date)}</td><td class="num">${p.qty}</td><td class="num">${p.price}</td><td class="sub">${esc(p.why)}; stop ${p.stop}</td><td><button class="chip" data-swing="yes" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">Yes, Swing</button> <button class="chip" data-swing="no" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">No, Legacy</button></td></tr>`).join('')}</tbody></table></div></div>`;
+}
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
   const items = ms.flatMap((a) => a.report.resolver.proposedItems.map((x) => [a, x])), decided = ms.flatMap((a) => a.report.resolver.decided.map((d) => [a, d])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
   return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
+  ${swingProposalsCard(ms)}
   <div class="card"><h2>Things to check</h2>
   ${items.length ? `<div class="note">Your tradebook shows sells of shares it never shows buying. An IPO or rights allotment explains each one, but the price is an estimate. Confirm it, type the real price from your allotment or contract note, or reject it (the sell then stays unexplained and its gain is left out).</div>${items.map(([a, x], n) => `<div style="margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:8px"><span class="tag">estimated</span> <b>${esc(x.name)}</b> <span class="sub">${esc(a.label)} · ${x.kind} of ${x.qty} units around ${x.date} at ₹${x.unitCost}/unit</span><div class="sub" style="margin:4px 0">${esc(x.why)}</div><div class="row2"><button class="chip" data-dec="confirm" data-acct="${a.key}" data-k="${esc(x.key)}">Confirm ₹${x.unitCost}</button><input type="number" step="any" min="0" class="pxin" id="px${n}" placeholder="actual ₹ per unit" style="width:140px"><button class="chip" data-dec="price" data-acct="${a.key}" data-k="${esc(x.key)}" data-in="px${n}">Use this price</button><button class="chip" data-dec="reject" data-acct="${a.key}" data-k="${esc(x.key)}">Reject</button></div></div>`).join('')}` : ''}
   ${decided.length ? `<div class="sub" style="margin:8px 0">Your answers: ${decided.map(([a, d]) => `${esc(d.name)} (${esc(a.label)}): ${d.action === 'price' ? 'price ₹' + d.unitCost + ' entered' : d.action === 'confirm' ? 'estimate confirmed' : 'rejected'} <button class="chip" data-dec="clear" data-acct="${a.key}" data-k="${esc(d.key)}">undo</button>`).join(' · ')}</div>` : ''}
@@ -575,7 +583,7 @@ function render() {
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
   main.innerHTML = { home, holdings, tax, income, alloc: allocTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
-  if (S.tab === 'alloc') wireAlloc();
+  if (S.tab === 'alloc' || S.tab === 'data') wireAlloc();
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();
@@ -649,6 +657,7 @@ async function setOwner(key, owner) {
     S.allocCfg = await fetch('pm-data/allocation.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.shortlist = await fetch('pm-data/shortlist.json').then((r) => (r.ok ? r.json() : null)).then((j) => j?.lines ?? null).catch(() => null);
     S.exitLoads = await fetch('pm-data/exit-loads.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundScores = await fetch('data/funds.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.dash = await fetch('data/dashboard.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
