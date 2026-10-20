@@ -1,0 +1,50 @@
+{
+ "version": 1,
+ "runs": [
+  {
+   "id": "C-70-r1",
+   "changeLog": "C-70",
+   "title": "Holding period: fixed holds 20/60/120 vs live exits",
+   "hypothesis": "A longer fixed hold of the C-65 momentum names pays more per 20 sessions than a 20-session hold (H1), and live exits beat a plain 60-session hold (H2).",
+   "script": "scripts/replay-ind-holdperiod.mjs",
+   "params": {
+    "holds": [
+     20,
+     60,
+     120
+    ],
+    "exits": "live deskSim, ATR 1.5x stop, 60-session cap",
+    "entry": "next close after monthly list",
+    "cost": "tierCost",
+    "market": "equal-weight",
+    "requires": "120 sessions after entry"
+   },
+   "fit": [
+    "2021-01-01",
+    "2023-12-31"
+   ],
+   "holdout": [
+    "2024-01-01",
+    "2026-12-31"
+   ],
+   "passRule": "H1: hold-60 or hold-120 beats hold-20 per 20 sessions net of market by >=0.5pp, monthly-cluster t>2 in fit, same sign in holdout. H2: live minus hold-60 net per trade >=0.5pp, t>2 in fit, same sign in holdout. Any pass repeated at double cost.",
+   "data": {
+    "sessions": 1687,
+    "first": "2020-01-01",
+    "last": "2026-10-19",
+    "symbols": 497,
+    "splits": 562,
+    "hash": "bcbb2477237b"
+   },
+   "registeredAt": "2026-10-20T07:09:43.230Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-20T07:14:52.239Z",
+    "summary": "Fit (931 trades, entries to 2023): per-20-session excess over market 0.92% (20) / 1.04% (60) / 0.86% (120); H1 60-20 +0.12pp t 0.22, 120-20 -0.06pp t -0.11: FAIL. H2 live minus hold-60 -9.89% t -4.42: FAIL. Holdout not revealed.",
+    "file": "data/replay/ind-holdperiod.json"
+   }
+  }
+ ]
+}
