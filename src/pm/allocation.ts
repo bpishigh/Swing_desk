@@ -143,3 +143,16 @@ export function capBreaches(held: Held[], base: number, posCap: number, fundCap:
   if (!(base > 0)) return [];
   return held.filter((h) => h.value !== null && (h.kind === 'Stock' || h.kind === 'Fund')).map((h) => ({ name: h.name, weight: (h.value as number) / base, cap: h.kind === 'Fund' ? fundCap : posCap, kind: h.kind as string })).filter((x) => x.weight > x.cap).sort((a, b) => b.weight - a.weight);
 }
+
+// ---------- household roll-up: each account has its own money, capital, profile and horizon; the household view is the sum of the accounts' own targets and holdings.
+export interface RollPart { capital: number; rows: ClassTarget[]; byClass: Record<TargetClass, number>; unclassified: number }
+export interface RollRow { cls: TargetClass; label: string; targetAmount: number; currentAmount: number; target: number; current: number; gap: number; band: number; state: 'within band' | 'underweight' | 'overweight' | 'not in scope'; amountToTarget: number }
+export function rollUp(s: AllocSettings, parts: RollPart[]): { capital: number; unclassified: number; rows: RollRow[] } {
+  const capital = parts.reduce((a, p) => a + p.capital, 0), unclassified = parts.reduce((a, p) => a + p.unclassified, 0);
+  const rows = TARGET_CLASSES.map((c) => {
+    const targetAmount = parts.reduce((a, p) => a + (p.rows.find((r) => r.cls === c)?.amount ?? 0), 0), currentAmount = parts.reduce((a, p) => a + (p.byClass[c] ?? 0), 0);
+    const target = capital > 0 ? targetAmount / capital : 0, current = capital > 0 ? currentAmount / capital : 0, band = s.driftBand[c] ?? s.driftBand.default, gap = current - target;
+    return { cls: c, label: s.labels[c] ?? c, targetAmount, currentAmount, target, current, gap, band, state: (targetAmount === 0 && currentAmount > 0 ? 'not in scope' : Math.abs(gap) <= band ? 'within band' : gap < 0 ? 'underweight' : 'overweight') as RollRow['state'], amountToTarget: targetAmount - currentAmount };
+  }).filter((r) => r.targetAmount > 0 || r.currentAmount > 0);
+  return { capital, unclassified, rows };
+}

@@ -1,14 +1,14 @@
 // Two swing pools with a household layer (Portfolio Manager phase 7, design section 5): part 1. Pure.
-// Swing capital per account is derived, never typed: the household swing allocation (the direct-equity target of the allocation engine) x the account's share of household money.
+// Swing capital per account is derived from the account's own capital and own risk profile (its direct-equity target x its capital), never typed and never a share of a household pool.
 // The owner stated on 20 Oct 2026 that no money moved between the two accounts and that new cash comes from the bank at the time of a trade, so every account's capital is recorded as own income
 // and the cash cap of the design does not apply (there is no idle cash to be capped by); both are settings, so either can change.
 export interface PoolAccount { label: string; owner: string; value: number; swingValue: number; swingNames: string[]; capitalSource?: 'own' | 'transferred' }
-export interface PoolRow { label: string; owner: string; share: number; swingCapital: number; swingValue: number; room: number; positions: number }
+export interface PoolRow { label: string; owner: string; swingCapital: number; swingValue: number; room: number; positions: number }
 export interface PoolSettings { maxPositions: number; cashFunded: boolean }
 
-export function derivePools(accts: PoolAccount[], swingAllocation: number, capital: number): PoolRow[] {
-  const total = accts.reduce((a, x) => a + Math.max(0, x.value), 0);
-  return accts.map((a) => { const share = total > 0 ? Math.max(0, a.value) / total : 0, cap = swingAllocation * capital * share; return { label: a.label, owner: a.owner, share, swingCapital: cap, swingValue: a.swingValue, room: cap - a.swingValue, positions: a.swingNames.length }; });
+/** Each account keeps its own money: its swing capital is its own swing target x its own capital (both from the account's own inputs), never a share of a household pool. */
+export function derivePools(accts: PoolAccount[], swingCapital: Record<string, number>): PoolRow[] {
+  return accts.map((a) => { const cap = Math.max(0, swingCapital[a.label] ?? 0); return { label: a.label, owner: a.owner, swingCapital: cap, swingValue: a.swingValue, room: cap - a.swingValue, positions: a.swingNames.length }; });
 }
 /** Household constraints: one stock in one account, and the position cap across both. */
 export function householdChecks(accts: PoolAccount[], s: PoolSettings): { positions: number; overCap: boolean; duplicates: { name: string; accounts: string[] }[] } {
