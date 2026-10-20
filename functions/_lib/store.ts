@@ -111,6 +111,12 @@ export async function loadAccounts(env: StoreEnv, fetchFn: typeof fetch = fetch)
   return out;
 }
 
+/** The nightly "what changed" summary for the desk's front page (portfolio/book/holdings-latest.json, written by scripts/holding-alerts.mjs). Null when not written yet. */
+export async function loadMorning(env: StoreEnv, fetchFn: typeof fetch = fetch): Promise<unknown | null> {
+  const f = await github(env, fetchFn).get('portfolio/book/holdings-latest.json');
+  return f ? (f.data as any).morning ?? null : null;
+}
+
 /** Removes one saved account file. Only `portfolio/accounts/<slug>.json` can be named, because the path is built from a validated label. */
 export async function deleteAccount(env: StoreEnv, label: string, fetchFn: typeof fetch = fetch): Promise<{ deleted: boolean }> {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
