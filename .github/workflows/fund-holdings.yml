@@ -1,0 +1,32 @@
+name: fund-holdings
+# Monthly: equity portfolios of the Direct mutual funds in data/funds/scores.json (Engine Rules C-78). Disclosures land in the first ten days of a month.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 3 12 * *'
+concurrency: fund-holdings
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/fetch-holdings.mjs
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/funds/holdings.json data/funds/holdings-log.json
+          git commit -m "fund-holdings: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

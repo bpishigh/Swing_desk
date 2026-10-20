@@ -53,3 +53,8 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
   overlaps.sort((x, y) => y.overlap - x.overlap);
   return { capital, equity, covered, fundValue, coverage: fundValue > 0 ? covered / fundValue : null, exposures, overlaps, notCovered, stale, unmatchedWeight };
 }
+
+/** A scheme's name without plan and option words, so a Regular and a Direct plan of the same scheme share one key. */
+export function schemeBase(name: string): string {
+  return name.toLowerCase().replace(/&/g, ' and ').replace(/\b(direct|regular|plan|option|growth|idcw|dividend|payout|reinvestment|bonus)\b/g, ' ').replace(/\bfof\b/g, 'fund of funds').replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
