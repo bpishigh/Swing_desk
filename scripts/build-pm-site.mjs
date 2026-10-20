@@ -8,11 +8,11 @@ mkdirSync('site/pm', { recursive: true }); mkdirSync('site/pm-data', { recursive
 const put = (p, s) => { if (!existsSync(p) || readFileSync(p, 'utf8') !== s) writeFileSync(p, s); };
 for (const f of readdirSync('src/pm').filter((x) => x.endsWith('.ts'))) {
   const js = stripTypeScriptTypes(readFileSync(`src/pm/${f}`, 'utf8'), { mode: 'strip' }).replace(/(from\s+['"]\.\/[\w-]+)\.ts(['"])/g, '$1.js$2');
-  put(`site/pm/${f.replace(/\.ts$/, '.js')}`, js.replace(/from\s+(['"])\.\.\/engine\/(sizing|setups)\.ts\1/g, "from './engine/$2.js'"));
+  put(`site/pm/${f.replace(/\.ts$/, '.js')}`, js.replace(/from\s+(['"])\.\.\/engine\/(sizing|setups|journal)\.ts\1/g, "from './engine/$2.js'"));
 }
 // The two engine files the order sizing needs (pure, no personal data), copied into site/pm/engine/.
 mkdirSync('site/pm/engine', { recursive: true });
-for (const f of ['sizing', 'setups']) put(`site/pm/engine/${f}.js`, stripTypeScriptTypes(readFileSync(`src/engine/${f}.ts`, 'utf8'), { mode: 'strip' }).replace(/(from\s+['"]\.\/[\w-]+)\.ts(['"])/g, '$1.js$2'));
+for (const f of ['sizing', 'setups', 'journal', 'format']) put(`site/pm/engine/${f}.js`, stripTypeScriptTypes(readFileSync(`src/engine/${f}.ts`, 'utf8'), { mode: 'strip' }).replace(/(from\s+['"]\.\/[\w-]+)\.ts(['"])/g, '$1.js$2'));
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes', 'exit-loads']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('settings/allocation.json', 'site/pm-data/allocation.json');

@@ -14,26 +14,29 @@ import { routeTrade,                                                   } from '.
                                                                                                     
                                      
  
-                                                                                                                                             
+                                                                                                                                                             
                                                                                                                                                  
                                                                                                                                                                                                    
                                                                                                                                                                                                                                 
 
 /** Today's risk per trade, open-risk cap and position count from the rules table; India VIX above 20 halves risk. The "proven Green" 1% and the risk-halving rules need the trade journal, which is not here, so they are not applied. */
-export function limitsFor(light              , vix                )                                                                                         {
+                                                                                                                                                                                                                                                                                  
+export function limitsFor(light              , vix                , adj          = {})                                                                                         {
   if (!light) return null; const L = LIMITS.india[light], why           = []; let risk = L.risk;
+  if (light === 'green' && adj.provenGreen) { risk = 1; why.push('Journal Test passed: Green uses 1%'); }
   if (typeof vix === 'number' && Number.isFinite(vix) && vix > 20) { risk /= 2; why.push(`India VIX ${vix} above 20 halves risk`); }
+  if (adj.halving?.halved) { risk /= 2; why.push(adj.halving.streakHalved ? 'Three losing Swing trades in a row halve risk until two winners close' : `Swing equity is ${adj.halving.dd.toFixed(1)}% below its peak, halving risk`); }
   return { risk, cap: L.cap, maxPos: L.maxPos, setups: L.setups, why };
 }
 
 export function sizeOrders(cands        , accts             , rows           , ctx     )            {
-  const lim = limitsFor(ctx.light, ctx.vix), notes           = [];
+  const lim = limitsFor(ctx.light, ctx.vix, ctx), notes           = [];
   const hhCap = accts.reduce((t, a) => t + (rows.find((r) => r.label === a.label)?.swingCapital ?? 0), 0);
   const hhNames = new Set(accts.flatMap((a) => a.swingNames));
   const out            = { light: ctx.light, risk: lim?.risk ?? 0, cap: lim?.cap ?? 0, maxPos: Math.min(lim?.maxPos ?? 0, ctx.s.maxPositions), why: lim?.why ?? [], householdOpenRisk: accts.reduce((t, a) => t + a.openRisk, 0), householdCapRs: lim ? (hhCap * lim.cap) / 100 : 0, householdPositions: hhNames.size, lines: [], notes };
   if (!lim) { notes.push('No market light is saved for today, so nothing is sized.'); return out; }
   if (accts.some((a) => a.stopsMissing.length)) notes.push('Open Swing positions without a stop recorded: ' + accts.flatMap((a) => a.stopsMissing.map((n) => `${n} (${a.label})`)).join(', ') + '. Open risk is understated until a stop is entered for each.');
-  notes.push('Sizing uses the rules table and the nightly plan only. Sector-based pilot sizing, the proven-Green 1% and the risk-halving rules need the trade journal and are not applied here; the shortlist on the Swing Desk shows those.');
+  notes.push('Sizing uses the rules table, the nightly plan and the journal of your recognised Swing trades (risk halving, proven Green 1%). Sector-based pilot sizing is not applied here; the shortlist on the Swing Desk shows it.');
   let addedRisk = 0, addedNames = 0; const taken = new Set        ();
   // Running state per account, updated after every placed line so later lines in the same night see it.
   const st = new Map(accts.map((a) => [a.label, { risk: a.openRisk, names: new Set(a.swingNames), held: { ...(a.heldValue ?? {}) }                          , added: 0 }]));

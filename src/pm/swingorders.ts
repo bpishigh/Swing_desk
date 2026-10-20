@@ -14,26 +14,29 @@ export interface OrderAcct extends PoolAccount {
   /** Value already held in each Swing name in this account (for the 20% position cap on an add). */
   heldValue?: Record<string, number>;
 }
-export interface Ctx { light: Light | null; vix?: number | null; s: PoolSettings; stcgYtd: Record<string, number>; taxRowConfident: boolean }
+export interface Ctx extends RiskAdj { light: Light | null; vix?: number | null; s: PoolSettings; stcgYtd: Record<string, number>; taxRowConfident: boolean }
 export interface AcctLine { label: string; qty: number; first: number; oneR: number; value: number; binding: string; ok: boolean; note?: string }
 export interface OrderLine { sym: string; name: string; setup: string; entry: number; stop: number; rps: number; perAccount: AcctLine[]; account: string | null; steps: string[]; verdict: string }
 export interface OrdersOut { light: Light | null; risk: number; cap: number; maxPos: number; why: string[]; householdOpenRisk: number; householdCapRs: number; householdPositions: number; lines: OrderLine[]; notes: string[] }
 
 /** Today's risk per trade, open-risk cap and position count from the rules table; India VIX above 20 halves risk. The "proven Green" 1% and the risk-halving rules need the trade journal, which is not here, so they are not applied. */
-export function limitsFor(light: Light | null, vix?: number | null): { risk: number; cap: number; maxPos: number; setups: SetupId[]; why: string[] } | null {
+export interface RiskAdj { /** The Journal Test passed on closed Swing trades (proven Green). */ provenGreen?: boolean; /** Risk halving state from the journal (src/pm/swingjournal.ts). */ halving?: { halved: boolean; streakHalved: boolean; ddHalved: boolean; dd: number } }
+export function limitsFor(light: Light | null, vix?: number | null, adj: RiskAdj = {}): { risk: number; cap: number; maxPos: number; setups: SetupId[]; why: string[] } | null {
   if (!light) return null; const L = LIMITS.india[light], why: string[] = []; let risk = L.risk;
+  if (light === 'green' && adj.provenGreen) { risk = 1; why.push('Journal Test passed: Green uses 1%'); }
   if (typeof vix === 'number' && Number.isFinite(vix) && vix > 20) { risk /= 2; why.push(`India VIX ${vix} above 20 halves risk`); }
+  if (adj.halving?.halved) { risk /= 2; why.push(adj.halving.streakHalved ? 'Three losing Swing trades in a row halve risk until two winners close' : `Swing equity is ${adj.halving.dd.toFixed(1)}% below its peak, halving risk`); }
   return { risk, cap: L.cap, maxPos: L.maxPos, setups: L.setups, why };
 }
 
 export function sizeOrders(cands: Cand[], accts: OrderAcct[], rows: PoolRow[], ctx: Ctx): OrdersOut {
-  const lim = limitsFor(ctx.light, ctx.vix), notes: string[] = [];
+  const lim = limitsFor(ctx.light, ctx.vix, ctx), notes: string[] = [];
   const hhCap = accts.reduce((t, a) => t + (rows.find((r) => r.label === a.label)?.swingCapital ?? 0), 0);
   const hhNames = new Set(accts.flatMap((a) => a.swingNames));
   const out: OrdersOut = { light: ctx.light, risk: lim?.risk ?? 0, cap: lim?.cap ?? 0, maxPos: Math.min(lim?.maxPos ?? 0, ctx.s.maxPositions), why: lim?.why ?? [], householdOpenRisk: accts.reduce((t, a) => t + a.openRisk, 0), householdCapRs: lim ? (hhCap * lim.cap) / 100 : 0, householdPositions: hhNames.size, lines: [], notes };
   if (!lim) { notes.push('No market light is saved for today, so nothing is sized.'); return out; }
   if (accts.some((a) => a.stopsMissing.length)) notes.push('Open Swing positions without a stop recorded: ' + accts.flatMap((a) => a.stopsMissing.map((n) => `${n} (${a.label})`)).join(', ') + '. Open risk is understated until a stop is entered for each.');
-  notes.push('Sizing uses the rules table and the nightly plan only. Sector-based pilot sizing, the proven-Green 1% and the risk-halving rules need the trade journal and are not applied here; the shortlist on the Swing Desk shows those.');
+  notes.push('Sizing uses the rules table, the nightly plan and the journal of your recognised Swing trades (risk halving, proven Green 1%). Sector-based pilot sizing is not applied here; the shortlist on the Swing Desk shows it.');
   let addedRisk = 0, addedNames = 0; const taken = new Set<string>();
   // Running state per account, updated after every placed line so later lines in the same night see it.
   const st = new Map(accts.map((a) => [a.label, { risk: a.openRisk, names: new Set(a.swingNames), held: { ...(a.heldValue ?? {}) } as Record<string, number>, added: 0 }]));

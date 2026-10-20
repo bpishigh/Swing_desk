@@ -90,6 +90,7 @@ import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES 
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
 import { sizeOrders, openRiskOf } from './pm/swingorders.js';
+import { journalReport } from './pm/swingjournal.js';
 import { isLong, applyQuarterCap } from './pm/rebalance.js';
 import { orderCharges } from './pm/charges.js';
 const $ = (id) => document.getElementById(id);
@@ -491,7 +492,7 @@ function allocTab(V) {
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
   const rollHtml = roll ? `<div class="card"><h2>Household: target against what you hold</h2><div style="overflow-x:auto"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th></tr></thead><tbody>${roll.rows.map((r) => `<tr><td>${esc(r.label)}</td><td class="num"><b>${pc(r.target)}</b></td><td class="num">${money(r.targetAmount)}</td><td class="num">${pc(r.current)}</td><td class="num">${money(r.currentAmount)}</td><td style="color:${stateCol(r.state)}">${r.state}${r.state === 'within band' ? '' : ' · ' + (r.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(r.amountToTarget))}</td></tr>`).join('')}${roll.unclassified > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(roll.unclassified / roll.capital)}</td><td class="num">${money(roll.unclassified)}</td><td class="sub">not counted against any target</td></tr>` : ''}</tbody></table></div>
     <div class="sub" style="margin-top:8px">Total capital ${money(roll.capital)}: the sum of the accounts' own capital. Each account's target uses its own profile and horizon. A class is “within band” when the household gap is inside its drift band. A target, not an order: act from each account's own list below.</div>${bad.length ? `<div class="sub" style="margin-top:6px"><b>Left out:</b> ${bad.map((x) => esc(x.a.label) + ' (' + esc(x.res.error) + ')').join('; ')}</div>` : ''}</div>` : '';
-  return table + rollHtml + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
+  return table + rollHtml + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
 }
 function allocDetail(x) {
   const C = S.allocCfg, { A, hs, held, lockedElss, cur, capital, res } = x;
@@ -510,6 +511,36 @@ function allocDetail(x) {
 }
 
 // Two swing pools (design section 5): each account's swing capital comes from its own capital and its own profile; household limits and routing sit on top.
+// The journal of recognised Swing trades across the household (Engine Rules C-77): the Swing Desk's own R, equity, halving and Journal Test, on real trades.
+function householdJournal(xs) {
+  const ok = xs.filter((x) => x.res.ok && x.res.rows.some((r) => r.cls === 'direct_equity'));
+  const start = ok.reduce((t, x) => t + x.res.rows.find((r) => r.cls === 'direct_equity').amount, 0);
+  const trades = ok.flatMap((x) => (x.a.report.journal ?? []).map((t) => ({ ...t, acct: x.a.label, acctKey: x.a.key })));
+  const rep = journalReport(trades, start), blocked = [];
+  if (ok.some((x) => (x.a.report.saleProposals ?? []).length)) blocked.push('sales waiting for your answer');
+  if (ok.some((x) => (x.a.report.swingProposals ?? []).length)) blocked.push('near-match buys waiting for your answer');
+  if (ok.some((x) => (x.a.report.resolver?.unexplained ?? []).length)) blocked.push('sells the statements cannot explain');
+  if (ok.some((x) => (x.a.report.journalSkipped ?? []).length)) blocked.push('trades left out after a split or demerger');
+  if (trades.some((t) => t.closed && t.r === null)) blocked.push('a closed trade with no usable stop');
+  if (blocked.length) rep.provenGreen = false;
+  return { rep, ok, blocked };
+}
+function journalCard(xs) {
+  if (!xs.some((x) => (x.a.report.journal ?? []).length)) return '';
+  const { rep: J, blocked } = householdJournal(xs), R = (r) => (r === null || r === undefined ? '—' : (r >= 0 ? '+' : '–') + Math.abs(r).toFixed(2) + 'R'), pc1 = (v) => (Number.isFinite(v) ? v.toFixed(1) + '%' : '—');
+  const hv = J.halving, halfTxt = hv.halved ? (hv.streakHalved ? 'Risk is halved: three losing trades in a row, until two winners close.' : `Risk is halved: Swing equity is ${hv.dd.toFixed(1)}% below its peak.`) : 'Risk is at the normal level.';
+  const tests = J.tests.map((t) => `<tr><td>${esc(t.k)}</td><td>${esc(t.val)}</td><td>${t.pass ? 'Pass' : 'Not yet'}</td></tr>`).join('');
+  const rows = J.closed.slice().reverse().map((t) => `<tr><td>${esc(t.acct)}</td><td>${esc(t.name)}</td><td>${esc(t.setup)}</td><td>${esc(t.entryDate)}</td><td>${esc(t.exitDate ?? '')}</td><td class="num">${R(t.r)}</td><td class="sub">${t.tier === 'exact' ? 'exact' : 'confirmed near'}</td><td>${t.rulesFollowed === true ? 'Rules followed' : t.rulesFollowed === false ? 'Rules broken' : 'Rules followed?'} <button class="chip" data-swing="yes" data-a="${esc(t.acctKey)}" data-k="${esc('rules:' + t.key + '|' + t.entryDate)}">Yes</button> <button class="chip" data-swing="no" data-a="${esc(t.acctKey)}" data-k="${esc('rules:' + t.key + '|' + t.entryDate)}">No</button></td></tr>`).join('');
+  const openRows = J.open.map((t) => `<tr><td>${esc(t.acct)}</td><td>${esc(t.name)}</td><td>${esc(t.setup)}</td><td>${esc(t.entryDate)}</td><td class="num">${t.heldQty}</td><td class="num">${R(t.r)}</td></tr>`).join('');
+  const bySetup = J.bySetup.length ? `<div class="sub" style="margin-top:6px">By setup: ${J.bySetup.map((b) => `${esc(b.setup)}: ${b.n} trade(s), expectancy ${R(b.exp)}`).join('; ')}. A setup that fails alone is dropped, once there are enough trades to say so.</div>` : '';
+  return `<div class="card"><h2>Swing journal (your recognised trades)</h2>
+    <div class="sub">${J.closed.length} closed and ${J.open.length} open Swing trades. Swing equity ${money(J.equity.eq)} from ${money(J.startCapital)} swing capital; drawdown from peak ${pc1(J.equity.curDD)} (worst ${pc1(J.equity.maxDD)}). ${esc(halfTxt)} ${xs.length >= 2 ? "Tonight's swing orders below use this." : ''}</div>
+    <div class="sub" style="margin-top:6px"><b>Journal Test</b> (needs 20 closed trades over 90 days; ${J.stats.n} closed over ${J.span} days now${J.enough ? '' : ', so it cannot pass yet'}): ${J.provenGreen ? 'passed, Green uses 1%' : 'not passed, risk stays at the table value'}.${blocked.length ? ' It cannot pass while these are open: ' + blocked.map(esc).join(', ') + '.' : ''}</div>
+    <table><thead><tr><th>Test</th><th>Now</th><th></th></tr></thead><tbody>${tests}</tbody></table>${bySetup}
+    ${rows ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Account</th><th>Stock</th><th>Setup</th><th>Bought</th><th>Closed</th><th class="num">Result</th><th>Match</th><th>Rule breaks</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}
+    ${openRows ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Account</th><th>Open stock</th><th>Setup</th><th>Bought</th><th class="num">Units</th><th class="num">So far</th></tr></thead><tbody>${openRows}</tbody></table></div>` : ''}
+    <div class="sub" style="margin-top:6px">${J.notes.map(esc).join(' ')} Broker data cannot show whether you followed the exit rules, so answer for each closed trade; an unanswered trade stops the Rule breaks test from passing.</div></div>`;
+}
 function poolsCard(xs) {
   const C = S.allocCfg, P = C.swingPools; if (!P || xs.length < 2) return '';
   const ok = xs.filter((x) => x.res.ok && x.res.rows.some((r) => r.cls === 'direct_equity')); if (ok.length < 2) return '';
@@ -540,7 +571,8 @@ function ordersCard(ok, accts, rows, stcg, P) {
   // use the account's own name for a stock when it holds it, so "already held" and blocks match
   const own = new Map(); for (const a of oa) for (const n of [...a.swingNames, ...a.blocked]) own.set(normName(n), n);
   for (const c of cands) { const k = normName(c.name ?? c.sym); if (own.has(k)) c.name = own.get(k); else c.name = c.name ?? c.sym; }
-  const out = sizeOrders(cands, oa, rows, { light, vix, s: P, stcgYtd: stcg, taxRowConfident: S.data.taxRules.types.listed_equity.confidence === 'High' });
+  const jr = householdJournal(ok).rep;
+  const out = sizeOrders(cands, oa, rows, { light, vix, s: P, stcgYtd: stcg, taxRowConfident: S.data.taxRules.types.listed_equity.confidence === 'High', provenGreen: jr.provenGreen, halving: jr.halving });
   const swingLots = ok.flatMap((x) => [...new Set((x.a.report.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name))].map((n) => ({ x, n })));
   const stopsBox = swingLots.length ? `<details style="margin-top:10px"><summary class="sub">Stops of your open Swing positions (for open risk)</summary><div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">${swingLots.map(({ x, n }) => `<label class="sub">${esc(n)} · ${esc(x.a.label)}<br><input data-a="${esc(x.a.key)}" data-stop="${esc(n)}" type="number" min="0" step="0.05" value="${acctCfg(x.a.key).stops?.[n] ?? ''}" style="width:100px"></label>`).join('')}</div></details>` : '';
   const head = `<div class="sub">Market light ${esc(light ?? 'not saved')}${out.risk ? ` · risk per trade ${out.risk}% of the account's swing capital · open-risk limit ${out.cap}% · up to ${out.maxPos} swing positions in the household (${out.householdPositions} now)` : ''}${out.why.length ? ' · ' + esc(out.why.join('; ')) : ''}. Household open risk ${money(out.householdOpenRisk)} of ${money(out.householdCapRs)}.</div>`;

@@ -46,7 +46,7 @@ export function cleanSettings(input: unknown): SettingsPatch | string | undefine
   if (i.profile !== undefined) { if (i.profile === null) out.profile = null; else { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; } }
   if (i.off !== undefined) { if (i.off === null) out.off = null; else { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; } }
   const spec: Record<string, [number, (k: string) => boolean, (v: any) => boolean]> = {
-    custom: [20, okKey, (v) => nn(v, 1) !== null], stops: [100, mapKey, (v) => nn(v, 1e7) !== null], acted: [20, okKey, realDate], swing: [500, mapKey, (v) => v === 'yes' || v === 'no'] };
+    custom: [20, okKey, (v) => nn(v, 1) !== null], stops: [100, mapKey, (v) => nn(v, 1e7) !== null], acted: [20, okKey, realDate], swing: [2000, mapKey, (v) => v === 'yes' || v === 'no'] };
   for (const m of MAPS) if (i[m] !== undefined) {
     if (i[m] === null) { out[m] = null; continue; }
     if (typeof i[m] !== 'object' || Array.isArray(i[m])) return `bad ${m}`;

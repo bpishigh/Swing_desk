@@ -48,8 +48,9 @@ export interface SaleProposal { key: string; date: string; qty: number; avgPrice
 /** Which book a sale came from (design section 3). The tax replay sells the oldest lot first, and that stays. But if you sold a stock after opening a Swing trade in it and the oldest-first sale used older lots,
  * the Swing lot still shows open although the sale may have been your Swing exit. Each such sale is put to the owner; "yes" moves that many units of the Swing lot to Legacy (the book view only: tax is untouched),
  * "no" leaves it, no answer leaves it and lists the question. `answers` is keyed `sale:<key>|<sale date>` with 'yes' or 'no'. */
-export function attributeSales(tagged: Tagged[], sells: SaleGroup[], answers: Record<string, 'yes' | 'no'>): { tagged: Tagged[]; proposals: SaleProposal[] } {
-  const out: Tagged[] = tagged.map((t) => ({ ...t })), proposals: SaleProposal[] = [];
+export interface SwingExit { key: string; buyDate: string; date: string; qty: number; price: number }
+export function attributeSales(tagged: Tagged[], sells: SaleGroup[], answers: Record<string, 'yes' | 'no'>): { tagged: Tagged[]; proposals: SaleProposal[]; exits: SwingExit[] } {
+  const out: Tagged[] = tagged.map((t) => ({ ...t })), proposals: SaleProposal[] = [], exits: SwingExit[] = [];
   const keys = new Set(out.filter((t) => t.book === 'Swing').map((t) => t.lot.key));
   for (const key of keys) {
     const groups = sells.filter((g) => g.key === key).sort((a, b) => a.date.localeCompare(b.date));
@@ -62,12 +63,12 @@ export function attributeSales(tagged: Tagged[], sells: SaleGroup[], answers: Re
       let left = g.qty;
       for (const t of eligible()) {
         if (left <= 1e-9) break;
-        const take = Math.min(t.lot.qty, left); left -= take;
+        const take = Math.min(t.lot.qty, left); left -= take; exits.push({ key, buyDate: t.lot.date, date: g.date, qty: take, price: g.avgPrice });
         const idx = out.indexOf(t), moved: Tagged = { lot: { ...t.lot, qty: take }, book: 'Legacy', rule: `rule 3: ${take} of these units were your Swing trade, sold on ${g.date} (you said so); the tax view still sells the oldest lot first` };
         if (take >= t.lot.qty - 1e-9) out[idx] = moved;
         else { out[idx] = { ...t, lot: { ...t.lot, qty: t.lot.qty - take } }; out.push(moved); }
       }
     }
   }
-  return { tagged: out, proposals };
+  return { tagged: out, proposals, exits };
 }
