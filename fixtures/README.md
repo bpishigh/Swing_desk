@@ -10,11 +10,11 @@ Deliberately left out, because they reveal what the owner holds or owns:
 - the `stocks` field of `feed`, `feed_hist`, `us_feed`, `us_feed_hist` (it is keyed by the owner's holdings);
 - closes of open-trade tickers in `us_feed_hist/closes`;
 - the non-index rows of `symbols`.
-`scripts/check-no-personal-data.mjs` runs on every push and checks: personal JSON keys; string values that list three or more stock tickers (flags strings once did, and were scrubbed on 3 Oct 2026 after review); a deny-list of the owner's tickers kept in the `PRIVACY_DENYLIST` repository secret or a git-ignored local file, never committed; and `fixtures/app`, where only the exceptions recorded in `fixtures/app/ALLOWED_PERSONAL.json` pass. Free-text `flags` fields must be written without stock names when exported.
+`scripts/check-no-personal-data.mjs` runs on every push and checks: personal JSON keys; string values that list three or more stock tickers (flags strings once did, and were scrubbed on 3 Oct 2026 after review); a deny-list of the owner's tickers kept in the `PRIVACY_DENYLIST` repository secret or a git-ignored local file, never committed; and where only the exceptions recorded in `ALLOWED_PERSONAL.json` pass. Free-text `flags` fields must be written without stock names when exported.
 Stock-level replay (sizing, exits, EMAs of holdings) will use synthetic holdings written for the tests, or a local-only export that is never committed.
 
 ## scheduled-tasks/
 The three prompts that are the code of today's data fill, verbatim, with trigger ids and schedules. They are exported here so the scripts can be checked line by line against them.
 
 ## app/
-`swing-desk-v9.html` is the v9 app exactly as published (copied unchanged on the owner's instruction, 3 Oct 2026). It contains one hard-coded default capital figure in the `capital()` function, and its Rules tab names some stocks the owner holds; the repo is private. Both are recorded in `ALLOWED_PERSONAL.json`. A history that once held the unscrubbed `feed/latest` flags is still in git; the repo must stay private. It is the reference for the Gate B replay: `node tools/make-v9-golden.mjs fixtures/app/swing-desk-v9.html` regenerates `fixtures/expected/`.
+The v9 app copies and the tools that regenerated `fixtures/expected/` were removed on 21 Oct 2026 (owner decision: the old Claude Desk reference is no longer needed). `fixtures/expected/` stays as recorded regression data for the engine replay tests.

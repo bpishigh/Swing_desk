@@ -1,10 +1,9 @@
-// Fails if anything committed under data/, fixtures/db or fixtures/app looks like holdings, capital or trades.
+// Fails if anything committed under data/ or fixtures/db looks like holdings, capital or trades, or if any file under portfolio/ is tracked.
 // Four checks:
 //  1. personal JSON keys (capital, holdings, legacy, trades, qty, ...) in data/ and fixtures/db;
 //  2. string values that list stock tickers (3 or more comma-separated tickers that are not the public sector/benchmark ETFs);
 //  3. a deny-list of the owner's tickers, supplied OUTSIDE the repo: env PRIVACY_DENYLIST (a GitHub secret in CI) or the git-ignored
 //     file .privacy-denylist (comma or newline separated). Never commit the list, it would itself reveal the holdings;
-//  4. hard-coded capital-like figures in fixtures/app, allowed only as recorded in fixtures/app/ALLOWED_PERSONAL.json
 //     (a recorded file is also exempt from the deny-list, because the v9 copy is unchanged and its Rules tab names stocks).
 //  data/source-test/ is exempt from check 2 only: it logs public NSE file headers and last lines.
 // Usage: node scripts/check-no-personal-data.mjs   (exit 1 on any finding)
@@ -59,21 +58,7 @@ function main() {
       for (const t of denylistHits(text, deny)) fail(`deny-listed ticker ${t} in ${p}`);
     }
   }
-  // fixtures/app: only the recorded exceptions
-  const allowFile = 'fixtures/app/ALLOWED_PERSONAL.json';
-  if (existsSync('fixtures/app')) {
-    const allowed = existsSync(allowFile) ? JSON.parse(readFileSync(allowFile, 'utf8')) : [];
-    for (const p of files('fixtures/app')) {
-      if (p === allowFile || !/\.(html|js|json|md)$/.test(p)) continue;
-      const text = readFileSync(p, 'utf8');
-      const found = text.split('\n').filter((l) => /capital[^\n]{0,160}[^\d.]\d{6,}(?![\d.])/i.test(l)).length;
-      const rule = allowed.find((a) => a.file === p);
-      const expect = rule ? rule.count : 0;
-      if (found !== expect) fail(`${p}: ${found} capital-like figure line(s), recorded exceptions allow ${expect}`);
-      if (!rule) for (const t of denylistHits(text, deny)) fail(`deny-listed ticker ${t} in ${p}`);
-    }
-  }
   if (bad) process.exit(1);
-  console.log('data/, fixtures/db and fixtures/app clean');
+  console.log('data/ and fixtures/db clean');
 }
 if (process.argv[1] && import.meta.url === new URL(process.argv[1], 'file://').href) main();
