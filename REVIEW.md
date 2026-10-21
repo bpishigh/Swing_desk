@@ -3,7 +3,7 @@
 Swing Desk is a manually traded swing-trading tool (India, with a US variant). This repo is the planned move off Claude: a rules engine in TypeScript, market-data scripts, and tests. The live desk is still app v9 (`fixtures/app/swing-desk-v9.html`). The engine is not wired into it.
 
 ## What is authoritative
-- The Engine Rules doc (R-2026.10.2) is the source of truth for rules. Where code and doc disagree, the doc is right and the code has a bug. A copy is in `docs/ENGINE_RULES.md` (the live doc is a Claude Doc; the copy header gives the doc revision). The Code and Architecture doc is in `docs/ARCHITECTURE.md`.
+- The Engine Rules doc (see its header for the rules version) is the source of truth for rules. Where code and doc disagree, the side that is latest and accurate is right (owner rule, 21 Oct 2026, C-79): check the change log and the history, then fix the other side. A copy is in `docs/ENGINE_RULES.md` (the live doc is a Claude Doc; the copy header gives the doc revision). The Code and Architecture doc is in `docs/ARCHITECTURE.md`.
 - App v9 is the behaviour the engine must reproduce, except where the rules doc says otherwise (OQ-8: Red uses the Yellow setup list).
 
 ## Read in this order

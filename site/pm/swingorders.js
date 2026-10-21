@@ -19,7 +19,7 @@ import { routeTrade,                                                   } from '.
                                                                                                                                                                                                    
                                                                                                                                                                                                                                 
 
-/** Today's risk per trade, open-risk cap and position count from the rules table; India VIX above 20 halves risk. The "proven Green" 1% and the risk-halving rules need the trade journal, which is not here, so they are not applied. */
+/** Today's risk per trade, open-risk cap and position count from the rules table; India VIX above 20 halves risk. The "proven Green" 1% and the risk-halving rules are applied when the caller passes them in RiskAdj (from the journal of recognised Swing trades); sector-based pilot sizing is not applied here. */
                                                                                                                                                                                                                                                                                   
 export function limitsFor(light              , vix                , adj          = {})                                                                                         {
   if (!light) return null; const L = LIMITS.india[light], why           = []; let risk = L.risk;
@@ -36,7 +36,7 @@ export function sizeOrders(cands        , accts             , rows           , c
   const out            = { light: ctx.light, risk: lim?.risk ?? 0, cap: lim?.cap ?? 0, maxPos: Math.min(lim?.maxPos ?? 0, ctx.s.maxPositions), why: lim?.why ?? [], householdOpenRisk: accts.reduce((t, a) => t + a.openRisk, 0), householdCapRs: lim ? (hhCap * lim.cap) / 100 : 0, householdPositions: hhNames.size, lines: [], notes };
   if (!lim) { notes.push('No market light is saved for today, so nothing is sized.'); return out; }
   if (accts.some((a) => a.stopsMissing.length)) notes.push('Open Swing positions without a stop recorded: ' + accts.flatMap((a) => a.stopsMissing.map((n) => `${n} (${a.label})`)).join(', ') + '. Open risk is understated until a stop is entered for each.');
-  notes.push('Sizing uses the rules table, the nightly plan and the journal of your recognised Swing trades (risk halving, proven Green 1%). Sector-based pilot sizing is not applied here; the shortlist on the Swing Desk shows it.');
+  notes.push('Sizing uses the rules table, the nightly plan and the journal of your recognised Swing trades (risk halving, proven Green 1%). At most two new names are placed a night, in the order the plan lists them (highest relative strength first); adding to a name you hold does not count. Sector-based pilot sizing is not applied here; the shortlist on the Swing Desk shows it.');
   let addedRisk = 0, addedNames = 0; const taken = new Set        ();
   // Running state per account, updated after every placed line so later lines in the same night see it.
   const st = new Map(accts.map((a) => [a.label, { risk: a.openRisk, names: new Set(a.swingNames), held: { ...(a.heldValue ?? {}) }                          , added: 0 }]));
@@ -60,6 +60,8 @@ export function sizeOrders(cands        , accts             , rows           , c
       else if (a.blocked.includes(name)) { ok = false; note = 'blocked: a short-term lot of this stock sits in Legacy here'; }
       else if (!setupOk) { ok = false; note = `${sp.short} is not allowed on a ${ctx.light} light`; }
       else if (!cur.names.has(name) && out.householdPositions + addedNames >= out.maxPos) { ok = false; note = `household position count ${out.householdPositions + addedNames} is at the limit of ${out.maxPos}`; }
+      else if (nt.stopPct !== undefined && nt.stopPct > sp.maxStop + 1e-9) { ok = false; note = `the stop is ${nt.stopPct.toFixed(1)}% below the entry after the 1.5 ATR floor, over the ${sp.maxStop}% limit for ${sp.short}: skip, do not resize`; }
+      else if (!hhNames.has(name) && !taken.has(name) && taken.size >= 2) { ok = false; note = 'the limit of two new entries a day is used'; }
       else if (qty <= 0) note = `${binding} leaves no room`;
       per.push({ label: a.label, qty: ok ? qty : 0, first: ok ? Math.floor(qty * 0.6) : 0, oneR: nt.oneR ?? 0, value: ok ? qty * nt.entry : 0, binding: ok ? binding : (note ?? binding), ok, note });
     }

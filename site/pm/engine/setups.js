@@ -1,6 +1,5 @@
 // Setup definitions and per-light limits. Implements Engine Rules "Setups and entry calculation" and
-// "Position sizing and limits per market". Values copied from app v9 (SETUPS, LIMITS, LIMITS_US) as at R-2026.10.2.
-// OQ-8 (open): v10 changes the Red rows so Red allows pilots only; this file still holds the v9 values.
+// "Position sizing and limits per market". Values copied from app v9 (SETUPS, LIMITS, LIMITS_US) as at R-2026.10.9 (the Red rows follow C-24 and C-38).
 
                                                      
                                                                                                                                                                                

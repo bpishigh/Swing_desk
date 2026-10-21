@@ -15,7 +15,7 @@ export interface Proposals {
   intradayExcursions: boolean; // C-32
 }
 export interface Params {
-  /** C-35 (Adopted, untested numbers): arm the correction tracker at an 8% fall from the 60-session high or trend Red; dropPct 0 = trend Red alone. */
+  /** C-35 (Interim, owner decision 3 Oct 2026; the 8% and 60 sessions are untested): arm the correction tracker at an 8% fall from the 60-session high or trend Red; dropPct 0 = trend Red alone. */
   correction: CorrectionParams;
   /** C-33 (Rejected 3 Oct 2026): US max open risk by light. 2 / 1 / 0.5 is the reviewer's suggested step-down, not an owner choice; the owner left US Yellow at 2%, so the switch stays off and the live limit is 2 / 2 / 0.5. Kept only so the idea can be re-tested. */
   usOpenRiskCap: { green: number; yellow: number; red: number };
