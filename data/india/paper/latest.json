@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-19",
+ "asOf": "2026-10-21",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -13,8 +13,8 @@
  },
  "capwaived": {
   "orders": 2,
-  "open": 1,
-  "pending": 1,
+  "open": 2,
+  "pending": 0,
   "notFilled": 0,
   "closed": 0,
   "meanR": null,
@@ -30,14 +30,5 @@
   "winRate": null
  },
  "light": "red",
- "newOrdersTonight": [
-  {
-   "stream": "capwaived",
-   "sym": "WELCORP",
-   "setup": "4",
-   "trigger": 2625.24,
-   "stop": 2400.09,
-   "status": "pending"
-  }
- ]
+ "newOrdersTonight": []
 }
