@@ -21,7 +21,8 @@ for (const f of bf) { const o = (byDay[f.slice(0, 10)] = {}); for (const [s, r] 
 const dates = Object.keys(byDay).sort(); const px = {};
 dates.forEach((d, i) => { for (const [s, v] of Object.entries(byDay[d])) (px[s] ??= new Array(dates.length).fill(null))[i] = v; });
 const hist = { dates, px };
-const data = { feed: J('data/india/corp-actions-history.json', []), demergers: J('data/rules/demergers.json').records, ipos: J('data/rules/ipos.json').records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J('data/rules/fund-overrides.json').records, charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date ?? bf[bf.length - 1].slice(0, 10), priceHistory: hist };
+const RULE = (f) => (existsSync(`portfolio/rules/${f}.json`) ? `portfolio/rules/${f}.json` : `data/rules/${f}.json`);   // household records live in the private repo (portfolio/rules); the public file is an empty stub
+const data = { feed: J('data/india/corp-actions-history.json', []), demergers: J(RULE('demergers')).records, ipos: J(RULE('ipos')).records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J(RULE('fund-overrides')).records, charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date ?? bf[bf.length - 1].slice(0, 10), priceHistory: hist };
 const asOf = dates[dates.length - 1];
 const now = {}, rows = [];
 for (const f of files) {

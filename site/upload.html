@@ -903,8 +903,10 @@ async function setOwner(key, owner) {
 (async () => {
   try {
     const hp = loadHist(), bench = loadBenchmarks().then(() => render());       // the big downloads run side by side
-    const [feed, dem, ipo, amfi, fo, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'demergers', 'ipos', 'amfi-schemes', 'fund-overrides', 'charges', 'tax', 'dividend', 'prices'].map(J));
-    S.data = { feed, demergers: dem.records, ipos: ipo.records, amfi: amfi.rows, fundOverrides: fo.records, charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
+    const rulesP = fetch('/api/portfolio?view=rules', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).catch(() => null);   // household records come from the private repo through the signed-in API
+    const [feed, amfi, charges, taxRules, divRules, px] = await Promise.all(['corp-actions-history', 'amfi-schemes', 'charges', 'tax', 'dividend', 'prices'].map(J));
+    const rl = (await rulesP)?.rules ?? {};
+    S.data = { feed, demergers: rl.demergers ?? [], ipos: rl.ipos ?? [], amfi: amfi.rows, fundOverrides: rl.fundOverrides ?? [], charges, taxRules, divRules, prices: px.prices, pricesAsOf: px.asOf };
     S.allocCfg = await fetch('pm-data/allocation.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);

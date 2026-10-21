@@ -1,14 +1,15 @@
 // Local report from broker files via the shared pipeline. Usage: node scripts/pm-report.mjs <groww|zerodha> <file...>   (prints only; never writes personal data)
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { parseCsv } from '../src/pm/csv.ts';
 import { readXlsx } from '../src/pm/xlsx.ts';
 import { readRows } from '../src/pm/reader.ts';
 import { runPipeline } from '../src/pm/pipeline.ts';
 const [broker, ...files] = process.argv.slice(2);
 const J = (p) => JSON.parse(readFileSync(p, 'utf8'));
+const RULE = (f) => (existsSync(`portfolio/rules/${f}.json`) ? `portfolio/rules/${f}.json` : `data/rules/${f}.json`);   // household records live in the private repo (portfolio/rules); the public file is an empty stub
 const bhavFile = readdirSync('data/india/bhav').filter((f) => f.endsWith('.json')).sort().pop(); const bhav = J('data/india/bhav/' + bhavFile);
 const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];
-const data = { feed: J('data/india/corp-actions-history.json'), demergers: J('data/rules/demergers.json').records, ipos: J('data/rules/ipos.json').records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J('data/rules/fund-overrides.json').records, charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date };
+const data = { feed: J('data/india/corp-actions-history.json'), demergers: J(RULE('demergers')).records, ipos: J(RULE('ipos')).records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J(RULE('fund-overrides')).records, charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date };
 const batches = [];
 for (const f of files) { const rows = /\.xlsx$/i.test(f) ? readXlsx(readFileSync(f))[0].rows : parseCsv(readFileSync(f, 'utf8')); const r = readRows(rows, { filename: f.split('/').pop() }); if (r.rejected) { console.log('REJECTED', f, r.rejected); continue; } batches.push(r.trades); }
 const r = runPipeline(batches, broker, data);

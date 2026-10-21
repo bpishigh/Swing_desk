@@ -1,11 +1,11 @@
 // C-50 pass criteria: coverage, method check against typed records, no side effects, branch list.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { stockVerdict, adjustSeries } from '../src/pm/verdict.ts';
 import { stockVerdict as oldVerdict } from './ref/verdict-before-c50.ts';
 const dir = 'site/pm-data/prices/'; const months = JSON.parse(readFileSync(dir + 'index.json', 'utf8'));
 const dates = [], px = {};
 for (const m of months) { const c = JSON.parse(readFileSync(dir + m + '.json', 'utf8')); const b = dates.length; dates.push(...c.dates); for (const [s, a] of Object.entries(c.px)) { const arr = (px[s] ??= []); while (arr.length < b) arr.push(null); arr.push(...a); } }
-const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;
+const dem = JSON.parse(readFileSync(existsSync('portfolio/rules/demergers.json') ? 'portfolio/rules/demergers.json' : 'data/rules/demergers.json', 'utf8')).records;
 const f = JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8')); const rows = Array.isArray(f) ? f : f.rows;
 const hist = { dates, px }; const N = dates.length; const from = dates[Math.max(0, N - 300)];
 let total = 0, oldBlocked = 0, newBlocked = 0, changed = [], same = 0; const branches = [];

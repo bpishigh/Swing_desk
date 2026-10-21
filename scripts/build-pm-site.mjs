@@ -14,7 +14,7 @@ for (const f of readdirSync('src/pm').filter((x) => x.endsWith('.ts'))) {
 mkdirSync('site/pm/engine', { recursive: true });
 for (const f of ['sizing', 'setups', 'journal', 'format']) put(`site/pm/engine/${f}.js`, stripTypeScriptTypes(readFileSync(`src/engine/${f}.ts`, 'utf8'), { mode: 'strip' }).replace(/(from\s+['"]\.\/[\w-]+)\.ts(['"])/g, '$1.js$2'));
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
-for (const f of ['charges', 'tax', 'dividend', 'demergers', 'ipos', 'fund-overrides', 'amfi-schemes', 'exit-loads']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
+for (const f of ['charges', 'tax', 'dividend', 'amfi-schemes', 'exit-loads']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('settings/allocation.json', 'site/pm-data/allocation.json');
 // Saved nightly shortlists (public): every line of every night, for recognising a real buy as a Swing trade.
 if (existsSync('data/india/shortlist')) {
@@ -87,7 +87,7 @@ if (existsSync('data/funds/holdings.json')) copyFileSync('data/funds/holdings.js
   const bh = days.slice(-40).map((f) => ({ date: f.slice(0, 10), rows: JSON.parse(readFileSync('data/india/bhav/' + f, 'utf8')).rows }));
   const ic = existsSync('data/india/idx_closes.json') ? JSON.parse(readFileSync('data/india/idx_closes.json', 'utf8')).closes?.['Nifty 500'] : null;
   const idx = ic ? { dates: Object.keys(ic).sort(), closes: Object.keys(ic).sort().map((d) => ic[d]) } : null;
-  const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;
+  const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;   // the public file is an empty stub: household records are private, so this public context carries no demerger adjustments
   const ctx = computeContext({ dates: dts, px }, feed, bh, idx, new Set(Object.keys(prices)), dem);
   put('site/pm-data/context.json', JSON.stringify(ctx) + '\n');
   if (existsSync('data/india/regime.json')) { const r = JSON.parse(readFileSync('data/india/regime.json', 'utf8')).latest; if (r) put('site/pm-data/regime.json', JSON.stringify({ date: r.date, name: r.name, breadth: r.breadth, distribution: r.distribution, followThrough: r.followThrough }) + '\n'); }

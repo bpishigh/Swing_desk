@@ -12,7 +12,7 @@ const dates = [], px = {};
 for (const m of months) { const c = JSON.parse(readFileSync(dir + m + '.json', 'utf8')); const base = dates.length; dates.push(...c.dates); for (const [s, a] of Object.entries(c.px)) { const arr = (px[s] ??= []); while (arr.length < base) arr.push(null); arr.push(...a); } }
 for (const s in px) while (px[s].length < dates.length) px[s].push(null);
 const N = dates.length, ASOF = dates[N - 1];
-const dem = JSON.parse(readFileSync('data/rules/demergers.json', 'utf8')).records;
+const dem = JSON.parse(readFileSync(existsSync('portfolio/rules/demergers.json') ? 'portfolio/rules/demergers.json' : 'data/rules/demergers.json', 'utf8')).records;
 const feedRaw = JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8')); const rows = Array.isArray(feedRaw) ? feedRaw : feedRaw.rows;
 const ADJ = /\b(split|sub-?division|bonus|demerger|de-merger|arrangement|consolidation|capital reduction|scheme)\b/i;   // same list as src/pm/verdict.ts
 const firstIdx = (d) => { let lo = 0, hi = N; while (lo < hi) { const m = (lo + hi) >> 1; if (dates[m] >= d) hi = m; else lo = m + 1; } return lo; };

@@ -166,6 +166,14 @@ export async function loadMorning(env: StoreEnv, fetchFn: typeof fetch = fetch):
   return f ? (f.data as any).morning ?? null : null;
 }
 
+/** Household-specific rule records (IPO allotments, demergers, typed fund matches) kept in the private data repo under portfolio/rules/, so they are never in the public code repo.
+ * A missing file gives an empty list; the page then simply has fewer typed records to apply. */
+export async function loadRules(env: StoreEnv, fetchFn: typeof fetch = fetch): Promise<{ ipos: unknown[]; demergers: unknown[]; fundOverrides: unknown[] }> {
+  const gh = github(env, fetchFn); const rec = async (n: string) => { const f = await gh.get(`portfolio/rules/${n}.json`); const r = f ? (f.data as any)?.records : null; return Array.isArray(r) ? r : []; };
+  const [ipos, demergers, fundOverrides] = await Promise.all([rec('ipos'), rec('demergers'), rec('fund-overrides')]);
+  return { ipos, demergers, fundOverrides };
+}
+
 /** Removes one saved account file. Only `portfolio/accounts/<slug>.json` can be named, because the path is built from a validated label. */
 export async function deleteAccount(env: StoreEnv, label: string, fetchFn: typeof fetch = fetch): Promise<{ deleted: boolean }> {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
