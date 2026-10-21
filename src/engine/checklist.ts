@@ -70,7 +70,8 @@ export function ntChecks(i: CheckInput): CheckItem[] {
   }
   items.push({ s: i.chartLevel === 'yes' ? 'pass' : i.chartLevel === 'no' ? 'fail' : 'na', t: 'Stop sits at a chart level (' + setup.stopHint + ')' });
   const needR = us ? 3 : 2;
-  if (ok(o.room)) items.push({ s: o.room >= needR ? 'pass' : 'fail', t: 'Room to nearest resistance ' + o.room.toFixed(1) + 'R (needs ' + needR + 'R' + (us ? ' in the US' : '') + ')' });
+  if (o.noOverhead) items.push({ s: 'pass', t: 'No overhead resistance above the entry: passes the room test' });
+  else if (ok(o.room)) items.push({ s: o.room >= needR ? 'pass' : 'fail', t: 'Room to nearest resistance ' + o.room.toFixed(1) + 'R (needs ' + needR + 'R' + (us ? ' in the US' : '') + ')' });
   else items.push({ s: 'na', t: 'Enter the nearest overhead resistance to check ' + needR + 'R room' });
   const rd = i.resultsInWeekdays;
   if (setup.resultsExempt && !us) items.push({ s: 'pass', t: 'Results: setup 3 trades after results' });

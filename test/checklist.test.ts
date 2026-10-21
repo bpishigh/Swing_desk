@@ -72,3 +72,9 @@ test('replay vs v9 ntChecks (500 cases)', () => {
     assert.deepEqual(norm, c.expected, `case ${n}`);
   }
 });
+test('room: a breakout with no overhead resistance passes (rule 5); a blank level is still n/a', () => {
+  const mk = (resistance?: number) => ntCalc({ setup: '1', basis: 100, chartStop: 95, atr: 2, close: 99, resistance, capital: 1_000_000, light: 'green', riskBase: 0.5, sector: { persist: true, newLeader: false, above200: true } });
+  assert.equal(get(ntChecks({ ...base(), nt: mk(0) }), 'No overhead')!.s, 'pass');
+  assert.equal(get(ntChecks({ ...base(), nt: mk(98) }), 'No overhead')!.s, 'pass');
+  assert.equal(get(ntChecks({ ...base(), nt: mk(undefined) }), 'Enter the nearest')!.s, 'na');
+});

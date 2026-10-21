@@ -20,7 +20,7 @@ export interface NtInput {
 export interface NtResult {
   trigger?: number; limit?: number; atrPct?: number; volatile?: boolean; entry?: number; floored?: boolean;
   stop?: number; rps?: number; stopPct?: number; pilot?: boolean; early?: boolean; riskPct?: number; oneR?: number;
-  full?: number; first?: number; add?: number; capped?: boolean; pos?: number; posPct?: number; p1?: number; p2?: number; room?: number;
+  full?: number; first?: number; add?: number; capped?: boolean; pos?: number; posPct?: number; p1?: number; p2?: number; room?: number; noOverhead?: boolean;
 }
 const ok = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
@@ -52,7 +52,8 @@ export function ntCalc(i: NtInput): NtResult {
     out.full = full; out.first = Math.floor(full * 0.6); out.add = full - out.first;
     out.pos = full * entry; out.posPct = (out.pos / i.capital) * 100;
     out.p1 = entry + out.rps; out.p2 = entry + 2 * out.rps;
-    out.room = ok(i.resistance) && i.resistance > 0 ? (i.resistance - entry) / out.rps : NaN;
+    out.noOverhead = ok(i.resistance) && i.resistance <= entry; // 0 or a level at or below the entry means nothing above: the room test passes (rule 5)
+    out.room = ok(i.resistance) && i.resistance > entry ? (i.resistance - entry) / out.rps : NaN;
   }
   return out;
 }

@@ -61,6 +61,7 @@ test('replay vs v9 ntCalc (400 cases)', () => {
   for (const [n, c] of cases.entries()) {
     const got: any = ntCalc(c.input);
     for (const k of new Set([...Object.keys(c.expected), ...Object.keys(got)])) {
+      if (k === 'noOverhead' || (k === 'room' && got.noOverhead)) continue; // intended change (C-80): a level at or below the entry means no overhead resistance, which passes rule 5; v9 returned a zero or negative room
       const e = c.expected[k]; let g = got[k];
       if (typeof g === 'number' && !Number.isFinite(g)) g = 'NaN';
       if (typeof e === 'number' && typeof g === 'number') assert.ok(Math.abs(e - g) < 1e-9 * Math.max(1, Math.abs(e)), `case ${n} ${k}: ${g} vs ${e}`);

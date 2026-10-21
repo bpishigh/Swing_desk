@@ -20,7 +20,7 @@ import { SETUPS,              } from './setups.js';
                            
                                                                                                            
                                                                                                                    
-                                                                                                                                        
+                                                                                                                                                              
  
 const ok = (n         )              => typeof n === 'number' && Number.isFinite(n);
 
@@ -52,7 +52,8 @@ export function ntCalc(i         )           {
     out.full = full; out.first = Math.floor(full * 0.6); out.add = full - out.first;
     out.pos = full * entry; out.posPct = (out.pos / i.capital) * 100;
     out.p1 = entry + out.rps; out.p2 = entry + 2 * out.rps;
-    out.room = ok(i.resistance) && i.resistance > 0 ? (i.resistance - entry) / out.rps : NaN;
+    out.noOverhead = ok(i.resistance) && i.resistance <= entry; // 0 or a level at or below the entry means nothing above: the room test passes (rule 5)
+    out.room = ok(i.resistance) && i.resistance > entry ? (i.resistance - entry) / out.rps : NaN;
   }
   return out;
 }
