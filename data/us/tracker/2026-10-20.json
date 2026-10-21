@@ -1,0 +1,18 @@
+{
+ "close": 769.05,
+ "high": 772.29,
+ "low": 764.25,
+ "volume": 32.5,
+ "b": {
+  "close": 717.63,
+  "sma50": 726.62,
+  "sma200": 675.95
+ },
+ "sma50": 768.29,
+ "sma200": 725.87,
+ "src": "Tiingo EOD (SPY, QQQ), split-adjusted; Cboe (VIX)",
+ "fetchedAt": "2026-10-21T00:08:10.497Z",
+ "flags": [
+  "VIX: Cboe has no row for 2026-10-20 yet"
+ ]
+}
