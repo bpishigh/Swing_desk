@@ -1,7 +1,7 @@
 name: ci
 on:
   push:
-    paths-ignore: ['data/**', 'docs/replay/**', 'docs/STATUS.md', 'portfolio/**']   # data commits are checked by their own jobs; replay notes and STATUS are prose (Actions minutes)
+    paths-ignore: ['data/**', 'docs/**', '**/*.md', 'portfolio/**', 'site/data/**', 'site/pm-data/**']   # data commits are checked by their own jobs; docs, notes and generated site data are not code (Actions minutes)
   pull_request:
     paths-ignore: ['data/**', 'portfolio/**']
 permissions:
