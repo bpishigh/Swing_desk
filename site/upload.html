@@ -630,6 +630,12 @@ function allocTab(V) {
   return table + rollHtml + lookThroughCard(xs) + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
 }
 
+S.live = new Map(); let liveBusy = false;   // ISIN -> portfolio, or { why } when the lookup failed
+async function loadLive(list) {
+  if (liveBusy) return; liveBusy = true; const todo = list.filter((f) => !S.live.has(f.isin));
+  let i = 0; await Promise.all(Array.from({ length: 4 }, async () => { while (i < todo.length) { const f = todo[i++]; try { const r = await fetch(`/api/fundport?isin=${encodeURIComponent(f.isin)}&code=${encodeURIComponent(f.code)}&name=${encodeURIComponent(f.name)}`); const j = await r.json().catch(() => ({})); S.live.set(f.isin, r.ok && j.lines ? j : { why: j.error ?? 'lookup failed (' + r.status + ')' }); } catch { S.live.set(f.isin, { why: 'lookup could not run' }); } } }));
+  liveBusy = false; if (S.tab === 'alloc') render();
+}
 // Funds opened up (Engine Rules C-78): what the household owns in each company once fund portfolios are counted, and which funds repeat each other.
 function lookThroughCard(xs) {
   const ports = S.fundPorts;
@@ -638,17 +644,23 @@ function lookThroughCard(xs) {
   for (const x of xs) for (const h of x.hs) {
     if (h.value === null || !(h.value > 0)) continue;
     if (!EQ.has(h.assetClass)) { if (h.kind !== 'Stock') left.add(h.name); continue; }
-    const k = h.kind + '|' + h.name, o = seen.get(k) ?? seen.set(k, { name: h.name, kind: h.kind, value: 0, symbol: h.symbol, fundIsin: h.kind === 'Stock' ? undefined : (byIsin.get(h.isin) ?? schemeBase(h.name)) }).get(k); o.value += h.value;
+    const k = h.kind + '|' + h.name, o = seen.get(k) ?? seen.set(k, { name: h.name, kind: h.kind, value: 0, symbol: h.symbol, isin: h.isin, fundIsin: h.kind === 'Stock' ? undefined : (byIsin.get(h.isin) ?? schemeBase(h.name)) }).get(k); o.value += h.value;
   }
+  // a held fund that is not in the monthly list is looked up now, by its own ISIN and AMFI code (/api/fundport); what comes back is used for this page view
+  const codes = {}; for (const x of xs) Object.assign(codes, x.a.report.fundCodes ?? {});
+  const missing = [...seen.values()].filter((v) => v.kind !== 'Stock' && v.isin && !ports.funds[v.fundIsin] && !S.live.has(v.isin));
+  if (missing.length) loadLive(missing.slice(0, 40).map((v) => ({ isin: v.isin, code: codes[v.isin] ?? '', name: v.name })));
   const capital = xs.reduce((t, x) => t + x.capital, 0), capW = xs.filter((x) => x.res.ok).reduce((t, x) => t + (x.res.positionCap ?? 0) * x.capital, 0), capOk = xs.filter((x) => x.res.ok).reduce((t, x) => t + x.capital, 0);
   const fp = {}; for (const [k, v] of Object.entries(ports.funds)) fp[k] = v;
+  const nameOfIsin = new Map(); for (const v of Object.values(ports.funds)) if (v.etf) for (const l of v.lines) if (l.symbol && !nameOfIsin.has(l.isin)) nameOfIsin.set(l.isin, { name: l.name, symbol: l.symbol });
+  for (const v of seen.values()) { const L = v.isin ? S.live.get(v.isin) : null; if (L && L.lines && !fp[v.fundIsin]) { v.fundIsin = 'live:' + v.isin; fp[v.fundIsin] = { asOf: L.asOf, lines: L.lines.map((l) => (l.isin ? { ...(nameOfIsin.get(l.isin) ?? { name: l.isin }), isin: l.isin, weight: l.weight } : l)) }; } }
   const r = lookThrough([...seen.values()], fp, new Date().toISOString().slice(0, 10), capital, { positionCap: capOk > 0 ? capW / capOk : null });
   const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;   // mutual funds and ETFs
   if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity funds or ETFs held, so there is nothing to open up.</div></div>';
   const rows = r.exposures.filter((e) => e.viaFunds > 0).slice(0, 12);
   const ov = r.overlaps.slice(0, 5);
   return `<div class="card"><h2>What you really own · funds opened up</h2>
-    <div class="sub">${r.coverage === null ? '' : `Portfolios found for ${Math.round(r.coverage * 100)}% of your equity fund money (${nFunds - r.notCovered.length} of ${nFunds} funds).`} ${r.notCovered.length ? `Not covered, left out and not estimated: ${r.notCovered.slice(0, 6).map(esc).join('; ')}${r.notCovered.length > 6 ? ` and ${r.notCovered.length - 6} more` : ''}.` : ''} ${r.stale.length ? `Older than ${75} days (a fund house may be late): ${r.stale.map((x) => esc(x.fund) + ' (' + fmtD(x.asOf) + ')').join('; ')}.` : ''}</div>
+    <div class="sub">${r.coverage === null ? '' : `Portfolios found for ${Math.round(r.coverage * 100)}% of your equity fund money (${nFunds - r.notCovered.length} of ${nFunds} funds).`} ${r.notCovered.length ? `Not covered, left out and not estimated: ${r.notCovered.slice(0, 8).map((n) => { const v = [...seen.values()].find((x) => x.name === n), L = v?.isin ? S.live.get(v.isin) : null; return esc(n) + (L?.why ? ' (' + esc(L.why) + ')' : v && !L && !ports.funds[v.fundIsin] ? ' (looking it up…)' : ' (portfolio too thin or not equity)'); }).join('; ')}${r.notCovered.length > 8 ? ` and ${r.notCovered.length - 8} more` : ''}.` : ''} ${r.stale.length ? `Older than ${75} days (a fund house may be late): ${r.stale.map((x) => esc(x.fund) + ' (' + fmtD(x.asOf) + ')').join('; ')}.` : ''}</div>
     ${rows.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Company</th><th class="num">Held directly ₹</th><th class="num">Through funds ₹</th><th class="num">Total ₹</th><th class="num">% of capital</th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(e.name)}${e.overCap ? ' <span class="neg">above your single-stock limit</span>' : ''}<small>${e.sources.slice(0, 3).map((s) => esc(s.fund)).join(' · ')}</small></td><td class="num">${e.direct ? inr(e.direct) : '—'}</td><td class="num">${inr(e.viaFunds)}</td><td class="num"><b>${inr(e.total)}</b></td><td class="num">${pc(e.pctCapital)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="sub" style="margin-top:8px">No company shows up through your funds yet.</div>'}
     ${ov.length ? `<div class="sub" style="margin-top:10px"><b>Funds that repeat each other</b> (overlap = the smaller weight of each shared company, added up; ${Math.round(0.4 * 100)}% or more is flagged):</div>${ov.map((o) => `<div class="sub">${o.flag ? '<span class="neg">▲</span> ' : ''}${esc(o.a)} and ${esc(o.b)}: <b>${Math.round(o.overlap * 100)}%</b> · mostly ${o.shared.slice(0, 3).map((x) => esc(x.name)).join(', ')}</div>`).join('')}` : (nFunds - r.notCovered.length >= 2 ? '<div class="sub" style="margin-top:10px">No two of your funds share any company.</div>' : '')}
     <div class="sub" style="margin-top:8px">From each fund's latest monthly portfolio, so it is a month-end picture. Companies are matched by name, so a company renamed recently may show twice. Hybrid, debt, gold and international holdings${left.size ? ` (${[...left].slice(0, 4).map(esc).join('; ')}${left.size > 4 ? '…' : ''})` : ''} are not opened up. Percent of capital uses your capital figure above. The flags are display choices, not trading rules.</div></div>`;
