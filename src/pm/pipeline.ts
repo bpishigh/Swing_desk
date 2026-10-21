@@ -33,7 +33,7 @@ export interface Report {
   warnings: string[];
   tax: TaxYear[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
-  holdings: { name: string; symbol: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number }[];
+  holdings: { name: string; symbol: string; isin?: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number }[];
   saleProposals: { key: string; name: string; date: string; qty: number; price: number; swingDate: string; swingQty: number }[];
   swingGaps: string[];
   /** Recognised Swing trades, open and closed (Engine Rules C-77). Names and prices: private, never stored. */
@@ -152,7 +152,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const history = tradeHistory([...stocks, ...fundTrades, ...funds.filter((t) => !matchedFund.has(t.tradeId + '|' + t.orderId + '|' + t.date))].map((t) => ({ key: keyOfT(t), date: t.date, side: t.side, qty: t.qty, price: t.price })), combined.realised, (k) => nameByKey.get(k) ?? k, kindOf2, bookOf, new Date().toISOString().slice(0, 10), openQty, (k) => (isFundType(typeByKey.get(k)) || fundKeys.has(k) ? '' : symOf.get(k) ?? ''));
   const bt = bookTotals(books, priceOf);
   const byName = new Map<string, Report['holdings'][number]>();
-  for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity') as AssetType) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm)!; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
+  for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key; const px = priceOf(t.lot.key); const fundLike = isFundType(typeByKey.get(t.lot.key)); const e = byName.get(nm) ?? byName.set(nm, { name: nm, symbol: fundLike ? '' : symOf.get(t.lot.key) ?? '', isin: t.lot.key.startsWith('INF') ? t.lot.key : undefined, kind: fundLike ? 'Fund' : isEtf(nm + ' ' + (symOf.get(t.lot.key) ?? ''), (typeByKey.get(t.lot.key) ?? 'listed_equity') as AssetType) ? 'ETF' : 'Stock', book: t.book, qty: 0, cost: 0, value: px === undefined ? null : 0, price: px ?? null }).get(nm)!; e.qty += t.lot.qty; e.cost += t.lot.qty * t.lot.unitCost; if (px !== undefined && e.value !== null) e.value += t.lot.qty * px; }
   const catByName = new Map<string, string>(); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k)!);
   for (const t of books) {
     const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm);

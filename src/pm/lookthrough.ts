@@ -30,7 +30,7 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
   const idx = { isin: new Map<string, string>(), sym: new Map<string, string>(), name: new Map<string, string>() };
   const get = (k: string, name: string) => { let e = by.get(k); if (!e) by.set(k, (e = { key: k, name, direct: 0, viaFunds: 0, total: 0, pctCapital: 0, pctEquity: 0, sources: [], overCap: false })); return e; };
   for (const p of positions) if (p.kind === 'Stock' && p.value > 0) { const k = tag(p); get(k, p.name).direct += p.value; if (p.isin) idx.isin.set(p.isin, k); if (p.symbol) idx.sym.set(p.symbol.toUpperCase(), k); idx.name.set(norm(p.name), k); }
-  const funds = positions.filter((p) => p.kind === 'Fund' && p.value > 0), notCovered: string[] = [], stale: LookThrough['stale'] = [], unmatchedWeight: Record<string, number> = {};
+  const funds = positions.filter((p) => (p.kind === 'Fund' || p.kind === 'ETF') && p.value > 0), notCovered: string[] = [], stale: LookThrough['stale'] = [], unmatchedWeight: Record<string, number> = {};
   let covered = 0, fundValue = 0, wFunds = new Map<string, Map<string, { name: string; w: number }>>();
   for (const f of funds) {
     fundValue += f.value; const port = f.fundIsin ? ports[f.fundIsin] : undefined;
@@ -47,7 +47,7 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
     }
     unmatchedWeight[f.name] = Math.round(unmatched * 100) / 100; wFunds.set(f.name, m);
   }
-  const equity = positions.filter((p) => p.kind === 'Stock').reduce((t, p) => t + p.value, 0) + positions.filter((p) => p.kind === 'ETF').reduce((t, p) => t + p.value, 0) + funds.reduce((t, f) => t + f.value, 0);
+  const equity = positions.filter((p) => p.kind === 'Stock').reduce((t, p) => t + p.value, 0) + funds.reduce((t, f) => t + f.value, 0);
   const exposures = [...by.values()].map((e) => ({ ...e, total: e.direct + e.viaFunds, pctCapital: capital > 0 ? (e.direct + e.viaFunds) / capital : 0, pctEquity: equity > 0 ? (e.direct + e.viaFunds) / equity : 0, overCap: s.positionCap !== null && capital > 0 && (e.direct + e.viaFunds) / capital > s.positionCap })).sort((a, b) => b.total - a.total);
   const overlaps: Overlap[] = [], names = [...wFunds.keys()];
   for (let i = 0; i < names.length; i++) for (let j = i + 1; j < names.length; j++) {

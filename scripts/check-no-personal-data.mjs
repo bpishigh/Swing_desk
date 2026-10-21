@@ -11,7 +11,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const FORBIDDEN = /(?:^|[^A-Za-z0-9_])"?(capital|holdings?|legacy|trades?|avgPrice|avg_price|qty|quantity|fullShares|firstShares|addShares|oneR|riskPct|stop0)"\s*:/i;
+const FORBIDDEN = /(?:^|[^A-Za-z0-9_-])"?(capital|holdings?|legacy|trades?|avgPrice|avg_price|qty|quantity|fullShares|firstShares|addShares|oneR|riskPct|stop0)"\s*:/i;
 const PUBLIC_TICKERS = new Set(['SPY', 'QQQ', 'XLK', 'XLF', 'XLE', 'XLV', 'XLI', 'XLY', 'XLP', 'XLU', 'XLB', 'XLRE', 'XLC', 'SMH', 'IGV', 'ITA', 'VIX']);
 const TICKER_RUN = /\b[A-Z][A-Z0-9&-]{1,14}(?:, ?[A-Z][A-Z0-9&-]{1,14}){2,}\b/g;
 const ALLOW_FILES = new Set(['README.md']);

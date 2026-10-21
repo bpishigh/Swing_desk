@@ -27,3 +27,14 @@ export function parsePage(html        )                {
   }
   return { asOf, code, lines: [...by.values()].map((l) => ({ ...l, weight: Math.round(l.weight * 1000) / 1000 })).sort((a, b) => b.weight - a.weight) };
 }
+
+                                                         
+/** An ETF page lists its holdings as ISIN and percent only (no names): equity ISINs (INE...) are kept, the same ISIN on two lines is added together. */
+export function parseEtfPage(html        )                              {
+  const m = /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html); if (!m) return null;
+  let j         ; try { j = JSON.parse(m[1]); } catch { return null; }
+  const h = find(j, 'holdings'); if (!h) return null;
+  const by = new Map                ();
+  for (const r of h                             ) { const i = String(r.isin ?? ''), w = Number(r.holdingSharePercentage); if (/^INE[0-9A-Z]{9}$/.test(i) && w > 0) by.set(i, (by.get(i) ?? 0) + w); }
+  return { lines: [...by].map(([isin, weight]) => ({ isin, weight: Math.round(weight * 1000) / 1000 })).sort((a, b) => b.weight - a.weight) };
+}

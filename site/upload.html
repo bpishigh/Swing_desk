@@ -408,7 +408,7 @@ function attentionItems(V) {
 // ---------- holdings
 function mergedHoldings(V) {
   const by = new Map();
-  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, locked: 0, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; e.locked += h.locked ?? 0; if (h.value === null) e.anyNull = true; else e.value += h.value; }
+  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, isin: h.isin, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, locked: 0, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; e.locked += h.locked ?? 0; if (h.value === null) e.anyNull = true; else e.value += h.value; }
   return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
 }
 // ---------- verdicts for direct stocks: the exit test and Keep (design doc section 4). Funds and ETFs get none yet.
@@ -634,25 +634,24 @@ function allocTab(V) {
 function lookThroughCard(xs) {
   const ports = S.fundPorts;
   if (!ports?.funds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">Fund portfolios have not loaded yet (they are fetched once a month from the funds\' published disclosures).</div></div>';
-  const EQ = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic']), seen = new Map(), left = new Set();
+  const EQ = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic']), seen = new Map(), left = new Set(), byIsin = new Map(Object.entries(ports.funds).filter(([, v]) => v.isin).map(([k, v]) => [v.isin, k]));   // a held ETF or fund is found by its ISIN first, then by its scheme name
   for (const x of xs) for (const h of x.hs) {
     if (h.value === null || !(h.value > 0)) continue;
     if (!EQ.has(h.assetClass)) { if (h.kind !== 'Stock') left.add(h.name); continue; }
-    if (h.kind === 'ETF') { left.add(h.name); continue; }   // ETFs are not opened: no portfolio is fetched for them
-    const k = h.kind + '|' + h.name, o = seen.get(k) ?? seen.set(k, { name: h.name, kind: h.kind, value: 0, symbol: h.symbol, fundIsin: h.kind === 'Stock' ? undefined : schemeBase(h.name) }).get(k); o.value += h.value;
+    const k = h.kind + '|' + h.name, o = seen.get(k) ?? seen.set(k, { name: h.name, kind: h.kind, value: 0, symbol: h.symbol, fundIsin: h.kind === 'Stock' ? undefined : (byIsin.get(h.isin) ?? schemeBase(h.name)) }).get(k); o.value += h.value;
   }
   const capital = xs.reduce((t, x) => t + x.capital, 0), capW = xs.filter((x) => x.res.ok).reduce((t, x) => t + (x.res.positionCap ?? 0) * x.capital, 0), capOk = xs.filter((x) => x.res.ok).reduce((t, x) => t + x.capital, 0);
   const fp = {}; for (const [k, v] of Object.entries(ports.funds)) fp[k] = v;
   const r = lookThrough([...seen.values()], fp, new Date().toISOString().slice(0, 10), capital, { positionCap: capOk > 0 ? capW / capOk : null });
-  const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;
-  if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity mutual funds held, so there is nothing to open up.</div></div>';
+  const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;   // mutual funds and ETFs
+  if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity funds or ETFs held, so there is nothing to open up.</div></div>';
   const rows = r.exposures.filter((e) => e.viaFunds > 0).slice(0, 12);
   const ov = r.overlaps.slice(0, 5);
   return `<div class="card"><h2>What you really own · funds opened up</h2>
     <div class="sub">${r.coverage === null ? '' : `Portfolios found for ${Math.round(r.coverage * 100)}% of your equity fund money (${nFunds - r.notCovered.length} of ${nFunds} funds).`} ${r.notCovered.length ? `Not covered, left out and not estimated: ${r.notCovered.slice(0, 6).map(esc).join('; ')}${r.notCovered.length > 6 ? ` and ${r.notCovered.length - 6} more` : ''}.` : ''} ${r.stale.length ? `Older than ${75} days (a fund house may be late): ${r.stale.map((x) => esc(x.fund) + ' (' + fmtD(x.asOf) + ')').join('; ')}.` : ''}</div>
     ${rows.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Company</th><th class="num">Held directly ₹</th><th class="num">Through funds ₹</th><th class="num">Total ₹</th><th class="num">% of capital</th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(e.name)}${e.overCap ? ' <span class="neg">above your single-stock limit</span>' : ''}<small>${e.sources.slice(0, 3).map((s) => esc(s.fund)).join(' · ')}</small></td><td class="num">${e.direct ? inr(e.direct) : '—'}</td><td class="num">${inr(e.viaFunds)}</td><td class="num"><b>${inr(e.total)}</b></td><td class="num">${pc(e.pctCapital)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="sub" style="margin-top:8px">No company shows up through your funds yet.</div>'}
     ${ov.length ? `<div class="sub" style="margin-top:10px"><b>Funds that repeat each other</b> (overlap = the smaller weight of each shared company, added up; ${Math.round(0.4 * 100)}% or more is flagged):</div>${ov.map((o) => `<div class="sub">${o.flag ? '<span class="neg">▲</span> ' : ''}${esc(o.a)} and ${esc(o.b)}: <b>${Math.round(o.overlap * 100)}%</b> · mostly ${o.shared.slice(0, 3).map((x) => esc(x.name)).join(', ')}</div>`).join('')}` : (nFunds - r.notCovered.length >= 2 ? '<div class="sub" style="margin-top:10px">No two of your funds share any company.</div>' : '')}
-    <div class="sub" style="margin-top:8px">From each fund's latest monthly portfolio, so it is a month-end picture. Companies are matched by name, so a company renamed recently may show twice. Funds, ETFs, hybrid, debt, gold and international holdings${left.size ? ` (${[...left].slice(0, 4).map(esc).join('; ')}${left.size > 4 ? '…' : ''})` : ''} are not opened up. Percent of capital uses your capital figure above. The flags are display choices, not trading rules.</div></div>`;
+    <div class="sub" style="margin-top:8px">From each fund's latest monthly portfolio, so it is a month-end picture. Companies are matched by name, so a company renamed recently may show twice. Hybrid, debt, gold and international holdings${left.size ? ` (${[...left].slice(0, 4).map(esc).join('; ')}${left.size > 4 ? '…' : ''})` : ''} are not opened up. Percent of capital uses your capital figure above. The flags are display choices, not trading rules.</div></div>`;
 }
 function allocDetail(x) {
   const C = S.allocCfg, { A, hs, held, lockedElss, cur, capital, res } = x;
