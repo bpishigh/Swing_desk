@@ -1,6 +1,6 @@
 # Swing Desk
 
-Rules live in the Engine Rules document, code and architecture in the Code and Architecture document, scope in the Scope of Work document. This repo is private. Nothing personal (capital, holdings, trades) may be committed under `data/`; `scripts/check-no-personal-data.mjs` enforces it in CI.
+Rules live in the Engine Rules document, code and architecture in the Code and Architecture document, scope in the Scope of Work document. This repo is private. Nothing personal (capital, holdings, trades) may be committed under `data/`; `scripts/check-no-personal-data.mjs` enforces it in CI. By design the repo also holds the owner's saved accounts under `portfolio/` (trades, settings, answers, verdict log, positions); the check does not scan that folder (accepted by the owner on 21 Oct 2026). The repo must stay private: if it is ever to be made public, move `portfolio/` out first.
 
 ## Names used in this project
 - **Claude Desk**: the live desk today. App v9.1 on Claude Artifacts with its built-in database, filled by three Claude scheduled tasks (India nightly, morning, weekly US screen). To be wound down once the Repo Desk matches it.
