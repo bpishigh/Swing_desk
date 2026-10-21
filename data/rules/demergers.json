@@ -1,0 +1,4 @@
+{
+ "note": "Public stub. The real records are household-specific and live in the private data repo under portfolio/rules/ (served to the signed-in owner by /api/portfolio?view=rules; nightly jobs read them from the checked-out private repo).",
+ "records": []
+}

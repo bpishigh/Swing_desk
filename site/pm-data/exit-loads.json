@@ -1,0 +1,4 @@
+{
+ "note": "Typed exit loads for funds that may be sold. A record says: sold within `days` of purchase, the fund charges `pct` (a fraction, 0.01 = 1%) of the sale. Each record carries its evidence (the scheme information document or AMC page, and the date read). No record means the load is unknown, and the sale suggestions flag any fund bought in the last year to check. The sandbox cannot reach AMC sites, so none are filled in yet.",
+ "records": []
+}
