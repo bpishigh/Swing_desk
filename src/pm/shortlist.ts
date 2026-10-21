@@ -1,6 +1,6 @@
 // Recognising a real buy as a Swing trade (design section 3, rule 4). Pure. A nightly shortlist line has a trigger, a limit and a stop; a buy that matches one becomes a Swing lot with that line's stop and setup.
 // Three tiers: exact (the entry session, price inside trigger and limit) is Swing automatically; near (a few sessions later, or a price just outside the range) is proposed and the owner confirms or rejects;
-// anything else is Legacy. The "near" numbers are PROVISIONAL (settings/allocation.json, swingMatch) until the Engine Rules log carries them as approved. Sessions are counted as weekdays: exchange holidays are not known here.
+// anything else is Legacy. The "near" numbers are the owner-approved working values (settings/allocation.json, swingMatch; Engine Rules C-76). Sessions skip the exchange holidays in data/calendar.
 export interface ShortLine { sym: string; setup: string; trigger: number; limit: number; stop: number; signalDate: string; atrPct?: number; tags?: string[]; stream?: string }
 /** nearSessions: how many weekdays after the shortlist night still count (0 = entry session only). nearPricePct: how far outside the trigger-to-limit range, as % of the trigger. volatileExtraPct: extra room above the limit for a close-confirmed entry. */
 export interface MatchSettings { nearSessions: number; nearPricePct: number; volatileExtraPct?: number; maxExactPctOfAccount?: number; addWindowSessions?: number }

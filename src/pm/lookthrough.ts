@@ -30,13 +30,15 @@ export function lookThrough(positions: Position[], ports: FundPortfolios, today:
   const idx = { isin: new Map<string, string>(), sym: new Map<string, string>(), name: new Map<string, string>() };
   const get = (k: string, name: string) => { let e = by.get(k); if (!e) by.set(k, (e = { key: k, name, direct: 0, viaFunds: 0, total: 0, pctCapital: 0, pctEquity: 0, sources: [], overCap: false })); return e; };
   for (const p of positions) if (p.kind === 'Stock' && p.value > 0) { const k = tag(p); get(k, p.name).direct += p.value; if (p.isin) idx.isin.set(p.isin, k); if (p.symbol) idx.sym.set(p.symbol.toUpperCase(), k); idx.name.set(norm(p.name), k); }
+  // a fund line that has only a name must meet the same company when another fund's line has its symbol or ISIN: names seen next to a symbol or ISIN anywhere are indexed first
+  for (const port of Object.values(ports)) for (const l of port.lines) { const k = l.symbol ? 'S:' + l.symbol.toUpperCase() : l.isin ? 'I:' + l.isin : null; if (k && l.weight > 0 && !idx.name.has(norm(l.name))) idx.name.set(norm(l.name), (l.isin && idx.isin.get(l.isin)) || (l.symbol && idx.sym.get(l.symbol.toUpperCase())) || k); }
   const funds = positions.filter((p) => (p.kind === 'Fund' || p.kind === 'ETF') && p.value > 0), notCovered: string[] = [], stale: LookThrough['stale'] = [], unmatchedWeight: Record<string, number> = {};
   let covered = 0, fundValue = 0, wFunds = new Map<string, Map<string, { name: string; w: number }>>();
   for (const f of funds) {
     fundValue += f.value; const port = f.fundIsin ? ports[f.fundIsin] : undefined;
     // weights adding to well over 100% (derivative exposure in arbitrage and similar funds) cannot be read as shares of the money; a portfolio with under half its money in equity lines (mostly debt, REITs or fund units) would show a small slice as if it were the whole: both are not covered
     if (!port || !port.lines.length || !inRange(port.lines)) { notCovered.push(f.name); continue; }
-    covered += f.value; const d = days(port.asOf, today); if (d > s.staleDays) stale.push({ fund: f.name, asOf: port.asOf, days: d });
+    covered += f.value * Math.min(1, port.lines.reduce((t, l) => t + (l.weight > 0 ? l.weight : 0), 0) / 100); const d = days(port.asOf, today); if (d > s.staleDays) stale.push({ fund: f.name, asOf: port.asOf, days: d });
     const m = new Map<string, { name: string; w: number }>(); let unmatched = 0;
     for (const l of port.lines) {
       if (!(l.weight > 0)) continue;

@@ -1,6 +1,6 @@
 // Book inference (design section 3): every open lot gets a book and the rule that put it there. No hand tagging.
 // Liquidity is empty unless the owner enters a buffer (none is assumed). Direct stocks start as Legacy. A lot becomes Swing only by promotion
-// or by a buy that matches a saved nightly shortlist (needs the Swing Desk to save shortlists; none is stored yet, so no lot is Swing today).
+// or by a buy that matches a saved nightly shortlist (the Swing Desk saves each night's shortlist under data/india/shortlist).
                                        
                                                
                                             

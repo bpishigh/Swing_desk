@@ -157,9 +157,10 @@ export function patterns(rs                                                     
   const out            = [], avg = (xs          ) => xs.reduce((a, b) => a + b, 0) / xs.length;
   const w = rs.filter((x) => (x.result ?? 0) > 0.001), l = rs.filter((x) => x.result !== null && x.result < -0.001);
   if (w.length >= 5 && l.length >= 5) { const dw = avg(w.map((x) => x.days)), dl = avg(l.map((x) => x.days)); out.push({ text: `Winners were held ${Math.round(dw)} days on average and losers ${Math.round(dl)} days${dl > dw * 1.3 ? ': losers are held longer than winners' : dw > dl * 1.3 ? ': winners are given more time than losers' : ''}.` }); }
-  const late = rs.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 > 0.2), calm = rs.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 <= 0.2);
+  const known = rs.filter((x) => x.result !== null);   // a trade with no known result is left out of every average
+  const late = known.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 > 0.2), calm = known.filter((x) => x.r.n.runUp20 !== null && x.r.n.runUp20 <= 0.2);
   if (late.length >= 5 && calm.length >= 5) out.push({ text: `Trades bought after a run of over 20% in 20 sessions averaged ${pct(avg(late.map((x) => x.result ?? 0)))} (${late.length} trades); the rest averaged ${pct(avg(calm.map((x) => x.result ?? 0)))} (${calm.length} trades).` });
-  const spk = rs.filter((x) => x.r.n.volRatio !== null && (x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2)), qui = rs.filter((x) => x.r.n.volRatio !== null && !(x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2));
+  const spk = known.filter((x) => x.r.n.volRatio !== null && (x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2)), qui = known.filter((x) => x.r.n.volRatio !== null && !(x.r.n.volRatio >= 1.5 || (x.r.n.volSpike5 ?? 0) >= 2));
   if (spk.length >= 5 && qui.length >= 5) out.push({ text: `Buys made on unusual volume (1.5x normal or more) averaged ${pct(avg(spk.map((x) => x.result ?? 0)))} (${spk.length} trades); buys on ordinary volume averaged ${pct(avg(qui.map((x) => x.result ?? 0)))} (${qui.length} trades).` });
   const losers = rs.filter((x) => x.r.issue);
   if (losers.length >= 5) { const k = (t        ) => losers.filter((x) => x.r.issue .kind === t).length; out.push({ text: `Main issue in your ${losers.length} trades that lost more than 2%: held while falling ${k('holding')}, chased an entry ${k('entry')}, market fell ${k('market')}, sold near the low ${k('exit')}, unclear ${k('unclear')}.` }); }
