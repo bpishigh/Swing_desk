@@ -2,3 +2,5 @@ node_modules/
 *.log
 .env
 .privacy-denylist
+# personal data lives in the separate private repo bpishigh/swing_desk_portfolio, checked out here by the workflows
+/portfolio/

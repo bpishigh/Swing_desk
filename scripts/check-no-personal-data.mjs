@@ -10,6 +10,7 @@
 // Usage: node scripts/check-no-personal-data.mjs   (exit 1 on any finding)
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const FORBIDDEN = /(?:^|[^A-Za-z0-9_-])"?(capital|holdings?|legacy|trades?|avgPrice|avg_price|qty|quantity|fullShares|firstShares|addShares|oneR|riskPct|stop0)"\s*:/i;
 const PUBLIC_TICKERS = new Set(['SPY', 'QQQ', 'XLK', 'XLF', 'XLE', 'XLV', 'XLI', 'XLY', 'XLP', 'XLU', 'XLB', 'XLRE', 'XLC', 'SMH', 'IGV', 'ITA', 'VIX']);
@@ -43,6 +44,8 @@ function* files(dir) {
 function main() {
   let bad = 0;
   const fail = (msg) => { console.error(msg); bad++; };
+  // the repo is public: account files and the holdings book live in the separate private repo, never here
+  try { const tracked = execFileSync('git', ['ls-files', 'portfolio'], { encoding: 'utf8' }).trim(); if (tracked) fail('tracked files under portfolio/ (personal data belongs in the private data repo): ' + tracked.split('\n').slice(0, 3).join(', ')); } catch { /* not a git checkout */ }
   const deny = loadDenylist();
   if (!deny.length) console.warn('note: no PRIVACY_DENYLIST set, ticker deny-list check skipped (set the secret in CI)');
   for (const root of ['data', 'fixtures/db']) {
