@@ -10,7 +10,7 @@
   "withRs": 467,
   "rsGate": 99,
   "template": 20,
-  "qualified": 8,
+  "qualified": 6,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -293,7 +293,7 @@
  "thinGroup": {
   "qualified": 1
  },
- "qualifiedTotal": 8,
+ "qualifiedTotal": 6,
  "notes": [
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
