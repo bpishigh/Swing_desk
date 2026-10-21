@@ -1,9 +1,6 @@
 name: ci
 on:
-  push:
-    paths-ignore: ['data/**', 'docs/**', '**/*.md', 'portfolio/**', 'site/data/**', 'site/pm-data/**']   # data commits are checked by their own jobs; docs, notes and generated site data are not code (Actions minutes)
-  pull_request:
-    paths-ignore: ['data/**', 'portfolio/**']
+  workflow_dispatch:   # manual only from 21 Oct 2026: GitHub shows 1,971 of 2,000 minutes used; tests and the privacy script run locally before each push
 permissions:
   contents: read
 concurrency:
