@@ -1,272 +1,149 @@
 {
- "at": "2026-10-20T19:14:34.832Z",
+ "at": "2026-10-21T03:30:06.182Z",
  "results": [
   {
-   "fund": "INF879O01027",
-   "name": "groww-search",
-   "url": "https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=parag%20parikh%20flexi%20cap%20direct%20growth&size=5",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2998,
-   "shape": "{content:[5]{analytics_label,bse_scrip_code,company_short_name,entity_type,exchange,expiry,fo_enabled,groww_contract_id,id,isin,lot_qty,nse_scrip_code,option_type,scheme_code,search_id,sub_entity_type,symbol,title,token,underlying_asset_type,underlying_scrip_code,underlying_search_id}}",
-   "holdingsAt": -1,
-   "holdingsSample": null
+   "name": "JioBlackRock Nifty 50 ETF",
+   "code": "154550",
+   "isin": "INF22M001184",
+   "tries": [
+    {
+     "base": "mutual-funds",
+     "status": 404,
+     "bytes": 39857,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    },
+    {
+     "base": "etfs",
+     "status": 200,
+     "bytes": 329174,
+     "nextData": true,
+     "holdingsAt": 49571,
+     "sample": "hId\":\"jioblackrock-nifty-etf\",\"holdings\":[{\"isin\":\"INE040A01034\",\"holdingSharePercentage\":10.37487},{\"isin\":\"INE090A01021\",\"holdingSharePercentage\":9.04791},{\"isin\":\"INE002A01018\",\"holdingSharePercentage\":7.58023},{\"isin\":\"INE397D01024\",\"holdingSharePercentage\":5.10323},{\"isin\":\"INE018A01030\",\"holdingSharePercentage\":4.20313},{\"isin\":\"INE062A01020\",\"holdingSharePercentage\":3.7873},{\"isin\":\"INE238A01034\",\"holdingSharePercentage\":3.36627},{\"isin\":\"INE009A01021\",\"holdingSharePercentage\":3.35325},{\"isin\":\"INE237A01036\",\"holdingS"
+    }
+   ],
+   "search": [
+    {
+     "type": "ETF",
+     "sub": null,
+     "id": "jioblackrock-nifty-etf",
+     "scheme_code": null,
+     "isin": "INF22M001184",
+     "title": "JioBlackRock Nifty 50 ETF",
+     "symbol": null
+    }
+   ]
   },
   {
-   "fund": "INF879O01027",
-   "name": "groww-scheme-page",
-   "url": "https://groww.in/mutual-funds/parag-parikh-long-term-value-fund-direct-growth",
-   "status": 200,
-   "type": "text/html; charset=utf-8",
-   "bytes": 557003,
-   "nextData": true,
-   "shape": "{props:{pageProps:{mfServerSideData}},page:string,query:{searchId:string},buildId:string,assetPrefix:string,isFallback:boolean,isExperimentalCompile:boolean,gip:boolean,scriptLoader:[1]{nonce,strategy,dangerouslySetInnerHTML}}",
-   "holdingsAt": 8567,
-   "holdingsSample": "mpsum_allowed\":true,\"doc_required\":true,\"holdings\":[{\"scheme_code\":\"122639\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"HDFC Bank Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Financial\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":11249.1401,\"corpus_per\":7.75425761,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"hdfc-bank-ltd\"},{\"scheme_code\":\"122639\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Power Grid Corporation of India Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Energy & Utilities\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":8128.1935,\"corpus_per\":5.6029266,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"power-grid-corporation-of-india-ltd\"},{\"scheme_code\":\"122639\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"ITC Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Consumer Staples\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value"
+   "name": "360 ONE Gold ETF - Direct Plan - GROWTH Option",
+   "code": "153357",
+   "isin": "INF579M01BB5",
+   "tries": [
+    {
+     "base": "mutual-funds",
+     "status": 404,
+     "bytes": 39875,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    },
+    {
+     "base": "etfs",
+     "status": 200,
+     "bytes": 249676,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    },
+    {
+     "base": "stocks",
+     "status": 200,
+     "bytes": 249676,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    }
+   ],
+   "search": [
+    {
+     "type": "OPTION_CHAIN",
+     "sub": null,
+     "id": "iifl-wealth-management-ltd-1568865430949",
+     "scheme_code": null,
+     "isin": null,
+     "title": "360ONE option chain",
+     "symbol": "360ONE"
+    }
+   ]
   },
   {
-   "fund": "INF879O01027",
-   "name": "groww-scheme-api",
-   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/parag-parikh-long-term-value-fund-direct-growth",
-   "status": 502,
-   "type": "application/json; charset=utf-8",
-   "bytes": 862,
-   "shape": "{type:string,title:string,status:number,detail:string,instance:string,error_code:number,error_name:string,error_category:string,ray_id:string,timestamp:string,zone:string,cloudflare_error:boolean,retryable:boolean,retry_after:number,owner_action_required:boolean,what_you_should_do:string,footer:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
+   "name": "Aditya Birla Sun Life BSE Top 10 Banks ETF",
+   "code": "154224",
+   "isin": "INF209KC1670",
+   "tries": [
+    {
+     "base": "mutual-funds",
+     "status": 404,
+     "bytes": 39874,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    },
+    {
+     "base": "etfs",
+     "status": 200,
+     "bytes": 200977,
+     "nextData": true,
+     "holdingsAt": 15256,
+     "sample": "a-sun-life-bse-top-banks-etf\",\"holdings\":[{\"isin\":\"INE040A01034\",\"holdingSharePercentage\":32.07186},{\"isin\":\"INE090A01021\",\"holdingSharePercentage\":22.16325},{\"isin\":\"INE237A01036\",\"holdingSharePercentage\":9.79077},{\"isin\":\"INE238A01034\",\"holdingSharePercentage\":9.60991},{\"isin\":\"INE062A01020\",\"holdingSharePercentage\":9.31901},{\"isin\":\"INE171A01029\",\"holdingSharePercentage\":4.59286},{\"isin\":\"INE095A01012\",\"holdingSharePercentage\":3.43448},{\"isin\":\"INE949L01017\",\"holdingSharePercentage\":3.33724},{\"isin\":\"INE092T01019\",\"holdin"
+    }
+   ],
+   "search": [
+    {
+     "type": "ETF",
+     "sub": null,
+     "id": "aditya-birla-sun-life-bse-top-banks-etf",
+     "scheme_code": null,
+     "isin": "INF209KC1670",
+     "title": "Aditya Birla Sun Life BSE Top 10 Banks ETF",
+     "symbol": null
+    }
+   ]
   },
   {
-   "fund": "INF879O01027",
-   "name": "captnemo",
-   "url": "https://mf.captnemo.in/kuvera/INF879O01027",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4208,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[28]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[28]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF879O01027",
-   "name": "kuvera-v3",
-   "url": "https://api.kuvera.in/mf/api/v3/fund_schemes/PP001ZG-GR.json",
-   "status": 404,
-   "type": "application/json; charset=UTF-8",
-   "bytes": 34,
-   "shape": "{status:number,error:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF879O01027",
-   "name": "kuvera-v4",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/PP001ZG-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF879O01027",
-   "name": "kuvera-v5",
-   "url": "https://api.kuvera.in/mf/api/v5/fund_schemes/PP001ZG-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4208,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[28]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[28]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF879O01027",
-   "name": "kuvera-isin",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF879O01027.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "groww-search",
-   "url": "https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=uti%20nifty%2050%20index%20fund%20direct%20growth&size=5",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2929,
-   "shape": "{content:[5]{analytics_label,bse_scrip_code,company_short_name,entity_type,exchange,expiry,fo_enabled,groww_contract_id,id,isin,lot_qty,nse_scrip_code,option_type,scheme_code,search_id,sub_entity_type,symbol,title,token,underlying_asset_type,underlying_scrip_code,underlying_search_id}}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "groww-scheme-page",
-   "url": "https://groww.in/mutual-funds/uti-nifty-india-manufacturing-index-fund-direct-growth",
-   "status": 200,
-   "type": "text/html; charset=utf-8",
-   "bytes": 327976,
-   "nextData": true,
-   "shape": "{props:{pageProps:{mfServerSideData}},page:string,query:{searchId:string},buildId:string,assetPrefix:string,isFallback:boolean,isExperimentalCompile:boolean,gip:boolean,scriptLoader:[1]{nonce,strategy,dangerouslySetInnerHTML}}",
-   "holdingsAt": 8366,
-   "holdingsSample": "psum_allowed\":true,\"doc_required\":false,\"holdings\":[{\"scheme_code\":\"153270\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Mahindra & Mahindra Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Consumer Discretionary\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":1.5269,\"corpus_per\":4.98849988,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"mahindra-mahindra-ltd\"},{\"scheme_code\":\"153270\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Reliance Industries Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Energy & Utilities\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":1.5209,\"corpus_per\":4.96889742,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"reliance-industries-ltd\"},{\"scheme_code\":\"153270\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Sun Pharmaceutical Industries Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Healthcare\",\"instrument_name\":\"Equity\",\"ratin"
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "groww-scheme-api",
-   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/uti-nifty-india-manufacturing-index-fund-direct-growth",
-   "status": 502,
-   "type": "application/json; charset=utf-8",
-   "bytes": 862,
-   "shape": "{type:string,title:string,status:number,detail:string,instance:string,error_code:number,error_name:string,error_category:string,ray_id:string,timestamp:string,zone:string,cloudflare_error:boolean,retryable:boolean,retry_after:number,owner_action_required:boolean,what_you_should_do:string,footer:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "captnemo",
-   "url": "https://mf.captnemo.in/kuvera/INF789F01XA0",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4473,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "kuvera-v3",
-   "url": "https://api.kuvera.in/mf/api/v3/fund_schemes/UTNID2-GR.json",
-   "status": 404,
-   "type": "application/json; charset=UTF-8",
-   "bytes": 34,
-   "shape": "{status:number,error:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "kuvera-v4",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/UTNID2-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "kuvera-v5",
-   "url": "https://api.kuvera.in/mf/api/v5/fund_schemes/UTNID2-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4473,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF789F01XA0",
-   "name": "kuvera-isin",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF789F01XA0.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "groww-search",
-   "url": "https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=hdfc%20nifty%2050%20index%20fund%20direct%20growth&size=5",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2929,
-   "shape": "{content:[5]{analytics_label,bse_scrip_code,company_short_name,entity_type,exchange,expiry,fo_enabled,groww_contract_id,id,isin,lot_qty,nse_scrip_code,option_type,scheme_code,search_id,sub_entity_type,symbol,title,token,underlying_asset_type,underlying_scrip_code,underlying_search_id}}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "groww-scheme-page",
-   "url": "https://groww.in/mutual-funds/hdfc-nifty100-quality-30-index-fund-direct-growth",
-   "status": 200,
-   "type": "text/html; charset=utf-8",
-   "bytes": 314601,
-   "nextData": true,
-   "shape": "{props:{pageProps:{mfServerSideData}},page:string,query:{searchId:string},buildId:string,assetPrefix:string,isFallback:boolean,isExperimentalCompile:boolean,gip:boolean,scriptLoader:[1]{nonce,strategy,dangerouslySetInnerHTML}}",
-   "holdingsAt": 8202,
-   "holdingsSample": "psum_allowed\":true,\"doc_required\":false,\"holdings\":[{\"scheme_code\":\"153264\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Tata Consultancy Services Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Technology\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":6.5092,\"corpus_per\":4.97,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"tata-consultancy-services-ltd\"},{\"scheme_code\":\"153264\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Nestle India Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Consumer Staples\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":6.3426,\"corpus_per\":4.84,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":\"nestle-india-ltd\"},{\"scheme_code\":\"153264\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Infosys Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Technology\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":6.3002,\"corpus_per\":4.81,"
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "groww-scheme-api",
-   "url": "https://groww.in/v1/api/data/mf/web/v1/scheme/hdfc-nifty100-quality-30-index-fund-direct-growth",
-   "status": 502,
-   "type": "application/json; charset=utf-8",
-   "bytes": 862,
-   "shape": "{type:string,title:string,status:number,detail:string,instance:string,error_code:number,error_name:string,error_category:string,ray_id:string,timestamp:string,zone:string,cloudflare_error:boolean,retryable:boolean,retry_after:number,owner_action_required:boolean,what_you_should_do:string,footer:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "captnemo",
-   "url": "https://mf.captnemo.in/kuvera/INF179K01WM1",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4360,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "kuvera-v3",
-   "url": "https://api.kuvera.in/mf/api/v3/fund_schemes/INNPT-GR.json",
-   "status": 404,
-   "type": "application/json; charset=UTF-8",
-   "bytes": 34,
-   "shape": "{status:number,error:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "kuvera-v4",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INNPT-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "kuvera-v5",
-   "url": "https://api.kuvera.in/mf/api/v5/fund_schemes/INNPT-GR.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 4360,
-   "shape": "[1]{code:string,name:string,short_name:string,lump_available:string,sip_available:string,lump_min:number,lump_min_additional:number,lump_max:number,lump_multiplier:number,sip_min:number,sip_max:number,sip_multiplier:number,sip_dates:[30]string,redemption_allowed:string,redemption_amount_multiple:number,redemption_amount_minimum:number,redemption_quantity_multiple:number,redemption_quantity_minimum:number,category:string,lock_in_period:number,upsizecode_sip_dates:[30]string,sip_maximum_gap:number,fund_house:string,fund_name:string,short_code:string,detail_info:string,ISIN:string,direct:string,switch_allowed:string,stp_flag:string}",
-   "holdingsAt": -1,
-   "holdingsSample": null
-  },
-  {
-   "fund": "INF179K01WM1",
-   "name": "kuvera-isin",
-   "url": "https://api.kuvera.in/mf/api/v4/fund_schemes/INF179K01WM1.json",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "bytes": 2,
-   "shape": "[0]",
-   "holdingsAt": -1,
-   "holdingsSample": null
+   "name": "Mirae Asset Nifty Midcap 150 ETF",
+   "code": "149918",
+   "isin": "INF769K01IC9",
+   "tries": [
+    {
+     "base": "mutual-funds",
+     "status": 404,
+     "bytes": 39896,
+     "nextData": true,
+     "holdingsAt": -1,
+     "sample": null
+    },
+    {
+     "base": "etfs",
+     "status": 200,
+     "bytes": 601421,
+     "nextData": true,
+     "holdingsAt": 123303,
+     "sample": "mirae-asset-nifty-midcap-etf\",\"holdings\":[{\"isin\":\"INE745G01043\",\"holdingSharePercentage\":2.07377},{\"isin\":\"INE171A01029\",\"holdingSharePercentage\":1.93103},{\"isin\":\"INE947Q01028\",\"holdingSharePercentage\":1.89962},{\"isin\":\"INE982J01020\",\"holdingSharePercentage\":1.77965},{\"isin\":\"INE158A01026\",\"holdingSharePercentage\":1.67606},{\"isin\":\"INE053A01029\",\"holdingSharePercentage\":1.5761},{\"isin\":\"INE591G01025\",\"holdingSharePercentage\":1.50046},{\"isin\":\"INE257A01026\",\"holdingSharePercentage\":1.49125},{\"isin\":\"INE095A01012\",\"holdingSh"
+    }
+   ],
+   "search": [
+    {
+     "type": "ETF",
+     "sub": null,
+     "id": "mirae-asset-mutual-fund-units-of-mirae-asset-nifty-midcap-etf",
+     "scheme_code": null,
+     "isin": "INF769K01IC9",
+     "title": "Mirae Asset Nifty Midcap 150 ETF",
+     "symbol": null
+    }
+   ]
   }
  ]
 }
