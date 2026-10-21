@@ -8,7 +8,9 @@ const LOG = { start: new Date().toISOString(), tried: 0, ok: 0, noMatch: [], noH
 const all = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.filter((f) => f.g === 'mf' || f.g === 'idx'), isEtf = (f) => /\bETF\b|\bBeES\b/i.test(f.name), scores = all;
 // ETF pages list companies by ISIN only: names and symbols come from the NSE corporate-actions history (ISIN with symbol) and data/names.json
 const isinSym = new Map(); for (const r of JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8'))) if (r.isin && r.symbol) isinSym.set(r.isin, r.symbol);
-const names = JSON.parse(readFileSync('data/names.json', 'utf8')).india ?? {}; LOG.etf = { tried: 0, ok: 0, linesIsin: 0, linesNamed: 0 };
+const names = JSON.parse(readFileSync('data/names.json', 'utf8')).india ?? {};
+// the NSE list of listed companies carries symbol, name and ISIN for every one: it fills the ISINs the corporate-actions history lacks
+try { const r = await fetch('https://archives.nseindia.com/content/equities/EQUITY_L.csv', { headers: UA, signal: AbortSignal.timeout(60000) }); if (r.ok) { let n = 0; for (const line of (await r.text()).split(/\r?\n/).slice(1)) { const c = line.split(','); const sym = c[0]?.trim(), isin = c[6]?.trim(); if (sym && /^INE[0-9A-Z]{9}$/.test(isin ?? '')) { isinSym.set(isin, sym); n++; if (c[1] && !names[sym]) names[sym] = c[1].trim(); } } LOG.equityList = n; } else LOG.equityList = 'status ' + r.status; } catch (e) { LOG.equityList = 'failed ' + String(e.message || e).slice(0, 80); } LOG.etf = { tried: 0, ok: 0, linesIsin: 0, linesNamed: 0 };
 const prev = existsSync('data/funds/holdings.json') ? JSON.parse(readFileSync('data/funds/holdings.json', 'utf8')) : { funds: {} };
 const out = { asOf: new Date().toISOString().slice(0, 10), source: 'fund pages (public portfolio disclosures)', funds: {} };
 const J = async (url) => { for (let a = 0; a < 3; a++) { try { const r = await fetch(url, { headers: UA, signal: AbortSignal.timeout(40000) }); if (r.ok) return await r.text(); if (r.status === 404) return null; } catch {} await new Promise((r) => setTimeout(r, 1500 * (a + 1))); } throw new Error('failed ' + url); };
