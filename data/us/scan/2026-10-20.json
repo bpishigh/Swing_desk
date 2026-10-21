@@ -1,0 +1,579 @@
+{
+ "version": "US-SCAN-1",
+ "asOf": "2026-10-20",
+ "light": "yellow",
+ "funnel": {
+  "tickers": 2279,
+  "passFloors": 2210,
+  "universe": 1500,
+  "universeFloorDollarVolumeM": 40.3,
+  "withRs": 1469,
+  "rsGate": 299,
+  "template": 137,
+  "qualified": 18,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Petroleum refining",
+   "members": 16,
+   "medianRs": 91.69,
+   "passes": true
+  },
+  {
+   "group": "Computer hardware",
+   "members": 19,
+   "medianRs": 88.01,
+   "passes": true
+  },
+  {
+   "group": "Shipping",
+   "members": 17,
+   "medianRs": 84.95,
+   "passes": false
+  },
+  {
+   "group": "Oil and gas production",
+   "members": 32,
+   "medianRs": 80.11,
+   "passes": false
+  },
+  {
+   "group": "Pipelines",
+   "members": 5,
+   "medianRs": 79.9,
+   "passes": false
+  },
+  {
+   "group": "Oilfield services",
+   "members": 8,
+   "medianRs": 79.5,
+   "passes": false
+  },
+  {
+   "group": "Semiconductors and components",
+   "members": 65,
+   "medianRs": 73.23,
+   "passes": false
+  },
+  {
+   "group": "Pharma and biotech",
+   "members": 114,
+   "medianRs": 72.07,
+   "passes": false
+  },
+  {
+   "group": "Apparel retail",
+   "members": 8,
+   "medianRs": 71.9,
+   "passes": false
+  },
+  {
+   "group": "Steel and metals",
+   "members": 12,
+   "medianRs": 71.15,
+   "passes": false
+  },
+  {
+   "group": "Metal mining",
+   "members": 29,
+   "medianRs": 70.03,
+   "passes": false
+  },
+  {
+   "group": "Healthcare services",
+   "members": 24,
+   "medianRs": 69.48,
+   "passes": false
+  },
+  {
+   "group": "Instruments and test equipment",
+   "members": 34,
+   "medianRs": 67.88,
+   "passes": false
+  },
+  {
+   "group": "Software and IT services",
+   "members": 129,
+   "medianRs": 67.17,
+   "passes": false
+  },
+  {
+   "group": "General merchandise retail",
+   "members": 12,
+   "medianRs": 62.06,
+   "passes": false
+  },
+  {
+   "group": "Specialty retail",
+   "members": 14,
+   "medianRs": 60.83,
+   "passes": false
+  },
+  {
+   "group": "Communications equipment",
+   "members": 9,
+   "medianRs": 60.35,
+   "passes": false
+  },
+  {
+   "group": "Wholesale",
+   "members": 26,
+   "medianRs": 58,
+   "passes": false
+  },
+  {
+   "group": "Medical devices",
+   "members": 35,
+   "medianRs": 57.22,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 10,
+   "medianRs": 56.44,
+   "passes": false
+  },
+  {
+   "group": "Specialty chemicals",
+   "members": 23,
+   "medianRs": 55.72,
+   "passes": false
+  },
+  {
+   "group": "Railroads",
+   "members": 5,
+   "medianRs": 54.16,
+   "passes": false
+  },
+  {
+   "group": "Media and cable",
+   "members": 15,
+   "medianRs": 53.75,
+   "passes": false
+  },
+  {
+   "group": "Engineering and research services",
+   "members": 16,
+   "medianRs": 52.28,
+   "passes": false
+  },
+  {
+   "group": "Insurance",
+   "members": 51,
+   "medianRs": 51.77,
+   "passes": false
+  },
+  {
+   "group": "Electrical equipment",
+   "members": 15,
+   "medianRs": 50.14,
+   "passes": false
+  },
+  {
+   "group": "Industrial machinery",
+   "members": 51,
+   "medianRs": 50.07,
+   "passes": false
+  },
+  {
+   "group": "Banks",
+   "members": 63,
+   "medianRs": 48.84,
+   "passes": false
+  },
+  {
+   "group": "Waste and environmental",
+   "members": 7,
+   "medianRs": 48.64,
+   "passes": false
+  },
+  {
+   "group": "Restaurants",
+   "members": 17,
+   "medianRs": 47.07,
+   "passes": false
+  },
+  {
+   "group": "Fabricated metal",
+   "members": 14,
+   "medianRs": 47.04,
+   "passes": false
+  },
+  {
+   "group": "Leisure and gaming",
+   "members": 13,
+   "medianRs": 46.32,
+   "passes": false
+  },
+  {
+   "group": "Hotels and lodging",
+   "members": 16,
+   "medianRs": 43.6,
+   "passes": false
+  },
+  {
+   "group": "Trucking and transit",
+   "members": 8,
+   "medianRs": 42.85,
+   "passes": false
+  },
+  {
+   "group": "Instruments, other",
+   "members": 6,
+   "medianRs": 40.87,
+   "passes": false
+  },
+  {
+   "group": "Paper and packaging",
+   "members": 6,
+   "medianRs": 40.67,
+   "passes": false
+  },
+  {
+   "group": "Insurance brokers",
+   "members": 8,
+   "medianRs": 39.75,
+   "passes": false
+  },
+  {
+   "group": "Business services",
+   "members": 57,
+   "medianRs": 38.96,
+   "passes": false
+  },
+  {
+   "group": "Food and beverages",
+   "members": 32,
+   "medianRs": 37.91,
+   "passes": false
+  },
+  {
+   "group": "Textiles and apparel",
+   "members": 12,
+   "medianRs": 37.23,
+   "passes": false
+  },
+  {
+   "group": "Airlines",
+   "members": 8,
+   "medianRs": 35.39,
+   "passes": false
+  },
+  {
+   "group": "Construction and engineering",
+   "members": 17,
+   "medianRs": 32.77,
+   "passes": false
+  },
+  {
+   "group": "Capital markets",
+   "members": 51,
+   "medianRs": 30.25,
+   "passes": false
+  },
+  {
+   "group": "Electric and gas utilities",
+   "members": 60,
+   "medianRs": 29.94,
+   "passes": false
+  },
+  {
+   "group": "REITs and trusts",
+   "members": 74,
+   "medianRs": 29.43,
+   "passes": false
+  },
+  {
+   "group": "Autos and parts",
+   "members": 21,
+   "medianRs": 29.22,
+   "passes": false
+  },
+  {
+   "group": "Telecom",
+   "members": 9,
+   "medianRs": 29.16,
+   "passes": false
+  },
+  {
+   "group": "Auto retail",
+   "members": 14,
+   "medianRs": 25.95,
+   "passes": false
+  },
+  {
+   "group": "Rubber, plastics and leather",
+   "members": 14,
+   "medianRs": 25.44,
+   "passes": false
+  },
+  {
+   "group": "Consumer and specialty finance",
+   "members": 28,
+   "medianRs": 24.28,
+   "passes": false
+  },
+  {
+   "group": "Logistics services",
+   "members": 10,
+   "medianRs": 24.28,
+   "passes": false
+  },
+  {
+   "group": "Aerospace and defense",
+   "members": 23,
+   "medianRs": 23.71,
+   "passes": false
+  },
+  {
+   "group": "Real estate services",
+   "members": 7,
+   "medianRs": 22.75,
+   "passes": false
+  },
+  {
+   "group": "Wood and furniture",
+   "members": 6,
+   "medianRs": 22.51,
+   "passes": false
+  },
+  {
+   "group": "Nonmetallic mining",
+   "members": 7,
+   "medianRs": 19.69,
+   "passes": false
+  },
+  {
+   "group": "Homebuilding",
+   "members": 10,
+   "medianRs": 16.62,
+   "passes": false
+  },
+  {
+   "group": "Home improvement retail",
+   "members": 7,
+   "medianRs": 15.33,
+   "passes": false
+  },
+  {
+   "group": "Glass and building materials",
+   "members": 5,
+   "medianRs": 9.6,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "CVI",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 97.75,
+   "close": 61.87,
+   "tags": [
+    "results date not checked",
+    "below $50M a day",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": false,
+   "composite": 65.9,
+   "tightness": 1.14,
+   "distPivot": 2.58,
+   "setup": null,
+   "diag": {
+    "rs121": 54.96,
+    "rs6m2w": 73.84,
+    "atr14": 3.06,
+    "sma50": 48.63,
+    "sma200": 34.3,
+    "high52": 63.51,
+    "low52": 19.62,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 97.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.6% below its 52-week high (limit 25%) and 215.3% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 91.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: extended, 27.2% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "COP",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 88.76,
+   "close": 145.95,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 65.81,
+   "tightness": 1.05,
+   "distPivot": 0.82,
+   "setup": null,
+   "diag": {
+    "rs121": 47.47,
+    "rs6m2w": -1.84,
+    "atr14": 3.23,
+    "sma50": 132.78,
+    "sma200": 119.23,
+    "high52": 147.15,
+    "low52": 85.57,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 88.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.8% below its 52-week high (limit 25%) and 70.6% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 91.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 0.8% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "SU",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 92.17,
+   "close": 78.44,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 65.37,
+   "tightness": 1.22,
+   "distPivot": 1.64,
+   "setup": null,
+   "diag": {
+    "rs121": 74.24,
+    "rs6m2w": 2.14,
+    "atr14": 2.02,
+    "sma50": 69.1,
+    "sma200": 62.19,
+    "high52": 79.75,
+    "low52": 37.77,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 92.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.6% below its 52-week high (limit 25%) and 107.7% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 58 (median strength 91.7); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 1.6% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "P",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 94.69,
+   "close": 126.52,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 56.81,
+   "tightness": 1.3,
+   "distPivot": 19.71,
+   "setup": null,
+   "diag": {
+    "rs121": 23.75,
+    "rs6m2w": 137.84,
+    "atr14": 7.86,
+    "sma50": 116.99,
+    "sma200": 83.1,
+    "high52": 157.57,
+    "low52": 56.78,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 19.7% below its 52-week high (limit 25%) and 122.8% above its 52-week low (needs 30%).",
+    "Group: Computer hardware ranks 2 of 58 (median strength 88); the 2 strongest groups are traded in the yellow light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 19.7% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "FTNT",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 93.39,
+   "close": 170.93,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 56.04,
+   "tightness": 1.01,
+   "distPivot": 13.29,
+   "setup": null,
+   "diag": {
+    "rs121": 110.01,
+    "rs6m2w": 128.46,
+    "atr14": 6.32,
+    "sma50": 169.77,
+    "sma200": 124.8,
+    "high52": 197.13,
+    "low52": 73.55,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 93.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 13.3% below its 52-week high (limit 25%) and 132.4% above its 52-week low (needs 30%).",
+    "Group: Computer hardware ranks 2 of 58 (median strength 88); the 2 strongest groups are traded in the yellow light.",
+    "Watch: a pattern is forming but there is under 3R of room before the next overhead high."
+   ]
+  },
+  {
+   "sym": "NTAP",
+   "type": "CS",
+   "group": "Computer hardware",
+   "path": "main",
+   "rsPct": 91.83,
+   "close": 209.97,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 55.1,
+   "tightness": 1.13,
+   "distPivot": 12.83,
+   "setup": null,
+   "diag": {
+    "rs121": 66.41,
+    "rs6m2w": 134.04,
+    "atr14": 9.73,
+    "sma50": 202.63,
+    "sma200": 145.63,
+    "high52": 240.87,
+    "low52": 93.69,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 91.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.8% below its 52-week high (limit 25%) and 124.1% above its 52-week low (needs 30%).",
+    "Group: Computer hardware ranks 2 of 58 (median strength 88); the 2 strongest groups are traded in the yellow light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 2
+ },
+ "qualifiedTotal": 18,
+ "notes": [
+  "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
+ ],
+ "source": "nasdaq",
+ "regimeDate": "2026-10-20",
+ "sicCovered": 2181
+}
