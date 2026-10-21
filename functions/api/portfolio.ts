@@ -1,5 +1,5 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
-// Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on this repo only), REPO ("owner/name"), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
+// Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on the private data repo only), REPO ("owner/name" of the private data repo bpishigh/swing_desk_portfolio), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
 import { checkAccess } from '../_lib/access.ts';
 import { cleanTrades, loadAccounts, loadMorning, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, NoSuchAccount, deleteAccount, renameAccount } from '../_lib/store.ts';
 

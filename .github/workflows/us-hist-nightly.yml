@@ -50,7 +50,8 @@ jobs:
         with:
           repository: bpishigh/swing_desk_portfolio
           token: ${{ secrets.PORTFOLIO_TOKEN }}
-          path: portfolio
+          path: .portfolio-repo
+          ref: main
       - name: Position alerts (open trades and kept Legacy holdings; moved from the Claude Desk)
         if: always()
         continue-on-error: true
@@ -60,14 +61,16 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          [ -d portfolio/.git ] || { echo "private data store not attached: skipped"; exit 0; }
+          git -C .portfolio-repo rev-parse --verify -q HEAD >/dev/null 2>&1 || { echo "private data store not attached or empty: skipped"; exit 0; }
+          mkdir -p .portfolio-repo/portfolio/accounts .portfolio-repo/portfolio/book
+          ln -sfn .portfolio-repo/portfolio portfolio
           git pull --rebase origin main
           node --max-old-space-size=6000 scripts/book-alerts.mjs us
-          # the book files live in the separate private repo checked out at portfolio/; commit and push there
-          cd portfolio
+          # the book files live in the separate private repo (top-level portfolio/ folder) checked out at .portfolio-repo and linked as portfolio/; commit and push there
+          cd .portfolio-repo
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add book
+          git add portfolio/book
           git commit -m "book alerts us: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
