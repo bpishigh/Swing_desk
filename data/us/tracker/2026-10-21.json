@@ -1,0 +1,19 @@
+{
+ "close": 773.09,
+ "high": 774.44,
+ "low": 768.4,
+ "volume": 30,
+ "b": {
+  "close": 725.2,
+  "sma50": 726.75,
+  "sma200": 676.49
+ },
+ "sma50": 768.34,
+ "sma200": 726.29,
+ "src": "Tiingo EOD (SPY, QQQ), split-adjusted; Cboe (VIX)",
+ "fetchedAt": "2026-10-22T00:08:01.699Z",
+ "flags": [
+  "VIX: Cboe has no row for 2026-10-21 yet",
+  "VIX not read: Unexpected token '<', \"<!doctype \"... is not valid JSON"
+ ]
+}
