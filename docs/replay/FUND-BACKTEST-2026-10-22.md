@@ -1,23 +1,23 @@
 # Fund-score back-test (C-81), run 2026-10-22
 
-Criteria fixed in Engine Rules C-81 before this run. 576 Direct-Growth equity schemes alive today (survivorship bias: closed and merged funds are missing, which flatters every group). Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
+Criteria fixed in Engine Rules C-81 before this run. 308 Direct-Growth equity schemes alive today (survivorship bias: closed and merged funds are missing, which flatters every group). Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
 
 | Year | Funds scored | Strong funds | Median excess, Strong | Test A | Weak funds | Median excess, Weak | Test B |
 |---|---|---|---|---|---|---|---|
 | 2015-10-01 | 0 | 0 | – | not counted | 0 | – | not counted |
-| 2016-10-01 | 162 | 32 | 1.67 | pass | 29 | -2.54 | pass |
-| 2017-10-01 | 179 | 40 | -1.34 | fail | 37 | 1.65 | fail |
-| 2018-10-01 | 192 | 31 | -0.51 | fail | 31 | -0.38 | pass |
-| 2019-10-01 | 209 | 46 | 0.00 | fail | 40 | 0.30 | fail |
-| 2020-10-01 | 218 | 44 | -2.84 | fail | 45 | 4.53 | fail |
-| 2021-10-01 | 237 | 38 | -0.33 | fail | 45 | -0.67 | pass |
-| 2022-10-01 | 265 | 48 | 0.90 | pass | 51 | -0.71 | pass |
-| 2023-10-01 | 280 | 59 | 4.27 | pass | 55 | -2.73 | pass |
-| 2024-10-01 | 314 | 67 | -0.53 | fail | 65 | 0.13 | fail |
-| 2025-10-01 | 351 | 55 | 0.09 | pass | 55 | -1.86 | pass |
+| 2016-10-01 | 115 | 24 | 1.92 | pass | 21 | -2.91 | pass |
+| 2017-10-01 | 121 | 28 | -0.40 | fail | 24 | 1.69 | fail |
+| 2018-10-01 | 126 | 20 | -0.51 | fail | 21 | 0.65 | fail |
+| 2019-10-01 | 128 | 30 | 0.64 | pass | 25 | -2.44 | pass |
+| 2020-10-01 | 133 | 30 | -1.41 | fail | 30 | 6.58 | fail |
+| 2021-10-01 | 142 | 24 | -0.51 | fail | 27 | -0.31 | pass |
+| 2022-10-01 | 158 | 29 | 1.09 | pass | 29 | -0.49 | pass |
+| 2023-10-01 | 170 | 34 | 2.52 | pass | 33 | -2.50 | pass |
+| 2024-10-01 | 192 | 43 | -0.57 | fail | 36 | -0.10 | pass |
+| 2025-10-01 | 213 | 36 | 0.21 | pass | 33 | -1.44 | pass |
 
-**Test A (Strong beats the median):** 4 of 10 counted years pass → FAIL (needs 60% and at least 5 years).
+**Test A (Strong beats the median):** 5 of 10 counted years pass → FAIL (needs 60% and at least 5 years).
 
-**Test B (Weak trails the median):** 6 of 10 counted years pass → PASS.
+**Test B (Weak trails the median):** 7 of 10 counted years pass → PASS.
 
 **Replace verdicts: OFF** (on only if both tests pass). Nothing was tuned.
