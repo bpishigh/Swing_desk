@@ -160,3 +160,12 @@ test('rules view: household records come from the private repo; a missing file g
   const r = await loadRules({ GITHUB_TOKEN: 't', REPO: 'o/r' }, fetchFn);
   assert.equal(r.ipos.length, 1); assert.equal(r.demergers.length, 2); assert.deepEqual(r.fundOverrides, []);
 });
+
+test('a fund order whose scheme name is longer than 40 characters is accepted, with the long symbol dropped; a long symbol on a stock is still refused', () => {
+  const name = 'Example Mid Cap Opportunities Fund Direct Plan Growth Option';
+  const f = cleanTrades([{ ...trade('9'), kind: 'fund', instrument: name, symbol: name, exchange: '' }]);
+  assert.ok(Array.isArray(f), String(f));
+  assert.equal((f as any)[0].symbol, undefined);
+  assert.equal((f as any)[0].instrument, name);
+  assert.equal(typeof cleanTrades([{ ...trade('9'), symbol: name }]), 'string');
+});

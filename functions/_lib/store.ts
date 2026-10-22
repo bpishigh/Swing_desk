@@ -21,7 +21,7 @@ export function cleanTrades(input: unknown): Trade[] | string {
     if (typeof x.date !== 'string' || !DATE.test(x.date) || !str(x.time, 12) || !str(x.exchange, 12) || !str(x.orderId, 40) || !str(x.tradeId, 40)) return `trade ${i}: bad fields`;
     if (x.kind !== 'stock' && x.kind !== 'fund' && x.kind !== 'unknown') return `trade ${i}: bad kind`;
     const o: Trade = { instrument: x.instrument as string, isin: x.isin as string, side: x.side, qty: x.qty as number, price: x.price as number, value: x.value as number, date: x.date, time: x.time as string, exchange: x.exchange as string, orderId: x.orderId as string, tradeId: x.tradeId as string, kind: x.kind };
-    if (x.symbol !== undefined) { if (!str(x.symbol, 40)) return `trade ${i}: bad symbol`; o.symbol = x.symbol as string; }
+    if (x.symbol !== undefined) { if (str(x.symbol, 40)) o.symbol = x.symbol as string; else if (x.kind !== 'fund') return `trade ${i}: bad symbol`; } // a fund order has no ticker: the reader copies the scheme name into symbol, which can be long, so it is dropped (the name and ISIN identify the fund)
     out.push(o);
   }
   return out;
