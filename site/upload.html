@@ -174,7 +174,7 @@ async function syncLog() {
   if (S.tab === 'data') render();
 }
 const setStatus = (t) => { $('status').textContent = t; };
-let toastT;
+let toastT; // page build 2026-10-22d (touch so the Worker redeploys with the save-route fix)
 const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 15000); };
 
 // ---------- selection
