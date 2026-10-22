@@ -174,6 +174,7 @@ async function syncLog() {
   if (S.tab === 'data') render();
 }
 const setStatus = (t) => { $('status').textContent = t; };
+let toastT;
 const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 5000); };
 
 // ---------- selection
