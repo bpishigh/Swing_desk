@@ -1,13 +1,15 @@
 // Fund-score back-test (Engine Rules C-81). Fetches NAV history for the same Direct-Growth schemes the monthly scoring uses, runs the fixed test, writes
 // data/funds/backtest.json (read by the Portfolio page to switch Replace on or off) and docs/replay/FUND-BACKTEST-<date>.md. Usage: node scripts/fund-backtest.mjs
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { normCategory, scorable } from '../src/pm/fundscore.ts';
+import { normCategory } from '../src/pm/fundscore.ts';
 import { runBacktest, BT } from '../src/pm/fundbacktest.ts';
+// The test covers the categories whose verdict is Keep, Watch or Replace (C-81): plain equity categories. Sector and thematic funds use the stock lens and hybrids get no verdict, so they are not in the sample.
+const PURE_EQUITY = new Set(['Large Cap', 'Mid Cap', 'Small Cap', 'Large & Mid Cap', 'Multi Cap', 'Flexi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield', 'ELSS']);
 const amfi = JSON.parse(readFileSync('data/rules/amfi-schemes.json', 'utf8'));
 const asOf = new Date().toISOString().slice(0, 10);
 const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && Date.now() - t < 12 * 86400000; };
 const direct = (r) => /^Direct/i.test(r[5]) && /^Growth/i.test(r[6]);
-const mf = amfi.rows.filter((r) => direct(r) && recent(r[8]) && scorable(normCategory(r[4]))).map((r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] }));
+const mf = amfi.rows.filter((r) => direct(r) && recent(r[8]) && PURE_EQUITY.has(normCategory(r[4]))).map((r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] }));
 console.log('schemes', mf.length);
 const series = new Map(); let failed = 0;
 async function pool(items, fn, n = 8) { let i = 0; await Promise.all(Array.from({ length: n }, async () => { while (i < items.length) await fn(items[i++]); })); }
