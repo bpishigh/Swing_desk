@@ -16,6 +16,7 @@ for (const f of ['sizing', 'setups', 'journal', 'format']) put(`site/pm/engine/$
 const cp = (a, b) => { if (!existsSync(b) || !readFileSync(a).equals(readFileSync(b))) copyFileSync(a, b); };
 for (const f of ['charges', 'tax', 'dividend', 'amfi-schemes', 'exit-loads']) cp(`data/rules/${f}.json`, `site/pm-data/${f}.json`);
 cp('settings/allocation.json', 'site/pm-data/allocation.json');
+if (existsSync('data/funds/backtest.json')) cp('data/funds/backtest.json', 'site/pm-data/backtest.json');   // C-81: the fund verdicts wait for this file; it also switches Replace on or off
 // Saved nightly shortlists (public): every line of every night, for recognising a real buy as a Swing trade.
 if (existsSync('data/india/shortlist')) {
   const lines = []; for (const f of readdirSync('data/india/shortlist').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) { const j = JSON.parse(readFileSync('data/india/shortlist/' + f, 'utf8')); for (const l of j.lines) lines.push({ ...l, signalDate: j.signalDate }); }

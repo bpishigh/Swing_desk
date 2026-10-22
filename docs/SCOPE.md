@@ -95,6 +95,8 @@ Holdings or P&L statement to remove the "unverified" label; IPO price confirmati
 Allocation engine with the selectable inputs and its two tests; drift bands; rebalancing suggestions and new-money sizing; two-pool Swing rules and routing. Preset weights, caps and bands are owner-reviewed (design section 14, item 5).
 
 ### H. Phase 8 and 9 (L)
+Phase 3 partly built 22 Oct 2026 (Engine Rules C-81): fund verdicts Keep, Watch and the sector-fund Exit are live; the back-test ran and Replace is OFF (Strong band did not beat its category median reliably, 5 of 10 years). Still open in phase 3: the fund shortlist, structural Exit for active funds, a back-test for index funds and ETFs.
+
 Phase 8 (fund overlap and look-through) built 21 Oct 2026 (Engine Rules C-78); phase 9 remains. Fund overlap and look-through; fold the ledger into the Swing Desk nightly shortlist. Prerequisite: the Swing Desk saves each night's shortlist with trigger and limit levels (open item 2 under "Next session starts here"; every day without it is lost evidence).
 
 ### I. Housekeeping
