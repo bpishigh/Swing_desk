@@ -1,0 +1,6 @@
+{
+  "note": "AMFI lists a few schemes with no plan or option, so their Direct Growth line cannot be told from the Regular and IDCW lines of the same name. A line is added here only when the NAV ordering settles it (the Direct Growth NAV is above the Regular Growth NAV, and both are far above the IDCW lines). The fund-scores job scores these codes as Direct-Growth schemes.",
+  "records": [
+    { "code": "127042", "isin": "INF247L01445", "name": "Motilal Oswal Midcap Fund", "evidence": "Four AMFI rows share the name. On 12 Oct 2026 the NAVs were 115.59 (127042), 99.94 (127039), 47.15 (127044) and 45.16 (127040). The highest is the Direct Growth line, the next is Regular Growth, and the two far lower are the IDCW lines. Source: AMFI NAV file." }
+  ]
+}

@@ -9,7 +9,8 @@ const amfi = J('data/rules/amfi-schemes.json');
 const asOf = new Date().toISOString().slice(0, 10);
 const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && Date.now() - t < 12 * 86400000; };
 const row = (r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] });
-const direct = (r) => /^Direct/i.test(r[5]) && /^Growth/i.test(r[6]);
+const extraDirect = new Set((J('data/rules/direct-growth-codes.json', { records: [] }).records || []).map((x) => x.code));   // schemes AMFI lists with no plan, settled by NAV ordering
+const direct = (r) => (/^Direct/i.test(r[5]) && /^Growth/i.test(r[6])) || extraDirect.has(r[0]);
 const isEtfRow = (r) => r[5] === '' && /\bETF\b|BeES|Exchange Traded/i.test(r[3]) && !/IDCW|dividend/i.test(r[3]);
 let mf = amfi.rows.filter((r) => direct(r) && recent(r[8]) && scorable(normCategory(r[4]))).map(row);
 let idx = amfi.rows.filter((r) => (direct(r) || isEtfRow(r)) && recent(r[8]) && /index|etf|bees|exchange traded/i.test(r[3] + r[4]) && !/fund of fund/i.test(r[3]) && indexKey(r[3])).map(row);
