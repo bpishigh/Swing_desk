@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-21",
+ "asOf": "2026-10-22",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -13,12 +13,12 @@
  },
  "capwaived": {
   "orders": 2,
-  "open": 2,
+  "open": 1,
   "pending": 0,
   "notFilled": 0,
-  "closed": 0,
-  "meanR": null,
-  "winRate": null
+  "closed": 1,
+  "meanR": -0.8448960248723069,
+  "winRate": 0
  },
  "comparator": {
   "orders": 0,

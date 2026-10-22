@@ -1,12 +1,7 @@
 {
- "asOf": "2026-10-21",
+ "asOf": "2026-10-22",
  "source": "NSE event calendar",
  "dates": {
-  "PTCIL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "WELCORP": {
    "date": null,
    "sessions": null,
@@ -17,6 +12,11 @@
    "sessions": null,
    "inWindow": null
   },
+  "SHYAMMETL": {
+   "date": "2026-10-31",
+   "sessions": 6,
+   "inWindow": true
+  },
   "WELSPUNLIV": {
    "date": null,
    "sessions": null,
@@ -26,6 +26,11 @@
    "date": null,
    "sessions": null,
    "inWindow": null
+  },
+  "COFORGE": {
+   "date": "2026-10-23",
+   "sessions": 1,
+   "inWindow": true
   }
  }
 }

@@ -1,0 +1,337 @@
+{
+ "version": "IND-SCAN-1",
+ "asOf": "2026-10-22",
+ "light": "red",
+ "funnel": {
+  "tickers": 497,
+  "passFloors": 490,
+  "universe": 490,
+  "universeFloorDollarVolumeM": 51.8,
+  "withRs": 468,
+  "rsGate": 98,
+  "template": 17,
+  "qualified": 7,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Information Technology",
+   "members": 23,
+   "medianRs": 67.24,
+   "passes": true
+  },
+  {
+   "group": "Services",
+   "members": 13,
+   "medianRs": 66.38,
+   "passes": true
+  },
+  {
+   "group": "Capital Goods",
+   "members": 66,
+   "medianRs": 62.21,
+   "passes": true
+  },
+  {
+   "group": "Textiles",
+   "members": 5,
+   "medianRs": 61.67,
+   "passes": true
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 18,
+   "medianRs": 61.46,
+   "passes": false
+  },
+  {
+   "group": "Healthcare",
+   "members": 43,
+   "medianRs": 60.39,
+   "passes": false
+  },
+  {
+   "group": "Automobile and Auto Components",
+   "members": 38,
+   "medianRs": 55.14,
+   "passes": false
+  },
+  {
+   "group": "Telecommunication",
+   "members": 10,
+   "medianRs": 53.53,
+   "passes": false
+  },
+  {
+   "group": "Oil Gas & Consumable Fuels",
+   "members": 17,
+   "medianRs": 53.1,
+   "passes": false
+  },
+  {
+   "group": "Financial Services",
+   "members": 92,
+   "medianRs": 47.22,
+   "passes": false
+  },
+  {
+   "group": "Power",
+   "members": 15,
+   "medianRs": 40.26,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 16,
+   "medianRs": 39.72,
+   "passes": false
+  },
+  {
+   "group": "Fast Moving Consumer Goods",
+   "members": 27,
+   "medianRs": 33.4,
+   "passes": false
+  },
+  {
+   "group": "Consumer Services",
+   "members": 20,
+   "medianRs": 31.69,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 26,
+   "medianRs": 31.69,
+   "passes": false
+  },
+  {
+   "group": "Realty",
+   "members": 11,
+   "medianRs": 27.41,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 11,
+   "medianRs": 18.84,
+   "passes": false
+  },
+  {
+   "group": "Construction",
+   "members": 12,
+   "medianRs": 8.67,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "WELCORP",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 99.36,
+   "close": 2444.2,
+   "tags": [
+    "results date not checked",
+    "failed qualification 1 night(s)"
+   ],
+   "clears50M": true,
+   "composite": 59.61,
+   "tightness": 0.99,
+   "distPivot": 15.72,
+   "setup": null,
+   "diag": {
+    "rs121": 234.85,
+    "rs6m2w": 213.54,
+    "atr14": 142.09,
+    "sma50": 2480.09,
+    "sma200": 1477.65,
+    "high52": 2900,
+    "low52": 710,
+    "failingNights": 1
+   },
+   "why": [
+    "Strength: 99.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 15.7% below its 52-week high (limit 25%) and 244.3% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 62.2); the 4 strongest groups are traded in the red light.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 15.7% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "CPPLUS",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 98.93,
+   "close": 3904.6,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.36,
+   "tightness": 1.37,
+   "distPivot": 15.48,
+   "setup": null,
+   "diag": {
+    "rs121": 156.88,
+    "rs6m2w": 123.85,
+    "atr14": 234.88,
+    "sma50": 3751.52,
+    "sma200": 2736.29,
+    "high52": 4620,
+    "low52": 1304,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 98.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 15.5% below its 52-week high (limit 25%) and 199.4% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 62.2); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.4, needs under 0.7); price is 15.5% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "SHYAMMETL",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 89.72,
+   "close": 1200,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.04,
+   "tightness": 1.37,
+   "distPivot": 3.26,
+   "setup": null,
+   "diag": {
+    "rs121": 18.21,
+    "rs6m2w": 34.35,
+    "atr14": 44.29,
+    "sma50": 1069.18,
+    "sma200": 938.2,
+    "high52": 1240.5,
+    "low52": 746,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 89.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 3.3% below its 52-week high (limit 25%) and 60.9% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 62.2); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.4, needs under 0.7); price is 3.3% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 97.64,
+   "close": 213.94,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 58.59,
+   "tightness": 1.23,
+   "distPivot": 12.86,
+   "setup": null,
+   "diag": {
+    "rs121": 75.59,
+    "rs6m2w": 100.29,
+    "atr14": 12.14,
+    "sma50": 206.68,
+    "sma200": 155.23,
+    "high52": 245.5,
+    "low52": 107.1,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 97.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.9% below its 52-week high (limit 25%) and 99.8% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 4 of 18 (median strength 61.7); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 12.9% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "BBOX",
+   "type": "CS",
+   "group": "Information Technology",
+   "path": "main",
+   "rsPct": 94.65,
+   "close": 885,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 56.79,
+   "tightness": 1.21,
+   "distPivot": 7.04,
+   "setup": null,
+   "diag": {
+    "rs121": 46.93,
+    "rs6m2w": 85.64,
+    "atr14": 49.36,
+    "sma50": 801.36,
+    "sma200": 721.23,
+    "high52": 1103,
+    "low52": 444.3,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 19.8% below its 52-week high (limit 25%) and 99.2% above its 52-week low (needs 30%).",
+    "Group: Information Technology ranks 1 of 18 (median strength 67.2); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 7% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "COFORGE",
+   "type": "CS",
+   "group": "Information Technology",
+   "path": "main",
+   "rsPct": 91.01,
+   "close": 1908.8,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 54.6,
+   "tightness": 1.07,
+   "distPivot": 5.56,
+   "setup": null,
+   "diag": {
+    "rs121": 6.67,
+    "rs6m2w": 49.34,
+    "atr14": 61.86,
+    "sma50": 1861.6,
+    "sma200": 1530.69,
+    "high52": 2021.2,
+    "low52": 1008.1,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 91th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 5.6% below its 52-week high (limit 25%) and 89.3% above its 52-week low (needs 30%).",
+    "Group: Information Technology ranks 1 of 18 (median strength 67.2); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 5.6% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 1
+ },
+ "qualifiedTotal": 7,
+ "notes": [
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
+ ],
+ "regimeDate": "2026-10-22",
+ "industryCovered": 501
+}
