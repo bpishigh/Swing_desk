@@ -24,7 +24,7 @@ test('Replace needs three Weak runs and a passed back-test; otherwise it stays W
 });
 test('index funds never reach Replace', () => { assert.equal(fundVerdict({ name: rows[3].n }, rows, on).label, 'Watch'); });
 test('hybrid funds and unscored funds get No verdict with a reason; a fund not in the list too', () => {
-  assert.equal(fundVerdict({ name: rows[5].n }, rows, on).label, 'No verdict');
+  assert.equal(fundVerdict({ name: rows[5].n }, rows, on).label, 'Keep');   // hybrid funds are judged by band inside their own category
   assert.match(fundVerdict({ name: rows[6].n }, rows, on).reasons[0], /not scored/);
   assert.match(fundVerdict({ name: 'Unknown Fund' }, rows, on).reasons[0], /not in the scored list/);
 });
@@ -36,3 +36,19 @@ test('a sector fund uses the stock lens on its NAV', () => {
   assert.equal(fundVerdict({ name: rows[4].n }, rows, on, nav(() => 100).constructor === Object ? {} : undefined).label, 'No verdict');
 });
 test('names match across plan wording and Ltd', () => { assert.equal(normFundName('Alpha Fund Ltd.'), normFundName('ALPHA fund limited')); });
+test('a broker name without the AMFI punctuation still finds its row: by ISIN first, then by the name with plan words removed', () => {
+  const r = [{ n: 'Quant Small Cap Fund - Direct Plan - Growth', i: 'INF966L01689', c: 'Small Cap', b: 'Average', g: 'mf' }] as any;
+  assert.equal(fundVerdict({ name: 'Something Else Entirely', isin: 'INF966L01689' }, r, on).label, 'Keep');
+  assert.equal(fundVerdict({ name: 'Quant Small Cap Fund Direct Plan Growth' }, r, on).label, 'Keep');
+  assert.equal(fundVerdict({ name: 'quant small cap fund direct growth' }, r, on).label, 'Keep');
+});
+
+test('hybrid funds get Keep or Watch but never Replace; funds without a score row get a reason by type; a thematic fund AMFI files as Thematic still gets the stock lens', () => {
+  const hy = [{ n: 'Theta Aggressive Hybrid Fund - Direct Plan - Growth', c: 'Aggressive Hybrid', b: 'Weak', rp: 1, g: 'mf' }] as any;
+  assert.equal(fundVerdict({ name: hy[0].n }, hy, on).label, 'Watch');
+  assert.match(fundVerdict({ name: 'Iota Liquid Fund', category: 'Income/Debt Oriented Schemes - Liquid Fund' }, rows, on).reasons[0], /debt and liquid/);
+  assert.match(fundVerdict({ name: 'Kappa Global FoF', category: 'Other Scheme - FoF Overseas' }, rows, on).reasons[0], /international/);
+  assert.match(fundVerdict({ name: 'Lambda Defence Fund', category: 'Equity Schemes - Thematic Fund' }, rows, on).reasons[0], /loading its NAV/);
+  const nav: Record<string, number> = {}; const d = new Date('2025-01-01T00:00:00Z'); for (let i = 0; i < 260; i++) { d.setUTCDate(d.getUTCDate() + 1); nav[d.toISOString().slice(0, 10)] = 100 + i; }
+  assert.equal(fundVerdict({ name: 'Lambda Defence Fund', category: 'Equity Schemes - Thematic Fund' }, rows, on, nav).label, 'Keep');
+});

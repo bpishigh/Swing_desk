@@ -3,38 +3,45 @@
 // Sector and thematic funds: the stock lens on the fund's NAV (a close below the 200-session average or below the last major swing low = Exit). Everything else: No verdict, with the reason.
 import { sma, swingLow, SMA_LEN } from './verdict.ts';
 
-export interface FundScoreRow { n: string; c: string; b: 'Strong' | 'Average' | 'Weak' | null; rp?: number; g: 'mf' | 'idx' | 'us'; note?: string }
+export interface FundScoreRow { n: string; i?: string; c: string; b: 'Strong' | 'Average' | 'Weak' | null; rp?: number; g: 'mf' | 'idx' | 'us'; note?: string }
 export interface Gate { ran: boolean; replaceOn: boolean; ranOn?: string }
 export type FundLabel = 'Keep' | 'Watch' | 'Replace' | 'Exit' | 'No verdict';
 export interface FundVerdict { label: FundLabel; reasons: string[]; pending: string[]; asOf: string | null }
 
 const PLAIN = new Set(['Large Cap', 'Mid Cap', 'Small Cap', 'Large & Mid Cap', 'Multi Cap', 'Flexi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield', 'ELSS']);
 export const normFundName = (n: unknown): string => String(n ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\b(limited|ltd)\b/g, '').replace(/\s+/g, ' ').trim();
+const looseKey = (n: string): string => normFundName(n).replace(/\b(direct|plan|growth|option|fund)\b/g, ' ').replace(/\s+/g, ' ').trim();
 const no = (why: string): FundVerdict => ({ label: 'No verdict', reasons: [why], pending: [], asOf: null });
 
-export function fundVerdict(held: { name: string }, scores: FundScoreRow[] | undefined, gate: Gate | undefined, nav?: Record<string, number>): FundVerdict {
+export function fundVerdict(held: { name: string; isin?: string; category?: string }, scores: FundScoreRow[] | undefined, gate: Gate | undefined, nav?: Record<string, number>): FundVerdict {
   if (!scores || !gate) return no('fund scores are not loaded');
   if (!gate.ran) return no('waiting for the fund-score back-test (Engine Rules C-81)');
-  const key = normFundName(held.name);
-  const row = scores.find((r) => normFundName(r.n) === key);
-  if (!row) return no('not in the scored list (the scored list holds Direct-Growth plans)');
-  if (row.g === 'us') return no('US-listed ETFs are not judged here');
-  if (row.c === 'Sectoral/Thematic') {
+  const key = normFundName(held.name), cat = held.category ?? '';
+  // The broker's order file carries no ISIN, so the page matches the name to the AMFI list first (holding.isin); the score row is found by that ISIN, then by the plain name.
+  const row = (held.isin ? scores.find((r) => r.i === held.isin) : undefined) ?? scores.find((r) => normFundName(r.n) === key) ?? scores.find((r) => looseKey(r.n) === looseKey(held.name));
+  if (row && row.g === 'us') return no('US-listed ETFs are not judged here');
+  // Sector and thematic funds take the stock lens on their NAV; this does not need a score row (AMFI files newer themes under "Thematic").
+  if (row?.c === 'Sectoral/Thematic' || (!row && /thematic|sectoral/i.test(cat))) {
     const d = nav ? Object.keys(nav).sort() : [];
-    if (d.length < SMA_LEN) return no('sector fund: needs 200 NAV sessions for the 200-day test');
+    if (d.length < SMA_LEN) return no(nav ? 'sector fund: fewer than 200 NAV sessions, so the 200-day test cannot run' : 'sector fund: loading its NAV history for the 200-day test');
     const closes = d.map((x) => nav![x]), last = closes[closes.length - 1], avg = sma(closes), sl = swingLow(d, closes);
     const below200 = avg !== null && last < avg, belowSwing = sl !== null && last < sl.price;
     const reasons = [below200 ? `NAV ${last.toFixed(2)} is below its 200-day average ${avg!.toFixed(2)}` : '', belowSwing ? `NAV is below the last swing low ${sl!.price.toFixed(2)}` : ''].filter(Boolean);
     return reasons.length ? { label: 'Exit', reasons, pending: [], asOf: d[d.length - 1] } : { label: 'Keep', reasons: ['sector fund: NAV above its 200-day average and its swing low'], pending: [], asOf: d[d.length - 1] };
   }
-  if (row.g === 'mf' && !PLAIN.has(row.c)) return no(`${row.c} funds are not judged against each other (hybrid and similar)`);
+  if (!row) {
+    if (/liquid|debt|income|gilt|money market|overnight|duration|bond|credit|banking and psu|floater/i.test(cat)) return no('debt and liquid funds are not scored yet (no credit or duration data)');
+    if (/overseas|international|fund of funds|fof|global|offshore/i.test(cat + ' ' + held.name)) return no('international and fund-of-funds are not scored yet (no peer group)');
+    if (/gold|silver/i.test(cat + ' ' + held.name)) return no('gold and silver funds are not scored yet');
+    return no('not in the scored list: it is new, or AMFI lists it without a plan so its Direct Growth line cannot be told from its Regular and IDCW twins');
+  }
   if (!row.b) return no(row.note || 'not scored');
+  const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
   if (row.b === 'Strong' || row.b === 'Average') return { label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null };
-  // Weak
   const why = `score band Weak in ${row.c}`;
-  if (row.rp && row.g === 'mf') {
+  if (row.rp && row.g === 'mf' && plain) {
     if (gate.replaceOn) return { label: 'Replace', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: [], asOf: null };
     return { label: 'Watch', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: ['Replace is off: the back-test did not pass'], asOf: null };
   }
-  return { label: 'Watch', reasons: [why], pending: row.g === 'idx' ? ['Replace is off for index funds and ETFs'] : [], asOf: null };
+  return { label: 'Watch', reasons: [why], pending: row.g === 'idx' ? ['Replace is off for index funds and ETFs'] : hybridNote, asOf: null };
 }
