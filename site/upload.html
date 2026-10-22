@@ -175,7 +175,7 @@ async function syncLog() {
 }
 const setStatus = (t) => { $('status').textContent = t; };
 let toastT;
-const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 5000); };
+const notify = (t) => { setStatus(t); const el = $('toast'); el.textContent = t; el.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => { el.style.display = 'none'; }, 15000); };
 
 // ---------- selection
 function members() {
@@ -962,10 +962,12 @@ $('run').onclick = async () => {
     compute(a); S.sel = 'a:' + key; store.set('sel', S.sel); render();
     let msg = `Done: ${a.label} now has ${a.trades.length} transactions.${notes.length ? ' ' + notes.join(' ') : ''}`;
     if (S.canSave && $('save').checked) {
-      const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
-      const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` Not saved: ${j.error || res.status}.`; if (res.ok) a.saved = true;
-    }
-    notify(msg); $('files').value = ''; await recomputeAll(true);
+      try {
+        const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
+        const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` NOT SAVED (${res.status}): ${j.error || 'the save service refused it'}. These ${batches.flat().length} transactions are in this tab only and will be gone on reload.`; if (res.ok) a.saved = true;
+      } catch (e) { msg += ` NOT SAVED: could not reach the save service (${e.message}). These transactions are in this tab only and will be gone on reload; reload the page to sign in again, then upload again.`; }
+    } else msg += S.canSave ? ' Not saved: the save box is not ticked, so this is in this tab only.' : ' Not saved: the save service is not reachable, so this is in this tab only.';
+    notify(msg); $('files').value = ''; await recomputeAll(true); notify(msg);
   } catch (e) { setStatus('Error: ' + e.message); console.error(e); }
 };
 </script>
