@@ -10,7 +10,7 @@ import { sma, swingLow, SMA_LEN } from './verdict.js';
 
 const PLAIN = new Set(['Large Cap', 'Mid Cap', 'Small Cap', 'Large & Mid Cap', 'Multi Cap', 'Flexi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield', 'ELSS']);
 export const normFundName = (n         )         => String(n ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\b(limited|ltd)\b/g, '').replace(/\s+/g, ' ').trim();
-const looseKey = (n        )         => normFundName(n).replace(/\b(direct|plan|growth|option|fund)\b/g, ' ').replace(/\s+/g, ' ').trim();
+export const looseKey = (n        )         => normFundName(n).replace(/\b(direct|plan|growth|option|fund)\b/g, ' ').replace(/\s+/g, ' ').trim();
 
 const med = (a          )                => { if (!a.length) return null; const t = [...a].sort((x, y) => x - y), m = t.length >> 1; return t.length % 2 ? t[m] : (t[m - 1] + t[m]) / 2; };
 const BENCH                         = { 'Large Cap': 'Nifty 50', 'Mid Cap': 'Nifty Midcap 150', 'Small Cap': 'Nifty Smallcap 250' };

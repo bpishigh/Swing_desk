@@ -5,14 +5,15 @@
 import { TARGET_CLASSES,                  } from './allocation.js';
 
                                                                             
-/** Routes `amount` of new money. Shortfall = target × (capital + amount) − what is held. Fills shortfalls in proportion; any surplus is spread by target weight. Sums to `amount`, never negative. */
-export function routeNewMoney(targets                                        , held                             , amount        )                                         {
+/** Routes `amount` of new money. Classes in `exclude` (over their band, or being sold) are never bought, including when the money is larger than every shortfall (C-87). Shortfall = target × (capital + amount) − what is held. Fills shortfalls in proportion; any surplus is spread by target weight. Sums to `amount`, never negative. */
+export function routeNewMoney(targets                                        , held                             , amount        , exclude                           = new Set())                                         {
   if (!(amount > 0)) return { lines: [], error: 'Enter an amount above zero.' };
   const base = TARGET_CLASSES.reduce((a, c) => a + (held[c] ?? 0), 0), total = base + amount;
-  const sh = targets.map((t) => ({ cls: t.cls, target: t.target, short: Math.max(0, t.target * total - (held[t.cls] ?? 0)) }));
+  const sh = targets.filter((t) => !exclude.has(t.cls)).map((t) => ({ cls: t.cls, target: t.target, short: Math.max(0, t.target * total - (held[t.cls] ?? 0)) }));
+  if (!sh.length) return { lines: [], error: 'Every class is excluded.' };
   const sumShort = sh.reduce((a, x) => a + x.short, 0);
   const lines              = sh.map((x) => {
-    const amt = sumShort >= amount ? (x.short * amount) / sumShort : x.short + (x.target * (amount - sumShort)) / (targets.reduce((a, t) => a + t.target, 0) || 1);
+    const amt = sumShort >= amount ? (x.short * amount) / sumShort : x.short + (x.target * (amount - sumShort)) / (sh.reduce((a, t) => a + t.target, 0) || 1);
     return { cls: x.cls, amount: amt, why: x.short > 0 ? `below target by ${Math.round(x.short).toLocaleString('en-IN')}` : 'at or above target; share by target weight' };
   }).filter((l) => l.amount > 0.5);
   return { lines };
