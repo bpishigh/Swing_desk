@@ -1,6 +1,6 @@
 {
- "ts": "2026-10-22T00:07:46.947Z",
- "date": "2026-10-21",
+ "ts": "2026-10-23T00:07:44.128Z",
+ "date": "2026-10-22",
  "status": "written",
  "fetched": {
   "SPY": {
@@ -70,9 +70,8 @@
  },
  "conflicts": [],
  "flags": [
-  "VIX: Cboe has no row for 2026-10-21 yet",
-  "VIX not read: Unexpected token '<', \"<!doctype \"... is not valid JSON",
-  "14 of 14 sectors, SPY and QQQ written for 2026-10-21"
+  "VIX: Cboe has no row for 2026-10-22 yet",
+  "14 of 14 sectors, SPY and QQQ written for 2026-10-22"
  ],
  "backfilled": 0
 }
