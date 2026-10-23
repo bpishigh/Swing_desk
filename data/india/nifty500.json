@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-22T14:08:01.803Z",
+ "fetchedAt": "2026-10-23T14:08:02.562Z",
  "src": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
  "count": 501,
  "symbols": [
@@ -224,9 +224,9 @@
   "HUDCO",
   "HYUNDAI",
   "ICICIBANK",
+  "ICICILIFE",
   "ICICIGI",
   "ICICIAMC",
-  "ICICIPRULI",
   "IDBI",
   "IDFCFIRSTB",
   "IFCI",
