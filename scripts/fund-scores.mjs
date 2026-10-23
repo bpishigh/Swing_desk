@@ -17,7 +17,8 @@ let mf = amfi.rows.filter((r) => direct(r) && recent(r[8]) && scorable(normCateg
 let idx = amfi.rows.filter((r) => (direct(r) || isEtfRow(r)) && recent(r[8]) && /index|etf|bees|exchange traded/i.test(r[3] + r[4]) && !/fund of fund/i.test(r[3]) && indexKey(r[3])).map(row);
 // C-82: debt and liquid funds and international fund-of-funds, scored on return, consistency, risk-adjusted return, downside and cost inside their group.
 let debt = amfi.rows.filter((r) => direct(r) && recent(r[8]) && debtGroup(r[4])).map(row);
-let intl = amfi.rows.filter((r) => direct(r) && recent(r[8]) && intlGroup(r[3], r[4])).map(row);
+const recentIntl = (d) => { const [dd, m, y] = d.split('-'); const t = Date.parse(`${dd} ${m} ${y} UTC`); return Number.isFinite(t) && Date.now() - t < 35 * 86400000; };   // overseas fund-of-funds publish NAVs with a lag of one to two weeks
+let intl = amfi.rows.filter((r) => direct(r) && recentIntl(r[8]) && intlGroup(r[3], r[4])).map(row);
 const lim = process.argv.indexOf('--limit'); if (lim > 0) { mf = mf.slice(0, Number(process.argv[lim + 1])); idx = idx.slice(0, Number(process.argv[lim + 1])); debt = debt.slice(0, Number(process.argv[lim + 1])); intl = intl.slice(0, Number(process.argv[lim + 1])); }
 // US-listed ETFs (price only, split-adjusted; dividends not included, so distributing ETFs read a little low). Category is the comparison group.
 const US = {
