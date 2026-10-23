@@ -70,3 +70,15 @@ test('C-83: a plain equity fund scoring 25 to 35 reads Watch only when the near-
   const w = fundVerdict({ name: r[0].n }, r, { ran: true, replaceOn: false, nearWeakOn: true }); assert.equal(w.label, 'Watch'); assert.match(w.reasons[0], /near the bottom quarter/);
   assert.equal(fundVerdict({ name: r[1].n }, r, { ran: true, replaceOn: false, nearWeakOn: true }).label, 'Keep');
 });
+
+test('C-84: the reason shows the fund beside its category, the index funds and cash, and says when the whole category trails cash', () => {
+  const r = [
+    { n: 'Sigma ELSS Fund - Direct Plan - Growth', c: 'ELSS', b: 'Average', s: 50, r3: 5.0, g: 'mf' },
+    { n: 'Tau ELSS Fund - Direct Plan - Growth', c: 'ELSS', b: 'Average', s: 55, r3: 6.0, g: 'mf' },
+    { n: 'Ups Nifty 500 Index Fund', c: 'Nifty 500', b: null, r3: 9, g: 'idx' }, { n: 'Ups2 Nifty 500 Index Fund', c: 'Nifty 500', b: null, r3: 9.4, g: 'idx' }, { n: 'Ups3 Nifty 500 Index Fund', c: 'Nifty 500', b: null, r3: 9.6, g: 'idx' },
+    { n: 'Phi Liquid Fund', c: 'Liquid', b: 'Average', r3: 7, g: 'debt' },
+  ] as any;
+  const v = fundVerdict({ name: r[0].n }, r, on);
+  assert.equal(v.label, 'Keep');
+  assert.match(v.reasons[1], /3-year return 5\.0%, category median 5\.5%, index funds 9\.4%, liquid funds 7\.0%; the whole category has returned less than cash/);
+});

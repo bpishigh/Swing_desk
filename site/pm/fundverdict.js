@@ -3,7 +3,7 @@
 // Sector and thematic funds: the stock lens on the fund's NAV (a close below the 200-session average or below the last major swing low = Exit). Everything else: No verdict, with the reason.
 import { sma, swingLow, SMA_LEN } from './verdict.js';
 
-                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                    
                                                                                                 
                                                                              
                                                                                                             
@@ -11,6 +11,21 @@ import { sma, swingLow, SMA_LEN } from './verdict.js';
 const PLAIN = new Set(['Large Cap', 'Mid Cap', 'Small Cap', 'Large & Mid Cap', 'Multi Cap', 'Flexi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield', 'ELSS']);
 export const normFundName = (n         )         => String(n ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\b(limited|ltd)\b/g, '').replace(/\s+/g, ' ').trim();
 const looseKey = (n        )         => normFundName(n).replace(/\b(direct|plan|growth|option|fund)\b/g, ' ').replace(/\s+/g, ' ').trim();
+
+const med = (a          )                => { if (!a.length) return null; const t = [...a].sort((x, y) => x - y), m = t.length >> 1; return t.length % 2 ? t[m] : (t[m - 1] + t[m]) / 2; };
+const BENCH                         = { 'Large Cap': 'Nifty 50', 'Mid Cap': 'Nifty Midcap 150', 'Small Cap': 'Nifty Smallcap 250' };
+const f1 = (v                           )         => (v == null ? 'n/a' : v.toFixed(1) + '%');
+/** C-84 (display only, no rule): the fund's own return next to its category, the index funds for that market segment and cash (liquid funds), so a good rank in a weak category is not read as a good return. */
+export function marketContext(row              , scores                )         {
+  if (row.r3 == null || (row.g !== 'mf' && row.g !== 'idx')) return '';
+  const peers = scores.filter((x) => x.g === row.g && x.c === row.c), cm = med(peers.map((x) => x.r3).filter((v)              => v != null));
+  const idxName = row.g === 'mf' ? (BENCH[row.c] ?? 'Nifty 500') : '', idxRows = scores.filter((x) => x.g === 'idx' && x.c === idxName && x.r3 != null);
+  const im = idxRows.length >= 3 ? med(idxRows.map((x) => x.r3          )) : med(scores.filter((x) => x.g === 'idx' && x.c === 'Nifty 50' && x.r3 != null).map((x) => x.r3          ));
+  const cash = med(scores.filter((x) => x.g === 'debt' && x.c === 'Liquid' && x.r3 != null).map((x) => x.r3          ));
+  const bits = [`3-year return ${f1(row.r3)}`, `category median ${f1(cm)}`, ...(im != null && row.g === 'mf' ? [`index funds ${f1(im)}`] : []), ...(cash != null ? [`liquid funds ${f1(cash)}`] : [])];
+  const weak = cm != null && cash != null && cm < cash ? '; the whole category has returned less than cash over 3 years' : '';
+  return bits.join(', ') + weak;
+}
 const no = (why        )              => ({ label: 'No verdict', reasons: [why], pending: [], asOf: null });
 
 export function fundVerdict(held                                                    , scores                            , gate                  , nav                         )              {
@@ -43,12 +58,13 @@ export function fundVerdict(held                                                
     return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons, pending, asOf: null };
   }
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
-  if (row.b === 'Average' && plain && row.g === 'mf' && gate.nearWeakOn && row.s != null && row.s >= 25 && row.s < 35) return { label: 'Watch', reasons: [`score ${row.s.toFixed(1)}: just above the Weak line in ${row.c}, near the bottom quarter`], pending: [], asOf: null };   // C-83
-  if (row.b === 'Strong' || row.b === 'Average') return { label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null };
+  const ctx = marketContext(row, scores), withCtx = (v             )              => (ctx ? { ...v, reasons: [...v.reasons, ctx] } : v);
+  if (row.b === 'Average' && plain && row.g === 'mf' && gate.nearWeakOn && row.s != null && row.s >= 25 && row.s < 35) return withCtx({ label: 'Watch', reasons: [`score ${row.s.toFixed(1)}: just above the Weak line in ${row.c}, near the bottom quarter`], pending: [], asOf: null });   // C-83
+  if (row.b === 'Strong' || row.b === 'Average') return withCtx({ label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null });
   const why = `score band Weak in ${row.c}`;
   if (row.rp && row.g === 'mf' && plain) {
-    if (gate.replaceOn) return { label: 'Replace', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: [], asOf: null };
-    return { label: 'Watch', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: ['Replace is off: the back-test did not pass'], asOf: null };
+    if (gate.replaceOn) return withCtx({ label: 'Replace', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: [], asOf: null });
+    return withCtx({ label: 'Watch', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: ['Replace is off: the back-test did not pass'], asOf: null });
   }
-  return { label: 'Watch', reasons: [why], pending: row.g === 'idx' ? ['Replace is off for index funds and ETFs'] : hybridNote, asOf: null };
+  return withCtx({ label: 'Watch', reasons: [why], pending: row.g === 'idx' ? ['Replace is off for index funds and ETFs'] : hybridNote, asOf: null });
 }
