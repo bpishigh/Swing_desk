@@ -3,8 +3,8 @@
 // Sector and thematic funds: the stock lens on the fund's NAV (a close below the 200-session average or below the last major swing low = Exit). Everything else: No verdict, with the reason.
 import { sma, swingLow, SMA_LEN } from './verdict.ts';
 
-export interface FundScoreRow { n: string; i?: string; c: string; b: 'Strong' | 'Average' | 'Weak' | null; rp?: number; g: 'mf' | 'idx' | 'us' | 'debt' | 'intl'; note?: string; p?: number; t?: number | null; dd?: number; vol?: number; wd?: number; fl?: string }
-export interface Gate { ran: boolean; replaceOn: boolean; ranOn?: string }
+export interface FundScoreRow { n: string; i?: string; s?: number | null; c: string; b: 'Strong' | 'Average' | 'Weak' | null; rp?: number; g: 'mf' | 'idx' | 'us' | 'debt' | 'intl'; note?: string; p?: number; t?: number | null; dd?: number; vol?: number; wd?: number; fl?: string }
+export interface Gate { ran: boolean; replaceOn: boolean; nearWeakOn?: boolean; ranOn?: string }
 export type FundLabel = 'Keep' | 'Watch' | 'Replace' | 'Exit' | 'No verdict';
 export interface FundVerdict { label: FundLabel; reasons: string[]; pending: string[]; asOf: string | null }
 
@@ -43,6 +43,7 @@ export function fundVerdict(held: { name: string; isin?: string; category?: stri
     return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons, pending, asOf: null };
   }
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
+  if (row.b === 'Average' && plain && row.g === 'mf' && gate.nearWeakOn && row.s != null && row.s >= 25 && row.s < 35) return { label: 'Watch', reasons: [`score ${row.s.toFixed(1)}: just above the Weak line in ${row.c}, near the bottom quarter`], pending: [], asOf: null };   // C-83
   if (row.b === 'Strong' || row.b === 'Average') return { label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null };
   const why = `score band Weak in ${row.c}`;
   if (row.rp && row.g === 'mf' && plain) {

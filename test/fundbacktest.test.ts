@@ -33,3 +33,9 @@ test('scoring at a date uses no later NAV: changing every NAV after that date le
   assert.deepEqual(a.points[0].scored, b.points[0].scored);
   assert.equal(a.points[0].strong, b.points[0].strong);
 });
+
+test('Test C counts funds scoring 25 to 35 and reports its own pass or fail', () => {
+  const { schemes, series } = build(true), r = runBacktest(schemes, series);
+  assert.ok(r.points.every((p) => typeof p.near === 'number'));
+  assert.equal(typeof r.testC.pass, 'boolean'); assert.equal(r.nearWeakOn, r.testC.pass);
+});

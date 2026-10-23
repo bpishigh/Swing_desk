@@ -63,3 +63,10 @@ test('debt and international funds: Keep for Strong or Average, Watch for Weak, 
   const b = fundVerdict({ name: r[1].n }, r, on); assert.equal(b.label, 'Watch'); assert.equal(b.reasons.length, 2);
   assert.match(fundVerdict({ name: r[2].n }, r, on).reasons[0], /not ranked/);
 });
+
+test('C-83: a plain equity fund scoring 25 to 35 reads Watch only when the near-bottom test passed', () => {
+  const r = [{ n: 'Pi Flexi Cap Fund - Direct Plan - Growth', c: 'Flexi Cap', b: 'Average', s: 28.9, g: 'mf' }, { n: 'Rho Flexi Cap Fund - Direct Plan - Growth', c: 'Flexi Cap', b: 'Average', s: 45, g: 'mf' }] as any;
+  assert.equal(fundVerdict({ name: r[0].n }, r, { ran: true, replaceOn: false, nearWeakOn: false }).label, 'Keep');
+  const w = fundVerdict({ name: r[0].n }, r, { ran: true, replaceOn: false, nearWeakOn: true }); assert.equal(w.label, 'Watch'); assert.match(w.reasons[0], /near the bottom quarter/);
+  assert.equal(fundVerdict({ name: r[1].n }, r, { ran: true, replaceOn: false, nearWeakOn: true }).label, 'Keep');
+});
