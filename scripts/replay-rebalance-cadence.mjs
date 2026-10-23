@@ -6,7 +6,7 @@
 // Usage: node scripts/replay-rebalance-cadence.mjs --run=C-86-r1
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
-import { allocate } from '../src/pm/allocation.ts';
+import { allocate, scaledBand } from '../src/pm/allocation.ts';
 import { loadManifest, gate } from '../src/backtest/manifest.ts';
 const RUN = process.argv.find((a) => a.startsWith('--run='))?.slice(6);
 const entry = loadManifest().runs.find((r) => r.id === RUN); if (!entry) { console.error('pass --run=<registered id>'); process.exit(1); }
@@ -29,7 +29,7 @@ function strategic(profile) {
   const eqMax = allocate(S, { capital: 1e6, profile, horizonYears: 30 }).equityShare;
   return { w: { equity: g('direct_equity') + g('active_equity_fund') + g('index') + g('sector_thematic'), intl: g('international'), gold: g('gold'), silver: g('silver') }, max: { equity: eqMax, intl: S.classMax.international, gold: S.classMax.gold, silver: S.classMax.silver } };
 }
-const BAND = (k) => S.driftBand[k] ?? S.driftBand.default;
+const BAND = (k, target) => scaledBand(S, k, target);   // r2 (C-89): the band is never more than half of the class's target; r1 used the configured band
 const ARMS = ['N', 'M', 'Y', 'BF', 'BE'];
 function simulate(profile, arm, cost) {
   const { w: base } = strategic(profile); let units = null, debt = 0; const val = []; val.turn = 0; val.events = 0;
@@ -51,10 +51,10 @@ function simulate(profile, arm, cost) {
       if (arm === 'M') pending = tw;
       else if (arm === 'Y') { if (dates[t].slice(5, 7) === '01') pending = tw; }
       else {
-        const out = RISK.filter((k) => Math.abs(cur(k) / v - tw[k]) > BAND(k) + 1e-12);
+        const out = RISK.filter((k) => Math.abs(cur(k) / v - tw[k]) > BAND(k, tw[k]) + 1e-12);
         if (out.length) {
           if (arm === 'BF') pending = tw;
-          else { const w = {}; for (const k of RISK) { const x = cur(k) / v; w[k] = out.includes(k) ? tw[k] + Math.sign(x - tw[k]) * BAND(k) : x; } pending = w; }
+          else { const w = {}; for (const k of RISK) { const x = cur(k) / v; w[k] = out.includes(k) ? tw[k] + Math.sign(x - tw[k]) * BAND(k, tw[k]) : x; } pending = w; }
         }
       }
     }
@@ -85,4 +85,4 @@ const ok = (c) => CHECKED.filter((p) => out.profiles[`${p}@0.003`].pass[c] && ou
 const passers = CAND.filter(ok).sort((a, b) => out.profiles['Balanced@0.003'].fit[a].turn - out.profiles['Balanced@0.003'].fit[b].turn);
 out.passers = passers; out.proposed = passers[0] ?? null; out.verdict = passers.length ? 'PASS: ' + passers[0] : 'FAIL';
 console.log(`FIT RULE: passers ${passers.join(', ') || 'none'} -> ${out.verdict}`);
-mkdirSync('data/replay', { recursive: true }); writeFileSync('data/replay/rebalance-cadence.json', JSON.stringify({ generated: new Date().toISOString().slice(0, 10), out }, null, 1) + '\n');
+mkdirSync('data/replay', { recursive: true }); writeFileSync(`data/replay/rebalance-cadence-${RUN}.json`, JSON.stringify({ generated: new Date().toISOString().slice(0, 10), out }, null, 1) + '\n');

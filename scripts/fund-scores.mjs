@@ -88,9 +88,13 @@ if (terFile) {
   const med = (a) => { const t = [...a].sort((p, q) => p - q), m = t.length >> 1; return t.length % 2 ? t[m] : (t[m - 1] + t[m]) / 2; };
   for (const x of idxScored) if (x.ter != null && x.d3 != null && grp.get(x.cat)?.length >= 3) x.d3g = x.d3 + (x.ter - med(grp.get(x.cat)));
 }
-const tag = (arr, g) => arr.map((x) => ({ ...x, g }));
+// History keeps the band of every scored fund (not only active equity) so the two-review rule for picks can use it. The month's entry is overwritten each day: the month-end run stands.
+for (const arr of [idxScored, debtScored, intlScored]) for (const x of arr) if (x.band) (hist[month] ??= {})[x.code] = x.band;
+const prevMonth = Object.keys(hist).filter((k) => k < month).sort().pop() ?? null;
+const withPrev = (arr) => arr.map((x) => (prevMonth ? { ...x, pb: hist[prevMonth][x.code] ?? null } : x));
+const tag = (arr, g) => withPrev(arr).map((x) => ({ ...x, g }));
 mkdirSync('data/funds', { recursive: true });
 const all = [...tag(mfScored, 'mf'), ...tag(idxScored, 'idx'), ...tag(usScored, 'us'), ...tag(debtScored, 'debt'), ...tag(intlScored, 'intl')];
-writeFileSync('data/funds/scores.json', JSON.stringify({ asOf, version: 'FUND-3', source: 'AMFI scheme list; NAV history from mfapi.in; US ETF prices from Nasdaq', funds: all }) + '\n');
+writeFileSync('data/funds/scores.json', JSON.stringify({ asOf, prevMonth, version: 'FUND-3', source: 'AMFI scheme list; NAV history from mfapi.in; US ETF prices from Nasdaq', funds: all }) + '\n');
 writeFileSync('data/funds/history.json', JSON.stringify(hist) + '\n');
 console.log('scored', all.filter((x) => x.score !== null).length, 'of', all.length);

@@ -126,3 +126,12 @@ test('household roll-up: each account has its own capital and profile; the house
   const eq = r.rows.find((x) => x.cls === 'direct_equity')!; assert.ok(Math.abs(eq.targetAmount - (a.rows.find((x) => x.cls === 'direct_equity')!.amount + b.rows.find((x) => x.cls === 'direct_equity')!.amount)) < 1e-6); assert.equal(eq.currentAmount, 300_000);
   assert.ok(Math.abs(r.rows.reduce((x, y) => x + y.target, 0) - 1) < 1e-9);
 });
+
+import { scaledBand } from '../src/pm/allocation.ts';
+test('scaledBand: never more than half of the target, at least 1 point, configured band otherwise', () => {
+  const s = { driftBand: { default: 0.05, silver: 0.02, sector_thematic: 0.03 } };
+  assert.equal(scaledBand(s, 'debt', 0.3), 0.05);          // a large target keeps the configured band
+  assert.equal(scaledBand(s, 'international', 0.04), 0.02); // small target: half of it
+  assert.equal(scaledBand(s, 'silver', 0.01), 0.01);        // never below 1 point
+  assert.equal(scaledBand(s, 'silver', 0.5), 0.02);
+});

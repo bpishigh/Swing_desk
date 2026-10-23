@@ -191,14 +191,14 @@
   "rebalance": {
     "minTrade": 10000,
     "maxCostShare": 0.03,
-    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges plus any exit load exceed this share of the sale, unless it is an Exit-verdict name. A class acted on this calendar quarter gets no new sale suggestion unless its drift passes quarterCap.overrideBandMultiple x its band. fundVerdictSales stays false until the fund-score back-test has run (design section 9.1): when true, a fund flagged Replace candidate is treated as an already-decided sale. mode band-edge (Engine Rules C-86, adopted 23 Oct 2026): a class over its band is sold only back to the band edge; set to \"target\" to sell back to target.",
+    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges plus any exit load exceed this share of the sale, unless it is an Exit-verdict name. A class acted on this calendar quarter gets no new sale suggestion unless its drift passes quarterCap.overrideBandMultiple x its band. fundVerdictSales stays false until the fund-score back-test has run (design section 9.1): when true, a fund flagged Replace candidate is treated as an already-decided sale. mode band-target (Engine Rules C-86 attempt 2 and C-89, 23 Oct 2026): when a class is outside its band it is sold back to its target; \"band-edge\" sells only back to the band edge (it passed attempt 1 but missed the drawdown bar on the scaled bands in the holdout).",
     "exitLoadCheckDays": 365,
     "quarterCap": {
       "suggestionsPerClass": 1,
       "overrideBandMultiple": 2
     },
     "fundVerdictSales": false,
-    "mode": "band-edge"
+    "mode": "band-target"
   },
   "swingPools": {
     "maxPositions": 10,
@@ -214,5 +214,11 @@
     "volatileExtraPct": 5,
     "maxExactPctOfAccount": 6,
     "addWindowSessions": 12
+  },
+  "marketCapMix": {
+    "large": 0.71,
+    "mid": 0.18,
+    "small": 0.11,
+    "source": "NSE Nifty 500 white paper, 30 Sep 2025: free-float market cap of the Nifty 100, Midcap 150 and Smallcap 250 (66, 17, 10) over their 93% coverage of the Nifty 500, rounded (Engine Rules C-89)"
   }
 }

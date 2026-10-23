@@ -1,9 +1,10 @@
 name: fund-scores
-# Weekly fund scoring (FUND-1, phase 1). Fetches NAV history for ~620 Direct-Growth equity/hybrid schemes, scores them within category, commits data/funds.
+# Daily fund scoring (FUND-3). Refreshes the AMFI scheme list, fetches NAV history for the Direct-Growth schemes, scores them within category, commits data/funds. The half-hourly tick rebuilds site/data/funds.json from it.
+# Daily since 23 Oct 2026 (was monthly): the month's history entry is overwritten each day, so the monthly Weak-fund count still sees the last run of each month.
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 4 1 * *'   # monthly (was weekly) to save Actions minutes; NAVs and TERs move slowly
+    - cron: '41 21 * * *'   # daily, 03:11 IST: AMFI publishes the day's NAVs by late evening
 concurrency: fund-scores
 permissions:
   contents: write
@@ -17,9 +18,10 @@ jobs:
         with: { node-version: 22 }
       - name: AMFI scheme list (public NAV file)
         run: node scripts/fetch-amfi-master.mjs
-      - name: Expense ratios (AMFI)
+      - name: Expense ratios (AMFI, monthly: days 1 to 3, or when started by hand)
         continue-on-error: true
-        run: node scripts/fetch-ter.mjs
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%d)" -le 3 ]; then node scripts/fetch-ter.mjs; else echo skipped; fi
       - name: Score funds
         run: node scripts/fund-scores.mjs
       - name: Commit

@@ -215,6 +215,53 @@
     "at": "2026-10-23T17:18:24.072Z",
     "note": "fit result recorded; revealing the holdout once to check the signs"
    }
+  },
+  {
+   "id": "C-86-r2",
+   "changeLog": "C-86",
+   "title": "Rebalancing cadence with bands scaled to the target (second attempt)",
+   "hypothesis": "Rebalancing once a year, or only when a class leaves its band, earns about the same after costs as rebalancing every month, with far less trading and no deeper drawdown, when the band is never more than half of the class target (C-89 rule 10).",
+   "script": "scripts/replay-rebalance-cadence.mjs",
+   "params": {
+    "arms": "N none; M monthly full; Y yearly full; BF band trigger, all to target; BE band trigger, to band edge",
+    "bands": "smaller of the configured driftBand and half of the class target, at least 1 point (scaledBand)",
+    "profiles": "Cautious, Balanced, Aggressive; 10-year horizon",
+    "proxies": "as C-74",
+    "cost": "0.30%; double 0.60%",
+    "trade": "next session close",
+    "contributions": "none",
+    "note": "Same windows as C-86-r1, whose holdout was revealed on 23 Oct 2026: this holdout is not independent of attempt 1."
+   },
+   "fit": [
+    "2021-06-18",
+    "2024-03-28"
+   ],
+   "holdout": [
+    "2024-04-01",
+    "2026-10-19"
+   ],
+   "passRule": "As C-86-r1: a candidate (Y, BF, BE) passes if in Balanced at 0.30% cost: annual return after cost no more than 0.5 points below M, turnover at most half of M, max drawdown no worse than M by more than 1.0 point, and the same at 0.60% cost, in at least 2 of 3 profiles. Lowest turnover among passers is the proposed default; holdout must show the same signs.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "7225412e8464"
+   },
+   "registeredAt": "2026-10-23T18:06:18.526Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-23T18:06:40.415Z",
+    "summary": "Fit (18 Jun 2021 to 28 Mar 2024), bands scaled to half the class target. Balanced at 0.30% cost: none 12.16% / -9.61% / 0; monthly 12.25% / -9.56% / 1.8x (64 trades); yearly 12.20% / -9.36% / 0.6x (5); band-all 12.12% / -9.64% / 0.5x (4); band-to-edge 12.21% / -9.61% / 0.4x (17). All three candidates meet the bars in every profile at both costs; lowest turnover is band-to-edge, as in attempt 1. Holdout not independent of attempt 1 (same window, already revealed).",
+    "file": "data/replay/rebalance-cadence-C-86-r2.json"
+   },
+   "holdoutReveal": {
+    "at": "2026-10-23T18:06:40.549Z",
+    "note": "same holdout window as C-86-r1, already revealed on 23 Oct 2026; checking signs on the scaled bands"
+   }
   }
  ]
 }

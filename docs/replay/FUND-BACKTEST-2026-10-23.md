@@ -1,6 +1,6 @@
 # Fund-score back-test (C-81), run 2026-10-23
 
-Criteria fixed in Engine Rules C-81 before this run. 694 Direct-Growth equity schemes alive today (survivorship bias: closed and merged funds are missing, which flatters every group). Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
+Criteria fixed in Engine Rules C-81 before this run. about 308 Direct-Growth plain-equity schemes alive today (the 694 printed in the first version of this report was the count of all series fetched in the run, which included debt and index funds; correction made 23 Oct 2026), each grouped with its category as of today (so a category that did not exist earlier, such as Flexi Cap before late 2020, is regrouped back in time; survivorship bias: closed and merged funds are missing, which flatters every group). An earlier run on 576 schemes that included sector and hybrid funds was cancelled and the sample narrowed to plain equity before the first valid run; that narrowing was made after seeing the early run (Test A 4 of 10, Test B 6 of 10), so it is a choice made with the results in view. Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
 
 | Year | Funds scored | Strong funds | Median excess, Strong | Test A | Weak funds | Median excess, Weak | Test B |
 |---|---|---|---|---|---|---|---|

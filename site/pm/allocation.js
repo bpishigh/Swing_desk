@@ -131,10 +131,12 @@ export function currentByClass(s               , held        )                  
   }
   return { byClass: by, total: Object.values(by).reduce((a, b) => a + b, 0), unclassified, unpriced, hybridFolded };
 }
+/** The drift band for a class (C-89): the configured band, but never more than half of the class's own target, and at least 1 point. A 5-point band was wider than several small targets, so those classes could never be called underweight. */
+export function scaledBand(s                                       , cls        , target        )         { const b = s.driftBand[cls] ?? s.driftBand.default; return Math.min(b, Math.max(0.01, 0.5 * target)); }
 export function gapRows(s               , targets               , current                             , base        )           {
   const inScope = new Set(targets.map((t) => t.cls));
   return TARGET_CLASSES.filter((c) => inScope.has(c) || current[c] > 0).map((c) => {
-    const t = targets.find((x) => x.cls === c), target = t?.target ?? 0, cur = base > 0 ? current[c] / base : 0, band = s.driftBand[c] ?? s.driftBand.default, gap = cur - target;
+    const t = targets.find((x) => x.cls === c), target = t?.target ?? 0, cur = base > 0 ? current[c] / base : 0, band = scaledBand(s, c, target), gap = cur - target;
     return { cls: c, label: s.labels[c] ?? c, target, current: cur, gap, band, state: !t ? 'not in scope' : Math.abs(gap) <= band ? 'within band' : gap < 0 ? 'underweight' : 'overweight', amountToTarget: (target - cur) * base };
   });
 }
@@ -151,7 +153,7 @@ export function rollUp(s               , parts            )                     
   const capital = parts.reduce((a, p) => a + p.capital, 0), unclassified = parts.reduce((a, p) => a + p.unclassified, 0);
   const rows = TARGET_CLASSES.map((c) => {
     const targetAmount = parts.reduce((a, p) => a + (p.rows.find((r) => r.cls === c)?.amount ?? 0), 0), currentAmount = parts.reduce((a, p) => a + (p.byClass[c] ?? 0), 0);
-    const target = capital > 0 ? targetAmount / capital : 0, current = capital > 0 ? currentAmount / capital : 0, band = s.driftBand[c] ?? s.driftBand.default, gap = current - target;
+    const target = capital > 0 ? targetAmount / capital : 0, current = capital > 0 ? currentAmount / capital : 0, band = scaledBand(s, c, target), gap = current - target;
     return { cls: c, label: s.labels[c] ?? c, targetAmount, currentAmount, target, current, gap, band, state: (targetAmount === 0 && currentAmount > 0 ? 'not in scope' : Math.abs(gap) <= band ? 'within band' : gap < 0 ? 'underweight' : 'overweight')                    , amountToTarget: targetAmount - currentAmount };
   }).filter((r) => r.targetAmount > 0 || r.currentAmount > 0);
   return { capital, unclassified, rows };
