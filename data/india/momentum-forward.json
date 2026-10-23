@@ -78,6 +78,45 @@
    "basis": 299.65,
    "width": 8.04,
    "room": 0.84
+  },
+  "LAURUSLABS|4|2026-10-23": {
+   "sym": "LAURUSLABS",
+   "id": "4",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-10-23",
+   "trigger": 2013.62,
+   "stop": 1928.7,
+   "limit": 2033.76,
+   "basis": 2013.62,
+   "width": 4.22,
+   "room": 0.89
+  },
+  "WELSPUNLIV|4|2026-10-23": {
+   "sym": "WELSPUNLIV",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-23",
+   "trigger": 214.33,
+   "stop": 197.14,
+   "limit": 216.47,
+   "basis": 214.33,
+   "width": 8.02,
+   "room": 1.81
+  },
+  "IPCALAB|2|2026-10-23": {
+   "sym": "IPCALAB",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-23",
+   "trigger": 1983.76,
+   "stop": 1797,
+   "limit": 2003.6,
+   "basis": 1983.76,
+   "width": 9.41,
+   "room": 0.29
   }
  },
  "lastLogged": {
@@ -86,16 +125,19 @@
   "CPPLUS|2": "2026-10-19",
   "BBOX|2": "2026-10-19",
   "JINDALSAW|2": "2026-10-19",
-  "JINDALSAW|4": "2026-10-19"
+  "JINDALSAW|4": "2026-10-19",
+  "LAURUSLABS|4": "2026-10-23",
+  "WELSPUNLIV|4": "2026-10-23",
+  "IPCALAB|2": "2026-10-23"
  },
  "summary": {
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
      "matured": 0,
-     "open": 1,
+     "open": 2,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -135,7 +177,7 @@
     "group": "room under 3R",
     "momentum": {
      "matured": 0,
-     "open": 1,
+     "open": 2,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -155,14 +197,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 2,
+     "open": 3,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 3,
+     "open": 4,
      "meanNet": null,
      "win": null,
      "excess": null

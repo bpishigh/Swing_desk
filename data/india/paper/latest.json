@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-22",
+ "asOf": "2026-10-23",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,23 +12,64 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 2,
-  "open": 1,
-  "pending": 0,
+  "orders": 6,
+  "open": 0,
+  "pending": 4,
   "notFilled": 0,
-  "closed": 1,
-  "meanR": -0.8448960248723069,
+  "closed": 2,
+  "meanR": -0.9556322368075267,
   "winRate": 0
  },
  "comparator": {
-  "orders": 0,
+  "orders": 1,
   "open": 0,
-  "pending": 0,
+  "pending": 1,
   "notFilled": 0,
   "closed": 0,
   "meanR": null,
   "winRate": null
  },
  "light": "red",
- "newOrdersTonight": []
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "LAURUSLABS",
+   "setup": "4",
+   "trigger": 2013.62,
+   "stop": 1928.7,
+   "status": "pending"
+  },
+  {
+   "stream": "capwaived",
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "trigger": 214.33,
+   "stop": 197.14,
+   "status": "pending"
+  },
+  {
+   "stream": "capwaived",
+   "sym": "IPCALAB",
+   "setup": "4",
+   "trigger": 1983.76,
+   "stop": 1814.72,
+   "status": "pending"
+  },
+  {
+   "stream": "comparator",
+   "sym": "IPCALAB",
+   "setup": "4",
+   "trigger": 1953.3,
+   "stop": 1797,
+   "status": "pending"
+  },
+  {
+   "stream": "capwaived",
+   "sym": "BBOX",
+   "setup": "4",
+   "trigger": 882.21,
+   "stop": 801.9,
+   "status": "pending"
+  }
+ ]
 }

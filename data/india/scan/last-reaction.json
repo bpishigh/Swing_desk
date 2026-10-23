@@ -1,35 +1,45 @@
 {
- "asOf": "2026-10-22",
+ "asOf": "2026-10-23",
  "rows": {
-  "WELCORP": {
-   "date": "2026-07-24",
-   "move": -0.0081,
-   "excess": -0.0181
-  },
   "CPPLUS": {
    "date": "2026-08-12",
    "move": -0.0266,
    "excess": -0.0271
   },
-  "SHYAMMETL": {
-   "date": "2026-07-20",
-   "move": 0.0393,
-   "excess": 0.0335
+  "LAURUSLABS": {
+   "date": "2026-07-24",
+   "move": 0.0925,
+   "excess": 0.0825
   },
   "WELSPUNLIV": {
    "date": "2026-08-13",
    "move": -0.0071,
    "excess": -0.0044
   },
-  "BBOX": {
-   "date": "2026-08-12",
-   "move": 0.1199,
-   "excess": 0.1194
+  "IPCALAB": {
+   "date": "2026-08-13",
+   "move": -0.0183,
+   "excess": -0.0156
+  },
+  "PTCIL": {
+   "date": "2026-08-14",
+   "move": 0.0739,
+   "excess": 0.0767
   },
   "COFORGE": {
    "date": "2026-07-27",
    "move": 0.1356,
    "excess": 0.1281
+  },
+  "BBOX": {
+   "date": "2026-08-12",
+   "move": 0.1199,
+   "excess": 0.1194
+  },
+  "SHYAMMETL": {
+   "date": "2026-07-20",
+   "move": 0.0393,
+   "excess": 0.0335
   }
  }
 }

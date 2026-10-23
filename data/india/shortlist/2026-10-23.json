@@ -1,0 +1,71 @@
+{
+ "signalDate": "2026-10-23",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "BBOX",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 882.21,
+   "limit": 891.03,
+   "stop": 801.9,
+   "atrPct": 6.49,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "IPCALAB",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 1983.76,
+   "limit": 2003.6,
+   "stop": 1814.72,
+   "atrPct": 3.46,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "IPCALAB",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 1953.3,
+   "limit": 1972.83,
+   "stop": 1797,
+   "atrPct": 3.46,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "LAURUSLABS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 2013.62,
+   "limit": 2033.76,
+   "stop": 1928.7,
+   "atrPct": 2.87,
+   "tags": [
+    "room fail"
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 214.33,
+   "limit": 216.47,
+   "stop": 197.14,
+   "atrPct": 5.46,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}
