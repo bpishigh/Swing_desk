@@ -781,9 +781,10 @@ function actionsCard(V, res, cur, capital, hs, A) {
   const NOPICK = { direct_equity: 'comes from tonight\'s Swing orders', gold: 'gold ETFs are not scored yet; choose a low-cost gold ETF', silver: 'silver ETFs are not scored yet; choose a low-cost silver ETF', sector_thematic: 'not a recommended use of new money', hybrid: 'not scored for new money' };
   const picksFor = (cls) => {
     if (NOPICK[cls]) return `<br>Which one: ${NOPICK[cls]}.`;
-    const heldF = hs.filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.assetClass === cls), p = pickFunds(cls, frows, heldF.map((h) => ({ isin: h.isin, name: h.name })), sellingNames);
+    const heldF = hs.filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.assetClass === cls), p = pickFunds(cls, frows, heldF.map((h) => ({ isin: h.isin, name: h.name, value: h.value ?? 0 })), sellingNames);
     if (!p.length) return '<br>Which fund: no scored fund passes in this class yet.';
-    return `<br><b>Buy ${esc(p[0].row.n)}</b> (${esc(p[0].why)})${cls === 'debt' ? '<br>Maturity and credit quality are not scored: check them before buying.' : ''}${p.length > 1 ? `<br>Next best: ${p.slice(1).map((x) => esc(x.row.n) + ' (' + esc(x.why) + ')').join('; ')}` : ''}`;
+    const line = (x) => `${esc(x.row.n)} (${esc(x.why)})`, head = p.find((x) => x.headline);
+    return `${head ? `<br><b>Buy ${line(head)}</b>` : '<br><b>Choose a category by maturity and credit risk (not scored); the best fund in each:</b>'}<br>${p.filter((x) => x !== head).map(line).join('<br>')}${cls === 'debt' ? '<br>Maturity and credit quality are not scored: check them before buying.' : ''}`;
   };
   const soldBy = {}, proceeds = plan.lines.reduce((a, l) => { soldBy[l.cls] = (soldBy[l.cls] ?? 0) + l.value; return a + l.value - (l.tax ?? 0) - l.charges; }, 0);
   const afterSales = Object.fromEntries(Object.keys(held).map((c) => [c, (held[c] ?? 0) + (mm[c] ?? 0) - (soldBy[c] ?? 0)])), noBuy = new Set([...over0, ...Object.keys(need)]);
