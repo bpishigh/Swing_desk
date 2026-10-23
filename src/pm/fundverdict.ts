@@ -4,7 +4,7 @@
 import { sma, swingLow, SMA_LEN } from './verdict.ts';
 
 export interface FundScoreRow { n: string; i?: string; s?: number | null; r1?: number | null; r3?: number | null; r5?: number | null; c: string; b: 'Strong' | 'Average' | 'Weak' | null; rp?: number; g: 'mf' | 'idx' | 'us' | 'debt' | 'intl'; note?: string; p?: number; t?: number | null; dd?: number; vol?: number; wd?: number; fl?: string }
-export interface Gate { ran: boolean; replaceOn: boolean; nearWeakOn?: boolean; ranOn?: string }
+export interface Gate { ran: boolean; replaceOn: boolean; nearWeakOn?: boolean; indexRuleOn?: boolean; cashRuleOn?: boolean; ranOn?: string }
 export type FundLabel = 'Keep' | 'Watch' | 'Replace' | 'Exit' | 'No verdict';
 export interface FundVerdict { label: FundLabel; reasons: string[]; pending: string[]; asOf: string | null }
 
@@ -16,14 +16,19 @@ const med = (a: number[]): number | null => { if (!a.length) return null; const 
 const BENCH: Record<string, string> = { 'Large Cap': 'Nifty 50', 'Mid Cap': 'Nifty Midcap 150', 'Small Cap': 'Nifty Smallcap 250' };
 const f1 = (v: number | null | undefined): string => (v == null ? 'n/a' : v.toFixed(1) + '%');
 /** C-84 (display only, no rule): the fund's own return next to its category, the index funds for that market segment and cash (liquid funds), so a good rank in a weak category is not read as a good return. */
-export function marketContext(row: FundScoreRow, scores: FundScoreRow[]): string {
-  if (row.r3 == null || (row.g !== 'mf' && row.g !== 'idx')) return '';
+export function marketFacts(row: FundScoreRow, scores: FundScoreRow[]): { cm: number | null; im: number | null; cash: number | null } | null {
+  if (row.r3 == null || (row.g !== 'mf' && row.g !== 'idx')) return null;
   const peers = scores.filter((x) => x.g === row.g && x.c === row.c), cm = med(peers.map((x) => x.r3).filter((v): v is number => v != null));
   const idxName = row.g === 'mf' ? (BENCH[row.c] ?? 'Nifty 500') : '', idxRows = scores.filter((x) => x.g === 'idx' && x.c === idxName && x.r3 != null);
-  const im = idxRows.length >= 3 ? med(idxRows.map((x) => x.r3 as number)) : med(scores.filter((x) => x.g === 'idx' && x.c === 'Nifty 50' && x.r3 != null).map((x) => x.r3 as number));
+  const im = row.g !== 'mf' ? null : idxRows.length >= 3 ? med(idxRows.map((x) => x.r3 as number)) : med(scores.filter((x) => x.g === 'idx' && x.c === 'Nifty 50' && x.r3 != null).map((x) => x.r3 as number));
   const cash = med(scores.filter((x) => x.g === 'debt' && x.c === 'Liquid' && x.r3 != null).map((x) => x.r3 as number));
-  const bits = [`3-year return ${f1(row.r3)}`, `category median ${f1(cm)}`, ...(im != null && row.g === 'mf' ? [`index funds ${f1(im)}`] : []), ...(cash != null ? [`liquid funds ${f1(cash)}`] : [])];
-  const weak = cm != null && cash != null && cm < cash ? '; the whole category has returned less than cash over 3 years' : '';
+  return { cm, im, cash };
+}
+/** C-84: the fund's own return next to its category, the index funds for its segment and cash, so a good rank in a weak category is not read as a good return. */
+export function marketContext(row: FundScoreRow, scores: FundScoreRow[]): string {
+  const m = marketFacts(row, scores); if (!m) return '';
+  const bits = [`3-year return ${f1(row.r3)}`, `category median ${f1(m.cm)}`, ...(m.im != null ? [`index funds ${f1(m.im)}`] : []), ...(m.cash != null ? [`liquid funds ${f1(m.cash)}`] : [])];
+  const weak = m.cm != null && m.cash != null && m.cm < m.cash ? '; the whole category has returned less than cash over 3 years' : '';
   return bits.join(', ') + weak;
 }
 const no = (why: string): FundVerdict => ({ label: 'No verdict', reasons: [why], pending: [], asOf: null });
@@ -60,6 +65,12 @@ export function fundVerdict(held: { name: string; isin?: string; category?: stri
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
   const ctx = marketContext(row, scores), withCtx = (v: FundVerdict): FundVerdict => (ctx ? { ...v, reasons: [...v.reasons, ctx] } : v);
   if (row.b === 'Average' && plain && row.g === 'mf' && gate.nearWeakOn && row.s != null && row.s >= 25 && row.s < 35) return withCtx({ label: 'Watch', reasons: [`score ${row.s.toFixed(1)}: just above the Weak line in ${row.c}, near the bottom quarter`], pending: [], asOf: null });   // C-83
+  // C-85: absolute quality for plain equity funds, each rule on only when its own back-test passed
+  if (row.g === 'mf' && plain && (row.b === 'Strong' || row.b === 'Average')) {
+    const m = marketFacts(row, scores);
+    if (m && gate.cashRuleOn && m.cash != null && row.r3! < m.cash) return withCtx({ label: 'Watch', reasons: [`trailing cash: 3-year return ${f1(row.r3)} is below the liquid funds' ${f1(m.cash)}`], pending: [], asOf: null });
+    if (m && gate.indexRuleOn && m.im != null && row.r3! < m.im) return withCtx({ label: 'Watch', reasons: [`trailing the index funds: 3-year return ${f1(row.r3)} is below the index funds' ${f1(m.im)}`], pending: [`score band ${row.b} in ${row.c}`], asOf: null });
+  }
   if (row.b === 'Strong' || row.b === 'Average') return withCtx({ label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null });
   const why = `score band Weak in ${row.c}`;
   if (row.rp && row.g === 'mf' && plain) {

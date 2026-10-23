@@ -82,3 +82,17 @@ test('C-84: the reason shows the fund beside its category, the index funds and c
   assert.equal(v.label, 'Keep');
   assert.match(v.reasons[1], /3-year return 5\.0%, category median 5\.5%, index funds 9\.4%, liquid funds 7\.0%; the whole category has returned less than cash/);
 });
+
+test('C-85: with the index rule on, a Keep fund trailing the index funds reads Watch; with it off, Keep; cash rule likewise', () => {
+  const idx = (n: string, v: number) => ({ n, c: 'Nifty 50', b: null, r3: v, g: 'idx' });
+  const r = [
+    { n: 'Chi Large Cap Fund - Direct Plan - Growth', c: 'Large Cap', b: 'Average', s: 50, r3: 5.0, g: 'mf' },
+    { n: 'Psi Large Cap Fund - Direct Plan - Growth', c: 'Large Cap', b: 'Average', s: 50, r3: 12, g: 'mf' },
+    idx('a Nifty 50 Index Fund', 9), idx('b Nifty 50 Index Fund', 9.2), idx('c Nifty 50 Index Fund', 9.4),
+    { n: 'Phi Liquid Fund', c: 'Liquid', b: 'Average', r3: 7, g: 'debt' },
+  ] as any;
+  assert.equal(fundVerdict({ name: r[0].n }, r, on).label, 'Keep');
+  const d = fundVerdict({ name: r[0].n }, r, { ...on, indexRuleOn: true }); assert.equal(d.label, 'Watch'); assert.match(d.reasons[0], /trailing the index funds/);
+  const e = fundVerdict({ name: r[0].n }, r, { ...on, cashRuleOn: true }); assert.equal(e.label, 'Watch'); assert.match(e.reasons[0], /trailing cash/);
+  assert.equal(fundVerdict({ name: r[1].n }, r, { ...on, indexRuleOn: true, cashRuleOn: true }).label, 'Keep');
+});

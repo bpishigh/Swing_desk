@@ -39,3 +39,16 @@ test('Test C counts funds scoring 25 to 35 and reports its own pass or fail', ()
   assert.ok(r.points.every((p) => typeof p.near === 'number'));
   assert.equal(typeof r.testC.pass, 'boolean'); assert.equal(r.nearWeakOn, r.testC.pass);
 });
+
+test('Tests D and E run with index and liquid funds supplied, and are untestable (rule off) without them', () => {
+  const { schemes, series } = build(true);
+  const idx = Array.from({ length: 4 }, (_, i) => ({ code: 'I' + i, isin: '', name: 'Idx' + i + ' Nifty 50 Index Fund - Direct Plan - Growth', category: 'Index' }));
+  const liquid = Array.from({ length: 4 }, (_, i) => 'L' + i);
+  const s2 = new Map(series); const mk = (drift: number, seed: number) => { const o: Record<string, number> = {}; let v = 10, q = seed; const d = new Date('2008-01-01T00:00:00Z'); while (d.toISOString().slice(0, 10) <= '2026-10-05') { const w = d.getUTCDay(); if (w !== 0 && w !== 6) { q = (q * 1103515245 + 12345) % 2147483648; v *= 1 + drift + ((q / 2147483648) - 0.5) * 0.004; o[d.toISOString().slice(0, 10)] = v; } d.setUTCDate(d.getUTCDate() + 1); } return o; };
+  idx.forEach((x, i) => s2.set(x.code, mk(0.0004, 100 + i))); liquid.forEach((c, i) => s2.set(c, mk(0.0002, 200 + i)));
+  const r = runBacktest(schemes, s2, undefined, undefined, { idx: idx as any, liquid });
+  assert.ok(r.points.some((p) => p.nD > 0), JSON.stringify(r.testD));
+  assert.equal(r.indexRuleOn, r.testD.pass); assert.equal(r.cashRuleOn, r.testE.pass);
+  const none = runBacktest(schemes, series);
+  assert.equal(none.indexRuleOn, false); assert.equal(none.cashRuleOn, false);
+});
