@@ -9,7 +9,9 @@ import { indexKey } from '../src/pm/fundscore.ts';
 const PURE_EQUITY = new Set(['Large Cap', 'Mid Cap', 'Small Cap', 'Large & Mid Cap', 'Multi Cap', 'Flexi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield', 'ELSS']);
 const amfi = JSON.parse(readFileSync('data/rules/amfi-schemes.json', 'utf8'));
 const asOf = new Date().toISOString().slice(0, 10);
-const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && Date.now() - t < 12 * 86400000; };
+const SNAP = Date.parse((amfi.asOf ?? new Date().toISOString().slice(0, 10)) + 'T23:59:59Z');   // freshness is judged against the AMFI file's own date, not today's (it was empty 12 days after each manual refresh)
+if (Date.now() - SNAP > 35 * 86400000) { console.error('AMFI scheme list is more than 35 days old (' + amfi.asOf + '): refresh it first'); process.exit(1); }
+const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && SNAP - t < 12 * 86400000; };
 const direct = (r) => /^Direct/i.test(r[5]) && /^Growth/i.test(r[6]);
 const mf = amfi.rows.filter((r) => direct(r) && recent(r[8]) && PURE_EQUITY.has(normCategory(r[4]))).map((r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] }));
 const debt = amfi.rows.filter((r) => direct(r) && recent(r[8]) && debtGroup(r[4])).map((r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] }));

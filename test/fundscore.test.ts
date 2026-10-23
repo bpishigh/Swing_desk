@@ -33,6 +33,9 @@ import { indexKey, scoreIndexGroups } from '../src/pm/fundscore.ts';
 test('index key reads the index from the name', () => {
   assert.equal(indexKey('UTI Nifty 50 Index Fund - Direct Plan - Growth'), 'Nifty 50');
   assert.equal(indexKey('HDFC NIFTY 50 ETF'), 'Nifty 50');
+  assert.notEqual(indexKey('HDFC NIFTY GROWTH SECTORS 15 ETF - Growth Option'), 'Nifty 50');   // red team: the word 'growth' cut the name down to 'Nifty'
+  assert.equal(indexKey('Navi ELSS Tax Saver Nifty50 Index Fund - Direct Plan - Growth'), null);   // a lock-in product is not a diversified index fund
+  assert.equal(indexKey('UTI Nifty 50 Index Fund - Direct Plan - Growth Option'), 'Nifty 50');
   assert.equal(indexKey('Nippon India Index Fund - Nifty 50 Plan - Direct Plan - Growth Option'), 'Nifty 50');
   assert.equal(indexKey('Kotak Nifty Next 50 Index Fund - Direct Plan - Growth'), 'Nifty Next 50');
   assert.equal(indexKey('Nippon India ETF Gold BeES'), 'Gold');

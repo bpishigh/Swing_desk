@@ -97,12 +97,12 @@ export function replaceCandidate(history                                        
 // ---- Index funds and ETFs: judged against others that track the same index, not against the market ----
 export const INDEX_SETTINGS = { ...SETTINGS, minPeers: 3, leadsPp: 0.15, lagsPp: -0.30 };   // pp = percentage points a year over 3 years against the median of the same-index group
 const INDEX_WORD = /(nifty|sensex|bse|s&p|msci|crisil|hang seng|nasdaq|nyse|gold|silver)/i;
-const EXCLUDE_INDEX = /debt|liquid|gilt|bond|sdl|g-sec|target|overnight|money|treasury|fund of fund|fof|ibx|maturity|income|alpha|momentum|quality|low vol|value 20|equal weight|factor|dividend opp|ev &|esg/i;
+const EXCLUDE_INDEX = /debt|liquid|gilt|bond|sdl|g-sec|target|overnight|money|treasury|fund of fund|fof|ibx|maturity|income|alpha|momentum|quality|low vol|value 20|equal weight|factor|dividend opp|ev &|esg|elss|tax saver/i;
 /** The index a scheme tracks, read from its name ("UTI Nifty 50 Index Fund" and "HDFC NIFTY 50 ETF" both give "Nifty 50"); null when the name does not say or it is a factor, debt or fund-of-funds product. */
 export function indexKey(name        )                {
   if (EXCLUDE_INDEX.test(name)) return null;
   const m = INDEX_WORD.exec(name); if (!m) return null;
-  let t = name.slice(m.index).split(/\s+-\s+|\s+(?:index fund|index|etf|exchange traded|plan|direct|growth|\()/i)[0];
+  let t = name.slice(m.index).split(/\s+-\s+|\s+(?:index fund|index|etf|exchange traded|plan|direct|growth(?=\s*(?:option|plan|-|$))|\()/i)[0];
   t = t.replace(/\bbees\b/gi, '').replace(/\s+/g, ' ').trim();
   if (!t) return null;
   const k = t.toLowerCase().replace(/[\s-]/g, '');

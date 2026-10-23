@@ -21,8 +21,8 @@ export function classOfRow(r: PickRow): TargetClass | null {
   return null;
 }
 export const PICK_CLASSES: TargetClass[] = ['active_equity_fund', 'index', 'international', 'debt', 'liquid'];
-/** Fixed maturity plans are closed-ended: they cannot be bought after the offer period. */
-const eligible = (r: PickRow): boolean => (r.b === 'Strong' || r.b === 'Average') && typeof r.s === 'number' && !/fixed maturity|\bfmp\b/i.test(r.n);
+/** Closed-ended or unbuyable products are never picked: fixed maturity and fixed term plans, interval funds, numbered series (closed ELSS and tax series), segregated portfolios, and the Income group, which is made of those. */
+const eligible = (r: PickRow): boolean => (r.b === 'Strong' || r.b === 'Average') && typeof r.s === 'number' && !/fixed maturity|fixed term|\bfmp\b|interval|segregated|existing number of|\bseries\b/i.test(r.n) && r.c !== 'Income';
 const ALL_CAP = new Set(['Flexi Cap', 'Multi Cap', 'Focused', 'Value', 'Contra', 'Dividend Yield']);
 /** The comparison group of a row: scores are percentile ranks inside one category or index, so they are only ever compared inside the group. */
 export function groupOf(r: PickRow): string { return r.g === 'mf' && ALL_CAP.has(r.c) ? 'All-cap' : r.c; }

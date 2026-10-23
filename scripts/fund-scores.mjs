@@ -8,7 +8,9 @@ import { nasdaqBars } from './nasdaq.mjs';
 const J = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const amfi = J('data/rules/amfi-schemes.json');
 const asOf = new Date().toISOString().slice(0, 10);
-const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && Date.now() - t < 12 * 86400000; };
+const SNAP = Date.parse((amfi.asOf ?? new Date().toISOString().slice(0, 10)) + 'T23:59:59Z');   // freshness is judged against the AMFI file's own date, not today's (it was empty 12 days after each manual refresh)
+if (Date.now() - SNAP > 35 * 86400000) { console.error('AMFI scheme list is more than 35 days old (' + amfi.asOf + '): refresh it first'); process.exit(1); }
+const recent = (s) => { const [d, m, y] = s.split('-'); const t = Date.parse(`${d} ${m} ${y} UTC`); return Number.isFinite(t) && SNAP - t < 12 * 86400000; };
 const row = (r) => ({ code: r[0], isin: r[1] !== '-' ? r[1] : r[2], name: r[3], category: r[4] });
 const extraDirect = new Set((J('data/rules/direct-growth-codes.json', { records: [] }).records || []).map((x) => x.code));   // schemes AMFI lists with no plan, settled by NAV ordering
 const direct = (r) => (/^Direct/i.test(r[5]) && /^Growth/i.test(r[6])) || extraDirect.has(r[0]);
@@ -59,6 +61,7 @@ const broken = (m) => { const d = Object.keys(m).sort(); for (let i = 1; i < d.l
 for (const mp of [series, usSeries]) for (const [k, m] of [...mp]) { const b = broken(m); if (b) { console.log('dropped (data break on', b + '):', k); mp.delete(k); } }
 const need = [...new Set([...mf, ...idx, ...debt, ...intl].map((x) => x.code))].length;
 console.log('india fetched', series.size, 'of', need, 'failed', failed, '| us fetched', usSeries.size, 'of', usSchemes.length, 'failed', usFailed);
+{ const prev = existsSync('data/funds/scores.json') ? JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds?.length ?? 0 : 0; if (prev && need < prev * 0.8) { console.error(`the universe shrank from ${prev} funds to ${need}: keeping the previous scores`); process.exit(1); } }
 if (series.size < need * 0.8) { console.error('too many India fetch failures; keeping the previous scores'); process.exit(1); }
 const prev = J('data/funds/scores.json', null);
 const hist = J('data/funds/history.json', {}), month = asOf.slice(0, 7);
