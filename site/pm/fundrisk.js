@@ -74,6 +74,8 @@ export function debtGroup(category        )                {
 export function intlGroup(name        , category        )                {
   if (!/overseas|offshore|fof overseas|international/i.test(category + ' ' + name)) return null;
   const t = name.toLowerCase();
+  if (/treasury|bond|debt/.test(t)) return 'Overseas debt';
+  if (/gold|mining|metal|reit|energy|clean|electric|autonomous|artificial|innovation|brand|aqua|water/.test(t)) return 'Global thematic';
   if (/nasdaq|fang|nyse/.test(t)) return 'Nasdaq 100 and US tech giants';
   if (/s&p 500|s&p500/.test(t)) return 'S&P 500';
   if (/emerging|asean|brazil|latin/.test(t)) return 'Emerging markets';

@@ -36,5 +36,7 @@ test('groups: debt categories map to a peer group; index, ETF and fixed term are
   assert.equal(intlGroup('Edelweiss US Technology Equity FoF Direct Growth', 'Other Scheme - FoF Overseas'), 'Other US');
   assert.equal(intlGroup('Edelweiss Europe Dynamic Equity Offshore Fund', 'Other Scheme - FoF Overseas'), 'Europe');
   assert.equal(intlGroup('Motilal Oswal Nasdaq 100 FoF', 'Other Scheme - FoF Overseas'), 'Nasdaq 100 and US tech giants');
+  assert.equal(intlGroup('Bandhan US Treasury Bond 0-1 year specific Debt Passive FOF', 'Other Scheme - FoF Overseas'), 'Overseas debt');
+  assert.equal(intlGroup('DSP World Gold Mining Overseas Equity Omni FoF', 'Other Scheme - FoF Overseas'), 'Global thematic');
   assert.equal(intlGroup('Axis Small Cap Fund', 'Equity Scheme - Small Cap Fund'), null);
 });
