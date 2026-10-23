@@ -3,7 +3,7 @@
 // Sector and thematic funds: the stock lens on the fund's NAV (a close below the 200-session average or below the last major swing low = Exit). Everything else: No verdict, with the reason.
 import { sma, swingLow, SMA_LEN } from './verdict.js';
 
-                                                                                                                                                               
+                                                                                                                                                                                                                                                                     
                                                                           
                                                                              
                                                                                                             
@@ -36,6 +36,12 @@ export function fundVerdict(held                                                
     return no('not in the scored list: it is new, or AMFI lists it without a plan so its Direct Growth line cannot be told from its Regular and IDCW twins');
   }
   if (!row.b) return no(row.note || 'not scored');
+  if (row.g === 'debt' || row.g === 'intl') {   // C-82: judged on return, consistency, risk-adjusted return, downside and cost inside the group; Keep or Watch only
+    const facts = [row.dd != null ? `worst 3-year fall ${row.dd.toFixed(1)}%` : '', row.wd != null ? `worst day ${row.wd.toFixed(1)}%` : '', row.vol != null ? `volatility ${row.vol.toFixed(1)}%` : '', row.t != null ? `expense ratio ${row.t.toFixed(2)}%` : ''].filter(Boolean).join(', ');
+    const reasons = [`score band ${row.b} among ${row.p ?? '?'} in ${row.c}` + (facts ? ' (' + facts + ')' : '')].concat(row.fl ? [row.fl] : []);
+    const pending = ['Replace is not available for debt and international funds; credit quality and maturity are not scored'];
+    return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons, pending, asOf: null };
+  }
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
   if (row.b === 'Strong' || row.b === 'Average') return { label: 'Keep', reasons: [`score band ${row.b} in ${row.c}`], pending: [], asOf: null };
   const why = `score band Weak in ${row.c}`;

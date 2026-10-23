@@ -8,7 +8,9 @@ export const BT = { firstYear: 2015, lastYear: 2025, minGroup: 10, passShare: 0.
 const median = (a          )         => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 const plusYear = (d        )         => { const x = new Date(d + 'T00:00:00Z'); x.setUTCFullYear(x.getUTCFullYear() + 1); return x.toISOString().slice(0, 10); };
 
-export function runBacktest(schemes          , series                  , s = SETTINGS)         {
+                                                                                                                                      
+/** `scorer` defaults to the FUND-3 score; C-82 passes the risk-aware score for debt groups to run the same test on it (information only). */
+export function runBacktest(schemes          , series                  , s = SETTINGS, scorer         = (sc, cut, T) => scoreAll(sc, cut, T, s))         {
   const dates = new Map                  (); for (const [k, nav] of series) dates.set(k, Object.keys(nav).sort());
   const points          = [];
   for (let y = BT.firstYear; y <= BT.lastYear; y++) {
@@ -16,7 +18,7 @@ export function runBacktest(schemes          , series                  , s = SET
     // only NAVs up to T may be used to score; the series is cut so a look-ahead bug cannot hide
     const cut = new Map             ();
     for (const [k, nav] of series) { const d = dates.get(k) , o      = {}; for (const x of d) { if (x > T) break; o[x] = nav[x]; } if (d[0] <= T) cut.set(k, o); }
-    const sc = scoreAll(schemes, cut, T, s).filter((r) => r.band);
+    const sc = scorer(schemes, cut, T).filter((r) => r.band);
     const fwd = new Map                ();
     for (const r of sc) { const d = dates.get(r.code) , nav = series.get(r.code) , a = navOn(d, nav, T), b = navOn(d, nav, E); if (a && b && a > 0) fwd.set(r.code, b / a - 1); }
     const byCat = new Map                  (); for (const r of sc) { const f = fwd.get(r.code); if (f !== undefined) (byCat.get(r.cat) ?? byCat.set(r.cat, []).get(r.cat) ).push(f); }

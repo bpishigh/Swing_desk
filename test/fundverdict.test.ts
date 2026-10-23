@@ -52,3 +52,14 @@ test('hybrid funds get Keep or Watch but never Replace; funds without a score ro
   const nav: Record<string, number> = {}; const d = new Date('2025-01-01T00:00:00Z'); for (let i = 0; i < 260; i++) { d.setUTCDate(d.getUTCDate() + 1); nav[d.toISOString().slice(0, 10)] = 100 + i; }
   assert.equal(fundVerdict({ name: 'Lambda Defence Fund', category: 'Equity Schemes - Thematic Fund' }, rows, on, nav).label, 'Keep');
 });
+
+test('debt and international funds: Keep for Strong or Average, Watch for Weak, never Replace, with the risk facts in the reason', () => {
+  const r = [
+    { n: 'Mu Liquid Fund - Direct Plan - Growth', c: 'Liquid', b: 'Strong', g: 'debt', p: 12, dd: -0.1, wd: -0.02, vol: 0.2, t: 0.15 },
+    { n: 'Nu Short Term Fund - Direct Plan - Growth', c: 'Short duration', b: 'Weak', rp: 1, g: 'debt', p: 9, dd: -3.1, wd: -2.4, vol: 1.4, t: 0.5, fl: 'worst single day -2.4% (a credit or duration event shows up like this)' },
+    { n: 'Xi Europe Fund of Fund - Direct Plan - Growth', c: 'Europe', b: null, g: 'intl', note: 'Only 1 funds in this group have a 3-year record (need 3): not ranked.' },
+  ] as any;
+  const a = fundVerdict({ name: r[0].n }, r, on); assert.equal(a.label, 'Keep'); assert.match(a.reasons[0], /among 12 in Liquid.*worst 3-year fall -0\.1%/);
+  const b = fundVerdict({ name: r[1].n }, r, on); assert.equal(b.label, 'Watch'); assert.equal(b.reasons.length, 2);
+  assert.match(fundVerdict({ name: r[2].n }, r, on).reasons[0], /not ranked/);
+});
