@@ -76,9 +76,10 @@ export function planSales(lots: OpenLot[], need: Partial<Record<TargetClass, num
   return plan;
 }
 /** Amount to sell per class after new money: down to target, for classes still above target + band. */
-export function sellNeeds(targets: { cls: TargetClass; target: number }[], held: Record<TargetClass, number>, band: (c: TargetClass) => number, newMoney: Partial<Record<TargetClass, number>> = {}): Partial<Record<TargetClass, number>> {
+/** Amount each class is over its band. `toEdge` (C-86, the adopted default) sells only back to the band edge; false sells back to target. */
+export function sellNeeds(targets: { cls: TargetClass; target: number }[], held: Record<TargetClass, number>, band: (c: TargetClass) => number, newMoney: Partial<Record<TargetClass, number>> = {}, toEdge = false): Partial<Record<TargetClass, number>> {
   const total = TARGET_CLASSES.reduce((a, c) => a + (held[c] ?? 0) + (newMoney[c] ?? 0), 0), out: Partial<Record<TargetClass, number>> = {};
-  for (const t of targets) { const cur = (held[t.cls] ?? 0) + (newMoney[t.cls] ?? 0); if (total > 0 && cur / total > t.target + band(t.cls)) out[t.cls] = cur - t.target * total; }
+  for (const t of targets) { const cur = (held[t.cls] ?? 0) + (newMoney[t.cls] ?? 0); if (total > 0 && cur / total > t.target + band(t.cls)) out[t.cls] = cur - (t.target + (toEdge ? band(t.cls) : 0)) * total; }
   return out;
 }
 

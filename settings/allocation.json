@@ -191,13 +191,14 @@
   "rebalance": {
     "minTrade": 10000,
     "maxCostShare": 0.03,
-    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges plus any exit load exceed this share of the sale, unless it is an Exit-verdict name. A class acted on this calendar quarter gets no new sale suggestion unless its drift passes quarterCap.overrideBandMultiple x its band. fundVerdictSales stays false until the fund-score back-test has run (design section 9.1): when true, a fund flagged Replace candidate is treated as an already-decided sale.",
+    "note": "A sale is skipped below the minimum trade (rupees) or when tax plus charges plus any exit load exceed this share of the sale, unless it is an Exit-verdict name. A class acted on this calendar quarter gets no new sale suggestion unless its drift passes quarterCap.overrideBandMultiple x its band. fundVerdictSales stays false until the fund-score back-test has run (design section 9.1): when true, a fund flagged Replace candidate is treated as an already-decided sale. mode band-edge (Engine Rules C-86, adopted 23 Oct 2026): a class over its band is sold only back to the band edge; set to \"target\" to sell back to target.",
     "exitLoadCheckDays": 365,
     "quarterCap": {
       "suggestionsPerClass": 1,
       "overrideBandMultiple": 2
     },
-    "fundVerdictSales": false
+    "fundVerdictSales": false,
+    "mode": "band-edge"
   },
   "swingPools": {
     "maxPositions": 10,

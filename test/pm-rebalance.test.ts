@@ -31,6 +31,13 @@ test('sale needs only for classes above target plus band, after new money', () =
   assert.deepEqual(sellNeeds(T, held, () => 0.05, { debt: 600, gold: 200 }), {});
   assert.ok(!('direct_equity' in sellNeeds(T, held, () => 0.5)));
 });
+test('band-edge sizing sells only back to the edge of the band (C-86), never to target', () => {
+  const held = { ...zero(), direct_equity: 500, debt: 300, gold: 200 };   // total 1000
+  const tgt = sellNeeds(T, held, () => 0.05)['direct_equity']!, edge = sellNeeds(T, held, () => 0.05, {}, true)['direct_equity']!;
+  assert.ok(Math.abs(tgt - edge - 50) < 1e-9);   // 5 points of 1000 less than selling to target
+  assert.ok(edge > 0);
+  assert.deepEqual(sellNeeds(T, held, () => 0.5, {}, true), {});
+});
 test('sale order: exit names, then loss lots, then long-term equity, then short-term; Swing book and locked ELSS never sold', () => {
   const today = '2026-10-20';
   const lots = [lot({ name: 'ShortGain', date: '2026-08-01', unitCost: 150 }), lot({ name: 'LongGain' }), lot({ name: 'LossLot', unitCost: 300 }), lot({ name: 'ExitName', unitCost: 190 }), lot({ name: 'SwingLot', book: 'Swing', unitCost: 300 }), lot({ name: 'ELSS', assetClass: 'direct_equity', locked: true, unitCost: 300 })];
