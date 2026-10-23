@@ -22,9 +22,27 @@ Criteria fixed in Engine Rules C-81 before this run. 639 Direct-Growth equity sc
 
 **Replace verdicts: OFF** (on only if both tests pass). Nothing was tuned.
 
+## Near the bottom quarter (C-83)
+
+Test C: funds scoring from 25 up to 35 trail their category median: 5 of 10 counted years → FAIL (band unchanged).
+
+| Year | Funds 25 to 35 | Median excess |
+|---|---|---|
+| 2015-10-01 | 0 | – |
+| 2016-10-01 | 13 | 1.61 |
+| 2017-10-01 | 13 | 1.70 |
+| 2018-10-01 | 10 | -0.49 |
+| 2019-10-01 | 18 | -1.71 |
+| 2020-10-01 | 11 | 2.29 |
+| 2021-10-01 | 13 | -0.20 |
+| 2022-10-01 | 22 | -3.63 |
+| 2023-10-01 | 23 | 2.17 |
+| 2024-10-01 | 23 | 0.47 |
+| 2025-10-01 | 25 | -0.78 |
+
 ## Debt funds, risk-aware score (C-82, information only)
 
-331 debt schemes. Cost is left out of this run (no expense ratio at past dates). Test A (Strong beats the group median): 7 of 9 years → PASS. Test B (Weak trails): 8 of 10 years → PASS. Replace is not available for debt funds whatever the result.
+353 debt schemes. Cost is left out of this run (no expense ratio at past dates). Test A (Strong beats the group median): 7 of 9 years → PASS. Test B (Weak trails): 8 of 10 years → PASS. Replace is not available for debt funds whatever the result.
 
 | Year | Strong funds | Median excess, Strong | Weak funds | Median excess, Weak |
 |---|---|---|---|---|
