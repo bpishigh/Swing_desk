@@ -24,7 +24,7 @@ Criteria fixed in Engine Rules C-81 before this run. 639 Direct-Growth equity sc
 
 ## Debt funds, risk-aware score (C-82, information only)
 
-639 debt schemes. Cost is left out of this run (no expense ratio at past dates). Test A (Strong beats the group median): 7 of 9 years → PASS. Test B (Weak trails): 8 of 10 years → PASS. Replace is not available for debt funds whatever the result.
+331 debt schemes. Cost is left out of this run (no expense ratio at past dates). Test A (Strong beats the group median): 7 of 9 years → PASS. Test B (Weak trails): 8 of 10 years → PASS. Replace is not available for debt funds whatever the result.
 
 | Year | Strong funds | Median excess, Strong | Weak funds | Median excess, Weak |
 |---|---|---|---|---|
