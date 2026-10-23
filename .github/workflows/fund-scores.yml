@@ -18,7 +18,7 @@ jobs:
         with: { node-version: 22 }
       - name: AMFI scheme list (public NAV file)
         run: node scripts/fetch-amfi-master.mjs
-      - name: Expense ratios (AMFI, monthly: days 1 to 3, or when started by hand)
+      - name: "Expense ratios (AMFI; days 1 to 3 of the month, or when started by hand)"
         continue-on-error: true
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%d)" -le 3 ]; then node scripts/fetch-ter.mjs; else echo skipped; fi
