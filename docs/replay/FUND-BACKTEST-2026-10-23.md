@@ -1,6 +1,6 @@
 # Fund-score back-test (C-81), run 2026-10-23
 
-Criteria fixed in Engine Rules C-81 before this run. 639 Direct-Growth equity schemes alive today (survivorship bias: closed and merged funds are missing, which flatters every group). Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
+Criteria fixed in Engine Rules C-81 before this run. 694 Direct-Growth equity schemes alive today (survivorship bias: closed and merged funds are missing, which flatters every group). Score = unchanged FUND-3 settings using only NAVs up to 1 October of each year; forward return = the next 12 months; excess = fund minus its category median, in percentage points.
 
 | Year | Funds scored | Strong funds | Median excess, Strong | Test A | Weak funds | Median excess, Weak | Test B |
 |---|---|---|---|---|---|---|---|
@@ -21,6 +21,24 @@ Criteria fixed in Engine Rules C-81 before this run. 639 Direct-Growth equity sc
 **Test B (Weak trails the median):** 7 of 10 counted years pass → PASS.
 
 **Replace verdicts: OFF** (on only if both tests pass). Nothing was tuned.
+
+## Index and cash tests (C-85)
+
+Test D (below the segment index funds' 3-year median, then trail them next year): 2 of 8 counted years → FAIL or not testable (rule off). Test E (below the liquid funds' 3-year median, then trail cash): 2 of 3 counted years → FAIL or not testable (rule off).
+
+| Year | Funds below index | Median excess vs index | Funds below cash | Median excess vs cash |
+|---|---|---|---|---|
+| 2015-10-01 | 0 | – | 0 | – |
+| 2016-10-01 | 2 | -4.36 | 0 | – |
+| 2017-10-01 | 5 | -7.38 | 5 | -0.99 |
+| 2018-10-01 | 77 | -0.79 | 11 | -8.34 |
+| 2019-10-01 | 103 | 1.96 | 49 | -2.00 |
+| 2020-10-01 | 103 | 9.29 | 107 | 59.91 |
+| 2021-10-01 | 31 | 2.83 | 0 | – |
+| 2022-10-01 | 30 | 0.30 | 0 | – |
+| 2023-10-01 | 30 | 8.00 | 0 | – |
+| 2024-10-01 | 24 | -0.46 | 0 | – |
+| 2025-10-01 | 44 | 3.63 | 0 | – |
 
 ## Near the bottom quarter (C-83)
 
