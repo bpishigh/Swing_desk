@@ -31,7 +31,7 @@ jobs:
           git add data/funds data/rules/amfi-schemes.json
           git commit -m "fund scores: $(date -u +%Y-%m-%d)" || exit 0
           for i in 1 2 3 4 5; do
-            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0   # this job owns data/funds: on a clash (two runs close together) its own newer files win
             sleep $((i * 3))
           done
           exit 1
