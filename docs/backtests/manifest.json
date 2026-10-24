@@ -288,7 +288,12 @@
    "registeredAt": "2026-10-24T08:23:36.570Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T08:38:29.606Z",
+    "summary": "3-year windows: Test A 4/10 fail, Test B 7/10 pass; not adopted. 1-year on same run: A 5/10, B 6/10.",
+    "file": "data/funds/backtest-v2.json"
+   }
   }
  ]
 }
