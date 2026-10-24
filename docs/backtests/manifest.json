@@ -294,6 +294,33 @@
     "summary": "3-year windows: Test A 4/10 fail, Test B 7/10 pass; not adopted. 1-year on same run: A 5/10, B 6/10.",
     "file": "data/funds/backtest-v2.json"
    }
+  },
+  {
+   "id": "C-94-r1",
+   "changeLog": "C-94",
+   "title": "Risk-aware score for plain-equity funds vs FUND-3 in the C-81 back-test",
+   "hypothesis": "Ranking equity funds on the C-82 risk-aware score (3-year return, consistency, return per unit of volatility, worst fall) makes Strong funds beat their category median in at least 60% of years, where FUND-3 failed Test A, while Weak still trails it.",
+   "script": "scripts/fund-backtest.mjs",
+   "params": {
+    "variant": "scoreRisk with C-82 weights ret 30 cons 20 ra 20 dd 15; cost 15 absent (no past expense ratios), weights renormalise",
+    "groups": "plain-equity categories, minPeers 8",
+    "unchanged": "bands Strong>=75 Weak<25; bar 60% of counted years, >=5 years, >=10 funds a year; same fetched NAVs as C-81",
+    "multipleTesting": "third score variant on Tests A and B (FUND-3, C-92 3-year consistency, this)",
+    "adoption": "tested form only (no cost component)"
+   },
+   "passRule": "Adopt only if Test A and Test B both pass under the risk-aware score by the C-81 bar; otherwise FUND-3 stays. Result recorded either way.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T14:03:34.569Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }

@@ -19,7 +19,7 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/funds/backtest.json data/funds/backtest-v2.json docs/replay
+          git add data/funds/backtest.json data/funds/backtest-v2.json data/funds/backtest-v3.json docs/replay
           git commit -m "fund-score back-test (C-81): $(date -u +%Y-%m-%d)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
