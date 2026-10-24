@@ -418,7 +418,12 @@
    "registeredAt": "2026-10-24T17:18:53.451Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T17:31:05.779Z",
+    "summary": "FAIL: beat preset 6/10, median +1.5pp, beat equal weight 6/10, but worst year -6.8% vs preset worst -0.3% (limit 3 points). 22 of 30 picks debt groups. Allocation unchanged; no cross-group buy recommendation.",
+    "file": "data/funds/backtest-allfunds.json"
+   }
   }
  ]
 }
