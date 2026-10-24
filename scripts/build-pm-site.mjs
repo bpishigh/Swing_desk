@@ -57,6 +57,12 @@ for (const d of Object.keys(byDay).sort()) { const c = (months[d.slice(0, 7)] ??
 mkdirSync('site/pm-data/prices', { recursive: true });
 for (const [m, c] of Object.entries(months)) { for (const a of Object.values(c.px)) for (let i = 0; i < c.dates.length; i++) if (a[i] === undefined) a[i] = null; put(`site/pm-data/prices/${m}.json`, JSON.stringify(c) + '\n'); }
 put('site/pm-data/prices/index.json', JSON.stringify(Object.keys(months)) + '\n');
+// Holdings health (C-101), information only: latest reading per fund, keyed by ISIN so a holding finds it.
+if (existsSync('data/funds/holdhealth.json') && existsSync('data/funds/scores.json')) {
+  const hh = JSON.parse(readFileSync('data/funds/holdhealth.json', 'utf8')), isin = new Map(JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.map((f) => [f.code, f.isin])), out = {};
+  for (const [code, v] of Object.entries(hh.funds)) if (isin.get(code)) out[isin.get(code)] = v;
+  put('site/pm-data/holdhealth.json', JSON.stringify({ asOf: hh.asOf, priceDate: hh.priceDate, funds: out }) + '\n');
+}
 // Fund portfolios (Engine Rules C-78): public monthly disclosures, fetched by the fund-holdings workflow.
 if (existsSync('data/funds/holdings.json')) copyFileSync('data/funds/holdings.json', 'site/pm-data/holdings.json');
 // Daily traded volume and delivery % per stock, one file per month, for the trade review (what the market was doing when a buy was made). Public data.

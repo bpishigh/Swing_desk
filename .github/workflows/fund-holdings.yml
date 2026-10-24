@@ -17,6 +17,8 @@ jobs:
         with: { node-version: 22 }
       - run: node scripts/fetch-holdings.mjs
       - run: node --max-old-space-size=4000 scripts/holdings-health.mjs   # C-101: this month's snapshot of every fund's holdings-health reading
+      - run: node scripts/holdhealth-test.mjs   # C-101 forward read: does nothing until a snapshot is 3 months old
+        continue-on-error: true
       - run: node scripts/check-no-personal-data.mjs
         if: always()
       - name: Commit result
@@ -24,7 +26,7 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/funds/holdings.json data/funds/holdings-log.json data/funds/holdhealth.json data/funds/holdhealth-log.json
+          git add data/funds/holdings.json data/funds/holdings-log.json data/funds/holdhealth.json data/funds/holdhealth-log.json data/funds/holdhealth-test.json
           git commit -m "fund-holdings: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
