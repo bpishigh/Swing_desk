@@ -514,6 +514,58 @@
     "summary": "NOT TESTABLE: no year with 5 Strong funds, only 2025 with 5 Weak. Informational: Strong beat group median 3 of 9 years, Weak trailed only 2 of 10. International band labelled not shown to predict.",
     "file": "data/funds/backtest-intl.json"
    }
+  },
+  {
+   "id": "C-104-r1",
+   "changeLog": "C-104",
+   "title": "Holdings health proxy back-test: today's portfolios applied to nine past dates",
+   "hypothesis": "Funds whose held stocks were mostly above their 200-session average and rising at a past date (Strong band) beat their category median over the next 12 months; Weak band funds trailed it; rank correlation positive.",
+   "script": "scripts/fund-rankcorr-test.mjs (src/pm/holdhealth.ts)",
+   "params": {
+    "dates": "1 Oct 2023, then quarterly to 1 Oct 2025 (nine)",
+    "portfolio": "30 Sep 2026 (biased in favour of the score)",
+    "outcome": "next-12-month NAV return minus category median of covered funds",
+    "limits": "nine dates are about three independent years; funds alive today; closes unadjusted except unreadable-stock guard"
+   },
+   "passRule": "A, B and C each pass in at least 60% of counted dates (at least 6) and mean Spearman correlation above zero = not rejected; anything else = fail. A pass proves nothing.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T18:37:43.114Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-105-r1",
+   "changeLog": "C-105",
+   "title": "Thematic and international scores: yearly rank correlation with next-year excess return",
+   "hypothesis": "A higher score inside the group goes with a better next-12-month return than the group median, in most years.",
+   "script": "scripts/fund-rankcorr-test.mjs",
+   "params": {
+    "universe": "thematic by own theme (FUND-3, 5 peers), international (C-82 score, no cost, 3 peers), plain equity as yardstick",
+    "years": "1 Oct 2015 to 2025",
+    "statistic": "Spearman between score and forward excess over group median, funds pooled",
+    "limits": "survivorship, theme from the name, second look after C-102 and C-103 descriptives were seen"
+   },
+   "passRule": "Correlation above zero in at least 60% of counted years (a year counts with at least 10 scored funds), at least 5 counted years, mean correlation above zero.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T18:37:54.344Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
