@@ -1,0 +1,27 @@
+name: fund-themeintl-test
+# One-off (manual) run of the thematic (C-102) and international (C-103) fund-score tests; commits data/funds/backtest-thematic.json and backtest-intl.json.
+on:
+  workflow_dispatch:
+concurrency: fund-themeintl-test
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/fund-themeintl-test.mjs
+      - name: Commit
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/funds/backtest-thematic.json data/funds/backtest-intl.json
+          git commit -m "thematic and international fund tests (C-102, C-103): $(date -u +%Y-%m-%d)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

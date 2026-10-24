@@ -424,6 +424,86 @@
     "summary": "FAIL: beat preset 6/10, median +1.5pp, beat equal weight 6/10, but worst year -6.8% vs preset worst -0.3% (limit 3 points). 22 of 30 picks debt groups. Allocation unchanged; no cross-group buy recommendation.",
     "file": "data/funds/backtest-allfunds.json"
    }
+  },
+  {
+   "id": "C-101-r1",
+   "changeLog": "C-101",
+   "title": "Holdings health: forward record of the stock-trend reading against the fund's next-year return",
+   "hypothesis": "Funds whose held stocks are mostly above their 200-session average and rising (Strong band) beat their category median over the next 12 months; Weak band funds trail it.",
+   "script": "scripts/holdings-health.mjs (src/pm/holdhealth.ts)",
+   "params": {
+    "record": "monthly snapshot data/funds/holdhealth-log.json",
+    "bands": "percentile in category of aboveShare and ret6m, Strong from 75, Weak below 25",
+    "horizon": "12 months (3 and 6 months information only)",
+    "limits": "no back-test possible, only portfolios from 30 Sep 2026 on"
+   },
+   "passRule": "Test A and B: at least 60% of counted snapshot months pass, at least 6 counted months, a month counts with at least 10 funds in the band. Not used as a recommendation until both pass.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T17:49:17.055Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-102-r1",
+   "changeLog": "C-102",
+   "title": "Thematic funds scored against their own theme: Tests A and B",
+   "hypothesis": "Within a theme, FUND-3 Strong funds beat the theme median over the next year and Weak funds trail it.",
+   "script": "scripts/fund-themeintl-test.mjs",
+   "params": {
+    "universe": "Direct-Growth Sectoral/Thematic schemes alive today whose name gives a theme",
+    "min": "5 funds with a 3-year record per theme",
+    "years": "1 Oct 2015 to 2025",
+    "outcome": "forward 12-month return minus own-theme median, Strong and Weak pooled across themes",
+    "limits": "survivorship, theme from the name, mandate changes, no past expense ratio or exit load"
+   },
+   "passRule": "Test A and Test B each: at least 60% of counted years pass, at least 5 counted years, a year counts with at least 10 funds in the pooled band. Use per C-102.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T17:49:28.385Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-103-r1",
+   "changeLog": "C-103",
+   "title": "International funds with the C-82 score: Tests A and B",
+   "hypothesis": "Within a holding group, C-82 Strong international funds beat the group median over the next year and Weak funds trail it.",
+   "script": "scripts/fund-themeintl-test.mjs",
+   "params": {
+    "universe": "Direct-Growth international funds of funds alive today",
+    "min": "3 funds with a 3-year record per group",
+    "years": "1 Oct 2015 to 2025",
+    "outcome": "forward 12-month return minus own-group median, Strong and Weak pooled across groups",
+    "limits": "survivorship, theme from the name, mandate changes, no past expense ratio or exit load"
+   },
+   "passRule": "Test A and Test B each: at least 60% of counted years pass, at least 5 counted years, a year counts with at least 5 funds in the pooled band. Use per C-103.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T17:49:39.563Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
