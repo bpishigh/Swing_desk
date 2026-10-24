@@ -385,7 +385,12 @@
    "registeredAt": "2026-10-24T16:53:59.285Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T17:03:24.171Z",
+    "summary": "Passed: tilt beat the market mix in 7 of 10 years, median excess +1.7pp, worst year -4.8 vs -3.7. Mostly extra mid/small risk; 5 of 10 vs equal weight. Not applied.",
+    "file": "data/funds/backtest-category.json"
+   }
   }
  ]
 }
