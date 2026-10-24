@@ -47,6 +47,14 @@ test('sale order: exit names, then loss lots, then long-term equity, then short-
   assert.deepEqual(p2.lines.map((l) => l.name), ['ExitName', 'LossLot', 'LongGain', 'ShortGain'].slice(0, p2.lines.length));
   assert.ok(!p2.lines.some((l) => l.name === 'SwingLot' || l.name === 'ELSS'));
 });
+test('C-90: Weak-fund lots sell after Exit names and before loss lots, and still face the cost gate', () => {
+  const today = '2026-10-20', lots = [lot({ name: 'LossLot', unitCost: 300 }), lot({ name: 'WeakFund', unitCost: 190 }), lot({ name: 'ExitName', unitCost: 190 })];
+  const p = planSales(lots, { direct_equity: 60000 }, { today, rules, exit: new Set(['ExitName']), weak: new Set(['WeakFund']), settings });
+  assert.deepEqual(p.lines.map((l) => l.name), ['ExitName', 'WeakFund', 'LossLot']);
+  assert.equal(p.lines[1].group, 'Weak fund');
+  const q = planSales([lot({ name: 'WeakFund', date: '2026-09-01', qty: 1000, unitCost: 10, price: 200 })], { direct_equity: 200000 }, { today, rules, weak: new Set(['WeakFund']), settings });
+  assert.equal(q.lines.length, 0); assert.equal(q.skipped.length, 1);
+});
 test('tax: long-term equity gain uses the exemption then 12.5%; short-term 20%; slab types carry no tax figure', () => {
   const today = '2026-10-20';
   const a = planSales([lot({ name: 'LT', qty: 1000, unitCost: 100, price: 400 })], { direct_equity: 400000 }, { today, rules, exemptionLeft: 125000, settings: { minTrade: 1, maxCostShare: 1 } });

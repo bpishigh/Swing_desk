@@ -96,6 +96,7 @@ import { sizeOrders, openRiskOf } from './pm/swingorders.js';
 import { journalReport } from './pm/swingjournal.js';
 import { lookThrough, schemeBase } from './pm/lookthrough.js';
 import { isLong, applyQuarterCap } from './pm/rebalance.js';
+import { switchCost } from './pm/switchcost.js';
 import { orderCharges } from './pm/charges.js';
 const $ = (id) => document.getElementById(id);
 const J = (f) => fetch('pm-data/' + f + '.json').then((r) => { if (!r.ok) throw new Error(f + ' ' + r.status); return r.json(); });
@@ -496,11 +497,34 @@ function holdingsBody(V) {
   const { tot, rows, sum } = holdingsRows(V);
   return rows.map((h) => { const open = ctxOf(h) && S.open.has(h.symbol); return `<tr${ctxOf(h) ? ` class="hr" data-sym="${esc(h.symbol)}"` : ''}><td>${ctxOf(h) ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${vWhy(verdictOf(h), h) ? `<small class="why">${esc(vWhy(verdictOf(h), h))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? ctxPanel(h, tot) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
 }
+function switchCard(V) {   // C-91: information only
+  const funds = mergedHoldings(V).filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.value !== null), sel = funds.find((h) => h.name === S.sw);
+  const opts = `<option value="">Choose a fund or ETF</option>` + funds.map((h) => `<option value="${esc(h.name)}"${h.name === S.sw ? ' selected' : ''}>${esc(h.name)}</option>`).join('');
+  let body = '<div class="sub">Pick a holding to see what selling all of it today would cost, and how much extra return the new fund must earn to make up for it.</div>';
+  if (sel) {
+    const today = new Date().toISOString().slice(0, 10), A = acctCfg(V.ms[0]?.key ?? ''), loads = new Map((S.exitLoads?.records ?? []).map((r) => [normName(r.name), { days: r.days, pct: r.pct }]));
+    const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).filter((l) => l.name === sel.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(normName(l.name)) ? { exitLoad: loads.get(normName(l.name)) } : {}) })));
+    const fyNow = (() => { const y = +today.slice(0, 4), m = +today.slice(5, 7); return m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`; })();
+    const left = taxGroups().map((g) => { const y = g.years.find((x) => x.fy === fyNow); return y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
+    const c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined });
+    body = `<div class="tw"><table><tbody>
+      <tr><td>Value today</td><td>₹${inr(c.value)}</td></tr>
+      <tr><td>Gain (long-term ₹${inr(c.longGain)}, short-term ₹${inr(c.shortGain)})</td><td class="${cls(c.gain)}">₹${inr(c.gain)}</td></tr>
+      <tr><td>Estimated tax${exemptionLeft !== undefined ? ` (after ₹${inr(exemptionLeft)} exemption left this year)` : ''}</td><td>${c.tax === null ? 'not priced' : '₹' + inr(c.tax)}</td></tr>
+      <tr><td>Exit load</td><td>₹${inr(c.load)}</td></tr>
+      <tr><td><b>You would receive</b></td><td><b>₹${inr(c.net)}</b></td></tr>
+      <tr><td>Cost of switching</td><td>${c.value ? (100 * c.cost / c.value).toFixed(2) : '0.00'}% of the value</td></tr></tbody></table></div>
+      ${c.breakEven.length ? `<div style="margin-top:8px">The new fund must earn about ${c.breakEven.map((b) => `<b>${(100 * b.extra).toFixed(2)}%</b> a year more over ${b.years} year${b.years > 1 ? 's' : ''}`).join(', ')} than this one to break even, if this one would earn ${Math.round(100 * c.baseReturn)}% a year (an assumption).</div>` : ''}
+      ${c.notes.map((n) => `<div class="note" style="margin-top:8px">${esc(n)}</div>`).join('')}
+      <div class="sub" style="margin-top:8px">Every open lot is priced at the latest close, first-in-first-out per account. Estimate before surcharge and cess; not tax advice, and nothing is sold from here.</div>`;
+  }
+  return `<div class="card"><h2>Switch cost</h2><select id="swsel" style="max-width:100%">${opts}</select><div style="margin-top:10px">${body}</div></div>`;
+}
 function holdings(V) {
   const kinds = ['All', 'Stock', 'ETF', 'Fund'];
   const th = (k, t) => `<th data-sort="${k}">${t}${S.sort.k === k ? (S.sort.d > 0 ? ' ▲' : ' ▼') : ''}</th>`;
   return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="seg">${['All', 'Exit', 'Replace', 'Watch', 'Keep', 'No verdict'].map((k) => `<button data-vf="${k}" aria-pressed="${S.vf === k}">${k === 'All' ? 'Any verdict' : k}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
-  <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('cap', 'Cap')}${th('verdict', 'Verdict')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>`;
+  <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('cap', 'Cap')}${th('verdict', 'Verdict')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>${switchCard(V)}`;
 }
 
 // ---------- tax and income
@@ -773,13 +797,15 @@ function actionsCard(V, res, cur, capital, hs, A) {
   const exit = new Set(hs.filter((h) => verdictOf(h)?.label === 'Exit' && (h.kind === 'Stock' || C.rebalance.fundVerdictSales)).map((h) => h.name));
   // Fund Replace candidates are treated as decided sales only when the setting is on; it stays off until the fund-score back-test has run (design 9.1).
   if (C.rebalance.fundVerdictSales) { const rp = new Set((S.fundScores?.funds ?? []).filter((f) => f.rp).map((f) => normName(f.n))); for (const h of hs) if (h.kind === 'Fund' && rp.has(normName(h.name))) exit.add(h.name); }
+  const weakN = new Set((S.fundScores?.funds ?? []).filter((f) => f.b === 'Weak').map((f) => normName(f.n)));   // C-90
+  const weak = new Set(hs.filter((h) => h.kind === 'Fund' && weakN.has(normName(h.name))).map((h) => h.name));
   const loads = new Map((S.exitLoads?.records ?? []).map((r) => [normName(r.name), { days: r.days, pct: r.pct }]));
   const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(normName(l.name)) ? { exitLoad: loads.get(normName(l.name)) } : {}) })));
   const chargesOf = (value, type) => { try { return orderCharges({ instrument: '', isin: '', side: 'sell', qty: 1, price: value, value, date: today, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' }, type, 'groww', S.data.charges).total; } catch { return 0; } };
   // LTCG exemption already used this financial year: the smallest amount left among the owners (conservative, since one pool is used across accounts)
   const fyNow = (() => { const y = +today.slice(0, 4), m = +today.slice(5, 7); return m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`; })();
   const exLeft = (() => { const left = taxGroups().map((g) => { const y = g.years.find((x) => x.fy === fyNow); return y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : null; }).filter((x) => x !== null); return left.length ? Math.min(...left) : undefined; })();
-  const plan = Object.keys(need).length ? planSales(lots, need, { today, rules: S.data.taxRules, exemptionLeft: exLeft, exit, settings: C.rebalance, chargesOf, slabRate: A.slab > 0 ? A.slab / 100 : undefined }) : { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
+  const plan = Object.keys(need).length ? planSales(lots, need, { today, rules: S.data.taxRules, exemptionLeft: exLeft, exit, weak, settings: C.rebalance, chargesOf, slabRate: A.slab > 0 ? A.slab / 100 : undefined }) : { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
   const sellingNames = plan.lines.map((l) => l.name), frows = S.fundScores?.funds ?? [];
   const NOPICK = { direct_equity: 'comes from tonight\'s Swing orders', gold: 'gold ETFs are not scored yet; choose a low-cost gold ETF', silver: 'silver ETFs are not scored yet; choose a low-cost silver ETF', sector_thematic: 'not a recommended use of new money', hybrid: 'not scored for new money' };
   const picksFor = (cls, amount = 0) => {
@@ -863,6 +889,7 @@ function render() {
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
   if (S.tab === 'alloc' || S.tab === 'data') wireAlloc();
   if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
+  if (S.tab === 'holdings' && $('swsel')) $('swsel').onchange = (e) => { S.sw = e.target.value; render(); };
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();

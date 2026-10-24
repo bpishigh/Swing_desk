@@ -26,7 +26,7 @@ export interface ExitLoad { days: number; pct: number }
 export interface SaleLine { account?: string; name: string; cls: TargetClass; qty: number; value: number; gain: number; long: boolean; tax: number | null; charges: number; group: string; reason: string; load: number; loadNote?: string }
 export interface SkippedSale { name: string; cls: TargetClass; value: number; why: string }
 export interface SalePlan { lines: SaleLine[]; skipped: SkippedSale[]; unmet: { cls: TargetClass; short: number; why: string }[]; taxTotal: number; slabGains: number }
-type Rules = { types: Record<string, { long_after_days: number | null; deemed_short_if_bought_on_or_after?: string; exemption: boolean; rules: { transfer_from: string; stcg: number | string; ltcg: number | string; exemption?: number }[] }> };
+export type Rules = { types: Record<string, { long_after_days: number | null; deemed_short_if_bought_on_or_after?: string; exemption: boolean; rules: { transfer_from: string; stcg: number | string; ltcg: number | string; exemption?: number }[] }> };
 
 const days = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 export function isLong(rules: Rules, l: OpenLot, today: string): boolean | null {
@@ -34,23 +34,24 @@ export function isLong(rules: Rules, l: OpenLot, today: string): boolean | null 
   if (r.deemed_short_if_bought_on_or_after && l.date >= r.deemed_short_if_bought_on_or_after) return false;
   return days(l.date, today) > r.long_after_days;
 }
-/** Sale order from the design: Exit-verdict names, loss lots, long-term equity (exemption applies), other long-term, short-term. */
-function groupOf(rules: Rules, l: OpenLot, today: string, exit: Set<string>): { g: number; label: string; long: boolean } {
+/** Sale order from the design: Exit-verdict names, Weak-fund lots (C-90), loss lots, long-term equity (exemption applies), other long-term, short-term. */
+function groupOf(rules: Rules, l: OpenLot, today: string, exit: Set<string>, weak: Set<string> = new Set()): { g: number; label: string; long: boolean } {
   const long = isLong(rules, l, today) ?? false, gain = (l.price - l.unitCost) * l.qty, ex = rules.types[l.type]?.exemption;
   if (exit.has(l.name)) return { g: 0, label: 'Exit verdict: already a sale', long };
-  if (gain < 0) return { g: 1, label: 'loss lot', long };
+  if (weak.has(l.name)) return { g: 1, label: 'Weak fund', long };   // C-90
+  if (gain < 0) return { g: 1.5, label: 'loss lot', long };
   if (long && ex) return { g: 2, label: 'long-term, equity exemption', long };
   if (long) return { g: 3, label: 'long-term', long };
   return { g: 4, label: 'short-term', long };
 }
 /** True when a recorded exit load still applies to this lot today. */
 export const inLoad = (l: OpenLot, today: string): boolean => !!l.exitLoad && days(l.date, today) < l.exitLoad.days;
-export function planSales(lots: OpenLot[], need: Partial<Record<TargetClass, number>>, ctx: { today: string; rules: Rules; exit?: Set<string>; exemptionLeft?: number; settings: RebalSettings; chargesOf?: (value: number, type: string) => number; slabRate?: number }): SalePlan {
+export function planSales(lots: OpenLot[], need: Partial<Record<TargetClass, number>>, ctx: { today: string; rules: Rules; exit?: Set<string>; weak?: Set<string>; exemptionLeft?: number; settings: RebalSettings; chargesOf?: (value: number, type: string) => number; slabRate?: number }): SalePlan {
   const exit = ctx.exit ?? new Set<string>(), plan: SalePlan = { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
   let exemption = ctx.exemptionLeft ?? 125000;
   for (const cls of TARGET_CLASSES) {
     let left = need[cls] ?? 0; if (!(left > 0)) continue;
-    const cands = lots.filter((l) => l.assetClass === cls && l.book !== 'Swing' && !l.locked && l.qty > 0 && l.price > 0).map((l) => ({ l, ...groupOf(ctx.rules, l, ctx.today, exit) }))
+    const cands = lots.filter((l) => l.assetClass === cls && l.book !== 'Swing' && !l.locked && l.qty > 0 && l.price > 0).map((l) => ({ l, ...groupOf(ctx.rules, l, ctx.today, exit, ctx.weak) }))
       .sort((a, b) => a.g - b.g || Number(inLoad(a.l, ctx.today)) - Number(inLoad(b.l, ctx.today)) || (a.l.price - a.l.unitCost) / a.l.price - (b.l.price - b.l.unitCost) / b.l.price);
     for (const c of cands) {
       if (left <= 0.5) break;
