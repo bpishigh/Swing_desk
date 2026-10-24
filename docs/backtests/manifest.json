@@ -352,7 +352,12 @@
    "registeredAt": "2026-10-24T15:32:26.637Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T15:43:27.496Z",
+    "summary": "Not testable: no year had 5 funds in the Leads or Lags band (counted 0 of 0). No conclusion; nothing changes.",
+    "file": "data/funds/backtest-index.json"
+   }
   }
  ]
 }
