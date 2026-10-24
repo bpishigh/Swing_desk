@@ -358,6 +358,34 @@
     "summary": "Not testable: no year had 5 funds in the Leads or Lags band (counted 0 of 0). No conclusion; nothing changes.",
     "file": "data/funds/backtest-index.json"
    }
+  },
+  {
+   "id": "C-99-r1",
+   "changeLog": "C-99",
+   "title": "Cross-category tilt (best risk-adjusted categories) vs the fixed market mix",
+   "hypothesis": "Holding the two plain-equity categories with the best median 3-year return per unit of volatility beats the fixed market mix (Large 71, Mid 18, Small 11) over the next year, in most years.",
+   "script": "scripts/fund-backtest.mjs (src/pm/catrotation.ts)",
+   "params": {
+    "categories": "Large Cap, Large & Mid Cap, Mid Cap, Small Cap, Flexi Cap, Multi Cap, Focused, Value",
+    "rank": "category median 3-year return divided by median 3-year volatility; at least 8 funds with a record",
+    "hold": "top 2, equal weight, category median next-year return",
+    "baseline": "market mix at category medians",
+    "years": "1 Oct 2015 to 2025",
+    "limits": "survivorship, category medians not funds, one yearly step, no tax or exit load"
+   },
+   "passRule": "Tilt beats the mix in at least 60% of counted years, at least 5 counted years, median yearly excess above zero, worst year no more than 3 points worse than the mix's worst year. Otherwise the cross-category table stays information only. Result recorded either way.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T16:53:59.285Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
