@@ -41,13 +41,17 @@ export function fundVerdict(held: { name: string; isin?: string; category?: stri
   const row = (held.isin ? scores.find((r) => r.i === held.isin) : undefined) ?? scores.find((r) => normFundName(r.n) === key) ?? scores.find((r) => looseKey(r.n) === looseKey(held.name));
   if (row && row.g === 'us') return no('US-listed ETFs are not judged here');
   // Sector and thematic funds take the stock lens on their NAV; this does not need a score row (AMFI files newer themes under "Thematic").
-  if (row?.c === 'Sectoral/Thematic' || (!row && /thematic|sectoral/i.test(cat))) {
+  if (row?.c === 'Sectoral/Thematic' || row?.c?.startsWith('Thematic · ') || (!row && /thematic|sectoral/i.test(cat))) {
     const d = nav ? Object.keys(nav).sort() : [];
     if (d.length < SMA_LEN) return no(nav ? 'sector fund: fewer than 200 NAV sessions, so the 200-day test cannot run' : 'sector fund: loading its NAV history for the 200-day test');
     const closes = d.map((x) => nav![x]), last = closes[closes.length - 1], avg = sma(closes), sl = swingLow(d, closes);
     const below200 = avg !== null && last < avg, belowSwing = sl !== null && last < sl.price;
     const reasons = [below200 ? `NAV ${last.toFixed(2)} is below its 200-day average ${avg!.toFixed(2)}` : '', belowSwing ? `NAV is below the last swing low ${sl!.price.toFixed(2)}` : ''].filter(Boolean);
-    return reasons.length ? { label: 'Exit', reasons, pending: [], asOf: d[d.length - 1] } : { label: 'Keep', reasons: ['sector fund: NAV above its 200-day average and its swing low'], pending: [], asOf: d[d.length - 1] };
+    // C-105: inside its own theme the score is weakly related to the next year (rank correlation +0.06, passed); it can lower Keep to Watch for the bottom quarter, never to Replace
+    const own = row?.c?.startsWith('Thematic · ') && row.b ? `score band ${row.b} among ${row.p ?? '?'} in ${row.c.slice(11)} funds` : '', note = own ? ['inside its theme the ranking is only weakly related to the next year (C-105)'] : [];
+    if (reasons.length) return { label: 'Exit', reasons: own ? [...reasons, own] : reasons, pending: note, asOf: d[d.length - 1] };
+    if (own && row!.b === 'Weak') return { label: 'Watch', reasons: ['sector fund: NAV above its 200-day average and its swing low', own], pending: note, asOf: d[d.length - 1] };
+    return { label: 'Keep', reasons: ['sector fund: NAV above its 200-day average and its swing low'].concat(own ? [own] : []), pending: note, asOf: d[d.length - 1] };
   }
   if (!row) {
     if (/liquid|debt|income|gilt|money market|overnight|duration|bond|credit|banking and psu|floater/i.test(cat)) return no('debt and liquid funds are not scored yet (no credit or duration data)');

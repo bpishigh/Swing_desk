@@ -96,3 +96,11 @@ test('C-85: with the index rule on, a Keep fund trailing the index funds reads W
   const e = fundVerdict({ name: r[0].n }, r, { ...on, cashRuleOn: true }); assert.equal(e.label, 'Watch'); assert.match(e.reasons[0], /trailing cash/);
   assert.equal(fundVerdict({ name: r[1].n }, r, { ...on, indexRuleOn: true, cashRuleOn: true }).label, 'Keep');
 });
+test('thematic fund scored in its own theme (C-105): Weak lowers Keep to Watch, an Exit stays, never Replace', () => {
+  const sc = [{ n: 'Zed Bank Fund - Direct Plan - Growth', i: 'INF1', c: 'Thematic · banking and financial', b: 'Weak', g: 'mf', p: 9 }, { n: 'Yo Bank Fund - Direct Plan - Growth', i: 'INF2', c: 'Thematic · banking and financial', b: 'Strong', g: 'mf', p: 9 }] as any;
+  const up: Record<string, number> = {}; for (let k = 0; k < 260; k++) up['2025-01-' + String(k).padStart(4, '0')] = 100 + k;
+  const g = { ran: true, replaceOn: true };
+  assert.equal(fundVerdict({ name: sc[0].n, isin: 'INF1' }, sc, g, up).label, 'Watch');
+  const k = fundVerdict({ name: sc[1].n, isin: 'INF2' }, sc, g, up); assert.equal(k.label, 'Keep'); assert.ok(k.reasons.some((r) => /Strong among 9/.test(r)));
+});
+

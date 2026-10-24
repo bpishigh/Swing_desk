@@ -2,6 +2,7 @@
 // (3) a curated list of US-listed ETFs an Indian resident can buy through LRS, against their category. NAV/price history from mfapi.in and Nasdaq.
 // Writes data/funds/scores.json (public data) and the monthly band history for the Replace hysteresis. Usage: node scripts/fund-scores.mjs [--limit N]
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { themeOf } from '../src/pm/fundtheme.ts';
 import { normCategory, scorable, scoreAll, scoreIndexGroups, indexKey, replaceCandidate, SETTINGS, INDEX_SETTINGS } from '../src/pm/fundscore.ts';
 import { scoreRisk, debtGroup, intlGroup, RISK } from '../src/pm/fundrisk.ts';
 import { nasdaqBars } from './nasdaq.mjs';
@@ -65,7 +66,9 @@ console.log('india fetched', series.size, 'of', need, 'failed', failed, '| us fe
 if (series.size < need * 0.8) { console.error('too many India fetch failures; keeping the previous scores'); process.exit(1); }
 const prev = J('data/funds/scores.json', null);
 const hist = J('data/funds/history.json', {}), month = asOf.slice(0, 7);
-const mfScored = scoreAll(mf, series, asOf);
+// C-105: sectoral and thematic funds are ranked only against funds of their own theme (5 funds needed); a fund whose name gives no theme is not scored. Everything else is ranked in its category as before.
+const isTh = (x) => normCategory(x.category) === 'Sectoral/Thematic';
+const mfScored = [...scoreAll(mf.filter((x) => !isTh(x)), series, asOf), ...scoreAll(mf.filter(isTh), series, asOf, { ...SETTINGS, minPeers: 5 }, (x) => { const t = themeOf(x.name); return t ? 'Thematic · ' + t : null; })];
 hist[month] = Object.fromEntries(mfScored.filter((x) => x.band).map((x) => [x.code, x.band]));
 for (const x of mfScored) if (x.band === 'Weak' && replaceCandidate(hist, x.code)) x.replace = true;
 const idxScored = scoreIndexGroups(idx, series, asOf);

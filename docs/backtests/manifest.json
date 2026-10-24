@@ -539,7 +539,12 @@
    "registeredAt": "2026-10-24T18:37:43.114Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T18:53:54.833Z",
+    "summary": "FAIL with bias in the score's favour: A 5/9, B 5/9, C 5/9 (needs 6), mean rank correlation -0.002. Stays an information line.",
+    "file": "data/funds/backtest-holdhealth.json"
+   }
   },
   {
    "id": "C-105-r1",
@@ -565,7 +570,12 @@
    "registeredAt": "2026-10-24T18:37:54.344Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T18:53:54.989Z",
+    "summary": "Thematic PASS (7/10 years positive, mean +0.06; plain equity yardstick also passes 7/10, +0.05). International FAIL (3/9 years, mean -0.14). Thematic gets Watch for Weak in own theme; international note stays.",
+    "file": "data/funds/backtest-rankcorr.json"
+   }
   }
  ]
 }
