@@ -1,37 +1,37 @@
 {
- "asOf": "2026-10-22",
+ "asOf": "2026-10-23",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "EQNR": {
    "date": "2026-11-04",
-   "sessions": 9,
+   "sessions": 8,
    "inWindow": true,
    "estimated": true
   },
-  "COP": {
-   "date": "2026-11-05",
-   "sessions": 10,
+  "SU": {
+   "date": "2026-11-03",
+   "sessions": 7,
    "inWindow": true
   },
-  "BP": {
+  "XOM": {
    "date": "2026-10-30",
-   "sessions": 6,
-   "inWindow": true
-  },
-  "FTNT": {
-   "date": "2026-10-28",
-   "sessions": 4,
+   "sessions": 5,
    "inWindow": true
   },
   "P": {
    "date": "2026-12-01",
-   "sessions": 27,
+   "sessions": 26,
    "inWindow": false,
    "estimated": true
   },
+  "FTNT": {
+   "date": "2026-10-28",
+   "sessions": 3,
+   "inWindow": true
+  },
   "NTAP": {
    "date": "2026-11-24",
-   "sessions": 23,
+   "sessions": 22,
    "inWindow": false,
    "estimated": true
   }
