@@ -1,13 +1,554 @@
 {
- "events": {},
+ "events": {
+  "ADANIENSOL|2026-10-22": {
+   "s": "ADANIENSOL",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1220,
+   "run": 0.0192,
+   "rea": -0.0463,
+   "top": false,
+   "signal": false
+  },
+  "ADANIGREEN|2026-10-21": {
+   "s": "ADANIGREEN",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 1250,
+   "run": 0.0191,
+   "rea": -0.0083,
+   "top": false,
+   "signal": false
+  },
+  "ATGL|2026-10-22": {
+   "s": "ATGL",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 529.5,
+   "run": -0.0108,
+   "rea": -0.0212,
+   "top": false,
+   "signal": false
+  },
+  "ABSLAMC|2026-10-21": {
+   "s": "ABSLAMC",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 904.15,
+   "run": -0.0575,
+   "rea": -0.0303,
+   "top": false,
+   "signal": false
+  },
+  "AXISBANK|2026-10-17": {
+   "s": "AXISBANK",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 1210,
+   "run": 0.0546,
+   "rea": -0.0322,
+   "top": true,
+   "signal": false
+  },
+  "BAJFINANCE|2026-10-19": {
+   "s": "BAJFINANCE",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 926,
+   "run": 0.0304,
+   "rea": -0.0274,
+   "top": true,
+   "signal": false
+  },
+  "BAJAJHFL|2026-10-16": {
+   "s": "BAJAJHFL",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 82.71,
+   "run": 0.03,
+   "rea": -0.0016,
+   "top": true,
+   "signal": false
+  },
+  "CIEINDIA|2026-10-22": {
+   "s": "CIEINDIA",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 351.55,
+   "run": 0.0136,
+   "rea": -0.0164,
+   "top": false,
+   "signal": false
+  },
+  "CENTRALBK|2026-10-17": {
+   "s": "CENTRALBK",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 30.43,
+   "run": 0.0241,
+   "rea": 0.0152,
+   "top": true,
+   "signal": false
+  },
+  "CHENNPETRO|2026-10-22": {
+   "s": "CHENNPETRO",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1475.6,
+   "run": 0.0618,
+   "rea": 0.0581,
+   "top": true,
+   "signal": true
+  },
+  "COLPAL|2026-10-22": {
+   "s": "COLPAL",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1605,
+   "run": -0.0108,
+   "rea": -0.0346,
+   "top": false,
+   "signal": false
+  },
+  "CREDITACC|2026-10-22": {
+   "s": "CREDITACC",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1027.4,
+   "run": -0.0589,
+   "rea": -0.0684,
+   "top": false,
+   "signal": false
+  },
+  "CROMPTON|2026-10-16": {
+   "s": "CROMPTON",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 208.45,
+   "run": 0.0413,
+   "rea": -0.0218,
+   "top": true,
+   "signal": false
+  },
+  "CYIENT|2026-10-22": {
+   "s": "CYIENT",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1233,
+   "run": 0.0835,
+   "rea": 0.0864,
+   "top": true,
+   "signal": true
+  },
+  "DLF|2026-10-16": {
+   "s": "DLF",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 672.85,
+   "run": 0.0031,
+   "rea": 0.0147,
+   "top": false,
+   "signal": false
+  },
+  "ETERNAL|2026-10-21": {
+   "s": "ETERNAL",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 304.45,
+   "run": 0.0086,
+   "rea": -0.0226,
+   "top": false,
+   "signal": false
+  },
+  "FEDERALBNK|2026-10-16": {
+   "s": "FEDERALBNK",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 348.85,
+   "run": 0.0637,
+   "rea": 0.0525,
+   "top": true,
+   "signal": true
+  },
+  "GALLANTT|2026-10-19": {
+   "s": "GALLANTT",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 583.1,
+   "run": 0.1442,
+   "rea": -0.0134,
+   "top": true,
+   "signal": false
+  },
+  "HDFCBANK|2026-10-17": {
+   "s": "HDFCBANK",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 706.95,
+   "run": 0.0053,
+   "rea": -0.0003,
+   "top": false,
+   "signal": false
+  },
+  "HFCL|2026-10-19": {
+   "s": "HFCL",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 264.78,
+   "run": 0.0688,
+   "rea": 0.064,
+   "top": true,
+   "signal": true
+  },
+  "HAVELLS|2026-10-22": {
+   "s": "HAVELLS",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 1031,
+   "run": 0.0524,
+   "rea": -0.0056,
+   "top": true,
+   "signal": false
+  },
+  "HSCL|2026-10-16": {
+   "s": "HSCL",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 605.85,
+   "run": -0.0138,
+   "rea": -0.0748,
+   "top": false,
+   "signal": false
+  },
+  "HINDPETRO|2026-10-22": {
+   "s": "HINDPETRO",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 338.3,
+   "run": 0.028,
+   "rea": 0.0064,
+   "top": true,
+   "signal": false
+  },
+  "HINDZINC|2026-10-19": {
+   "s": "HINDZINC",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 525,
+   "run": -0.0324,
+   "rea": 0.002,
+   "top": false,
+   "signal": false
+  },
+  "ICICIBANK|2026-10-17": {
+   "s": "ICICIBANK",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 1385,
+   "run": 0.0606,
+   "rea": 0.0212,
+   "top": true,
+   "signal": true
+  },
+  "IDBI|2026-10-17": {
+   "s": "IDBI",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 80.44,
+   "run": -0.0336,
+   "rea": -0.014,
+   "top": false,
+   "signal": false
+  },
+  "INDIACEM|2026-10-17": {
+   "s": "INDIACEM",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 329.8,
+   "run": 0.0189,
+   "rea": 0.1207,
+   "top": false,
+   "signal": false
+  },
+  "INDHOTEL|2026-10-21": {
+   "s": "INDHOTEL",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 782.3,
+   "run": 0.0587,
+   "rea": 0.0559,
+   "top": true,
+   "signal": true
+  },
+  "IREDA|2026-10-19": {
+   "s": "IREDA",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 103.6,
+   "run": -0.0251,
+   "rea": -0.018,
+   "top": false,
+   "signal": false
+  },
+  "IGIL|2026-10-21": {
+   "s": "IGIL",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 353.2,
+   "run": 0.0284,
+   "rea": 0.1236,
+   "top": true,
+   "signal": true
+  },
+  "JPPOWER|2026-10-19": {
+   "s": "JPPOWER",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 13.94,
+   "run": 0.0062,
+   "rea": -0.039,
+   "top": false,
+   "signal": false
+  },
+  "J&KBANK|2026-10-22": {
+   "s": "J&KBANK",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 113.09,
+   "run": 0.0099,
+   "rea": -0.1331,
+   "top": false,
+   "signal": false
+  },
+  "JINDALSAW|2026-10-16": {
+   "s": "JINDALSAW",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 295.6,
+   "run": 0.0857,
+   "rea": -0.0009,
+   "top": true,
+   "signal": false
+  },
+  "JSL|2026-10-22": {
+   "s": "JSL",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 687.4,
+   "run": 0.0157,
+   "rea": -0.0309,
+   "top": false,
+   "signal": false
+  },
+  "KEI|2026-10-21": {
+   "s": "KEI",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 3873,
+   "run": -0.0319,
+   "rea": -0.1015,
+   "top": false,
+   "signal": false
+  },
+  "LTTS|2026-10-19": {
+   "s": "LTTS",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 3996.3,
+   "run": 0.1314,
+   "rea": 0.1056,
+   "top": true,
+   "signal": true
+  },
+  "LTM|2026-10-16": {
+   "s": "LTM",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 4264.9,
+   "run": 0.0553,
+   "rea": 0.0182,
+   "top": true,
+   "signal": false
+  },
+  "M&MFIN|2026-10-21": {
+   "s": "M&MFIN",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 287.6,
+   "run": -0.0549,
+   "rea": -0.0302,
+   "top": false,
+   "signal": false
+  },
+  "NAM-INDIA|2026-10-22": {
+   "s": "NAM-INDIA",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 922.6,
+   "run": -0.0299,
+   "rea": -0.0451,
+   "top": false,
+   "signal": false
+  },
+  "NUVOCO|2026-10-22": {
+   "s": "NUVOCO",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 330.6,
+   "run": 0.0548,
+   "rea": 0.0287,
+   "top": true,
+   "signal": true
+  },
+  "OBEROIRLTY|2026-10-16": {
+   "s": "OBEROIRLTY",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 1676.4,
+   "run": -0.0244,
+   "rea": -0.0073,
+   "top": false,
+   "signal": false
+  },
+  "PIRAMALFIN|2026-10-19": {
+   "s": "PIRAMALFIN",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 2019,
+   "run": -0.0414,
+   "rea": 0.065,
+   "top": false,
+   "signal": false
+  },
+  "PNB|2026-10-16": {
+   "s": "PNB",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 121.9,
+   "run": 0.0259,
+   "rea": 0.0707,
+   "top": true,
+   "signal": true
+  },
+  "SRF|2026-10-21": {
+   "s": "SRF",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 2330.6,
+   "run": -0.001,
+   "rea": -0.0151,
+   "top": false,
+   "signal": false
+  },
+  "SAGILITY|2026-10-22": {
+   "s": "SAGILITY",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 44.18,
+   "run": 0.0507,
+   "rea": 0.0271,
+   "top": true,
+   "signal": true
+  },
+  "SOBHA|2026-10-19": {
+   "s": "SOBHA",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 1211.9,
+   "run": -0.0256,
+   "rea": 0.0495,
+   "top": false,
+   "signal": false
+  },
+  "SWIGGY|2026-10-22": {
+   "s": "SWIGGY",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 176,
+   "run": -0.0456,
+   "rea": -0.1808,
+   "top": false,
+   "signal": false
+  },
+  "TTML|2026-10-22": {
+   "s": "TTML",
+   "d": "2026-10-22",
+   "entry": "2026-10-23",
+   "px": 37.68,
+   "run": -0.0235,
+   "rea": 0.2076,
+   "top": false,
+   "signal": false
+  },
+  "TEJASNET|2026-10-16": {
+   "s": "TEJASNET",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 453.25,
+   "run": -0.0286,
+   "rea": -0.0209,
+   "top": false,
+   "signal": false
+  },
+  "ULTRACEMCO|2026-10-19": {
+   "s": "ULTRACEMCO",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 10849,
+   "run": 0.0131,
+   "rea": 0.0244,
+   "top": false,
+   "signal": false
+  },
+  "UNIONBANK|2026-10-19": {
+   "s": "UNIONBANK",
+   "d": "2026-10-19",
+   "entry": "2026-10-21",
+   "px": 182,
+   "run": 0.0191,
+   "rea": 0.0899,
+   "top": false,
+   "signal": false
+  },
+  "URBANCO|2026-10-16": {
+   "s": "URBANCO",
+   "d": "2026-10-16",
+   "entry": "2026-10-19",
+   "px": 142.48,
+   "run": -0.0118,
+   "rea": -0.0655,
+   "top": false,
+   "signal": false
+  },
+  "VMM|2026-10-21": {
+   "s": "VMM",
+   "d": "2026-10-21",
+   "entry": "2026-10-22",
+   "px": 87.99,
+   "run": -0.0284,
+   "rea": -0.0417,
+   "top": false,
+   "signal": false
+  },
+  "YESBANK|2026-10-17": {
+   "s": "YESBANK",
+   "d": "2026-10-17",
+   "entry": "2026-10-21",
+   "px": 16.41,
+   "run": -0.1619,
+   "rea": -0.0325,
+   "top": false,
+   "signal": false
+  }
+ },
  "summary": {
-  "updated": "2026-10-18",
+  "updated": "2026-10-24",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
     "matured": 0,
-    "open": 0,
+    "open": 11,
     "meanNet": null,
     "win": null,
     "market": null
@@ -15,7 +556,7 @@
    {
     "group": "ran up, any reaction",
     "matured": 0,
-    "open": 0,
+    "open": 21,
     "meanNet": null,
     "win": null,
     "market": null
@@ -23,7 +564,7 @@
    {
     "group": "all results stocks",
     "matured": 0,
-    "open": 0,
+    "open": 54,
     "meanNet": null,
     "win": null,
     "market": null
