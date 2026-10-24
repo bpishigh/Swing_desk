@@ -12,10 +12,10 @@ export type Scorer = (schemes: Scheme[], cut: Map<string, Nav>, asOf: string) =>
 /** `scorer` defaults to the FUND-3 score; C-82 passes the risk-aware score for debt groups to run the same test on it (information only). */
 export interface Ctx { idx: Scheme[]; liquid: string[] }
 /** C-85: `ctx` holds the index funds and liquid funds used for the index test (D) and the cash test (E). */
-export function runBacktest(schemes: Scheme[], series: Map<string, Nav>, s = SETTINGS, scorer: Scorer = (sc, cut, T) => scoreAll(sc, cut, T, s), ctx?: Ctx): Result {
+export function runBacktest(schemes: Scheme[], series: Map<string, Nav>, s = SETTINGS, scorer: Scorer = (sc, cut, T) => scoreAll(sc, cut, T, s), ctx?: Ctx, bt: typeof BT = BT): Result {
   const dates = new Map<string, string[]>(); for (const [k, nav] of series) dates.set(k, Object.keys(nav).sort());
   const points: Point[] = [];
-  for (let y = BT.firstYear; y <= BT.lastYear; y++) {
+  for (let y = bt.firstYear; y <= bt.lastYear; y++) {
     const T = `${y}-10-01`, E = plusYear(T);
     // only NAVs up to T may be used to score; the series is cut so a look-ahead bug cannot hide
     const cut = new Map<string, Nav>();
@@ -36,15 +36,15 @@ export function runBacktest(schemes: Scheme[], series: Map<string, Nav>, s = SET
     const cashR3 = ctx ? med3(ctx.liquid, r3Of) : null, cashFw = ctx ? med3(ctx.liquid, fwdOf) : null;
     const D: number[] = [], Ex: number[] = [];
     for (const r of sc) { const f = fwd.get(r.code), t3 = r3Of(r.code); if (f === undefined || t3 === null) continue; const b = bench(r.cat); if (b && t3 < b.r3) D.push((f - b.fw) * 100); if (cashR3 !== null && cashFw !== null && t3 < cashR3) Ex.push((f - cashFw) * 100); }
-    const mD = D.length ? median(D) : null, cD = D.length >= BT.minGroup, mE = Ex.length ? median(Ex) : null, cE = Ex.length >= BT.minGroup;
+    const mD = D.length ? median(D) : null, cD = D.length >= bt.minGroup, mE = Ex.length ? median(Ex) : null, cE = Ex.length >= bt.minGroup;
     const A = ex('Strong'), B = ex('Weak');
-    const C = sc.filter((r) => r.score != null && r.score >= 25 && r.score < BT.nearWeakTo && fwd.has(r.code)).map((r) => (fwd.get(r.code)! - medCat.get(r.cat)!) * 100);
-    const mC = C.length ? median(C) : null, cC = C.length >= BT.minGroup;
+    const C = sc.filter((r) => r.score != null && r.score >= 25 && r.score < bt.nearWeakTo && fwd.has(r.code)).map((r) => (fwd.get(r.code)! - medCat.get(r.cat)!) * 100);
+    const mC = C.length ? median(C) : null, cC = C.length >= bt.minGroup;
     const mA = A.length ? median(A) : null, mB = B.length ? median(B) : null;
-    const cA = A.length >= BT.minGroup, cB = B.length >= BT.minGroup;
+    const cA = A.length >= bt.minGroup, cB = B.length >= bt.minGroup;
     points.push({ date: T, scored: sc.length, strong: A.length, weak: B.length, medExcessStrong: mA, medExcessWeak: mB, countedA: cA, countedB: cB, passA: cA && mA! > 0, passB: cB && mB! < 0, near: C.length, medExcessNear: mC, countedC: cC, passC: cC && mC! < 0, nD: D.length, medD: mD, countedD: cD, passD: cD && mD! < 0, nE: Ex.length, medE: mE, countedE: cE, passE: cE && mE! < 0 });
   }
-  const test = (cnt: (p: Point) => boolean, pas: (p: Point) => boolean) => { const counted = points.filter(cnt).length, passed = points.filter((p) => cnt(p) && pas(p)).length; return { counted, passed, pass: counted >= BT.minYears && passed / counted >= BT.passShare }; };
+  const test = (cnt: (p: Point) => boolean, pas: (p: Point) => boolean) => { const counted = points.filter(cnt).length, passed = points.filter((p) => cnt(p) && pas(p)).length; return { counted, passed, pass: counted >= bt.minYears && passed / counted >= bt.passShare }; };
   const testA = test((p) => p.countedA, (p) => p.passA), testB = test((p) => p.countedB, (p) => p.passB);
   const testC = test((p) => p.countedC, (p) => p.passC), testD = test((p) => p.countedD, (p) => p.passD), testE = test((p) => p.countedE, (p) => p.passE);
   return { points, testA, testB, testC, testD, testE, indexRuleOn: testD.pass, cashRuleOn: testE.pass, nearWeakOn: testC.pass, replaceOn: testA.pass && testB.pass, funds: series.size };

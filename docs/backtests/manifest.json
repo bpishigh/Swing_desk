@@ -326,6 +326,33 @@
     "summary": "Risk-aware score: Test A 3/10 fail, Test B 5/10 fail; not adopted. FUND-3 same run A 5/10, B 6/10.",
     "file": "data/funds/backtest-v3.json"
    }
+  },
+  {
+   "id": "C-98-r1",
+   "changeLog": "C-98",
+   "title": "Index-fund bands (Leads, In line, Lags) in the C-81 back-test",
+   "hypothesis": "Among Direct-Growth index funds tracking the same index, funds that lead the group median over 3 years keep beating it over the next year, and funds that lag keep trailing it.",
+   "script": "scripts/fund-backtest.mjs",
+   "params": {
+    "universe": "Direct-Growth index funds (no ETFs) on Nifty 50, Nifty Midcap 150, Nifty Smallcap 250, Nifty 500",
+    "bands": "INDEX_SETTINGS leadsPp 0.15, lagsPp -0.30, minPeers 3",
+    "bar": "60% of counted years, at least 5 years, at least 5 funds in the band a year",
+    "years": "2015 to 2025, same fetched NAVs as C-81",
+    "limit": "expense ratios are not available at past dates, so the cheapest-fund pick is not tested"
+   },
+   "passRule": "Test A (Leads beat the same-index median next year) and Test B (Lags trail it) both pass by the bar: the bands may then be shown on the Holdings tab as information. Otherwise index funds keep no band-based advice. One run, result recorded either way.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T15:32:26.637Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
