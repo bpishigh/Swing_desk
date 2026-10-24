@@ -391,6 +391,34 @@
     "summary": "Passed: tilt beat the market mix in 7 of 10 years, median excess +1.7pp, worst year -4.8 vs -3.7. Mostly extra mid/small risk; 5 of 10 vs equal weight. Not applied.",
     "file": "data/funds/backtest-category.json"
    }
+  },
+  {
+   "id": "C-100-r1",
+   "changeLog": "C-100",
+   "title": "All fund types together: cross-group tilt vs the Balanced preset and an equal-weight spread",
+   "hypothesis": "Choosing the top three fund groups by past return above cash per unit of volatility, from all fund types together, beats the owner's Balanced preset and an equal-weight spread over the next year.",
+   "script": "scripts/fund-allfunds-test.mjs (src/pm/alltilt.ts)",
+   "params": {
+    "universe": "every Direct-Growth scheme and ETF the scoring covers: equity categories, ELSS, thematic by theme, hybrids, index groups, gold and silver, international markets, debt groups, liquid and overnight",
+    "min": "at least 5 funds with a 3-year record per group",
+    "rank": "(median 3y return minus liquid median 3y return) / median 3y volatility",
+    "hold": "top 3 groups, equal weight, group median next-year return, 1 Oct 2015 to 2025",
+    "baselines": "Balanced preset from settings/allocation.json at the middle horizon over fund classes, rescaled; equal weight of all eligible groups",
+    "limits": "survivorship, group medians, one yearly step, no tax, exit load or past expense ratio"
+   },
+   "passRule": "All four: tilt beats the preset in at least 60% of counted years (at least 5 counted); median yearly excess over the preset above zero; worst year no more than 3 points worse than the preset's worst; tilt beats equal weight in at least 60% of counted years. PASS: a bounded tilt of new money may be proposed to the owner; FAIL: allocation stays the preset and no cross-group buy recommendation is made.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T17:18:53.451Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
