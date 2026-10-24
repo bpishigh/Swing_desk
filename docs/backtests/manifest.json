@@ -631,7 +631,12 @@
    "registeredAt": "2026-10-24T19:16:43.569Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T19:32:52.309Z",
+    "summary": "Both failed. Template on NAV: 6 of 19 counted dates (needs 20 dates, 60%). Keep vs Exit at 6 months: thematic 6 of 12, equity 8 of 17. Mean gaps 0.1 to 0.6 points. Template not used; thematic label reworded as a trend flag. Information only: top third by 126-session return beat group on 25/40 dates at 12m (+0.43 points).",
+    "file": "data/funds/backtest-swingrules.json"
+   }
   }
  ]
 }

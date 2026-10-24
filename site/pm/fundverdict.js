@@ -48,7 +48,7 @@ export function fundVerdict(held                                                
     const below200 = avg !== null && last < avg, belowSwing = sl !== null && last < sl.price;
     const reasons = [below200 ? `NAV ${last.toFixed(2)} is below its 200-day average ${avg .toFixed(2)}` : '', belowSwing ? `NAV is below the last swing low ${sl .price.toFixed(2)}` : ''].filter(Boolean);
     // C-105: inside its own theme the score is weakly related to the next year (rank correlation +0.06, passed); it can lower Keep to Watch for the bottom quarter, never to Replace
-    const own = row?.c?.startsWith('Thematic · ') && row.b ? `score band ${row.b} among ${row.p ?? '?'} in ${row.c.slice(11)} funds` : '', note = own ? ['inside its theme the ranking is only weakly related to the next year (C-105)'] : [];
+    const own = row?.c?.startsWith('Thematic · ') && row.b ? `score band ${row.b} among ${row.p ?? '?'} in ${row.c.slice(11)} funds` : '', note = (own ? ['inside its theme the ranking is only weakly related to the next year (C-105)'] : []).concat(['trend flag from the NAV: not shown to predict returns (C-107), and it drives no sale']);
     if (reasons.length) return { label: 'Exit', reasons: own ? [...reasons, own] : reasons, pending: note, asOf: d[d.length - 1] };
     if (own && row .b === 'Weak') return { label: 'Watch', reasons: ['sector fund: NAV above its 200-day average and its swing low', own], pending: note, asOf: d[d.length - 1] };
     return { label: 'Keep', reasons: ['sector fund: NAV above its 200-day average and its swing low'].concat(own ? [own] : []), pending: note, asOf: d[d.length - 1] };
