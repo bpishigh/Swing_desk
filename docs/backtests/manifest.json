@@ -476,7 +476,12 @@
    "registeredAt": "2026-10-24T17:49:28.385Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T18:05:14.338Z",
+    "summary": "NOT TESTABLE: own-theme bands hold 3 to 9 Strong and 3 to 8 Weak funds a year, never the 10 needed; 0 counted years. Informational: Strong beat the theme median in 4 of 9 years, Weak trailed in 5 of 9. No band shown for thematic funds.",
+    "file": "data/funds/backtest-thematic.json"
+   }
   },
   {
    "id": "C-103-r1",
@@ -503,7 +508,12 @@
    "registeredAt": "2026-10-24T17:49:39.563Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T18:05:14.496Z",
+    "summary": "NOT TESTABLE: no year with 5 Strong funds, only 2025 with 5 Weak. Informational: Strong beat group median 3 of 9 years, Weak trailed only 2 of 10. International band labelled not shown to predict.",
+    "file": "data/funds/backtest-intl.json"
+   }
   }
  ]
 }

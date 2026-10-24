@@ -59,7 +59,7 @@ export function fundVerdict(held: { name: string; isin?: string; category?: stri
   if (row.g === 'debt' || row.g === 'intl') {   // C-82: judged on return, consistency, risk-adjusted return, downside and cost inside the group; Keep or Watch only
     const facts = [row.dd != null ? `worst 3-year fall ${row.dd.toFixed(1)}%` : '', row.wd != null ? `worst day ${row.wd.toFixed(1)}%` : '', row.vol != null ? `volatility ${row.vol.toFixed(1)}%` : '', row.t != null ? `expense ratio ${row.t.toFixed(2)}%` : ''].filter(Boolean).join(', ');
     const reasons = [`score band ${row.b} among ${row.p ?? '?'} in ${row.c}` + (facts ? ' (' + facts + ')' : '')].concat(row.fl ? [row.fl] : []);
-    const pending = ['Replace is not available for debt and international funds; credit quality and maturity are not scored'];
+    const pending = ['Replace is not available for debt and international funds; credit quality and maturity are not scored'].concat(row.g === 'intl' ? ['international band: the 10-year test could not be run (too few funds, C-103), so it is not shown to predict anything'] : []);   // C-103
     return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons, pending, asOf: null };
   }
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
