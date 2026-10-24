@@ -152,13 +152,13 @@ test('function: a settings-only or decisions-only post cannot create an account 
 
 test('rules view: household records come from the private repo; a missing file gives an empty list', async () => {
   const { loadRules } = await import('../functions/_lib/store.ts');
-  const files: Record<string, unknown> = { 'portfolio/rules/ipos.json': { records: [{ symbol: 'ABC' }] }, 'portfolio/rules/demergers.json': { records: [{ parent: 'P' }, { parent: 'Q' }] } };
+  const files: Record<string, unknown> = { 'portfolio/rules/ipos.json': { records: [{ symbol: 'ABC' }] }, 'portfolio/rules/demergers.json': { records: [{ parent: 'P' }, { parent: 'Q' }] }, 'portfolio/rules/exit-loads.json': { records: [{ name: 'F', days: 365, pct: 0.01 }] } };
   const fetchFn = (async (url: any) => {
     const m = /contents\/(portfolio\/rules\/[^?]+)/.exec(String(url)); const f = m ? files[m[1]] : undefined;
     return f ? new Response(JSON.stringify({ sha: 's', content: Buffer.from(JSON.stringify(f)).toString('base64') })) : new Response('{}', { status: 404 });
   }) as typeof fetch;
   const r = await loadRules({ GITHUB_TOKEN: 't', REPO: 'o/r' }, fetchFn);
-  assert.equal(r.ipos.length, 1); assert.equal(r.demergers.length, 2); assert.deepEqual(r.fundOverrides, []);
+  assert.equal(r.ipos.length, 1); assert.equal(r.demergers.length, 2); assert.deepEqual(r.fundOverrides, []); assert.equal(r.exitLoads.length, 1);
 });
 
 test('a fund order whose scheme name is longer than 40 characters is accepted, with the long symbol dropped; a long symbol is dropped for any kind of order, never a reason to refuse the save', () => {
