@@ -5,6 +5,7 @@ export const SETTINGS = {
   minPeers: 8,                 // fewer funds than this in a category with a 3-year record: no ranking
   weights: { r1: 0.2, r3: 0.35, r5: 0.3, consistency: 0.15 },
   rollingMonths: 36, rollingStepDays: 30,
+  consistencyYears: 1,         // length of each rolling window; C-92 tests 3 in the back-test only (live stays 1 until adopted)
   strongAbove: 75, weakBelow: 25,   // score bands: top quarter Strong, bottom quarter Weak
   weakMonthsToReplace: 3,      // hysteresis: Weak this many monthly runs in a row before "Replace candidate" is said
 };
@@ -58,7 +59,7 @@ export function scoreAll(schemes: Scheme[], series: Map<string, Nav>, asOf: stri
     const m = list.map((x) => { const i = info.get(x.code)!; return { x, r1: cagr(i.dates, i.nav, asOf, 1), r3: cagr(i.dates, i.nav, asOf, 3), r5: cagr(i.dates, i.nav, asOf, 5) }; });
     // rolling 1-year windows over the last rollingMonths months: share of windows in which the fund beat the category median
     const ends: string[] = []; for (let d = asOf; d >= addDays(asOf, -30 * s.rollingMonths); d = addDays(d, -s.rollingStepDays)) ends.push(d);
-    const winRet = (code: string, end: string): number | null => { const i = info.get(code)!; const e = navOn(i.dates, i.nav, end), b = navOn(i.dates, i.nav, addYears(end, 1)); return e !== null && b !== null && b > 0 && i.dates[0] <= addDays(addYears(end, 1), 7) ? e / b - 1 : null; };
+    const winRet = (code: string, end: string): number | null => { const i = info.get(code)!; const e = navOn(i.dates, i.nav, end), b = navOn(i.dates, i.nav, addYears(end, s.consistencyYears)); return e !== null && b !== null && b > 0 && i.dates[0] <= addDays(addYears(end, s.consistencyYears), 7) ? e / b - 1 : null; };
     const cons = new Map<string, { won: number; n: number }>();
     for (const end of ends) {
       const rets = list.map((x) => [x.code, winRet(x.code, end)] as const).filter((r): r is readonly [string, number] => r[1] !== null);

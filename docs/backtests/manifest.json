@@ -262,6 +262,33 @@
     "at": "2026-10-23T18:06:40.549Z",
     "note": "same holdout window as C-86-r1, already revealed on 23 Oct 2026; checking signs on the scaled bands"
    }
+  },
+  {
+   "id": "C-92-r1",
+   "changeLog": "C-92",
+   "title": "Fund consistency measure: rolling 3-year windows vs rolling 1-year windows",
+   "hypothesis": "Consistency measured on rolling 3-year windows (closer to the holding horizon, less overlap-inflated) makes the Strong band beat the category median in at least 60% of years, where the 1-year measure failed Test A (5 of 10), while Weak still trails it.",
+   "script": "scripts/fund-backtest.mjs",
+   "params": {
+    "variant": "consistencyYears 3 (live 1)",
+    "unchanged": "weights r1 0.2 r3 0.35 r5 0.3 consistency 0.15; rollingMonths 36; step 30 days; Strong >=75, Weak <25",
+    "bar": "BT: 60% of counted years, at least 5 years, at least 10 funds a year",
+    "sample": "same fetched NAVs and Direct-Growth plain-equity schemes as C-81, both measures in the same run",
+    "multipleTesting": "Test A was already tried once on the 1-year measure; one variant only"
+   },
+   "passRule": "Adopt the 3-year measure only if Test A and Test B both pass under it by the C-81 bar. Otherwise the 1-year measure stays live. Result recorded either way.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "7225412e8464"
+   },
+   "registeredAt": "2026-10-24T08:23:36.570Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }

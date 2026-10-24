@@ -48,3 +48,13 @@ test('same-index funds are compared with their own median', () => {
   const r = scoreIndexGroups(schemes, map, '2026-10-16');
   assert.equal(r.find((x) => x.code === 'X4')!.band, 'Weak'); assert.equal(r.find((x) => x.code === 'X0')!.band, 'Average');
 });
+
+test('C-92: consistency window length is a setting; default 1 year keeps the live score unchanged', async () => {
+  const { SETTINGS, scoreAll } = await import('../src/pm/fundscore.ts');
+  assert.equal(SETTINGS.consistencyYears, 1);
+  const series = new Map<string, Record<string, number>>(), schemes: { code: string; isin: string; name: string; category: string }[] = [];
+  for (let k = 0; k < 10; k++) { const nav: Record<string, number> = {}; let v = 10; for (let d = new Date('2018-01-01T00:00:00Z'); d <= new Date('2026-10-20T00:00:00Z'); d = new Date(d.getTime() + 86400000)) { v *= 1 + (0.0004 + 0.00003 * k * Math.sin(d.getTime() / 4e9 + k)); nav[d.toISOString().slice(0, 10)] = v; } series.set('c' + k, nav); schemes.push({ code: 'c' + k, isin: 'i' + k, name: 'F' + k, category: 'Equity Scheme - Large Cap Fund' }); }
+  const a = scoreAll(schemes, series, '2026-10-20'), b = scoreAll(schemes, series, '2026-10-20', { ...SETTINGS, consistencyYears: 3 });
+  assert.ok(a.every((x) => x.consistency !== null) && b.every((x) => x.consistency !== null));
+  assert.ok(a.some((x, i) => x.consistency !== b[i].consistency), 'the 3-year measure is a different measure');
+});
