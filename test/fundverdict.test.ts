@@ -20,7 +20,7 @@ test('Strong and Average are Keep; a Weak fund is Watch', () => {
 });
 test('Replace needs three Weak runs and a passed back-test; otherwise it stays Watch with the reason', () => {
   assert.equal(fundVerdict({ name: rows[2].n }, rows, on).label, 'Replace');
-  const w = fundVerdict({ name: rows[2].n }, rows, off); assert.equal(w.label, 'Watch'); assert.match(w.pending[0], /back-test/);
+  const w = fundVerdict({ name: rows[2].n }, rows, off); assert.equal(w.label, 'Watch'); assert.match(w.pending[0], /no switch advice yet/);
 });
 test('index funds never reach Replace', () => { assert.equal(fundVerdict({ name: rows[3].n }, rows, on).label, 'Watch'); });
 test('hybrid funds and unscored funds get No verdict with a reason; a fund not in the list too', () => {

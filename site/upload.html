@@ -497,28 +497,44 @@ function holdingsBody(V) {
   const { tot, rows, sum } = holdingsRows(V);
   return rows.map((h) => { const open = ctxOf(h) && S.open.has(h.symbol); return `<tr${ctxOf(h) ? ` class="hr" data-sym="${esc(h.symbol)}"` : ''}><td>${ctxOf(h) ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${vWhy(verdictOf(h), h) ? `<small class="why">${esc(vWhy(verdictOf(h), h))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? ctxPanel(h, tot) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
 }
-function switchCard(V) {   // C-91: information only
+function switchCard(V) {   // C-91, C-93: information only
   const funds = mergedHoldings(V).filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.value !== null), sel = funds.find((h) => h.name === S.sw);
-  const opts = `<option value="">Choose a fund or ETF</option>` + funds.map((h) => `<option value="${esc(h.name)}"${h.name === S.sw ? ' selected' : ''}>${esc(h.name)}</option>`).join('');
-  let body = '<div class="sub">Pick a holding to see what selling all of it today would cost, and how much extra return the new fund must earn to make up for it.</div>';
+  const opts = `<option value="">Choose a fund or ETF you hold</option>` + funds.map((h) => `<option value="${esc(h.name)}"${h.name === S.sw ? ' selected' : ''}>${esc(h.name)}</option>`).join('');
+  let body = '<div class="sub">Pick a holding to see what leaving it costs, and how it compares with the best fund in its own category.</div>';
   if (sel) {
+    const rows = S.fundScores?.funds ?? [], me = rows.find((r) => sel.isin && r.i === sel.isin) ?? rows.find((r) => normName(r.n) === normName(sel.name));
+    const alts = me ? rows.filter((r) => r.g === me.g && r.c === me.c && r.s != null && r.i !== me.i && r.t != null).sort((x, y) => y.s - x.s).slice(0, 10) : [];
+    const best = alts.find((r) => r.b === 'Strong' || r.b === 'Average'), dest = alts.find((r) => r.n === S.swTo) ?? best;
     const today = new Date().toISOString().slice(0, 10), A = acctCfg(V.ms[0]?.key ?? ''), loads = new Map((S.exitLoads?.records ?? []).map((r) => [normName(r.name), { days: r.days, pct: r.pct }]));
     const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).filter((l) => l.name === sel.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(normName(l.name)) ? { exitLoad: loads.get(normName(l.name)) } : {}) })));
     const fyNow = (() => { const y = +today.slice(0, 4), m = +today.slice(5, 7); return m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`; })();
     const left = taxGroups().map((g) => { const y = g.years.find((x) => x.fy === fyNow); return y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
-    const c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined });
-    body = `<div class="tw"><table><tbody>
+    const base = me?.r3 != null ? me.r3 / 100 : 0.12, c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined, baseReturn: base });
+    const p1 = (v) => (v == null ? '–' : v.toFixed(1) + '%'), sc = (r) => (r && r.s != null ? `${r.b} (${r.s.toFixed(0)})` : 'not scored');
+    const cmp = me ? `<div class="tw" style="margin-top:10px"><table><thead><tr><th></th><th>Your fund</th><th>${dest ? 'Switch to' : ''}</th></tr></thead><tbody>
+      <tr><td>Fund</td><td>${esc(me.n)}</td><td>${dest ? esc(dest.n) : 'no scored alternative in this category'}</td></tr>
+      <tr><td>Score in ${esc(me.c)}</td><td>${sc(me)}</td><td>${dest ? sc(dest) : ''}</td></tr>
+      <tr><td>Return a year: 1 / 3 / 5 years</td><td>${p1(me.r1)} / ${p1(me.r3)} / ${p1(me.r5)}</td><td>${dest ? `${p1(dest.r1)} / ${p1(dest.r3)} / ${p1(dest.r5)}` : ''}</td></tr>
+      <tr><td>Yearly cost (expense ratio)</td><td>${me.t != null ? me.t.toFixed(2) + '%' : '–'}</td><td>${dest ? dest.t.toFixed(2) + '%' : ''}</td></tr></tbody></table></div>` : '<div class="note" style="margin-top:8px">This holding has no fund score, so there is nothing to compare it with.</div>';
+    const pick = dest ? `<div style="margin-top:8px" class="sub">Compare with: <select id="swto" style="max-width:100%">${alts.map((r) => `<option value="${esc(r.n)}"${r.n === dest.n ? ' selected' : ''}>${esc(r.n)} · ${sc(r)}</option>`).join('')}</select> (the ten best-scored in ${esc(me.c)})</div>` : '';
+    let verdict = '';
+    if (me && dest) {
+      const saving = me.t - dest.t, gap = (dest.r3 ?? NaN) - (me.r3 ?? NaN), cp = c.value ? 100 * c.cost / c.value : 0;
+      verdict = `<div style="margin-top:10px"><b>In plain terms:</b> leaving costs ${cp.toFixed(2)}% of the money. ` + (saving > 0.05 ? `The new fund charges ${saving.toFixed(2)} points a year less, a saving you can count on, which pays back the cost in about ${(cp / saving).toFixed(1)} years. ` : saving < -0.05 ? `The new fund charges ${(-saving).toFixed(2)} points a year more, so it must make that up too. ` : 'Both charge about the same each year. ') + (Number.isFinite(gap) ? `Over the last 3 years it returned ${Math.abs(gap).toFixed(1)} points a year ${gap >= 0 ? 'more' : 'less'}, but past returns have not reliably carried forward in our test, so treat that as a hint, not a promise.` : '') + '</div>';
+    }
+    body = `${cmp}${pick}<div class="tw" style="margin-top:10px"><table><tbody>
       <tr><td>Value today</td><td>₹${inr(c.value)}</td></tr>
       <tr><td>Gain (long-term ₹${inr(c.longGain)}, short-term ₹${inr(c.shortGain)})</td><td class="${cls(c.gain)}">₹${inr(c.gain)}</td></tr>
       <tr><td>Estimated tax${exemptionLeft !== undefined ? ` (after ₹${inr(exemptionLeft)} exemption left this year)` : ''}</td><td>${c.tax === null ? 'not priced' : '₹' + inr(c.tax)}</td></tr>
       <tr><td>Exit load</td><td>₹${inr(c.load)}</td></tr>
       <tr><td><b>You would receive</b></td><td><b>₹${inr(c.net)}</b></td></tr>
       <tr><td>Cost of switching</td><td>${c.value ? (100 * c.cost / c.value).toFixed(2) : '0.00'}% of the value</td></tr></tbody></table></div>
-      ${c.breakEven.length ? `<div style="margin-top:8px">The new fund must earn about ${c.breakEven.map((b) => `<b>${(100 * b.extra).toFixed(2)}%</b> a year more over ${b.years} year${b.years > 1 ? 's' : ''}`).join(', ')} than this one to break even, if this one would earn ${Math.round(100 * c.baseReturn)}% a year (an assumption).</div>` : ''}
+      ${verdict}
+      ${c.breakEven.length ? `<div style="margin-top:8px">To break even, the new fund must earn about ${c.breakEven.map((b) => `<b>${(100 * b.extra).toFixed(2)}%</b> a year more over ${b.years} year${b.years > 1 ? 's' : ''}`).join(', ')} than your fund (taken to earn its own 3-year return of ${(100 * c.baseReturn).toFixed(1)}% a year${me?.r3 == null ? ', an assumption' : ''}).</div>` : ''}
       ${c.notes.map((n) => `<div class="note" style="margin-top:8px">${esc(n)}</div>`).join('')}
-      <div class="sub" style="margin-top:8px">Every open lot is priced at the latest close, first-in-first-out per account. Estimate before surcharge and cess; not tax advice, and nothing is sold from here.</div>`;
+      <div class="sub" style="margin-top:8px">Every open lot is priced at the latest close, first-in-first-out per account. Estimate before surcharge and cess; not tax advice, and nothing is sold from here. Returns are past returns of Direct-Growth plans.</div>`;
   }
-  return `<div class="card"><h2>Switch cost</h2><select id="swsel" style="max-width:100%">${opts}</select><div style="margin-top:10px">${body}</div></div>`;
+  return `<div class="card"><h2>Switch cost and comparison</h2><select id="swsel" style="max-width:100%">${opts}</select><div style="margin-top:10px">${body}</div></div>`;
 }
 function holdings(V) {
   const kinds = ['All', 'Stock', 'ETF', 'Fund'];
@@ -889,7 +905,7 @@ function render() {
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
   if (S.tab === 'alloc' || S.tab === 'data') wireAlloc();
   if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
-  if (S.tab === 'holdings' && $('swsel')) $('swsel').onchange = (e) => { S.sw = e.target.value; render(); };
+  if (S.tab === 'holdings' && $('swsel')) { $('swsel').onchange = (e) => { S.sw = e.target.value; S.swTo = ''; render(); }; if ($('swto')) $('swto').onchange = (e) => { S.swTo = e.target.value; render(); }; }
   if (S.tab === 'holdings') $('q').oninput = (e) => { S.q = e.target.value; $('hbody').innerHTML = holdingsBody(S.cur); };
   if (S.tab === 'data') { $('fundOn').onchange = async (e) => { S.fundOn = e.target.checked; store.set('fund', S.fundOn ? '1' : '0'); await recomputeAll(true); }; document.querySelectorAll('[data-owner]').forEach((el) => { el.onchange = () => setOwner(el.dataset.owner, el.value.trim()); }); }
   tellParent();

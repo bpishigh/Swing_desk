@@ -75,7 +75,7 @@ export function fundVerdict(held: { name: string; isin?: string; category?: stri
   const why = `score band Weak in ${row.c}`;
   if (row.rp && row.g === 'mf' && plain) {
     if (gate.replaceOn) return withCtx({ label: 'Replace', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: [], asOf: null });
-    return withCtx({ label: 'Watch', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: ['Replace is off: the back-test did not pass'], asOf: null });
+    return withCtx({ label: 'Watch', reasons: [why + ', Weak in 3 monthly runs in a row'], pending: ['no switch advice yet: in the 10-year test, funds with a Weak score did lag their peers, but top-scored funds did not reliably beat theirs, so a switch is your decision'], asOf: null });
   }
   return withCtx({ label: 'Watch', reasons: [why], pending: row.g === 'idx' ? ['Replace is off for index funds and ETFs'] : hybridNote, asOf: null });
 }
