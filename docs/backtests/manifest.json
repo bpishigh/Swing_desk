@@ -320,7 +320,12 @@
    "registeredAt": "2026-10-24T14:03:34.569Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-24T14:07:14.737Z",
+    "summary": "Risk-aware score: Test A 3/10 fail, Test B 5/10 fail; not adopted. FUND-3 same run A 5/10, B 6/10.",
+    "file": "data/funds/backtest-v3.json"
+   }
   }
  ]
 }
