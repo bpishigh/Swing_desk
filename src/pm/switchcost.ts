@@ -29,7 +29,10 @@ export function switchCost(lots: OpenLot[], ctx: { today: string; rules: Rules; 
     out.tax = out.tax === null || tax === null ? null : out.tax + tax;
   }
   if (slabUnset) { out.tax = null; out.notes.push('This asset is taxed at your slab rate; enter a slab rate in Allocation to price the tax.'); }
-  for (const x of out.lots) if (x.loadNote && !out.notes.includes(x.loadNote)) out.notes.push(x.loadNote);
+  const unrec: number[] = [];
+  for (const l of lots) if (l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < (ctx.checkDays ?? 365)) unrec.push(days(l.date, ctx.today));
+  if (unrec.length) out.notes.push(`${unrec.length} lot${unrec.length > 1 ? 's' : ''} bought within the last year ${unrec.length > 1 ? `(${Math.min(...unrec)} to ${Math.max(...unrec)} days ago) ` : `(${unrec[0]} days ago) `}and no exit load is recorded for this fund: check the load before selling. The exit load above counts none of it.`);
+  for (const x of out.lots) if (x.loadNote && !/no exit load is recorded/.test(x.loadNote) && !out.notes.includes(x.loadNote)) out.notes.push(x.loadNote);
   out.cost = (out.tax ?? 0) + out.load + out.charges; out.net = out.value - out.cost;
   // extra yearly return r so that net × (1+base+r)^n = value × (1+base)^n
   out.breakEven = out.value > 0 && out.net > 0 ? (ctx.horizons ?? [1, 3, 5]).map((years) => ({ years, extra: (1 + base) * ((out.value / out.net) ** (1 / years) - 1) })) : [];

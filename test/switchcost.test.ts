@@ -30,3 +30,10 @@ test('agrees with the rebalance sale plan on tax and load for the same lots', ()
   assert.ok(Math.abs(p.taxTotal - (s.tax ?? 0)) < 1);
   assert.ok(Math.abs(p.lines.reduce((a, x) => a + x.load, 0) - s.load) < 1e-6);
 });
+
+test('C-96: one warning for all lots with no recorded exit load', () => {
+  const mk = (d: string) => fund({ date: d, unitCost: 150 });
+  const c = switchCost([mk('2026-09-01'), mk('2026-08-01'), mk('2026-06-01')], { today, rules });
+  const n = c.notes.filter((x) => /no exit load is recorded/.test(x));
+  assert.equal(n.length, 1); assert.match(n[0], /3 lots/);
+});
