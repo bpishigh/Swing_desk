@@ -606,6 +606,32 @@
     "summary": "FAIL at 12 months: 6 of 12 counted dates (50%), mean +3.6 points carried by two 2023 dates. Passes at 6 months (10/14). Trend signal not a basis for choosing funds; 200-session rule stays an exit rule.",
     "file": "data/funds/backtest-stocktrend.json"
    }
+  },
+  {
+   "id": "C-107-r1",
+   "changeLog": "C-107",
+   "title": "Swing trend rules on mutual fund NAVs: trend template and Exit state vs forward group-relative returns",
+   "hypothesis": "Funds passing the stock trend template on their NAV beat their group median over the next 12 months; funds in Keep state beat funds in Exit state over 6 months.",
+   "script": "scripts/fund-swingrules-test.mjs",
+   "params": {
+    "universe": "Direct-Growth plain equity (own category) and thematic (own theme), alive today",
+    "dates": "quarterly from 1 Jan 2016",
+    "outcome": "forward 3/6/12 month return minus group median",
+    "limits": "survivorship, overlapping dates (about ten independent years at 12 months)"
+   },
+   "passRule": "Test 1 at 12 months and Test 2 at 6 months: at least 60% of counted dates pass, at least 20 counted dates, mean above zero, 1 October dates positive in at least 6 of 10 years.",
+   "data": {
+    "sessions": 1690,
+    "first": "2020-01-01",
+    "last": "2026-10-23",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "07c8d940deb5"
+   },
+   "registeredAt": "2026-10-24T19:16:43.569Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
