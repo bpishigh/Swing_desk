@@ -1,0 +1,1368 @@
+{
+ "at": "2026-10-25T04:32:38.522Z",
+ "funds": [
+  {
+   "name": "Parag Parikh Flexi Cap Fund - Direct Plan - Growth",
+   "code": "122639",
+   "isin": "INF879O01027",
+   "hit": "parag-parikh-long-term-value-fund-direct-growth",
+   "status": 200,
+   "paths": [
+    {
+     "path": "props.pageProps.mfServerSideData.stp_details.stp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.swp_details.swp_dates[]",
+     "len": 6,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.investment_date_configs[]",
+     "len": 2,
+     "sample": "{\"sip_start_date_time\":null,\"sip_end_date_time\":null,\"lumpsum_start_date_time\":null,\"lumpsum_end_date_time\":null,\"scheme_type\":\"NORMAL\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.nfo_risk",
+     "sample": "Moderately High Riskometer"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_investment_amount",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_house",
+     "sample": "PPFAS Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager",
+     "sample": "Raunak Onkar, Rajeev Thakkar, Raj Mehta"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.launch_date",
+     "sample": "24-May-2013"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.groww_rating",
+     "sample": "4"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.crisil_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.exit_load",
+     "sample": "For units above 10% of the investment, exit load of 2% if redeemed within 365 days and 1% if redeemed after 365 days but"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_category",
+     "sample": "Flexi Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark",
+     "sample": "NIFTY 500 TRI"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark_name",
+     "sample": "NIFTY 500 Total Return Index"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.aum",
+     "sample": "145070.5"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.expense_ratio",
+     "sample": "0.69"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.base_expense_ratio",
+     "sample": "0.53"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.portfolio_turnover",
+     "sample": "30"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.super_category",
+     "sample": "Parag Parikh Flexi Cap Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_sip_investment",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_withdrawal",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[]",
+     "len": 5,
+     "sample": "{\"scheme_code\":\"122639\",\"analysis_type\":\"PROS\",\"analysis_subject\":\"p_return_analysis\",\"analysis_desc\":\"10Y annualised returns higher than category average by 2.95%\",\"analysis_data\":\"p_return_analysis\",\"rating\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.aum",
+     "sample": "165302.16947318"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.launch_date",
+     "sample": "2012-10-09T18:30:00.549Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info",
+     "sample": "{\"category\":\"Equity\",\"category_helper_text\":\"Invests in stocks as per Contrarian investment strategy\",\"definition\":\"\",\"sub_type\":\"Contra\",\"tax_impact\":\"If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category_helper_text",
+     "sample": "Invests in stocks as per Contrarian investment strategy"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stats[]",
+     "len": 3,
+     "sample": "{\"type\":\"FUND_RETURN\",\"stat_1y\":-6.68,\"stat_3y\":12.28,\"stat_5y\":10.46,\"stat_all\":19.2,\"title\":\"Fund Returns\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[]",
+     "len": 1,
+     "sample": "{\"scheme_code\":\"122639\",\"return1d\":-0.49,\"return1w\":-2.11,\"return1m\":-1.52,\"return3m\":-0.93,\"return6m\":-2.32,\"return9m\":-4.27,\"return1y\":-6.68,\"return2y\":1.42,\"return3y\":12.28,\"return4y\":14.57,\"return5y\":10.46,\"return7y\":18.65,\"return10y\":16.43,\"return_default\":19.2,\"mean_return\":12.09,\"sharpe_ratio"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].return_since_created",
+     "sample": "17.68"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].cat_return_since_launch",
+     "sample": "13.74"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].aum",
+     "sample": "145070.5"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[]",
+     "len": 127,
+     "sample": "{\"scheme_code\":\"122639\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"HDFC Bank Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Financial\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":11249.1401,\"corpus_per\":7.75425761,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating_market_cap",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details",
+     "sample": "[{\"scheme_code\":\"122639\",\"plan_id\":null,\"date_from\":\"2023-12-21T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Mansi Kariya\",\"education\":\"Ms. Karia has done B.Com, MS Finance and CFA\",\"experience\":\"Prior to joining PPFAS AMC, she has worked with Insync and Zacks Investment Research\",\"funds_managed\":"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[]",
+     "len": 7,
+     "sample": "{\"scheme_code\":\"122639\",\"plan_id\":null,\"date_from\":\"2023-12-21T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Mansi Kariya\",\"education\":\"Ms. Karia has done B.Com, MS Finance and CFA\",\"experience\":\"Prior to joining PPFAS AMC, she has worked with Insync and Zacks Investment Research\",\"funds_managed\":["
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].date_from",
+     "sample": "2023-12-21T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].funds_managed[]",
+     "len": 4,
+     "sample": "{\"scheme_name\":\"Parag Parikh Flexi Cap Fund Direct Growth\",\"scheme_code\":\"122639\",\"search_id\":\"parag-parikh-long-term-value-fund-direct-growth\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stamp_duty",
+     "sample": "0.005% (from July 1st, 2020)"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.return_since_created",
+     "sample": "16.71"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.cat_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.return_since_created",
+     "sample": "789.7"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.cat_return_since_launch",
+     "sample": "161.32"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.lock_in",
+     "sample": "{\"years\":null,\"months\":null,\"days\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads",
+     "sample": "[{\"cdsc\":true,\"note\":\"For units above 10% of the investment, exit load of 2% if redeemed within 365 days and 1% if redeemed after 365 days but on or before 730 days.\",\"as_on_date\":\"2021-11-15T00:00:00\",\"front_load\":0,\"back_load\":0},{\"cdsc\":true,\"note\":\"Exit load of 2% if redeemed within 365 days and"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads[]",
+     "len": 3,
+     "sample": "{\"cdsc\":true,\"note\":\"For units above 10% of the investment, exit load of 2% if redeemed within 365 days and 1% if redeemed after 365 days but on or before 730 days.\",\"as_on_date\":\"2021-11-15T00:00:00\",\"front_load\":0,\"back_load\":0}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense",
+     "sample": "[{\"expense_ratio\":0.69,\"base_expense_ratio\":0.53,\"as_on_date\":\"2026-10-25T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.69,\"base_expense_ratio\":0.53,\"as_on_date\":\"2026-10-24T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.69,\"base_expense_ratio\":0.53,\"as"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[]",
+     "len": 1607,
+     "sample": "{\"expense_ratio\":0.69,\"base_expense_ratio\":0.53,\"as_on_date\":\"2026-10-25T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].expense_ratio",
+     "sample": "0.69"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].base_expense_ratio",
+     "sample": "0.53"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.blocked_reason",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[]",
+     "len": 5,
+     "sample": "{\"id\":null,\"scheme_search\":null,\"search_id\":\"bank-of-india-flexi-cap-fund-direct-growth\",\"category\":\"Equity\",\"sub_category\":\"Flexi Cap\",\"sub_sub_category\":\"\",\"aum\":3098.01,\"mean_return\":18.71,\"return3y\":17.37,\"return1y\":0.88,\"return5y\":14.31,\"return1m\":-8.16,\"return3m\":-4.67,\"return6m\":-1.34,\"return"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_category",
+     "sample": "Flexi Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].aum",
+     "sample": "3098.01"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].return_since_created",
+     "sample": "24.1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_investment",
+     "sample": "5000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].groww_rating",
+     "sample": "5"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].super_category",
+     "sample": "Bank of India Flexi Cap Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_manager",
+     "sample": "Alok Singh"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_house",
+     "sample": "Bank of India Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].launch_date",
+     "sample": "2020-06-28T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_sip_investment",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].expense_ratio",
+     "sample": "0.89"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].base_expense_ratio",
+     "sample": "0.49"
+    },
+    {
+     "path": "scriptLoader[]",
+     "len": 1,
+     "sample": "{\"nonce\":\"NENbXrhcJQ22ZkGkCBK2dZvqkVLapejX/2vmds1H+8k=\",\"strategy\":\"afterInteractive\",\"dangerouslySetInnerHTML\":{\"__html\":\"(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l"
+    }
+   ]
+  },
+  {
+   "name": "HDFC Mid Cap Fund - Direct Plan - Growth Option",
+   "code": "118989",
+   "isin": "INF179K01XQ0",
+   "hit": "hdfc-mid-cap-fund-direct-growth",
+   "status": 200,
+   "paths": [
+    {
+     "path": "props.pageProps.mfServerSideData.stp_details.stp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.swp_details.swp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.investment_date_configs[]",
+     "len": 2,
+     "sample": "{\"sip_start_date_time\":null,\"sip_end_date_time\":null,\"lumpsum_start_date_time\":null,\"lumpsum_end_date_time\":null,\"scheme_type\":\"NORMAL\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.nfo_risk",
+     "sample": "Moderately High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_investment_amount",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_house",
+     "sample": "HDFC Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager",
+     "sample": "Chirag Setalvad"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.launch_date",
+     "sample": "01-Jan-2013"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.groww_rating",
+     "sample": "4"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.crisil_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.exit_load",
+     "sample": "Exit load of 1% if redeemed within 1 year."
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_category",
+     "sample": "Mid Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark",
+     "sample": "NIFTY Midcap 150 TRI"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark_name",
+     "sample": "NIFTY Midcap 150 Total Return Index"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.aum",
+     "sample": "101856.06"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.expense_ratio",
+     "sample": "0.74"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.base_expense_ratio",
+     "sample": "0.6"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.portfolio_turnover",
+     "sample": "13"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.super_category",
+     "sample": "HDFC Mid Cap Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_sip_investment",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_withdrawal",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[]",
+     "len": 5,
+     "sample": "{\"scheme_code\":\"118989\",\"analysis_type\":\"PROS\",\"analysis_subject\":\"p_return_analysis\",\"analysis_desc\":\"10Y annualised returns higher than category average by 0.03%\",\"analysis_data\":\"p_return_analysis\",\"rating\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.aum",
+     "sample": "934075.65943461"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.launch_date",
+     "sample": "1999-12-09T18:30:00.934Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info",
+     "sample": "{\"category\":\"Equity\",\"category_helper_text\":\"Invests in stocks as per Contrarian investment strategy\",\"definition\":\"\",\"sub_type\":\"Contra\",\"tax_impact\":\"If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category_helper_text",
+     "sample": "Invests in stocks as per Contrarian investment strategy"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stats[]",
+     "len": 3,
+     "sample": "{\"type\":\"FUND_RETURN\",\"stat_1y\":-3.17,\"stat_3y\":15.26,\"stat_5y\":16.49,\"stat_all\":19.3,\"title\":\"Fund Returns\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[]",
+     "len": 1,
+     "sample": "{\"scheme_code\":\"118989\",\"return1d\":-1.42,\"return1w\":-3.45,\"return1m\":-7.64,\"return3m\":-5.94,\"return6m\":-3.26,\"return9m\":-1.78,\"return1y\":-3.17,\"return2y\":2.44,\"return3y\":15.26,\"return4y\":19.01,\"return5y\":16.49,\"return7y\":21.4,\"return10y\":16.03,\"return_default\":19.3,\"mean_return\":15.65,\"sharpe_ratio\""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].return_since_created",
+     "sample": "19.22"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].cat_return_since_launch",
+     "sample": "17.69"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].aum",
+     "sample": "101856.06"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[]",
+     "len": 81,
+     "sample": "{\"scheme_code\":\"118989\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Repo\",\"nature_name\":\"CASH\",\"sector_name\":\"Unspecified\",\"instrument_name\":\"Repo\",\"rating\":null,\"market_value\":8521.585,\"corpus_per\":8.37,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating_market_cap",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details",
+     "sample": "[{\"scheme_code\":\"118989\",\"plan_id\":null,\"date_from\":\"2012-12-31T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Chirag Setalvad\",\"education\":\"Mr. Setalvad is a B. Sc and MBA from University of North Carolina.\",\"experience\":\"Prior to joining HDFC AMC he has worked with New Vernon Advisory Services Ltd"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[]",
+     "len": 2,
+     "sample": "{\"scheme_code\":\"118989\",\"plan_id\":null,\"date_from\":\"2012-12-31T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Chirag Setalvad\",\"education\":\"Mr. Setalvad is a B. Sc and MBA from University of North Carolina.\",\"experience\":\"Prior to joining HDFC AMC he has worked with New Vernon Advisory Services Ltd."
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].date_from",
+     "sample": "2012-12-31T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].funds_managed[]",
+     "len": 6,
+     "sample": "{\"scheme_name\":\"HDFC Mid Cap Fund Direct Growth\",\"scheme_code\":\"118989\",\"search_id\":\"hdfc-mid-cap-fund-direct-growth\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stamp_duty",
+     "sample": "0.005% (from July 1st, 2020)"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.return_since_created",
+     "sample": "18.45"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.cat_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.return_since_created",
+     "sample": "1035.29"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.cat_return_since_launch",
+     "sample": "310.61"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.lock_in",
+     "sample": "{\"years\":null,\"months\":null,\"days\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads",
+     "sample": "[{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed within 1 year.\",\"as_on_date\":\"2013-01-01T00:00:00\",\"front_load\":0,\"back_load\":0}]"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads[]",
+     "len": 1,
+     "sample": "{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed within 1 year.\",\"as_on_date\":\"2013-01-01T00:00:00\",\"front_load\":0,\"back_load\":0}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense",
+     "sample": "[{\"expense_ratio\":0.74,\"base_expense_ratio\":0.6,\"as_on_date\":\"2026-10-21T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.74,\"base_expense_ratio\":0.6,\"as_on_date\":\"2026-10-20T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.74,\"base_expense_ratio\":0.6,\"as_on"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[]",
+     "len": 1556,
+     "sample": "{\"expense_ratio\":0.74,\"base_expense_ratio\":0.6,\"as_on_date\":\"2026-10-21T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].expense_ratio",
+     "sample": "0.74"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].base_expense_ratio",
+     "sample": "0.6"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.blocked_reason",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[]",
+     "len": 5,
+     "sample": "{\"id\":null,\"scheme_search\":null,\"search_id\":\"invesco-india-mid-cap-fund-direct-growth\",\"category\":\"Equity\",\"sub_category\":\"Mid Cap\",\"sub_sub_category\":\"\",\"aum\":15748.83,\"mean_return\":22.21,\"return3y\":20.34,\"return1y\":-4.01,\"return5y\":16.42,\"return1m\":-11.68,\"return3m\":-9.33,\"return6m\":-1.66,\"return_"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_category",
+     "sample": "Mid Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].aum",
+     "sample": "15748.83"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].return_since_created",
+     "sample": "19.84"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_investment",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].groww_rating",
+     "sample": "5"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].super_category",
+     "sample": "Invesco India Mid Cap Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_manager",
+     "sample": "Vinay Paharia"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_house",
+     "sample": "Invesco Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].launch_date",
+     "sample": "2012-12-31T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_sip_investment",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].expense_ratio",
+     "sample": "0.77"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].base_expense_ratio",
+     "sample": "0.5"
+    },
+    {
+     "path": "scriptLoader[]",
+     "len": 1,
+     "sample": "{\"nonce\":\"V4nVwK+DI5VUt2zBUjGTRm82iLyTNF/axZsXN/u0ziE=\",\"strategy\":\"afterInteractive\",\"dangerouslySetInnerHTML\":{\"__html\":\"(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l"
+    }
+   ]
+  },
+  {
+   "name": "UTI Nifty 50 Index Fund - Direct Plan - Growth",
+   "code": "120716",
+   "isin": "INF789F01XA0",
+   "hit": "uti-nifty-fund-direct-growth",
+   "status": 200,
+   "paths": [
+    {
+     "path": "props.pageProps.mfServerSideData.stp_details.stp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.swp_details.swp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.investment_date_configs[]",
+     "len": 2,
+     "sample": "{\"sip_start_date_time\":null,\"sip_end_date_time\":null,\"lumpsum_start_date_time\":null,\"lumpsum_end_date_time\":null,\"scheme_type\":\"NORMAL\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.nfo_risk",
+     "sample": "Moderately High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_investment_amount",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_house",
+     "sample": "UTI Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager",
+     "sample": "Kaushik Basu"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.launch_date",
+     "sample": "01-Jan-2013"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.groww_rating",
+     "sample": "2"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.crisil_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.exit_load",
+     "sample": "Nil"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_category",
+     "sample": "Large Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark",
+     "sample": "NIFTY 50 TRI"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark_name",
+     "sample": "NIFTY 50 Total Return Index"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.aum",
+     "sample": "28063.55"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.expense_ratio",
+     "sample": "0.25"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.base_expense_ratio",
+     "sample": "0.18"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.portfolio_turnover",
+     "sample": "19"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.super_category",
+     "sample": "UTI Nifty 50 Index Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_sip_investment",
+     "sample": "500"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_withdrawal",
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[]",
+     "len": 6,
+     "sample": "{\"scheme_code\":\"120716\",\"analysis_type\":\"CONS\",\"analysis_subject\":\"c_return_analysis\",\"analysis_desc\":\"Consistently lower annualised returns than category average for the past 1Y, 3Y, 5Y and 10Y\",\"analysis_data\":\"c_return_analysis\",\"rating\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.aum",
+     "sample": "389855.02955891"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.launch_date",
+     "sample": "2002-11-13T18:30:00.712Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info",
+     "sample": "{\"category\":\"Equity\",\"category_helper_text\":\"Invests in stocks as per Contrarian investment strategy\",\"definition\":\"\",\"sub_type\":\"Contra\",\"tax_impact\":\"If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category_helper_text",
+     "sample": "Invests in stocks as per Contrarian investment strategy"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stats[]",
+     "len": 3,
+     "sample": "{\"type\":\"FUND_RETURN\",\"stat_1y\":-11.92,\"stat_3y\":6.44,\"stat_5y\":5.53,\"stat_all\":12.73,\"title\":\"Fund Returns\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[]",
+     "len": 1,
+     "sample": "{\"scheme_code\":\"120716\",\"return1d\":-0.38,\"return1w\":-2.35,\"return1m\":-3.6,\"return3m\":-5.13,\"return6m\":-5.79,\"return9m\":-9.08,\"return1y\":-11.92,\"return2y\":-2.88,\"return3y\":6.44,\"return4y\":7.45,\"return5y\":5.53,\"return7y\":10.96,\"return10y\":11.05,\"return_default\":12.73,\"mean_return\":6.66,\"sharpe_ratio\":"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].return_since_created",
+     "sample": "11.05"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].cat_return_since_launch",
+     "sample": "12.28"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].aum",
+     "sample": "28063.55"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[]",
+     "len": 51,
+     "sample": "{\"scheme_code\":\"120716\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"HDFC Bank Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Financial\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":2913.6288,\"corpus_per\":10.38225254,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search_id\":"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating_market_cap",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details",
+     "sample": "[{\"scheme_code\":\"120716\",\"plan_id\":null,\"date_from\":\"2018-07-01T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Sharwan Kumar Goyal\",\"education\":\"Mr.Goyal is B.Com, CFA and MMS.\",\"experience\":\"He began his career with UTI in June 2006 and has 15 years of overall experience in Risk / Fund management. "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[]",
+     "len": 3,
+     "sample": "{\"scheme_code\":\"120716\",\"plan_id\":null,\"date_from\":\"2018-07-01T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Sharwan Kumar Goyal\",\"education\":\"Mr.Goyal is B.Com, CFA and MMS.\",\"experience\":\"He began his career with UTI in June 2006 and has 15 years of overall experience in Risk / Fund management. P"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].date_from",
+     "sample": "2018-07-01T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].funds_managed[]",
+     "len": 23,
+     "sample": "{\"scheme_name\":\"UTI Multi Asset Allocation Fund Direct Growth\",\"scheme_code\":\"120760\",\"search_id\":\"uti-wealth-builder-fund-direct-growth\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stamp_duty",
+     "sample": "0.005% (from July 1st, 2020)"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.return_since_created",
+     "sample": "10.54"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.cat_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.return_since_created",
+     "sample": "325.56"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.cat_return_since_launch",
+     "sample": "169.81"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.lock_in",
+     "sample": "{\"years\":null,\"months\":null,\"days\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads",
+     "sample": "[{\"cdsc\":false,\"note\":null,\"as_on_date\":\"2016-05-02T00:00:00\",\"front_load\":0,\"back_load\":0},{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed less than 15 days\",\"as_on_date\":\"2013-01-01T00:00:00\",\"front_load\":0,\"back_load\":0}]"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads[]",
+     "len": 2,
+     "sample": "{\"cdsc\":false,\"note\":null,\"as_on_date\":\"2016-05-02T00:00:00\",\"front_load\":0,\"back_load\":0}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense",
+     "sample": "[{\"expense_ratio\":0.25,\"base_expense_ratio\":0.18,\"as_on_date\":\"2026-10-23T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.25,\"base_expense_ratio\":0.18,\"as_on_date\":\"2026-10-22T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":0.25,\"base_expense_ratio\":0.18,\"as"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[]",
+     "len": 1096,
+     "sample": "{\"expense_ratio\":0.25,\"base_expense_ratio\":0.18,\"as_on_date\":\"2026-10-23T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].expense_ratio",
+     "sample": "0.25"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].base_expense_ratio",
+     "sample": "0.18"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.blocked_reason",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[]",
+     "len": 5,
+     "sample": "{\"id\":null,\"scheme_search\":null,\"search_id\":\"invesco-india-large-cap-fund-direct-growth\",\"category\":\"Equity\",\"sub_category\":\"Large Cap\",\"sub_sub_category\":\"\",\"aum\":1925.14,\"mean_return\":13.53,\"return3y\":12.7,\"return1y\":-5.67,\"return5y\":9.19,\"return1m\":-6.24,\"return3m\":-4.75,\"return6m\":-1.51,\"return_"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_category",
+     "sample": "Large Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].sub_sub_category",
+     "sample": ""
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].aum",
+     "sample": "1925.14"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].return_since_created",
+     "sample": "14.16"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_investment",
+     "sample": "1000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].groww_rating",
+     "sample": "5"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].super_category",
+     "sample": "Invesco India Large Cap Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_manager",
+     "sample": "Vinay Paharia, Taher Badshah"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].fund_house",
+     "sample": "Invesco Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].launch_date",
+     "sample": "2012-12-31T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].min_sip_investment",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].expense_ratio",
+     "sample": "0.91"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.peerComparison[].base_expense_ratio",
+     "sample": "0.67"
+    },
+    {
+     "path": "scriptLoader[]",
+     "len": 1,
+     "sample": "{\"nonce\":\"UkYGvqm5UB8YBsZyGtr1W/YrCvRJCxBfl0827ysY+FE=\",\"strategy\":\"afterInteractive\",\"dangerouslySetInnerHTML\":{\"__html\":\"(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l"
+    }
+   ]
+  },
+  {
+   "name": "ICICI Prudential Technology Fund - Direct Plan - Growth",
+   "code": "120594",
+   "isin": "INF109K01Z48",
+   "hit": "icici-prudential-technology-fund-direct-growth",
+   "status": 200,
+   "paths": [
+    {
+     "path": "props.pageProps.mfServerSideData.stp_details.stp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.swp_details.swp_dates[]",
+     "len": 30,
+     "sample": "1"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.investment_date_configs[]",
+     "len": 2,
+     "sample": "{\"sip_start_date_time\":null,\"sip_end_date_time\":null,\"lumpsum_start_date_time\":null,\"lumpsum_end_date_time\":null,\"scheme_type\":\"NORMAL\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.nfo_risk",
+     "sample": "High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_investment_amount",
+     "sample": "5000"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_house",
+     "sample": "ICICI Prudential Mutual Fund"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager",
+     "sample": "S Naren, Ashwin Jain"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.launch_date",
+     "sample": "01-Jan-2013"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.groww_rating",
+     "sample": "3"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.crisil_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.exit_load",
+     "sample": "Exit load of 1% if redeemed within 15 days"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_category",
+     "sample": "Sectoral"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark",
+     "sample": "BSE Teck TRI"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.benchmark_name",
+     "sample": "BSE Teck Total Return Index"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.aum",
+     "sample": "12505.05"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.expense_ratio",
+     "sample": "1.21"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.base_expense_ratio",
+     "sample": "0.89"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.portfolio_turnover",
+     "sample": "52"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.super_category",
+     "sample": "ICICI Prudential Technology Direct Plan-Growth"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sub_sub_category",
+     "sample": "Technology"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_sip_investment",
+     "sample": "100"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.min_withdrawal",
+     "sample": "0.01"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[]",
+     "len": 5,
+     "sample": "{\"scheme_code\":\"120594\",\"analysis_type\":\"PROS\",\"analysis_subject\":\"p_return_analysis\",\"analysis_desc\":\"10Y annualised returns higher than category average by 0.27%\",\"analysis_data\":\"p_return_analysis\",\"rating\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.analysis[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.aum",
+     "sample": "1111684.08342459"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.amc_info.launch_date",
+     "sample": "1993-10-11T18:30:00.126Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info",
+     "sample": "{\"category\":\"Equity\",\"category_helper_text\":\"Invests in stocks as per Contrarian investment strategy\",\"definition\":\"\",\"sub_type\":\"Contra\",\"tax_impact\":\"If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category",
+     "sample": "Equity"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.category_info.category_helper_text",
+     "sample": "Invests in stocks as per Contrarian investment strategy"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stats[]",
+     "len": 3,
+     "sample": "{\"type\":\"FUND_RETURN\",\"stat_1y\":-8.97,\"stat_3y\":7.71,\"stat_5y\":3.44,\"stat_all\":23.9,\"title\":\"Fund Returns\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[]",
+     "len": 1,
+     "sample": "{\"scheme_code\":\"120594\",\"return1d\":-1.42,\"return1w\":-1.9,\"return1m\":3.16,\"return3m\":6.38,\"return6m\":5.97,\"return9m\":-10.66,\"return1y\":-8.97,\"return2y\":-6.37,\"return3y\":7.71,\"return4y\":9.1,\"return5y\":3.44,\"return7y\":19.61,\"return10y\":17.49,\"return_default\":23.9,\"mean_return\":6.57,\"sharpe_ratio\":0.05,"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].risk",
+     "sample": "Very High"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].return_since_created",
+     "sample": "18.53"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].cat_return_since_launch",
+     "sample": "17.88"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.return_stats[].aum",
+     "sample": "12505.05"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[]",
+     "len": 71,
+     "sample": "{\"scheme_code\":\"120594\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Bharti Airtel Ltd\",\"nature_name\":\"EQUITY\",\"sector_name\":\"Technology\",\"instrument_name\":\"Equity\",\"rating\":null,\"market_value\":1684.3929,\"corpus_per\":13.46970526,\"market_cap\":null,\"rating_market_cap\":null,\"stock_search"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.holdings[].rating_market_cap",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details",
+     "sample": "[{\"scheme_code\":\"120594\",\"plan_id\":null,\"date_from\":\"2022-06-30T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Sharmila D'Silva\",\"education\":\"Ms. D'Silva is CA and BAF\",\"experience\":\"She joined ICICI Prudential AMC Limited in September 2016.\",\"funds_managed\":[{\"scheme_name\":\"ICICI Prudential Mid Cap"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[]",
+     "len": 2,
+     "sample": "{\"scheme_code\":\"120594\",\"plan_id\":null,\"date_from\":\"2022-06-30T18:30:00.000Z\",\"person_id\":null,\"person_name\":\"Sharmila D'Silva\",\"education\":\"Ms. D'Silva is CA and BAF\",\"experience\":\"She joined ICICI Prudential AMC Limited in September 2016.\",\"funds_managed\":[{\"scheme_name\":\"ICICI Prudential Mid Cap "
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].date_from",
+     "sample": "2022-06-30T18:30:00.000Z"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.fund_manager_details[].funds_managed[]",
+     "len": 50,
+     "sample": "{\"scheme_name\":\"ICICI Prudential Mid Cap Direct Plan Growth\",\"scheme_code\":\"120381\",\"search_id\":\"icici-prudential-mid-cap-direct-plan-growth\"}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.stamp_duty",
+     "sample": "0.005% (from July 1st, 2020)"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.return_since_created",
+     "sample": "16.15"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.cat_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.sip_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk_rating",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.risk",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.return_since_created",
+     "sample": "947"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.cat_return_since_launch",
+     "sample": "136.73"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.index_return_since_launch",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.simple_return.aum",
+     "sample": "null"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.lock_in",
+     "sample": "{\"years\":null,\"months\":null,\"days\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads",
+     "sample": "[{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed within 15 days\",\"as_on_date\":\"2018-08-01T00:00:00\",\"front_load\":0,\"back_load\":0},{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed upto 1 year.\\r\\nExit load of 1% if redeemed within 1 year by way of SIP.\",\"as_on_date\":\"2013-01-01T00:00:00\",\"front_load"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_exit_loads[]",
+     "len": 2,
+     "sample": "{\"cdsc\":true,\"note\":\"Exit load of 1% if redeemed within 15 days\",\"as_on_date\":\"2018-08-01T00:00:00\",\"front_load\":0,\"back_load\":0}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense",
+     "sample": "[{\"expense_ratio\":1.21,\"base_expense_ratio\":0.89,\"as_on_date\":\"2026-10-22T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":1.21,\"base_expense_ratio\":0.89,\"as_on_date\":\"2026-10-21T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null},{\"expense_ratio\":1.21,\"base_expense_ratio\":0.89,\"as"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[]",
+     "len": 1301,
+     "sample": "{\"expense_ratio\":1.21,\"base_expense_ratio\":0.89,\"as_on_date\":\"2026-10-22T00:00:00\",\"frequency\":null,\"turn_over_ratio\":null}"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].expense_ratio",
+     "sample": "1.21"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.historic_fund_expense[].base_expense_ratio",
+     "sample": "0.89"
+    },
+    {
+     "path": "props.pageProps.mfServerSideData.blocked_reason",
+     "sample": "null"
+    },
+    {
+     "path": "scriptLoader[]",
+     "len": 1,
+     "sample": "{\"nonce\":\"d85FBO7cNDw5kpLnEeIKFKQNbxPqFNqnDyf7gMIVZWU=\",\"strategy\":\"afterInteractive\",\"dangerouslySetInnerHTML\":{\"__html\":\"(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l"
+    }
+   ]
+  }
+ ]
+}
