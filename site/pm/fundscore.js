@@ -22,7 +22,7 @@ export function normCategory(raw        )         {
 }
 /** Categories scored in this phase: actively managed equity and hybrid growth funds. Debt and liquid are not scored for return (design). Index funds, ETFs and fund-of-funds
  *  are NOT ranked on return: a Nifty 50 fund and a midcap index fund are not comparable, and the design judges them on tracking difference and cost (next phase). */
-export const scorable = (cat        )          => /^(Large Cap|Mid Cap|Small Cap|Large & Mid Cap|Multi Cap|Flexi Cap|Focused|Value|Contra|Dividend Yield|ELSS|Sectoral\/Thematic|Aggressive Hybrid|Balanced Advantage|Multi Asset Allocation|Equity Savings)$/i.test(cat);
+export const scorable = (cat        )          => /^(Large Cap|Mid Cap|Small Cap|Large & Mid Cap|Multi Cap|Flexi Cap|Focused|Value|Contra|Dividend Yield|ELSS|Sectoral\/Thematic|Aggressive Hybrid|Balanced Advantage|Multi Asset Allocation|Equity Savings|Conservative Hybrid|Balanced Hybrid)$/i.test(cat);
 export const returnOnly = (_cat        )          => false;
 
 const dayMs = 86400000;
