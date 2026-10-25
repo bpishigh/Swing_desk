@@ -1,19 +1,15 @@
-// One-off probe (scope K3), round 2: NSE's shareholding filing lists an XBRL file per quarter; does it carry the promoter pledge figures, and can it be read? Writes data/probe-pledge.json. Public data only.
+// One-off probe (scope K3), round 3: the numeric pledge elements of NSE's shareholding XBRL, and the contexts they sit in. Writes data/probe-pledge.json. Public data only.
 import { writeFileSync } from 'node:fs';
-const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', 'accept-language': 'en-IN,en;q=0.9' };
-const get = async (url, h = {}) => { try { const r = await fetch(url, { headers: { ...UA, ...h }, signal: AbortSignal.timeout(40000), redirect: 'follow' }); const t = await r.text(); return { status: r.status, t }; } catch (e) { return { status: 0, err: String(e).slice(0, 120), t: '' }; } };
+const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
+const get = async (url, h = {}) => { try { const r = await fetch(url, { headers: { ...UA, ...h }, signal: AbortSignal.timeout(40000) }); return { status: r.status, t: await r.text() }; } catch (e) { return { status: 0, t: '' }; } };
 const out = { at: new Date().toISOString(), rows: [] };
-const nse = { referer: 'https://www.nseindia.com/', accept: 'application/json' };
-for (const s of ['ADANIENT', 'RPOWER', 'RELIANCE', 'JPPOWER']) {
-  const m = await get(`https://www.nseindia.com/api/corporate-share-holdings-master?index=equities&symbol=${s}`, nse);
-  let rec = null; try { rec = JSON.parse(m.t)[0]; } catch {}
-  const row = { s, masterStatus: m.status, keys: rec ? Object.keys(rec) : null, date: rec?.date, promoter: rec?.pr_and_prgrp, xbrl: rec?.xbrl ?? null };
-  if (rec?.xbrl) {
-    const x = await get(rec.xbrl, { referer: 'https://www.nseindia.com/' });
-    row.x = { status: x.status, bytes: x.t.length, head: x.t.slice(0, 200), pledgeTags: [...x.t.matchAll(/<[^>]*(?:ledge|ncumber)[^>]*>[^<]{0,80}/gi)].map((q) => q[0].slice(0, 200)).slice(0, 25) };
-  }
-  for (const ep of [`corporate-pledgedata?index=equities&symbol=${s}&from_date=01-01-2025&to_date=25-10-2026`, `corporate-pledgedata?index=equities`]) { const p = await get('https://www.nseindia.com/api/' + ep, nse); (row.pledge ??= []).push({ ep: ep.slice(0, 60), status: p.status, bytes: p.t.length, head: p.t.slice(0, 300) }); }
-  out.rows.push(row); await new Promise((r) => setTimeout(r, 1500));
+for (const s of ['ADANIENT', 'JPPOWER']) {
+  const m = await get(`https://www.nseindia.com/api/corporate-share-holdings-master?index=equities&symbol=${s}`, { referer: 'https://www.nseindia.com/', accept: 'application/json' });
+  const rec = JSON.parse(m.t)[0]; const x = (await get(rec.xbrl)).t;
+  const tags = [...x.matchAll(/<in-bse-shp:(\w*(?:ledge|ncumber)\w*)\s+([^>]*)>\s*([^<\s][^<]*?)\s*<\//g)].filter((q) => /^-?[\d.]+$/.test(q[3])).map((q) => ({ tag: q[1], attrs: q[2].replace(/\s+/g, ' ').slice(0, 120), v: q[3] }));
+  const ctx = [...x.matchAll(/<xbrli:context id="([^"]+)"[\s\S]*?<\/xbrli:context>/g)].filter((q) => tags.some((t) => t.attrs.includes('"' + q[1] + '"'))).map((q) => ({ id: q[1], body: q[0].replace(/\s+/g, ' ').slice(0, 400) }));
+  const shp = [...x.matchAll(/<in-bse-shp:(ShareholdingAsAPercentageOfTotalNumberOfShares|NumberOfFullyPaidUpEquityShares\w*|TotalNumberOfShares\w*)\s+([^>]*)>\s*([\d.]+)/g)].map((q) => ({ tag: q[1], attrs: q[2].slice(0, 90), v: q[3] })).slice(0, 14);
+  out.rows.push({ s, date: rec.date, n: tags.length, tags: tags.slice(0, 40), ctx: ctx.slice(0, 8), shp });
 }
 writeFileSync('data/probe-pledge.json', JSON.stringify(out, null, 1) + '\n');
-console.log(out.rows.map((o) => `${o.s} xbrl=${o.x?.status} tags=${o.x?.pledgeTags?.length}`).join('\n'));
+console.log(out.rows.map((r) => r.s + ' ' + r.n).join('\n'));
