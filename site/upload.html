@@ -63,6 +63,9 @@ body { font:15px/1.5 var(--font); font-variant-numeric:tabular-nums; -webkit-fon
 .verdict { border-left:0; border-radius:14px; font-size:19px; font-weight:600; letter-spacing:-.01em; padding:18px 22px; }
 .tabs button[aria-selected=true] { color:var(--ink); font-weight:700; }
 td.sub { text-align:left; }
+small.why { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:300px; }
+.hr td:first-child { font-weight:600; } .hr td { padding-top:11px; padding-bottom:11px; }
+table { font-size:14px; } th, td { padding:8px 7px; }
 /* hero */
 .hero { display:grid; grid-template-columns:1.2fr 1fr; gap:24px; align-items:center; } .hero .big { font-size:44px; } .hero .gl { font-size:20px; font-weight:700; margin-top:4px; }
 .minis { display:grid; grid-template-columns:1fr 1fr; gap:18px; } .mini .mv { font-size:22px; font-weight:700; letter-spacing:-.02em; margin:2px 0; }
@@ -1074,6 +1077,7 @@ function dataTab() {
 // ---------- render
 // Long explanatory lines show two lines and a "more" link, so a card reads as a headline and a figure, not a paragraph.
 function tidy() {
+  document.querySelectorAll('#main small.why').forEach((el) => { el.title = el.textContent; });
   document.querySelectorAll('#main .sub').forEach((el) => {
     if (el.tagName === 'LABEL' || el.closest('table, label, summary') || el.querySelector('input, select, button, textarea, table') || el.dataset.tidy) return;
     el.dataset.tidy = '1'; if ((el.textContent || '').length < 170) return;
