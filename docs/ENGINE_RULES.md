@@ -1,6 +1,7 @@
+<!-- Copy of the Claude Doc 'Swing Desk – Engine Rules (Source of Truth)', doc rev 295, exported 25 Oct 2026 (rules version R-2026.10.9). The live doc is the source of truth: re-export after any rule change (tools/doc-xml-to-md.mjs). https://claude.ai/code/artifact/a83ac498-63c7-4e3f-83c7-0405127674e8 -->
 # Swing Desk – Engine Rules (Source of Truth)
 
-Oct 3, 2026 · @Bhargav
+Oct 3, 2026 · @Owner
 
 ## How to use this document
 
