@@ -1,0 +1,120 @@
+{
+ "at": "2026-10-25T09:19:39.826Z",
+ "nse": [
+  {
+   "s": "RELIANCE",
+   "ep": "corporate-pledgedata",
+   "status": 200,
+   "bytes": 28,
+   "head": "{\"comNameList\":[],\"data\":[]}"
+  },
+  {
+   "s": "RELIANCE",
+   "ep": "corporate-share-holdings-master",
+   "status": 200,
+   "bytes": 42953,
+   "head": "[{\"broadcastDate\":\"21-OCT-2026 16:25:15\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":null,\"name\":\"Reliance Industries Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"50.44\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"49.56\",\"recordId\":\"216074\",\"remarksWeb\":\"In accordance with the Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018, the Company had allotted bonus equity shares in dematerialised form only and bonus equity shares of shareholders holding equity shares in physical form were credited to a separate demat suspense acc"
+  },
+  {
+   "s": "ADANIENT",
+   "ep": "corporate-pledgedata",
+   "status": 200,
+   "bytes": 28,
+   "head": "{\"comNameList\":[],\"data\":[]}"
+  },
+  {
+   "s": "ADANIENT",
+   "ep": "corporate-share-holdings-master",
+   "status": 200,
+   "bytes": 24530,
+   "head": "[{\"broadcastDate\":\"12-OCT-2026 18:48:24\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"IN9423A01014\",\"name\":\"Adani Enterprises Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"71.97\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"28.03\",\"recordId\":\"213915\",\"remarksWeb\":\"In SBO for nationality, we have mention Indian/ Cypriot as nationality of (i) Gautambhai Shantilal Adani and Rajeshbhai Shantilal Adani is Indian, and (ii) nationality of Vinodbhai Shantilal Adani is Cypriot.\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionR"
+  },
+  {
+   "s": "RPOWER",
+   "ep": "corporate-pledgedata",
+   "status": 200,
+   "bytes": 28,
+   "head": "{\"comNameList\":[],\"data\":[]}"
+  },
+  {
+   "s": "RPOWER",
+   "ep": "corporate-share-holdings-master",
+   "status": 200,
+   "bytes": 20920,
+   "head": "[{\"broadcastDate\":\"16-OCT-2026 19:10:13\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE614G01033\",\"name\":\"Reliance Power Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"24.98\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"75.02\",\"recordId\":\"215106\",\"remarksWeb\":\"N\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionRemark\":null,\"shareholdingPatternNotes\":\"\",\"submissionDate\":\"16-OCT-2026\",\"symbol\":\"RPOWER\",\"systemDate\":\"16-OCT-2026 19:10:18\",\"timeDifference\":\"00:00:05\",\"typeOfSubmission\":null,\"underlyingDrs\":null,\"xbrl\":\"ht"
+  },
+  {
+   "s": "JPPOWER",
+   "ep": "corporate-pledgedata",
+   "status": 200,
+   "bytes": 28,
+   "head": "{\"comNameList\":[],\"data\":[]}"
+  },
+  {
+   "s": "JPPOWER",
+   "ep": "corporate-share-holdings-master",
+   "status": 200,
+   "bytes": 49720,
+   "head": "[{\"broadcastDate\":\"21-OCT-2026 15:08:01\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE351F01018\",\"name\":\"Jaiprakash Power Ventures Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"24\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"76\",\"recordId\":\"216011\",\"remarksWeb\":\"N\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionRemark\":null,\"shareholdingPatternNotes\":\"\",\"submissionDate\":\"21-OCT-2026\",\"symbol\":\"JPPOWER\",\"systemDate\":\"21-OCT-2026 15:08:06\",\"timeDifference\":\"00:00:05\",\"typeOfSubmission\":null,\"underlyingDrs\":null,\"xbr"
+  },
+  {
+   "s": "TCS",
+   "ep": "corporate-pledgedata",
+   "status": 200,
+   "bytes": 28,
+   "head": "{\"comNameList\":[],\"data\":[]}"
+  },
+  {
+   "s": "TCS",
+   "ep": "corporate-share-holdings-master",
+   "status": 200,
+   "bytes": 21490,
+   "head": "[{\"broadcastDate\":\"19-OCT-2026 18:37:52\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE467B01029\",\"name\":\"Tata Consultancy Services Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"71.77\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"28.23\",\"recordId\":\"215653\",\"remarksWeb\":\"1. The Company is a subsidiary of Tata Sons Private Limited (TSPL) which holds 71.74% in the Company as on September 30, 2026. TSPL is a Core Investment Company and as an investment vehicle, it is exempted from the Company's (Significant Beneficial Owners) Rules, 2018 (SBO Rules) on investment made by it. The"
+  }
+ ],
+ "screener": [
+  {
+   "s": "RELIANCE",
+   "status": 200,
+   "ctx": null
+  },
+  {
+   "s": "ADANIENT",
+   "status": 200,
+   "ctx": null
+  },
+  {
+   "s": "RPOWER",
+   "status": 200,
+   "ctx": null
+  },
+  {
+   "s": "JPPOWER",
+   "status": 200,
+   "ctx": null
+  },
+  {
+   "s": "TCS",
+   "status": 200,
+   "ctx": null
+  }
+ ],
+ "bse": [
+  {
+   "u": "https://api.bseindia.com/BseIndiaAPI/api/ShareholdingPromoters/w?scripcode=512599&qtrid=",
+   "status": 403,
+   "bytes": 426,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;ShareholdingPromoters&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;8c1c2117&#46;1792920006&#46;581f7475\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8c1c2117&#46;1792920006&#46;581"
+  },
+  {
+   "u": "https://api.bseindia.com/BseIndiaAPI/api/SHPannexure/w?scripcode=512599",
+   "status": 403,
+   "bytes": 416,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;SHPannexure&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;8c1c2117&#46;1792920006&#46;581f74d0\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8c1c2117&#46;1792920006&#46;581f74d0</P>\n"
+  }
+ ],
+ "nseHome": {
+  "status": 403,
+  "cookies": 0
+ }
+}
