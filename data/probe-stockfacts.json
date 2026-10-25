@@ -1,0 +1,153 @@
+{
+ "at": "2026-10-25T09:17:23.358Z",
+ "out": [
+  {
+   "sym": "RELIANCE",
+   "groww": {
+    "status": 200,
+    "bytes": 240056,
+    "hasNext": true,
+    "keys": [
+     "stockData",
+     "stocksVolumeStatsDataError",
+     "stocksTechnicalsDataError",
+     "liveCandles",
+     "livePriceData",
+     "newsData",
+     "eventsData",
+     "exchange"
+    ],
+    "fund": {
+     "fundamentals": "[{\"name\":\"Market Cap\",\"shortName\":\"Mkt Cap\",\"value\":\"₹15,91,426Cr\"},{\"name\":\"ROE\",\"shortName\":\"ROE\",\"value\":\"8.94%\"},{\"name\":\"P/E Ratio(TTM)\",\"shortName\":\"P/E Ratio(TTM)\",\"value\":\"18.05\"},{\"name\":\"EPS(TTM)\",\"shortName\":\"",
+     "shareHoldingPattern": "{\"Jun '26\":{\"promoters\":{\"individual\":{\"percent\":50.4808},\"government\":{\"percent\":0},\"corporation\":{\"percent\":0}},\"mutualFunds\":{\"percent\":10.1062},\"otherDomesticInstitutions\":{\"insurance\":{\"percent\":11.081999999999999},",
+     "promoters": "50.0696",
+     "financialStatement": "[{\"title\":\"Revenue\",\"yearly\":{\"2022\":710906,\"2023\":889569,\"2024\":917121,\"2025\":982671,\"2026\":1086181},\"quarterly\":{\"Jun '25\":288371,\"Sep '25\":288030,\"Dec '25\":298743,\"Mar '26\":329737,\"Jun '26\":346807},\"cagr\":{\"oneYearTtm",
+     "financialStatementV2": "{\"CONSOLIDATED\":[{\"title\":\"Revenue\",\"yearly\":{\"2022\":710906,\"2023\":889569,\"2024\":917121,\"2025\":982671,\"2026\":1086181},\"quarterly\":{\"Jun '25\":288371,\"Sep '25\":288030,\"Dec '25\":298743,\"Mar '26\":329737,\"Jun '26\":346807}},{\"",
+     "peRatio": "22.41",
+     "pbRatio": "2.35",
+     "shareholdingPatternV2": "{\"data\":{\"Jun '26\":{\"promoters\":50.4808,\"fii\":17.1961,\"dii\":21.1882,\"others\":0,\"public\":11.1349},\"Mar '26\":{\"promoters\":49.9993,\"fii\":18.6658,\"dii\":20.5476,\"others\":0,\"public\":10.7873},\"Dec '25\":{\"promoters\":50.0063,\"fii",
+     "stocksVolumeStatsDataError": "false"
+    }
+   },
+   "screener": {
+    "status": 200,
+    "bytes": 234327,
+    "hasRatios": true,
+    "hasPromoter": true,
+    "hasPledge": false,
+    "hasROCE": true
+   }
+  },
+  {
+   "sym": "TCS",
+   "groww": {
+    "status": 200,
+    "bytes": 279114,
+    "hasNext": true,
+    "keys": [
+     "stockData",
+     "stocksVolumeStatsDataError",
+     "stocksTechnicalsDataError",
+     "liveCandles",
+     "livePriceData",
+     "newsData",
+     "eventsData",
+     "exchange"
+    ],
+    "fund": {
+     "fundamentals": "[{\"name\":\"Market Cap\",\"shortName\":\"Mkt Cap\",\"value\":\"₹9,05,607Cr\"},{\"name\":\"ROE\",\"shortName\":\"ROE\",\"value\":\"43.37%\"},{\"name\":\"P/E Ratio(TTM)\",\"shortName\":\"P/E Ratio(TTM)\",\"value\":\"17.46\"},{\"name\":\"EPS(TTM)\",\"shortName\":\"",
+     "shareHoldingPattern": "{\"Sep '26\":{\"promoters\":{\"individual\":{\"percent\":71.7661},\"government\":{\"percent\":0},\"corporation\":{\"percent\":0}},\"mutualFunds\":{\"percent\":5.646},\"otherDomesticInstitutions\":{\"insurance\":{\"percent\":7.9289},\"otherFirms\":{",
+     "promoters": "71.7661",
+     "financialStatement": "[{\"title\":\"Revenue\",\"yearly\":{\"2022\":195772,\"2023\":228907,\"2024\":245315,\"2025\":259286,\"2026\":271423},\"quarterly\":{\"Sep '25\":66666,\"Dec '25\":68205,\"Mar '26\":71455,\"Jun '26\":73843,\"Sep '26\":74525},\"cagr\":{\"oneYearTtm\":0.12",
+     "financialStatementV2": "{\"CONSOLIDATED\":[{\"title\":\"Revenue\",\"yearly\":{\"2022\":195772,\"2023\":228907,\"2024\":245315,\"2025\":259286,\"2026\":271423},\"quarterly\":{\"Sep '25\":66666,\"Dec '25\":68205,\"Mar '26\":71455,\"Jun '26\":73843,\"Sep '26\":74525}},{\"title\"",
+     "peRatio": "14.7",
+     "pbRatio": "2.42",
+     "shareholdingPatternV2": "{\"data\":{\"Sep '26\":{\"promoters\":71.7661,\"fii\":9.0111,\"dii\":13.5749,\"others\":0,\"public\":5.6479},\"Jun '26\":{\"promoters\":71.7661,\"fii\":9.0625,\"dii\":13.474,\"others\":0,\"public\":5.6974},\"Mar '26\":{\"promoters\":71.7661,\"fii\":9.6",
+     "stocksVolumeStatsDataError": "false"
+    }
+   },
+   "screener": {
+    "status": 200,
+    "bytes": 248533,
+    "hasRatios": true,
+    "hasPromoter": true,
+    "hasPledge": false,
+    "hasROCE": true
+   }
+  },
+  {
+   "sym": "KPITTECH",
+   "groww": {
+    "status": 200,
+    "bytes": 243438,
+    "hasNext": true,
+    "keys": [
+     "stockData",
+     "stocksVolumeStatsDataError",
+     "stocksTechnicalsDataError",
+     "liveCandles",
+     "livePriceData",
+     "newsData",
+     "eventsData",
+     "exchange"
+    ],
+    "fund": {
+     "fundamentals": "[{\"name\":\"Market Cap\",\"shortName\":\"Mkt Cap\",\"value\":\"₹8,780Cr\"},{\"name\":\"ROE\",\"shortName\":\"ROE\",\"value\":\"12.60%\"},{\"name\":\"P/E Ratio(TTM)\",\"shortName\":\"P/E Ratio(TTM)\",\"value\":\"15.32\"},{\"name\":\"EPS(TTM)\",\"shortName\":\"EPS",
+     "shareHoldingPattern": "{\"Sep '26\":{\"promoters\":{\"individual\":{\"percent\":40.3715},\"government\":{\"percent\":0},\"corporation\":{\"percent\":0}},\"mutualFunds\":{\"percent\":18.0393},\"otherDomesticInstitutions\":{\"insurance\":{\"percent\":1.5410000000000004},",
+     "promoters": "40.5344",
+     "financialStatement": "[{\"title\":\"Revenue\",\"yearly\":{\"2022\":4196.552,\"2023\":4817.58,\"2024\":5381.651,\"2025\":5483.776,\"2026\":5374.763},\"quarterly\":{\"Jun '25\":1318,\"Sep '25\":1350.93,\"Dec '25\":1360.94,\"Mar '26\":1344.89,\"Jun '26\":1408.43},\"cagr\":{\"",
+     "financialStatementV2": "{\"CONSOLIDATED\":[{\"title\":\"Revenue\",\"yearly\":{\"2022\":4196.552,\"2023\":4817.58,\"2024\":5381.651,\"2025\":5483.776,\"2026\":5374.763},\"quarterly\":{\"Jun '25\":1318,\"Sep '25\":1350.93,\"Dec '25\":1360.94,\"Mar '26\":1344.89,\"Jun '26\":14",
+     "peRatio": "20.32",
+     "pbRatio": "2.67",
+     "shareholdingPatternV2": "{\"data\":{\"Sep '26\":{\"promoters\":40.3715,\"fii\":12.3295,\"dii\":19.5803,\"others\":0,\"public\":27.7187},\"Jun '26\":{\"promoters\":40.3812,\"fii\":12.7829,\"dii\":21.9861,\"others\":0,\"public\":24.8498},\"Mar '26\":{\"promoters\":40.3947,\"fii",
+     "stocksVolumeStatsDataError": "false"
+    }
+   },
+   "screener": {
+    "status": 200,
+    "bytes": 203534,
+    "hasRatios": true,
+    "hasPromoter": true,
+    "hasPledge": false,
+    "hasROCE": true
+   }
+  },
+  {
+   "sym": "SUZLON",
+   "groww": {
+    "status": 200,
+    "bytes": 225417,
+    "hasNext": true,
+    "keys": [
+     "stockData",
+     "stocksVolumeStatsDataError",
+     "stocksTechnicalsDataError",
+     "liveCandles",
+     "livePriceData",
+     "newsData",
+     "eventsData",
+     "exchange"
+    ],
+    "fund": {
+     "fundamentals": "[{\"name\":\"Market Cap\",\"shortName\":\"Mkt Cap\",\"value\":\"₹52,500Cr\"},{\"name\":\"ROE\",\"shortName\":\"ROE\",\"value\":\"33.43%\"},{\"name\":\"P/E Ratio(TTM)\",\"shortName\":\"P/E Ratio(TTM)\",\"value\":\"16.67\"},{\"name\":\"EPS(TTM)\",\"shortName\":\"EP",
+     "shareHoldingPattern": "{\"Sep '26\":{\"promoters\":{\"individual\":{\"percent\":11.7027},\"government\":{\"percent\":0},\"corporation\":{\"percent\":0}},\"mutualFunds\":{\"percent\":6.5385},\"otherDomesticInstitutions\":{\"insurance\":{\"percent\":3.7070999999999996},\"",
+     "promoters": "11.7349",
+     "financialStatement": "[{\"title\":\"Revenue\",\"yearly\":{\"2022\":6603.97,\"2023\":5990.16,\"2024\":6567.51,\"2025\":10993.13,\"2026\":16841.78},\"quarterly\":{\"Jun '25\":3165.19,\"Sep '25\":3897.33,\"Dec '25\":4258.61,\"Mar '26\":5520.65,\"Jun '26\":3862.53},\"cagr\":{",
+     "financialStatementV2": "{\"CONSOLIDATED\":[{\"title\":\"Revenue\",\"yearly\":{\"2022\":6603.97,\"2023\":5990.16,\"2024\":6567.51,\"2025\":10993.13,\"2026\":16841.78},\"quarterly\":{\"Jun '25\":3165.19,\"Sep '25\":3897.33,\"Dec '25\":4258.61,\"Mar '26\":5520.65,\"Jun '26\":3",
+     "peRatio": "36.65",
+     "pbRatio": "8.68",
+     "shareholdingPatternV2": "{\"data\":{\"Sep '26\":{\"promoters\":11.7027,\"fii\":23.6259,\"dii\":10.2456,\"others\":0,\"public\":54.4258},\"Jun '26\":{\"promoters\":11.7057,\"fii\":24.1462,\"dii\":11.107,\"others\":0,\"public\":53.0411},\"Mar '26\":{\"promoters\":11.7297,\"fii\"",
+     "stocksVolumeStatsDataError": "false"
+    }
+   },
+   "screener": {
+    "status": 200,
+    "bytes": 224905,
+    "hasRatios": true,
+    "hasPromoter": true,
+    "hasPledge": false,
+    "hasROCE": true
+   }
+  }
+ ]
+}
