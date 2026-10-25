@@ -1,0 +1,375 @@
+{
+ "at": "2026-10-25T06:35:15.805Z",
+ "tried": 46,
+ "ok": 0,
+ "funds": [
+  {
+   "code": "132140",
+   "name": "Aditya Birla Sun Life Global Emerging Opportunities Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140256",
+   "name": "Edelweiss ASEAN Equity Off-shore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140327",
+   "name": "Edelweiss Emerging Markets Opportunities Equity Offshore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "120035",
+   "name": "HSBC Brazil Fund - Direct Plan - Growth",
+   "slug": "hsbc-brazil-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/hsbc-brazil-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "120043",
+   "name": "HSBC Global Emerging Markets Fund - Direct Plan - Growth",
+   "slug": "hsbc-global-emerging-markets-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/hsbc-global-emerging-markets-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119779",
+   "name": "Kotak Global Emerging Market Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "132009",
+   "name": "Aditya Birla Sun Life Global Excellence Equity Fund Of Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "118551",
+   "name": "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
+   "slug": "franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "123654",
+   "name": "ICICI Prudential Global Stable Equity Fund (FOF) - Direct Plan - Growth",
+   "slug": "icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148485",
+   "name": "Axis Global Equity Alpha Fund of Fund - Direct Plan - Growth Option",
+   "slug": "axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "127071",
+   "name": "HSBC Asia Pacific (Ex Japan) Dividend Yield Fund - Direct Plan - Growth",
+   "slug": "hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148614",
+   "name": "Invesco India - Invesco Global Consumer Trends Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "129188",
+   "name": "Invesco India - Invesco Global Equity Income Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "154287",
+   "name": "Kotak Quality Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-quality-overseas-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/kotak-quality-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "152140",
+   "name": "Aditya Birla Sun Life US Treasury 1-3 Year Bond ETFs Passive FOF - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-us-treasury-1-3-year-bond-etfs-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/aditya-birla-sun-life-us-treasury-1-3-year-bond-etfs-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "152150",
+   "name": "Aditya Birla Sun Life US Treasury 3-10 Year Bond ETFs Passive FOF - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-us-treasury-3-10-year-bond-etfs-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/aditya-birla-sun-life-us-treasury-3-10-year-bond-etfs-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "151548",
+   "name": "Bandhan US Treasury Bond 0-1 year specific Debt Passive FOF - Direct Plan - Growth",
+   "slug": "bandhan-us-treasury-bond-0-1-year-specific-debt-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/bandhan-us-treasury-bond-0-1-year-specific-debt-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "152528",
+   "name": "DSP US Specific Debt Passive FoF - Direct Plan - Growth",
+   "slug": "dsp-us-specific-debt-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-us-specific-debt-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "152240",
+   "name": "Axis US Specific Treasury Dynamic Debt Passive FOF - Direct Plan - Growth Option",
+   "slug": "axis-us-specific-treasury-dynamic-debt-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/axis-us-specific-treasury-dynamic-debt-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149098",
+   "name": "Bandhan US specific Equity Active FOF - Direct Plan - Growth",
+   "slug": "bandhan-us-specific-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/bandhan-us-specific-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119252",
+   "name": "DSP US Specific Equity Omni FoF - Direct Plan - Growth",
+   "slug": "dsp-us-specific-equity-omni-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-us-specific-equity-omni-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148063",
+   "name": "Edelweiss US Technology Equity Fund of Fund - Direct Plan - Growth",
+   "slug": "edelweiss-us-technology-equity-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-us-technology-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140274",
+   "name": "Edelweiss US Value Equity Offshore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-us-value-equity-offshore-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-us-value-equity-offshore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148662",
+   "name": "Kotak US Specific Equity Passive FOF - Direct Plan - Growth",
+   "slug": "kotak-us-specific-equity-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/kotak-us-specific-equity-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "152090",
+   "name": "Motilal Oswal Developed Market Ex US ETFs Overseas Equity Passive FOF - Direct Plan - Growth",
+   "slug": "motilal-oswal-developed-market-ex-us-etfs-overseas-equity-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/motilal-oswal-developed-market-ex-us-etfs-overseas-equity-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148760",
+   "name": "SBI US Specific Equity Active FoF - Direct Plan - Growth",
+   "slug": "sbi-us-specific-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/sbi-us-specific-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149291",
+   "name": "Aditya Birla Sun Life US Equity Passive FOF - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-us-equity-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/aditya-birla-sun-life-us-equity-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "150285",
+   "name": "Baroda BNP Paribas Aqua Fund of Fund - Direct Plan - Growth Option",
+   "slug": "baroda-bnp-paribas-aqua-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/baroda-bnp-paribas-aqua-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119275",
+   "name": "DSP Global Clean Energy Overseas Equity Omni FoF - Direct Plan - Growth",
+   "slug": "dsp-global-clean-energy-overseas-equity-omni-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-global-clean-energy-overseas-equity-omni-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149816",
+   "name": "DSP Global Innovation Overseas Equity Omni FoF - Direct Plan - Growth",
+   "slug": "dsp-global-innovation-overseas-equity-omni-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-global-innovation-overseas-equity-omni-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119277",
+   "name": "DSP World Gold Mining Overseas Equity Omni FoF - Direct Plan - Growth",
+   "slug": "dsp-world-gold-mining-overseas-equity-omni-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-world-gold-mining-overseas-equity-omni-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119279",
+   "name": "DSP World Mining Overseas Equity Omni FoF - Direct Plan - Growth",
+   "slug": "dsp-world-mining-overseas-equity-omni-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/dsp-world-mining-overseas-equity-omni-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149455",
+   "name": "ICICI Prudential Strategic Metal and Energy Equity Fund of Fund - Direct Plan - Growth",
+   "slug": "icici-prudential-strategic-metal-and-energy-equity-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/icici-prudential-strategic-metal-and-energy-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149230",
+   "name": "Mahindra Manulife Asia Pacific REITs FOF - Direct Plan - Growth",
+   "slug": "mahindra-manulife-asia-pacific-reits-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/mahindra-manulife-asia-pacific-reits-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119602",
+   "name": "Sundaram Global Brand Theme-Equity Active FOF - Direct Plan - GROWTH",
+   "slug": "sundaram-global-brand-theme-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/sundaram-global-brand-theme-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148954",
+   "name": "Axis Global Innovation Fund of Fund - Direct Plan - Growth Option",
+   "slug": "axis-global-innovation-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/axis-global-innovation-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149059",
+   "name": "Kotak Global Innovation Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-global-innovation-overseas-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/kotak-global-innovation-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148646",
+   "name": "Kotak International REIT Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-international-reit-overseas-equity-active-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/kotak-international-reit-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "150595",
+   "name": "Mirae Asset Global Electric & Autonomous Vehicles Equity Passive FOF - Direct Plan - Growth",
+   "slug": "mirae-asset-global-electric-and-autonomous-vehicles-equity-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/mirae-asset-global-electric-and-autonomous-vehicles-equity-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "150597",
+   "name": "Mirae Asset Global X Artificial Intelligence & Technology ETF Fund of Fund - Direct Plan - Growth",
+   "slug": "mirae-asset-global-x-artificial-intelligence-and-technology-etf-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/mirae-asset-global-x-artificial-intelligence-and-technology-etf-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140296",
+   "name": "Edelweiss Europe Dynamic Equity Offshore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-europe-dynamic-equity-offshore-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-europe-dynamic-equity-offshore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "126353",
+   "name": "Invesco India - Invesco Pan European Equity Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-pan-european-equity-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/invesco-india-invesco-pan-european-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140243",
+   "name": "Edelweiss Greater China Equity Off-shore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-greater-china-equity-off-shore-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/edelweiss-greater-china-equity-off-shore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148699",
+   "name": "Axis Greater China Equity Fund of Fund - Direct Plan - Growth Option",
+   "slug": "axis-greater-china-equity-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/axis-greater-china-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "150751",
+   "name": "Axis NASDAQ 100 US Specific Equity Passive FOF - Direct Plan - Growth Option",
+   "slug": "axis-nasdaq-100-us-specific-equity-passive-fof-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/axis-nasdaq-100-us-specific-equity-passive-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "149961",
+   "name": "Invesco India - Invesco EQQQ Nasdaq-100 ETF Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-eqqq-nasdaq-100-etf-fund-of-fund-direct-growth",
+   "status": 403,
+   "final": "https://www.indmoney.com/mutual-funds/invesco-india-invesco-eqqq-nasdaq-100-etf-fund-of-fund-direct-growth",
+   "nextData": false
+  }
+ ]
+}
