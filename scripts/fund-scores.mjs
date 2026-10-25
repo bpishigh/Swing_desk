@@ -4,7 +4,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { themeOf } from '../src/pm/fundtheme.ts';
 import { normCategory, scorable, scoreAll, scoreIndexGroups, indexKey, replaceCandidate, SETTINGS, INDEX_SETTINGS } from '../src/pm/fundscore.ts';
-import { scoreRisk, debtGroup, intlGroup, riskStats, RISK } from '../src/pm/fundrisk.ts';
+import { scoreRisk, debtGroup, intlGroup, RISK } from '../src/pm/fundrisk.ts';
 import { nasdaqBars } from './nasdaq.mjs';
 const J = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const amfi = J('data/rules/amfi-schemes.json');
@@ -72,8 +72,6 @@ const mfScored = [...scoreAll(mf.filter((x) => !isTh(x)), series, asOf), ...scor
 hist[month] = Object.fromEntries(mfScored.filter((x) => x.band).map((x) => [x.code, x.band]));
 for (const x of mfScored) if (x.band === 'Weak' && replaceCandidate(hist, x.code)) x.replace = true;
 const idxScored = scoreIndexGroups(idx, series, asOf);
-// Risk facts for equity and index funds (scope K2): worst 3-year fall, volatility and worst day from the NAV history. Shown only; they take no part in the score (the risk-aware score failed its test, C-94).
-for (const x of [...mfScored, ...idxScored]) { const st = series.has(x.code) ? riskStats(series.get(x.code), asOf) : null; if (st) { x.dd = st.dd; x.vol = st.vol; x.wd = st.wd; } }
 const terFile0 = J('data/funds/ter.json', null), nn0 = (x) => x.toLowerCase().replace(/direct plan|regular plan|growth option|growth plan|growth|idcw|option|plan|fund/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
 const terBy = new Map(); if (terFile0) for (const r of terFile0.rows) if (r.dir != null) terBy.set(nn0(r.n), r.dir);
 const terByCode = new Map([...debt, ...intl].map((x) => [x.code, terBy.get(nn0(x.name))]).filter((e) => e[1] != null));
