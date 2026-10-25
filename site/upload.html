@@ -79,7 +79,7 @@ input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6p
 </div>
 <script type="module">
 import { parseCsv } from './pm/csv.js';
-import { fundCard, stockCard } from './pm/fundcard.js';
+import { fundCard, stockCard, sellCostCard } from './pm/fundcard.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -432,7 +432,7 @@ const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v
 const vWhy0 = (v) => (!v ? '' : v.fund ? v.reasons.concat(v.pending).join('; ') : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
 const fundPanel = (v, h) => {
   const skip = /^(Holdings trend|Fund facts|Five-year|Flags)/;
-  const html = fundCard({ why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null });
+  const html = fundCard({ why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [sellCostFor(h)] });
   return `<tr class="ctxrow"><td colspan="11">${html}</td></tr>`;
 };
 const resultsOf = (h) => { const n = h.kind === 'Stock' && h.symbol && S.resultsNext ? S.resultsNext.next[h.symbol] : null; if (!n) return null; let a = new Date(S.resultsNext.asOf + 'T00:00:00Z'), b = new Date(n + 'T00:00:00Z'), k = 0; while (a < b) { a = new Date(a.getTime() + 864e5); const w = a.getUTCDay(); if (w !== 0 && w !== 6) k++; } return { date: n, sessions: k }; };
@@ -457,7 +457,7 @@ function firmOf(h) {
 }
 const reentry = (h) => { const v = verdictOf(h), c = ctxOf(h); return !!(v && v.label === 'Exit' && c && c.rs !== null && c.rs >= 75 && c.upDown !== null && c.upDown > 1); };
 function ctxPanel(h, tot) {
-  const c = ctxOf(h), v = verdictOf(h); if (!c) return '';
+  const c = ctxOf(h), v = verdictOf(h); if (!c) return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles: [], blocks: [sellCostFor(h)], notes: ['No price context is stored for this holding yet; the sale estimate above still applies.'] })}</td></tr>`;
   const ind = S.segments?.industry?.[h.symbol];
   const lvl = v && v.label === 'Keep' ? Math.max(v.swingLow?.price ?? 0, v.sma200 ?? 0) : 0;
   const risk = h.value !== null && lvl > 0 && v.close > 0 ? h.value * (1 - lvl / v.close) : null;
@@ -478,7 +478,7 @@ function ctxPanel(h, tot) {
     { k: 'Industry', v: ind ? `<span class="fvs">${esc(ind)}</span>` : '–' },
     { k: 'NSE series', v: c.series === null ? '–' : c.series === 'EQ' ? 'EQ' : `${esc(c.series)} (restricted)`, s: c.series === 'EQ' ? 'normal segment' : c.series === null ? '' : 'slower to sell' },
   ];
-  const blocks = [trend];
+  const blocks = [trend, sellCostFor(h)];
   if (f) blocks.push(`<div class="fbox" style="margin-top:10px" title="The verdict itself is a rule and always the same for the same prices. This is how stocks in the same state fared in the replay of Apr 2021 to Oct 2026, not a forecast for this stock."><div class="fh">How firm is this verdict? ${esc(f.label)}</div>${f.line ? `<div class="fs">${esc(f.line)}</div>` : ''}${f.tr && f.keep ? `<div class="fs">Over the next 3 months, similar stocks in the past typically returned ${vsAvg(f.tr.median60)} than the typical Nifty 500 stock over the same 3 months; stocks that pass returned ${vsAvg(f.keep.median60)}. About 1 in 10 did ${Math.abs(Math.round(f.tr.p10_60))} points worse or more. A past tendency, not a forecast.</div>` : ''}${f.notes.length ? `<div class="fs">Less certain because ${esc(f.notes.join('; and '))}.</div>` : ''}</div>`);
   if (v && v.label === 'Exit') blocks.push(`<div class="fbox" style="margin-top:10px"><div class="fh">Re-entry</div><div class="fs">${reentry(h) ? '<b>Candidate</b> (untested): relative strength in the top quarter and more volume on up days than down days over 20 sessions.' : 'Not a candidate' + (c.rs !== null && c.rs < 75 ? ': relative strength is below the top quarter' : c.upDown === null || c.upDown <= 1 ? ': volume has not been heavier on up days' : '') + '.'} A candidate comes back only through the Swing Desk rules, never by holding.</div></div>`);
   return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles, blocks, notes: ['Context only: none of this changes the verdict. Results dates come from NSE\'s announced board-meeting dates and can move.'] })}</td></tr>`;
@@ -509,7 +509,7 @@ function holdingsRows(V) {
 }
 function holdingsBody(V) {
   const { tot, rows, sum } = holdingsRows(V);
-  return rows.map((h) => { const fv = verdictOf(h), isF = !!(fv && fv.fund), fk = 'f:' + (h.isin || h.name), open = isF ? S.open.has(fk) : ctxOf(h) && S.open.has(h.symbol); return `<tr${isF ? ` class="hr" data-sym="${esc(fk)}"` : ctxOf(h) ? ` class="hr" data-sym="${esc(h.symbol)}"` : ''}><td>${isF ? (open ? '▾ ' : '▸ ') : ctxOf(h) ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${S.sel.startsWith('a:') && h.isin && S.accounts.get(S.sel.slice(2)) ? ` <button class="chip" data-mvh data-a="${esc(S.accounts.get(S.sel.slice(2)).label)}" data-h="${esc(h.isin)}" data-n="${esc(h.name)}" title="Wrong account or owner? Move this holding's transactions to another account">Move…</button>` : ''}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${isF ? (fv.reasons[0] ? `<small class="why">${esc(fv.reasons[0].length > 90 ? fv.reasons[0].slice(0, 88) + '…' : fv.reasons[0])}</small>` : '') : vWhy(verdictOf(h), h) ? `<small class="why">${esc(vWhy(verdictOf(h), h))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? (isF ? fundPanel(fv, h) : ctxPanel(h, tot)) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
+  return rows.map((h) => { const fv = verdictOf(h), isF = !!(fv && fv.fund), fk = (isF ? 'f:' : 's:') + (h.isin || h.symbol || h.name), expandable = isF || h.kind === 'Stock' || !!ctxOf(h), open = expandable && S.open.has(fk); return `<tr${expandable ? ` class="hr" data-sym="${esc(fk)}"` : ''}><td>${expandable ? (open ? '▾ ' : '▸ ') : ''}${esc(h.name)}${(() => { const ac = S.sel.startsWith('a:') ? S.accounts.get(S.sel.slice(2)) : null, tr = ac && ac.trades.find((t) => (h.isin && t.isin === h.isin) || (t.symbol && t.symbol === h.symbol) || t.instrument.toLowerCase() === h.name.toLowerCase()), hk = tr ? (tr.isin || tr.instrument.toUpperCase()) : null; return hk ? ` <button class="chip" data-mvh data-a="${esc(ac.label)}" data-h="${esc(hk)}" data-n="${esc(h.name)}" title="Wrong account or owner? Move this holding's transactions to another account">Move…</button>` : ''; })()}${h.symbol && h.symbol.toLowerCase() !== h.name.toLowerCase() ? `<small>${esc(h.symbol)}</small>` : ''}${isF ? (fv.reasons[0] ? `<small class="why">${esc(fv.reasons[0].length > 90 ? fv.reasons[0].slice(0, 88) + '…' : fv.reasons[0])}</small>` : '') : vWhy(verdictOf(h), h) ? `<small class="why">${esc(vWhy(verdictOf(h), h))}</small>` : ''}</td><td>${h.kind}</td><td title="Legacy: direct stocks bought before the Swing Desk. Long-term: funds and ETFs. Swing: managed by the Swing Desk rules.">${esc(h.book)}</td><td title="Nifty 100 (Large), Midcap 150 (Mid) or Smallcap 250 (Small) membership">${segOf(h) || '–'}</td><td>${vTag(verdictOf(h))}</td><td>${h.value === null ? '–' : pct(h.value / tot, 1)}</td><td>${(Math.round(h.qty * 1000) / 1000).toLocaleString('en-IN')}</td><td>${inr(h.cost)}</td><td>${h.value === null ? 'n/a' : inr(h.value)}</td><td>${h.value === null ? '' : num(h.value - h.cost)}</td><td>${h.value === null || !h.cost ? '' : `<span class="${cls(h.value - h.cost)}">${pct((h.value - h.cost) / h.cost)}</span>`}</td></tr>${open ? (isF ? fundPanel(fv, h) : ctxPanel(h, tot)) : ''}`; }).join('') + `<tr class="foot"><td colspan="7"><b>${rows.length} holdings</b></td><td><b>${inr(sum.cost)}</b></td><td><b>${inr(sum.value)}</b></td><td><b>${num(sum.value - sum.cost)}</b></td><td><b class="${cls(sum.value - sum.cost)}">${sum.cost ? pct((sum.value - sum.cost) / sum.cost) : ''}</b></td></tr>`;
 }
 function weakReview(V) {   // C-95: a prompt to review, never an order
   const rows = S.fundScores?.funds ?? [], held = mergedHoldings(V).filter((h) => h.kind === 'Fund' && h.value !== null);
@@ -518,6 +518,16 @@ function weakReview(V) {   // C-95: a prompt to review, never an order
   const line = ([h, r]) => { const alt = rows.filter((x) => x.g === r.g && x.c === r.c && (r.c !== 'Sectoral/Thematic' || (themeOf(r.n) && themeOf(x.n) === themeOf(r.n))) && x.i !== r.i && x.s != null && (x.b === 'Strong' || x.b === 'Average')).sort((a, b) => b.s - a.s)[0];
     return `<tr><td>${esc(h.name)}<small>${esc(r.c)} · score ${r.s.toFixed(0)}</small></td><td>${r.rp ? 'Weak 3 months running' : 'Weak this month'}</td><td>${alt ? esc(alt.n) + `<small>${alt.b} · score ${alt.s.toFixed(0)}</small>` : 'no scored alternative'}</td><td>₹${inr(h.value)}</td><td><button data-swcmp="${esc(h.name)}">Compare</button></td></tr>`; };
   return `<div class="card"><h2>Switch review</h2><div class="sub" style="margin-bottom:8px">Funds you hold that score Weak against others in their own category. In our 10-year test, Weak funds trailed their category in most years, so these deserve a look. Nothing is sold or bought from here.</div><div class="tw"><table><thead><tr><th>Your fund</th><th>Status</th><th>Best alternative in the category</th><th>Value</th><th></th></tr></thead><tbody>${list.map(line).join('')}</tbody></table></div></div>`;
+}
+// "If you sold it today" for one holding, from the open lots of every account in view (K1). Facts only.
+function sellCostFor(h) {
+  const V = S.cur; if (!V || !S.data?.taxRules || h.value === null || h.value === undefined) return '';
+  const today = new Date().toISOString().slice(0, 10), loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct }]));
+  const lots = V.ms.flatMap((a) => (a.report?.openLots ?? []).filter((l) => l.name === h.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(looseKey(l.name)) ? { exitLoad: loads.get(looseKey(l.name)) } : {}) })));
+  if (!lots.length) return '';
+  const A = acctCfg(V.ms[0]?.key ?? ''), y = +today.slice(0, 4), m = +today.slice(5, 7), fyNow = m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`;
+  const left = taxGroups().map((g) => { const yy = g.years.find((x) => x.fy === fyNow); return yy ? Math.max(0, yy.equity.exemption - yy.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
+  try { const c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined }); return sellCostCard({ ...c, exemptionLeft }); } catch { return ''; }
 }
 function switchCard(V) {   // C-91, C-93: information only
   const funds = mergedHoldings(V).filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.value !== null), sel = funds.find((h) => h.name === S.sw);

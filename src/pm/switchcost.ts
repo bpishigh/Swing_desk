@@ -1,9 +1,12 @@
 // Switch-cost calculator (C-91). Pure. Prices selling every open lot of one holding today and says how much extra yearly return the new holding must earn to make up the cost. Information only.
 import { isLong, inLoad, type OpenLot, type Rules } from './rebalance.ts';
 
-export interface SwitchLot { date: string; qty: number; value: number; gain: number; long: boolean; tax: number | null; load: number; loadNote?: string }
+export interface SwitchLot { date: string; qty: number; value: number; gain: number; long: boolean; tax: number | null; load: number; loadNote?: string; longOn?: string | null; taxIfLong?: number | null; locked?: boolean; lockEnd?: string; loadEnds?: string }
 export interface SwitchCost { value: number; gain: number; longGain: number; shortGain: number; tax: number | null; load: number; charges: number; cost: number; net: number; lots: SwitchLot[]; notes: string[]; breakEven: { years: number; extra: number }[]; baseReturn: number }
 
+const addDay = (d: string, n: number) => new Date(Date.parse(d) + n * 86400000).toISOString().slice(0, 10);
+/** First date on which a short-term lot becomes long-term (null if it is already long-term or never becomes so). */
+export function turnsLong(rules: Rules, l: OpenLot, today: string): string | null { if (isLong(rules, l, today) !== false) return null; for (let n = 1; n <= 1100; n++) { const d = addDay(today, n); if (isLong(rules, l, d) === true) return d; } return null; }
 const days = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 /** Lots must all be of one holding. `exemptionLeft` is the long-term equity exemption still unused this financial year. */
 export function switchCost(lots: OpenLot[], ctx: { today: string; rules: Rules; exemptionLeft?: number; slabRate?: number; chargesOf?: (value: number, type: string) => number; checkDays?: number; baseReturn?: number; horizons?: number[] }): SwitchCost {
@@ -24,7 +27,12 @@ export function switchCost(lots: OpenLot[], ctx: { today: string; rules: Rules; 
     let loadNote: string | undefined;
     if (l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < (ctx.checkDays ?? 365)) loadNote = `bought ${days(l.date, ctx.today)} days ago and no exit load is recorded for this fund: check the load before selling`;
     else if (load > 0) loadNote = `exit load ${(100 * l.exitLoad!.pct).toFixed(2)}% applies until ${new Date(Date.parse(l.date) + l.exitLoad!.days * 86400000).toISOString().slice(0, 10)}`;
-    out.lots.push({ date: l.date, qty: l.qty, value, gain, long, tax, load, loadNote });
+    const rl = rule && typeof rule.ltcg === 'number' ? rule.ltcg : null, longOn = !long ? turnsLong(ctx.rules, l, ctx.today) : null;
+    const extra: Partial<SwitchLot> = {};
+    if (longOn) { extra.longOn = longOn; extra.taxIfLong = gain > 0 && rl !== null ? gain * rl : gain <= 0 ? 0 : null; }
+    if (l.locked) { extra.locked = true; extra.lockEnd = new Date(Date.UTC(+l.date.slice(0, 4) + 3, +l.date.slice(5, 7) - 1, +l.date.slice(8, 10))).toISOString().slice(0, 10); }
+    if (load > 0) extra.loadEnds = addDay(l.date, l.exitLoad!.days);
+    out.lots.push({ date: l.date, qty: l.qty, value, gain, long, tax, load, loadNote, ...extra });
     out.value += value; out.gain += gain; out.load += load; out.charges += charges; if (long) out.longGain += gain; else out.shortGain += gain;
     out.tax = out.tax === null || tax === null ? null : out.tax + tax;
   }
