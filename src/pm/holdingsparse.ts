@@ -57,6 +57,8 @@ export function parseQuality(html: string): Quality | null {
   return { managers, aum: num(d.aum), benchmark: str(d.benchmark_name) ?? str(d.benchmark), expense: num(d.expense_ratio), turnover: num(d.portfolio_turnover), launch: str(d.launch_date), exitLoad: str(d.exit_load), exitLoadChanges, expenseChanges, mix: debtMix(d.holdings) };
 }
 /** What a debt fund holds, from its published holdings list: sovereign paper, cash and repo, short money-market paper, other company debt. A mix of paper types, not a credit rating (the page carries none). Null when the list is not mostly debt and cash. */
+/** A security line ("SK FINANCE LIMITED 9.25 NCD 02JN28 FVRS1LAC") reduced to the issuer. */
+const issuerOf = (n: string): string => n.replace(/\*+/g, '').replace(/\s*\(\d{1,2}\/\d{1,2}\/\d{2,4}\)\s*/g, ' ').replace(/\s+(?:\d|TR\s|NCD\b|CP\b|CD\b|LOA\b|SR\b|SERIES\b|SEC\b|\().*$/i, '').replace(/\s+/g, ' ').trim();
 export function debtMix(rows: any[]): DebtMix | null {
   if (!Array.isArray(rows) || !rows.length) return null;
   const sum = { gov: 0, cash: 0, paper: 0, corp: 0, other: 0 }, issuers = new Map<string, number>(); let n = 0, asOf: string | null = null;
@@ -66,8 +68,8 @@ export function debtMix(rows: any[]): DebtMix | null {
     if (/equity/i.test(nat) && !/debt/i.test(nat)) sum.other += pct;
     else if (/goi|government of india|treasury|t-?bill|g-?sec|\bsdl\b|state (dev|gov)|sovereign/i.test(t)) sum.gov += pct;
     else if (/cash|cblo|repo|tri-?party|margin|net current|reverse/i.test(t + ' ' + nat)) sum.cash += pct;
-    else if (/commercial paper|certificate of deposit|\bcp\b|\bcd\b|money market/i.test(t)) { sum.paper += pct; issuers.set(nm, (issuers.get(nm) ?? 0) + pct); }
-    else if (/debt|bond|debenture|ncd|securitised|ptc|invit|reit/i.test(t + ' ' + nat)) { sum.corp += pct; issuers.set(nm, (issuers.get(nm) ?? 0) + pct); }
+    else if (/commercial paper|certificate of deposit|\bcp\b|\bcd\b|money market/i.test(t)) { sum.paper += pct; issuers.set(issuerOf(nm), (issuers.get(issuerOf(nm)) ?? 0) + pct); }
+    else if (/debt|bond|debenture|ncd|securitised|ptc|invit|reit/i.test(t + ' ' + nat)) { sum.corp += pct; issuers.set(issuerOf(nm), (issuers.get(issuerOf(nm)) ?? 0) + pct); }
     else sum.other += pct;
   }
   const total = sum.gov + sum.cash + sum.paper + sum.corp; if (n < 3 || total < 50) return null;
