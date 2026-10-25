@@ -1,7 +1,7 @@
 // Business facts for a listed stock (scope K3), read from public pages: Groww's stock page (valuation, results, holding by quarter) and NSE's quarterly shareholding filing (promoter pledge). Facts only: nothing here changes a verdict or a score.
                                                                                                                                                                                                     
                                                                                                 
-                                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                                                            
 
 const num = (x         )                => { if (typeof x === 'number' && Number.isFinite(x)) return x; if (typeof x === 'string') { const n = parseFloat(x.replace(/[,%₹\s]|Cr$/g, '')); return Number.isFinite(n) ? n : null; } return null; };
 const find = (o     , key        , d = 0)      => { if (!o || typeof o !== 'object' || d > 7) return undefined; if (key in o && o[key] !== null && o[key] !== undefined) return o[key]; for (const v of Object.values(o)) { const r = find(v, key, d + 1); if (r !== undefined) return r; } return undefined; };
@@ -12,7 +12,7 @@ export function parseStockPage(html        , today        )                    {
   const m = /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html); if (!m) return null;
   let pp     ; try { pp = JSON.parse(m[1]).props?.pageProps; } catch { return null; } if (!pp) return null;
   const fund                                    = find(pp, 'fundamentals') ?? [], fv = (n        ) => num(fund.find((x) => n.test(x.name))?.value);
-  const pe = num(find(pp, 'peRatio')) ?? fv(/^P\/E/), pb = num(find(pp, 'pbRatio')) ?? fv(/^P\/B/), roe = fv(/^ROE/);
+  const pe = fv(/^P\/E/) ?? num(find(pp, 'peRatio')), pb = fv(/^P\/B/) ?? num(find(pp, 'pbRatio')), roe = fv(/^ROE/), de = fv(/^Debt to Equity/);   // the page's own key-figure list first: deeper keys of the same name can belong to other things
   const stmts        = find(pp, 'financialStatement') ?? [];
   const years                      = {}, qs                                         = {};
   for (const s of stmts) { if (!s?.title) continue; const y = s.yearly ?? {}; const keep = Object.keys(y).sort().slice(-5); years[s.title] = Object.fromEntries(keep.map((k) => [k, y[k]])); qs[s.title] = s.quarterly ?? {}; }
@@ -24,7 +24,7 @@ export function parseStockPage(html        , today        )                    {
   if (pe === null && roe === null && !stmts.length && !holding.length) return null;
   const [r1, r0] = last2(rev ? years[rev] : undefined), [p1, p0] = last2(prof ? years[prof] : undefined);
   const extra                         = {}; for (const x of fund) if (x?.name && x.value !== undefined) extra[x.name] = String(x.value);
-  return { asOf: today, pe, pb, roe, mcap: fund.find((x) => /Market Cap/i.test(x.name))?.value ?? null, revYoY: yoy(r1, r0), profitYoY: p0 !== undefined && p0 > 0 ? yoy(p1, p0) : null, qRevYoY: qYoY(rev), qProfitYoY: qYoY(prof), years, holding, extra };
+  return { asOf: today, pe, pb, roe, de, mcap: fund.find((x) => /Market Cap/i.test(x.name))?.value ?? null, revYoY: yoy(r1, r0), profitYoY: p0 !== undefined && p0 > 0 ? yoy(p1, p0) : null, qRevYoY: qYoY(rev), qProfitYoY: qYoY(prof), years, pattern: holding, extra };
 }
 
 /** Promoter pledge out of NSE's shareholding XBRL file (context "promoter and promoter group"). */

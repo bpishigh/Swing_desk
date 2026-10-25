@@ -50,13 +50,13 @@ export const CARD_CSS = `.fcard{padding:6px 4px 10px;max-width:980px}.fwhy p{mar
 if (typeof document !== 'undefined' && !document.getElementById('fcard-css')) { const s = document.createElement('style'); s.id = 'fcard-css'; s.textContent = CARD_CSS; document.head.appendChild(s); }
 
 /** Tiles of business facts for a stock card (scope K3): valuation, results growth, holding by quarter and promoter pledge. Facts only. */
-export function factTiles(f: { pe: number | null; pb: number | null; roe: number | null; revYoY: number | null; profitYoY: number | null; qRevYoY: number | null; qProfitYoY: number | null; holding: { q: string; promoters: number; fii: number; dii: number }[]; pledge?: { asOf: string | null; promoterPct: number | null; pledgedOfPromoter: number | null; ndu: number | null } | null; asOf: string } | null | undefined): Tile[] {
+export function factTiles(f: { pe: number | null; pb: number | null; roe: number | null; de?: number | null; revYoY: number | null; profitYoY: number | null; qRevYoY: number | null; qProfitYoY: number | null; pattern: { q: string; promoters: number; fii: number; dii: number }[]; pledge?: { asOf: string | null; promoterPct: number | null; pledgedOfPromoter: number | null; ndu: number | null } | null; asOf: string } | null | undefined): Tile[] {
   if (!f) return [];
   const n = (x: number | null, d = 1, suf = '') => (x === null || x === undefined ? '–' : x.toFixed(d) + suf), sg = (x: number | null) => (x === null ? '–' : (x > 0 ? '+' : '') + x.toFixed(1) + '%');
-  const t: Tile[] = [], h = f.holding, last = h[h.length - 1], back = h.length >= 5 ? h[h.length - 5] : h[0];
-  if (f.pe !== null || f.pb !== null) t.push({ k: 'Valuation', v: `P/E ${n(f.pe)}`, s: `P/B ${n(f.pb)}${f.roe !== null ? ' · ROE ' + n(f.roe, 1, '%') : ''}` });
+  const t: Tile[] = [], h = f.pattern, last = h[h.length - 1], back = h.length >= 5 ? h[h.length - 5] : h[0];
+  if (f.pe !== null || f.pb !== null) t.push({ k: 'Valuation', v: `P/E ${n(f.pe)}`, s: `P/B ${n(f.pb)}${f.roe !== null ? ' · ROE ' + n(f.roe, 1, '%') : ''}${f.de != null ? ' · debt/equity ' + n(f.de, 2) : ''}` });
   if (f.revYoY !== null || f.profitYoY !== null) t.push({ k: 'Last year growth', v: `sales ${sg(f.revYoY)}`, s: `profit ${sg(f.profitYoY)}` });
-  if (f.qRevYoY !== null || f.qProfitYoY !== null) t.push({ k: 'Latest quarter growth', v: `sales ${sg(f.qRevYoY)}`, s: `profit ${sg(f.qProfitYoY)} against the same quarter last year` });
+  if (f.qRevYoY !== null || f.qProfitYoY !== null) t.push({ k: 'Latest quarter growth', v: `sales ${sg(f.qRevYoY)}`, s: `profit ${sg(f.qProfitYoY)} · against a year earlier` });
   if (last) { const d = (a: number, b: number) => { const x = a - b; return (x > 0 ? '+' : '') + x.toFixed(1); }; t.push({ k: 'Promoter holding', v: n(last.promoters, 1, '%'), s: back && back !== last ? `${d(last.promoters, back.promoters)} pts since ${back.q} · FII ${n(last.fii, 1, '%')} (${d(last.fii, back.fii)}) · DII ${n(last.dii, 1, '%')} (${d(last.dii, back.dii)})` : `${last.q}` }); }
   if (f.pledge) { const p = f.pledge.pledgedOfPromoter ?? 0; t.push({ k: 'Promoter pledge', v: p > 0 ? `${(p * 100).toFixed(1)}% pledged` : 'none', s: p > 0 ? `of the promoters' shares${f.pledge.ndu ? ' · more under a non-disposal undertaking' : ''} · filing of ${f.pledge.asOf ?? 'the last quarter'}` : `filing of ${f.pledge.asOf ?? 'the last quarter'}` }); }
   return t;

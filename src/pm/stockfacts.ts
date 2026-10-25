@@ -1,7 +1,7 @@
 // Business facts for a listed stock (scope K3), read from public pages: Groww's stock page (valuation, results, holding by quarter) and NSE's quarterly shareholding filing (promoter pledge). Facts only: nothing here changes a verdict or a score.
 export interface Pledge { asOf: string | null; promoterPct: number | null; pledgedShares: number | null; pledgedOfPromoter: number | null; ndu: number | null; encumberedOfPromoter: number | null }
 export interface Holding { q: string; promoters: number; fii: number; dii: number; pub: number }
-export interface StockFacts { asOf: string; pe: number | null; pb: number | null; roe: number | null; mcap: string | null; revYoY: number | null; profitYoY: number | null; qRevYoY: number | null; qProfitYoY: number | null; years: Record<string, Record<string, number>>; holding: Holding[]; extra: Record<string, string>; pledge?: Pledge | null }
+export interface StockFacts { asOf: string; pe: number | null; pb: number | null; roe: number | null; de: number | null; mcap: string | null; revYoY: number | null; profitYoY: number | null; qRevYoY: number | null; qProfitYoY: number | null; years: Record<string, Record<string, number>>; pattern: Holding[]; extra: Record<string, string>; pledge?: Pledge | null }
 
 const num = (x: unknown): number | null => { if (typeof x === 'number' && Number.isFinite(x)) return x; if (typeof x === 'string') { const n = parseFloat(x.replace(/[,%₹\s]|Cr$/g, '')); return Number.isFinite(n) ? n : null; } return null; };
 const find = (o: any, key: string, d = 0): any => { if (!o || typeof o !== 'object' || d > 7) return undefined; if (key in o && o[key] !== null && o[key] !== undefined) return o[key]; for (const v of Object.values(o)) { const r = find(v, key, d + 1); if (r !== undefined) return r; } return undefined; };
@@ -12,7 +12,7 @@ export function parseStockPage(html: string, today: string): StockFacts | null {
   const m = /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html); if (!m) return null;
   let pp: any; try { pp = JSON.parse(m[1]).props?.pageProps; } catch { return null; } if (!pp) return null;
   const fund: { name: string; value: string }[] = find(pp, 'fundamentals') ?? [], fv = (n: RegExp) => num(fund.find((x) => n.test(x.name))?.value);
-  const pe = num(find(pp, 'peRatio')) ?? fv(/^P\/E/), pb = num(find(pp, 'pbRatio')) ?? fv(/^P\/B/), roe = fv(/^ROE/);
+  const pe = fv(/^P\/E/) ?? num(find(pp, 'peRatio')), pb = fv(/^P\/B/) ?? num(find(pp, 'pbRatio')), roe = fv(/^ROE/), de = fv(/^Debt to Equity/);   // the page's own key-figure list first: deeper keys of the same name can belong to other things
   const stmts: any[] = find(pp, 'financialStatement') ?? [];
   const years: StockFacts['years'] = {}, qs: Record<string, Record<string, number>> = {};
   for (const s of stmts) { if (!s?.title) continue; const y = s.yearly ?? {}; const keep = Object.keys(y).sort().slice(-5); years[s.title] = Object.fromEntries(keep.map((k) => [k, y[k]])); qs[s.title] = s.quarterly ?? {}; }
@@ -24,7 +24,7 @@ export function parseStockPage(html: string, today: string): StockFacts | null {
   if (pe === null && roe === null && !stmts.length && !holding.length) return null;
   const [r1, r0] = last2(rev ? years[rev] : undefined), [p1, p0] = last2(prof ? years[prof] : undefined);
   const extra: Record<string, string> = {}; for (const x of fund) if (x?.name && x.value !== undefined) extra[x.name] = String(x.value);
-  return { asOf: today, pe, pb, roe, mcap: fund.find((x) => /Market Cap/i.test(x.name))?.value ?? null, revYoY: yoy(r1, r0), profitYoY: p0 !== undefined && p0 > 0 ? yoy(p1, p0) : null, qRevYoY: qYoY(rev), qProfitYoY: qYoY(prof), years, holding, extra };
+  return { asOf: today, pe, pb, roe, de, mcap: fund.find((x) => /Market Cap/i.test(x.name))?.value ?? null, revYoY: yoy(r1, r0), profitYoY: p0 !== undefined && p0 > 0 ? yoy(p1, p0) : null, qRevYoY: qYoY(rev), qProfitYoY: qYoY(prof), years, pattern: holding, extra };
 }
 
 /** Promoter pledge out of NSE's shareholding XBRL file (context "promoter and promoter group"). */
