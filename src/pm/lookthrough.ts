@@ -19,7 +19,7 @@ export interface LookThrough {
 // a few companies renamed: older portfolio lines and newer broker names must meet
 const RENAMED: Record<string, string> = { 'zomato': 'eternal', 'larsen and toubro infotech': 'ltimindtree' };
 const norm = (s: string) => { const n = norm0(s); return RENAMED[n] ?? n; };
-const norm0 = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/\b(limited|ltd|the|corporation|corp|company|co)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+export const norm0 = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/\b(limited|ltd|the|corporation|corp|company|co)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
 const days = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
 
 const inRange = (lines: PortfolioLine[]) => { const t = lines.reduce((a, l) => a + (l.weight > 0 ? l.weight : 0), 0); return t >= 50 && t <= 105; };

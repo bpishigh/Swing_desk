@@ -1,5 +1,6 @@
 // Builds the browser side of the Portfolio Manager: strips types from src/pm/*.ts into site/pm/*.js and copies the PUBLIC data it needs into site/pm-data/.
 // No personal data is ever read or written here. Run by build-site.mjs and on its own.
+import { buildSectorIndex } from '../src/pm/limits.ts';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
 import { stripTypeScriptTypes } from 'node:module';
 import { computeContext } from '../src/pm/context.ts';
@@ -28,6 +29,7 @@ if (existsSync('data/india/shortlist')) {
 cp('data/india/corp-actions-history.json', 'site/pm-data/corp-actions-history.json');
 if (existsSync('data/replay/track-record.json')) cp('data/replay/track-record.json', 'site/pm-data/track-record.json');
 if (existsSync('data/india/segments.json')) cp('data/india/segments.json', 'site/pm-data/segments.json');
+if (existsSync('data/india/segments.json') && existsSync('data/names.json')) { const ix = buildSectorIndex(JSON.parse(readFileSync('data/india/segments.json', 'utf8')).industry ?? {}, JSON.parse(readFileSync('data/names.json', 'utf8')).india ?? {}); put('site/pm-data/sectors.json', JSON.stringify(ix)); }
 const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort().pop();
 const bhav = JSON.parse(readFileSync('data/india/bhav/' + bf, 'utf8'));
 const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];

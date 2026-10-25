@@ -90,6 +90,7 @@ import { fundVerdict, looseKey } from './pm/fundverdict.js';
 import { pickFunds } from './pm/fundshortlist.js';
 import { reviewTrade, patterns, stopSummary } from './pm/tradereview.js';
 import { segmentOf } from './pm/segment.js';
+import { checkLimits, goalStatus, LIMIT_DEFAULTS, GOAL_SOON_MONTHS } from './pm/limits.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES, scaledBand, foldHybrid } from './pm/allocation.js';
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
@@ -729,7 +730,7 @@ function acctInputs(x, compact) {
 function allocTab(V) {
   if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';
   const xs = V.ms.map(calcAccount);
-  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]) + lookThroughCard(xs);
+  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]) + lookThroughCard(xs) + limitsCard(xs) + goalsCard(xs);
   // household: every account keeps its own money; the roll-up adds the accounts' own targets and holdings
   const C = S.allocCfg, ok = xs.filter((x) => x.res.ok), bad = xs.filter((x) => !x.res.ok);
   const table = `<div class="card"><h2>Accounts: each has its own money, profile and horizon</h2><div style="overflow-x:auto"><table><thead><tr><th>Account</th><th class="num">Holds</th><th class="num">Capital to allocate (₹)</th><th>Risk profile</th><th class="num">Horizon (yrs)</th><th class="num">EPF (₹)</th><th class="num">Slab rate (%)</th></tr></thead><tbody>${xs.map((x) => { const k = esc(x.a.key), held = x.cur.total + x.cur.unclassified; return `<tr><td>${esc(x.a.label)}<span class="sub"> · ${esc(ownerOf(x.a))}</span></td><td class="num">${money(held)}</td><td class="num"><input data-a="${k}" data-f="capital" type="number" min="0" step="10000" value="${x.capital}" style="width:130px"></td><td>${selBox(x.a.key, 'profile', ['Cautious', 'Balanced', 'Aggressive', 'Custom'], x.profile)}</td><td class="num"><input data-a="${k}" data-f="horizon" type="number" min="0" max="60" step="1" value="${x.horizon}" style="width:70px"></td><td class="num"><input data-a="${k}" data-f="epf" type="number" min="0" step="10000" value="${(x.A.outside ?? []).find((o) => o.name === 'EPF')?.value ?? ''}" style="width:110px"></td><td class="num"><input data-a="${k}" data-f="slab" type="number" min="0" max="45" step="1" value="${x.A.slab ?? ''}" style="width:60px"></td></tr>`; }).join('')}</tbody></table></div>
@@ -738,7 +739,7 @@ function allocTab(V) {
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
   const rollHtml = roll ? `<div class="card"><h2>Household: target against what you hold</h2><div style="overflow-x:auto"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th></tr></thead><tbody>${roll.rows.map((r) => `<tr><td>${esc(r.label)}</td><td class="num"><b>${pc(r.target)}</b></td><td class="num">${money(r.targetAmount)}</td><td class="num">${pc(r.current)}</td><td class="num">${money(r.currentAmount)}</td><td style="color:${stateCol(r.state)}">${r.state}${r.state === 'within band' ? '' : ' · ' + (r.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(r.amountToTarget))}</td></tr>`).join('')}${roll.unclassified > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(roll.unclassified / roll.capital)}</td><td class="num">${money(roll.unclassified)}</td><td class="sub">not counted against any target</td></tr>` : ''}</tbody></table></div>
     <div class="sub" style="margin-top:8px">Total capital ${money(roll.capital)}: the sum of the accounts' own capital. Each account's target uses its own profile and horizon. A class is “within band” when the household gap is inside its drift band. A target, not an order: act from each account's own list below.</div>${bad.length ? `<div class="sub" style="margin-top:6px"><b>Left out:</b> ${bad.map((x) => esc(x.a.label) + ' (' + esc(x.res.error) + ')').join('; ')}</div>` : ''}</div>` : '';
-  return table + rollHtml + lookThroughCard(xs) + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
+  return table + rollHtml + lookThroughCard(xs) + limitsCard(xs) + goalsCard(xs) + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
 }
 
 S.live = new Map(); let liveBusy = false;   // ISIN -> portfolio, or { why } when the lookup failed
@@ -766,6 +767,37 @@ function lookOf(xs) {
   for (const v of seen.values()) { const L = v.isin ? S.live.get(v.isin) : null; if (L && L.lines && !fp[v.fundIsin]) { v.fundIsin = 'live:' + v.isin; fp[v.fundIsin] = { asOf: L.asOf, lines: L.lines.map((l) => (l.isin ? { ...(nameOfIsin.get(l.isin) ?? { name: l.isin }), isin: l.isin, weight: l.weight } : l)) }; } }
   const r = lookThrough([...seen.values()], fp, new Date().toISOString().slice(0, 10), capital, { positionCap: capOk > 0 ? capW / capOk : null });
   return { r, seen, ports, left, capital, cap: capOk > 0 ? capW / capOk : null };
+}
+// ---------- household limits and goals (scope item 9). Flags and facts only; kept in this browser (S.alloc.household), not on the server.
+const hh = () => (S.alloc.household = S.alloc.household ?? {});
+function limitsCard(xs) {
+  const L0 = lookOf(xs); if (!L0) return '';
+  const lim = { ...LIMIT_DEFAULTS, ...(hh().limits ?? {}) }, ix = S.sectors ?? { bySym: {}, byName: {} };
+  const funds = [...L0.seen.values()].filter((v) => v.kind !== 'Stock').map((v) => ({ name: v.name, value: v.value }));
+  const r = checkLimits(L0.r.exposures, L0.r.equity, funds, ix, lim);
+  const row = (x) => `<tr><td>${esc(x.name)}${x.over ? ' <span class="neg">over the limit</span>' : ''}</td><td class="num">${money(x.value)}</td><td class="num">${pc(x.pct)}</td><td class="num">${pc(x.limit)}</td></tr>`;
+  const tbl = (title, rows) => rows.length ? `<div class="tw" style="margin-top:8px"><b>${title}</b><table><thead><tr><th></th><th class="num">Value</th><th class="num">Share</th><th class="num">Limit</th></tr></thead><tbody>${rows.slice(0, 6).map(row).join('')}</tbody></table></div>` : '';
+  const over = [...r.company, ...r.sector, ...r.house].filter((x) => x.over).length;
+  const inp = (k, label) => `<label class="sub">${label} (%)<br><input data-lim="${k}" type="number" min="1" max="100" step="1" value="${Math.round(lim[k] * 100)}" style="width:80px"></label>`;
+  return `<div class="card"><h2>Household limits · across all accounts, funds opened up</h2>
+    <div class="sub">${over ? `<span class="neg">${over} above a limit.</span> ` : 'Nothing above a limit. '}Company and sector are shares of your equity (direct stocks plus the equity inside funds); fund house is a share of your fund and ETF money. A flag, never an order.</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">${inp('company', 'One company')}${inp('sector', 'One sector')}${inp('house', 'One fund house')}</div>
+    ${tbl('Companies', r.company.slice(0, 5))}${tbl('Sectors', r.sector)}${tbl('Fund houses', r.house)}
+    <div class="sub" style="margin-top:8px">Sector is NSE's classification${r.classifiedShare !== null ? `; ${Math.round(r.classifiedShare * 100)}% of the equity found could be placed in a sector (the rest is outside the stocks NSE classifies)` : ''}. The numbers above are starting defaults you can change; they are saved in this browser only.</div></div>`;
+}
+const RISKY = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic', 'international']);
+function goalsCard(xs) {
+  const by = new Map(); for (const x of xs) for (const h of x.hs) { if (!(h.value > 0)) continue; const e = by.get(h.name) ?? by.set(h.name, { name: h.name, value: 0, riskClass: RISKY.has(h.assetClass) }).get(h.name); e.value += h.value; }
+  const held = [...by.values()].sort((a, b) => b.value - a.value), today = new Date().toISOString().slice(0, 10), goals = hh().goals ?? [];
+  const cards = goals.map((g) => { const st = goalStatus(g, held, today); return `<div class="note" style="margin-top:8px"><b>${esc(g.name)}</b> · ${money(g.amount)} by ${esc(g.date)} · <a href="#" data-goal-del="${esc(g.id)}">remove</a><br>Funded ${money(st.funded)} (${pc(st.pct)})${st.shortfall > 0 ? ` · short by ${money(st.shortfall)}${st.perMonth ? `, about ${money(st.perMonth)} a month over ${st.months} months before any growth` : ''}` : ' · fully funded'}${st.warn ? `<br><span class="neg">${esc(st.warn)}</span>` : ''}${st.missing.length ? `<br><small>Not held any more: ${st.missing.map(esc).join(', ')}</small>` : ''}</div>`; }).join('');
+  return `<div class="card"><h2>Goals · money needed by a date</h2>
+    <div class="sub">Name a goal, the amount and the date, and tick the holdings that pay for it. A holding can fund more than one goal; the card then counts it in each, so keep the ticks apart. Under ${GOAL_SOON_MONTHS / 12} years, equity-type money above 30% of a goal is flagged.</div>${cards || '<div class="sub" style="margin-top:6px">No goals yet.</div>'}
+    <details style="margin-top:10px"><summary>Add a goal</summary><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <label class="sub">Name<br><input id="g-name" type="text" maxlength="40" style="width:160px"></label>
+      <label class="sub">Amount needed (₹)<br><input id="g-amt" type="number" min="0" step="10000" style="width:130px"></label>
+      <label class="sub">Needed by<br><input id="g-date" type="date"></label></div>
+      <div class="sub" style="margin-top:8px">Holdings that fund it<br><select id="g-hold" multiple size="7" style="min-width:320px">${held.map((h) => `<option value="${esc(h.name)}">${esc(h.name)} · ${money(h.value)}</option>`).join('')}</select></div>
+      <button id="g-add" style="margin-top:8px">Add goal</button></details></div>`;
 }
 function lookThroughCard(xs) {
   const L0 = lookOf(xs);
@@ -914,6 +946,14 @@ function actionsCard(V, res, cur, capital, hs, A) {
 }
 
 function wireAlloc() {
+  document.querySelectorAll('[data-lim]').forEach((el) => { el.onchange = () => { const v = Number(el.value); if (!(v >= 1 && v <= 100)) return; hh().limits = { ...(hh().limits ?? {}), [el.dataset.lim]: v / 100 }; ALLOC_SAVE(); render(); }; });
+  document.querySelectorAll('[data-goal-del]').forEach((el) => { el.onclick = (e) => { e.preventDefault(); hh().goals = (hh().goals ?? []).filter((g) => g.id !== el.dataset.goalDel); ALLOC_SAVE(); render(); }; });
+  const add = document.getElementById('g-add');
+  if (add) add.onclick = () => {
+    const name = document.getElementById('g-name').value.trim(), amount = Number(document.getElementById('g-amt').value), date = document.getElementById('g-date').value, holdings = [...document.getElementById('g-hold').selectedOptions].map((o) => o.value);
+    if (!name || !(amount > 0) || !/^\d{4}-\d\d-\d\d$/.test(date) || !holdings.length) { notify('A goal needs a name, an amount, a date and at least one holding.'); return; }
+    hh().goals = [...(hh().goals ?? []), { id: String(Date.now()), name, amount, date, holdings }]; ALLOC_SAVE(); render();
+  };
   const set = (key, f, v) => { const A = acctCfg(key); if (f === 'epf') A.outside = [...(A.outside ?? []).filter((o) => o.name !== 'EPF'), ...(v > 0 ? [{ name: 'EPF', value: v, cls: 'debt' }] : [])]; else A[f] = v; ALLOC_SAVE(); render(); };
   document.querySelectorAll('[data-f]').forEach((el) => { el.onchange = () => { const f = el.dataset.f; set(el.dataset.a, f, f === 'profile' ? el.value : f === 'horizon' ? Math.max(0, Number(el.value) || 0) : Number(el.value) || 0); }; });
   document.querySelectorAll('[data-stop]').forEach((el) => { el.onchange = () => { const A = acctCfg(el.dataset.a); A.stops = { ...(A.stops ?? {}), [el.dataset.stop]: Number(el.value) || 0 }; ALLOC_SAVE(); render(); }; });
@@ -1074,6 +1114,7 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.holdHealth = await fetch('pm-data/holdhealth.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.intlFacts = await fetch('pm-data/intlfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.sectors = await fetch('pm-data/sectors.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.debtStats = await fetch('pm-data/debtstats.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.stockFacts = await fetch('pm-data/stockfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundQuality = await fetch('pm-data/quality.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
