@@ -79,7 +79,7 @@ input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6p
 </div>
 <script type="module">
 import { parseCsv } from './pm/csv.js';
-import { fundCard, stockCard, sellCostCard } from './pm/fundcard.js';
+import { fundCard, stockCard, sellCostCard, factTiles } from './pm/fundcard.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -496,6 +496,7 @@ function ctxPanel(h, tot) {
   const trend = `<div class="fbox"><div class="fh">Price against its averages and the market</div>${bar('vs 50-day average', c.vs50, mx)}${bar('vs 200-day average', c.vs200, mx)}${bar('3-month return', c.ret63, mx)}${bar('vs Nifty 500 (points)', c.vsIndex, mx)}<div class="fs">${c.s50vs200 === null ? '' : 'The 50-day average is ' + (c.s50vs200 >= 0 ? 'above' : 'below') + ' the 200-day by ' + Math.abs(c.s50vs200).toFixed(1) + '%. '}Context only: the exit test is the 200-day average and the swing low.</div></div>`;
   const tiles = [
     ...fundTilesFor(h),
+    ...factTiles(S.stockFacts?.stocks?.[h.symbol]),
     { k: 'Relative strength', v: c.rs === null ? '–' : 'top ' + (100 - c.rs) + '%', s: 'of every stored stock, 3-month return' },
     { k: 'Next results', v: r ? esc(r.date) : '–', s: r ? 'about ' + r.sessions + ' sessions' + (r.sessions <= 10 ? ' · no new trades inside 10' : '') : 'no date announced' },
     { k: 'Value at risk to exit level', v: v && v.label === 'Keep' ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', s: v && v.label === 'Keep' ? 'if it closed at the nearer of 200-day average and swing low' : '' },
@@ -1072,6 +1073,7 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.holdHealth = await fetch('pm-data/holdhealth.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.stockFacts = await fetch('pm-data/stockfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundQuality = await fetch('pm-data/quality.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     { S.fundPorts = await fetch('pm-data/holdings.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); }
     { const sj = await fetch('pm-data/shortlist.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); S.shortlist = sj?.lines ?? null; S.shortlistMeta = sj; }
