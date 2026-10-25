@@ -23,3 +23,19 @@ test('debtMix splits a debt fund into government, cash, paper and company debt',
   assert.equal(m.gov, 40); assert.equal(m.cash, 10); assert.equal(m.paper, 15); assert.equal(m.corp, 30); assert.equal(m.other, 5); assert.equal(m.top[0].name, 'ABC Finance Ltd'); assert.equal(m.asOf, '2026-09-30');
   assert.equal(debtMix([r('A', 'Equity', 'EQUITY', 60), r('B', 'Equity', 'EQUITY', 30), r('C', 'Equity', 'EQUITY', 10)]), null);
 });
+
+import { parseDebtPage, debtKey, creditSplit } from '../src/pm/debtstats.ts';
+test('parseDebtPage reads yield, maturity, duration and the credit table', () => {
+  const lab = (l: string, v: string) => `<div style="p"><div style="x">${l}</div><div class="black w-600" style="y">${v}</div></div>`;
+  const row = (r: string, f: string, c: string) => `<tr><td style="a">${r}</td><td style="b"><div><span>${f}<!-- -->%</span><div></div></div></td><td style="c"><div><span>${c}<!-- -->%</span></div></td></tr>`;
+  const html = `<title>Axis Liquid Fund Holdings - Full Portfolio (October 2026)</title>` + lab('Yield to Maturity', '6.37%') + lab('Modified Duration', '0.14 yrs') + lab('Avg. Maturity', '0.14 yrs') + lab('No. of Securities', '133') + `<h1>Debt Holdings — Credit Quality Profile</h1><table><thead><tr><th>Rating</th></tr></thead><tbody>${row('A1+', '86.52', '70.46')}${row('SOV', '9.84', '16.86')}${row('AA', '1.0', '0.11')}</tbody></table>`;
+  const d = parseDebtPage(html)!;
+  assert.equal(d.ytm, 6.37); assert.equal(d.modDur, 0.14); assert.equal(d.avgMat, 0.14); assert.equal(d.nSec, 133); assert.equal(d.asOf, 'October 2026');
+  assert.deepEqual(d.credit.map((c) => c.r), ['A1+', 'SOV', 'AA']); assert.equal(d.credit[0].fund, 86.52); assert.equal(d.credit[0].cat, 70.46);
+  const s = creditSplit(d.credit); assert.equal(s.safe, 96.4); assert.equal(s.lower, 1);
+  assert.equal(parseDebtPage('<html></html>'), null);
+});
+test('debtKey lines a fund name up with a sharpely slug', () => {
+  assert.equal(debtKey('Axis Liquid Fund - Direct Plan - Growth'), debtKey('axis-liquid-direct-fundgrowth'));
+  assert.equal(debtKey('ICICI Prudential Corporate Bond Fund - Direct Plan - Growth'), debtKey('icici-prudential-corporate-bond-fund-direct-plangrowth'));
+});

@@ -66,3 +66,17 @@ export function factTiles(f: { pe: number | null; pb: number | null; roe: number
   if (f.pledge) { const p = f.pledge.pledgedOfPromoter ?? 0; t.push({ k: 'Promoter pledge', v: p > 0 ? `${(p * 100).toFixed(1)}% pledged` : 'none', s: p > 0 ? `of the promoters' shares${f.pledge.ndu ? ' · more under a non-disposal undertaking' : ''} · filing of ${f.pledge.asOf ?? 'the last quarter'}` : `filing of ${f.pledge.asOf ?? 'the last quarter'}` }); }
   return t;
 }
+
+/** Tiles of debt-fund portfolio statistics (scope K5): yield, maturity, duration and credit quality. Facts only. */
+export function debtTiles(d: { asOf: string | null; ytm: number | null; avgMat: number | null; modDur: number | null; credit: { r: string; fund: number; cat: number | null }[] } | null | undefined): Tile[] {
+  if (!d) return [];
+  const t: Tile[] = [], yrs = (x: number | null) => (x === null ? '–' : x < 1 ? (x * 12).toFixed(1) + ' months' : x.toFixed(2) + ' years');
+  if (d.ytm !== null) t.push({ k: 'Yield to maturity', v: d.ytm.toFixed(2) + '%', s: 'what the holdings yield if held to maturity; not what you will earn' + (d.asOf ? ' · ' + d.asOf : '') });
+  if (d.avgMat !== null) t.push({ k: 'Average maturity', v: yrs(d.avgMat), s: d.modDur !== null ? `modified duration ${d.modDur.toFixed(2)} years: a 1 point rise in rates costs about ${d.modDur.toFixed(1)}%` : '' });
+  if (d.credit.length) {
+    let safe = 0, lower = 0; for (const x of d.credit) { if (/sov|aaa|a1\+|cash|call|treasury|repo|cblo|reverse/i.test(x.r)) safe += x.fund; else if (/^(aa|a\b|a[1-3]|bbb|bb|b\b|c\b|d\b|unrated)/i.test(x.r)) lower += x.fund; }
+    const top = [...d.credit].sort((a, b) => b.fund - a.fund).slice(0, 3).map((x) => `${x.r} ${x.fund.toFixed(0)}%`).join(' · ');
+    t.push({ k: 'Credit quality', v: `${safe.toFixed(0)}% safest`, s: `government, AAA, A1+ and cash · ${lower.toFixed(1)}% rated AA or lower · ${top}` });
+  }
+  return t;
+}

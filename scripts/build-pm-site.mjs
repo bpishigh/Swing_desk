@@ -64,6 +64,7 @@ if (existsSync('data/funds/holdhealth.json') && existsSync('data/funds/scores.js
   put('site/pm-data/holdhealth.json', JSON.stringify({ asOf: hh.asOf, priceDate: hh.priceDate, funds: out }) + '\n');
 }
 // Fund quality facts (C-108), information only: keyed by ISIN. Includes the 5-year return against index funds of the same segment (facts from scores.json; funds that closed are missing from both sides).
+if (existsSync('data/funds/debtstats.json')) put('site/pm-data/debtstats.json', readFileSync('data/funds/debtstats.json', 'utf8'));
 if (existsSync('data/stocks/facts.json')) put('site/pm-data/stockfacts.json', readFileSync('data/stocks/facts.json', 'utf8'));
 if (existsSync('data/funds/quality.json')) {
   const q = JSON.parse(readFileSync('data/funds/quality.json', 'utf8')), out = {};

@@ -1,19 +1,21 @@
-name: probe-sharpely
-# One-off: whether sharpely.in carries debt-fund yield, maturity and credit quality (scope K5). Manual only.
+name: debt-stats
+# Monthly: yield, maturity, duration and credit quality of the Direct debt funds (scope K5). Facts only.
 on:
   workflow_dispatch:
-concurrency: probe-sharpely
+  schedule:
+    - cron: '50 4 13 * *'
+concurrency: debt-stats
 permissions:
   contents: write
 jobs:
   run:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: node scripts/probe-sharpely.mjs
+      - run: node scripts/fetch-debtstats.mjs
       - run: node scripts/check-no-personal-data.mjs
         if: always()
       - name: Commit result
@@ -21,8 +23,8 @@ jobs:
         run: |
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
-          git add data/funds/sharpely-probe.json
-          git commit -m "probe-sharpely: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          git add data/funds/debtstats.json data/funds/debtstats-log.json
+          git commit -m "debt-stats: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
             sleep $((i * 3))
