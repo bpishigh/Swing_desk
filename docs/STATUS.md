@@ -113,5 +113,5 @@ Defect found and fixed 19 Oct: the Portfolio Manager's public data (site/pm-data
 
 ## C-108 fund quality facts and cost-in-score test (25 Oct 2026)
 - Built: `parseQuality` and `qualityFlags` (src/pm/holdingsparse.ts), monthly capture in `scripts/fetch-holdings.mjs` -> `data/funds/quality.json`, `quality-log.json`; fund detail shows managers (since), size, expense ratio, turnover, benchmark and fact flags. Information only, no weight, no verdict change.
-- Cost back-test script `scripts/fund-cost-test.mjs` + workflow `fund-cost-test`; result in `data/funds/backtest-cost.json`. Rule: B passes -> add cost at 0.15; otherwise unchanged. Result to be recorded in the Change Log row.
+- Cost back-test run 25 Oct 2026: NOT TESTABLE (expense history starts Jan 2022, only 4 test years, bar is 5). Score unchanged; cost stays a displayed fact. Retest Oct 2027.
 - Manager tenure, size, turnover: weight 0; monthly record from now, test after 12 months with a rule registered then.
