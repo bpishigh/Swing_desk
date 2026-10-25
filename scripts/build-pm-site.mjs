@@ -63,6 +63,12 @@ if (existsSync('data/funds/holdhealth.json') && existsSync('data/funds/scores.js
   for (const [code, v] of Object.entries(hh.funds)) if (isin.get(code)) out[isin.get(code)] = v;
   put('site/pm-data/holdhealth.json', JSON.stringify({ asOf: hh.asOf, priceDate: hh.priceDate, funds: out }) + '\n');
 }
+// Fund quality facts (C-108), information only: keyed by ISIN.
+if (existsSync('data/funds/quality.json')) {
+  const q = JSON.parse(readFileSync('data/funds/quality.json', 'utf8')), out = {};
+  for (const v of Object.values(q.funds)) if (v.isin) out[v.isin] = { asOf: v.asOf, managers: v.managers, aum: v.aum, benchmark: v.benchmark, expense: v.expense, turnover: v.turnover, launch: v.launch, exitLoad: v.exitLoad, flags: v.flags ?? [] };
+  put('site/pm-data/quality.json', JSON.stringify({ asOf: q.asOf, funds: out }) + '\n');
+}
 // Fund portfolios (Engine Rules C-78): public monthly disclosures, fetched by the fund-holdings workflow.
 if (existsSync('data/funds/holdings.json')) copyFileSync('data/funds/holdings.json', 'site/pm-data/holdings.json');
 // Daily traded volume and delivery % per stock, one file per month, for the trade review (what the market was doing when a buy was made). Public data.
