@@ -1,329 +1,567 @@
 {
- "at": "2026-10-25T09:21:10.605Z",
+ "at": "2026-10-25T09:24:14.036Z",
  "rows": [
   {
    "s": "ADANIENT",
-   "masterStatus": 200,
-   "keys": [
-    "broadcastDate",
-    "cgTimeStamp",
-    "countString",
-    "date",
-    "desc",
-    "employeeTrusts",
-    "format",
-    "index",
-    "industry",
-    "isin",
-    "name",
-    "newColumn",
-    "pr_and_prgrp",
-    "promoterDematNotes",
-    "publicShareholdingNotes",
-    "public_val",
-    "recordId",
-    "remarksWeb",
-    "revisedData",
-    "revisedDate",
-    "revisedRemark",
-    "revisedStatus",
-    "revisionDate",
-    "revisionRemark",
-    "shareholdingPatternNotes",
-    "submissionDate",
-    "symbol",
-    "systemDate",
-    "timeDifference",
-    "typeOfSubmission",
-    "underlyingDrs",
-    "xbrl",
-    "xbrlFileSize"
-   ],
    "date": "30-SEP-2026",
-   "promoter": "71.97",
-   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1736411_12102026064817_WEB.xml",
-   "x": {
-    "status": 200,
-    "bytes": 307503,
-    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
-    "pledgeTags": [
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>",
-     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\">0",
-     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
-     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\">0",
-     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\">0",
-     "</in-bse-shp:NumberOfSharesEncumbered>",
-     "<in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\">0",
-     "</in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">7700000",
-     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
-     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.0099",
-     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">7700000"
-    ]
-   },
-   "pledge": [
+   "n": 112,
+   "tags": [
     {
-     "ep": "corporate-pledgedata?index=equities&symbol=ADANIENT&from_dat",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
     },
     {
-     "ep": "corporate-pledgedata?index=equities",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0099"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0099"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0099"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0099"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0079"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0079"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0057"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "7700000"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0057"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context15\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context15\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context15\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context15\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context16\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context16\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context16\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context16\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context17\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context17\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context17\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "0"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHUF_Context17\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
     }
-   ]
-  },
-  {
-   "s": "RPOWER",
-   "masterStatus": 200,
-   "keys": [
-    "broadcastDate",
-    "cgTimeStamp",
-    "countString",
-    "date",
-    "desc",
-    "employeeTrusts",
-    "format",
-    "index",
-    "industry",
-    "isin",
-    "name",
-    "newColumn",
-    "pr_and_prgrp",
-    "promoterDematNotes",
-    "publicShareholdingNotes",
-    "public_val",
-    "recordId",
-    "remarksWeb",
-    "revisedData",
-    "revisedDate",
-    "revisedRemark",
-    "revisedStatus",
-    "revisionDate",
-    "revisionRemark",
-    "shareholdingPatternNotes",
-    "submissionDate",
-    "symbol",
-    "systemDate",
-    "timeDifference",
-    "typeOfSubmission",
-    "underlyingDrs",
-    "xbrl",
-    "xbrlFileSize"
    ],
-   "date": "30-SEP-2026",
-   "promoter": "24.98",
-   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1740388_16102026071007_WEB.xml",
-   "x": {
-    "status": 200,
-    "bytes": 249018,
-    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
-    "pledgeTags": [
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>"
-    ]
-   },
-   "pledge": [
+   "ctx": [
     {
-     "ep": "corporate-pledgedata?index=equities&symbol=RPOWER&from_date=",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "id": "IndividualsOrHinduUndividedFamily_ContextI",
+     "body": "<xbrli:context id=\"IndividualsOrHinduUndividedFamily_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:IndividualsOrHinduUndividedFamilyMember</"
     },
     {
-     "ep": "corporate-pledgedata?index=equities",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "id": "OtherIndianShareholders_ContextI",
+     "body": "<xbrli:context id=\"OtherIndianShareholders_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:OtherIndianShareholdersMember</xbrldi:explicitMembe"
+    },
+    {
+     "id": "Indian_ContextI",
+     "body": "<xbrli:context id=\"Indian_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:IndianMember</xbrldi:explicitMember></xbrli:scenario></xbrli:context"
+    },
+    {
+     "id": "OtherForeignShareholders_ContextI",
+     "body": "<xbrli:context id=\"OtherForeignShareholders_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:OtherForeignShareholdersMember</xbrldi:explicitMem"
+    },
+    {
+     "id": "Foreign_ContextI",
+     "body": "<xbrli:context id=\"Foreign_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:ForeignMember</xbrldi:explicitMember></xbrli:scenario></xbrli:conte"
+    },
+    {
+     "id": "ShareholdingOfPromoterAndPromoterGroup_ContextI",
+     "body": "<xbrli:context id=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:ShareholdingOfPromoterAndPromoterGro"
+    },
+    {
+     "id": "ShareholdingPattern_ContextI",
+     "body": "<xbrli:context id=\"ShareholdingPattern_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:ShareholdingPatternMember</xbrldi:explicitMember></xbrl"
+    },
+    {
+     "id": "IndividualsOrHUF_Context15",
+     "body": "<xbrli:context id=\"IndividualsOrHUF_Context15\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/ScripCode\">512599</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:typedMember dimension=\"in-bse-shp:DetailsSharesHeldByIndividualsOrHUFAxis\"><in-bse-shp:IndividualsOrHUFDomain>IndividualsOrHUF_Contex"
     }
-   ]
-  },
-  {
-   "s": "RELIANCE",
-   "masterStatus": 200,
-   "keys": [
-    "broadcastDate",
-    "cgTimeStamp",
-    "countString",
-    "date",
-    "desc",
-    "employeeTrusts",
-    "format",
-    "index",
-    "industry",
-    "isin",
-    "name",
-    "newColumn",
-    "pr_and_prgrp",
-    "promoterDematNotes",
-    "publicShareholdingNotes",
-    "public_val",
-    "recordId",
-    "remarksWeb",
-    "revisedData",
-    "revisedDate",
-    "revisedRemark",
-    "revisedStatus",
-    "revisionDate",
-    "revisionRemark",
-    "shareholdingPatternNotes",
-    "submissionDate",
-    "symbol",
-    "systemDate",
-    "timeDifference",
-    "typeOfSubmission",
-    "underlyingDrs",
-    "xbrl",
-    "xbrlFileSize"
    ],
-   "date": "30-SEP-2026",
-   "promoter": "50.44",
-   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1742991_21102026042504_WEB.xml",
-   "x": {
-    "status": 200,
-    "bytes": 523552,
-    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
-    "pledgeTags": [
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>"
-    ]
-   },
-   "pledge": [
+   "shp": [
     {
-     "ep": "corporate-pledgedata?index=equities&symbol=RELIANCE&from_dat",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "42"
     },
     {
-     "ep": "corporate-pledgedata?index=equities",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "780175284"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.5763"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "780175326"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.5763"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "194059228"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherForeignShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.1434"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "194059228"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Foreign_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.1434"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"share",
+     "v": "974234554"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.7197"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"MutualFundsOrUTI_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "89561395"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"MutualFundsOrUTI_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0662"
     }
    ]
   },
   {
    "s": "JPPOWER",
-   "masterStatus": 200,
-   "keys": [
-    "broadcastDate",
-    "cgTimeStamp",
-    "countString",
-    "date",
-    "desc",
-    "employeeTrusts",
-    "format",
-    "index",
-    "industry",
-    "isin",
-    "name",
-    "newColumn",
-    "pr_and_prgrp",
-    "promoterDematNotes",
-    "publicShareholdingNotes",
-    "public_val",
-    "recordId",
-    "remarksWeb",
-    "revisedData",
-    "revisedDate",
-    "revisedRemark",
-    "revisedStatus",
-    "revisionDate",
-    "revisionRemark",
-    "shareholdingPatternNotes",
-    "submissionDate",
-    "symbol",
-    "systemDate",
-    "timeDifference",
-    "typeOfSubmission",
-    "underlyingDrs",
-    "xbrl",
-    "xbrlFileSize"
-   ],
    "date": "30-SEP-2026",
-   "promoter": "24",
-   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1742809_21102026030754_WEB.xml",
-   "x": {
-    "status": 200,
-    "bytes": 138786,
-    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
-    "pledgeTags": [
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">true",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
-     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
-     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>",
-     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">1200509465",
-     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
-     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.7299",
-     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumberedUnderNonDisposalUndertaking contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">102188566",
-     "</in-bse-shp:NumberOfSharesEncumberedUnderNonDisposalUndertaking>",
-     "<in-bse-shp:EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.0621",
-     "</in-bse-shp:EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">1302698031",
-     "</in-bse-shp:NumberOfSharesEncumbered>",
-     "<in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.792",
-     "</in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares>",
-     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\">1200509465"
-    ]
-   },
-   "pledge": [
+   "n": 30,
+   "tags": [
     {
-     "ep": "corporate-pledgedata?index=equities&symbol=JPPOWER&from_date",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1200509465"
     },
     {
-     "ep": "corporate-pledgedata?index=equities",
-     "status": 200,
-     "bytes": 28,
-     "head": "{\"comNameList\":[],\"data\":[]}"
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.7299"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderNonDisposalUndertaking",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "102188566"
+    },
+    {
+     "tag": "EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0621"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1302698031"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.792"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1200509465"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.7299"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderNonDisposalUndertaking",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "102188566"
+    },
+    {
+     "tag": "EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0621"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1302698031"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.792"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1200509465"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.7299"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderNonDisposalUndertaking",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "102188566"
+    },
+    {
+     "tag": "EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0621"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1302698031"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.792"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1200509465"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.1752"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderNonDisposalUndertaking",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "102188566"
+    },
+    {
+     "tag": "EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0149"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1302698031"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingPattern_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.1901"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderPledged",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1200509465"
+    },
+    {
+     "tag": "EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.7299"
+    },
+    {
+     "tag": "NumberOfSharesEncumberedUnderNonDisposalUndertaking",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "102188566"
+    },
+    {
+     "tag": "EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0621"
+    },
+    {
+     "tag": "NumberOfSharesEncumbered",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1302698031"
+    },
+    {
+     "tag": "EncumberedSharesHeldAsPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OthersIndianShareholders_Context15\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.792"
+    }
+   ],
+   "ctx": [
+    {
+     "id": "OtherIndianShareholders_ContextI",
+     "body": "<xbrli:context id=\"OtherIndianShareholders_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/Symbol\">JPPOWER</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:OtherIndianShareholdersMember</xbrldi:explicitMember>"
+    },
+    {
+     "id": "Indian_ContextI",
+     "body": "<xbrli:context id=\"Indian_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/Symbol\">JPPOWER</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:IndianMember</xbrldi:explicitMember></xbrli:scenario></xbrli:context>"
+    },
+    {
+     "id": "ShareholdingOfPromoterAndPromoterGroup_ContextI",
+     "body": "<xbrli:context id=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/Symbol\">JPPOWER</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:ShareholdingOfPromoterAndPromoterGroup"
+    },
+    {
+     "id": "ShareholdingPattern_ContextI",
+     "body": "<xbrli:context id=\"ShareholdingPattern_ContextI\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/Symbol\">JPPOWER</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:explicitMember dimension=\"in-bse-shp:CategoryOfShareholdersAxis\">in-bse-shp:ShareholdingPatternMember</xbrldi:explicitMember></xbrli:"
+    },
+    {
+     "id": "OthersIndianShareholders_Context15",
+     "body": "<xbrli:context id=\"OthersIndianShareholders_Context15\"><xbrli:entity><xbrli:identifier scheme=\"http://www.bseindia.com/in-bse-shp/Symbol\">JPPOWER</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2026-09-30</xbrli:instant></xbrli:period><xbrli:scenario><xbrldi:typedMember dimension=\"in-bse-shp:DetailsOfSharesHeldByOthersIndianShareholdersAxis\"><in-bse-shp:OthersIndianShareholdersDomain"
+    }
+   ],
+   "shp": [
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1644830118"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.24"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "1644830118"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.24"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"share",
+     "v": "1644830118"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"ShareholdingOfPromoterAndPromoterGroup_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.24"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"MutualFundsOrUTI_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "34233221"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"MutualFundsOrUTI_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.005"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"AlternativeInvestmentFunds_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "30439143"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"AlternativeInvestmentFunds_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0044"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"Banks_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "574635210"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"Banks_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0838"
+    },
+    {
+     "tag": "NumberOfFullyPaidUpEquityShares",
+     "attrs": "contextRef=\"InsuranceCompanies_ContextI\" decimals=\"INF\" unitRef=\"shares\"",
+     "v": "79520548"
+    },
+    {
+     "tag": "ShareholdingAsAPercentageOfTotalNumberOfShares",
+     "attrs": "contextRef=\"InsuranceCompanies_ContextI\" decimals=\"INF\" unitRef=\"pure\"",
+     "v": "0.0116"
     }
    ]
   }
