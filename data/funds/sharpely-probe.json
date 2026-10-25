@@ -1,60 +1,73 @@
 {
- "at": "2026-10-25T10:59:32.537Z",
- "robots": {
-  "status": 200,
-  "text": "# Allow search engines\nUser-agent: Googlebot\nUser-agent: Bingbot\nUser-agent: Slurp\nUser-agent: DuckDuckBot\nDisallow:\n\n# Block SEO scrapers that consume bandwidth without adding value\nUser-agent: AhrefsBot\nUser-agent: SemrushBot\nUser-agent: SemrushBot-SA\nUser-agent: PetalBot\nUser-agent: MJ12bot\nUser-agent: DotBot\nDisallow: /\n\n# Block aggressive crawlers\nUser-agent: *\nDisallow: /admin/\nDisallow: /private/\nDisallow: /api/\n\n# Sitemap\nSitemap: https://sharpely.in/sitemap.xml\n"
- },
+ "at": "2026-10-25T11:00:35.774Z",
  "sitemap": {
   "status": 200,
-  "bytes": 1395,
-  "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stocks-1.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stocks-2.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stock-categories.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-mf.xml</loc>\n        <lastmod>2026-10-23</lastmod>",
-  "locs": [
-   "https://sharpely.in/sitemap-stocks-1.xml",
-   "https://sharpely.in/sitemap-stocks-2.xml",
-   "https://sharpely.in/sitemap-stock-categories.xml",
-   "https://sharpely.in/sitemap-mf.xml",
-   "https://sharpely.in/sitemap-etfs.xml",
-   "https://sharpely.in/sitemap-tools.xml",
-   "https://sharpely.in/sitemap-mf-categories.xml",
-   "https://sharpely.in/sitemap-mf-compare.xml",
-   "https://sharpely.in/sitemap-etf-compare.xml",
-   "https://sharpely.in/sitemap-content.xml"
+  "n": 1852,
+  "holdings": 0,
+  "sample": [
+   "https://sharpely.in/mutual-funds/quantum-elss-tax-saver-fund-directgrowth/10080",
+   "https://sharpely.in/mutual-funds/quantum-diversified-equity-all-cap-active-fof-directgrowth/10550",
+   "https://sharpely.in/mutual-funds/quantum-gold-etf-fof-directgrowth/12683",
+   "https://sharpely.in/mutual-funds/quantum-multi-asset-active-fof-directgrowth/15074",
+   "https://sharpely.in/mutual-funds/icici-prudential-ultra-short-to-short-term-fund-directgrowth/15565",
+   "https://sharpely.in/mutual-funds/icici-prudential-corporate-bond-fund-direct-plangrowth/15568",
+   "https://sharpely.in/mutual-funds/pgim-india-large-cap-fund-directgrowth/15574",
+   "https://sharpely.in/mutual-funds/groww-large-cap-fund-directgrowth/15579",
+   "https://sharpely.in/mutual-funds/groww-liquid-fund-directgrowth/15583",
+   "https://sharpely.in/mutual-funds/pgim-india-gilt-direct-plangrowth/15595",
+   "https://sharpely.in/mutual-funds/pgim-india-liquid-fund-direct-plangrowth/15605",
+   "https://sharpely.in/mutual-funds/pgim-india-aggressive-hybrid-equity-fund-directgrowth/15620",
+   "https://sharpely.in/mutual-funds/pgim-india-corporate-bond-direct-plangrowth/15644",
+   "https://sharpely.in/mutual-funds/axis-banking-and-psu-debt-directgrowth/15680",
+   "https://sharpely.in/mutual-funds/axis-gilt-fund-direct-plangrowth/15681",
+   "https://sharpely.in/mutual-funds/axis-large-cap-fund-directgrowth/15682",
+   "https://sharpely.in/mutual-funds/axis-focused-direct-plangrowth/15684",
+   "https://sharpely.in/mutual-funds/axis-gold-direct-plangrowth/15686",
+   "https://sharpely.in/mutual-funds/axis-elss-tax-saver-directgrowth/15688",
+   "https://sharpely.in/mutual-funds/axis-midcap-direct-plangrowth/15690",
+   "https://sharpely.in/mutual-funds/aditya-birla-sun-life-aggressive-hybrid-fund-directgrowth/15692",
+   "https://sharpely.in/mutual-funds/axis-multi-asset-allocation-direct-plangrowth/15693",
+   "https://sharpely.in/mutual-funds/aditya-birla-sun-life-large-mid-cap-fund-directgrowth/15697",
+   "https://sharpely.in/mutual-funds/baroda-bnp-paribas-banking-and-financial-services-directgrowth/15698",
+   "https://sharpely.in/mutual-funds/uti-aggressive-hybrid-fund-direct-fundgrowth/15702"
+  ],
+  "liquid": [
+   "https://sharpely.in/mutual-funds/groww-liquid-fund-directgrowth/15583",
+   "https://sharpely.in/mutual-funds/pgim-india-liquid-fund-direct-plangrowth/15605",
+   "https://sharpely.in/mutual-funds/axis-liquid-direct-fundgrowth/15748",
+   "https://sharpely.in/mutual-funds/uti-liquid-directgrowth/15758",
+   "https://sharpely.in/mutual-funds/baroda-bnp-paribas-liquid-direct-fundgrowth/15774",
+   "https://sharpely.in/mutual-funds/aditya-birla-sun-life-liquid-fund-directgrowth/15800",
+   "https://sharpely.in/mutual-funds/icici-prudential-liquid-fund-direct-plangrowth/15961",
+   "https://sharpely.in/mutual-funds/nippon-india-liquid-fund-directgrowth/16100",
+   "https://sharpely.in/mutual-funds/dsp-liquid-fund-directgrowth/16111",
+   "https://sharpely.in/mutual-funds/hdfc-liquid-direct-plangrowth/16167",
+   "https://sharpely.in/mutual-funds/bank-of-india-liquid-fund-directgrowth/16274",
+   "https://sharpely.in/mutual-funds/hsbc-liquid-fund-directgrowth/16285",
+   "https://sharpely.in/mutual-funds/sbi-liquid-fund-direct-plangrowth/16302",
+   "https://sharpely.in/mutual-funds/kotak-liquid-directgrowth/16365",
+   "https://sharpely.in/mutual-funds/union-liquid-fund-directgrowth/16419"
+  ],
+  "tails": [
+   "10080",
+   "10550",
+   "12683",
+   "15074",
+   "15565",
+   "15568",
+   "15574",
+   "15579",
+   "15583",
+   "15595",
+   "15605",
+   "15620"
   ]
  },
  "page": {
-  "status": 200,
   "bytes": 836185,
-  "hasNext": false,
-  "ytm": "Yield to Maturity 6.37% <div style=\"font-si",
-  "scripts": [
-   " src=\"/_next/static/chunks/fd9d1056-6a424d619db5450c.js\" async=\"\"",
-   " src=\"/_next/static/chunks/52117-2c44866d0114fc79.js\" async=\"\"",
-   " src=\"/_next/static/chunks/main-app-b28dc42aadf321dc.js\" async=\"\"",
-   " src=\"/_next/static/chunks/2f0b94e8-73914f52321631a8.js\" async=\"\"",
-   " src=\"/_next/static/chunks/13b76428-5e0c7dd60c381863.js\" async=\"\"",
-   " src=\"/_next/static/chunks/795d4814-f23851b95d8d6a53.js\" async=\"\"",
-   " src=\"/_next/static/chunks/479ba886-38c2eb104d1fc36f.js\" async=\"\"",
-   " src=\"/_next/static/chunks/5e22fd23-11f496e476548fe4.js\" async=\"\"",
-   " src=\"/_next/static/chunks/3d47b92a-204de2dc2de33ca3.js\" async=\"\"",
-   " src=\"/_next/static/chunks/66ec4792-8c8716ed90935523.js\" async=\"\"",
-   " src=\"/_next/static/chunks/0e762574-f2e93d01e557a763.js\" async=\"\"",
-   " src=\"/_next/static/chunks/8e1d74a4-9d5751ac1cd1cade.js\" async=\"\""
-  ]
- },
- "tries": [
-  {
-   "q": "https://sharpely.in/api/search?q=axis%20liquid",
-   "status": 404,
-   "final": "https://sharpely.in/api/search?q=axis%20liquid",
-   "bytes": 76161,
-   "head": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_231f96\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no\"/><link rel=\"preload\" as=\"image\" href=\"https://www.facebook.com/tr?id=718190814039641&amp;ev"
-  },
-  {
-   "q": "https://sharpely.in/mutual-funds/axis-liquid-fund",
-   "status": 404,
-   "final": "https://sharpely.in/mutual-funds/axis-liquid-fund",
-   "bytes": 76319,
-   "head": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_231f96\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no\"/><link rel=\"preload\" as=\"image\" href=\"https://www.facebook.com/tr?id=718190814039641&amp;ev"
-  }
- ]
+  "snapshot": "></div></div></div><div style=\"flex:1;min-width:0\"><div class=\"d-flex align-items-center\" style=\"align-items:center;gap:0.6rem;flex:1\"><h3 class=\"textMD w-600 black d-flex align-items-center margin0\">Portfolio Snapshot</h3></div><div style=\"margin-top:0.75rem\"><div style=\"display:grid;grid-template-columns:1fr 1fr\"><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">No. of Securities</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">133</div></div><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3);border-left:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Top Holding %</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">7.42%</div></div></div><div style=\"display:grid;grid-template-columns:1fr 1fr\"><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Top 5 Holdings %</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">21.12%</div></div><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3);border-left:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Top 10 Holdings %</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">31.95%</div></div></div><div style=\"display:grid;grid-template-columns:1fr 1fr\"><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Modified Duration</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">0.14 yrs</div></div><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3);border-left:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Avg. Maturity</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">0.14 yrs</div></div></div><div style=",
+  "ytm": "><div style=\"display:grid;grid-template-columns:1fr 1fr\"><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Yield to Maturity</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">6.37%</div></div><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3);border-left:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">AUM</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">₹53,470 Cr</div></div></div><div style=\"display:grid;grid-template-columns:1fr 1fr\"><div style=\"padding:0.75rem;border-bottom:1px solid var(--grey3)\"><div style=\"font-size:var(--textXS);color:var(--dark3);margin-bottom:0.2rem\">Expense Ratio</div><div class=\"black w-600\" style=\"font-size:var(--textSM)\">0.13%</div></div><div style=\"padding:0.75rem;border-bott",
+  "credit": ".25rem;padding-bottom:1.5rem\"><div><div class=\"d-flex align-items-center\" style=\"align-items:center;gap:0.6rem;flex:1\"><h1 class=\"textLG w-600 black d-flex align-items-center margin0\">Debt Holdings — Credit Quality Profile</h1></div><div class=\"customTabsSubHeading\" style=\"margin-bottom:1rem\">Allocation of debt instruments by credit rating (AAA, AA, A, and below investment grade) as a percentage of net assets, compared against the category average. Higher AAA allocation indicates lower credit risk.</div><div style=\"overflow-x:auto\"><table style=\"width:100%;border-collapse:collapse;max-width:600px\"><thead><tr><th style=\"text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid var(--grey2);color:var(--dark3);font-size:0.75rem;width:200px\">Rating</th><th style=\"text-align:right;padding:0.5rem 0.75rem;border-bottom:2px solid var(--grey2);color:var(--dark3);font-size:0.75rem\">Fund</th><th style=\"text-align:right;padding:0.5rem 0.75rem;border-bottom:2px solid var(--grey2);color:var(--dark3);font-size:0.75rem\">Category</th></tr></thead><tbody><tr><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2);font-size:0.75rem;font-weight:500\">A1+</td><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2)\"><div style=\"display:flex;align-items:center;gap:0.5rem;justify-content:flex-end\"><span style=\"font-size:0.7rem;font-weight:500;color:var(--dark4);min-width:3.5rem;text-align:right\">86.52<!-- -->%</span><div style=\"width:60px;height:8px;background:var(--grey2);border-radius:4px;overflow:hidden;flex-shrink:0\"><div style=\"width:86.5152302%;height:100%;background:var(--primary);border-radius:4px\"></div></div></div></td><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2)\"><div style=\"display:flex;align-items:center;gap:0.5rem;justify-content:flex-end\"><span style=\"font-size:0.7rem;font-weight:500;color:var(--dark4);min-width:3.5rem;text-align:right\">70.46<!-- -->%</span><div style=\"width:60px;height:8px;background:var(--grey2);border-radius:4px;overflow:hidden;flex-shrink:0\"><div style=\"width:70.45747772969032%;height:100%;background:var(--primary);border-radius:4px\"></div></div></div></td></tr><tr><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2);font-size:0.75rem;font-weight:500\">SOV</td><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2)\"><div style=\"display:flex;align-items:center;gap:0.5rem;justify-content:flex-end\"><span style=\"font-size:0.7rem;font-weight:500;color:var(--dark4);min-width:3.5rem;text-align:right\">9.84<!-- -->%</span><div style=\"width:60px;height:8px;background:var(--grey2);border-radius:4px;overflow:hidden;flex-shrink:0\"><div style=\"width:9.83650385%;height:100%;background:var(--primary);border-radius:4px\"></div></div></div></td><td style=\"padding:0.4rem 0.75rem;border-bottom:1px solid var(--grey2)\"><div style=\"display:flex;align-items:center;gap:0.5rem;justify-content:flex-end\"><span style=\"font-size:0.7rem;font-weight:500;color:var(--dark4);min-width:3.5rem;text-align:right\">16.86<!-- -->%</span><div style=\"width:60px;height:8px;background:var(--grey2);border-radius:4px;overflow:hidden;flex-shrink:0\"><div style=\"width:16.85653938268387%;heig",
+  "asOf": "wth Holdings - Full Portfolio (October 2026)</title><meta name=\"description\" content=\"Axis Liquid Direct Fund-Growth complete holdings: top stocks, sector allocation and monthly changes. 112 holdings as on October 2026, updated on AMC...\"/><link rel=\"manifest\" href=\"/manifest.json\" crossorigin=\"use-credentials\"/><meta name=\"keywords\" content=\"Axis Liquid Direct Fund-Growth, holdings, portfolio, to"
+ }
 }
