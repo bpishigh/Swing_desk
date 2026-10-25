@@ -8,7 +8,7 @@ const out = { at: new Date().toISOString(), cats, funds: [] };
 const walk = (o, path, hits, d = 0) => { if (!o || typeof o !== 'object' || d > 8) return; for (const [k, v] of Object.entries(o)) { const p = path + '.' + k; if (/ytm|yield|maturity|duration|rating|credit|sov|aaa|sector_?alloc|asset_?alloc|holdings?$/i.test(k)) hits.push({ p, v: JSON.stringify(v).slice(0, 260) }); walk(v, p, hits, d + 1); } };
 for (const f of pick) {
   const q = encodeURIComponent(f.name.replace(/ - /g, ' ').replace(/direct plan|growth option|growth/gi, '').trim());
-  const s = await get(`https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=${q}&size=8`); let hit = null; try { hit = JSON.parse(s ?? '{}').content?.find((x) => x.isin === f.isin); } catch {}
+  const s = await get(`https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=${q}&size=8`); let hit = null; try { hit = JSON.parse(s ?? '{}').content?.find((x) => String(x.scheme_code) === String(f.code)); } catch {}
   const row = { name: f.name, cat: f.cat, hit: !!hit };
   if (hit) { const html = await get(`https://groww.in/mutual-funds/${hit.search_id}`); const m = html && /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/.exec(html); if (m) { const d = JSON.parse(m[1]).props?.pageProps?.mfServerSideData ?? {}; row.keys = Object.keys(d); row.hits = []; walk(d, 'mf', row.hits); row.hits = row.hits.slice(0, 40); } }
   out.funds.push(row); await new Promise((r) => setTimeout(r, 1000));
