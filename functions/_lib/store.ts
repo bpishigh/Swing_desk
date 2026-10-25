@@ -192,3 +192,22 @@ export async function renameAccount(env: StoreEnv, label: string, newLabel: stri
   await gh.del(from, cur.sha, `portfolio: remove ${slug(label)} (renamed)`);
   return { renamed: true };
 }
+
+/** Moves every transaction of the named holdings from one account to another (a wrong account or owner on a holding). Writes the target first, then removes them from the source,
+ * so a failure in between leaves a duplicate that the next merge ignores, never a loss. A decision the source holds for a moved holding goes with it. A new target takes the source's broker and owner unless `owner` is given. */
+export async function moveHolding(env: StoreEnv, from: string, to: string, keys: string[], owner: string | undefined, fetchFn: typeof fetch = fetch, now = new Date()): Promise<{ moved: number; error?: string }> {
+  if (pathFor(from) === pathFor(to)) return { moved: 0, error: 'the two accounts are the same' };
+  const gh = github(env, fetchFn), src = await gh.get(pathFor(from)); if (!src) return { moved: 0, error: 'account not found' };
+  const want = new Set(keys), key = (t: Trade) => t.isin || t.instrument.toUpperCase();
+  const sel = src.data.trades.filter((t) => want.has(key(t))), rest = src.data.trades.filter((t) => !want.has(key(t)));
+  if (!sel.length) return { moved: 0, error: 'no matching transactions in that account' };
+  const dec: Record<string, Decision | 'clear'> = {}; for (const k of keys) { const d = src.data.decisions?.[k]; if (d) dec[k] = d; }
+  await saveAccount(env, to, src.data.broker, sel, fetchFn, now, owner ?? (await gh.get(pathFor(to)))?.data.owner ?? src.data.owner, dec);
+  for (let attempt = 0; ; attempt++) {
+    const cur = await gh.get(pathFor(from)); if (!cur) break;
+    const left = cur.data.trades.filter((t) => !want.has(key(t))), decs = { ...(cur.data.decisions ?? {}) }; for (const k of keys) delete decs[k];
+    const acc: Account = { ...cur.data, trades: left, savedAt: now.toISOString() }; if (Object.keys(decs).length) acc.decisions = decs; else delete acc.decisions;
+    try { await gh.put(pathFor(from), acc, cur.sha, `portfolio: move ${keys.length} holding(s) from ${slug(from)} to ${slug(to)}`); break; } catch (e: any) { if (attempt < 3 && /write failed 409/.test(String(e?.message))) continue; throw e; }
+  }
+  void rest; return { moved: sel.length };
+}

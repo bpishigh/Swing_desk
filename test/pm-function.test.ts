@@ -169,3 +169,18 @@ test('a fund order whose scheme name is longer than 40 characters is accepted, w
   assert.equal((f as any)[0].instrument, name);
   const st = cleanTrades([{ ...trade('9'), symbol: name }]); assert.ok(Array.isArray(st) && (st as any)[0].symbol === undefined);
 });
+
+test('function: holdings move to another account (new or existing), with their decisions, and nothing is lost or invented', async () => {
+  const s = await setup(); const call = (m: string, b: unknown) => handle(s.req(m, b), ENV, s.fetchFn);
+  const other = { ...trade('9'), isin: 'INE111B01011', instrument: 'OTHER LTD', symbol: 'OTH' };
+  await call('POST', { label: 'Wrong One', broker: 'groww', owner: 'Asha', trades: [trade('1'), trade('2'), other], decisions: { 'INE000A01011': { action: 'price', unitCost: 5 } } });
+  const read = async () => { const g = await (await call('GET', undefined)).json() as any; return Object.fromEntries(g.accounts.map((a: any) => [a.label, a])); };
+  assert.equal((await call('PATCH', { label: 'Wrong One', moveTo: 'Wrong One', keys: ['INE000A01011'] })).status, 409);
+  assert.equal((await call('PATCH', { label: 'Wrong One', moveTo: 'Right One', keys: ['NOPE'] })).status, 409);
+  assert.equal((await call('PATCH', { label: 'Wrong One', moveTo: 'bad/name', keys: ['INE000A01011'] })).status, 400);
+  assert.equal((await call('PATCH', { label: 'Wrong One', moveTo: 'Right One', keys: [] })).status, 400);
+  const r = await call('PATCH', { label: 'Wrong One', moveTo: 'Right One', keys: ['INE000A01011'], owner: 'Alka' }); assert.equal(r.status, 200); assert.equal((await r.json() as any).moved, 2);
+  let a = await read(); assert.equal(a['Wrong One'].trades.length, 1); assert.equal(a['Right One'].trades.length, 2); assert.equal(a['Right One'].owner, 'Alka'); assert.equal(a['Right One'].broker, 'groww');
+  assert.ok(a['Right One'].decisions?.['INE000A01011'] && !a['Wrong One'].decisions);
+  await call('PATCH', { label: 'Right One', moveTo: 'Wrong One', keys: ['INE000A01011'] }); a = await read(); assert.equal(a['Wrong One'].trades.length, 3); assert.equal(a['Right One'].trades.length, 0); assert.equal(a['Wrong One'].owner, 'Asha');
+});

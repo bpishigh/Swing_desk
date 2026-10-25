@@ -1,7 +1,7 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
 // Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on the private data repo only), REPO ("owner/name" of the private data repo), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
 import { checkAccess } from '../_lib/access.ts';
-import { cleanTrades, loadAccounts, loadMorning, loadRules, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, NoSuchAccount, deleteAccount, renameAccount } from '../_lib/store.ts';
+import { cleanTrades, loadAccounts, loadMorning, loadRules, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, NoSuchAccount, deleteAccount, renameAccount, moveHolding } from '../_lib/store.ts';
 
 const reply = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
@@ -29,6 +29,12 @@ export async function handle(req: Request, env: any, fetchFn: typeof fetch = fet
     if (!validLabel(b?.label)) return reply(400, { error: 'bad account name' });
     try {
       if (req.method === 'DELETE') return reply(200, await deleteAccount(env, b.label, fetchFn));
+      if (b.moveTo !== undefined) {   // move holdings to another account (wrong account or owner)
+        if (!validLabel(b.moveTo)) return reply(400, { error: 'bad target account name' });
+        if (!Array.isArray(b.keys) || !b.keys.length || b.keys.length > 50 || b.keys.some((k: unknown) => typeof k !== 'string' || !k || k.length > 120)) return reply(400, { error: 'bad holding list' });
+        if (!validOwner(b.owner)) return reply(400, { error: 'bad owner name' });
+        const r = await moveHolding(env, b.label, b.moveTo, b.keys, b.owner, fetchFn); return reply(r.moved ? 200 : 409, r);
+      }
       if (!validLabel(b.newLabel)) return reply(400, { error: 'bad new name' });
       const r = await renameAccount(env, b.label, b.newLabel, fetchFn); return reply(r.renamed ? 200 : 409, r);
     } catch (e: any) { return reply(502, { error: e.message }); }
