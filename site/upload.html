@@ -542,7 +542,7 @@ function sellCostFor(h) {
   if (!lots.length) return '';
   const A = acctCfg(V.ms[0]?.key ?? ''), y = +today.slice(0, 4), m = +today.slice(5, 7), fyNow = m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`;
   const left = taxGroups().map((g) => { const yy = g.years.find((x) => x.fy === fyNow); return yy ? Math.max(0, yy.equity.exemption - yy.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
-  try { const c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined }); return sellCostCard({ ...c, exemptionLeft }); } catch { return ''; }
+  try { const o = { today, rules: S.data.taxRules, slabRate: A.slab > 0 ? A.slab / 100 : undefined }, c = switchCost(lots, { ...o, exemptionLeft: 0 }), ce = switchCost(lots, { ...o, exemptionLeft }); return sellCostCard({ ...c, exemptionLeft, taxWithExemption: ce.tax }); } catch { return ''; }
 }
 function switchCard(V) {   // C-91, C-93: information only
   const funds = mergedHoldings(V).filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.value !== null), sel = funds.find((h) => h.name === S.sw);
