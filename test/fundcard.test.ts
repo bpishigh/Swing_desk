@@ -7,7 +7,7 @@ test('fundCard shows facts, flags and bars, and escapes text', () => {
 });
 test('stockCard renders tiles and notes', () => { assert.ok(stockCard({ tiles: [{ k: 'RS', v: 'top 5%', s: 'x' }], notes: ['n'] }).includes('top 5%')); });
 test('sellCostCard counts no free limit and shows the only-sale tax separately', () => {
-  const base = { value: 167000, gain: 66985, longGain: 66985, shortGain: 0, load: 0, charges: 0, lots: [], notes: [], exemptionLeft: 125000 };
+  const base = { value: 167000, gain: 66985, longGain: 66985, shortGain: 0, load: 0, charges: 0, lots: [{ date: '2023-01-01', value: 167000, gain: 66985, long: true, tax: 8373, load: 0 }], notes: [], exemptionLeft: 125000 };
   const h = sellCostCard({ ...base, tax: 8373, net: 158627, taxWithExemption: 0 } as any);
   assert.ok(h.includes('₹8,373') && h.includes('only sale this year') && h.includes('1,25,000'));
   assert.ok(!sellCostCard({ ...base, tax: 0, net: 167000, taxWithExemption: 0 } as any).includes('only sale'));
