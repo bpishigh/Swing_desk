@@ -456,8 +456,22 @@ function firmOf(h) {
   return { label: border ? 'Borderline' : 'Firm', tr, keep, notes, line: `about ${inK(tr.back20)} in 100 similar stocks in the past were back above the exit-test levels (the 200-day average and the swing low) within a month${border ? ', so this one could easily bounce back' : ', so most stayed weak'}` };
 }
 const reentry = (h) => { const v = verdictOf(h), c = ctxOf(h); return !!(v && v.label === 'Exit' && c && c.rs !== null && c.rs >= 75 && c.upDown !== null && c.upDown > 1); };
+// Stock card: the same company seen through the funds held (look-through, Engine Rules C-78), against the single-stock limit.
+function fundTilesFor(h) {
+  if (h.kind !== 'Stock' || h.value === null) return [];
+  const L = lookOf(S.cur.ms.map(calcAccount)); if (!L) return [];
+  const r = L.r, e = r.exposures.find((x) => (h.isin && x.key === 'I:' + h.isin) || (h.symbol && x.key === 'S:' + h.symbol));
+  const via = e ? e.viaFunds : 0, tot = e ? e.total : h.value, cap = L.cap;
+  const lim = cap ? (e ? e.pctCapital : tot / L.capital) / cap : null, over = cap ? (e ? e.overCap : tot / L.capital > cap) : false;
+  const cov = r.coverage === null ? '' : ` Counts ${Math.round(r.coverage * 100)}% of your equity fund money.`;
+  return [
+    { k: 'Also held through funds', v: via > 0 ? short(via) : 'none found', s: via > 0 ? e.sources.slice(0, 3).map((x) => esc(x.fund)).join(' · ') : 'no fund with a stored portfolio holds it' + cov },
+    { k: 'Total in this company', v: short(tot), s: `${pc(e ? e.pctCapital : tot / L.capital)} of capital${e && e.pctEquity ? ' · ' + pc(e.pctEquity) + ' of equity' : ''}${via > 0 ? ' (direct + funds)' : ''}` },
+    { k: 'Single-stock limit', v: cap ? (over ? `<span class="fneg">over by ${pc((e ? e.pctCapital : tot / L.capital) - cap)}</span>` : `<span class="fpos">within</span> · ${Math.round(100 * lim)}% used`) : '–', s: cap ? `limit ${pc(cap)} of capital for your profile` : 'no limit set (profile not complete)' },
+  ];
+}
 function ctxPanel(h, tot) {
-  const c = ctxOf(h), v = verdictOf(h); if (!c) return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles: [], blocks: [sellCostFor(h)], notes: ['No price context is stored for this holding yet; the sale estimate above still applies.'] })}</td></tr>`;
+  const c = ctxOf(h), v = verdictOf(h); if (!c) return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles: fundTilesFor(h), blocks: [sellCostFor(h)], notes: ['No price context is stored for this holding yet; the sale estimate above still applies.'] })}</td></tr>`;
   const ind = S.segments?.industry?.[h.symbol];
   const lvl = v && v.label === 'Keep' ? Math.max(v.swingLow?.price ?? 0, v.sma200 ?? 0) : 0;
   const risk = h.value !== null && lvl > 0 && v.close > 0 ? h.value * (1 - lvl / v.close) : null;
@@ -468,6 +482,7 @@ function ctxPanel(h, tot) {
   const mx = Math.max(5, ...[c.vs50, c.vs200, c.ret63, c.vsIndex].filter((x) => x !== null && x !== undefined).map(Math.abs));
   const trend = `<div class="fbox"><div class="fh">Price against its averages and the market</div>${bar('vs 50-day average', c.vs50, mx)}${bar('vs 200-day average', c.vs200, mx)}${bar('3-month return', c.ret63, mx)}${bar('vs Nifty 500 (points)', c.vsIndex, mx)}<div class="fs">${c.s50vs200 === null ? '' : 'The 50-day average is ' + (c.s50vs200 >= 0 ? 'above' : 'below') + ' the 200-day by ' + Math.abs(c.s50vs200).toFixed(1) + '%. '}Context only: the exit test is the 200-day average and the swing low.</div></div>`;
   const tiles = [
+    ...fundTilesFor(h),
     { k: 'Relative strength', v: c.rs === null ? '–' : 'top ' + (100 - c.rs) + '%', s: 'of every stored stock, 3-month return' },
     { k: 'Next results', v: r ? esc(r.date) : '–', s: r ? 'about ' + r.sessions + ' sessions' + (r.sessions <= 10 ? ' · no new trades inside 10' : '') : 'no date announced' },
     { k: 'Value at risk to exit level', v: v && v.label === 'Keep' ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', s: v && v.label === 'Keep' ? 'if it closed at the nearer of 200-day average and swing low' : '' },
@@ -719,9 +734,8 @@ async function loadLive(list) {
   liveBusy = false; if (S.tab === 'alloc') render();
 }
 // Funds opened up (Engine Rules C-78): what the household owns in each company once fund portfolios are counted, and which funds repeat each other.
-function lookThroughCard(xs) {
-  const ports = S.fundPorts;
-  if (!ports?.funds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">Fund portfolios have not loaded yet (they are fetched once a month from the funds\' published disclosures).</div></div>';
+function lookOf(xs) {
+  const ports = S.fundPorts; if (!ports?.funds) return null;
   const EQ = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic']), seen = new Map(), left = new Set(), byIsin = new Map(Object.entries(ports.funds).filter(([, v]) => v.isin).map(([k, v]) => [v.isin, k]));   // a held ETF or fund is found by its ISIN first, then by its scheme name
   for (const x of xs) for (const h of x.hs) {
     if (h.value === null || !(h.value > 0)) continue;
@@ -737,6 +751,12 @@ function lookThroughCard(xs) {
   const nameOfIsin = new Map(); for (const v of Object.values(ports.funds)) if (v.etf) for (const l of v.lines) if (l.symbol && !nameOfIsin.has(l.isin)) nameOfIsin.set(l.isin, { name: l.name, symbol: l.symbol });
   for (const v of seen.values()) { const L = v.isin ? S.live.get(v.isin) : null; if (L && L.lines && !fp[v.fundIsin]) { v.fundIsin = 'live:' + v.isin; fp[v.fundIsin] = { asOf: L.asOf, lines: L.lines.map((l) => (l.isin ? { ...(nameOfIsin.get(l.isin) ?? { name: l.isin }), isin: l.isin, weight: l.weight } : l)) }; } }
   const r = lookThrough([...seen.values()], fp, new Date().toISOString().slice(0, 10), capital, { positionCap: capOk > 0 ? capW / capOk : null });
+  return { r, seen, ports, left, capital, cap: capOk > 0 ? capW / capOk : null };
+}
+function lookThroughCard(xs) {
+  const L0 = lookOf(xs);
+  if (!L0) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">Fund portfolios have not loaded yet (they are fetched once a month from the funds\' published disclosures).</div></div>';
+  const { r, seen, ports, left, capital } = L0;
   const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;   // mutual funds and ETFs
   if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity funds or ETFs held, so there is nothing to open up.</div></div>';
   const rows = r.exposures.filter((e) => e.viaFunds > 0).slice(0, 12);
