@@ -74,7 +74,7 @@ if (existsSync('data/funds/quality.json')) {
   for (const v of Object.values(q.funds)) if (v.isin) {
     const f = r5.get(v.isin); let vs5 = null;
     if (f && f.g === 'mf' && f.r5 != null && PURE.has(f.cat)) { for (const k of SEG[f.cat] ? [SEG[f.cat]] : ['Nifty 500', 'Nifty 50']) { const a = idx(k); if (a.length >= 3) { vs5 = { fund: +f.r5.toFixed(2), bench: k, benchR5: +med(a).toFixed(2), n: a.length }; break; } } }
-    out[v.isin] = { asOf: v.asOf, managers: v.managers, aum: v.aum, benchmark: v.benchmark, expense: v.expense, turnover: v.turnover, launch: v.launch, exitLoad: v.exitLoad, flags: v.flags ?? [], vs5 };
+    out[v.isin] = { asOf: v.asOf, managers: v.managers, aum: v.aum, benchmark: v.benchmark, expense: v.expense, turnover: v.turnover, launch: v.launch, exitLoad: v.exitLoad, flags: v.flags ?? [], vs5, ...(v.mix ? { mix: v.mix } : {}) };
   }
   put('site/pm-data/quality.json', JSON.stringify({ asOf: q.asOf, funds: out }) + '\n');
 }

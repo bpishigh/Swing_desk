@@ -1,5 +1,5 @@
 // The fund detail card shared by the Funds tab and the Portfolio page (Engine Rules C-108 facts, C-101 holdings trend). Pure: data in, HTML out. Information only.
-                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                         
                                                                                            
                                                           
                                                                                                                             
@@ -13,6 +13,11 @@ export function fundCard(c        )         {
     { k: 'Expense ratio', v: fq.expense != null ? fq.expense + '%' : '–', s: 'a year' },
     { k: 'Turnover', v: fq.turnover != null ? fq.turnover + '%' : '–', s: 'of the portfolio traded a year' },
     { k: 'Benchmark', v: `<span class="fvs">${esc(fq.benchmark ?? '–')}</span>` },
+    ...(fq.mix ? [
+      { k: 'Government and cash', v: (fq.mix.gov + fq.mix.cash).toFixed(1) + '%', s: `government paper ${fq.mix.gov}% · cash and repo ${fq.mix.cash}%` },
+      { k: 'Company debt', v: (fq.mix.paper + fq.mix.corp).toFixed(1) + '%', s: `bonds ${fq.mix.corp}% · money-market paper ${fq.mix.paper}% · no credit rating on the page` },
+      ...(fq.mix.top[0] ? [{ k: 'Largest issuer', v: `<span class="fvs">${esc(fq.mix.top[0].name)}</span>`, s: fq.mix.top[0].pct + '% of the fund' + (fq.mix.asOf ? ' · as of ' + fq.mix.asOf : '') }] : []),
+    ] : []),
   ] : [];
   const tiles = (c.tiles ?? []).concat(facts.filter((t) => t.v !== '–'));
   const mg = fq && fq.managers.length ? `<div class="fmg">${fq.managers.map((m) => `<span class="fchip${fq.flags.some((x) => x.kind === 'new-manager' && x.text.startsWith(m.name)) ? ' warn' : ''}">${esc(m.name)}${m.since ? `<small>since ${esc(m.since.slice(0, 7))}</small>` : ''}</span>`).join('')}</div>` : '';

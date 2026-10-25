@@ -15,3 +15,11 @@ test('parsePledge reads the promoter-group context only', () => {
   assert.equal(p.promoterPct, 24); assert.equal(p.pledgedOfPromoter, 0.7299); assert.equal(p.pledgedShares, 1200509465);
   assert.equal(parsePledge('<x/>', null), null);
 });
+
+import { debtMix } from '../src/pm/holdingsparse.ts';
+test('debtMix splits a debt fund into government, cash, paper and company debt', () => {
+  const r = (company_name: string, instrument_name: string, nature_name: string, corpus_per: number) => ({ company_name, instrument_name, nature_name, corpus_per, portfolio_date: '2026-09-29T18:30:00.000Z' });
+  const m = debtMix([r('GOVERNMENT OF INDIA 6.94 GOI 2036', 'GOI Securities', 'DEBT', 40), r('Repo', 'Repo', 'CASH', 10), r('Bank X CD', 'Certificate of Deposit', 'DEBT', 15), r('ABC Finance Ltd', 'Non Convertible Debenture', 'DEBT', 30), r('Some Co', 'Equity', 'EQUITY', 5)])!;
+  assert.equal(m.gov, 40); assert.equal(m.cash, 10); assert.equal(m.paper, 15); assert.equal(m.corp, 30); assert.equal(m.other, 5); assert.equal(m.top[0].name, 'ABC Finance Ltd'); assert.equal(m.asOf, '2026-09-30');
+  assert.equal(debtMix([r('A', 'Equity', 'EQUITY', 60), r('B', 'Equity', 'EQUITY', 30), r('C', 'Equity', 'EQUITY', 10)]), null);
+});

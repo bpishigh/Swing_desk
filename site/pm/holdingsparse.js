@@ -39,7 +39,8 @@ export function parseEtfPage(html        )                              {
   return { lines: [...by].map(([isin, weight]) => ({ isin, weight: Math.round(weight * 1000) / 1000 })).sort((a, b) => b.weight - a.weight) };
 }
 
-                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                        
 const num = (v         ) => { const n = typeof v === 'string' || typeof v === 'number' ? Number(v) : NaN; return Number.isFinite(n) ? n : null; };
 const istDay = (d         ) => typeof d !== 'string' || Number.isNaN(Date.parse(d)) ? null : d.endsWith('Z') ? new Date(Date.parse(d) + 5.5 * 3600000).toISOString().slice(0, 10) : d.slice(0, 10);
 /** Fund quality facts from the same page (Engine Rules C-108). Facts only; the expense ratio history is kept as the dates on which it changed. */
@@ -53,7 +54,25 @@ export function parseQuality(html        )                 {
   const expenseChanges                            = []; for (const x of rows) if (!expenseChanges.length || expenseChanges[expenseChanges.length - 1].ratio !== x.r) expenseChanges.push({ from: x.day, ratio: x.r });
   const exitLoadChanges = (Array.isArray(d.historic_exit_loads) ? d.historic_exit_loads : []).map((x     ) => ({ from: istDay(x?.as_on_date) ?? '', note: String(x?.note ?? '').trim() })).filter((x                                ) => x.from && x.note).sort((a                  , b                  ) => a.from.localeCompare(b.from));
   const str = (v         ) => typeof v === 'string' && v.trim() ? v.trim() : null;
-  return { managers, aum: num(d.aum), benchmark: str(d.benchmark_name) ?? str(d.benchmark), expense: num(d.expense_ratio), turnover: num(d.portfolio_turnover), launch: str(d.launch_date), exitLoad: str(d.exit_load), exitLoadChanges, expenseChanges };
+  return { managers, aum: num(d.aum), benchmark: str(d.benchmark_name) ?? str(d.benchmark), expense: num(d.expense_ratio), turnover: num(d.portfolio_turnover), launch: str(d.launch_date), exitLoad: str(d.exit_load), exitLoadChanges, expenseChanges, mix: debtMix(d.holdings) };
+}
+/** What a debt fund holds, from its published holdings list: sovereign paper, cash and repo, short money-market paper, other company debt. A mix of paper types, not a credit rating (the page carries none). Null when the list is not mostly debt and cash. */
+export function debtMix(rows       )                 {
+  if (!Array.isArray(rows) || !rows.length) return null;
+  const sum = { gov: 0, cash: 0, paper: 0, corp: 0, other: 0 }, issuers = new Map                (); let n = 0, asOf                = null;
+  for (const r of rows) {
+    const pct = num(r?.corpus_per); if (pct === null || pct <= 0) continue; n++; asOf ??= istDay(r?.portfolio_date);
+    const ins = String(r?.instrument_name ?? ''), nat = String(r?.nature_name ?? ''), nm = String(r?.company_name ?? ''), t = ins + ' ' + nm;
+    if (/equity/i.test(nat) && !/debt/i.test(nat)) sum.other += pct;
+    else if (/goi|government of india|treasury|t-?bill|g-?sec|\bsdl\b|state (dev|gov)|sovereign/i.test(t)) sum.gov += pct;
+    else if (/cash|cblo|repo|tri-?party|margin|net current|reverse/i.test(t + ' ' + nat)) sum.cash += pct;
+    else if (/commercial paper|certificate of deposit|\bcp\b|\bcd\b|money market/i.test(t)) { sum.paper += pct; issuers.set(nm, (issuers.get(nm) ?? 0) + pct); }
+    else if (/debt|bond|debenture|ncd|securitised|ptc|invit|reit/i.test(t + ' ' + nat)) { sum.corp += pct; issuers.set(nm, (issuers.get(nm) ?? 0) + pct); }
+    else sum.other += pct;
+  }
+  const total = sum.gov + sum.cash + sum.paper + sum.corp; if (n < 3 || total < 50) return null;
+  const r1 = (x        ) => Math.round(x * 10) / 10;
+  return { asOf, gov: r1(sum.gov), cash: r1(sum.cash), paper: r1(sum.paper), corp: r1(sum.corp), other: r1(sum.other), top: [...issuers].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([name, pct]) => ({ name, pct: r1(pct) })), n };
 }
                                                            
 /** Flags are facts only: a lead manager under 12 months, and changes against the previous monthly snapshot. No threshold on size or turnover. */
