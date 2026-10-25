@@ -556,7 +556,7 @@ function switchCard(V) {   // C-91, C-93: information only
     const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).filter((l) => l.name === sel.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(looseKey(l.name)) ? { exitLoad: loads.get(looseKey(l.name)) } : {}) })));
     const fyNow = (() => { const y = +today.slice(0, 4), m = +today.slice(5, 7); return m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`; })();
     const left = taxGroups().map((g) => { const y = g.years.find((x) => x.fy === fyNow); return y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
-    const base = me?.r3 != null ? me.r3 / 100 : 0.12, c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft, slabRate: A.slab > 0 ? A.slab / 100 : undefined, baseReturn: base });
+    const base = me?.r3 != null ? me.r3 / 100 : 0.12, c = switchCost(lots, { today, rules: S.data.taxRules, exemptionLeft: 0, slabRate: A.slab > 0 ? A.slab / 100 : undefined, baseReturn: base });
     const p1 = (v) => (v == null ? '–' : v.toFixed(1) + '%'), sc = (r) => (r && r.s != null ? `${r.b} (${r.s.toFixed(0)})` : 'not scored');
     const cmp = me ? `<div class="tw" style="margin-top:10px"><table><thead><tr><th></th><th>Your fund</th><th>${dest ? 'Switch to' : ''}</th></tr></thead><tbody>
       <tr><td>Fund</td><td>${esc(me.n)}</td><td>${dest ? esc(dest.n) : 'no scored alternative in this category'}</td></tr>
@@ -572,7 +572,7 @@ function switchCard(V) {   // C-91, C-93: information only
     body = `${cmp}${pick}<div class="tw" style="margin-top:10px"><table><tbody>
       <tr><td>Value today</td><td>₹${inr(c.value)}</td></tr>
       <tr><td>Gain (long-term ₹${inr(c.longGain)}, short-term ₹${inr(c.shortGain)})</td><td class="${cls(c.gain)}">₹${inr(c.gain)}</td></tr>
-      <tr><td>Estimated tax${exemptionLeft !== undefined ? ` (after ₹${inr(exemptionLeft)} exemption left this year)` : ''}</td><td>${c.tax === null ? 'not priced' : '₹' + inr(c.tax)}</td></tr>
+      <tr><td>Estimated tax${exemptionLeft !== undefined ? ` (no tax-free limit counted; ₹${inr(exemptionLeft)} is left this year if nothing else is sold)` : ''}</td><td>${c.tax === null ? 'not priced' : '₹' + inr(c.tax)}</td></tr>
       <tr><td>Exit load</td><td>₹${inr(c.load)}</td></tr>
       <tr><td><b>You would receive</b></td><td><b>₹${inr(c.net)}</b></td></tr>
       <tr><td>Cost of switching</td><td>${c.value ? (100 * c.cost / c.value).toFixed(2) : '0.00'}% of the value</td></tr></tbody></table></div>
