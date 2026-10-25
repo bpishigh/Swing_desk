@@ -1,5 +1,5 @@
 {
- "at": "2026-10-25T10:10:19.842Z",
+ "at": "2026-10-25T10:11:06.517Z",
  "cats": [
   "Banking and PSU",
   "Corporate bond",
@@ -21,32 +21,1582 @@
   {
    "name": "Bajaj Finserv Liquid Fund - Direct Plan - Growth",
    "cat": "Liquid",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "3"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"151833\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Others CBLO\",\"nature_name\":\"DEBT\",\"sector_name\":\"Unspecified\",\"instrument_name\":\"CBLO\",\"rating\":null,\"market_value\":848.5067,\"corpus_per\":12.37,\"market_cap\":null,\"rating_marke"
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.15.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.15.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.16.rating",
+     "v": "null"
+    }
+   ]
   },
   {
    "name": "Aditya Birla Sun Life Corporate Bond Fund - Direct Plan - GROWTH",
    "cat": "Corporate bond",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "2"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"119533\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"GOVERNMENT OF INDIA 37426 GOI 11MY36 6.94 FV RS 100\",\"nature_name\":\"DEBT\",\"sector_name\":\"Entities\",\"instrument_name\":\"GOI Securities\",\"rating\":null,\"market_value\":1360.0948,\"c"
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating",
+     "v": "null"
+    }
+   ]
   },
   {
    "name": "Bajaj Finserv Gilt Fund - Direct Plan - Growth",
    "cat": "Gilt",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "3"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"153206\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"GOVERNMENT OF INDIA 37693 091 DAYS TBILL 22OT26 FV RS 100\",\"nature_name\":\"DEBT\",\"sector_name\":\"Financial\",\"instrument_name\":\"Treasury Bills\",\"rating\":null,\"market_value\":4.985"
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.sip_return.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.simple_return.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.peerComparison.0.groww_rating",
+     "v": "5"
+    },
+    {
+     "p": "mf.peerComparison.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.peerComparison.1.groww_rating",
+     "v": "4"
+    },
+    {
+     "p": "mf.peerComparison.1.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.peerComparison.2.groww_rating",
+     "v": "4"
+    },
+    {
+     "p": "mf.peerComparison.2.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.peerComparison.3.groww_rating",
+     "v": "5"
+    },
+    {
+     "p": "mf.peerComparison.3.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.peerComparison.4.groww_rating",
+     "v": "4"
+    },
+    {
+     "p": "mf.peerComparison.4.risk_rating",
+     "v": "null"
+    }
+   ]
   },
   {
    "name": "Aditya Birla Sun Life Credit Risk Fund - Direct Plan - GROWTH",
    "cat": "Credit risk",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "4"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"134387\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Repo\",\"nature_name\":\"CASH\",\"sector_name\":\"Unspecified\",\"instrument_name\":\"Repo\",\"rating\":null,\"market_value\":169.65,\"corpus_per\":10.23798781,\"market_cap\":null,\"rating_market_c"
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.15.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.15.rating_market_cap",
+     "v": "null"
+    }
+   ]
   },
   {
    "name": "Aditya Birla Sun Life Short Term Fund - Direct Plan - GROWTH",
    "cat": "Short duration",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "3"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"119498\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Repo\",\"nature_name\":\"CASH\",\"sector_name\":\"Unspecified\",\"instrument_name\":\"Repo\",\"rating\":null,\"market_value\":444.33,\"corpus_per\":7.44752607,\"market_cap\":null,\"rating_market_ca"
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating_market_cap",
+     "v": "null"
+    }
+   ]
   },
   {
    "name": "Franklin India Banking & PSU Debt Fund - Direct Plan - Growth",
    "cat": "Banking and PSU",
-   "hit": false
+   "hit": true,
+   "keys": [
+    "stp_details",
+    "swp_details",
+    "investment_date_configs",
+    "face_value",
+    "brochure_link",
+    "scheme_info_link",
+    "allotment_date",
+    "nfo_risk",
+    "nfo_image_url",
+    "meta_title",
+    "meta_desc",
+    "meta_robots",
+    "amc",
+    "scheme_code",
+    "direct_scheme_code",
+    "regular_search_id",
+    "scheme_name",
+    "registrar_agent",
+    "search_id",
+    "min_investment_amount",
+    "fund_house",
+    "fund_manager",
+    "launch_date",
+    "mini_additional_investment",
+    "sip_multiplier",
+    "groww_rating",
+    "crisil_rating",
+    "category",
+    "rta_scheme_code",
+    "exit_load",
+    "sub_category",
+    "description",
+    "benchmark",
+    "benchmark_name",
+    "aum",
+    "expense_ratio",
+    "base_expense_ratio",
+    "portfolio_turnover",
+    "super_category",
+    "sub_sub_category",
+    "min_sip_investment",
+    "max_sip_investment",
+    "min_withdrawal",
+    "purchase_multiplier",
+    "available_for_investment",
+    "is_prime_investment_allowed",
+    "analysis",
+    "amc_info",
+    "category_info",
+    "stats",
+    "return_stats",
+    "sip_allowed",
+    "lumpsum_allowed",
+    "doc_required",
+    "holdings",
+    "nav",
+    "nav_date",
+    "plan_type",
+    "scheme_type",
+    "alternate_scheme_type",
+    "video_url",
+    "fund_manager_details",
+    "rta_details",
+    "fund_news",
+    "fund_events",
+    "logo_url",
+    "sid_url",
+    "amc_page_url",
+    "isin",
+    "groww_scheme_code",
+    "stamp_duty",
+    "dividend",
+    "sip_return",
+    "simple_return",
+    "lock_in",
+    "historic_exit_loads",
+    "historic_fund_expense",
+    "closed_scheme",
+    "closed_date",
+    "additional_details",
+    "restricted_tax_statuses",
+    "conditional_maximum_purchase_amount_details",
+    "conditional_maximum_sip_amount_details",
+    "prod_code",
+    "stp_flag",
+    "swp_flag",
+    "switch_flag",
+    "redemption_amount_multiple",
+    "redemption_qty_multiplier",
+    "unique_groww_scheme_code",
+    "swp_frequencies",
+    "blocked_reason",
+    "fund_name",
+    "primary_action",
+    "actions",
+    "is_additional_check_req",
+    "peerComparison"
+   ],
+   "hits": [
+    {
+     "p": "mf.groww_rating",
+     "v": "5"
+    },
+    {
+     "p": "mf.crisil_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.analysis.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.return_stats.0.risk_rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings",
+     "v": "[{\"scheme_code\":\"129008\",\"portfolio_date\":\"2026-09-29T18:30:00.000Z\",\"company_name\":\"Cash Margin\",\"nature_name\":\"CASH\",\"sector_name\":\"Unspecified\",\"instrument_name\":\"Cash Margin\",\"rating\":null,\"market_value\":90.0249,\"corpus_per\":15.92260996,\"market_cap\":null,\""
+    },
+    {
+     "p": "mf.holdings.0.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.0.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.1.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.2.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.3.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.4.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.5.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.6.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.7.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.8.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.9.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.10.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.11.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.12.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.13.rating_market_cap",
+     "v": "null"
+    },
+    {
+     "p": "mf.holdings.14.rating",
+     "v": "null"
+    }
+   ]
   }
  ]
 }
