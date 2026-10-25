@@ -1,120 +1,331 @@
 {
- "at": "2026-10-25T09:19:39.826Z",
- "nse": [
-  {
-   "s": "RELIANCE",
-   "ep": "corporate-pledgedata",
-   "status": 200,
-   "bytes": 28,
-   "head": "{\"comNameList\":[],\"data\":[]}"
-  },
-  {
-   "s": "RELIANCE",
-   "ep": "corporate-share-holdings-master",
-   "status": 200,
-   "bytes": 42953,
-   "head": "[{\"broadcastDate\":\"21-OCT-2026 16:25:15\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":null,\"name\":\"Reliance Industries Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"50.44\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"49.56\",\"recordId\":\"216074\",\"remarksWeb\":\"In accordance with the Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018, the Company had allotted bonus equity shares in dematerialised form only and bonus equity shares of shareholders holding equity shares in physical form were credited to a separate demat suspense acc"
-  },
+ "at": "2026-10-25T09:21:10.605Z",
+ "rows": [
   {
    "s": "ADANIENT",
-   "ep": "corporate-pledgedata",
-   "status": 200,
-   "bytes": 28,
-   "head": "{\"comNameList\":[],\"data\":[]}"
-  },
-  {
-   "s": "ADANIENT",
-   "ep": "corporate-share-holdings-master",
-   "status": 200,
-   "bytes": 24530,
-   "head": "[{\"broadcastDate\":\"12-OCT-2026 18:48:24\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"IN9423A01014\",\"name\":\"Adani Enterprises Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"71.97\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"28.03\",\"recordId\":\"213915\",\"remarksWeb\":\"In SBO for nationality, we have mention Indian/ Cypriot as nationality of (i) Gautambhai Shantilal Adani and Rajeshbhai Shantilal Adani is Indian, and (ii) nationality of Vinodbhai Shantilal Adani is Cypriot.\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionR"
+   "masterStatus": 200,
+   "keys": [
+    "broadcastDate",
+    "cgTimeStamp",
+    "countString",
+    "date",
+    "desc",
+    "employeeTrusts",
+    "format",
+    "index",
+    "industry",
+    "isin",
+    "name",
+    "newColumn",
+    "pr_and_prgrp",
+    "promoterDematNotes",
+    "publicShareholdingNotes",
+    "public_val",
+    "recordId",
+    "remarksWeb",
+    "revisedData",
+    "revisedDate",
+    "revisedRemark",
+    "revisedStatus",
+    "revisionDate",
+    "revisionRemark",
+    "shareholdingPatternNotes",
+    "submissionDate",
+    "symbol",
+    "systemDate",
+    "timeDifference",
+    "typeOfSubmission",
+    "underlyingDrs",
+    "xbrl",
+    "xbrlFileSize"
+   ],
+   "date": "30-SEP-2026",
+   "promoter": "71.97",
+   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1736411_12102026064817_WEB.xml",
+   "x": {
+    "status": 200,
+    "bytes": 307503,
+    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
+    "pledgeTags": [
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>",
+     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\">0",
+     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
+     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\">0",
+     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"shares\">0",
+     "</in-bse-shp:NumberOfSharesEncumbered>",
+     "<in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares contextRef=\"IndividualsOrHinduUndividedFamily_ContextI\" decimals=\"INF\" unitRef=\"pure\">0",
+     "</in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">7700000",
+     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
+     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.0099",
+     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">7700000"
+    ]
+   },
+   "pledge": [
+    {
+     "ep": "corporate-pledgedata?index=equities&symbol=ADANIENT&from_dat",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    },
+    {
+     "ep": "corporate-pledgedata?index=equities",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    }
+   ]
   },
   {
    "s": "RPOWER",
-   "ep": "corporate-pledgedata",
-   "status": 200,
-   "bytes": 28,
-   "head": "{\"comNameList\":[],\"data\":[]}"
+   "masterStatus": 200,
+   "keys": [
+    "broadcastDate",
+    "cgTimeStamp",
+    "countString",
+    "date",
+    "desc",
+    "employeeTrusts",
+    "format",
+    "index",
+    "industry",
+    "isin",
+    "name",
+    "newColumn",
+    "pr_and_prgrp",
+    "promoterDematNotes",
+    "publicShareholdingNotes",
+    "public_val",
+    "recordId",
+    "remarksWeb",
+    "revisedData",
+    "revisedDate",
+    "revisedRemark",
+    "revisedStatus",
+    "revisionDate",
+    "revisionRemark",
+    "shareholdingPatternNotes",
+    "submissionDate",
+    "symbol",
+    "systemDate",
+    "timeDifference",
+    "typeOfSubmission",
+    "underlyingDrs",
+    "xbrl",
+    "xbrlFileSize"
+   ],
+   "date": "30-SEP-2026",
+   "promoter": "24.98",
+   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1740388_16102026071007_WEB.xml",
+   "x": {
+    "status": 200,
+    "bytes": 249018,
+    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
+    "pledgeTags": [
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>"
+    ]
+   },
+   "pledge": [
+    {
+     "ep": "corporate-pledgedata?index=equities&symbol=RPOWER&from_date=",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    },
+    {
+     "ep": "corporate-pledgedata?index=equities",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    }
+   ]
   },
-  {
-   "s": "RPOWER",
-   "ep": "corporate-share-holdings-master",
-   "status": 200,
-   "bytes": 20920,
-   "head": "[{\"broadcastDate\":\"16-OCT-2026 19:10:13\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE614G01033\",\"name\":\"Reliance Power Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"24.98\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"75.02\",\"recordId\":\"215106\",\"remarksWeb\":\"N\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionRemark\":null,\"shareholdingPatternNotes\":\"\",\"submissionDate\":\"16-OCT-2026\",\"symbol\":\"RPOWER\",\"systemDate\":\"16-OCT-2026 19:10:18\",\"timeDifference\":\"00:00:05\",\"typeOfSubmission\":null,\"underlyingDrs\":null,\"xbrl\":\"ht"
-  },
-  {
-   "s": "JPPOWER",
-   "ep": "corporate-pledgedata",
-   "status": 200,
-   "bytes": 28,
-   "head": "{\"comNameList\":[],\"data\":[]}"
-  },
-  {
-   "s": "JPPOWER",
-   "ep": "corporate-share-holdings-master",
-   "status": 200,
-   "bytes": 49720,
-   "head": "[{\"broadcastDate\":\"21-OCT-2026 15:08:01\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE351F01018\",\"name\":\"Jaiprakash Power Ventures Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"24\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"76\",\"recordId\":\"216011\",\"remarksWeb\":\"N\",\"revisedData\":\"N\",\"revisedDate\":null,\"revisedRemark\":null,\"revisedStatus\":\"-\",\"revisionDate\":null,\"revisionRemark\":null,\"shareholdingPatternNotes\":\"\",\"submissionDate\":\"21-OCT-2026\",\"symbol\":\"JPPOWER\",\"systemDate\":\"21-OCT-2026 15:08:06\",\"timeDifference\":\"00:00:05\",\"typeOfSubmission\":null,\"underlyingDrs\":null,\"xbr"
-  },
-  {
-   "s": "TCS",
-   "ep": "corporate-pledgedata",
-   "status": 200,
-   "bytes": 28,
-   "head": "{\"comNameList\":[],\"data\":[]}"
-  },
-  {
-   "s": "TCS",
-   "ep": "corporate-share-holdings-master",
-   "status": 200,
-   "bytes": 21490,
-   "head": "[{\"broadcastDate\":\"19-OCT-2026 18:37:52\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE467B01029\",\"name\":\"Tata Consultancy Services Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"71.77\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"28.23\",\"recordId\":\"215653\",\"remarksWeb\":\"1. The Company is a subsidiary of Tata Sons Private Limited (TSPL) which holds 71.74% in the Company as on September 30, 2026. TSPL is a Core Investment Company and as an investment vehicle, it is exempted from the Company's (Significant Beneficial Owners) Rules, 2018 (SBO Rules) on investment made by it. The"
-  }
- ],
- "screener": [
   {
    "s": "RELIANCE",
-   "status": 200,
-   "ctx": null
-  },
-  {
-   "s": "ADANIENT",
-   "status": 200,
-   "ctx": null
-  },
-  {
-   "s": "RPOWER",
-   "status": 200,
-   "ctx": null
+   "masterStatus": 200,
+   "keys": [
+    "broadcastDate",
+    "cgTimeStamp",
+    "countString",
+    "date",
+    "desc",
+    "employeeTrusts",
+    "format",
+    "index",
+    "industry",
+    "isin",
+    "name",
+    "newColumn",
+    "pr_and_prgrp",
+    "promoterDematNotes",
+    "publicShareholdingNotes",
+    "public_val",
+    "recordId",
+    "remarksWeb",
+    "revisedData",
+    "revisedDate",
+    "revisedRemark",
+    "revisedStatus",
+    "revisionDate",
+    "revisionRemark",
+    "shareholdingPatternNotes",
+    "submissionDate",
+    "symbol",
+    "systemDate",
+    "timeDifference",
+    "typeOfSubmission",
+    "underlyingDrs",
+    "xbrl",
+    "xbrlFileSize"
+   ],
+   "date": "30-SEP-2026",
+   "promoter": "50.44",
+   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1742991_21102026042504_WEB.xml",
+   "x": {
+    "status": 200,
+    "bytes": 523552,
+    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
+    "pledgeTags": [
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>"
+    ]
+   },
+   "pledge": [
+    {
+     "ep": "corporate-pledgedata?index=equities&symbol=RELIANCE&from_dat",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    },
+    {
+     "ep": "corporate-pledgedata?index=equities",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    }
+   ]
   },
   {
    "s": "JPPOWER",
-   "status": 200,
-   "ctx": null
-  },
-  {
-   "s": "TCS",
-   "status": 200,
-   "ctx": null
+   "masterStatus": 200,
+   "keys": [
+    "broadcastDate",
+    "cgTimeStamp",
+    "countString",
+    "date",
+    "desc",
+    "employeeTrusts",
+    "format",
+    "index",
+    "industry",
+    "isin",
+    "name",
+    "newColumn",
+    "pr_and_prgrp",
+    "promoterDematNotes",
+    "publicShareholdingNotes",
+    "public_val",
+    "recordId",
+    "remarksWeb",
+    "revisedData",
+    "revisedDate",
+    "revisedRemark",
+    "revisedStatus",
+    "revisionDate",
+    "revisionRemark",
+    "shareholdingPatternNotes",
+    "submissionDate",
+    "symbol",
+    "systemDate",
+    "timeDifference",
+    "typeOfSubmission",
+    "underlyingDrs",
+    "xbrl",
+    "xbrlFileSize"
+   ],
+   "date": "30-SEP-2026",
+   "promoter": "24",
+   "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/SHP_1742809_21102026030754_WEB.xml",
+   "x": {
+    "status": 200,
+    "bytes": 138786,
+    "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--SHP V1.2 (28-08-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-bse-shp=\"http://www.bseindia.com/xbrl/shp/2025-10",
+    "pledgeTags": [
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledged>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderPledgedForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertaking>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup contextRef=\"MainI\">true",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedUnderNonDisposalUndertakingForPromoterAndPromoterGroup>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDU>",
+     "<in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup contextRef=\"MainI\">false",
+     "</in-bse-shp:WhetherAnySharesHeldByPromotersAreEncumberedOtherThanByWayOfPledgeOrNDUForPromoterAndPromoterGroup>",
+     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">1200509465",
+     "</in-bse-shp:NumberOfSharesEncumberedUnderPledged>",
+     "<in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.7299",
+     "</in-bse-shp:EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumberedUnderNonDisposalUndertaking contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">102188566",
+     "</in-bse-shp:NumberOfSharesEncumberedUnderNonDisposalUndertaking>",
+     "<in-bse-shp:EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.0621",
+     "</in-bse-shp:EncumberedShareUnderNonDisposalUndertakingAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumbered contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"shares\">1302698031",
+     "</in-bse-shp:NumberOfSharesEncumbered>",
+     "<in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares contextRef=\"OtherIndianShareholders_ContextI\" decimals=\"INF\" unitRef=\"pure\">0.792",
+     "</in-bse-shp:EncumberedSharesHeldAsPercentageOfTotalNumberOfShares>",
+     "<in-bse-shp:NumberOfSharesEncumberedUnderPledged contextRef=\"Indian_ContextI\" decimals=\"INF\" unitRef=\"shares\">1200509465"
+    ]
+   },
+   "pledge": [
+    {
+     "ep": "corporate-pledgedata?index=equities&symbol=JPPOWER&from_date",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    },
+    {
+     "ep": "corporate-pledgedata?index=equities",
+     "status": 200,
+     "bytes": 28,
+     "head": "{\"comNameList\":[],\"data\":[]}"
+    }
+   ]
   }
- ],
- "bse": [
-  {
-   "u": "https://api.bseindia.com/BseIndiaAPI/api/ShareholdingPromoters/w?scripcode=512599&qtrid=",
-   "status": 403,
-   "bytes": 426,
-   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;ShareholdingPromoters&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;8c1c2117&#46;1792920006&#46;581f7475\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8c1c2117&#46;1792920006&#46;581"
-  },
-  {
-   "u": "https://api.bseindia.com/BseIndiaAPI/api/SHPannexure/w?scripcode=512599",
-   "status": 403,
-   "bytes": 416,
-   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;bseindia&#46;com&#47;BseIndiaAPI&#47;api&#47;SHPannexure&#47;w&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;8c1c2117&#46;1792920006&#46;581f74d0\n<P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;8c1c2117&#46;1792920006&#46;581f74d0</P>\n"
-  }
- ],
- "nseHome": {
-  "status": 403,
-  "cookies": 0
- }
+ ]
 }
