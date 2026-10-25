@@ -1,0 +1,60 @@
+{
+ "at": "2026-10-25T10:59:32.537Z",
+ "robots": {
+  "status": 200,
+  "text": "# Allow search engines\nUser-agent: Googlebot\nUser-agent: Bingbot\nUser-agent: Slurp\nUser-agent: DuckDuckBot\nDisallow:\n\n# Block SEO scrapers that consume bandwidth without adding value\nUser-agent: AhrefsBot\nUser-agent: SemrushBot\nUser-agent: SemrushBot-SA\nUser-agent: PetalBot\nUser-agent: MJ12bot\nUser-agent: DotBot\nDisallow: /\n\n# Block aggressive crawlers\nUser-agent: *\nDisallow: /admin/\nDisallow: /private/\nDisallow: /api/\n\n# Sitemap\nSitemap: https://sharpely.in/sitemap.xml\n"
+ },
+ "sitemap": {
+  "status": 200,
+  "bytes": 1395,
+  "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stocks-1.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stocks-2.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-stock-categories.xml</loc>\n        <lastmod>2026-10-23</lastmod>\n    </sitemap>\n    <sitemap>\n        <loc>https://sharpely.in/sitemap-mf.xml</loc>\n        <lastmod>2026-10-23</lastmod>",
+  "locs": [
+   "https://sharpely.in/sitemap-stocks-1.xml",
+   "https://sharpely.in/sitemap-stocks-2.xml",
+   "https://sharpely.in/sitemap-stock-categories.xml",
+   "https://sharpely.in/sitemap-mf.xml",
+   "https://sharpely.in/sitemap-etfs.xml",
+   "https://sharpely.in/sitemap-tools.xml",
+   "https://sharpely.in/sitemap-mf-categories.xml",
+   "https://sharpely.in/sitemap-mf-compare.xml",
+   "https://sharpely.in/sitemap-etf-compare.xml",
+   "https://sharpely.in/sitemap-content.xml"
+  ]
+ },
+ "page": {
+  "status": 200,
+  "bytes": 836185,
+  "hasNext": false,
+  "ytm": "Yield to Maturity 6.37% <div style=\"font-si",
+  "scripts": [
+   " src=\"/_next/static/chunks/fd9d1056-6a424d619db5450c.js\" async=\"\"",
+   " src=\"/_next/static/chunks/52117-2c44866d0114fc79.js\" async=\"\"",
+   " src=\"/_next/static/chunks/main-app-b28dc42aadf321dc.js\" async=\"\"",
+   " src=\"/_next/static/chunks/2f0b94e8-73914f52321631a8.js\" async=\"\"",
+   " src=\"/_next/static/chunks/13b76428-5e0c7dd60c381863.js\" async=\"\"",
+   " src=\"/_next/static/chunks/795d4814-f23851b95d8d6a53.js\" async=\"\"",
+   " src=\"/_next/static/chunks/479ba886-38c2eb104d1fc36f.js\" async=\"\"",
+   " src=\"/_next/static/chunks/5e22fd23-11f496e476548fe4.js\" async=\"\"",
+   " src=\"/_next/static/chunks/3d47b92a-204de2dc2de33ca3.js\" async=\"\"",
+   " src=\"/_next/static/chunks/66ec4792-8c8716ed90935523.js\" async=\"\"",
+   " src=\"/_next/static/chunks/0e762574-f2e93d01e557a763.js\" async=\"\"",
+   " src=\"/_next/static/chunks/8e1d74a4-9d5751ac1cd1cade.js\" async=\"\""
+  ]
+ },
+ "tries": [
+  {
+   "q": "https://sharpely.in/api/search?q=axis%20liquid",
+   "status": 404,
+   "final": "https://sharpely.in/api/search?q=axis%20liquid",
+   "bytes": 76161,
+   "head": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_231f96\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no\"/><link rel=\"preload\" as=\"image\" href=\"https://www.facebook.com/tr?id=718190814039641&amp;ev"
+  },
+  {
+   "q": "https://sharpely.in/mutual-funds/axis-liquid-fund",
+   "status": 404,
+   "final": "https://sharpely.in/mutual-funds/axis-liquid-fund",
+   "bytes": 76319,
+   "head": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_231f96\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no\"/><link rel=\"preload\" as=\"image\" href=\"https://www.facebook.com/tr?id=718190814039641&amp;ev"
+  }
+ ]
+}
