@@ -430,9 +430,21 @@ function verdictOf(h) {
 const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
 const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' || v.label === 'Replace' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
 const vWhy0 = (v) => (!v ? '' : v.fund ? v.reasons.concat(v.pending).join('; ') : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
+// Fund card: how much of this fund the household already owns through its other funds (look-through, C-78). Facts only.
+function overlapFor(h) {
+  if (!S.cur) return '';
+  const L = lookOf(S.cur.ms.map(calcAccount)); if (!L) return '';
+  const box = (x) => `<div class="fbox" style="margin-top:10px"><div class="fh">Overlap with your other funds</div>${x}</div>`;
+  if (L.r.notCovered.includes(h.name)) return box('<div class="fs">Not worked out: this fund has no stored equity portfolio.</div>');
+  if (![...L.seen.values()].some((v) => v.name === h.name)) return '';
+  const mine = L.r.overlaps.filter((o) => o.a === h.name || o.b === h.name);
+  if (!mine.length) return box('<div class="fs">No shared holdings with the other funds you hold.</div>');
+  const row = (o) => { const other = o.a === h.name ? o.b : o.a; return `<div class="fs"><b>${pc(o.overlap)}</b> with ${esc(other)}${o.flag ? ' <span class="fneg">high</span>' : ''} · shared: ${o.shared.slice(0, 3).map((x) => esc(x.name)).join(', ')}</div>`; };
+  return box(mine.slice(0, 4).map(row).join('') + `<div class="fs fnote">Overlap is the share of the portfolio the two funds hold in common (lower of the two weights, summed). ${pc(0.4)} or more is flagged. Information only; it changes no verdict.</div>`);
+}
 const fundPanel = (v, h) => {
   const skip = /^(Holdings trend|Fund facts|Five-year|Flags)/;
-  const html = fundCard({ why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [sellCostFor(h)] });
+  const html = fundCard({ why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [overlapFor(h), sellCostFor(h)].filter(Boolean) });
   return `<tr class="ctxrow"><td colspan="11">${html}</td></tr>`;
 };
 const resultsOf = (h) => { const n = h.kind === 'Stock' && h.symbol && S.resultsNext ? S.resultsNext.next[h.symbol] : null; if (!n) return null; let a = new Date(S.resultsNext.asOf + 'T00:00:00Z'), b = new Date(n + 'T00:00:00Z'), k = 0; while (a < b) { a = new Date(a.getTime() + 864e5); const w = a.getUTCDay(); if (w !== 0 && w !== 6) k++; } return { date: n, sessions: k }; };
