@@ -713,6 +713,7 @@ function cleanCfg(c) {
   const st = sub(c.stops, mapKey, (v) => Number.isFinite(v) && v >= 0, (v) => Math.min(v, 1e7)); if (Object.keys(st).length) o.stops = st;
   const ac = sub(c.acted, okKey, (v) => typeof v === 'string' && !Number.isNaN(Date.parse(v)) && /^\d{4}-\d\d-\d\d$/.test(v)); if (Object.keys(ac).length) o.acted = ac;
   const sw = sub(c.swing, mapKey, (v) => v === 'yes' || v === 'no'); if (Object.keys(sw).length) o.swing = sw;
+  if (c.household && typeof c.household === 'object') { const hh_ = {}; const L = c.household.limits; if (L && typeof L === 'object') { const l = {}; for (const k of ['company', 'sector', 'house']) if (Number.isFinite(L[k]) && L[k] >= 0.01 && L[k] <= 1) l[k] = L[k]; if (Object.keys(l).length) hh_.limits = l; } if (Array.isArray(c.household.goals)) hh_.goals = c.household.goals.filter((g) => g && /^[A-Za-z0-9_-]{1,40}$/.test(String(g.id)) && typeof g.name === 'string' && g.name.length > 0 && g.name.length <= 40 && !/[\x00-\x1f<>]/.test(g.name) && Number.isFinite(g.amount) && g.amount > 0 && g.amount <= 1e11 && /^\d{4}-\d\d-\d\d$/.test(g.date)).slice(0, 20).map((g) => ({ id: String(g.id), name: g.name, amount: g.amount, date: g.date })); if (Object.keys(hh_).length) o.household = hh_; }
   if (Array.isArray(c.outside)) o.outside = c.outside.filter((x) => x && okKey(String(x.name)) && okKey(String(x.cls)) && Number.isFinite(x.value) && x.value >= 0).slice(0, 10).map((x) => ({ name: x.name, value: x.value, cls: x.cls }));
   return o;
 }
@@ -730,7 +731,7 @@ function patchOf(prev, next) {
 }
 async function pushSettings(a) {
   if (a.saving) { a.again = true; return; }
-  const cfg = cleanCfg(S.alloc.acct?.[a.key]), patch = patchOf(a.settingsSaved || {}, cfg); if (!Object.keys(patch).length) return;
+  const cfg = cleanCfg({ ...(S.alloc.acct?.[a.key] ?? {}), household: S.alloc.household }), patch = patchOf(a.settingsSaved || {}, cfg); if (!Object.keys(patch).length) return;
   a.saving = true;
   try {
     const r = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker: a.broker, trades: [], settings: patch }) });
@@ -836,7 +837,7 @@ function limitsCard(xs) {
     <div class="heads" style="margin-top:-6px"><span class="pill ${over ? 'over' : 'ok'}">${over ? over + ' above a limit' : 'Nothing above a limit'}</span><span class="sub">The black tick is your limit</span></div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">${inp('company', 'One company')}${inp('sector', 'One sector')}${inp('house', 'One fund house')}</div>
     ${tbl('Companies', r.company.slice(0, 5))}${tbl('Sectors', r.sector)}${tbl('Fund houses', r.house)}
-    <details class="how"><summary>How this is measured</summary><div class="sub" style="margin-top:6px">Company and sector are shares of your equity (direct stocks plus the equity inside funds); fund house is a share of your fund and ETF money. A flag, never an order. Sector is NSE's classification${r.classifiedShare !== null ? `; ${Math.round(r.classifiedShare * 100)}% of the equity found could be placed in a sector (the rest is outside the stocks NSE classifies)` : ''}. The numbers above are starting defaults you can change; they are saved in this browser only.</div></details></div>`;
+    <details class="how"><summary>How this is measured</summary><div class="sub" style="margin-top:6px">Company and sector are shares of your equity (direct stocks plus the equity inside funds); fund house is a share of your fund and ETF money. A flag, never an order. Sector is NSE's classification${r.classifiedShare !== null ? `; ${Math.round(r.classifiedShare * 100)}% of the equity found could be placed in a sector (the rest is outside the stocks NSE classifies)` : ''}. The numbers above are starting defaults you can change; they are saved with your saved accounts (in this browser only if an account is not saved).</div></details></div>`;
 }
 function goalsCard(xs) {
   const by = new Map(); for (const x of xs) for (const h of x.hs) { if (!(h.value > 0)) continue; const e = by.get(h.name) ?? by.set(h.name, { name: h.name, value: 0, assetClass: h.assetClass ?? null }).get(h.name); e.value += h.value; }
@@ -1226,7 +1227,8 @@ async function loadSaved() {
     const res = await fetch('/api/portfolio', { headers: { accept: 'application/json' }, cache: 'no-store' });
     if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
     const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
-    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, verdictLog: a.verdictLog || [], saved: true, trades: a.trades, report: null }); if (a.settings) { S.alloc.acct = S.alloc.acct ?? {}; S.alloc.acct[key] = JSON.parse(JSON.stringify(a.settings)); S.accounts.get(key).settingsSaved = JSON.parse(JSON.stringify(a.settings)); } }
+    let seenH = false;
+    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, verdictLog: a.verdictLog || [], saved: true, trades: a.trades, report: null }); if (a.settings) { S.alloc.acct = S.alloc.acct ?? {}; S.alloc.acct[key] = JSON.parse(JSON.stringify(a.settings)); S.accounts.get(key).settingsSaved = JSON.parse(JSON.stringify(a.settings)); if (a.settings.household && !seenH) { seenH = true; S.alloc.household = JSON.parse(JSON.stringify(a.settings.household)); } delete S.alloc.acct[key].household; } }
     if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
     if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';
     ALLOC_SAVE();

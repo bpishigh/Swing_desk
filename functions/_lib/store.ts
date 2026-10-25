@@ -28,7 +28,7 @@ export function cleanTrades(input: unknown): Trade[] | string {
 }
 /** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates, owner answers): kept with the account so the desk works the same from any browser.
  * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the four maps (custom, stops, acted, swing) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
-export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'> }
+export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'>; household?: { limits?: { company?: number; sector?: number; house?: number }; goals?: { id: string; name: string; amount: number; date: string }[] } }
 export type SettingsPatch = { [K in keyof AccountSettings]?: AccountSettings[K] | null | Record<string, any> };
 const MAPS = ['custom', 'stops', 'acted', 'swing'] as const;
 const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
@@ -37,6 +37,27 @@ const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k) && !BANNED.
 /** Keys of stops and swing answers are an ISIN or a broker instrument name plus a date: any printable text, bounded. */
 const mapKey = (k: string) => /^[^\x00-\x1f]{1,200}$/.test(k) && !BANNED.has(k);
 const realDate = (x: unknown) => typeof x === 'string' && /^\d{4}-\d\d-\d\d$/.test(x) && (() => { const t = Date.parse(x + 'T00:00:00Z'); return Number.isFinite(t) && new Date(t).toISOString().slice(0, 10) === x; })();
+/** Household limits (shares of the whole, 1% to 100%) and goals (name, amount, date): the same for every account, kept with each so any browser sees them. */
+function cleanHousehold(v: unknown): Record<string, any> | null | string {
+  if (v === null) return null;
+  if (!v || typeof v !== 'object' || Array.isArray(v)) return 'bad household';
+  const i = v as Record<string, any>, out: Record<string, any> = {};
+  if (i.limits !== undefined) {
+    if (!i.limits || typeof i.limits !== 'object' || Array.isArray(i.limits)) return 'bad limits';
+    const l: Record<string, number> = {};
+    for (const [k, x] of Object.entries(i.limits)) { if (!['company', 'sector', 'house'].includes(k) || typeof x !== 'number' || !(x >= 0.01 && x <= 1)) return 'bad limits'; l[k] = x; }
+    out.limits = l;
+  }
+  if (i.goals !== undefined) {
+    if (!Array.isArray(i.goals) || i.goals.length > 20) return 'bad goals';
+    out.goals = [];
+    for (const g of i.goals) {
+      if (!g || typeof g !== 'object' || typeof g.id !== 'string' || !/^[A-Za-z0-9_-]{1,40}$/.test(g.id) || typeof g.name !== 'string' || !/^[^\x00-\x1f<>]{1,40}$/.test(g.name) || nn(g.amount) === null || !(g.amount > 0) || !realDate(g.date)) return 'bad goals';
+      out.goals.push({ id: g.id, name: g.name, amount: g.amount, date: g.date });
+    }
+  }
+  return out;
+}
 export function cleanSettings(input: unknown): SettingsPatch | string | undefined {
   if (input === undefined) return undefined;
   if (!input || typeof input !== 'object' || Array.isArray(input)) return 'settings must be an object';
@@ -53,6 +74,7 @@ export function cleanSettings(input: unknown): SettingsPatch | string | undefine
     const e = Object.entries(i[m]); if (e.length > spec[m][0]) return `too many ${m}`;
     const o: Record<string, any> = {}; for (const [k, v] of e) { if (!spec[m][1](k) || !(v === null || spec[m][2](v))) return `bad ${m}`; o[k] = v; } out[m] = o;
   }
+  if (i.household !== undefined) { const h = cleanHousehold(i.household); if (typeof h === 'string') return h; out.household = h; }
   if (i.outside !== undefined) { if (i.outside === null) out.outside = null; else { if (!Array.isArray(i.outside) || i.outside.length > 10 || i.outside.some((o: any) => !o || typeof o.name !== 'string' || !okKey(o.name) || nn(o.value) === null || typeof o.cls !== 'string' || !okKey(o.cls))) return 'bad outside holdings'; out.outside = i.outside.map((o: any) => ({ name: o.name, value: o.value, cls: o.cls })); } }
   return out as SettingsPatch;
 }

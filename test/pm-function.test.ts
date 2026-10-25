@@ -139,6 +139,16 @@ test('function: allocation inputs are saved as a patch: merged per key, null del
   for (const b of bad) assert.equal((await handle(s.req('POST', { label: 'Asha Zerodha', broker: 'zerodha', trades: [], settings: b }), ENV, s.fetchFn)).status, 400, JSON.stringify(b));
   assert.equal((await handle(s.req('POST', null as any), ENV, s.fetchFn)).status, 400);   // a null body is a 400, not a crash
 });
+test('function: household limits and goals are kept with the account; bad ones are refused', async () => {
+  const s = await setup();
+  const post = (settings: any) => handle(s.req('POST', { label: 'Asha Zerodha', broker: 'zerodha', owner: 'Asha', trades: [trade('1')], settings }), ENV, s.fetchFn);
+  const hh = { limits: { company: 0.1, sector: 0.3, house: 0.35 }, goals: [{ id: 'g1', name: 'Flat', amount: 4000000, date: '2029-03-31' }] };
+  assert.equal((await post({ household: hh })).status, 200);
+  const get = async () => ((await (await handle(s.req('GET'), ENV, s.fetchFn)).json()) as any).accounts[0].settings;
+  assert.deepEqual((await get()).household, hh);
+  for (const b of [{ household: { limits: { company: 5 } } }, { household: { goals: [{ id: 'g', name: 'x', amount: -1, date: '2029-03-31' }] } }, { household: { goals: [{ id: 'g', name: 'x', amount: 5, date: '2029-02-31' }] } }, { household: { goals: [{ id: 'g y', name: 'x', amount: 5, date: '2029-03-31' }] } }, { household: [] }, { household: { limits: { evil: 0.2 } } }]) assert.equal((await post(b)).status, 400, JSON.stringify(b));
+  assert.equal((await post({ household: null })).status, 200); assert.equal((await get())?.household, undefined);
+});
 test('function: a settings-only or decisions-only post cannot create an account (no ghosts), and a lost race is retried', async () => {
   const s = await setup();
   assert.equal((await handle(s.req('POST', { label: 'Ghost', broker: 'groww', trades: [], settings: { capital: 5 } }), ENV, s.fetchFn)).status, 404);
