@@ -1,20 +1,10 @@
 {
- "start": "2026-10-25T13:17:25.641Z",
+ "start": "2026-10-25T13:20:38.503Z",
  "wanted": 46,
- "ok": 37,
+ "ok": 46,
  "kept": 0,
- "noPage": [
-  "Edelweiss ASEAN Equity Off-shore Fund - Direct Plan - Growth",
-  "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
-  "Aditya Birla Sun Life US Treasury 1-3 Year Bond ETFs Passive FOF - Direct Plan - GROWTH",
-  "Aditya Birla Sun Life US Treasury 3-10 Year Bond ETFs Passive FOF - Direct Plan - GROWTH",
-  "Bandhan US Treasury Bond 0-1 year specific Debt Passive FOF - Direct Plan - Growth",
-  "Mirae Asset Global Electric & Autonomous Vehicles Equity Passive FOF - Direct Plan - Growth",
-  "Mirae Asset Global X Artificial Intelligence & Technology ETF Fund of Fund - Direct Plan - Growth",
-  "Edelweiss Greater China Equity Off-shore Fund - Direct Plan - Growth",
-  "Invesco India - Invesco EQQQ Nasdaq-100 ETF Fund of Fund - Direct Plan - Growth"
- ],
+ "noPage": [],
  "ambiguous": [],
  "noFacts": [],
- "end": "2026-10-25T13:17:48.389Z"
+ "end": "2026-10-25T13:21:10.577Z"
 }
