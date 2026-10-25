@@ -311,7 +311,7 @@ function viewFunds() {
     if (!FC) return '<div class="note">Loading…</div>';
     const tiles = [{ k: 'Rank in ' + f.c, v: '#' + f.rk, s: 'of ' + f.p + ' funds' }, { k: 'Score', v: num(f.s, 1), s: bandName(f) }];
     if (fundGroup === 'idx') tiles.push({ k: 'Gap to peers', v: f.d === null ? '–' : sgn(f.d, 2), s: 'points a year over 3 years, against funds on the same index' }, { k: 'Gap before costs', v: f.dg == null ? '–' : sgn(f.dg, 2), s: 'points a year' });
-    if (fundGroup === 'debt' || fundGroup === 'intl') tiles.push({ k: 'Worst 3-year fall', v: num(f.dd, 1, '%') }, { k: 'Volatility', v: num(f.vol, 1, '%'), s: 'a year' }, { k: 'Worst day', v: num(f.wd, 1, '%') });
+    if (fundGroup === 'debt' || fundGroup === 'intl' || ((fundGroup === 'mf' || fundGroup === 'idx') && f.dd != null)) tiles.push({ k: 'Worst 3-year fall', v: num(f.dd, 1, '%') }, { k: 'Volatility', v: num(f.vol, 1, '%'), s: 'a year' }, { k: 'Worst day', v: num(f.wd, 1, '%') });
     const q = f.i ? FQ?.funds?.[f.i] ?? null : null, h = f.i ? FH?.funds?.[f.i] ?? null : null;
     const why = [f.fl ? String(f.fl) : '', f.note ? String(f.note) : ''].filter(Boolean);
     return FC.fundCard({ why, tiles, fq: q, hh: h, note: !q && fundGroup !== 'us' ? 'No fund facts (managers, size, expense ratio) could be read for this fund from the fund page.' : '' });
