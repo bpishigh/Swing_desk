@@ -28,3 +28,17 @@ test('goalStatus: funded share, shortfall, monthly need and the near-date equity
   const done = goalStatus({ ...g, amount: 100 }, [{ name: 'A', value: 1000000, riskClass: false }], '2026-10-25'); assert.equal(done.shortfall, 0); assert.equal(done.perMonth, null);
   const past = goalStatus({ ...g, date: '2026-01-01' }, [{ name: 'A', value: 1, riskClass: false }], '2026-10-25'); assert.match(past.warn!, /date has passed/);
 });
+import { assignGoals, riskTier } from '../src/pm/limits.ts';
+test('assignGoals: near goal gets safe money only, far goal gets growth money, nothing is used twice', () => {
+  const held = [{ name: 'Liquid', value: 500000, assetClass: 'liquid' }, { name: 'Debt', value: 800000, assetClass: 'debt' }, { name: 'Index', value: 1000000, assetClass: 'index' }, { name: 'Stocks', value: 2000000, assetClass: 'direct_equity' }, { name: 'Odd', value: 10, assetClass: null }];
+  const goals = [{ id: 'far', name: 'Retire', amount: 2500000, date: '2045-01-01' }, { id: 'near', name: 'Flat', amount: 1000000, date: '2028-01-01' }];
+  const r = assignGoals(goals, held, '2026-10-25');
+  const near = r.assigned.find((a) => a.goal.id === 'near')!, far = r.assigned.find((a) => a.goal.id === 'far')!;
+  assert.deepEqual(near.parts.map((p) => [p.name, p.value]), [['Liquid', 500000], ['Debt', 500000]]);
+  assert.deepEqual(far.parts.map((p) => [p.name, p.value]), [['Stocks', 2000000], ['Index', 500000]]);
+  assert.equal(r.unassigned, 300000 + 500000); assert.equal(r.unplaced, 10); assert.equal(riskTier('hybrid'), 2); assert.equal(r.assigned[0].goal.id, 'far');
+  const short = assignGoals([{ id: 's', name: 'Soon', amount: 5000000, date: '2027-06-01' }], held, '2026-10-25'); assert.equal(short.assigned[0].parts.reduce((t, p) => t + p.value, 0), 1300000);
+});
+test('goalStatus works on assigned parts', () => {
+  const s = goalStatus({ id: 'x', name: 'n', amount: 1000, date: '2030-01-01' }, [{ name: 'A', value: 400, riskClass: false }], '2026-10-25'); assert.equal(s.funded, 400);
+});

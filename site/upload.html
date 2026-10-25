@@ -90,7 +90,7 @@ import { fundVerdict, looseKey } from './pm/fundverdict.js';
 import { pickFunds } from './pm/fundshortlist.js';
 import { reviewTrade, patterns, stopSummary } from './pm/tradereview.js';
 import { segmentOf } from './pm/segment.js';
-import { checkLimits, goalStatus, LIMIT_DEFAULTS, GOAL_SOON_MONTHS } from './pm/limits.js';
+import { checkLimits, goalStatus, assignGoals, LIMIT_DEFAULTS, GOAL_SOON_MONTHS } from './pm/limits.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES, scaledBand, foldHybrid } from './pm/allocation.js';
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
@@ -785,18 +785,18 @@ function limitsCard(xs) {
     ${tbl('Companies', r.company.slice(0, 5))}${tbl('Sectors', r.sector)}${tbl('Fund houses', r.house)}
     <div class="sub" style="margin-top:8px">Sector is NSE's classification${r.classifiedShare !== null ? `; ${Math.round(r.classifiedShare * 100)}% of the equity found could be placed in a sector (the rest is outside the stocks NSE classifies)` : ''}. The numbers above are starting defaults you can change; they are saved in this browser only.</div></div>`;
 }
-const RISKY = new Set(['direct_equity', 'active_equity_fund', 'index', 'sector_thematic', 'international']);
 function goalsCard(xs) {
-  const by = new Map(); for (const x of xs) for (const h of x.hs) { if (!(h.value > 0)) continue; const e = by.get(h.name) ?? by.set(h.name, { name: h.name, value: 0, riskClass: RISKY.has(h.assetClass) }).get(h.name); e.value += h.value; }
-  const held = [...by.values()].sort((a, b) => b.value - a.value), today = new Date().toISOString().slice(0, 10), goals = hh().goals ?? [];
-  const cards = goals.map((g) => { const st = goalStatus(g, held, today); return `<div class="note" style="margin-top:8px"><b>${esc(g.name)}</b> · ${money(g.amount)} by ${esc(g.date)} · <a href="#" data-goal-del="${esc(g.id)}">remove</a><br>Funded ${money(st.funded)} (${pc(st.pct)})${st.shortfall > 0 ? ` · short by ${money(st.shortfall)}${st.perMonth ? `, about ${money(st.perMonth)} a month over ${st.months} months before any growth` : ''}` : ' · fully funded'}${st.warn ? `<br><span class="neg">${esc(st.warn)}</span>` : ''}${st.missing.length ? `<br><small>Not held any more: ${st.missing.map(esc).join(', ')}</small>` : ''}</div>`; }).join('');
+  const by = new Map(); for (const x of xs) for (const h of x.hs) { if (!(h.value > 0)) continue; const e = by.get(h.name) ?? by.set(h.name, { name: h.name, value: 0, assetClass: h.assetClass ?? null }).get(h.name); e.value += h.value; }
+  const held = [...by.values()], today = new Date().toISOString().slice(0, 10), goals = hh().goals ?? [], A = assignGoals(goals, held, today);
+  const cards = A.assigned.map(({ goal: g, parts }) => { const st = goalStatus({ ...g, holdings: undefined }, parts, today), top = parts.slice().sort((a, b) => b.value - a.value).slice(0, 4);
+    return `<div class="note" style="margin-top:8px"><b>${esc(g.name)}</b> · ${money(g.amount)} by ${esc(g.date)} · <a href="#" data-goal-del="${esc(g.id)}">remove</a><br>Set aside ${money(st.funded)} (${pc(st.pct)})${st.shortfall > 0 ? ` · short by ${money(st.shortfall)}${st.perMonth ? `, about ${money(st.perMonth)} a month over ${st.months} months before any growth` : ''}` : ' · fully covered'}${top.length ? `<br><small>From: ${top.map((p) => esc(p.name) + ' ' + money(p.value)).join(' · ')}${parts.length > 4 ? ` · and ${parts.length - 4} more` : ''}</small>` : '<br><small>Nothing eligible left to assign.</small>'}${st.warn ? `<br><span class="neg">${esc(st.warn)}</span>` : ''}</div>`; }).join('');
   return `<div class="card"><h2>Goals · money needed by a date</h2>
-    <div class="sub">Name a goal, the amount and the date, and tick the holdings that pay for it. A holding can fund more than one goal; the card then counts it in each, so keep the ticks apart. Under ${GOAL_SOON_MONTHS / 12} years, equity-type money above 30% of a goal is flagged.</div>${cards || '<div class="sub" style="margin-top:6px">No goals yet.</div>'}
+    <div class="sub">Add a goal with an amount and a date; the money is assigned for you. Goals are served nearest date first. A goal due within ${GOAL_SOON_MONTHS / 12} years only gets cash, liquid and debt money; up to 7 years it can also take gold, hybrid, index and international funds; beyond that it takes your growth holdings first and leaves the safe money to the nearer goals. A holding can be split between goals. This is a suggestion from today's values, never an order; it changes as values and dates change.</div>${cards || '<div class="sub" style="margin-top:6px">No goals yet.</div>'}
+    ${goals.length ? `<div class="sub" style="margin-top:8px">Not assigned to any goal: ${money(A.unassigned)}${A.unplaced > 0 ? ` (plus ${money(A.unplaced)} in holdings whose type is unknown)` : ''}.</div>` : ''}
     <details style="margin-top:10px"><summary>Add a goal</summary><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
       <label class="sub">Name<br><input id="g-name" type="text" maxlength="40" style="width:160px"></label>
       <label class="sub">Amount needed (₹)<br><input id="g-amt" type="number" min="0" step="10000" style="width:130px"></label>
       <label class="sub">Needed by<br><input id="g-date" type="date"></label></div>
-      <div class="sub" style="margin-top:8px">Holdings that fund it<br><select id="g-hold" multiple size="7" style="min-width:320px">${held.map((h) => `<option value="${esc(h.name)}">${esc(h.name)} · ${money(h.value)}</option>`).join('')}</select></div>
       <button id="g-add" style="margin-top:8px">Add goal</button></details></div>`;
 }
 function lookThroughCard(xs) {
@@ -950,9 +950,9 @@ function wireAlloc() {
   document.querySelectorAll('[data-goal-del]').forEach((el) => { el.onclick = (e) => { e.preventDefault(); hh().goals = (hh().goals ?? []).filter((g) => g.id !== el.dataset.goalDel); ALLOC_SAVE(); render(); }; });
   const add = document.getElementById('g-add');
   if (add) add.onclick = () => {
-    const name = document.getElementById('g-name').value.trim(), amount = Number(document.getElementById('g-amt').value), date = document.getElementById('g-date').value, holdings = [...document.getElementById('g-hold').selectedOptions].map((o) => o.value);
-    if (!name || !(amount > 0) || !/^\d{4}-\d\d-\d\d$/.test(date) || !holdings.length) { notify('A goal needs a name, an amount, a date and at least one holding.'); return; }
-    hh().goals = [...(hh().goals ?? []), { id: String(Date.now()), name, amount, date, holdings }]; ALLOC_SAVE(); render();
+    const name = document.getElementById('g-name').value.trim(), amount = Number(document.getElementById('g-amt').value), date = document.getElementById('g-date').value;
+    if (!name || !(amount > 0) || !/^\d{4}-\d\d-\d\d$/.test(date) || !(Date.parse(date) > Date.now())) { notify('A goal needs a name, an amount and a date in the future.'); return; }
+    hh().goals = [...(hh().goals ?? []), { id: String(Date.now()), name, amount, date }]; ALLOC_SAVE(); render();
   };
   const set = (key, f, v) => { const A = acctCfg(key); if (f === 'epf') A.outside = [...(A.outside ?? []).filter((o) => o.name !== 'EPF'), ...(v > 0 ? [{ name: 'EPF', value: v, cls: 'debt' }] : [])]; else A[f] = v; ALLOC_SAVE(); render(); };
   document.querySelectorAll('[data-f]').forEach((el) => { el.onchange = () => { const f = el.dataset.f; set(el.dataset.a, f, f === 'profile' ? el.value : f === 'horizon' ? Math.max(0, Number(el.value) || 0) : Number(el.value) || 0); }; });
