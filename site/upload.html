@@ -522,7 +522,7 @@ function weakReview(V) {   // C-95: a prompt to review, never an order
 // "If you sold it today" for one holding, from the open lots of every account in view (K1). Facts only.
 function sellCostFor(h) {
   const V = S.cur; if (!V || !S.data?.taxRules || h.value === null || h.value === undefined) return '';
-  const today = new Date().toISOString().slice(0, 10), loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct }]));
+  const today = new Date().toISOString().slice(0, 10), loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct, ...(r.tiers ? { tiers: r.tiers } : {}), ...(r.free ? { free: r.free } : {}) }]));
   const lots = V.ms.flatMap((a) => (a.report?.openLots ?? []).filter((l) => l.name === h.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(looseKey(l.name)) ? { exitLoad: loads.get(looseKey(l.name)) } : {}) })));
   if (!lots.length) return '';
   const A = acctCfg(V.ms[0]?.key ?? ''), y = +today.slice(0, 4), m = +today.slice(5, 7), fyNow = m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`;
@@ -537,7 +537,7 @@ function switchCard(V) {   // C-91, C-93: information only
     const rows = S.fundScores?.funds ?? [], me = rows.find((r) => sel.isin && r.i === sel.isin) ?? rows.find((r) => normName(r.n) === normName(sel.name));
     const alts = me ? rows.filter((r) => r.g === me.g && r.c === me.c && (me.c !== 'Sectoral/Thematic' || (themeOf(me.n) && themeOf(r.n) === themeOf(me.n))) && r.s != null && r.i !== me.i && r.t != null).sort((x, y) => y.s - x.s).slice(0, 10) : [];
     const best = alts.find((r) => r.b === 'Strong' || r.b === 'Average'), dest = alts.find((r) => r.n === S.swTo) ?? best;
-    const today = new Date().toISOString().slice(0, 10), A = acctCfg(V.ms[0]?.key ?? ''), loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct }]));
+    const today = new Date().toISOString().slice(0, 10), A = acctCfg(V.ms[0]?.key ?? ''), loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct, ...(r.tiers ? { tiers: r.tiers } : {}), ...(r.free ? { free: r.free } : {}) }]));
     const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).filter((l) => l.name === sel.name).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(looseKey(l.name)) ? { exitLoad: loads.get(looseKey(l.name)) } : {}) })));
     const fyNow = (() => { const y = +today.slice(0, 4), m = +today.slice(5, 7); return m >= 4 ? `${y}-${String(y + 1).slice(2)}` : `${y - 1}-${String(y).slice(2)}`; })();
     const left = taxGroups().map((g) => { const y = g.years.find((x) => x.fy === fyNow); return y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : null; }).filter((x) => x !== null), exemptionLeft = left.length ? Math.min(...left) : undefined;
@@ -847,7 +847,7 @@ function actionsCard(V, res, cur, capital, hs, A) {
   if (C.rebalance.fundVerdictSales) { const rp = new Set((S.fundScores?.funds ?? []).filter((f) => f.rp).map((f) => normName(f.n))); for (const h of hs) if (h.kind === 'Fund' && rp.has(normName(h.name))) exit.add(h.name); }
   const weakN = new Set((S.fundScores?.funds ?? []).filter((f) => f.b === 'Weak').map((f) => normName(f.n)));   // C-90
   const weak = new Set(hs.filter((h) => h.kind === 'Fund' && weakN.has(normName(h.name))).map((h) => h.name));
-  const loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct }]));
+  const loads = new Map((S.exitLoads?.records ?? []).map((r) => [looseKey(r.name), { days: r.days, pct: r.pct, ...(r.tiers ? { tiers: r.tiers } : {}), ...(r.free ? { free: r.free } : {}) }]));
   const lots = V.ms.flatMap((a) => (a.report.openLots ?? []).map((l) => ({ ...l, account: a.label, ...(l.kind === 'Fund' && loads.has(looseKey(l.name)) ? { exitLoad: loads.get(looseKey(l.name)) } : {}) })));
   const chargesOf = (value, type) => { try { return orderCharges({ instrument: '', isin: '', side: 'sell', qty: 1, price: value, value, date: today, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' }, type, 'groww', S.data.charges).total; } catch { return 0; } };
   // LTCG exemption already used this financial year: the smallest amount left among the owners (conservative, since one pool is used across accounts)

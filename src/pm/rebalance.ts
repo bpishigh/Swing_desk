@@ -22,7 +22,14 @@ export function routeNewMoney(targets: { cls: TargetClass; target: number }[], h
 export interface OpenLot { account?: string; name: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; assetClass: string | null; category?: string; type: string; date: string; qty: number; unitCost: number; price: number; locked?: boolean; exitLoad?: ExitLoad | null }
 export interface RebalSettings { minTrade: number; maxCostShare: number; exitLoadCheckDays?: number }
 /** A recorded exit load: sold within `days` of purchase costs `pct` (fraction) of the sale value. */
-export interface ExitLoad { days: number; pct: number }
+/** `days`/`pct` are the first (steepest) tier. `tiers` lists every step (sold before `days` old, the fund charges `pct`); `free` is the share of units that leave with no load. */
+export interface ExitLoad { days: number; pct: number; tiers?: { days: number; pct: number }[]; free?: number }
+/** Load fraction charged on a full sale of a lot this many days old (0 when none applies). */
+export const loadRate = (e: ExitLoad | null | undefined, age: number): number => { if (!e) return 0; const t = (e.tiers?.length ? e.tiers : [{ days: e.days, pct: e.pct }]).slice().sort((a, b) => a.days - b.days).find((x) => age < x.days); return t ? t.pct * (1 - (e.free ?? 0)) : 0; };
+/** A load fraction as a percent: two places normally, four for the tiny liquid-fund loads. */
+export const fmtLoad = (f: number): string => (f >= 0.001 ? (100 * f).toFixed(2) : (100 * f).toFixed(4));
+/** Day count after purchase when the last tier stops charging. */
+export const loadEndDays = (e: ExitLoad): number => Math.max(e.days, ...(e.tiers ?? []).map((x) => x.days));
 export interface SaleLine { account?: string; name: string; cls: TargetClass; qty: number; value: number; gain: number; long: boolean; tax: number | null; charges: number; group: string; reason: string; load: number; loadNote?: string }
 export interface SkippedSale { name: string; cls: TargetClass; value: number; why: string }
 export interface SalePlan { lines: SaleLine[]; skipped: SkippedSale[]; unmet: { cls: TargetClass; short: number; why: string }[]; taxTotal: number; slabGains: number }
@@ -45,7 +52,7 @@ function groupOf(rules: Rules, l: OpenLot, today: string, exit: Set<string>, wea
   return { g: 4, label: 'short-term', long };
 }
 /** True when a recorded exit load still applies to this lot today. */
-export const inLoad = (l: OpenLot, today: string): boolean => !!l.exitLoad && days(l.date, today) < l.exitLoad.days;
+export const inLoad = (l: OpenLot, today: string): boolean => loadRate(l.exitLoad, days(l.date, today)) > 0;
 export function planSales(lots: OpenLot[], need: Partial<Record<TargetClass, number>>, ctx: { today: string; rules: Rules; exit?: Set<string>; weak?: Set<string>; exemptionLeft?: number; settings: RebalSettings; chargesOf?: (value: number, type: string) => number; slabRate?: number }): SalePlan {
   const exit = ctx.exit ?? new Set<string>(), plan: SalePlan = { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
   let exemption = ctx.exemptionLeft ?? 125000;
@@ -66,8 +73,8 @@ export function planSales(lots: OpenLot[], need: Partial<Record<TargetClass, num
         if (rate === 'slab') { if (ctx.slabRate && ctx.slabRate > 0) tax = gain * ctx.slabRate; else { tax = null; plan.slabGains += gain; } }
         else if (typeof rate === 'number') { const free = c.long && ctx.rules.types[l.type].exemption ? Math.min(exemption, gain) : 0; usedFree = free; tax = (gain - free) * rate; }
       }
-      const charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0, load = inLoad(l, ctx.today) ? value * l.exitLoad!.pct : 0, cost = (tax ?? 0) + charges + load;
-      const checkDays = ctx.settings.exitLoadCheckDays ?? 365, loadNote = l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < checkDays ? `bought ${days(l.date, ctx.today)} days ago and no exit load is recorded for this fund: check the load before selling` : load > 0 ? `exit load ${(100 * l.exitLoad!.pct).toFixed(2)}% applies until ${new Date(Date.parse(l.date) + l.exitLoad!.days * 86400000).toISOString().slice(0, 10)}` : undefined;
+      const charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0, load = value * loadRate(l.exitLoad, days(l.date, ctx.today)), cost = (tax ?? 0) + charges + load;
+      const checkDays = ctx.settings.exitLoadCheckDays ?? 365, loadNote = l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < checkDays ? `bought ${days(l.date, ctx.today)} days ago and no exit load is recorded for this fund: check the load before selling` : load > 0 ? `exit load ${fmtLoad(loadRate(l.exitLoad, days(l.date, ctx.today)))}% applies until ${new Date(Date.parse(l.date) + loadEndDays(l.exitLoad!) * 86400000).toISOString().slice(0, 10)}` : undefined;
       if (value < ctx.settings.minTrade) { plan.skipped.push({ name: l.name, cls, value, why: `below the minimum trade of ₹${ctx.settings.minTrade.toLocaleString('en-IN')}` }); continue; }
       if (c.g !== 0 && cost > ctx.settings.maxCostShare * value) { plan.skipped.push({ name: l.name, cls, value, why: `cost ₹${Math.round(cost).toLocaleString('en-IN')}${load > 0 ? ' (including an exit load)' : ''} is ${(100 * cost / value).toFixed(1)}% of the sale, above the ${(100 * ctx.settings.maxCostShare).toFixed(0)}% limit` }); continue; }
       plan.lines.push({ account: l.account, name: l.name, cls, qty, value, gain, long: c.long, tax, charges, group: c.label, reason: `${c.label}; bought ${l.date}`, load, loadNote });

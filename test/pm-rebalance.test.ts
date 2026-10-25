@@ -114,3 +114,16 @@ test('exit load: counted in cost, lots outside the window sell first, unknown lo
   const u = planSales([mk('Unknown', '2026-09-01')], { active_equity_fund: 9000 }, { today: '2026-10-20', rules, settings: set });
   assert.match(u.lines[0].loadNote!, /no exit load is recorded/);
 });
+
+import { loadRate, loadEndDays } from '../src/pm/rebalance.ts';
+test('tiered exit load with free units', () => {
+  const ppfas = { days: 365, pct: 0.02, tiers: [{ days: 366, pct: 0.02 }, { days: 731, pct: 0.01 }], free: 0.1 };
+  assert.equal(loadRate(ppfas, 100).toFixed(4), '0.0180');
+  assert.equal(loadRate(ppfas, 365).toFixed(4), '0.0180');
+  assert.equal(loadRate(ppfas, 400).toFixed(4), '0.0090');
+  assert.equal(loadRate(ppfas, 731), 0);
+  assert.equal(loadEndDays(ppfas), 731);
+  const liq = { days: 6, pct: 0.00007, tiers: [{ days: 1, pct: 0.00007 }, { days: 6, pct: 0.000045 }] };
+  assert.equal(loadRate(liq, 0), 0.00007); assert.equal(loadRate(liq, 3), 0.000045); assert.equal(loadRate(liq, 7), 0);
+  assert.equal(loadRate({ days: 365, pct: 0.01 }, 364), 0.01); assert.equal(loadRate(undefined, 1), 0);
+});

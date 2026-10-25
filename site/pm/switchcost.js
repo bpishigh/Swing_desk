@@ -1,5 +1,5 @@
 // Switch-cost calculator (C-91). Pure. Prices selling every open lot of one holding today and says how much extra yearly return the new holding must earn to make up the cost. Information only.
-import { isLong, inLoad,                          } from './rebalance.js';
+import { isLong, loadRate, loadEndDays, fmtLoad,                          } from './rebalance.js';
 
                                                                                                                                                                                                                                                                    
                                                                                                                                                                                                                                                                                      
@@ -23,15 +23,15 @@ export function switchCost(lots           , ctx                                 
       if (rate === 'slab') { if (ctx.slabRate && ctx.slabRate > 0) tax = gain * ctx.slabRate; else slabUnset = true; }
       else if (typeof rate === 'number') { const free = long && tr.exemption ? Math.min(exemption, gain) : 0; exemption -= free; tax = (gain - free) * rate; }
     }
-    const load = inLoad(l, ctx.today) ? value * l.exitLoad .pct : 0, charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0;
+    const load = value * loadRate(l.exitLoad, days(l.date, ctx.today)), charges = ctx.chargesOf ? ctx.chargesOf(value, l.type) : 0;
     let loadNote                    ;
     if (l.kind === 'Fund' && l.exitLoad === undefined && days(l.date, ctx.today) < (ctx.checkDays ?? 365)) loadNote = `bought ${days(l.date, ctx.today)} days ago and no exit load is recorded for this fund: check the load before selling`;
-    else if (load > 0) loadNote = `exit load ${(100 * l.exitLoad .pct).toFixed(2)}% applies until ${new Date(Date.parse(l.date) + l.exitLoad .days * 86400000).toISOString().slice(0, 10)}`;
+    else if (load > 0) loadNote = `exit load ${fmtLoad(loadRate(l.exitLoad, days(l.date, ctx.today)))}% applies until ${new Date(Date.parse(l.date) + loadEndDays(l.exitLoad ) * 86400000).toISOString().slice(0, 10)}`;
     const rl = rule && typeof rule.ltcg === 'number' ? rule.ltcg : null, longOn = !long ? turnsLong(ctx.rules, l, ctx.today) : null;
     const extra                     = {};
     if (longOn) { extra.longOn = longOn; extra.taxIfLong = gain > 0 && rl !== null ? gain * rl : gain <= 0 ? 0 : null; }
     if (l.locked) { extra.locked = true; extra.lockEnd = new Date(Date.UTC(+l.date.slice(0, 4) + 3, +l.date.slice(5, 7) - 1, +l.date.slice(8, 10))).toISOString().slice(0, 10); }
-    if (load > 0) extra.loadEnds = addDay(l.date, l.exitLoad .days);
+    if (load > 0) extra.loadEnds = addDay(l.date, loadEndDays(l.exitLoad ));
     out.lots.push({ date: l.date, qty: l.qty, value, gain, long, tax, load, loadNote, ...extra });
     out.value += value; out.gain += gain; out.load += load; out.charges += charges; if (long) out.longGain += gain; else out.shortGain += gain;
     out.tax = out.tax === null || tax === null ? null : out.tax + tax;
