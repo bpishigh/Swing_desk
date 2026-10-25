@@ -1,5 +1,5 @@
 {
- "start": "2026-10-25T11:06:31.531Z",
+ "start": "2026-10-25T11:15:35.623Z",
  "wanted": 332,
  "noPage": [
   "Franklin India Banking & PSU Debt Fund - Direct Plan - Growth",
@@ -35,13 +35,12 @@
  ],
  "ambiguous": [],
  "noStats": [
-  "Carnelian Liquid Fund - Direct Plan - Growth",
-  "LAKSHYA OVERNIGHT FUND - Direct Plan - GROWTH"
+  "Carnelian Liquid Fund - Direct Plan - Growth"
  ],
- "ok": 299,
+ "ok": 300,
  "kept": 0,
- "end": "2026-10-25T11:13:01.198Z",
+ "end": "2026-10-25T11:18:45.145Z",
  "noPageN": 31,
  "ambiguousN": 0,
- "noStatsN": 2
+ "noStatsN": 1
 }
