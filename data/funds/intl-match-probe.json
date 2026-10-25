@@ -1,0 +1,1054 @@
+{
+ "at": "2026-10-25T06:32:25.653Z",
+ "funds": [
+  {
+   "code": "132140",
+   "isin": "INF084M01EB0",
+   "name": "Aditya Birla Sun Life Global Emerging Opportunities Fund - Direct Plan - GROWTH",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Aditya Birla Sun Life Special Opportunities Fund",
+     "code": "148539",
+     "isin": null,
+     "id": "aditya-birla-sun-life-special-opportunities-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life PSU Equity Fund",
+     "code": "147844",
+     "isin": null,
+     "id": "aditya-birla-sun-life-psu-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life CRISIL IBX Gilt June 2027 Index Fund",
+     "code": "152659",
+     "isin": null,
+     "id": "aditya-birla-sun-life-crisil-ibx-gilt-june-2027-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Nifty India Defence Index Fund",
+     "code": "152798",
+     "isin": null,
+     "id": "aditya-birla-sun-life-nifty-india-defence-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Flexi Cap Fund",
+     "code": "120564",
+     "isin": null,
+     "id": "birla-sun-life-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Medium Term Fund",
+     "code": "119539",
+     "isin": null,
+     "id": "aditya-birla-sun-life-medium-term-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Digital India Fund",
+     "code": "120539",
+     "isin": null,
+     "id": "birla-sun-life-new-millennium-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Multi Asset Allocation Fund",
+     "code": "151307",
+     "isin": null,
+     "id": "aditya-birla-sun-life-multi-asset-allocation-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF084M01EB0",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "Aditya Birla Sun Life Global Emerging Opportunities Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "140256",
+   "isin": "INF843K01AW7",
+   "name": "Edelweiss ASEAN Equity Off-shore Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Edelweiss Equity Savings Fund",
+     "code": "140347",
+     "isin": null,
+     "id": "edelweiss-equity-savings-advantage-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Altiva Equity Ex Top 100 Long Short Fund",
+     "code": "SIF-120",
+     "isin": null,
+     "id": "altiva-equity-ex-top-100-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Balanced Advantage Fund",
+     "code": "118615",
+     "isin": null,
+     "id": "edelweiss-absolute-return-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Recently Listed IPO Fund",
+     "code": "142388",
+     "isin": null,
+     "id": "edelweiss-recently-listed-ipo-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Small Cap Fund",
+     "code": "146196",
+     "isin": null,
+     "id": "edelweiss-small-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Nifty REITs & Realty Index Fund",
+     "code": "154548",
+     "isin": null,
+     "id": "edelweiss-nifty-reits-realty-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Technology Fund",
+     "code": "152437",
+     "isin": null,
+     "id": "edelweiss-technology-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Altiva Hybrid Long Short Fund",
+     "code": "SIF-9",
+     "isin": null,
+     "id": "altiva-hybrid-long-short-fund-direct-plan-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF843K01AW7",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "Edelweiss ASEAN Equity Off-shore Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "140327",
+   "isin": "INF843K01IZ3",
+   "name": "Edelweiss Emerging Markets Opportunities Equity Offshore Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Edelweiss BSE Capital Markets & Insurance ETF",
+     "code": null,
+     "isin": "INF754K01TX4",
+     "id": "edelweiss-bse-capital-markets-insurance-etf",
+     "entity": "ETF"
+    },
+    {
+     "n": "Edelweiss Equity Savings Fund",
+     "code": "140347",
+     "isin": null,
+     "id": "edelweiss-equity-savings-advantage-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Altiva Equity Ex Top 100 Long Short Fund",
+     "code": "SIF-120",
+     "isin": null,
+     "id": "altiva-equity-ex-top-100-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Money Market Fund",
+     "code": "140237",
+     "isin": null,
+     "id": "edelweiss-bond-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Mid Cap Direct Plan-Growth",
+     "code": "140228",
+     "isin": null,
+     "id": "edelweiss-mid-and-small-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Financial Services Ltd.",
+     "code": null,
+     "isin": "INE532F01054",
+     "id": "edelweiss-financial-services-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "Edelweiss Liquid Direct-Growth",
+     "code": "140196",
+     "isin": null,
+     "id": "edelweiss-liquid-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Recently Listed IPO Fund",
+     "code": "142388",
+     "isin": null,
+     "id": "edelweiss-recently-listed-ipo-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF843K01IZ3",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "Edelweiss Emerging Markets Opportunities Equity Offshore Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "120035",
+   "isin": "INF336L01BY4",
+   "name": "HSBC Brazil Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "SBI Funds Management Ltd.",
+     "code": null,
+     "isin": "INE640G01020",
+     "id": "sbi-funds-management-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "HSBC Midcap Fund",
+     "code": "151036",
+     "isin": null,
+     "id": "hsbc-midcap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Tata Gold Exchange Traded Fund",
+     "code": null,
+     "isin": "INF277KA1976",
+     "id": "tata-gold-exchange-traded-fund",
+     "entity": "ETF"
+    },
+    {
+     "n": "Bandhan Small Cap Fund",
+     "code": "147946",
+     "isin": null,
+     "id": "bandhan-small-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Tata Silver Exchange Traded Fund",
+     "code": null,
+     "isin": "INF277KA1984",
+     "id": "tata-silver-exchange-traded-fund",
+     "entity": "ETF"
+    },
+    {
+     "n": "Motilal Oswal Midcap Fund",
+     "code": "127042",
+     "isin": null,
+     "id": "motilal-oswal-most-focused-midcap-30-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Parag Parikh Flexi Cap Fund",
+     "code": "122639",
+     "isin": null,
+     "id": "parag-parikh-long-term-value-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "HDFC Mid Cap Fund",
+     "code": "118989",
+     "isin": null,
+     "id": "hdfc-mid-cap-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF336L01BY4",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "HSBC Brazil Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "120043",
+   "isin": "INF336L01CJ3",
+   "name": "HSBC Global Emerging Markets Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Global Capital Markets Ltd.",
+     "code": null,
+     "isin": "INE062C01042",
+     "id": "global-capital-markets-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "SBI Funds Management Ltd.",
+     "code": null,
+     "isin": "INE640G01020",
+     "id": "sbi-funds-management-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "HSBC Money Market Fund",
+     "code": "151054",
+     "isin": null,
+     "id": "hsbc-money-market-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Tata Nifty Capital Markets Index Fund",
+     "code": "152951",
+     "isin": null,
+     "id": "tata-nifty-capital-markets-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Axis Nifty Capital Markets Index Fund",
+     "code": "154348",
+     "isin": null,
+     "id": "axis-nifty-capital-markets-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Kotak Nifty Capital Markets Index Fund",
+     "code": "154754",
+     "isin": null,
+     "id": "kotak-nifty-capital-markets-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "HSBC Midcap Fund",
+     "code": "151036",
+     "isin": null,
+     "id": "hsbc-midcap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Tata Gold Exchange Traded Fund",
+     "code": null,
+     "isin": "INF277KA1976",
+     "id": "tata-gold-exchange-traded-fund",
+     "entity": "ETF"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF336L01CJ3",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "HSBC Global Emerging Markets Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "119779",
+   "isin": "INF174K01LW4",
+   "name": "Kotak Global Emerging Market Overseas Equity Active FOF - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Global Capital Markets Ltd.",
+     "code": null,
+     "isin": "INE062C01042",
+     "id": "global-capital-markets-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "Kotak Nifty Capital Markets Index Fund",
+     "code": "154754",
+     "isin": null,
+     "id": "kotak-nifty-capital-markets-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India - Invesco Global Equity Income FoF Direct-Growth",
+     "code": "129188",
+     "isin": null,
+     "id": "invesco-india-invesco-global-equity-i-come-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "WhiteOak Capital Diversified Equity Small Cap Active FoF Direct-Growth",
+     "code": "154770",
+     "isin": null,
+     "id": "whiteoak-capital-diversified-equity-small-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "HDFC Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "153860",
+     "isin": null,
+     "id": "hdfc-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Solara Active Pharma Sciences Ltd. - (Partly Paid-up Equity Shares (Rights Issue))",
+     "code": null,
+     "isin": "IN9624Z01022",
+     "id": "solara-active-pharma-sciences-ltd-partly-paidup-equity-shares-rights-issue",
+     "entity": "Stocks"
+    },
+    {
+     "n": "ICICI Prudential Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "154266",
+     "isin": null,
+     "id": "icici-prudential-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Union Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "153824",
+     "isin": null,
+     "id": "union-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF174K01LW4",
+     "status": 200,
+     "n": 3,
+     "hit": null
+    },
+    {
+     "q": "Kotak Global Emerging Market Overseas Equity Active FOF",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "132009",
+   "isin": "INF084M01EH7",
+   "name": "Aditya Birla Sun Life Global Excellence Equity Fund Of Fund - Direct Plan - GROWTH",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Aditya Birla Sun Life PSU Equity Fund",
+     "code": "147844",
+     "isin": null,
+     "id": "aditya-birla-sun-life-psu-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Manufacturing Equity Fund",
+     "code": "133516",
+     "isin": null,
+     "id": "birla-sun-life-manufacturing-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Apex Equity Ex Top 100 Long Short Fund",
+     "code": "SIF-155",
+     "isin": null,
+     "id": "apex-equity-ex-top-100-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Equity Savings Fund",
+     "code": "132995",
+     "isin": null,
+     "id": "birla-sun-life-equity-savings-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Apex Equity Long Short Fund",
+     "code": "SIF-153",
+     "isin": null,
+     "id": "apex-equity-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life CRISIL IBX Gilt June 2027 Index Fund",
+     "code": "152659",
+     "isin": null,
+     "id": "aditya-birla-sun-life-crisil-ibx-gilt-june-2027-index-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life Banking & Financial Services Fund",
+     "code": "125597",
+     "isin": null,
+     "id": "birla-sun-life-banking-and-financial-services-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life CRISIL IBX SDL Jun 2032 Index Fund",
+     "code": "151427",
+     "isin": null,
+     "id": "aditya-birla-sun-life-crisil-ibx-sdl-jun-2032-index-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF084M01EH7",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "Aditya Birla Sun Life Global Excellence Equity Fund Of Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "118551",
+   "isin": "INF090I01JR0",
+   "name": "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Franklin India Opportunities Direct Fund",
+     "code": "118539",
+     "isin": null,
+     "id": "franklin-india-opportunities-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Franklin Templeton Sapphire Equity Long Short SIF Fund",
+     "code": "SIF-95",
+     "isin": null,
+     "id": "sapphire-equity-long-short-sif-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Franklin India Focused Equity Fund",
+     "code": "118564",
+     "isin": null,
+     "id": "franklin-india-high-growth-companies-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Franklin India Equity Savings Fund",
+     "code": "144466",
+     "isin": null,
+     "id": "franklin-india-equity-savings-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "SBI Healthcare Opportunities Fund",
+     "code": "119783",
+     "isin": null,
+     "id": "sbi-pharma-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Edelweiss Altiva Equity Ex Top 100 Long Short Fund",
+     "code": "SIF-120",
+     "isin": null,
+     "id": "altiva-equity-ex-top-100-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Altiva Equity Long-Short Fund",
+     "code": "SIF-163",
+     "isin": null,
+     "id": "altiva-equity-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Sundaram Financial Services Opportunities Fund",
+     "code": "119597",
+     "isin": null,
+     "id": "sundaram-financial-services-opportunities-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF090I01JR0",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "Franklin U. S. Opportunities Equity Active Fund of Funds",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "123654",
+   "isin": "INF109KA1CE0",
+   "name": "ICICI Prudential Global Stable Equity Fund (FOF) - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "ICICI Prudential iSIF Equity Ex Top 100 Long Short Fund",
+     "code": "SIF-33",
+     "isin": null,
+     "id": "isif-equity-ex-top-100-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential PSU Equity Fund",
+     "code": "150539",
+     "isin": null,
+     "id": "icici-prudential-psu-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Equity Savings Fund",
+     "code": "133054",
+     "isin": null,
+     "id": "icici-prudential-equity-i-come-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential iSIF Equity Long Short Fund",
+     "code": "SIF-127",
+     "isin": null,
+     "id": "isif-equity-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Equity Minimum Variance Fund",
+     "code": "153070",
+     "isin": null,
+     "id": "icici-prudential-equity-minimum-variance-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Diversified Equity All Cap Omni FoF Direct-Growth",
+     "code": "148035",
+     "isin": null,
+     "id": "icici-prudential-diversified-equity-all-cap-omni-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "154266",
+     "isin": null,
+     "id": "icici-prudential-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Focused Fund",
+     "code": "120722",
+     "isin": null,
+     "id": "icici-prudential-focused-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF109KA1CE0",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "ICICI Prudential Global Stable Equity Fund (FOF)",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "148485",
+   "isin": "INF846K01X06",
+   "name": "Axis Global Equity Alpha Fund of Fund - Direct Plan - Growth Option",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Axis Equity Savings Fund",
+     "code": "135120",
+     "isin": null,
+     "id": "axis-equity-savings-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India - Invesco Global Equity Income FoF Direct-Growth",
+     "code": "129188",
+     "isin": null,
+     "id": "invesco-india-invesco-global-equity-i-come-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "AlphaGrep Multi Asset Allocation Fund",
+     "code": "154438",
+     "isin": null,
+     "id": "alphagrep-multi-asset-allocation-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "AlphaGrep Flexi Cap Fund",
+     "code": "154518",
+     "isin": null,
+     "id": "alphagrep-flexi-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Aditya Birla Sun Life PSU Equity Fund",
+     "code": "147844",
+     "isin": null,
+     "id": "aditya-birla-sun-life-psu-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "SBI Funds Management Ltd.",
+     "code": null,
+     "isin": "INE640G01020",
+     "id": "sbi-funds-management-ltd",
+     "entity": "Stocks"
+    },
+    {
+     "n": "Sundaram Equity Savings Fund",
+     "code": "149679",
+     "isin": null,
+     "id": "sundaram-equity-savings-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Union Arthaya Equity Long Short Fund",
+     "code": "SIF-112",
+     "isin": null,
+     "id": "arthaya-equity-long-short-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF846K01X06",
+     "status": 200,
+     "n": 5,
+     "hit": null
+    },
+    {
+     "q": "Axis Global Equity Alpha Fund of Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "127071",
+   "isin": "INF336L01HF0",
+   "name": "HSBC Asia Pacific (Ex Japan) Dividend Yield Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Sundaram Dividend Yield Fund",
+     "code": "149700",
+     "isin": null,
+     "id": "sundaram-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "SBI Dividend Yield Fund",
+     "code": "151478",
+     "isin": null,
+     "id": "sbi-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "IDBI Dividend Yield Fund",
+     "code": "145750",
+     "isin": null,
+     "id": "idbi-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "WhiteOak Capital Dividend Yield Fund",
+     "code": "154556",
+     "isin": null,
+     "id": "whiteoak-capital-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Dividend Yield Fund",
+     "code": "129312",
+     "isin": null,
+     "id": "icici-prudential-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "HDFC Dividend Yield Fund",
+     "code": "148609",
+     "isin": null,
+     "id": "hdfc-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Tata Dividend Yield Fund",
+     "code": "148947",
+     "isin": null,
+     "id": "tata-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "LIC MF Dividend Yield Fund",
+     "code": "152022",
+     "isin": null,
+     "id": "lic-mf-dividend-yield-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF336L01HF0",
+     "status": 200,
+     "n": 0,
+     "hit": null
+    },
+    {
+     "q": "HSBC Asia Pacific (Ex Japan) Dividend Yield Fund",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  },
+  {
+   "code": "148614",
+   "isin": "INF205KA1270",
+   "name": "Invesco India - Invesco Global Consumer Trends Fund of Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Invesco India - Invesco Global Consumer Trends FoF Direct-Growth",
+     "code": "148614",
+     "isin": null,
+     "id": "invesco-india-invesco-global-consumer-trends-fof-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": "invesco-india-invesco-global-consumer-trends-fof-direct-growth",
+   "pageStatus": 200,
+   "quality": {
+    "managers": 1,
+    "aum": 471.38,
+    "expense": 0.59
+   },
+   "fields": {
+    "fund_manager": "Krishna Venkat Cheemalapati",
+    "details": 1
+   }
+  },
+  {
+   "code": "129188",
+   "isin": "INF205K01B49",
+   "name": "Invesco India - Invesco Global Equity Income Fund of Fund - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "Invesco India - Invesco Global Equity Income FoF Direct-Growth",
+     "code": "129188",
+     "isin": null,
+     "id": "invesco-india-invesco-global-equity-i-come-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India PSU Equity Fund",
+     "code": "120395",
+     "isin": null,
+     "id": "invesco-india-psu-equity-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India Equity Savings Fund",
+     "code": "146457",
+     "isin": null,
+     "id": "invesco-india-equity-savings-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India Mid Cap Fund",
+     "code": "120403",
+     "isin": null,
+     "id": "invesco-india-mid-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India - Invesco Global Consumer Trends FoF Direct-Growth",
+     "code": "148614",
+     "isin": null,
+     "id": "invesco-india-invesco-global-consumer-trends-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India - Invesco Pan European Equity FoF Direct-Growth",
+     "code": "126353",
+     "isin": null,
+     "id": "invesco-india-invesco-pan-european-equity-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India Small Cap Fund",
+     "code": "145137",
+     "isin": null,
+     "id": "invesco-india-small-cap-fund-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Invesco India Nifty India Defence Index Fund",
+     "code": "154712",
+     "isin": null,
+     "id": "invesco-india-nifty-india-defence-index-fund-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": "invesco-india-invesco-global-equity-i-come-fof-direct-growth",
+   "pageStatus": 200,
+   "quality": {
+    "managers": 1,
+    "aum": 329.38,
+    "expense": 0.92
+   },
+   "fields": {
+    "fund_manager": "Neelesh Dhamnaskar",
+    "details": 1
+   }
+  },
+  {
+   "code": "154287",
+   "isin": "INF174KA1ZI2",
+   "name": "Kotak Quality Overseas Equity Active FOF - Direct Plan - Growth",
+   "searchStatus": 200,
+   "results": [
+    {
+     "n": "WhiteOak Capital Diversified Equity Small Cap Active FoF Direct-Growth",
+     "code": "154770",
+     "isin": null,
+     "id": "whiteoak-capital-diversified-equity-small-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "HDFC Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "153860",
+     "isin": null,
+     "id": "hdfc-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "ICICI Prudential Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "154266",
+     "isin": null,
+     "id": "icici-prudential-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Union Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "153824",
+     "isin": null,
+     "id": "union-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Quantum Diversified Equity All Cap Active FoF Direct-Growth",
+     "code": "112039",
+     "isin": null,
+     "id": "quantum-diversified-equity-all-cap-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Kotak Diversified Equity All Cap Omni FoF Direct-Growth",
+     "code": "154574",
+     "isin": null,
+     "id": "kotak-diversified-equity-all-cap-omni-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Kotak Multi Asset Active FoF Direct-Growth",
+     "code": "154316",
+     "isin": null,
+     "id": "kotak-multi-asset-active-fof-direct-growth",
+     "entity": "Scheme"
+    },
+    {
+     "n": "Kotak Silver ETF FoF Direct-Growth",
+     "code": "151603",
+     "isin": null,
+     "id": "kotak-silver-etf-fof-direct-growth",
+     "entity": "Scheme"
+    }
+   ],
+   "hit": null,
+   "alt": [
+    {
+     "q": "INF174KA1ZI2",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    },
+    {
+     "q": "Kotak Quality Overseas Equity Active FOF",
+     "status": 200,
+     "n": 8,
+     "hit": null
+    }
+   ]
+  }
+ ]
+}
