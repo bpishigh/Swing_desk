@@ -8,32 +8,35 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --bg: #f5f4f0; --panel: #ffffff; --ink: #1d2327; --muted: #5d6870; --line: #dedbd3; --line-soft: #ebe8e1;
-  --accent: #1f5f8b; --accent-soft: #e3eef6;
-  --green: #17693a; --green-bg: #dff0e4; --yellow: #7a5a00; --yellow-bg: #f8ecc4; --red: #a1261b; --red-bg: #f9dcd8;
-  --ok: #17693a; --warn: #7a5a00; --bad: #a1261b; --neutral-bg: #ecebe6;
-  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bg: #eef1f5; --panel: #ffffff; --ink: #0f172a; --muted: #566072; --line: #dde3ea; --line-soft: #e8edf2;
+  --accent: #2641c4; --accent-soft: #e5eafb;
+  --green: #0b7a48; --green-bg: #dcf3e7; --yellow: #8a5a00; --yellow-bg: #fbefcf; --red: #b42318; --red-bg: #fbe4e1;
+  --ok: #0b7a48; --warn: #8a5a00; --bad: #b42318; --neutral-bg: #e6ebf1;
+  --font: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #14181b; --panel: #1c2226; --ink: #e6e9ea; --muted: #98a3a9; --line: #333c42; --line-soft: #283036;
-    --accent: #6cb2e0; --accent-soft: #1f3342;
+    --bg: #0e1319; --panel: #171e27; --ink: #e8edf3; --muted: #9aa6b4; --line: #2a3441; --line-soft: #202a35;
+    --accent: #8da2ff; --accent-soft: #1f2a52;
     --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
     --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #14181b; --panel: #1c2226; --ink: #e6e9ea; --muted: #98a3a9; --line: #333c42; --line-soft: #283036;
-  --accent: #6cb2e0; --accent-soft: #1f3342;
+  --bg: #0e1319; --panel: #171e27; --ink: #e8edf3; --muted: #9aa6b4; --line: #2a3441; --line-soft: #202a35;
+  --accent: #8da2ff; --accent-soft: #1f2a52;
   --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
   --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+.sub.clamp { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.more { display: inline-block; font-size: 12px; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; font-weight: 600; }
+details.how > summary { cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; }
 .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 48px; }
 header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-bottom: 12px; }
 h1 { font-size: 20px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
@@ -419,11 +422,20 @@ function viewDocs() {
   <div class="docgrid"><div>${nav}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${md(cur.md)}</div></div>
   <p class="note">Read-only copies from the repo's docs folder. The repo copy is the one the desk reads; changes land here with the next tick.</p></section>`;
 }
+function tidyLong() {   // long explanatory lines show two lines and a "more" link
+  document.querySelectorAll('#main .sub').forEach((el) => {
+    if (el.closest('table, label, summary') || el.querySelector('input, select, button, table') || el.dataset.tidy) return;
+    el.dataset.tidy = '1'; if ((el.textContent || '').length < 170) return;
+    el.classList.add('clamp'); const b = document.createElement('button'); b.className = 'more'; b.textContent = 'more';
+    b.onclick = (e) => { e.stopPropagation(); const on = el.classList.toggle('clamp'); b.textContent = on ? 'more' : 'less'; }; el.after(b);
+  });
+}
 function render() {
   if (!D) return;
   $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, rules: viewRules, log: viewLog, docs: viewDocs }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
   if (tab === 'scan') hydrateCharts();
+  tidyLong();
   $('#foot').innerHTML = [['log', 'Engine Rules change log'], ['store', 'Data store'], ['health', 'Data health']].map(([k, l]) => `<button data-foot="${k}" ${tab === k ? 'aria-current="page"' : ''}>${l}</button>`).join('');
 }
 const toggleRow = (r) => { const k = r.dataset.open; scanOpen.has(k) ? scanOpen.delete(k) : scanOpen.add(k); render(); };
