@@ -8,8 +8,8 @@ const pair = (html: string, label: string): string | undefined => { const i = ht
 
 export function parseDebtPage(html: string): DebtStats | null {
   const ytm = num(pair(html, 'Yield to Maturity')), md = num(pair(html, 'Modified Duration')), am = num(pair(html, 'Avg. Maturity')) ?? num(pair(html, 'Average Maturity'));
-  const ci = html.indexOf('Credit Quality Profile'), credit: DebtStats['credit'] = [];
-  if (ci >= 0) { const tb = html.slice(ci, ci + 12000), body = /<tbody>([\s\S]*?)<\/tbody>/.exec(tb); if (body) for (const row of body[1].split('</tr>')) { const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((c) => text(c[1])); if (cells.length >= 2 && cells[0]) { const f = num(cells[1]); if (f !== null) credit.push({ r: cells[0], fund: f, cat: cells.length > 2 ? num(cells[2]) : null }); } } }
+  const credit: DebtStats['credit'] = [], body = /Credit Quality Profile[\s\S]{0,8000}?<tbody>([\s\S]*?)<\/tbody>/.exec(html);   // the words also sit in a tab list and a description: the table is the occurrence with a table body close behind it
+  if (body) for (const row of body[1].split('</tr>')) { const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((c) => text(c[1])); if (cells.length >= 2 && cells[0]) { const f = num(cells[1]); if (f !== null) credit.push({ r: cells[0], fund: f, cat: cells.length > 2 ? num(cells[2]) : null }); } }
   if (ytm === null && md === null && am === null && !credit.length) return null;
   const t = /<title>[^<]*\(([A-Z][a-z]+ \d{4})\)/.exec(html);
   return { asOf: t ? t[1] : null, ytm, avgMat: am, modDur: md, nSec: num(pair(html, 'No. of Securities')), top5: num(pair(html, 'Top 5 Holdings %')), credit };
