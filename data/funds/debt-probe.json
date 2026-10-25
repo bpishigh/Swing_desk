@@ -1,7 +1,52 @@
 {
- "at": "2026-10-25T10:09:23.434Z",
+ "at": "2026-10-25T10:10:19.842Z",
  "cats": [
-  null
+  "Banking and PSU",
+  "Corporate bond",
+  "Credit risk",
+  "Dynamic bond",
+  "Gilt",
+  "Liquid",
+  "Medium duration",
+  "Money market",
+  "Overnight",
+  "Short duration",
+  "Ultra short",
+  "Floater",
+  "Long duration",
+  "Medium to long",
+  "Income"
  ],
- "funds": []
+ "funds": [
+  {
+   "name": "Bajaj Finserv Liquid Fund - Direct Plan - Growth",
+   "cat": "Liquid",
+   "hit": false
+  },
+  {
+   "name": "Aditya Birla Sun Life Corporate Bond Fund - Direct Plan - GROWTH",
+   "cat": "Corporate bond",
+   "hit": false
+  },
+  {
+   "name": "Bajaj Finserv Gilt Fund - Direct Plan - Growth",
+   "cat": "Gilt",
+   "hit": false
+  },
+  {
+   "name": "Aditya Birla Sun Life Credit Risk Fund - Direct Plan - GROWTH",
+   "cat": "Credit risk",
+   "hit": false
+  },
+  {
+   "name": "Aditya Birla Sun Life Short Term Fund - Direct Plan - GROWTH",
+   "cat": "Short duration",
+   "hit": false
+  },
+  {
+   "name": "Franklin India Banking & PSU Debt Fund - Direct Plan - Growth",
+   "cat": "Banking and PSU",
+   "hit": false
+  }
+ ]
 }
