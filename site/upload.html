@@ -387,7 +387,7 @@ function drawChrome() {
     <div class="h">New</div><input id="newAcct" placeholder="Type a name, press Enter to create" maxlength="40"></div>` : '');
   const V = S.cur;
   $('per').innerHTML = V ? V.periods.map((p) => `<button data-per="${p.id}" aria-pressed="${p.id === (V.periods.find((x) => x.id === S.period) ? S.period : 'all')}">${esc(p.label)}</button>`).join('') : '';
-  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['trades', 'Trades'], ['tax', 'Tax'], ['income', 'Income'], ['alloc', 'Allocation'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
+  $('tabs').innerHTML = [['home', 'Overview'], ['holdings', 'Holdings'], ['trades', 'Trades'], ['tax', 'Tax'], ['income', 'Income'], ['alloc', 'Allocation'], ['risk', 'Limits & goals'], ['data', 'Data']].map(([k, t]) => `<button role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${t}</button>`).join('');
   $('acctList').innerHTML = items.map((a) => `<option value="${esc(a.label)}">`).join(''); $('ownerList').innerHTML = owners.filter((o) => o !== 'Unassigned').map((o) => `<option value="${esc(o)}">`).join('');
 }
 
@@ -769,10 +769,15 @@ function acctInputs(x, compact) {
     ${compact ? '' : `<div class="sub" style="margin-top:8px">${A.capital > 0 ? 'Capital typed by you.' : 'Capital defaults to the value of everything held in this account, plus the figures typed above.'}${mismatch ? ` <b>This account holds ${money(held)}, not ${money(A.capital)}: the percentages are of the typed amount.</b> <a href="#" data-a="${k}" data-reset="capital">Use what it holds</a>` : ''}</div>`}</div>`;
 }
 
+function riskTab(V) {
+  if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';
+  const xs = V.ms.map(calcAccount);
+  return limitsCard(xs) + goalsCard(xs) + lookThroughCard(xs) + (xs.length === 1 ? profileLimits(xs[0]) : xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· limits from this account's profile</span></summary>${profileLimits(x)}</details>`).join(''));
+}
 function allocTab(V) {
   if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';
   const xs = V.ms.map(calcAccount);
-  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]) + lookThroughCard(xs) + limitsCard(xs) + goalsCard(xs);
+  if (xs.length === 1) return acctInputs(xs[0], false) + allocDetail(xs[0]);
   // household: every account keeps its own money; the roll-up adds the accounts' own targets and holdings
   const C = S.allocCfg, ok = xs.filter((x) => x.res.ok), bad = xs.filter((x) => !x.res.ok);
   const table = `<div class="card"><h2>Accounts: each has its own money, profile and horizon</h2><div style="overflow-x:auto"><table><thead><tr><th>Account</th><th class="num">Holds</th><th class="num">Capital to allocate (₹)</th><th>Risk profile</th><th class="num">Horizon (yrs)</th><th class="num">EPF (₹)</th><th class="num">Slab rate (%)</th></tr></thead><tbody>${xs.map((x) => { const k = esc(x.a.key), held = x.cur.total + x.cur.unclassified; return `<tr><td>${esc(x.a.label)}<span class="sub"> · ${esc(ownerOf(x.a))}</span></td><td class="num">${money(held)}</td><td class="num"><input data-a="${k}" data-f="capital" type="number" min="0" step="10000" value="${x.capital}" style="width:130px"></td><td>${selBox(x.a.key, 'profile', ['Cautious', 'Balanced', 'Aggressive', 'Custom'], x.profile)}</td><td class="num"><input data-a="${k}" data-f="horizon" type="number" min="0" max="60" step="1" value="${x.horizon}" style="width:70px"></td><td class="num"><input data-a="${k}" data-f="epf" type="number" min="0" step="10000" value="${(x.A.outside ?? []).find((o) => o.name === 'EPF')?.value ?? ''}" style="width:110px"></td><td class="num"><input data-a="${k}" data-f="slab" type="number" min="0" max="45" step="1" value="${x.A.slab ?? ''}" style="width:60px"></td></tr>`; }).join('')}</tbody></table></div>
@@ -781,14 +786,14 @@ function allocTab(V) {
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
   const rollHtml = roll ? `<div class="card"><h2>Household: target against what you hold</h2><div style="overflow-x:auto"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th></tr></thead><tbody>${roll.rows.map((r) => `<tr><td>${esc(r.label)}</td><td class="num"><b>${pc(r.target)}</b></td><td class="num">${money(r.targetAmount)}</td><td class="num">${pc(r.current)}</td><td class="num">${money(r.currentAmount)}</td><td style="color:${stateCol(r.state)}">${r.state}${r.state === 'within band' ? '' : ' · ' + (r.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(r.amountToTarget))}</td></tr>`).join('')}${roll.unclassified > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(roll.unclassified / roll.capital)}</td><td class="num">${money(roll.unclassified)}</td><td class="sub">not counted against any target</td></tr>` : ''}</tbody></table></div>
     <div class="sub" style="margin-top:8px">Total capital ${money(roll.capital)}: the sum of the accounts' own capital. Each account's target uses its own profile and horizon. A class is “within band” when the household gap is inside its drift band. A target, not an order: act from each account's own list below.</div>${bad.length ? `<div class="sub" style="margin-top:6px"><b>Left out:</b> ${bad.map((x) => esc(x.a.label) + ' (' + esc(x.res.error) + ')').join('; ')}</div>` : ''}</div>` : '';
-  return table + rollHtml + lookThroughCard(xs) + limitsCard(xs) + goalsCard(xs) + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
+  return table + rollHtml + journalCard(xs) + poolsCard(xs) + xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· ${esc(x.profile)} · ${x.horizon} years · ${money(x.capital)}</span></summary>${acctInputs(x, true)}${allocDetail(x)}</details>`).join('');
 }
 
 S.live = new Map(); let liveBusy = false;   // ISIN -> portfolio, or { why } when the lookup failed
 async function loadLive(list) {
   if (liveBusy) return; liveBusy = true; const todo = list.filter((f) => !S.live.has(f.isin));
   let i = 0; await Promise.all(Array.from({ length: 4 }, async () => { while (i < todo.length) { const f = todo[i++]; try { const r = await fetch(`/api/fundport?isin=${encodeURIComponent(f.isin)}&code=${encodeURIComponent(f.code)}&name=${encodeURIComponent(f.name)}`); const j = await r.json().catch(() => ({})); S.live.set(f.isin, r.ok && j.lines ? j : { why: j.error ?? 'lookup failed (' + r.status + ')' }); } catch { S.live.set(f.isin, { why: 'lookup could not run' }); } } }));
-  liveBusy = false; if (S.tab === 'alloc') render();
+  liveBusy = false; if (S.tab === 'alloc' || S.tab === 'risk') render();
 }
 // Funds opened up (Engine Rules C-78): what the household owns in each company once fund portfolios are counted, and which funds repeat each other.
 function lookOf(xs) {
@@ -884,7 +889,13 @@ function allocDetail(x) {
   const unclAmt = cur.unclassified + 0, uncRow = unclAmt > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(unclAmt / capital)}</td><td class="num">${money(unclAmt)}</td><td class="sub">not counted against any target</td><td class="sub">the category or name does not settle the asset class; see “Not counted” below</td></tr>` : '';
   const br = capBreaches(held, capital, res.positionCap, res.fundCap);
   const unc = hs.filter((h) => h.value !== null && !h.assetClass);
-  return balanceCard(gaps, res, cur, capital, body + uncRow) + actionsCard(x.V1, res, cur, capital, hs, A) + `<div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)} (equity share × ${pc(C.bearMarketEquityFall)} assumed bear-market fall)<br>${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
+  return balanceCard(gaps, res, cur, capital, body + uncRow) + actionsCard(x.V1, res, cur, capital, hs, A) + ``;
+}
+function profileLimits(x) {
+  const C = S.allocCfg, { hs, cur, capital, res, held, lockedElss } = x;
+  if (!res.ok) return '';
+  const br = capBreaches(held, capital, res.positionCap, res.fundCap), unc = hs.filter((h) => h.value !== null && !h.assetClass);
+  return `<div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)} (equity share × ${pc(C.bearMarketEquityFall)} assumed bear-market fall)<br>${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
       ${br.length ? `<div style="margin-top:10px"><b>Above these limits now:</b>${br.slice(0, 10).map((b) => `<div class="sub">${esc(b.name)} · ${pc(b.weight)} (limit ${pc(b.cap)})</div>`).join('')}</div>` : '<div class="sub" style="margin-top:10px">No single holding is above its limit.</div>'}</div>
     <div class="card"><h2>Not counted</h2><div class="sub">${lockedElss > 0 ? `${money(lockedElss)} of tax-saving (ELSS) units is inside its 3-year lock-in: it counts toward the targets but cannot be sold until each purchase turns 3 years old.<br>` : ''}${unc.length ? `Not classified (${unc.length}): ${unc.slice(0, 8).map((h) => esc(h.name)).join(', ')}${unc.length > 8 ? '…' : ''}. Their category does not settle the asset class, so they are left out of the totals rather than guessed.` : 'Every priced holding has an asset class.'}${cur.unpriced ? `<br>${cur.unpriced} holding(s) have no price and are left out.` : ''}${res.notes.map((n) => `<br>${esc(n)}`).join('')}</div></div></div>`;
 }
@@ -1076,9 +1087,9 @@ function render() {
   if (!S.accounts.size) { main.innerHTML = `<div class="card empty"><b>No accounts yet.</b><br>Choose “＋ Add files”, pick your tradebooks, and name the account.</div>`; $('drawer').hidden = false; S.autoOpen = true; return; }
   if (S.autoOpen) { S.autoOpen = false; $('drawer').hidden = true; }   // opened only because nothing had loaded yet
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
-  main.innerHTML = { home, holdings, trades: tradesTab, tax, income, alloc: allocTab, data: dataTab }[S.tab](S.cur);
+  main.innerHTML = { home, holdings, trades: tradesTab, tax, income, alloc: allocTab, risk: riskTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
-  if (S.tab === 'alloc' || S.tab === 'data') wireAlloc();
+  if (S.tab === 'alloc' || S.tab === 'risk' || S.tab === 'data') wireAlloc();
   if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
   if (S.tab === 'holdings') document.querySelectorAll('[data-swcmp]').forEach((b) => { b.onclick = () => { S.sw = b.dataset.swcmp; S.swTo = ''; render(); setTimeout(() => $('swsel')?.scrollIntoView({ block: 'center' }), 0); }; });
   if (S.tab === 'holdings' && $('swsel')) { $('swsel').onchange = (e) => { S.sw = e.target.value; S.swTo = ''; render(); }; if ($('swto')) $('swto').onchange = (e) => { S.swTo = e.target.value; render(); }; }
