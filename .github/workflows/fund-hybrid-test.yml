@@ -1,0 +1,28 @@
+name: fund-hybrid-test
+# One-off (manual) run of C-109 (rank-correlation test of the risk-aware score on Conservative and Balanced Hybrid funds).
+on:
+  workflow_dispatch:
+concurrency: fund-hybrid-test
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node --max-old-space-size=6000 scripts/fund-hybrid-test.mjs
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/funds/backtest-hybrid.json
+          git commit -m "hybrid-fund rank-correlation test (C-109): $(date -u +%Y-%m-%d)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
