@@ -1,0 +1,133 @@
+{
+ "at": "2026-10-25T06:37:44.303Z",
+ "tried": 14,
+ "ok": 3,
+ "funds": [
+  {
+   "code": "132140",
+   "name": "Aditya Birla Sun Life Global Emerging Opportunities Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140256",
+   "name": "Edelweiss ASEAN Equity Off-shore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "status": 200,
+   "final": "https://www.5paisa.com/mutual-funds/edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "140327",
+   "name": "Edelweiss Emerging Markets Opportunities Equity Offshore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "120035",
+   "name": "HSBC Brazil Fund - Direct Plan - Growth",
+   "slug": "hsbc-brazil-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/hsbc-brazil-fund-direct-growth",
+   "status": 200,
+   "final": "https://www.5paisa.com/mutual-funds/hsbc-brazil-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "120043",
+   "name": "HSBC Global Emerging Markets Fund - Direct Plan - Growth",
+   "slug": "hsbc-global-emerging-markets-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/hsbc-global-emerging-markets-fund-direct-growth",
+   "status": 200,
+   "final": "https://www.5paisa.com/mutual-funds/hsbc-global-emerging-markets-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "119779",
+   "name": "Kotak Global Emerging Market Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "132009",
+   "name": "Aditya Birla Sun Life Global Excellence Equity Fund Of Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "118551",
+   "name": "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
+   "slug": "franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "123654",
+   "name": "ICICI Prudential Global Stable Equity Fund (FOF) - Direct Plan - Growth",
+   "slug": "icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148485",
+   "name": "Axis Global Equity Alpha Fund of Fund - Direct Plan - Growth Option",
+   "slug": "axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "127071",
+   "name": "HSBC Asia Pacific (Ex Japan) Dividend Yield Fund - Direct Plan - Growth",
+   "slug": "hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "148614",
+   "name": "Invesco India - Invesco Global Consumer Trends Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "129188",
+   "name": "Invesco India - Invesco Global Equity Income Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "nextData": false
+  },
+  {
+   "code": "154287",
+   "name": "Kotak Quality Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-quality-overseas-equity-active-fof-direct-growth",
+   "url": "https://www.5paisa.com/mutual-funds/kotak-quality-overseas-equity-active-fof-direct-growth",
+   "status": 404,
+   "final": "https://www.5paisa.com/mutual-funds/kotak-quality-overseas-equity-active-fof-direct-growth",
+   "nextData": false
+  }
+ ]
+}

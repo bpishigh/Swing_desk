@@ -1,0 +1,133 @@
+{
+ "at": "2026-10-25T06:37:22.583Z",
+ "tried": 14,
+ "ok": 14,
+ "funds": [
+  {
+   "code": "132140",
+   "name": "Aditya Birla Sun Life Global Emerging Opportunities Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/aditya-birla-sun-life-mutual-fund/aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth/INF084M01EB0",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/aditya-birla-sun-life-mutual-fund/aditya-birla-sun-life-global-emerging-opportunities-fund-direct-growth/INF084M01EB0",
+   "nextData": false
+  },
+  {
+   "code": "140256",
+   "name": "Edelweiss ASEAN Equity Off-shore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-asean-equity-off-shore-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/edelweiss-mutual-fund/edelweiss-asean-equity-off-shore-fund-direct-growth/INF843K01AW7",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/edelweiss-mutual-fund/edelweiss-asean-equity-off-shore-fund-direct-growth/INF843K01AW7",
+   "nextData": false
+  },
+  {
+   "code": "140327",
+   "name": "Edelweiss Emerging Markets Opportunities Equity Offshore Fund - Direct Plan - Growth",
+   "slug": "edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/edelweiss-mutual-fund/edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth/INF843K01IZ3",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/edelweiss-mutual-fund/edelweiss-emerging-markets-opportunities-equity-offshore-fund-direct-growth/INF843K01IZ3",
+   "nextData": false
+  },
+  {
+   "code": "120035",
+   "name": "HSBC Brazil Fund - Direct Plan - Growth",
+   "slug": "hsbc-brazil-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-brazil-fund-direct-growth/INF336L01BY4",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-brazil-fund-direct-growth/INF336L01BY4",
+   "nextData": false
+  },
+  {
+   "code": "120043",
+   "name": "HSBC Global Emerging Markets Fund - Direct Plan - Growth",
+   "slug": "hsbc-global-emerging-markets-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-global-emerging-markets-fund-direct-growth/INF336L01CJ3",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-global-emerging-markets-fund-direct-growth/INF336L01CJ3",
+   "nextData": false
+  },
+  {
+   "code": "119779",
+   "name": "Kotak Global Emerging Market Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-global-emerging-market-overseas-equity-active-fof-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/kotak-mutual-fund/kotak-global-emerging-market-overseas-equity-active-fof-direct-growth/INF174K01LW4",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/kotak-mutual-fund/kotak-global-emerging-market-overseas-equity-active-fof-direct-growth/INF174K01LW4",
+   "nextData": false
+  },
+  {
+   "code": "132009",
+   "name": "Aditya Birla Sun Life Global Excellence Equity Fund Of Fund - Direct Plan - GROWTH",
+   "slug": "aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/aditya-birla-sun-life-mutual-fund/aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth/INF084M01EH7",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/aditya-birla-sun-life-mutual-fund/aditya-birla-sun-life-global-excellence-equity-fund-of-fund-direct-growth/INF084M01EH7",
+   "nextData": false
+  },
+  {
+   "code": "118551",
+   "name": "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
+   "slug": "franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/franklin-mutual-fund/franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth/INF090I01JR0",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/franklin-mutual-fund/franklin-u-s-opportunities-equity-active-fund-of-funds-direct-growth/INF090I01JR0",
+   "nextData": false
+  },
+  {
+   "code": "123654",
+   "name": "ICICI Prudential Global Stable Equity Fund (FOF) - Direct Plan - Growth",
+   "slug": "icici-prudential-global-stable-equity-fund-fof-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/icici-mutual-fund/icici-prudential-global-stable-equity-fund-fof-direct-growth/INF109KA1CE0",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/icici-mutual-fund/icici-prudential-global-stable-equity-fund-fof-direct-growth/INF109KA1CE0",
+   "nextData": false
+  },
+  {
+   "code": "148485",
+   "name": "Axis Global Equity Alpha Fund of Fund - Direct Plan - Growth Option",
+   "slug": "axis-global-equity-alpha-fund-of-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/axis-mutual-fund/axis-global-equity-alpha-fund-of-fund-direct-growth/INF846K01X06",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/axis-mutual-fund/axis-global-equity-alpha-fund-of-fund-direct-growth/INF846K01X06",
+   "nextData": false
+  },
+  {
+   "code": "127071",
+   "name": "HSBC Asia Pacific (Ex Japan) Dividend Yield Fund - Direct Plan - Growth",
+   "slug": "hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth/INF336L01HF0",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/hsbc-mutual-fund/hsbc-asia-pacific-ex-japan-dividend-yield-fund-direct-growth/INF336L01HF0",
+   "nextData": false
+  },
+  {
+   "code": "148614",
+   "name": "Invesco India - Invesco Global Consumer Trends Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/invesco-mutual-fund/invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth/INF205KA1270",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/invesco-mutual-fund/invesco-india-invesco-global-consumer-trends-fund-of-fund-direct-growth/INF205KA1270",
+   "nextData": false
+  },
+  {
+   "code": "129188",
+   "name": "Invesco India - Invesco Global Equity Income Fund of Fund - Direct Plan - Growth",
+   "slug": "invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/invesco-mutual-fund/invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth/INF205K01B49",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/invesco-mutual-fund/invesco-india-invesco-global-equity-income-fund-of-fund-direct-growth/INF205K01B49",
+   "nextData": false
+  },
+  {
+   "code": "154287",
+   "name": "Kotak Quality Overseas Equity Active FOF - Direct Plan - Growth",
+   "slug": "kotak-quality-overseas-equity-active-fof-direct-growth",
+   "url": "https://cleartax.in/mutual-funds/kotak-mutual-fund/kotak-quality-overseas-equity-active-fof-direct-growth/INF174KA1ZI2",
+   "status": 200,
+   "final": "https://cleartax.in/mutual-funds/kotak-mutual-fund/kotak-quality-overseas-equity-active-fof-direct-growth/INF174KA1ZI2",
+   "nextData": false
+  }
+ ]
+}
