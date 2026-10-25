@@ -283,33 +283,48 @@ function viewScan() {
 }
 let FUNDS = null, fundCat = {}, fundGroup = 'mf';
 sortState.fund = { key: 'rk', dir: 1 };
-const FUND_GROUPS = [['mf', 'Mutual funds'], ['idx', 'Index funds and ETFs (India)'], ['us', 'US ETFs']];
+const FUND_GROUPS = [['mf', 'Mutual funds'], ['idx', 'Index funds and ETFs (India)'], ['debt', 'Debt funds'], ['intl', 'International funds'], ['us', 'US ETFs']];
 const FUND_INTRO = {
+  debt: 'Direct-plan debt, liquid and overnight funds ranked within their own group on the risk-aware score (C-82): return 30%, consistency 20%, risk-adjusted return 20%, downside 15%, cost 15%. Credit quality and maturity are not scored, and Replace is not offered for debt funds, so the bands are information.',
+  intl: 'Indian funds that invest abroad (fund-of-funds and offshore funds), ranked within their group on the same risk-aware score. A 10-year test could not be run for these (too few funds, C-103), so the bands are not shown to predict anything.',
   mf: 'Direct-plan growth funds ranked within their own category: return over 1, 3 and 5 years (20/35/30%) and how often the fund beat its category median over rolling 1-year windows (15%). Strong is the top quarter, Weak the bottom quarter; Replace candidate only after three monthly runs in a row as Weak. Sectoral/Thematic mixes unlike sectors, so read it loosely.',
   idx: 'A good index fund or ETF matches its index, so these are not ranked against the market. Each is compared with the others that track the <b>same index</b> (read from the scheme name): the gap to the group median over 3 years, in percentage points a year. <b>Leads</b> is at least +0.15, <b>Lags</b> at most -0.30, otherwise <b>In line</b>. The gap bundles tracking error and costs; <b>Cost</b> is the annual expense ratio (AMFI) and <b>Gap before costs</b> adds the cost difference back, so a fund that lags only because it charges more shows near zero there. Gold and silver ETFs are grouped by metal.',
   us: 'Exchange-listed ETFs an Indian resident can buy abroad, ranked within their category on the same measures as funds. Prices are split-adjusted but exclude dividends, so high-dividend ETFs read a little low, and returns are in US dollars (rupee moves not included). <b>Before buying:</b> the money goes out under the Liberalised Remittance Scheme (USD 250,000 a year; 20% TCS on remittances above ₹10 lakh a year, adjustable against your tax). Gains are taxed in India, short-term at your slab and long-term (over 24 months) at 12.5% with no ₹1.25 lakh exemption; US dividends lose 25% at source. US-domiciled ETFs also carry US estate tax above USD 60,000 of US assets for non-residents (up to 40%), which is why many Indians prefer Ireland-domiciled equivalents. Not tax advice; check with an adviser.'
 };
+let FQ = null, FH = null, FC = null;
+const loadFundExtras = () => { if (FQ === null) { FQ = false; fetch('pm-data/quality.json').then((r) => (r.ok ? r.json() : null)).then((d) => { FQ = d; if (tab === 'funds') render(); }).catch(() => {}); fetch('pm-data/holdhealth.json').then((r) => (r.ok ? r.json() : null)).then((d) => { FH = d; if (tab === 'funds') render(); }).catch(() => {}); import('./pm/fundcard.js').then((m) => { FC = m; if (tab === 'funds') render(); }).catch(() => {}); } };
 function viewFunds() {
   if (FUNDS === null) { fetch('data/funds.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : false)).then((d) => { FUNDS = d || false; if (tab === 'funds') render(); }).catch(() => { FUNDS = false; if (tab === 'funds') render(); }); return '<div class="empty">Loading…</div>'; }
   if (!FUNDS) return '<section class="card"><h2>Fund ranking</h2><div class="empty" style="margin-top:12px">No fund scores yet. The weekly job (fund-scores) runs on Sundays; it can also be started by hand from GitHub Actions.</div></section>';
+  loadFundExtras();
   const grp = (g) => FUNDS.funds.filter((f) => (f.g || 'mf') === g);
   const cats = [...new Set(grp(fundGroup).filter((f) => f.rk).map((f) => f.c))].sort();
   if (!fundCat[fundGroup] || !cats.includes(fundCat[fundGroup])) fundCat[fundGroup] = cats[0];
   const cur = fundCat[fundGroup];
   const list = sortRows(grp(fundGroup).filter((f) => f.c === cur && f.rk), 'fund');
   const unr = grp(fundGroup).filter((f) => !f.rk).length;
-  const band = (f) => (f.rp ? '<span class="chip bad">Replace candidate</span>' : fundGroup === 'idx' ? (f.b === 'Strong' ? '<span class="chip ok">Leads</span>' : f.b === 'Weak' ? '<span class="chip warn">Lags</span>' : '<span class="chip">In line</span>') : f.b === 'Strong' ? '<span class="chip ok">Strong</span>' : f.b === 'Weak' ? '<span class="chip warn">Weak</span>' : '<span class="chip">Average</span>');
+  const bandName = (f) => (f.rp ? 'Replace candidate' : fundGroup === 'idx' ? (f.b === 'Strong' ? 'Leads' : f.b === 'Weak' ? 'Lags' : 'In line') : f.b === 'Strong' ? 'Strong' : f.b === 'Weak' ? 'Weak' : 'Average');
+  const band = (f) => `<span class="chip ${f.rp ? 'bad' : f.b === 'Strong' ? 'ok' : f.b === 'Weak' ? 'warn' : ''}">${bandName(f)}</span>`;
   const clean = (n) => esc(n.replace(/ - Direct Plan - Growth( Option)?| - Direct - Growth| - Growth - Direct Plan| - Direct Plan/i, ''));
-  const gap = fundGroup === 'idx' ? th('Gap to peers (pp/yr)', 'd', 'fund', 1) + th('Gap before costs', 'dg', 'fund', 1) : '';
-  const costTh = fundGroup === 'us' ? '' : th('Cost %/yr', 't', 'fund', 1);
+  const num = (x, d = 1, suf = '') => (x === null || x === undefined ? '–' : fmt(x, d) + suf);
+  const card = (f) => {
+    if (!FC) return '<div class="note">Loading…</div>';
+    const tiles = [{ k: 'Rank in ' + f.c, v: '#' + f.rk, s: 'of ' + f.p + ' funds' }, { k: 'Score', v: num(f.s, 1), s: bandName(f) }];
+    if (fundGroup === 'idx') tiles.push({ k: 'Gap to peers', v: f.d === null ? '–' : sgn(f.d, 2), s: 'points a year over 3 years, against funds on the same index' }, { k: 'Gap before costs', v: f.dg == null ? '–' : sgn(f.dg, 2), s: 'points a year' });
+    if (fundGroup === 'debt' || fundGroup === 'intl') tiles.push({ k: 'Worst 3-year fall', v: num(f.dd, 1, '%') }, { k: 'Volatility', v: num(f.vol, 1, '%'), s: 'a year' }, { k: 'Worst day', v: num(f.wd, 1, '%') });
+    const q = f.i ? FQ?.funds?.[f.i] ?? null : null, h = f.i ? FH?.funds?.[f.i] ?? null : null;
+    const why = [f.fl ? String(f.fl) : '', f.note ? String(f.note) : ''].filter(Boolean);
+    return FC.fundCard({ why, tiles, fq: q, hh: h, note: !q && fundGroup !== 'us' ? 'No fund facts (managers, size, expense ratio) could be read for this fund from the fund page.' : '' });
+  };
+  const key = (f) => 'fund:' + (f.i || f.n);
   return `<section class="card"><div class="row" style="justify-content:space-between;gap:10px"><h2>Fund ranking</h2><span class="note">${esc(FUNDS.version)} · refreshed weekly, last ${esc(FUNDS.asOf)}</span></div>
   <div class="chips" style="margin:10px 0" role="group" aria-label="Fund type">${FUND_GROUPS.map(([k, l]) => `<button class="chip-btn" data-fg="${k}" aria-pressed="${fundGroup === k}">${l}</button>`).join('')}</div>
   <p class="note">${FUND_INTRO[fundGroup]}</p>
   <div class="chips" style="margin:12px 0" role="group" aria-label="Category">${cats.map((c) => `<button class="chip-btn" data-fc="${esc(c)}" aria-pressed="${cur === c}">${esc(c)}</button>`).join('')}</div>
-  ${list.length ? `<div class="tablewrap"><table><thead><tr>${th('#', 'rk', 'fund', 1)}${th('Fund', 'n', 'fund')}${th('1Y %', 'r1', 'fund', 1)}${th('3Y %', 'r3', 'fund', 1)}${th('5Y %', 'r5', 'fund', 1)}${costTh}${gap}${th('Beat median', 'k', 'fund', 1)}${th('Score', 's', 'fund', 1)}<th></th></tr></thead><tbody>
-  ${list.map((f) => `<tr><td class="num">${f.rk}</td><td>${clean(f.n)}</td><td class="num">${sgn(f.r1, 1)}</td><td class="num">${sgn(f.r3, 1)}</td><td class="num">${f.r5 === null ? '–' : sgn(f.r5, 1)}</td>${fundGroup === 'us' ? '' : `<td class="num">${f.t == null ? '–' : fmt(f.t, 2)}</td>`}${fundGroup === 'idx' ? `<td class="num">${f.d === null ? '–' : sgn(f.d, 2)}</td><td class="num">${f.dg == null ? '–' : sgn(f.dg, 2)}</td>` : ''}<td class="num">${f.k === null ? '–' : fmt(f.k, 0) + '%'}</td><td class="num">${fmt(f.s, 1)}</td><td>${band(f)}</td></tr>`).join('')}
+  ${list.length ? `<div class="tablewrap"><table><thead><tr>${th('#', 'rk', 'fund', 1)}${th('Fund', 'n', 'fund')}${th('1Y %', 'r1', 'fund', 1)}${th('3Y %', 'r3', 'fund', 1)}${th('5Y %', 'r5', 'fund', 1)}${th('Cost %/yr', 't', 'fund', 1)}${th('Beat median', 'k', 'fund', 1)}${th('Score', 's', 'fund', 1)}<th></th></tr></thead><tbody>
+  ${list.map((f) => `<tr data-open="${esc(key(f))}" tabindex="0" style="cursor:pointer"><td class="num">${f.rk}</td><td>${scanOpen.has(key(f)) ? '▾ ' : '▸ '}${clean(f.n)}</td><td class="num">${sgn(f.r1, 1)}</td><td class="num">${sgn(f.r3, 1)}</td><td class="num">${f.r5 === null ? '–' : sgn(f.r5, 1)}</td><td class="num">${f.t == null ? '–' : fmt(f.t, 2)}</td><td class="num">${f.k === null ? '–' : fmt(f.k, 0) + '%'}</td><td class="num">${fmt(f.s, 1)}</td><td>${band(f)}</td></tr>${scanOpen.has(key(f)) ? `<tr><td colspan="9">${card(f)}</td></tr>` : ''}`).join('')}
   </tbody></table></div>` : '<div class="empty">Nothing ranked in this group yet.</div>'}
-  <p class="note">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a column heading to sort. Cost (expense ratio, from AMFI) is shown but not yet part of the score; manager changes and portfolio overlap are not in the data. Past returns are not a forecast.</p></section>`;
+  <p class="note">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a fund for its details, or a column heading to sort. Cost (expense ratio, from AMFI) is shown but not part of the score. Fund facts come from the fund pages and carry no weight in any score. Past returns are not a forecast.</p></section>`;
 }
 const CHARTS = {}; let chartRange = 130;
 const chartP = (mk) => (CHARTS[mk] ??= fetch(`data/charts-${mk}.json`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null));
