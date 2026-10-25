@@ -79,7 +79,7 @@ input[type=search] { border:1px solid var(--line); border-radius:8px; padding:6p
 </div>
 <script type="module">
 import { parseCsv } from './pm/csv.js';
-import { fundCard, stockCard, sellCostCard, factTiles, debtTiles } from './pm/fundcard.js';
+import { fundCard, stockCard, sellCostCard, factTiles, debtTiles, intlTiles } from './pm/fundcard.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -445,7 +445,7 @@ function overlapFor(h) {
 const fundPanel = (v, h) => {
   const skip = /^(Holdings trend|Fund facts|Five-year|Flags)/;
   const sr = h.isin ? (S.fundScores?.funds ?? []).find((r) => r.i === h.isin) : null, f1 = (x) => (x === null || x === undefined ? '–' : x.toFixed(1) + '%');
-  const html = fundCard({ tiles: (sr && sr.dd != null && (sr.g === 'mf' || sr.g === 'idx') ? [{ k: 'Worst 3-year fall', v: f1(sr.dd) }, { k: 'Volatility', v: f1(sr.vol), s: 'a year' }, { k: 'Worst day', v: f1(sr.wd) }] : []).concat(debtTiles(h.isin ? S.debtStats?.funds?.[h.isin] : null)), why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [overlapFor(h), sellCostFor(h)].filter(Boolean) });
+  const html = fundCard({ tiles: (sr && sr.dd != null && (sr.g === 'mf' || sr.g === 'idx') ? [{ k: 'Worst 3-year fall', v: f1(sr.dd) }, { k: 'Volatility', v: f1(sr.vol), s: 'a year' }, { k: 'Worst day', v: f1(sr.wd) }] : []).concat(debtTiles(h.isin ? S.debtStats?.funds?.[h.isin] : null), intlTiles(h.isin ? S.intlFacts?.funds?.[h.isin] : null)), why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [overlapFor(h), sellCostFor(h)].filter(Boolean) });
   return `<tr class="ctxrow"><td colspan="11">${html}</td></tr>`;
 };
 const resultsOf = (h) => { const n = h.kind === 'Stock' && h.symbol && S.resultsNext ? S.resultsNext.next[h.symbol] : null; if (!n) return null; let a = new Date(S.resultsNext.asOf + 'T00:00:00Z'), b = new Date(n + 'T00:00:00Z'), k = 0; while (a < b) { a = new Date(a.getTime() + 864e5); const w = a.getUTCDay(); if (w !== 0 && w !== 6) k++; } return { date: n, sessions: k }; };
@@ -1073,6 +1073,7 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     S.segments = await fetch('pm-data/segments.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.resultsNext = await fetch('pm-data/results-next.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.holdHealth = await fetch('pm-data/holdhealth.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.intlFacts = await fetch('pm-data/intlfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.debtStats = await fetch('pm-data/debtstats.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.stockFacts = await fetch('pm-data/stockfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundQuality = await fetch('pm-data/quality.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);

@@ -39,3 +39,12 @@ test('debtKey lines a fund name up with a sharpely slug', () => {
   assert.equal(debtKey('Axis Liquid Fund - Direct Plan - Growth'), debtKey('axis-liquid-direct-fundgrowth'));
   assert.equal(debtKey('ICICI Prudential Corporate Bond Fund - Direct Plan - Growth'), debtKey('icici-prudential-corporate-bond-fund-direct-plangrowth'));
 });
+import { parseIntlPage, intlKey } from '../src/pm/intlfacts.ts';
+import { intlTiles } from '../src/pm/fundcard.ts';
+test('parseIntlPage reads size, cost, exit load and benchmark', () => {
+  const html = '{\\"feesAndCommissionsSpecification\\":\\"Expense ratio 0.19% p.a.; Exit load 1% if redeemed within 15 days; Lock-in: No lock-in.\\",\\"additionalProperty\\":[{\\"@type\\":\\"PropertyValue\\",\\"name\\":\\"AUM\\",\\"value\\":\\"8,031.84\\"},{\\"name\\":\\"Expense Ratio\\",\\"value\\":\\"0.19\\"},{\\"name\\":\\"Risk Level\\",\\"value\\":\\"Very High\\"},{\\"name\\":\\"Benchmark\\",\\"value\\":\\"Nasdaq 100 Total Return Index\\"}]}';
+  const f = parseIntlPage(html)!; assert.equal(f.aum, 8031.84); assert.equal(f.ter, 0.19); assert.equal(f.bench, 'Nasdaq 100 Total Return Index'); assert.equal(f.exit, '1% if redeemed within 15 days'); assert.equal(f.risk, 'Very High');
+  assert.equal(parseIntlPage('<html></html>'), null);
+  assert.equal(intlTiles(f).length, 4); assert.deepEqual(intlTiles(null), []);
+});
+test('intlKey lines up a scheme name with a page slug', () => { assert.equal(intlKey('Motilal Oswal Nasdaq 100 Fund of Fund - Direct Plan - Growth'), intlKey('motilal-oswal-nasdaq-100-fof-directgrowth')); });

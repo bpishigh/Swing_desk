@@ -68,6 +68,17 @@ export function factTiles(f: { pe: number | null; pb: number | null; roe: number
 }
 
 /** Tiles of debt-fund portfolio statistics (scope K5): yield, maturity, duration and credit quality. Facts only. */
+/** International-fund facts: size, cost, exit load, benchmark and risk level, from the fund page. */
+export function intlTiles(d: { aum: number | null; ter: number | null; exit: string | null; bench: string | null; risk: string | null } | null | undefined): Tile[] {
+  if (!d) return [];
+  const t: Tile[] = [];
+  if (d.aum !== null) t.push({ k: 'Fund size', v: '₹' + Math.round(d.aum).toLocaleString('en-IN') + ' Cr', s: d.aum < 500 ? 'small: a fund this size can be closed or merged' : '' });
+  if (d.ter !== null) t.push({ k: 'Yearly cost', v: d.ter.toFixed(2) + '%', s: 'expense ratio, direct plan' });
+  if (d.exit) t.push({ k: 'Exit load', v: d.exit === 'none' ? 'None' : d.exit, s: '' });
+  if (d.bench) t.push({ k: 'Benchmark', v: d.bench, s: d.risk ? 'riskometer: ' + d.risk : '' });
+  return t;
+}
+
 export function debtTiles(d: { asOf: string | null; ytm: number | null; avgMat: number | null; modDur: number | null; credit: { r: string; fund: number; cat: number | null }[] } | null | undefined): Tile[] {
   if (!d) return [];
   const t: Tile[] = [], yrs = (x: number | null) => (x === null ? '–' : x < 1 ? (x * 12).toFixed(1) + ' months' : x.toFixed(2) + ' years');

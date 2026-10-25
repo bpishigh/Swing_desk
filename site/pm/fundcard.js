@@ -68,6 +68,17 @@ export function factTiles(f                                                     
 }
 
 /** Tiles of debt-fund portfolio statistics (scope K5): yield, maturity, duration and credit quality. Facts only. */
+/** International-fund facts: size, cost, exit load, benchmark and risk level, from the fund page. */
+export function intlTiles(d                                                                                                                               )         {
+  if (!d) return [];
+  const t         = [];
+  if (d.aum !== null) t.push({ k: 'Fund size', v: '₹' + Math.round(d.aum).toLocaleString('en-IN') + ' Cr', s: d.aum < 500 ? 'small: a fund this size can be closed or merged' : '' });
+  if (d.ter !== null) t.push({ k: 'Yearly cost', v: d.ter.toFixed(2) + '%', s: 'expense ratio, direct plan' });
+  if (d.exit) t.push({ k: 'Exit load', v: d.exit === 'none' ? 'None' : d.exit, s: '' });
+  if (d.bench) t.push({ k: 'Benchmark', v: d.bench, s: d.risk ? 'riskometer: ' + d.risk : '' });
+  return t;
+}
+
 export function debtTiles(d                                                                                                                                                                         )         {
   if (!d) return [];
   const t         = [], yrs = (x               ) => (x === null ? '–' : x < 1 ? (x * 12).toFixed(1) + ' months' : x.toFixed(2) + ' years');
