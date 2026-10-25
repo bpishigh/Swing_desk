@@ -5,7 +5,7 @@ import { parsePage, parseEtfPage, parseQuality, qualityFlags } from '../src/pm/h
 import { schemeBase } from '../src/pm/lookthrough.ts';
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', accept: 'application/json,text/html,*/*' };
 const LOG = { start: new Date().toISOString(), tried: 0, ok: 0, noMatch: [], noHoldings: [], failed: [] };
-const all = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds.filter((f) => f.g === 'mf' || f.g === 'idx'), isEtf = (f) => /\bETF\b|\bBeES\b/i.test(f.name), scores = all;
+const allFunds = JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds, qonly = allFunds.filter((f) => f.g === 'debt' || f.g === 'intl' || f.g === 'us'), all = allFunds.filter((f) => f.g === 'mf' || f.g === 'idx'), isEtf = (f) => /\bETF\b|\bBeES\b/i.test(f.name), scores = all;
 // ETF pages list companies by ISIN only: names and symbols come from the NSE corporate-actions history (ISIN with symbol) and data/names.json
 const isinSym = new Map(); for (const r of JSON.parse(readFileSync('data/india/corp-actions-history.json', 'utf8'))) if (r.isin && r.symbol) isinSym.set(r.isin, r.symbol);
 const names = JSON.parse(readFileSync('data/names.json', 'utf8')).india ?? {};
@@ -53,6 +53,14 @@ console.log(`tried ${LOG.tried} ok ${LOG.ok} noMatch ${LOG.noMatch.length} noHol
 if (!LOG.ok_) { console.error('too few portfolios; keeping the previous file'); process.exit(1); }
 const sorted = Object.fromEntries(Object.entries(out.funds).sort(([a], [b]) => a.localeCompare(b)));
 writeFileSync('data/funds/holdings.json', JSON.stringify({ ...out, funds: sorted }) + '\n');
+// debt, international and US funds carry no equity portfolio here, but their pages give the same quality facts (managers, size, expense ratio, exit load): read for quality only
+{ let n = 0, okQ = 0; const doQ = async (f) => { const base = schemeBase(f.name); if (outQ[base]) return; try {
+    const q0 = encodeURIComponent(f.name.replace(/ - /g, ' ').replace(/direct plan|growth option|growth/gi, '').trim());
+    const sr = await J(`https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=${q0}&size=8`); const hit = sr ? JSON.parse(sr).content?.find((x) => String(x.scheme_code) === String(f.code) || (x.isin && x.isin === f.isin)) : null;
+    const html = hit ? await J(`https://groww.in/mutual-funds/${hit.search_id}`) : null; const q = html ? parseQuality(html) : null; const o = prevQ.funds?.[base], today = new Date().toISOString().slice(0, 10);
+    if (q && q.managers.length) { outQ[base] = { code: f.code, isin: f.isin, asOf: today, ...q, flags: qualityFlags(q, o && o.code === f.code ? o : null, today) }; okQ++; } else if (o && o.code === f.code) outQ[base] = o;
+  } catch { const o = prevQ.funds?.[base]; if (o) outQ[base] = o; } };
+  await Promise.all(Array.from({ length: 5 }, async () => { while (n < qonly.length) { await doQ(qonly[n++]); await new Promise((r) => setTimeout(r, 250)); } })); console.log('quality-only funds', qonly.length, 'ok', okQ); }
 // fund quality facts (C-108): same pages, public data only; kept from last month where this month's read failed
 { const sortedQ = Object.fromEntries(Object.entries(outQ).sort(([a], [b]) => a.localeCompare(b))); const today = new Date().toISOString().slice(0, 10);
   writeFileSync('data/funds/quality.json', JSON.stringify({ asOf: today, source: 'fund pages (public)', funds: sortedQ }) + '\n');
