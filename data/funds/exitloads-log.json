@@ -1,16 +1,16 @@
 {
- "start": "2026-10-26T16:37:48.462Z",
+ "start": "2026-10-26T17:00:34.303Z",
  "wanted": 2001,
- "parsed": 825,
+ "parsed": 867,
  "unparsed": 2,
  "none": 0,
- "kept": 0,
- "noPage": 581,
- "ambiguous": 11,
- "noNote": 580,
+ "kept": 1,
+ "noPage": 514,
+ "ambiguous": 13,
+ "noNote": 604,
  "unparsedSamples": [
   "Exit load of 1% if redeemed before child attains 18 years of age",
   "Exit load of 3% if redeemed before the age of 58 yrs."
  ],
- "end": "2026-10-26T16:57:38.006Z"
+ "end": "2026-10-26T17:13:52.583Z"
 }
