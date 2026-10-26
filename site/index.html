@@ -99,6 +99,7 @@ footer button:hover { color: var(--accent); }
 details.why > summary { cursor: pointer; color: var(--accent); font-size: 12.5px; }
 details.why ul { margin: 6px 0 2px; padding-left: 18px; }
 details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
+.rsec{border-top:1px solid var(--line);padding:2px 0}.rsec>summary{cursor:pointer;list-style:none;padding:12px 0;font-size:12px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.rsec>summary::-webkit-details-marker{display:none}.rsec>summary::before{content:'▸';display:inline-block;width:18px;transition:transform .15s}.rsec[open]>summary::before{transform:rotate(90deg)}.rsec[open]>summary{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -173,14 +174,15 @@ function marketCard(name, m, ccy) {
     ${dist.length ? `<h3>Active distribution days</h3><div class="note">${dist.map((d) => `${esc(d.date.slice(5))} (${fmt(d.chg, 2)}%)`).join(' · ')}</div>` : ''}
   </section>`;
 }
+const sectAll = {};
 function sectorTable(name, m, st) {
   const rows = sortRows(m.sectors.map((s) => ({ ...s, v50: pctVs(s.close, s.sma50), v200: pctVs(s.close, s.sma200), rank: s.rank ?? null })), st);
   if (!rows.length) return '';
   return `<section class="card"><h2>${name} sectors</h2>
   <div class="note">Gate: 3-month return beats the benchmark (${fmt(m.benchmarkR3m, 2)}%) and is above zero${m.mode === 'red' ? ' (Red: these two only)' : ', and close above the 50-day'}. Score = 2 × 3M + 1M. Top 4 are the leaders.</div>
   <div class="tablewrap"><table><thead><tr>${th('Sector', 'name', st)}${th('Rank', 'rank', st, 1)}${th('Score', 'score', st, 1)}${th('1M', 'r1m', st, 1)}${th('3M', 'r3m', st, 1)}${th('vs 50d', 'v50', st, 1)}${th('vs 200d', 'v200', st, 1)}<th>Gate</th></tr></thead><tbody>
-  ${rows.map((s) => `<tr class="${s.pass ? '' : 'dim'}"><td>${esc(s.name)}</td><td class="num">${s.rank ?? '–'}</td><td class="num">${fmt(s.score, 1)}</td><td class="num">${sgn(s.r1m, 2)}</td><td class="num">${sgn(s.r3m, 2)}</td><td class="num">${sgn(s.v50, 1, '%')}</td><td class="num">${sgn(s.v200, 1, '%')}</td><td>${s.pass ? '<span class="chip ok">pass</span>' : '<span class="chip">no</span>'}</td></tr>`).join('')}
-  </tbody></table></div></section>`;
+  ${rows.filter((s, i) => sectAll[name] || s.pass || i < 8).map((s) => `<tr class="${s.pass ? '' : 'dim'}"><td>${esc(s.name)}</td><td class="num">${s.rank ?? '–'}</td><td class="num">${fmt(s.score, 1)}</td><td class="num">${sgn(s.r1m, 2)}</td><td class="num">${sgn(s.r3m, 2)}</td><td class="num">${sgn(s.v50, 1, '%')}</td><td class="num">${sgn(s.v200, 1, '%')}</td><td>${s.pass ? '<span class="chip ok">pass</span>' : '<span class="chip">no</span>'}</td></tr>`).join('')}
+  </tbody></table></div>${rows.length > 8 ? `<button class="chip-btn" style="margin-top:10px" data-allsec="${esc(name)}">${sectAll[name] ? 'Show fewer' : 'Show all ' + rows.length + ' sectors'}</button>` : ''}</section>`;
 }
 let MORN; // undefined = not asked yet, false = unavailable (not signed in, or not written yet), object = the nightly summary
 function holdingsCard() {
@@ -404,7 +406,9 @@ function docView(which) {
   const ver = (cur.md.match(/Rules version:\*\*\s*(R-[\d.]+)/) || [])[1] || '', rev = (cur.md.match(/doc rev (\d+)/) || [])[1] || '';
   const heads = [...src.matchAll(/^## (.+)$/gm)].map((m) => m[1]);
   const toc = heads.map((h, i) => `<button class="chip-btn" style="display:block;margin:2px 0;text-align:left" data-jump="rules-h${i}">${esc(h)}</button>`).join('');
-  let n = 0; const body = md(src).replace(/<h2>/g, () => `<h2 id="rules-h${n++}">`);
+  let n = 0; const raw = md(src).replace(/&amp;#32;|&#32;/g, ' ').replace(/<h3>/g, () => `<h3 id="rules-h${n++}">`);
+  // each section becomes a fold
+  const parts = raw.split(/(?=<h3 id="rules-h\d+">)/), body = parts.map((pt, i) => { const m = /^<h3 id="(rules-h\d+)">([\s\S]*?)<\/h3>/.exec(pt); if (!m) return pt; return `<details class="rsec" id="${m[1]}"><summary>${m[2]}</summary>${pt.slice(m[0].length)}</details>`; }).join('');
   const title = which === 'log' ? 'Engine Rules change log' : 'Engine Rules';
   const foot = which === 'log' ? 'Every rule change, tried idea and open question, newest last. Only changes marked Adopted alter the rules.' : 'The rules the desk runs on, shown as they stand. The change log is linked at the bottom of the page. The live document is the source of truth; this view refreshes with every update.';
   return `<section class="card"><div class="row" style="justify-content:space-between"><h2>${title}</h2><span class="chip">${esc(ver)}${rev ? ' · doc rev ' + esc(rev) : ''} · updated ${ist(DOCS.generatedAt)}</span></div>
@@ -453,7 +457,8 @@ document.addEventListener('click', (e) => {
   if (t.dataset.cr) { chartRange = Number(t.dataset.cr); return render(); }
   if (t.dataset.fg) { fundGroup = t.dataset.fg; return render(); }
   if (t.dataset.st) { scanTab = t.dataset.st; return render(); }
-  if (t.dataset.jump) { document.getElementById(t.dataset.jump)?.scrollIntoView({ behavior: 'smooth' }); return; }
+  if (t.dataset.allsec) { sectAll[t.dataset.allsec] = !sectAll[t.dataset.allsec]; render(); return; }
+  if (t.dataset.jump) { const el = document.getElementById(t.dataset.jump); if (el && el.tagName === 'DETAILS') el.open = true; el?.scrollIntoView({ behavior: 'smooth' }); return; }
   if (t.dataset.doc) { docId = t.dataset.doc; return render(); }
 });
 (() => {
