@@ -12,3 +12,12 @@ test('sellCostCard counts no free limit and shows the only-sale tax separately',
   assert.ok(h.includes('₹8,373') && h.includes('only sale this year') && h.includes('1,25,000'));
   assert.ok(!sellCostCard({ ...base, tax: 0, net: 167000, taxWithExemption: 0 } as any).includes('only sale'));
 });
+test('sellCostCard lists lots oldest first with their status, only when there is more than one', () => {
+  const lots = [
+    { date: '2026-09-01', value: 50000, gain: 2000, long: false, tax: 400, load: 500, loadEnds: '2027-09-01' },
+    { date: '2023-01-01', value: 100000, gain: 40000, long: true, tax: 5000, load: 0 },
+  ];
+  const h = sellCostCard({ value: 150000, gain: 42000, longGain: 40000, shortGain: 2000, tax: 5400, load: 500, charges: 0, net: 144100, lots, notes: [] } as any);
+  assert.ok(h.includes('Lot by lot (2 lots') && h.indexOf('2023-01-01') < h.indexOf('2026-09-01') && h.includes('Exit load to 2027-09-01') && h.includes('Long-term'));
+  assert.ok(!sellCostCard({ value: 100000, gain: 40000, longGain: 40000, shortGain: 0, tax: 5000, load: 0, charges: 0, net: 95000, lots: [lots[1]], notes: [] } as any).includes('Lot by lot'));
+});
