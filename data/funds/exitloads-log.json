@@ -1,0 +1,17 @@
+{
+ "start": "2026-10-26T16:07:32.717Z",
+ "wanted": 1165,
+ "parsed": 552,
+ "unparsed": 3,
+ "none": 0,
+ "kept": 0,
+ "noPage": 223,
+ "ambiguous": 6,
+ "noNote": 377,
+ "unparsedSamples": [
+  "Exit load of 1% if redeemed wtihin 1 year.",
+  "Exit load of 2% for premature withdrawal",
+  "Exit load of 0.50% if redeemed witihin 3 months."
+ ],
+ "end": "2026-10-26T16:34:16.171Z"
+}
