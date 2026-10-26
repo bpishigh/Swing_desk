@@ -1,13 +1,13 @@
 {
- "start": "2026-10-26T17:32:22.439Z",
- "wanted": 2001,
- "parsed": 868,
+ "start": "2026-10-26T17:49:41.996Z",
+ "wanted": 1984,
+ "parsed": 938,
  "unparsed": 2,
- "none": 0,
+ "none": 617,
  "kept": 0,
- "noPage": 514,
+ "noPage": 402,
  "ambiguous": 13,
- "noNote": 604,
+ "noNote": 12,
  "unparsedSamples": [
   "Exit load of 1% if redeemed before child attains 18 years of age",
   "Exit load of 3% if redeemed before the age of 58 yrs."
@@ -19,37 +19,12 @@
    "near": []
   },
   {
-   "name": "Franklin India Banking & PSU Debt Fund - Direct Plan - Growth",
-   "key": "and banking debt franklin psu",
-   "near": [
-    "and axis banking debt psu",
-    "aditya and banking birla debt life psu sun",
-    "and banking debt kotak psu"
-   ]
-  },
-  {
-   "name": "ITI Banking & PSU Debt Fund - Direct Plan - Growth Option",
-   "key": "and banking debt iti psu",
-   "near": [
-    "and axis banking debt psu",
-    "aditya and banking birla debt life psu sun",
-    "and banking debt kotak psu"
-   ]
-  },
-  {
    "name": "Franklin India Credit Risk Fund - Direct - Growth",
    "key": "credit franklin risk",
    "near": [
     "credit risk uti",
     "credit nippon risk",
     "credit hsbc risk"
-   ]
-  },
-  {
-   "name": "Franklin India Credit Risk Fund (No. of segregated portfolios-3) - Direct Plan - Growth",
-   "key": "3 credit franklin no portfolios risk segregated",
-   "near": [
-    "3 credit franklin portfolio risk segregated"
    ]
   },
   {
@@ -63,24 +38,12 @@
    "near": []
   },
   {
-   "name": "Nippon India Credit Risk Fund (Existing Number of Segregated Portfolios - 1) - Direct Plan - Growth Option",
-   "key": "1 credit existing nippon number portfolios risk segregated",
-   "near": []
-  },
-  {
    "name": "Franklin India Dynamic Accrual Fund - Direct - Growth",
    "key": "accrual dynamic franklin",
    "near": [
     "allocation asset dynamic franklin",
     "a conservative franklin hybrid",
     "2 accrual dynamic franklin portfolio segregated"
-   ]
-  },
-  {
-   "name": "Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3) - Direct Plan - Growth",
-   "key": "3 accrual dynamic franklin no portfolios segregated",
-   "near": [
-    "3 accrual dynamic franklin portfolio segregated"
    ]
   },
   {
@@ -104,8 +67,10 @@
   },
   {
    "name": "Kotak Gilt Fund - Direct Plan - Investment Provident Fund and Trust-Growth",
-   "key": "and gilt investment kotak provident trust",
-   "near": []
+   "key": "gilt investment kotak provident trust",
+   "near": [
+    "gilt investment kotak pf trust"
+   ]
   },
   {
    "name": "Kotak Gilt Fund - Direct Plan - Growth",
@@ -114,11 +79,6 @@
     "gilt investment kotak",
     "gilt investment kotak pf trust"
    ]
-  },
-  {
-   "name": "Sundaram Liquid Fund (Formerly Known as Principal Cash Management Fund) - Direct Plan - GROWTH",
-   "key": "as cash formerly known liquid management principal sundaram",
-   "near": []
   },
   {
    "name": "Franklin India Low Duration Fund - Direct - Growth",
@@ -150,8 +110,10 @@
   },
   {
    "name": "Franklin India Short-Term Income Plan (no. of segregated portfolios- 3) - Direct Plan - Retail Plan Growth",
-   "key": "3 franklin income no portfolios retail segregated short term",
-   "near": []
+   "key": "franklin income retail short term",
+   "near": [
+    "franklin short short term to ultra"
+   ]
   },
   {
    "name": "Franklin India SHORT TERM INCOME PLAN - Direct - GROWTH",
@@ -178,372 +140,283 @@
    "near": [
     "360 50 elss index nifty one saver tax",
     "50 elss index navi nifty saver tax",
-    "250 elss index large midcap nifty saver tax zerodha"
+    "250 cap elss index large mid nifty saver tax zerodha"
    ]
   },
   {
-   "name": "Union ELSS Tax Saver Fund (Formerly Union Tax Saver (ELSS) Fund - Direct Plan - Growth Option",
-   "key": "elss elss formerly saver saver tax tax union union",
+   "name": "Baroda BNP Paribas ESG Best-in-Class Strategy Fund - Direct Plan - Growth Option",
+   "key": "baroda best bnp class esg in paribas strategy",
    "near": []
   },
   {
-   "name": "Sundaram Flexicap Fund - Direct Plan - GROWTH",
-   "key": "flexicap sundaram",
+   "name": "Franklin India Multi-Factor Fund - Direct Plan - Growth",
+   "key": "factor franklin multi",
    "near": [
-    "aditya birla cap large life mid sun",
-    "cap flexi uti",
-    "aditya birla cap flexi life sun"
+    "a conservative franklin hybrid",
+    "axis factor multi",
+    "cap franklin multi"
    ]
   },
   {
-   "name": "Sundaram Focused Fund (Formerly Known as Principal Focused Multicap Fund) - Direct Plan - GROWTH",
-   "key": "as focused focused formerly known multicap principal sundaram",
+   "name": "Nippon India Quant Fund - Direct Plan - Growth Option",
+   "key": "nippon quant",
+   "near": [
+    "nippon quant retail"
+   ]
+  },
+  {
+   "name": "Sundaram Multi-Factor Fund - Direct Plan - GROWTH",
+   "key": "factor multi sundaram",
+   "near": [
+    "aditya birla life short short sun term to ultra",
+    "aditya birla life long medium sun term to",
+    "short short sundaram term to ultra"
+   ]
+  },
+  {
+   "name": "Tata Quant Fund-Direct Plan-Growth",
+   "key": "quant tata",
    "near": []
   },
   {
-   "name": "Abakkus Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "abakkus and cap large mid",
+   "name": "Tata ELSS - Tax Saver Fund - Direct Plan - Growth Option",
+   "key": "elss saver tata tax",
    "near": [
-    "and cap large mid sundaram",
-    "and canara cap large mid robeco",
-    "and cap large mid quant"
+    "elss quantum saver tax",
+    "axis elss saver tax",
+    "elss saver tax uti"
    ]
   },
   {
-   "name": "Aditya Birla Sun Life Large & Mid Cap Fund - Direct Plan - GROWTH",
-   "key": "aditya and birla cap large life mid sun",
+   "name": "UTI Focused Fund (30 stocks) - Direct Plan - Growth",
+   "key": "focused uti",
    "near": [
-    "aditya birla cap large life mid sun"
+    "annual i interval uti",
+    "30 focused stocks uti",
+    "1574 days fixed i income series term uti xxxvi"
    ]
   },
   {
-   "name": "Bandhan Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and bandhan cap large mid",
+   "name": "MahindraManulife Banking & Financial Services Fund - Direct Plan - Growth",
+   "key": "banking financial mahindramanulife services",
    "near": [
-    "and cap large mid sundaram",
-    "bandhan cap large mid",
-    "and canara cap large mid robeco"
+    "banking baroda bnp financial paribas services",
+    "banking financial icici prudential services",
+    "banking financial services uti"
    ]
   },
   {
-   "name": "BANK OF INDIA LARGE & MID CAP FUND - Direct Plan - Growth",
-   "key": "and bank cap large mid",
+   "name": "Bandhan Multi-Factor Fund - Direct Plan - Growth",
+   "key": "bandhan factor multi",
    "near": [
-    "and cap large mid sundaram",
-    "bank cap large mid",
-    "and canara cap large mid robeco"
+    "bandhan long medium term to",
+    "bandhan short short term to ultra",
+    "bandhan cap multi"
    ]
   },
   {
-   "name": "Baroda BNP Paribas Large and Mid Cap fund - Direct Plan - Growth Option",
-   "key": "and baroda bnp cap large mid paribas",
-   "near": [
-    "baroda bnp cap large mid paribas"
-   ]
-  },
-  {
-   "name": "DSP Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap dsp large mid",
-   "near": [
-    "and cap large mid sundaram",
-    "cap dsp large mid",
-    "and canara cap large mid robeco"
-   ]
-  },
-  {
-   "name": "Edelweiss Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap edelweiss large mid",
-   "near": [
-    "and cap large mid sundaram",
-    "cap edelweiss large mid",
-    "and canara cap large mid robeco"
-   ]
-  },
-  {
-   "name": "Franklin India Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap franklin large mid",
-   "near": [
-    "cap franklin large mid",
-    "and cap large mid sundaram",
-    "and canara cap large mid robeco"
-   ]
-  },
-  {
-   "name": "ICICI Prudential Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap icici large mid prudential",
-   "near": [
-    "cap icici large mid prudential"
-   ]
-  },
-  {
-   "name": "ITI Large & Mid Cap Fund - Direct Plan - Growth Option",
-   "key": "and cap iti large mid",
-   "near": [
-    "and cap large mid sundaram",
-    "and canara cap large mid robeco",
-    "and cap large mid quant"
-   ]
-  },
-  {
-   "name": "LIC MF Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap large lic mf mid",
-   "near": [
-    "cap large lic mf mid"
-   ]
-  },
-  {
-   "name": "Navi Large & Midcap Fund - Direct Plan - Growth",
-   "key": "and large midcap navi",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "cap large mid uti",
-    "cap icici large mid prudential"
-   ]
-  },
-  {
-   "name": "Nippon India Vision Large & Mid Cap Fund - Direct Plan - Growth Option",
-   "key": "and cap large mid nippon vision",
-   "near": [
-    "cap large mid nippon vision"
-   ]
-  },
-  {
-   "name": "PGIM India Large and Midcap Fund - Direct Plan - Direct Growth",
-   "key": "and large midcap pgim",
-   "near": [
-    "cap large pgim",
-    "aditya birla cap large life mid sun",
-    "cap large mid uti"
-   ]
-  },
-  {
-   "name": "SBI LARGE & MIDCAP FUND - Direct Plan - Growth",
-   "key": "and large midcap sbi",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "cap large mid uti",
-    "cap icici large mid prudential"
-   ]
-  },
-  {
-   "name": "Sundaram Large and Midcap Fund - Direct Plan - GROWTH",
-   "key": "and large midcap sundaram",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "aditya birla cap large life sun",
-    "cap large mid uti"
-   ]
-  },
-  {
-   "name": "Tata Large & Mid Cap Fund - Direct Plan - Growth Option",
-   "key": "and cap large mid tata",
-   "near": [
-    "and cap large mid sundaram",
-    "and canara cap large mid robeco",
-    "cap large mid tata"
-   ]
-  },
-  {
-   "name": "The Wealth Company Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap company large mid wealth",
-   "near": [
-    "cap company large mid wealth"
-   ]
-  },
-  {
-   "name": "Union Large & Midcap Fund - Direct Plan - Growth Option",
-   "key": "and large midcap union",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "cap large mid uti",
-    "cap icici large mid prudential"
-   ]
-  },
-  {
-   "name": "UTI Large & Mid Cap Fund - Direct Plan - Growth",
-   "key": "and cap large mid uti",
-   "near": [
-    "cap large mid uti",
-    "and cap large mid sundaram",
-    "and canara cap large mid robeco"
-   ]
-  },
-  {
-   "name": "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund) - Direct Plan - Growth",
-   "key": "bluechip cap erstwhile icici large prudential",
+   "name": "DSP India T.I.G.E.R. Fund - Direct Plan - Growth",
+   "key": "dsp e g i r t",
    "near": []
   },
   {
-   "name": "Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund) - Direct Plan - GROWTH",
-   "key": "as blue cap chip formerly know large sundaram sundaram",
+   "name": "WhiteOak Capital ESG Best-In-Class Strategy Fund - Direct Plan - Growth Option",
+   "key": "best capital class esg in strategy whiteoak",
    "near": []
   },
   {
-   "name": "Aditya Birla Sun Life Midcap Fund - Direct Plan - GROWTH",
-   "key": "aditya birla life midcap sun",
+   "name": "Shriram Nifty 1D Rate Liquid ETF - Direct Plan - Growth",
+   "key": "1d etf liquid nifty rate shriram",
+   "near": []
+  },
+  {
+   "name": "UTI Nifty 10 yr Benchmark G-Sec ETF - Direct Plan - Growth",
+   "key": "10 benchmark etf g nifty sec uti yr",
+   "near": []
+  },
+  {
+   "name": "UTI Nifty 1D Rate Liquid ETF - Growth - Direct Plan - Growth",
+   "key": "1d etf liquid nifty rate uti",
+   "near": []
+  },
+  {
+   "name": "UTI Nifty 5 yr Benchmark G-Sec ETF - Direct Plan - Growth",
+   "key": "5 benchmark etf g nifty sec uti yr",
+   "near": []
+  },
+  {
+   "name": "Zerodha Nifty 1D Rate Liquid ETF - Direct Plan - Growth Option",
+   "key": "1d etf liquid nifty rate zerodha",
+   "near": []
+  },
+  {
+   "name": "HDFC FTSE India Equity ETF - Direct Plan - Growth Option",
+   "key": "etf ftse hdfc",
    "near": [
+    "etf gold hdfc",
+    "etf hdfc silver",
+    "etf hdfc metal nifty"
+   ]
+  },
+  {
+   "name": "UTI - BSE Sensex Next 50 Exchange Traded Fund - Direct Plan - Growth",
+   "key": "50 bse exchange next sensex traded uti",
+   "near": []
+  },
+  {
+   "name": "UTI - Nifty Next 50 Exchange Traded Fund - Direct Plan - Growth",
+   "key": "50 exchange next nifty traded uti",
+   "near": []
+  },
+  {
+   "name": "UTI Nifty Bank ETF - Direct Plan - Growth",
+   "key": "bank etf nifty uti",
+   "near": [
+    "bank index nifty private uti"
+   ]
+  },
+  {
+   "name": "UTI Nifty IT ETF - Direct Plan - Growth",
+   "key": "etf it nifty uti",
+   "near": []
+  },
+  {
+   "name": "UTI Nifty Midcap 150 Exchange Traded Fund - Direct Plan - Growth",
+   "key": "150 cap exchange mid nifty traded uti",
+   "near": [
+    "150 50 cap index mid nifty quality uti"
+   ]
+  },
+  {
+   "name": "Zerodha Nifty Next 100 ETF - Direct Plan - Growth",
+   "key": "100 etf next nifty zerodha",
+   "near": []
+  },
+  {
+   "name": "360 ONE Gold ETF - Direct Plan - GROWTH Option",
+   "key": "360 etf gold one",
+   "near": [
+    "angel etf gold one"
+   ]
+  },
+  {
+   "name": "Choice Gold ETF - Direct Plan - Growth",
+   "key": "choice etf gold",
+   "near": [
+    "etf gold quantum",
+    "etf gold icici prudential",
+    "etf gold hdfc"
+   ]
+  },
+  {
+   "name": "UTI - Gold Exchange Traded Fund - Direct Plan - Growth",
+   "key": "exchange gold traded uti",
+   "near": []
+  },
+  {
+   "name": "360 ONE MSCI India ETF - Direct Plan - GROWTH Option",
+   "key": "360 etf msci one",
+   "near": []
+  },
+  {
+   "name": "360 ONE Silver ETF - Direct Plan - GROWTH Option",
+   "key": "360 etf one silver",
+   "near": [
+    "angel etf one silver"
+   ]
+  },
+  {
+   "name": "UTI Silver Exchange Traded Fund - Direct Plan - Growth",
+   "key": "exchange silver traded uti",
+   "near": []
+  },
+  {
+   "name": "Axis Multi-Asset Omni FoF - Direct Plan - Growth Option",
+   "key": "asset axis multi",
+   "near": [
+    "asset multi quantum",
+    "allocation asset axis multi",
+    "allocation asset icici multi prudential"
+   ]
+  },
+  {
+   "name": "Mirae Asset Nifty200 Alpha 30 ETF Fund of Fund - Direct Plan - Growth",
+   "key": "30 alpha asset etf mirae nifty200",
+   "near": [
+    "200 30 alpha asset etf mirae nifty"
+   ]
+  },
+  {
+   "name": "Mirae Asset S&P 500 Top 50 ETF Fund of Fund - Direct Plan - Growth",
+   "key": "50 500 asset etf mirae p s top",
+   "near": []
+  },
+  {
+   "name": "Kotak Aggressive Hybrid Fund - Direct Plan - Growth",
+   "key": "aggressive hybrid kotak",
+   "near": [
+    "aggressive hybrid pgim",
     "aditya aggressive birla hybrid life sun",
-    "aditya birla cap large life mid sun",
-    "aditya birla life short short sun term to ultra"
+    "aggressive hybrid uti"
    ]
   },
   {
-   "name": "Baroda BNP Paribas Mid Cap Fund - Direct Plan - Growth Option",
-   "key": "baroda bnp cap mid paribas",
+   "name": "Franklin India Conservative Hybrid Fund - Direct Plan - Growth",
+   "key": "conservative franklin hybrid",
    "near": [
-    "baroda bnp cap multi paribas",
-    "baroda bnp cap large paribas",
-    "1 b baroda bnp directidcw duration medium monthly paribas portfolio segregated"
+    "baroda bnp conservative hybrid paribas",
+    "canara conservative hybrid robeco",
+    "conservative hybrid uti"
    ]
   },
   {
-   "name": "LIC MF Mid Cap Fund - Direct Plan - Growth",
-   "key": "cap lic mf mid",
-   "near": [
-    "cap flexi lic mf",
-    "cap large lic mf",
-    "cap large lic mf mid"
-   ]
-  },
-  {
-   "name": "SBI MIDCAP FUND - Direct Plan - Growth",
-   "key": "midcap sbi",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "cap sbi small",
-    "cap large mid uti"
-   ]
-  },
-  {
-   "name": "Aditya Birla Sun Life Multi-Cap Fund - Direct Plan - GROWTH",
-   "key": "aditya birla cap life multi sun",
-   "near": [
-    "aditya birla cap large life mid sun",
-    "aditya birla cap flexi life sun",
-    "aditya birla cap large life sun"
-   ]
-  },
-  {
-   "name": "Sundaram Multi Cap Fund (Formerly Known as Principal Multi Cap Growth Fund) - Direct Plan - GROWTH",
-   "key": "as cap cap formerly known multi multi principal sundaram",
+   "name": "Franklin India Debt Hybrid Fund - Segregated Portfolio 1 (10.25% Yes Bank ltd CO 05Mar20) - Direct Growth Plan",
+   "key": "1 debt franklin hybrid portfolio segregated",
    "near": []
   },
   {
-   "name": "Aditya Birla Sun Life Banking and Financial Services Fund - Direct Plan - GROWTH",
-   "key": "aditya and banking birla financial life services sun",
+   "name": "Nippon India Hybrid Bond Fund - Segregated Portfolio 1 - Direct Plan Growth Plan - Growth Option",
+   "key": "1 bond hybrid nippon portfolio segregated",
    "near": [
-    "aditya banking birla financial life services sun"
+    "1 aggressive hybrid nippon portfolio segregated",
+    "1 conservative hybrid nippon portfolio segregated"
    ]
   },
   {
-   "name": "Aditya Birla Sun Life Pharma and Healthcare Fund - Direct Plan - GROWTH",
-   "key": "aditya and birla healthcare life pharma sun",
+   "name": "Tata Equity Savings Fund- Direct Plan- Growth Option",
+   "key": "savings tata",
    "near": [
-    "aditya birla healthcare life pharma sun"
+    "moderate retirement savings tata",
+    "conservative retirement savings tata",
+    "progressive retirement savings tata"
    ]
   },
   {
-   "name": "Bank of India Banking & Financial Services Fund - Direct Plan - Growth",
-   "key": "and bank banking financial services",
+   "name": "Nippon India Equity Hybrid Fund - Segregated Portfolio 1 - Direct Plan - Growth Plan",
+   "key": "1 hybrid nippon portfolio segregated",
    "near": [
-    "and banking baroda bnp financial paribas services",
-    "and banking financial icici prudential services",
-    "and banking financial services uti"
+    "1 aggressive hybrid nippon portfolio segregated",
+    "1 nippon portfolio savings segregated",
+    "1 daily directidcw duration nippon portfolio segregated short ultra"
    ]
   },
   {
-   "name": "BANK OF INDIA MANUFACTURING & INFRASTRUCTURE FUND - Direct Plan - Growth",
-   "key": "and bank infrastructure manufacturing",
-   "near": [
-    "bank infrastructure manufacturing"
-   ]
+   "name": "Reliance Interval Fund - II - Series 1 -Direct Plan -Growth Option",
+   "key": "1 ii interval reliance series",
+   "near": []
+  },
+  {
+   "name": "Reliance Interval Fund - II - Series 2 - Direct Plan - Growth Plan - Growth Option",
+   "key": "2 ii interval reliance series",
+   "near": []
+  },
+  {
+   "name": "Reliance Interval Fund - II - Series 3 - Direct Plan - Growth Plan - Growth Option",
+   "key": "3 ii interval reliance series",
+   "near": []
   }
  ],
  "noNoteSamples": [
-  {
-   "name": "Kotak Banking and PSU Debt Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/kotak-banking-and-psu-debt-fund-directgrowth/16356",
-   "exit": "0",
-   "fee": "Expense ratio 0.4% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "HDFC Banking and PSU Debt Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/hdfc-banking-and-psu-debt-fund-directgrowth/25440",
-   "exit": "0",
-   "fee": "Expense ratio 0.35% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Aditya Birla Sun Life Corporate Bond Fund - Direct Plan - GROWTH",
-   "url": "https://sharpely.in/mutual-funds/aditya-birla-sun-life-corporate-bond-fund-directgrowth/15926",
-   "exit": "0",
-   "fee": "Expense ratio 0.34% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "BANDHAN Corporate Bond Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/bandhan-corporate-bond-fund-directgrowth/31521",
-   "exit": "0",
-   "fee": "Expense ratio 0.36% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "HDFC Corporate Bond Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/hdfc-corporate-bond-fund-direct-plangrowth/16109",
-   "exit": "0",
-   "fee": "Expense ratio 0.38% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "ICICI Prudential Corporate Bond Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/icici-prudential-corporate-bond-fund-direct-plangrowth/15568",
-   "exit": "0",
-   "fee": "Expense ratio 0.37% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "PGIM India Corporate Bond Fund - Direct Plan - Direct Growth",
-   "url": "https://sharpely.in/mutual-funds/pgim-india-corporate-bond-direct-plangrowth/15644",
-   "exit": "0",
-   "fee": "Expense ratio 0.37% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Nippon India Corporate Bond Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/nippon-india-corporate-bond-fund-directgrowth/16135",
-   "exit": "0",
-   "fee": "Expense ratio 0.37% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "DSP Corporate Bond Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/dsp-corporate-bond-fund-directgrowth/37505",
-   "exit": "0",
-   "fee": "Expense ratio 0.29% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "SBI Corporate Bond Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/sbi-corporate-bond-fund-directgrowth/38937",
-   "exit": "0",
-   "fee": "Expense ratio 0.37% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Sundaram Corporate Bond Fund - Direct Plan - GROWTH",
-   "url": "https://sharpely.in/mutual-funds/sundaram-corporate-bond-fund-directgrowth/17244",
-   "exit": "0",
-   "fee": "Expense ratio 0.33% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "TRUSTMF CORPORATE BOND FUND - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/trustmf-corporate-bond-fund-directgrowth/43066",
-   "exit": "0",
-   "fee": "Expense ratio 0.26% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Tata Corporate Bond Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/tata-corporate-bond-fund-directgrowth/41870",
-   "exit": "0",
-   "fee": "Expense ratio 0.32% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Union Corporate Bond Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/union-corporate-bond-fund-directgrowth/36080",
-   "exit": "0",
-   "fee": "Expense ratio 0.41% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
   {
    "name": "Nippon India Credit Risk Fund - Segregated Portfolio 1 - Direct Plan - Growth Plan",
    "url": "https://sharpely.in/mutual-funds/nippon-india-credit-risk-fund-segregated-portfolio-1-directgrowth/40697",
@@ -551,155 +424,71 @@
    "fee": "Expense ratio 0.7% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "DSP Gilt Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/dsp-gilt-fund-direct-plangrowth/16391",
-   "exit": "0",
-   "fee": "Expense ratio 0.59% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "ITI Large & Mid Cap Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/iti-large-mid-cap-fund-directgrowth/44501",
+   "exit": "null",
+   "fee": "Expense ratio 1.06% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Quantum Dynamic Term Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/quantum-dynamic-term-fund-directgrowth/30145",
-   "exit": "0",
-   "fee": "Expense ratio 0.5% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "PGIM India Multi Cap Fund - Direct Plan - Direct Growth",
+   "url": "https://sharpely.in/mutual-funds/pgim-india-multi-cap-fund-directgrowth/44505",
+   "exit": "null",
+   "fee": "Expense ratio 0.78% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Bandhan Gilt   Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/bandhan-gilt-fund-directgrowth/16715",
-   "exit": "0",
-   "fee": "Expense ratio 0.57% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Nippon India Equity Savings Fund - Segregated Portfolio 1 - Direct Plan - Growth Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/nippon-india-equity-savings-fund-segregated-portfolio-1-directgrowth/40321",
+   "exit": "null",
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Bajaj Finserv Gilt Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/bajaj-finserv-gilt-fund-directgrowth/44862",
-   "exit": "0",
-   "fee": "Expense ratio 0.47% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Franklin India Ultra Short Term Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/franklin-india-ultra-short-term-fund-directgrowth/44497",
+   "exit": "null",
+   "fee": "Expense ratio 0.29% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "ICICI Prudential Gilt Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/icici-prudential-gilt-fund-direct-plangrowth/15953",
-   "exit": "0",
-   "fee": "Expense ratio 0.58% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Bandhan BSE Healthcare Index Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/bandhan-bse-healthcare-index-fund-directgrowth/44512",
+   "exit": "null",
+   "fee": "Expense ratio 0.34% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "PGIM India Gilt Fund - Direct Plan - Direct Growth",
-   "url": "https://sharpely.in/mutual-funds/pgim-india-gilt-direct-plangrowth/15595",
-   "exit": "0",
-   "fee": "Expense ratio 0.53% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "DSP Nifty Top 10 Equal Weight Index Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/dsp-nifty-top-10-equal-weight-index-fund-directgrowth/44493",
+   "exit": "null",
+   "fee": "Expense ratio 0.4% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "HDFC Gilt Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/hdfc-gilt-fund-directgrowth/16046",
-   "exit": "0",
-   "fee": "Expense ratio 0.46% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Nippon India Nifty 500 Equal Weight Index Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/nippon-india-nifty-500-equal-weight-index-fund-directgrowth/44515",
+   "exit": "null",
+   "fee": "Expense ratio 0.55% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "quant Gilt Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/quant-gilt-fund-directgrowth/42968",
-   "exit": "0",
-   "fee": "Expense ratio 0.4% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Tata Nifty200 Alpha 30 Index Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/tata-nifty200-alpha-30-index-fund-directgrowth/44509",
+   "exit": "null",
+   "fee": "Expense ratio 0.82% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Nippon India Gilt Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/nippon-india-gilt-fund-directgrowth/16078",
-   "exit": "0",
-   "fee": "Expense ratio 0.52% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "HDFC FMP 1876D March 2022 - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/hdfc-fmp-1876d-march-2022-directgrowth/42214",
+   "exit": "null",
+   "fee": "Expense ratio 0.05% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "SBI GILT FUND - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/sbi-gilt-fund-directgrowth/17166",
-   "exit": "0",
-   "fee": "Expense ratio 0.49% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Nippon India Fixed Maturity Plan - XLIV - Series 1 - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/nippon-india-fixed-maturity-plan-xliv-series-1-directgrowth/42540",
+   "exit": "null",
+   "fee": "Expense ratio 0.17% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Union Gilt Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/union-gilt-fund-directgrowth/42326",
-   "exit": "0",
-   "fee": "Expense ratio 0.65% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Kotak Medium Term Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/kotak-medium-term-fund-directgrowth/25271",
-   "exit": "0",
-   "fee": "Expense ratio 0.67% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Bandhan Money  Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/bandhan-money-market-fund-directgrowth/16515",
-   "exit": "0",
-   "fee": "Expense ratio 0.11% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Bank of India Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/bank-of-india-money-market-fund-directgrowth/44948",
-   "exit": "0",
-   "fee": "Expense ratio 0.17% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Edelweiss Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/edelweiss-money-market-fund-directgrowth/17429",
-   "exit": "0",
-   "fee": "Expense ratio 0.11% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "HDFC Money Market Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/hdfc-money-market-fund-directgrowth/16004",
-   "exit": "0",
-   "fee": "Expense ratio 0.22% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "ICICI Prudential Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/icici-prudential-money-market-directgrowth/15854",
-   "exit": "0",
-   "fee": "Expense ratio 0.21% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "LIC MF Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/lic-mf-money-market-fund-directgrowth/42409",
-   "exit": "0",
-   "fee": "Expense ratio 0.16% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Nippon India Money Market Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/nippon-india-money-market-fund-directgrowth/16121",
-   "exit": "0",
-   "fee": "Expense ratio 0.22% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "PGIM India Money Market Fund - Direct Plan - Direct Growth",
-   "url": "https://sharpely.in/mutual-funds/pgim-india-money-market-fund-directgrowth/40775",
-   "exit": "0",
-   "fee": "Expense ratio 0.17% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Sundaram Money Market Fund - Direct Plan - GROWTH",
-   "url": "https://sharpely.in/mutual-funds/sundaram-money-market-fund-directgrowth/37726",
-   "exit": "0",
-   "fee": "Expense ratio 0.2% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Tata Money Market Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/tata-money-market-fund-directgrowth/16711",
-   "exit": "0",
-   "fee": "Expense ratio 0.18% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "TRUSTMF Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/trustmf-money-market-fund-directgrowth/42422",
-   "exit": "0",
-   "fee": "Expense ratio 0.16% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "Union Money Market Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/union-money-market-fund-directgrowth/41649",
-   "exit": "0",
-   "fee": "Expense ratio 0.17% p.a.; Exit load 0%; Lock-in: No lock-in."
-  },
-  {
-   "name": "UTI - Money Market Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/uti-money-market-fund-directgrowth/15971",
-   "exit": "0",
-   "fee": "Expense ratio 0.17% p.a.; Exit load 0%; Lock-in: No lock-in."
+   "name": "Nippon India Fixed Maturity Plan - XLV - Series 5 - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/nippon-india-fixed-maturity-plan-xlv-series-5-directgrowth/43467",
+   "exit": "null",
+   "fee": "Expense ratio 0.1% p.a.; Exit load N/A; Lock-in: No lock-in."
   }
  ],
- "end": "2026-10-26T17:48:20.930Z"
+ "end": "2026-10-26T18:03:36.541Z"
 }
