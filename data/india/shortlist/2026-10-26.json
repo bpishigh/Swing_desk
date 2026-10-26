@@ -1,0 +1,59 @@
+{
+ "signalDate": "2026-10-26",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "ACUTAAS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 3371.53,
+   "limit": 3405.24,
+   "stop": 3085,
+   "atrPct": 3.74,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "ACUTAAS",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 3348.8,
+   "limit": 3382.29,
+   "stop": 3085,
+   "atrPct": 3.74,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "COFORGE",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 2001.6,
+   "limit": 2021.61,
+   "stop": 1826.99,
+   "atrPct": 3.5,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 213.83,
+   "limit": 215.97,
+   "stop": 197.5,
+   "atrPct": 5.21,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

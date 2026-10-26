@@ -1,45 +1,30 @@
 {
- "asOf": "2026-10-23",
+ "asOf": "2026-10-26",
  "source": "NSE event calendar",
  "dates": {
-  "CPPLUS": {
+  "LAURUSLABS": {
+   "date": "2026-10-29",
+   "sessions": 3,
+   "inWindow": true
+  },
+  "COFORGE": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "LAURUSLABS": {
-   "date": "2026-10-29",
-   "sessions": 4,
+  "ACUTAAS": {
+   "date": "2026-10-27",
+   "sessions": 1,
    "inWindow": true
   },
   "WELSPUNLIV": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+   "date": "2026-10-30",
+   "sessions": 4,
+   "inWindow": true
   },
   "IPCALAB": {
    "date": "2026-11-05",
-   "sessions": 9,
-   "inWindow": true
-  },
-  "PTCIL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "COFORGE": {
-   "date": "2026-10-23",
-   "sessions": 0,
-   "inWindow": true
-  },
-  "BBOX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "SHYAMMETL": {
-   "date": "2026-10-31",
-   "sessions": 5,
+   "sessions": 8,
    "inWindow": true
   }
  }

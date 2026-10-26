@@ -117,6 +117,84 @@
    "basis": 1983.76,
    "width": 9.41,
    "room": 0.29
+  },
+  "COFORGE|2|2026-10-26": {
+   "sym": "COFORGE",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-26",
+   "trigger": 2001.6,
+   "stop": 1812.2,
+   "limit": 2021.62,
+   "basis": 2001.6,
+   "width": 9.46,
+   "room": 0.1
+  },
+  "LAURUSLABS|2|2026-10-26": {
+   "sym": "LAURUSLABS",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-10-26",
+   "trigger": 2063.02,
+   "stop": 1933.5,
+   "limit": 2083.65,
+   "basis": 2063.02,
+   "width": 6.28,
+   "room": 0.2
+  },
+  "ZYDUSLIFE|2|2026-10-26": {
+   "sym": "ZYDUSLIFE",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-26",
+   "trigger": 1162.72,
+   "stop": 1093.5,
+   "limit": 1174.35,
+   "basis": 1162.72,
+   "width": 5.95,
+   "room": 1
+  },
+  "ZYDUSLIFE|4|2026-10-26": {
+   "sym": "ZYDUSLIFE",
+   "id": "4",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-26",
+   "trigger": 1162.72,
+   "stop": 1093.5,
+   "limit": 1174.35,
+   "basis": 1162.72,
+   "width": 5.95,
+   "room": 1
+  },
+  "ACUTAAS|2|2026-10-26": {
+   "sym": "ACUTAAS",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-26",
+   "trigger": 3371.53,
+   "stop": 3085,
+   "limit": 3405.25,
+   "basis": 3371.53,
+   "width": 8.5,
+   "room": 1.29
+  },
+  "ACUTAAS|4|2026-10-26": {
+   "sym": "ACUTAAS",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-26",
+   "trigger": 3371.53,
+   "stop": 3085,
+   "limit": 3405.25,
+   "basis": 3371.53,
+   "width": 8.5,
+   "room": 1.29
   }
  },
  "lastLogged": {
@@ -128,23 +206,29 @@
   "JINDALSAW|4": "2026-10-19",
   "LAURUSLABS|4": "2026-10-23",
   "WELSPUNLIV|4": "2026-10-23",
-  "IPCALAB|2": "2026-10-23"
+  "IPCALAB|2": "2026-10-23",
+  "COFORGE|2": "2026-10-26",
+  "LAURUSLABS|2": "2026-10-26",
+  "ZYDUSLIFE|2": "2026-10-26",
+  "ZYDUSLIFE|4": "2026-10-26",
+  "ACUTAAS|2": "2026-10-26",
+  "ACUTAAS|4": "2026-10-26"
  },
  "summary": {
-  "updated": "2026-10-23",
+  "updated": "2026-10-26",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
      "matured": 0,
-     "open": 2,
+     "open": 3,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 0,
+     "open": 2,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -177,14 +261,14 @@
     "group": "room under 3R",
     "momentum": {
      "matured": 0,
-     "open": 2,
+     "open": 3,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 0,
+     "open": 2,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -197,14 +281,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 3,
+     "open": 5,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 4,
+     "open": 5,
      "meanNet": null,
      "win": null,
      "excess": null
