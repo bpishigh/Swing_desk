@@ -13,15 +13,15 @@ const funds = [...groups.values()];
 const sm = await get('https://sharpely.in/sitemap-mf.xml'); if (!sm) { console.error('sitemap unreachable: keeping the previous file'); process.exit(1); }
 const pages = new Map(); for (const m of sm.matchAll(/<loc>(https:\/\/sharpely\.in\/mutual-funds\/([^/<]+)\/\d+)<\/loc>/g)) { const k = intlKey(m[2]); (pages.get(k) ?? pages.set(k, []).get(k)).push(m[1]); }
 const prev = existsSync('data/funds/exitloads-auto.json') ? JSON.parse(readFileSync('data/funds/exitloads-auto.json', 'utf8')) : { groups: [] }, prevBy = new Map((prev.groups ?? []).map((g) => [g.names[0], g]));
-const out = { asOf: new Date().toISOString().slice(0, 10), source: 'sharpely.in fund pages (public); not the scheme documents', groups: [] }, LOG = { start: new Date().toISOString(), wanted: funds.length, parsed: 0, unparsed: 0, none: 0, kept: 0, noPage: 0, ambiguous: 0, noNote: 0, unparsedSamples: [] };
+const out = { asOf: new Date().toISOString().slice(0, 10), source: 'sharpely.in fund pages (public); not the scheme documents', groups: [] }, LOG = { start: new Date().toISOString(), wanted: funds.length, parsed: 0, unparsed: 0, none: 0, kept: 0, noPage: 0, ambiguous: 0, noNote: 0, unparsedSamples: [], noPageSamples: [], noNoteSamples: [] };
 const note = (html) => { const m = /\\?"exit_load_note\\?":\\?"((?:[^"\\]|\\\\.|\\(?!"))*)/.exec(html); return m ? m[1].replace(/\\\\r|\\\\n/g, ' ').replace(/\\"/g, '"').trim() : null; };
 const manual = existsSync('data/funds/intlfacts-map.json') ? JSON.parse(readFileSync('data/funds/intlfacts-map.json', 'utf8')) : {};
 let i = 0;
 const one = async (f) => {
   const mu = f.isins.map((x) => manual[x]).find(Boolean), c = mu ? [mu] : f.grow ? pages.get(intlKey(f.grow)) : null;
-  if (!c) { LOG.noPage++; return; } if (c.length > 1) { LOG.ambiguous++; return; }
+  if (!c) { LOG.noPage++; if (LOG.noPageSamples.length < 60 && f.grow) LOG.noPageSamples.push({ name: f.grow, key: intlKey(f.grow), near: [...pages.keys()].filter((k) => k.split(' ').filter((w) => intlKey(f.grow).includes(w)).length >= Math.max(2, intlKey(f.grow).split(' ').length - 1)).slice(0, 3) }); return; } if (c.length > 1) { LOG.ambiguous++; return; }
   const html = await get(c[0]); if (!html) { const o = prevBy.get(f.names[0]); if (o) { out.groups.push(o); LOG.kept++; } return; }
-  const n = note(html); if (n === null) { LOG.noNote++; return; }
+  const n = note(html); if (n === null) { LOG.noNote++; if (LOG.noNoteSamples.length < 40) LOG.noNoteSamples.push({ name: f.grow, url: c[0], exit: /\\?"exit_load\\?":([^,]*)/.exec(html)?.[1] ?? null, fee: /feesAndCommissionsSpecification\\?":\\?"([^"\\]*)/.exec(html)?.[1] ?? null }); return; }
   const p = parseExitNote(n); out.groups.push({ names: f.names, note: n.slice(0, 400), readOn: out.asOf, ...(p.load ? { load: p.load } : {}), ...(p.partial ? { partial: true } : {}) });
   if (!p.load) { LOG.unparsed++; if (LOG.unparsedSamples.length < 40) LOG.unparsedSamples.push(n.slice(0, 160)); } else if (p.load.pct === 0) LOG.none++; else LOG.parsed++;
 };
