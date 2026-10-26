@@ -1209,7 +1209,7 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     { S.fundPorts = await fetch('pm-data/holdings.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); }
     { const sj = await fetch('pm-data/shortlist.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); S.shortlist = sj?.lines ?? null; S.shortlistMeta = sj; }
     { const el = await fetch('pm-data/exit-loads.json').then((r) => (r.ok ? r.json() : null)).catch(() => null); const au = await fetch('pm-data/exitloads-auto.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);   // read from the public fund pages for every Direct fund; typed records come later in the list and win
-      const auto = Object.values(au?.funds ?? {}).filter((x) => x.load && !x.partial).map((x) => ({ name: x.name, ...x.load, auto: true }));
+      const auto = (au?.groups ?? []).filter((g) => g.load && !g.partial).flatMap((g) => g.names.map((name) => ({ name, ...g.load, auto: true })));
       S.exitLoads = { ...(el ?? {}), records: [...auto, ...(el?.records ?? []), ...(rl.exitLoads ?? [])] }; }   // loads of the funds held are household records from the private repo (C-97)
     S.fundGate = await fetch('pm-data/backtest.json').then((r) => (r.ok ? r.json() : null)).then((b) => (b && b.ranOn ? { ran: true, replaceOn: !!b.replaceOn, nearWeakOn: !!b.nearWeakOn, indexRuleOn: !!b.indexRuleOn, cashRuleOn: !!b.cashRuleOn, ranOn: b.ranOn } : { ran: false, replaceOn: false })).catch(() => ({ ran: false, replaceOn: false }));
     S.fundScores = await fetch('data/funds.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
