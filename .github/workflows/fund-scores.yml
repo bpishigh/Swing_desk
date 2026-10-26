@@ -23,7 +23,21 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%d)" -le 3 ]; then node scripts/fetch-ter.mjs; else echo skipped; fi
       - name: Score funds
-        run: node scripts/fund-scores.mjs
+        id: score
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/fund-scores.mjs 2>&1 | tee scores-run.log
+      - name: Keep the tail of a failed run (the Actions log cannot be read from outside)
+        if: failure() && steps.score.outcome == 'failure'
+        run: |
+          mkdir -p data/ops
+          { date -u; tail -n 60 scores-run.log; } > data/ops/fund-scores-failure.log
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/ops/fund-scores-failure.log
+          git commit -m "fund-scores failure log" || exit 0
+          for i in 1 2 3; do git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0; sleep 3; done
       - name: Commit
         run: |
           git config user.name "swing-desk-bot"
