@@ -1,17 +1,16 @@
 {
- "start": "2026-10-26T16:07:32.717Z",
- "wanted": 1165,
- "parsed": 552,
- "unparsed": 3,
+ "start": "2026-10-26T16:37:48.462Z",
+ "wanted": 2001,
+ "parsed": 825,
+ "unparsed": 2,
  "none": 0,
  "kept": 0,
- "noPage": 223,
- "ambiguous": 6,
- "noNote": 377,
+ "noPage": 581,
+ "ambiguous": 11,
+ "noNote": 580,
  "unparsedSamples": [
-  "Exit load of 1% if redeemed wtihin 1 year.",
-  "Exit load of 2% for premature withdrawal",
-  "Exit load of 0.50% if redeemed witihin 3 months."
+  "Exit load of 1% if redeemed before child attains 18 years of age",
+  "Exit load of 3% if redeemed before the age of 58 yrs."
  ],
- "end": "2026-10-26T16:34:16.171Z"
+ "end": "2026-10-26T16:57:38.006Z"
 }
