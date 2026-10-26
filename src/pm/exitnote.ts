@@ -17,6 +17,7 @@ export function parseExitNote(raw: string | null | undefined): ParsedLoad {
   if (/^(nil|none|no exit load|no load)\b/i.test(t) || /^exit load[: ]+(nil|none)\b/i.test(t)) return { load: { days: 0, pct: 0 } };
   const fm = /(?:in excess of|beyond|above|more than|exceeding)\s+(\d+(?:\.\d+)?)\s*%/i.exec(t) ?? /(\d+(?:\.\d+)?)\s*%\s+of (?:the )?(?:units|investment)\s+(?:is |are )?(?:free|exempt|without)/i.exec(t);
   const free = fm ? parseFloat(fm[1]) / 100 : 0;
+  const tt = t.replace(/(?:in excess of|beyond|above|more than|exceeding)\s+\d+(?:\.\d+)?\s*%(?:\s+of(?:\s+the)?\s+(?:units|investment|purchase)s?)?/gi, ' ');   // the free share is not a charge
   // Graded liquid schedule: "0.0070% if redeemed within 1 day, 0.0065% ... within 2 days ..."
   const gr = [...t.matchAll(new RegExp('(\\d+\\.\\d{3,5})\\s*%[^%]*?within\\s+' + NUM + '\\s+' + UN, 'gi'))];
   if (gr.length >= 2) {
@@ -30,10 +31,10 @@ export function parseExitNote(raw: string | null | undefined): ParsedLoad {
   }
   // Tiers: "2% if redeemed within 365 days and 1% if redeemed after 365 days but within 730 days" / "1% within 1 year"
   const hits: { pct: number; to: number }[] = [];
-  for (const m of t.matchAll(new RegExp('(\\d+(?:\\.\\d+)?)\\s*%[^%.;]*?(?:w\\w{1,3}hin|before|up ?to|on or before|less than|for redemption within|redeemed within)\\s+(?:the first\\s+)?' + NUM + '[\\s-]*' + UN, 'gi'))) {
+  for (const m of tt.matchAll(new RegExp('(\\d+(?:\\.\\d+)?)\\s*%[^%.;]*?(?:w\\w{1,3}hin|before|up ?to|on or before|less than|for redemption within|redeemed within)\\s+(?:the first\\s+)?' + NUM + '[\\s-]*' + UN, 'gi'))) {
     const to = period(m[2], m[3]), pct = parseFloat(m[1]) / 100; if (to > 0 && Number.isFinite(pct)) hits.push({ pct, to });
   }
-  for (const m of t.matchAll(new RegExp('(\\d+(?:\\.\\d+)?)\\s*%[^%]*?after\\s+' + NUM + '\\s*' + UN + '[^%]*?(?:but\\s+)?(?:w\\w{1,3}hin|before|up ?to|on or before)\\s+' + NUM + '\\s*' + UN, 'gi'))) {
+  for (const m of tt.matchAll(new RegExp('(\\d+(?:\\.\\d+)?)\\s*%[^%]*?after\\s+' + NUM + '\\s*' + UN + '[^%]*?(?:but\\s+)?(?:w\\w{1,3}hin|before|up ?to|on or before)\\s+' + NUM + '\\s*' + UN, 'gi'))) {
     const to = period(m[4], m[5]), pct = parseFloat(m[1]) / 100; if (to > 0 && Number.isFinite(pct)) hits.push({ pct, to });
   }
   if (!hits.length) return { load: null };

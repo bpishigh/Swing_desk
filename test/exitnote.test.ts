@@ -25,3 +25,8 @@ test('nothing understood returns null', () => {
   assert.equal(parseExitNote('Exit load applicable as per SID').load, null); assert.equal(parseExitNote('').load, null);
   assert.deepEqual(parseExitNote('Nil').load, { days: 0, pct: 0 });
 });
+test('the free share is not read as the charge, and typos are tolerated', () => {
+  const l = parseExitNote('Exit load of 1% for investments beyond 10% if redeemed within 12 months').load!;
+  assert.equal(l.pct, 0.01); assert.equal(l.free, 0.1);
+  assert.equal(parseExitNote('Exit load of 0.50% if redeemed witihin 3 months.').load!.pct, 0.005);
+});

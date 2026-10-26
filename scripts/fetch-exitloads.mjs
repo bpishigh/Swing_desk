@@ -8,16 +8,17 @@ const get = async (u) => { for (let i = 0; i < 2; i++) { try { const r = await f
 const am = JSON.parse(readFileSync('data/rules/amfi-schemes.json', 'utf8')), ci = Object.fromEntries(am.cols.map((c, i) => [c, i]));
 const OPT = /\b(growth|idcw|payout|reinvestment|reinvest|dividend|bonus|income distribution cum capital withdrawal|capital withdrawal|option|plan|direct|monthly|quarterly|weekly|daily|annual|half yearly|fortnightly|periodic|regular|of|and)\b/gi;
 const groups = new Map();
-for (const r of am.rows) { if (r[ci.plan] !== 'Direct Plan' || !r[ci.isin1] || r[ci.isin1] === '-') continue; const k = intlKey(r[ci.name].replace(OPT, ' ')); (groups.get(k) ?? groups.set(k, { names: [], key: k }).get(k)).names.push(r[ci.name]); }
+for (const r of am.rows) { if (r[ci.plan] !== 'Direct Plan' || !r[ci.isin1] || r[ci.isin1] === '-') continue; const k = intlKey(r[ci.name].replace(OPT, ' ')); const g = groups.get(k) ?? groups.set(k, { names: [], key: k, grow: null, isins: [] }).get(k); g.names.push(r[ci.name]); g.isins.push(r[ci.isin1]); if (/growth/i.test(r[ci.name]) && !/idcw|dividend|bonus|payout/i.test(r[ci.name]) && !g.grow) g.grow = r[ci.name]; }
 const funds = [...groups.values()];
 const sm = await get('https://sharpely.in/sitemap-mf.xml'); if (!sm) { console.error('sitemap unreachable: keeping the previous file'); process.exit(1); }
-const pages = new Map(); for (const m of sm.matchAll(/<loc>(https:\/\/sharpely\.in\/mutual-funds\/([^/<]+)\/\d+)<\/loc>/g)) { const k = intlKey(m[2].replace(OPT, ' ')); (pages.get(k) ?? pages.set(k, []).get(k)).push(m[1]); }
+const pages = new Map(); for (const m of sm.matchAll(/<loc>(https:\/\/sharpely\.in\/mutual-funds\/([^/<]+)\/\d+)<\/loc>/g)) { const k = intlKey(m[2]); (pages.get(k) ?? pages.set(k, []).get(k)).push(m[1]); }
 const prev = existsSync('data/funds/exitloads-auto.json') ? JSON.parse(readFileSync('data/funds/exitloads-auto.json', 'utf8')) : { groups: [] }, prevBy = new Map((prev.groups ?? []).map((g) => [g.names[0], g]));
 const out = { asOf: new Date().toISOString().slice(0, 10), source: 'sharpely.in fund pages (public); not the scheme documents', groups: [] }, LOG = { start: new Date().toISOString(), wanted: funds.length, parsed: 0, unparsed: 0, none: 0, kept: 0, noPage: 0, ambiguous: 0, noNote: 0, unparsedSamples: [] };
 const note = (html) => { const m = /\\?"exit_load_note\\?":\\?"((?:[^"\\]|\\\\.|\\(?!"))*)/.exec(html); return m ? m[1].replace(/\\\\r|\\\\n/g, ' ').replace(/\\"/g, '"').trim() : null; };
+const manual = existsSync('data/funds/intlfacts-map.json') ? JSON.parse(readFileSync('data/funds/intlfacts-map.json', 'utf8')) : {};
 let i = 0;
 const one = async (f) => {
-  const c = pages.get(f.key);
+  const mu = f.isins.map((x) => manual[x]).find(Boolean), c = mu ? [mu] : f.grow ? pages.get(intlKey(f.grow)) : null;
   if (!c) { LOG.noPage++; return; } if (c.length > 1) { LOG.ambiguous++; return; }
   const html = await get(c[0]); if (!html) { const o = prevBy.get(f.names[0]); if (o) { out.groups.push(o); LOG.kept++; } return; }
   const n = note(html); if (n === null) { LOG.noNote++; return; }
