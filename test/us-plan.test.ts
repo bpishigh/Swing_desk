@@ -73,3 +73,12 @@ test('official scan job starts from 21:45 ET when the scan is behind, alerts onc
   assert.equal(planUs({ ...b, scanDate: '2026-10-09', nowMs: late }).dispatch.filter((d) => d.workflow === 'us-hist-nightly.yml').length, 0, 'scan current');
   assert.equal(planUs({ ...base, nowMs: late }).dispatch.filter((d) => d.workflow === 'us-hist-nightly.yml').length, 0, 'no scanDate given: left to its own schedule');
 });
+
+// US clocks go back on Sun 1 Nov 2026: the 17:30 ET threshold moves from 21:30 UTC (EDT) to 22:30 UTC (EST).
+test('the 17:30 ET threshold follows the clock change on 1 Nov 2026', () => {
+  assert.equal(usTarget(at('2026-10-30T21:29:00Z'), cal).target, '2026-10-29');   // Fri, 17:29 EDT
+  assert.equal(usTarget(at('2026-10-30T21:30:00Z'), cal).target, '2026-10-30');   // Fri, 17:30 EDT
+  assert.equal(usTarget(at('2026-11-02T22:29:00Z'), cal).target, '2026-10-30');   // Mon, 17:29 EST
+  assert.equal(usTarget(at('2026-11-02T22:30:00Z'), cal).target, '2026-11-02');   // Mon, 17:30 EST
+  assert.equal(usTarget(at('2026-11-02T21:30:00Z'), cal).target, '2026-10-30');   // 16:30 EST: still before the threshold (it would have passed under EDT)
+});
