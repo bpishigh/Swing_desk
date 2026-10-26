@@ -1,7 +1,9 @@
 // Monthly: the exit-load wording of every Direct fund in data/funds/scores.json, read from the sharpely.in fund page (public structured data), parsed into days, percent, tiers and free share. Writes data/funds/exitloads-auto.json (by ISIN) and exitloads-log.json. A typed record in the private repo always overrides this.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { parseExitNote } from '../src/pm/exitnote.ts';
-import { intlKey } from '../src/pm/intlfacts.ts';
+import { intlKey as ik } from '../src/pm/intlfacts.ts';
+// Same key as the international job, plus: bracketed text and "formerly known as ..." dropped, "&" and "and" ignored, "flexicap" and "flexi cap" the same.
+const intlKey = (s) => ik(String(s).replace(/\(.*?\)/g, ' ').replace(/formerly.*?(?= - |$)/i, ' ').replace(/(flexi|multi|mid|small|large|focused)[\s-]?cap/gi, '$1 cap').replace(/\bsmall cap\b/gi, 'small cap')).split(' ').filter((w) => w !== 'and').join(' ');
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', accept: 'text/html,application/xml,*/*' };
 const get = async (u) => { for (let i = 0; i < 2; i++) { try { const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(60000) }); if (r.ok) return await r.text(); if (r.status === 404) return null; } catch {} } return null; };
 // Every Direct plan on the AMFI list (not only the scored funds: a fund you hold may be unscored). Growth and IDCW lines of one scheme share a page, so they are grouped.
@@ -21,7 +23,7 @@ const one = async (f) => {
   const mu = f.isins.map((x) => manual[x]).find(Boolean), c = mu ? [mu] : f.grow ? pages.get(intlKey(f.grow)) : null;
   if (!c) { LOG.noPage++; if (LOG.noPageSamples.length < 60 && f.grow) LOG.noPageSamples.push({ name: f.grow, key: intlKey(f.grow), near: [...pages.keys()].filter((k) => k.split(' ').filter((w) => intlKey(f.grow).includes(w)).length >= Math.max(2, intlKey(f.grow).split(' ').length - 1)).slice(0, 3) }); return; } if (c.length > 1) { LOG.ambiguous++; return; }
   const html = await get(c[0]); if (!html) { const o = prevBy.get(f.names[0]); if (o) { out.groups.push(o); LOG.kept++; } return; }
-  const n = note(html); if (n === null) { LOG.noNote++; if (LOG.noNoteSamples.length < 40) LOG.noNoteSamples.push({ name: f.grow, url: c[0], exit: /\\?"exit_load\\?":([^,]*)/.exec(html)?.[1] ?? null, fee: /feesAndCommissionsSpecification\\?":\\?"([^"\\]*)/.exec(html)?.[1] ?? null }); return; }
+  const n = note(html); if (n === null && /\\?"exit_load\\?":0(?:\.0+)?[,}]/.test(html)) { out.groups.push({ names: f.names, note: 'Exit load 0% on the fund page (no wording given)', readOn: out.asOf, load: { days: 0, pct: 0 }, nil: true }); LOG.none++; return; } if (n === null) { LOG.noNote++; if (LOG.noNoteSamples.length < 40) LOG.noNoteSamples.push({ name: f.grow, url: c[0], exit: /\\?"exit_load\\?":([^,]*)/.exec(html)?.[1] ?? null, fee: /feesAndCommissionsSpecification\\?":\\?"([^"\\]*)/.exec(html)?.[1] ?? null }); return; }
   const p = parseExitNote(n); out.groups.push({ names: f.names, note: n.slice(0, 400), readOn: out.asOf, ...(p.load ? { load: p.load } : {}), ...(p.partial ? { partial: true } : {}) });
   if (!p.load) { LOG.unparsed++; if (LOG.unparsedSamples.length < 40) LOG.unparsedSamples.push(n.slice(0, 160)); } else if (p.load.pct === 0) LOG.none++; else LOG.parsed++;
 };
