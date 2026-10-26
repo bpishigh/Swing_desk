@@ -31,13 +31,16 @@ jobs:
       - name: Keep the tail of a failed run (the Actions log cannot be read from outside)
         if: failure() && steps.score.outcome == 'failure'
         run: |
+          { date -u; tail -n 60 scores-run.log; } > /tmp/fail.log
+          git checkout -- . && git clean -fdq -e scores-run.log
           mkdir -p data/ops
-          { date -u; tail -n 60 scores-run.log; } > data/ops/fund-scores-failure.log
+          cp /tmp/fail.log data/ops/fund-scores-failure.log
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           git add data/ops/fund-scores-failure.log
           git commit -m "fund-scores failure log" || exit 0
           for i in 1 2 3; do git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0; sleep 3; done
+          exit 0
       - name: Commit
         run: |
           git config user.name "swing-desk-bot"
