@@ -1,0 +1,29 @@
+{
+ "index": {
+  "status": 200,
+  "acao": null,
+  "type": "application/json",
+  "bytes": 134210,
+  "head": "{\"meta\":{\"fund_house\":\"UTI Mutual Fund\",\"scheme_type\":\"Open Ended Schemes\",\"scheme_category\":\"Other Scheme - Index Funds",
+  "server": "nginx/1.24.0",
+  "cf": null
+ },
+ "fund": {
+  "status": 200,
+  "acao": null,
+  "type": "application/json",
+  "bytes": 134094,
+  "head": "{\"meta\":{\"fund_house\":\"Mirae Asset Mutual Fund\",\"scheme_type\":\"Open Ended Schemes\",\"scheme_category\":\"Equity Schemes - L",
+  "server": "nginx/1.24.0",
+  "cf": null
+ },
+ "latest": {
+  "status": 200,
+  "acao": null,
+  "type": "application/json",
+  "bytes": 333,
+  "head": "{\"meta\":{\"fund_house\":\"UTI Mutual Fund\",\"scheme_type\":\"Open Ended Schemes\",\"scheme_category\":\"Other Scheme - Index Funds",
+  "server": "nginx/1.24.0",
+  "cf": null
+ }
+}
