@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-23",
+ "asOf": "2026-10-26",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -13,8 +13,8 @@
  },
  "capwaived": {
   "orders": 5,
-  "open": 1,
-  "pending": 1,
+  "open": 2,
+  "pending": 0,
   "notFilled": 1,
   "closed": 2,
   "meanR": 0.10496002849110482,
@@ -22,38 +22,15 @@
  },
  "comparator": {
   "orders": 3,
-  "open": 0,
-  "pending": 1,
+  "open": 1,
+  "pending": 0,
   "notFilled": 0,
   "closed": 2,
   "meanR": 0.5335282968860897,
   "winRate": 1
  },
  "light": "yellow",
- "newOrdersTonight": [
-  {
-   "stream": "comparator",
-   "sym": "FTNT",
-   "setup": "4",
-   "trigger": 179.99,
-   "stop": 166.22,
-   "tags": [
-    "over cap",
-    "room fail"
-   ]
-  },
-  {
-   "stream": "capwaived",
-   "sym": "NTAP",
-   "setup": "4",
-   "trigger": 218.48,
-   "stop": 202.56,
-   "tags": [
-    "over cap",
-    "room fail"
-   ]
-  }
- ],
+ "newOrdersTonight": [],
  "open": [
   {
    "stream": "capwaived",
@@ -61,6 +38,20 @@
    "setup": "4",
    "entry": 178.07,
    "stop": 166.22
+  },
+  {
+   "stream": "comparator",
+   "sym": "FTNT",
+   "setup": "4",
+   "entry": 183.33,
+   "stop": 166.22
+  },
+  {
+   "stream": "capwaived",
+   "sym": "NTAP",
+   "setup": "4",
+   "entry": 218.48,
+   "stop": 202.56
   }
  ]
 }
