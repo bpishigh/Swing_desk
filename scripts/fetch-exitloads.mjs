@@ -18,11 +18,15 @@ const prev = existsSync('data/funds/exitloads-auto.json') ? JSON.parse(readFileS
 const out = { asOf: new Date().toISOString().slice(0, 10), source: 'sharpely.in fund pages (public); not the scheme documents', groups: [] }, LOG = { start: new Date().toISOString(), wanted: funds.length, parsed: 0, unparsed: 0, none: 0, kept: 0, noPage: 0, ambiguous: 0, noNote: 0, unparsedSamples: [], noPageSamples: [], noNoteSamples: [] };
 const note = (html) => { const m = /\\?"exit_load_note\\?":\\?"((?:[^"\\]|\\\\.|\\(?!"))*)/.exec(html); return m ? m[1].replace(/\\\\r|\\\\n/g, ' ').replace(/\\"/g, '"').trim() : null; };
 const manual = existsSync('data/funds/intlfacts-map.json') ? JSON.parse(readFileSync('data/funds/intlfacts-map.json', 'utf8')) : {};
+const MIX = { asOf: out.asOf, source: 'sharpely.in fund pages (public): the fund\'s latest disclosed split, not a promise', funds: {} };
+const num = (html, k) => { const m = new RegExp('\\\\?"' + k + '\\\\?":(-?[\\d.]+)').exec(html); return m ? Math.round(+m[1] * 10) / 10 : null; };
 let i = 0;
 const one = async (f) => {
   const mu = f.isins.map((x) => manual[x]).find(Boolean), c = mu ? [mu] : f.grow ? pages.get(intlKey(f.grow)) : null;
   if (!c) { LOG.noPage++; if (LOG.noPageSamples.length < 60 && f.grow) LOG.noPageSamples.push({ name: f.grow, key: intlKey(f.grow), near: [...pages.keys()].filter((k) => k.split(' ').filter((w) => intlKey(f.grow).includes(w)).length >= Math.max(2, intlKey(f.grow).split(' ').length - 1)).slice(0, 3) }); return; } if (c.length > 1) { LOG.ambiguous++; return; }
-  const html = await get(c[0]); if (!html) { const o = prevBy.get(f.names[0]); if (o) { out.groups.push(o); LOG.kept++; } return; }
+  const html = await get(c[0]);
+  if (html) { const eq = num(html, 'equity_per'), de = num(html, 'debt_per'); if (eq !== null && de !== null) { const m = { eq, debt: de, cash: num(html, 'rat_cash_per'), eqMin: num(html, 'equity_min'), eqMax: num(html, 'equity_max') }; for (const x of f.isins) MIX.funds[x] = m; } }
+  if (!html) { const o = prevBy.get(f.names[0]); if (o) { out.groups.push(o); LOG.kept++; } return; }
   const n = note(html); if (n === null && /\\?"exit_load\\?":0(?:\.0+)?[,}]/.test(html)) { out.groups.push({ names: f.names, note: 'Exit load 0% on the fund page (no wording given)', readOn: out.asOf, load: { days: 0, pct: 0 }, nil: true }); LOG.none++; return; } if (n === null) { LOG.noNote++; if (LOG.noNoteSamples.length < 40) LOG.noNoteSamples.push({ name: f.grow, url: c[0], exit: /\\?"exit_load\\?":([^,]*)/.exec(html)?.[1] ?? null, fee: /feesAndCommissionsSpecification\\?":\\?"([^"\\]*)/.exec(html)?.[1] ?? null }); return; }
   const p = parseExitNote(n); out.groups.push({ names: f.names, note: n.slice(0, 400), readOn: out.asOf, ...(p.load ? { load: p.load } : {}), ...(p.partial ? { partial: true } : {}) });
   if (!p.load) { LOG.unparsed++; if (LOG.unparsedSamples.length < 40) LOG.unparsedSamples.push(n.slice(0, 160)); } else if (p.load.pct === 0) LOG.none++; else LOG.parsed++;
@@ -32,4 +36,5 @@ LOG.end = new Date().toISOString();
 writeFileSync('data/funds/exitloads-log.json', JSON.stringify(LOG, null, 1) + '\n');
 const got = out.groups.length; if (got < funds.length * 0.3) { console.error(`only ${got} of ${funds.length} read: keeping the previous file`); process.exit(1); }
 writeFileSync('data/funds/exitloads-auto.json', JSON.stringify(out) + '\n');
+if (Object.keys(MIX.funds).length > 200) writeFileSync('data/funds/mix-auto.json', JSON.stringify(MIX) + '\n');
 console.log(JSON.stringify({ ...LOG, unparsedSamples: undefined }));
