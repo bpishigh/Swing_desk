@@ -1,22 +1,22 @@
 {
- "ts": "2026-10-26T14:08:04.053Z",
- "date": "2026-10-26",
+ "ts": "2026-10-27T14:07:52.125Z",
+ "date": "2026-10-27",
  "status": "written",
  "fetched": [
-  "2026-10-26"
+  "2026-10-27"
  ],
  "skipped": [],
  "notPublished": false,
- "sessionsStored": 252,
- "stocks": 2930,
+ "sessionsStored": 253,
+ "stocks": 2925,
  "flags": [
-  "2445 of 2930 stocks have a 200 SMA; 2654 have a warm EMA",
-  "corporate actions: 100 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 3 unresolved (averages omitted), 1 older than the averages now reach",
+  "2445 of 2925 stocks have a 200 SMA; 2659 have a warm EMA",
+  "corporate actions: 100 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 0 unresolved (averages omitted), 2 older than the averages now reach",
   "NSE circulars: 51 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 249,
-  "newlyRead": 0,
+  "checked": 207,
+  "newlyRead": 1,
   "unreadable": [],
   "errors": 0,
   "problem": null
@@ -26,12 +26,9 @@
   "derived": [],
   "failed": [
    "ALLCARGO 2025-11-12: break is outside the 200-close window",
-   "DCMSRIND 2025-12-26: Dhan page not found",
-   "OLAELEC-RE 2026-10-23,2026-10-26: more than one unresolved break"
+   "DCMSRIND 2025-12-26: Dhan page not found"
   ]
  },
  "circularProblems": [],
- "newUnresolved": [
-  "OLAELEC-RE|2026-10-26"
- ]
+ "newUnresolved": []
 }
