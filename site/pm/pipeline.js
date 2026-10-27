@@ -7,6 +7,7 @@ import { resolve,               } from './resolver.js';
 import { assetType, isEtf,                } from './classify.js';
 import { orderCharges } from './charges.js';
 import { taxView,              } from './tax.js';
+import { cgRows,            } from './cgexport.js';
 import { computeDividends,                   } from './dividends.js';
 import { FundMaster, fundTaxType,              } from './funds.js';
 import { assetClassOf,                 } from './assetclass.js';
@@ -33,7 +34,7 @@ export const ELSS_MARGIN_DAYS = 5;
                                                 
                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                      
-                                                                                                                                                 
+                                                                                                                                                                  
                                                                        
                                                                                                                                                                                                                                                        
                                                                                                                                 
@@ -87,6 +88,7 @@ export function runPipeline(batches           , broker                     , d  
   const synth = (r                              , side                , value        , date        )        => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
   const expense = (r     ) => { if (isFundType(typeByKey.get(r.key))) return 0; const ty = (typeByKey.get(r.key) ?? 'listed_equity')             ; return orderCharges(synth(r, 'buy', r.cost, r.buyDate), ty, broker, d.charges).deductible + orderCharges(synth(r, 'sell', r.proceeds, r.sellDate), ty, broker, d.charges, true).deductible; };
   const tax = taxView(combined, (k) => (typeByKey.get(k) ?? 'listed_equity')             , expense, d.taxRules);
+  const cg = cgRows(combined, (k) => (typeByKey.get(k) ?? 'listed_equity')             , (k) => nameByKey.get(k) ?? k, expense, d.taxRules);
   const dividends = computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, d.feed, canon.lineage, d.divRules);
 
   // valuation: stocks and ETFs at the latest stored NSE close, funds at the latest AMFI NAV (last order price if the NAV is missing)
@@ -209,7 +211,7 @@ export function runPipeline(batches           , broker                     , d  
       decided: Object.entries(decisions).map(([k, v]) => ({ key: k, name: nm(k), action: v.action, unitCost: v.unitCost })), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
-    warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
+    warnings, tax, cgRows: cg, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
     books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }

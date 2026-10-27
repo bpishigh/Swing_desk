@@ -7,6 +7,7 @@ import { resolve, type Decision } from './resolver.ts';
 import { assetType, isEtf, type AssetType } from './classify.ts';
 import { orderCharges } from './charges.ts';
 import { taxView, type TaxYear } from './tax.ts';
+import { cgRows, type CgRow } from './cgexport.ts';
 import { computeDividends, type DividendYear } from './dividends.ts';
 import { FundMaster, fundTaxType, type AmfiRow } from './funds.ts';
 import { assetClassOf, type AssetClass } from './assetclass.ts';
@@ -33,7 +34,7 @@ export interface Report {
   funds: { mapped: number; unmapped: string[] };
   resolver: { eventsFromFeed: number; applied: string[]; proposed: string[]; proposedItems: { key: string; name: string; kind: 'IPO allotment' | 'rights entitlement' | 'credit'; date: string; qty: number; unitCost: number; why: string }[]; decided: { key: string; name: string; action: string; unitCost?: number }[]; unexplained: { name: string; date: string; qty: number }[]; needsRecord: { symbol: string; exDate: string; why: string }[] };
   warnings: string[];
-  tax: TaxYear[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
+  tax: TaxYear[]; cgRows: CgRow[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
   holdings: { name: string; symbol: string; isin?: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number }[];
   saleProposals: { key: string; name: string; date: string; qty: number; price: number; swingDate: string; swingQty: number }[];
@@ -87,6 +88,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const synth = (r: { key: string; qty: number }, side: 'buy' | 'sell', value: number, date: string): Trade => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
   const expense = (r: any) => { if (isFundType(typeByKey.get(r.key))) return 0; const ty = (typeByKey.get(r.key) ?? 'listed_equity') as AssetType; return orderCharges(synth(r, 'buy', r.cost, r.buyDate), ty, broker, d.charges).deductible + orderCharges(synth(r, 'sell', r.proceeds, r.sellDate), ty, broker, d.charges, true).deductible; };
   const tax = taxView(combined, (k) => (typeByKey.get(k) ?? 'listed_equity') as AssetType, expense, d.taxRules);
+  const cg = cgRows(combined, (k) => (typeByKey.get(k) ?? 'listed_equity') as AssetType, (k) => nameByKey.get(k) ?? k, expense, d.taxRules);
   const dividends = computeDividends(canon.trades.filter((t) => t.kind !== 'fund'), res.events, d.feed, canon.lineage, d.divRules);
 
   // valuation: stocks and ETFs at the latest stored NSE close, funds at the latest AMFI NAV (last order price if the NAV is missing)
@@ -209,7 +211,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
       decided: Object.entries(decisions).map(([k, v]) => ({ key: k, name: nm(k), action: v.action, unitCost: v.unitCost })), unexplained: res.unexplained.map((b) => ({ name: nm(b.key), date: b.date, qty: b.qty })), needsRecord: bc.skipped },
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
-    warnings, tax, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
+    warnings, tax, cgRows: cg, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
     books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }
