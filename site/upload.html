@@ -436,6 +436,21 @@ function wireChart(path, benchId) {
   };
   svg.onpointerleave = () => { tip.style.display = 'none'; $('cx').setAttribute('visibility', 'hidden'); };
 }
+
+/** Why the value history, the chart and momentum are missing: what is not loaded, by name. */
+function historyGaps(V) {
+  const out = [];
+  if (!S.hist) out.push('Stock price history has not loaded.');
+  if (!S.fundOn) out.push('Mutual funds are switched off in the value history (Data tab).');
+  for (const a of V.ms) {
+    if (!a.report) continue;
+    const funds = a.report.holdings.filter((h) => h.kind === 'Fund' && h.isin && S.fundOn && !(S.fundNavs && S.fundNavs[h.isin]));
+    if (funds.length) out.push(`${a.label}: no NAV history for ${funds.length} fund${funds.length > 1 ? 's' : ''}: ${funds.slice(0, 6).map((h) => h.name).join('; ')}${funds.length > 6 ? ` and ${funds.length - 6} more` : ''}.`);
+    const um = a.report.funds?.unmapped ?? []; if (um.length) out.push(`${a.label}: ${um.length} fund name${um.length > 1 ? 's' : ''} could not be matched to a scheme (${um.slice(0, 4).join('; ')}${um.length > 4 ? '…' : ''}), so the history cannot be completed.`);
+    if (!a.report.series && S.hist) out.push(`${a.label}: the daily value series could not be built.`);
+  }
+  return out;
+}
 function home(V) {
   const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0];
   const A = analyse({ series: V.series, seriesComplete: V.complete, flows: V.flows, divFlows: V.divFlows, asOf: V.asOf, heldNow: V.held, navs: S.navs, period: per });
@@ -459,7 +474,7 @@ function home(V) {
   const chartCard = A.path.length > 1 ? `<div class="card"><h2>You against the same money in ${esc(benchLabel)}</h2><div class="chartbox">${A.path.length > 1 ? chartSvg(A.path, S.bench) + '<div class="tip" id="tip"></div>' : `<div class="empty">${A.ok ? 'No value history to draw for this selection yet. Stored prices cover only recent months, and funds need fund history switched on (Data tab).' : esc(A.why)}</div>`}</div>
     ${A.path.length > 1 ? `<div class="legend"><span><i></i>Your portfolio</span><span><i class="d"></i>Same deposits in ${esc(benchLabel)}</span></div>` : ''}
     ${A.pathNote ? `<div class="sub" style="margin-top:6px">${esc(A.pathNote)}</div>` : ''}
-    <div class="sub" style="margin-top:6px">Index lines use direct-plan index funds as stand-ins for the indices (close to the index, less a small fee). Where the lines part is where you did better or worse than simply buying the index.</div></div>` : `<div class="card quiet"><div class="sub"><b>Chart not available yet.</b> ${A.ok ? 'Stored prices cover only recent months, and funds need fund history switched on (Data tab).' : esc(A.why)}</div></div>`;
+    <div class="sub" style="margin-top:6px">Index lines use direct-plan index funds as stand-ins for the indices (close to the index, less a small fee). Where the lines part is where you did better or worse than simply buying the index.</div></div>` : `<div class="card quiet"><div class="sub"><b>Chart and momentum not available yet.</b> ${A.ok ? 'They need a daily value for every holding.' : esc(A.why)}</div>${(() => { const g = historyGaps(V); return g.length ? `<ul class="sub" style="margin:6px 0 0 18px;padding:0">${g.slice(0, 6).map((x) => '<li>' + esc(x) + '</li>').join('')}</ul><button class="chip" id="retryNav" style="margin-top:8px">Try loading fund history again</button>` : '<div class="sub" style="margin-top:4px">Every holding has history, so the gap is in the stock prices before your first trade. Pick a shorter period above.</div>'; })()}</div>`;
   return `${hero}
   ${verdictCard(V)}
   ${chartCard}
@@ -1292,6 +1307,7 @@ function render() {
   if (!S.cur) { main.innerHTML = `<div class="card empty">${S.accounts.has(S.sel.slice(2)) ? 'This account has no transactions yet. Use “＋ Add files”.' : 'Nothing selected.'}</div>`; return; }
   main.innerHTML = { home, holdings, trades: tradesTab, tax, income, alloc: allocTab, risk: riskTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
+  { const rb = document.getElementById('retryNav'); if (rb) rb.onclick = async () => { rb.disabled = true; rb.textContent = 'Loading…'; await recomputeAll(true); render(); }; }
   if (S.tab === 'alloc' || S.tab === 'risk' || S.tab === 'data' || S.tab === 'tax') wireAlloc();
   if (S.tab === 'data') wireSnap();
   if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
