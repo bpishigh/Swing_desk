@@ -21,3 +21,10 @@ test('sellCostCard lists lots oldest first with their status, only when there is
   assert.ok(h.includes('Lot by lot (2 lots') && h.indexOf('2023-01-01') < h.indexOf('2026-09-01') && h.includes('Exit load to 2027-09-01') && h.includes('Long-term'));
   assert.ok(!sellCostCard({ value: 100000, gain: 40000, longGain: 40000, shortGain: 0, tax: 5000, load: 0, charges: 0, net: 95000, lots: [lots[1]], notes: [] } as any).includes('Lot by lot'));
 });
+test('intlTiles adds where it invests, currency and tax, and survives a fund with no page facts', async () => {
+  const { intlTiles } = await import('../src/pm/fundcard.ts');
+  const t = intlTiles({ aum: 900, ter: 0.5, exit: 'none', bench: 'Nasdaq 100 Total Return Index', risk: 'Very High' }, 'Axis NASDAQ 100 US Specific Equity Passive FOF');
+  assert.ok(t.some((x) => x.k === 'Where it invests' && x.v.includes('United States')) && t.some((x) => x.k === 'Currency') && t.some((x) => x.k === 'Tax on gains') && t.some((x) => x.k === 'Fund size'));
+  assert.ok(intlTiles(null, 'Edelweiss Europe Dynamic Equity Offshore Fund').some((x) => x.v.includes('Europe')));
+  assert.deepEqual(intlTiles(null), []);
+});

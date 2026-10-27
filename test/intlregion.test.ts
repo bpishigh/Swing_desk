@@ -1,0 +1,23 @@
+import { test } from 'node:test'; import assert from 'node:assert/strict';
+import { intlRegion } from '../src/pm/intlregion.ts';
+const k = (n: string, b?: string) => intlRegion(n, b).key;
+test('regions come from the benchmark first, then the name', () => {
+  assert.equal(k('Kotak US Specific Equity Passive FOF', 'Nasdaq 100 Total Return Index'), 'us');
+  assert.equal(k('SBI US Specific Equity Active FoF', 'S&P 500 Total Return Index'), 'us');
+  assert.equal(k('Edelweiss US Technology Equity Fund of Fund', 'Russel 1000 Equal Weighted Technology Index'), 'us');
+  assert.equal(k('Edelweiss Europe Dynamic', 'MSCI Europe Total Return Index'), 'europe');
+  assert.equal(k('Axis Greater China', 'MSCI Golden Dragon Index'), 'china');
+  assert.equal(k('HSBC Brazil Fund', 'MSCI Brazil 10/40 Total Index Return'), 'brazil');
+  assert.equal(k('Edelweiss ASEAN', 'MSCI AC Asean 10/40 Total Return Index'), 'asean');
+  assert.equal(k('HSBC Asia Pacific', 'MSCI AC Asia Pacific Ex-Japan Index'), 'asia');
+  assert.equal(k('HSBC Global EM', 'MSCI Emerging Markets Total Return Index'), 'em');
+  assert.equal(k('Motilal Oswal Developed Market Ex US', 'S&P Developed Ex-U.S. BMI Total Return Index'), 'exus');
+  assert.equal(k('ICICI Global Stable Equity', 'MSCI World Net Return Index'), 'world');
+  assert.equal(k('Kotak Quality Overseas', 'MSCI ACWI'), 'acwi');
+  assert.equal(k('DSP World Gold Mining', 'FTSE Gold Mines Index'), 'theme');
+  assert.equal(k('Axis Global Innovation', 'MSCI All Country World Total Return Index'), 'theme');
+  assert.equal(k('Bandhan US Treasury Bond 0-1 year', 'ICE 0-1 Year US Treasury Securities Index'), 'usbond');
+  assert.equal(k('Kotak International REIT', 'S&P Asia Pacific ex Japan REIT Total Return Index'), 'reit');
+  assert.equal(k('Some fund', 'N/A'), 'unknown');
+  assert.equal(k('Aditya Birla US Equity Passive FOF', null), 'us');
+});

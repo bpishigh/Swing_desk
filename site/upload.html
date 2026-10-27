@@ -122,6 +122,7 @@ table.stk td:nth-child(2){text-align:left}@media (max-width:640px){table.stk the
 <script type="module">
 import { parseCsv } from './pm/csv.js';
 import { fundCard, stockCard, sellCostCard, factTiles, debtTiles, intlTiles } from './pm/fundcard.js';
+import { intlRegion } from './pm/intlregion.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -493,7 +494,7 @@ function overlapFor(h) {
 const fundPanel = (v, h) => {
   const skip = /^(Holdings trend|Fund facts|Five-year|Flags)/;
   const sr = h.isin ? (S.fundScores?.funds ?? []).find((r) => r.i === h.isin) : null, f1 = (x) => (x === null || x === undefined ? '–' : x.toFixed(1) + '%');
-  const html = fundCard({ tiles: (sr && sr.dd != null && (sr.g === 'mf' || sr.g === 'idx') ? [{ k: 'Worst 3-year fall', v: f1(sr.dd) }, { k: 'Volatility', v: f1(sr.vol), s: 'a year' }, { k: 'Worst day', v: f1(sr.wd) }] : []).concat(debtTiles(h.isin ? S.debtStats?.funds?.[h.isin] : null), intlTiles(h.isin ? S.intlFacts?.funds?.[h.isin] : null)), why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [overlapFor(h), sellCostFor(h)].filter(Boolean) });
+  const html = fundCard({ tiles: (sr && sr.dd != null && (sr.g === 'mf' || sr.g === 'idx') ? [{ k: 'Worst 3-year fall', v: f1(sr.dd) }, { k: 'Volatility', v: f1(sr.vol), s: 'a year' }, { k: 'Worst day', v: f1(sr.wd) }] : []).concat(debtTiles(h.isin ? S.debtStats?.funds?.[h.isin] : null), intlTiles(h.isin ? S.intlFacts?.funds?.[h.isin] : null, h.assetClass === 'international' ? h.name : undefined)), why: v.reasons.filter((r) => !skip.test(r)).concat(v.pending || []), fq: S.fundQuality?.funds?.[h.isin] ?? null, hh: S.holdHealth?.funds?.[h.isin] ?? null, after: [overlapFor(h), sellCostFor(h)].filter(Boolean) });
   return `<tr class="ctxrow"><td colspan="11">${html}</td></tr>`;
 };
 const resultsOf = (h) => { const n = h.kind === 'Stock' && h.symbol && S.resultsNext ? S.resultsNext.next[h.symbol] : null; if (!n) return null; let a = new Date(S.resultsNext.asOf + 'T00:00:00Z'), b = new Date(n + 'T00:00:00Z'), k = 0; while (a < b) { a = new Date(a.getTime() + 864e5); const w = a.getUTCDay(); if (w !== 0 && w !== 6) k++; } return { date: n, sessions: k }; };
@@ -778,10 +779,23 @@ function acctInputs(x, compact) {
     <details class="how"><summary>More settings: ${compact ? '' : 'buffer, EPF, slab rate, '}asset classes</summary>${more ? `<div class="inrow" style="margin-top:8px">${more}</div>` : ''}<div class="sub" style="margin-top:10px">Asset classes in this plan</div>${scope}</details></div>`;
 }
 
+
+/** Where the international money sits, by region and currency, from each fund's benchmark and name. */
+function intlRegionCard(xs) {
+  const hs = xs.flatMap((x) => x.hs).filter((h) => h.assetClass === 'international' && h.value > 0);
+  if (!hs.length) return '';
+  const by = new Map(); let tot = 0;
+  for (const h of hs) { const r = intlRegion(h.name, h.isin ? S.intlFacts?.funds?.[h.isin]?.bench : null), e = by.get(r.key) ?? { r, v: 0, names: [] }; e.v += h.value; e.names.push(h.name); by.set(r.key, e); tot += h.value; }
+  const rows = [...by.values()].sort((a, b) => b.v - a.v), mx = rows[0].v, us = (by.get('us')?.v ?? 0) + (by.get('usbond')?.v ?? 0);
+  return `<div class="card"><h2>International money · where it sits</h2>
+    <div class="sub">${money(tot)} in funds and ETFs that invest overseas${us > 0 ? `, ${Math.round(100 * us / tot)}% of it in the United States` : ''}. A fund that tracks a world index is mostly American too, so the real US share is higher than shown.</div>
+    <div style="margin-top:10px">${rows.map((e) => `<div class="brow"><div class="nm">${esc(e.r.label)}</div><div class="trk"><div class="fill" style="width:${(100 * e.v / mx).toFixed(1)}%"></div></div><div class="val"><b>${Math.round(100 * e.v / tot)}%</b> <span class="sub">${money(e.v)}</span></div></div>${e.names.length ? `<div class="sub" style="margin:-4px 0 8px 0">${esc(e.names.slice(0, 3).join(' · '))}${e.names.length > 3 ? ` +${e.names.length - 3}` : ''}</div>` : ''}`).join('')}</div>
+    <details class="how"><summary>How this is worked out</summary><div class="sub" style="margin-top:6px">Each fund is placed from its benchmark index, then its name. It is the fund's stated target market, not a count of what it holds today: fund pages carry no country table, and the overseas fund underneath a fund of funds is not published as data we can read. Gains in all of these are taxed at your slab rate, and the rupee's moves against the foreign currency add to or take from the return. Information only: no rule or limit uses it.</div></details></div>`;
+}
 function riskTab(V) {
   if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';
   const xs = V.ms.map(calcAccount);
-  return limitsCard(xs) + goalsCard(xs) + lookThroughCard(xs) + (xs.length === 1 ? profileLimits(xs[0]) : xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· limits from this account's profile</span></summary>${profileLimits(x)}</details>`).join(''));
+  return limitsCard(xs) + goalsCard(xs) + intlRegionCard(xs) + lookThroughCard(xs) + (xs.length === 1 ? profileLimits(xs[0]) : xs.map((x) => `<details class="card" style="padding:12px 16px"><summary><b>${esc(x.a.label)}</b> <span class="sub">· limits from this account's profile</span></summary>${profileLimits(x)}</details>`).join(''));
 }
 function allocTab(V) {
   if (!S.allocCfg) return '<div class="card empty">Allocation settings did not load.</div>';

@@ -1,3 +1,4 @@
+import { intlRegion } from './intlregion.js';
 // The fund detail card shared by the Funds tab and the Portfolio page (Engine Rules C-108 facts, C-101 holdings trend). Pure: data in, HTML out. Information only.
                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                                                                                            
@@ -81,9 +82,11 @@ export function factTiles(f                                                     
 
 /** Tiles of debt-fund portfolio statistics (scope K5): yield, maturity, duration and credit quality. Facts only. */
 /** International-fund facts: size, cost, exit load, benchmark and risk level, from the fund page. */
-export function intlTiles(d                                                                                                                               )         {
-  if (!d) return [];
+export function intlTiles(d                                                                                                                               , name         )         {
+  if (!d && !name) return [];
   const t         = [];
+  if (name) { const r = intlRegion(name, d?.bench); if (r.key !== 'unknown') t.push({ k: 'Where it invests', v: `<span class="fvs">${esc(r.label)}</span>`, s: r.note + ' · from the fund\'s benchmark and name, not a count of what it holds today' }, { k: 'Currency', v: `<span class="fvs">${esc(r.currency)}</span>`, s: 'the rupee moving against it adds to or takes from your return' }, { k: 'Tax on gains', v: 'Your slab rate', s: 'any holding period (units bought from 1 Apr 2023)' }); }
+  if (!d) return t;
   if (d.aum !== null) t.push({ k: 'Fund size', v: '₹' + Math.round(d.aum).toLocaleString('en-IN') + ' Cr', s: d.aum < 500 ? 'small: a fund this size can be closed or merged' : '' });
   if (d.ter !== null) t.push({ k: 'Yearly cost', v: d.ter.toFixed(2) + '%', s: 'expense ratio, direct plan' });
   if (d.exit) t.push({ k: 'Exit load', v: d.exit === 'none' ? 'None' : d.exit, s: '' });
