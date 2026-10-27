@@ -129,6 +129,7 @@ import { harvest, saleAfter, HARVEST_DEFAULTS } from './pm/harvest.js';
 import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
+import { readSnapshot, reconcile } from './pm/snapshot.js';
 import { runPipeline } from './pm/pipeline.js';
 import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowReturn } from './pm/insight.js';
 import { mergeTax, fy } from './pm/tax.js';
@@ -1131,6 +1132,18 @@ function actionsCard(V, res, cur, capital, hs, A) {
   return `<div class="card"><div class="heads"><h2>What to do</h2></div>${statusHtml}${moneyHtml}${salesHtml}${procHtml}${skipHtml}${heldHtml}${none}<details class="how"><summary>How this works</summary><div class="sub" style="margin-top:6px">A list for you to act on, never an order. Large funds rebalance only when a class leaves its band (Engine Rules C-86). Swing positions, ELSS units inside their lock-in and holdings with no asset class are never proposed for sale. One sale suggestion per class per quarter: press “I acted on” under a class to hold further suggestions for it until next quarter (it returns sooner if it drifts to twice its band). </div></details></div>`;
 }
 
+function wireSnap() {
+  document.querySelectorAll('[data-snap]').forEach((el) => { el.onchange = async () => {
+    const a = S.accounts.get(el.dataset.snap); if (!a?.report || !el.files.length) return;
+    try {
+      const lines = []; let note = null;
+      for (const f of [...el.files]) { const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text()); const r = readSnapshot(rows); if (!r) { notify(`${f.name}: no holdings table found (needs a quantity column and an ISIN or name column).`); return; } lines.push(...r.lines); note = note || r.note; }
+      const rec = reconcile(lines, a.report.holdings.map((h) => ({ name: h.name, isin: h.isin, qty: h.qty, kind: h.kind })));
+      a.recon = { ...rec, rows: rec.rows.slice(0, 200), date: new Date().toISOString().slice(0, 10), note }; render();
+      notify(rec.verified ? `${a.label}: all ${rec.matched} holdings match the statement.` : `${a.label}: ${rec.differ + rec.onlyStatement + rec.onlyLedger} difference(s) found; see the Data tab.`);
+    } catch (e) { notify('Could not read the statement: ' + e.message); }
+  }; });
+}
 function wireAlloc() {
   { const qi = document.getElementById('ltq'); if (qi) qi.oninput = () => { S.ltq = qi.value; const pos = qi.selectionStart; render(); const n = document.getElementById('ltq'); if (n) { n.focus(); n.setSelectionRange(pos, pos); } };
     const b = document.getElementById('ltall'); if (b) b.onclick = () => { S.ltAll = !S.ltAll; render(); }; }
@@ -1167,12 +1180,26 @@ function swingProposalsCard(ms) {
   const rows = ms.flatMap((a) => (a.report.swingProposals ?? []).map((p) => ({ a, p }))); if (!rows.length) return '';
   return `<div class="card"><h2>Is this a Swing trade?</h2><div class="sub">Each buy below is close to, but not exactly on, a Swing Desk shortlist line. If you confirm, it becomes a Swing lot with that line's stop and setup; if you reject, it stays Legacy. The matching window is provisional (settings/allocation.json, swingMatch).</div><div class="tw"><table><thead><tr><th>Account</th><th>Stock</th><th>Bought</th><th class="num">Units</th><th class="num">At</th><th>Closest shortlist line</th><th></th></tr></thead><tbody>${rows.map(({ a, p }) => `<tr><td>${esc(a.label)}</td><td>${esc(p.name)}</td><td>${esc(p.date)}</td><td class="num">${p.qty}</td><td class="num">${p.price}</td><td class="sub">${esc(p.why)}; stop ${p.stop}</td><td><button class="chip" data-swing="yes" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">Yes, Swing</button> <button class="chip" data-swing="no" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">No, Legacy</button></td></tr>`).join('')}</tbody></table></div></div>`;
 }
+
+function reconCard(ms) {
+  const row = (a) => {
+    const r = a.recon, st = !r ? '<span class="pill under">Unverified</span> <span class="sub">not yet checked against the broker\'s own statement</span>'
+      : r.verified ? `<span class="pill ok">Verified</span> <span class="sub">all ${r.matched} holdings match the statement read on ${esc(r.date)}</span>`
+      : `<span class="pill over">Does not match</span> <span class="sub">${r.matched} match, ${r.differ} differ, ${r.onlyStatement} only on the statement, ${r.onlyLedger} only in the tradebook (statement read on ${esc(r.date)})</span>`;
+    const bad = (r?.rows ?? []).filter((x) => x.status !== 'match').slice(0, 25);
+    return `<div style="margin:12px 0;padding-bottom:10px;border-bottom:1px solid var(--line, #e5e7eb)"><div class="heads"><b>${esc(a.label)}</b>${st}</div>
+      <label class="sub">Holdings statement (CSV or Excel) <input type="file" data-snap="${esc(a.key)}" accept=".csv,.xlsx"></label>
+      ${bad.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Holding</th><th class="num">Statement</th><th class="num">Tradebook</th><th>What it may mean</th></tr></thead><tbody>${bad.map((x) => `<tr><td>${esc(x.name)}</td><td class="num">${x.statement ?? '–'}</td><td class="num">${x.ledger ?? '–'}</td><td class="sub">${esc(x.why)}</td></tr>`).join('')}</tbody></table></div>` : ''}${r?.note ? `<div class="note">${esc(r.note)}</div>` : ''}</div>`;
+  };
+  return `<div class="card"><h2>Check against your broker's holdings statement</h2><div class="sub">Download the holdings statement from your broker (stocks, and separately mutual funds) and add it here. It is read in this browser and compared with what your tradebook says you hold; the file itself is not kept or uploaded. A match removes the "unverified" label. Choose several files at once if stocks and funds are separate.</div>${ms.map(row).join('')}<div class="sub">The result lasts for this session. A difference points at a missing order, a split or demerger, or shares that arrived by transfer.</div></div>`;
+}
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
   const items = ms.flatMap((a) => a.report.resolver.proposedItems.map((x) => [a, x])), decided = ms.flatMap((a) => a.report.resolver.decided.map((d) => [a, d])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
   return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
+  ${reconCard(ms)}
   ${swingProposalsCard(ms)}${saleProposalsCard(ms)}${swingGapNote(ms)}
   <div class="card"><h2>Things to check</h2>
   ${items.length ? `<div class="note">Your tradebook shows sells of shares it never shows buying. An IPO or rights allotment explains each one, but the price is an estimate. Confirm it, type the real price from your allotment or contract note, or reject it (the sell then stays unexplained and its gain is left out).</div>${items.map(([a, x], n) => `<div style="margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:8px"><span class="tag">estimated</span> <b>${esc(x.name)}</b> <span class="sub">${esc(a.label)} · ${x.kind} of ${x.qty} units around ${x.date} at ₹${x.unitCost}/unit</span><div class="sub" style="margin:4px 0">${esc(x.why)}</div><div class="row2"><button class="chip" data-dec="confirm" data-acct="${a.key}" data-k="${esc(x.key)}">Confirm ₹${x.unitCost}</button><input type="number" step="any" min="0" class="pxin" id="px${n}" placeholder="actual ₹ per unit" style="width:140px"><button class="chip" data-dec="price" data-acct="${a.key}" data-k="${esc(x.key)}" data-in="px${n}">Use this price</button><button class="chip" data-dec="reject" data-acct="${a.key}" data-k="${esc(x.key)}">Reject</button></div></div>`).join('')}` : ''}
@@ -1209,6 +1236,7 @@ function render() {
   main.innerHTML = { home, holdings, trades: tradesTab, tax, income, alloc: allocTab, risk: riskTab, data: dataTab }[S.tab](S.cur);
   if (S.tab === 'home' && S.lastA) wireChart(S.lastA.path, S.bench);
   if (S.tab === 'alloc' || S.tab === 'risk' || S.tab === 'data' || S.tab === 'tax') wireAlloc();
+  if (S.tab === 'data') wireSnap();
   if (S.tab === 'trades' && $('tq')) { let tm; $('tq').oninput = (e) => { if (e.isComposing) return; clearTimeout(tm); const v = e.target.value, pos = e.target.selectionStart; tm = setTimeout(() => { S.tf = { ...(S.tf ?? {}), q: v }; render(); const el = $('tq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } }, 250); }; $('tq').addEventListener('compositionend', (e) => e.target.dispatchEvent(new Event('input'))); }
   if (S.tab === 'holdings') document.querySelectorAll('[data-swcmp]').forEach((b) => { b.onclick = () => { S.sw = b.dataset.swcmp; S.swTo = ''; render(); setTimeout(() => $('swsel')?.scrollIntoView({ block: 'center' }), 0); }; });
   if (S.tab === 'holdings' && $('swsel')) { $('swsel').onchange = (e) => { S.sw = e.target.value; S.swTo = ''; render(); }; if ($('swto')) $('swto').onchange = (e) => { S.swTo = e.target.value; render(); }; }
