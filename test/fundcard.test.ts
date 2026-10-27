@@ -28,3 +28,10 @@ test('intlTiles adds where it invests, currency and tax, and survives a fund wit
   assert.ok(intlTiles(null, 'Edelweiss Europe Dynamic Equity Offshore Fund').some((x) => x.v.includes('Europe')));
   assert.deepEqual(intlTiles(null), []);
 });
+
+import { mixTiles } from '../src/pm/fundcard.ts';
+test('mixTiles shows equity, debt and the rest against the fund\'s own range', () => {
+  const t = mixTiles({ eq: 66.5, debt: 16.2, cash: 1.8, eqMin: 65, eqMax: 80 });
+  assert.equal(t.length, 3); assert.match(t[0].s ?? '', /65% to 80%/); assert.equal(t[2].v, '1.8%');
+  assert.deepEqual(mixTiles(null), []);
+});

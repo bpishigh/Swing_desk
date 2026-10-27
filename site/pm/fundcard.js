@@ -106,3 +106,15 @@ export function debtTiles(d                                                     
   }
   return t;
 }
+
+/** Tiles for a hybrid fund: what it actually holds (equity, debt, cash) against the range its own rules allow. null when the page gave no split. */
+export function mixTiles(m                                                                                                                  )         {
+  if (!m) return [];
+  const rest = m.cash !== null ? m.cash : Math.max(0, Math.round((100 - m.eq - m.debt) * 10) / 10);
+  const range = m.eqMin !== null && m.eqMax !== null ? `its rules allow ${m.eqMin}% to ${m.eqMax}% in equity` : '';
+  return [
+    { k: 'Equity now', v: m.eq.toFixed(1) + '%', s: range },
+    { k: 'Debt now', v: m.debt.toFixed(1) + '%', s: '' },
+    { k: 'Cash and other', v: rest.toFixed(1) + '%', s: 'latest monthly disclosure; funds that hedge equity (arbitrage, equity savings) show less equity than they are exposed to' },
+  ];
+}
