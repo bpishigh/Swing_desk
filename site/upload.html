@@ -130,9 +130,11 @@ import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, 
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { readSnapshot, reconcile } from './pm/snapshot.js';
+import { readPnl, reconcilePnl } from './pm/plrecon.js';
 import { runPipeline } from './pm/pipeline.js';
 import { analyse, momentum, verdict, periods, sumSeries, BENCHMARKS, windowReturn } from './pm/insight.js';
 import { mergeTax, fy } from './pm/tax.js';
+const fyOfDate = (d) => fy(d);
 import { scheduleCg } from './pm/cgexport.js';
 import { stockVerdict, adjustSeries } from './pm/verdict.js';
 import { fundVerdict, looseKey } from './pm/fundverdict.js';
@@ -1133,6 +1135,16 @@ function actionsCard(V, res, cur, capital, hs, A) {
 }
 
 function wireSnap() {
+  document.querySelectorAll('[data-pnl]').forEach((el) => { el.onchange = async () => {
+    const a = S.accounts.get(el.dataset.pnl); if (!a?.report || !el.files.length) return;
+    try {
+      const lines = [];
+      for (const f of [...el.files]) { const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text()); const r = readPnl(rows); if (!r) { notify(`${f.name}: no profit and loss table found (needs quantity, sale value and profit columns, and an ISIN or name).`); return; } lines.push(...r.lines); }
+      a.pnlLines = lines; const dated = lines.filter((l) => l.sellDate); if (dated.length) { const c = new Map(); for (const l of dated) { const k = fyOfDate(l.sellDate); c.set(k, (c.get(k) ?? 0) + 1); } a.pnlFy = [...c].sort((x, y) => y[1] - x[1])[0][0]; }
+      runPnl(a); render(); notify(a.pnlRecon.verified ? `${a.label}: gains match the statement for FY ${a.pnlRecon.fy}.` : `${a.label}: the gains differ from the statement for FY ${a.pnlRecon.fy}; see the Data tab.`);
+    } catch (e) { notify('Could not read the statement: ' + e.message); }
+  }; });
+  document.querySelectorAll('[data-pnlfy]').forEach((el) => { el.onchange = () => { const a = S.accounts.get(el.dataset.pnlfy); if (!a) return; a.pnlFy = el.value; runPnl(a); render(); }; });
   document.querySelectorAll('[data-snap]').forEach((el) => { el.onchange = async () => {
     const a = S.accounts.get(el.dataset.snap); if (!a?.report || !el.files.length) return;
     try {
@@ -1181,6 +1193,20 @@ function swingProposalsCard(ms) {
   return `<div class="card"><h2>Is this a Swing trade?</h2><div class="sub">Each buy below is close to, but not exactly on, a Swing Desk shortlist line. If you confirm, it becomes a Swing lot with that line's stop and setup; if you reject, it stays Legacy. The matching window is provisional (settings/allocation.json, swingMatch).</div><div class="tw"><table><thead><tr><th>Account</th><th>Stock</th><th>Bought</th><th class="num">Units</th><th class="num">At</th><th>Closest shortlist line</th><th></th></tr></thead><tbody>${rows.map(({ a, p }) => `<tr><td>${esc(a.label)}</td><td>${esc(p.name)}</td><td>${esc(p.date)}</td><td class="num">${p.qty}</td><td class="num">${p.price}</td><td class="sub">${esc(p.why)}; stop ${p.stop}</td><td><button class="chip" data-swing="yes" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">Yes, Swing</button> <button class="chip" data-swing="no" data-a="${esc(a.key)}" data-k="${esc(p.key + '|' + p.date)}">No, Legacy</button></td></tr>`).join('')}</tbody></table></div></div>`;
 }
 
+
+function pnlBlock(a) {
+  const fys = [...new Set((a.report.cgRows ?? []).map((r) => r.fy))].sort().reverse(), r = a.pnlRecon, sel = a.pnlFy && fys.includes(a.pnlFy) ? a.pnlFy : fys[0];
+  if (!fys.length) return '<div class="sub" style="margin-top:8px">No sales in the tradebook yet, so there is no profit to check.</div>';
+  const st = !r ? '' : r.verified ? `<span class="pill ok">Gains match</span> <span class="sub">FY ${esc(r.fy)}: ${r.matched} stocks, total ${money(r.ledgerTotal)}</span>` : `<span class="pill over">Gains differ</span> <span class="sub">FY ${esc(r.fy)}: statement ${money(r.stmtTotal)} against tradebook ${money(r.ledgerTotal)} (${r.differ} differ, ${r.onlyStatement} only on the statement, ${r.onlyLedger} only in the tradebook)</span>`;
+  const bad = (r?.rows ?? []).filter((x) => x.status !== 'match').slice(0, 25);
+  return `<div style="margin-top:10px"><label class="sub">Profit and loss statement for <select data-pnlfy="${esc(a.key)}">${fys.map((f) => `<option ${f === sel ? 'selected' : ''}>${f}</option>`).join('')}</select> <input type="file" data-pnl="${esc(a.key)}" accept=".csv,.xlsx"></label> ${st}
+    ${bad.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Stock</th><th class="num">Sale: statement</th><th class="num">Sale: tradebook</th><th class="num">Profit: statement</th><th class="num">Profit: tradebook</th><th>What it may mean</th></tr></thead><tbody>${bad.map((x) => `<tr><td>${esc(x.name)}</td><td class="num">${x.stmtSell === null ? '–' : inr(x.stmtSell)}</td><td class="num">${x.ledgerSell === null ? '–' : inr(x.ledgerSell)}</td><td class="num">${x.stmtPnl === null ? '–' : num(x.stmtPnl)}</td><td class="num">${x.ledgerPnl === null ? '–' : num(x.ledgerPnl)}</td><td class="sub">${esc(x.why)}</td></tr>`).join('')}</tbody></table></div>` : ''}</div>`;
+}
+function runPnl(a) {
+  if (!a.pnlLines) return;
+  const fys = [...new Set((a.report.cgRows ?? []).map((r) => r.fy))].sort().reverse(), f = a.pnlFy && fys.includes(a.pnlFy) ? a.pnlFy : fys[0];
+  a.pnlRecon = reconcilePnl(a.pnlLines, a.report.cgRows ?? [], f);
+}
 function reconCard(ms) {
   const row = (a) => {
     const r = a.recon, st = !r ? '<span class="pill under">Unverified</span> <span class="sub">not yet checked against the broker\'s own statement</span>'
@@ -1189,6 +1215,7 @@ function reconCard(ms) {
     const bad = (r?.rows ?? []).filter((x) => x.status !== 'match').slice(0, 25);
     return `<div style="margin:12px 0;padding-bottom:10px;border-bottom:1px solid var(--line, #e5e7eb)"><div class="heads"><b>${esc(a.label)}</b>${st}</div>
       <label class="sub">Holdings statement (CSV or Excel) <input type="file" data-snap="${esc(a.key)}" accept=".csv,.xlsx"></label>
+      ${pnlBlock(a)}
       ${bad.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Holding</th><th class="num">Statement</th><th class="num">Tradebook</th><th>What it may mean</th></tr></thead><tbody>${bad.map((x) => `<tr><td>${esc(x.name)}</td><td class="num">${x.statement ?? '–'}</td><td class="num">${x.ledger ?? '–'}</td><td class="sub">${esc(x.why)}</td></tr>`).join('')}</tbody></table></div>` : ''}${r?.note ? `<div class="note">${esc(r.note)}</div>` : ''}</div>`;
   };
   return `<div class="card"><h2>Check against your broker's holdings statement</h2><div class="sub">Download the holdings statement from your broker (stocks, and separately mutual funds) and add it here. It is read in this browser and compared with what your tradebook says you hold; the file itself is not kept or uploaded. A match removes the "unverified" label. Choose several files at once if stocks and funds are separate.</div>${ms.map(row).join('')}<div class="sub">The result lasts for this session. A difference points at a missing order, a split or demerger, or shares that arrived by transfer.</div></div>`;
