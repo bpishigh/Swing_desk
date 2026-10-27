@@ -1,13 +1,13 @@
 {
- "start": "2026-10-26T17:49:41.996Z",
- "wanted": 1984,
- "parsed": 938,
+ "start": "2026-10-27T17:26:46.135Z",
+ "wanted": 1983,
+ "parsed": 931,
  "unparsed": 2,
- "none": 617,
- "kept": 0,
- "noPage": 402,
+ "none": 600,
+ "kept": 12,
+ "noPage": 401,
  "ambiguous": 13,
- "noNote": 12,
+ "noNote": 24,
  "unparsedSamples": [
   "Exit load of 1% if redeemed before child attains 18 years of age",
   "Exit load of 3% if redeemed before the age of 58 yrs."
@@ -424,6 +424,78 @@
    "fee": "Expense ratio 0.7% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
+   "name": "Aditya Birla Sun Life ELSS Tax Saver Fund - Direct Plan - GROWTH",
+   "url": "https://sharpely.in/mutual-funds/aditya-birla-sun-life-elss-tax-saver-directgrowth/15889",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Baroda BNP Paribas ELSS Tax Saver Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/baroda-bnp-paribas-elss-tax-saver-fund-directgrowth/15732",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Franklin India ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/franklin-india-elss-tax-saver-fund-directgrowth/16014",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "ITI ELSS Tax Saver Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/iti-elss-tax-saver-fund-directgrowth/40137",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Kotak ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/kotak-elss-tax-saver-fund-directgrowth/16380",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Motilal Oswal ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/motilal-oswal-elss-tax-saver-fund-directgrowth/29162",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "PGIM India ELSS Tax Saver Fund - Direct Plan - Direct Growth",
+   "url": "https://sharpely.in/mutual-funds/pgim-india-elss-tax-saver-fund-directgrowth/31167",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Parag Parikh ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/parag-parikh-elss-tax-saver-fund-directgrowth/40105",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Quantum ELSS Tax Saver Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/quantum-elss-tax-saver-fund-directgrowth/10080",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Quant ELSS Tax Saver Fund - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/quant-elss-tax-saver-fund-directgrowth/17381",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "SBI ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/sbi-elss-tax-saver-fund-directgrowth/16244",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
+   "name": "Shriram ELSS Tax Saver Fund - Direct Plan - Growth",
+   "url": "https://sharpely.in/mutual-funds/shriram-elss-tax-saver-fund-directgrowth/38439",
+   "exit": null,
+   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
+  },
+  {
    "name": "ITI Large & Mid Cap Fund - Direct Plan - Growth Option",
    "url": "https://sharpely.in/mutual-funds/iti-large-mid-cap-fund-directgrowth/44501",
    "exit": "null",
@@ -490,5 +562,5 @@
    "fee": "Expense ratio 0.1% p.a.; Exit load N/A; Lock-in: No lock-in."
   }
  ],
- "end": "2026-10-26T18:03:36.541Z"
+ "end": "2026-10-27T17:55:10.507Z"
 }
