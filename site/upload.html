@@ -505,7 +505,7 @@ function trimOf(sym) {
 }
 const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
 const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' || v.label === 'Replace' ? 'bad' : v.label === 'Keep' ? 'ok' : v.label === 'Trim' ? 'warn' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
-const vWhy0 = (v) => (!v ? '' : v.fund ? v.reasons.concat(v.pending).join('; ') : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
+const vWhy0 = (v) => (!v ? '' : v.fund ? v.reasons.concat(v.pending).join('; ') : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : v.rank?.rank ? `rank ${v.rank.rank} of ${v.rank.of} among your stocks that pass the test` + (v.label === 'Trim' ? ` (top ${TARGET_NAMES} stay)` : '') : '');
 // Fund card: how much of this fund the household already owns through its other funds (look-through, C-78). Facts only.
 function overlapFor(h) {
   if (!S.cur) return '';
@@ -574,6 +574,7 @@ function ctxPanel(h, tot) {
     ...fundTilesFor(h),
     ...factTiles(S.stockFacts?.stocks?.[h.symbol]),
     { k: 'Relative strength', v: c.rs === null ? '–' : 'top ' + (100 - c.rs) + '%', s: 'of every stored stock, 3-month return' },
+    ...(v && v.rank?.rank ? [{ k: 'Rank among your stocks', v: v.rank.rank + ' of ' + v.rank.of, s: (v.rank.priorRank ? v.rank.priorRank + ' a week ago · ' : '') + 'by 3-month return, only stocks that pass the exit test; the top ' + TARGET_NAMES + ' stay' }] : []),
     { k: 'Next results', v: r ? esc(r.date) : '–', s: r ? 'about ' + r.sessions + ' sessions' + (r.sessions <= 10 ? ' · no new trades inside 10' : '') : 'no date announced' },
     { k: 'Value at risk to exit level', v: v && (v.label === 'Keep' || v.label === 'Trim') ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', s: v && v.label === 'Keep' ? 'if it closed at the nearer of 200-day average and swing low' : '' },
     { k: 'Weight in the book', v: h.value === null ? '–' : pct(h.value / tot, 1), s: 'of the selected accounts' },
