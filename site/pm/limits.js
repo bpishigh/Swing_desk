@@ -3,8 +3,8 @@
 // Goals: a named amount needed by a date, funded by holdings the owner assigns to it.
 import { norm0,               } from './lookthrough.js';
 
-                                                                                    // fractions, e.g. 0.10
-export const LIMIT_DEFAULTS                = { company: 0.10, sector: 0.30, house: 0.35 };
+                                                                                                    // fractions, e.g. 0.10
+export const LIMIT_DEFAULTS                = { company: 0.10, sector: 0.30, house: 0.35, region: 0.7 };
 
                                                                                                                                                
 

@@ -122,7 +122,8 @@ table.stk td:nth-child(2){text-align:left}@media (max-width:640px){table.stk the
 <script type="module">
 import { parseCsv } from './pm/csv.js';
 import { fundCard, stockCard, sellCostCard, factTiles, debtTiles, intlTiles } from './pm/fundcard.js';
-import { intlRegion } from './pm/intlregion.js';
+import { intlRegion } from './pm/intlregion.js'
+import { worstDrawdown } from './pm/drawdown.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -793,9 +794,9 @@ function intlRegionCard(xs) {
   if (!hs.length) return '';
   const by = new Map(); let tot = 0;
   for (const h of hs) { const r = intlRegion(h.name, h.isin ? S.intlFacts?.funds?.[h.isin]?.bench : null), e = by.get(r.key) ?? { r, v: 0, names: [] }; e.v += h.value; e.names.push(h.name); by.set(r.key, e); tot += h.value; }
-  const rows = [...by.values()].sort((a, b) => b.v - a.v), mx = rows[0].v, us = (by.get('us')?.v ?? 0) + (by.get('usbond')?.v ?? 0);
+  const rows = [...by.values()].sort((a, b) => b.v - a.v), mx = rows[0].v, regLim = { ...LIMIT_DEFAULTS, ...(hh().limits ?? {}) }.region, regOver = rows.filter((e) => e.v / tot > regLim && rows.length > 0), us = (by.get('us')?.v ?? 0) + (by.get('usbond')?.v ?? 0);
   return `<div class="card"><h2>International money · where it sits</h2>
-    <div class="sub">${money(tot)} in funds and ETFs that invest overseas${us > 0 ? `, ${Math.round(100 * us / tot)}% of it in the United States` : ''}. A fund that tracks a world index is mostly American too, so the real US share is higher than shown.</div>
+    <div class="sub">${money(tot)} in funds and ETFs that invest overseas${us > 0 ? `, ${Math.round(100 * us / tot)}% of it in the United States` : ''}.${regOver.length ? ` <span class="pill over">${esc(regOver[0].r.label)} is above your ${Math.round(regLim * 100)}% limit for one region</span>` : ''} A fund that tracks a world index is mostly American too, so the real US share is higher than shown.</div>
     <div style="margin-top:10px">${rows.map((e) => `<div class="brow"><div class="nm">${esc(e.r.label)}</div><div class="trk"><div class="fill" style="width:${(100 * e.v / mx).toFixed(1)}%"></div></div><div class="val"><b>${Math.round(100 * e.v / tot)}%</b> <span class="sub">${money(e.v)}</span></div></div>${e.names.length ? `<div class="sub" style="margin:-4px 0 8px 0">${esc(e.names.slice(0, 3).join(' · '))}${e.names.length > 3 ? ` +${e.names.length - 3}` : ''}</div>` : ''}`).join('')}</div>
     <details class="how"><summary>How this is worked out</summary><div class="sub" style="margin-top:6px">Each fund is placed from its benchmark index, then its name. It is the fund's stated target market, not a count of what it holds today: fund pages carry no country table, and the overseas fund underneath a fund of funds is not published as data we can read. Gains in all of these are taxed at your slab rate, and the rupee's moves against the foreign currency add to or take from the return. Information only: no rule or limit uses it.</div></details></div>`;
 }
@@ -858,7 +859,7 @@ function limitsCard(xs) {
   const inp = (k, label) => `<label class="sub">${label} (%)<br><input data-lim="${k}" type="number" min="1" max="100" step="1" value="${Math.round(lim[k] * 100)}" style="width:80px"></label>`;
   return `<div class="card"><h2>Household limits · across all accounts, funds opened up</h2>
     <div class="heads" style="margin-top:-6px"><span class="pill ${over ? 'over' : 'ok'}">${over ? over + ' above a limit' : 'Nothing above a limit'}</span><span class="sub">The black tick is your limit</span></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">${inp('company', 'One company')}${inp('sector', 'One sector')}${inp('house', 'One fund house')}</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">${inp('company', 'One company')}${inp('sector', 'One sector')}${inp('house', 'One fund house')}${inp('region', 'One region of international money')}</div>
     ${tbl('Companies', r.company.slice(0, 5))}${tbl('Sectors', r.sector)}${tbl('Fund houses', r.house)}
     <details class="how"><summary>How this is measured</summary><div class="sub" style="margin-top:6px">Company and sector are shares of your equity (direct stocks plus the equity inside funds); fund house is a share of your fund and ETF money. A flag, never an order. Sector is NSE's classification${r.classifiedShare !== null ? `; ${Math.round(r.classifiedShare * 100)}% of the equity found could be placed in a sector (the rest is outside the stocks NSE classifies)` : ''}. The numbers above are starting defaults you can change; they are saved with your saved accounts (in this browser only if an account is not saved).</div></details></div>`;
 }
@@ -925,7 +926,10 @@ function profileLimits(x) {
   const C = S.allocCfg, { hs, cur, capital, res, held, lockedElss } = x;
   if (!res.ok) return '';
   const br = capBreaches(held, capital, res.positionCap, res.fundCap), unc = hs.filter((h) => h.value !== null && !h.assetClass);
-  return `<div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)} (equity share × ${pc(C.bearMarketEquityFall)} assumed bear-market fall)<br>${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
+  const ddRow = (() => { const t = new Date(); t.setUTCFullYear(t.getUTCFullYear() - 1); const d = x.V1?.R?.[0]?.series ? worstDrawdown(x.V1.R[0].series, t.toISOString().slice(0, 10)) : null;
+    if (!d) return '<br>Actual fall in the last 12 months: not available yet (needs a price history for every holding).';
+    const over = d.depth > res.drawdownLimit; return `<br>Worst actual fall in the last 12 months: <b>${pc(d.depth)}</b> (${d.peak} to ${d.trough})${over ? ' <span class="pill over">above your limit</span>' : ' <span class="pill ok">inside your limit</span>'}${d.current > 0.02 ? `, ${pc(d.current)} below its peak now` : ''}`; })();
+  return `<div class="grid2"><div class="card"><h2>Limits from your profile</h2><div class="sub">Largest single stock: ${pc(res.positionCap)} of capital (${money(res.positionCapAmount)})<br>Largest single fund: ${pc(res.fundCap)} (${money(res.fundCapAmount)})<br>Drawdown limit before the portfolio is reviewed: ${pc(res.drawdownLimit)} (equity share × ${pc(C.bearMarketEquityFall)} assumed bear-market fall)${ddRow}<br>${res.buffer ? `Liquidity buffer kept outside this plan: ${money(res.buffer)}<br>` : ''}</div>
       ${br.length ? `<div style="margin-top:10px"><b>Above these limits now:</b>${br.slice(0, 10).map((b) => `<div class="sub">${esc(b.name)} · ${pc(b.weight)} (limit ${pc(b.cap)})</div>`).join('')}</div>` : '<div class="sub" style="margin-top:10px">No single holding is above its limit.</div>'}</div>
     <div class="card"><h2>Not counted</h2><div class="sub">${lockedElss > 0 ? `${money(lockedElss)} of tax-saving (ELSS) units is inside its 3-year lock-in: it counts toward the targets but cannot be sold until each purchase turns 3 years old.<br>` : ''}${unc.length ? `Not classified (${unc.length}): ${unc.slice(0, 8).map((h) => esc(h.name)).join(', ')}${unc.length > 8 ? '…' : ''}. Their category does not settle the asset class, so they are left out of the totals rather than guessed.` : 'Every priced holding has an asset class.'}${cur.unpriced ? `<br>${cur.unpriced} holding(s) have no price and are left out.` : ''}${res.notes.map((n) => `<br>${esc(n)}`).join('')}</div></div></div>`;
 }

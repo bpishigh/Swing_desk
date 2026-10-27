@@ -157,7 +157,7 @@ Promised in docs/PORTFOLIO_MANAGER_DESIGN.md and not built. Nothing here is star
 4. **Holdings-snapshot reconciliation gate** and the "unverified" label; reconciliation against the P&L statement and contract notes (design 11, phases 1 and 4).
 5. **INDmoney and US adapters:** FX and Rule 115, US dividends, CAS PDF reader (design 7, 11). The `us_stock` tax type exists and nothing feeds it.
 6. **Liquidity book** and the liquidity buffer as a real floor (design 3); the buffer is a display figure only today.
-7. **Allocation caps for sector and country**, and a breach check of the drawdown limit against the valuation series (design 8).
+7. **Allocation caps for sector and country, and the drawdown check:** built 27 Oct 2026. Sector, company and fund-house limits already existed; added a one-region limit on international money (default 70%, flagged on the region card) and the worst actual 12-month fall (deposits removed) against the profile's drawdown limit, on the Limits & goals tab. Caps are flags, not orders; buy suggestions are not yet trimmed by them.
 8. **Tax gaps:** estimated tax on gold, debt, international and hybrid gains (shown only as "other assets" at slab rate), pre-2025 gold and deemed-short windows, folio-level FIFO (the build uses ISIN), surcharge, fund IDCW payouts, clubbing rules.
 9. **Books:** a Swing lot moving to Legacy after the maximum hold; the design's 5-session exit-flag rule for partial sells (the build asks the owner yes or no instead).
 10. **Readers:** reader learning (profile hash stored and confirmed), account aliases from the client code, more than the first xlsx sheet, broker chosen from the file contents rather than the file name, use of the confidence field.

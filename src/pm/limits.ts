@@ -3,8 +3,8 @@
 // Goals: a named amount needed by a date, funded by holdings the owner assigns to it.
 import { norm0, type Exposure } from './lookthrough.ts';
 
-export interface LimitSettings { company: number; sector: number; house: number }   // fractions, e.g. 0.10
-export const LIMIT_DEFAULTS: LimitSettings = { company: 0.10, sector: 0.30, house: 0.35 };
+export interface LimitSettings { company: number; sector: number; house: number; region: number }   // fractions, e.g. 0.10
+export const LIMIT_DEFAULTS: LimitSettings = { company: 0.10, sector: 0.30, house: 0.35, region: 0.7 };
 
 export interface LimitRow { kind: 'Company' | 'Sector' | 'Fund house'; name: string; value: number; pct: number; limit: number; over: boolean }
 
