@@ -36,7 +36,7 @@ export interface Report {
   warnings: string[];
   tax: TaxYear[]; cgRows: CgRow[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
-  holdings: { name: string; symbol: string; isin?: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number }[];
+  holdings: { name: string; symbol: string; isin?: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number; type?: string; fixKey?: string }[];
   saleProposals: { key: string; name: string; date: string; qty: number; price: number; swingDate: string; swingQty: number }[];
   swingGaps: string[];
   /** Recognised Swing trades, open and closed (Engine Rules C-77). Names and prices: private, never stored. */
@@ -54,7 +54,7 @@ const masters = new WeakMap<object, FundMaster>();   // the fund list is large; 
 const masterFor = (amfi: AmfiRow[], ov: any[]) => { let m = masters.get(amfi); if (!m) masters.set(amfi, (m = new FundMaster(amfi, ov))); return m; };
 const isFundType = (t?: string) => !!t && /fund|fof|hybrid/.test(t);
 
-export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: PublicData, decisions: Record<string, Decision> = {}, swingAnswers: Record<string, 'yes' | 'no'> = {}): Report {
+export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: PublicData, decisions: Record<string, Decision> = {}, swingAnswers: Record<string, 'yes' | 'no'> = {}, typeFix: Record<string, string> = {}): Report {
   const m = mergeTrades(batches);
   const names = new Set(m.trades.map((t) => (t.symbol ?? t.instrument).toUpperCase()));
   const isins = new Set(m.trades.filter((t) => t.isin).map((t) => t.isin));
@@ -83,6 +83,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
+  for (const [k, v] of Object.entries(typeFix)) if (typeByKey.has(k) && d.taxRules.types[v as keyof typeof d.taxRules.types] && isFundType(v) === isFundType(typeByKey.get(k))) typeByKey.set(k, v);   // the owner's correction wins over the guess
   const fundRep = replay(fundTrades, 365);
   const combined = { open: [...res.replay.open, ...fundRep.open], realised: [...res.replay.realised, ...fundRep.realised], breaks: [...res.replay.breaks, ...fundRep.breaks], applied: [] as string[] };
   const synth = (r: { key: string; qty: number }, side: 'buy' | 'sell', value: number, date: string): Trade => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
@@ -160,6 +161,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const catByName = new Map<string, string>(); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k)!);
   for (const t of books) {
     const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm);
+    if (e && e.type === undefined) { e.type = typeByKey.get(t.lot.key); e.fixKey = t.lot.key; }
     if (e && e.assetClass === undefined) {
       // An exchange-traded unit with a fund ISIN (INF...) is an ETF, not a share, whatever its listed name: the AMFI list gives its scheme name and category.
       let label = e.name;

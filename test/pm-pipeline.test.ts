@@ -152,3 +152,13 @@ test('pipeline history: carries every buy and sell with the full name and the re
   assert.equal(r.history.stocks[0].status, 'Partly sold'); assert.equal(r.history.stocks[0].realised, 200);
   assert.equal(r.history.stocks[0].kind, 'Stock'); assert.equal(r.history.stocks[0].book, 'Legacy');
 });
+
+test('pipeline: a typed correction changes how a stock is taxed, and a fund type cannot be put on a stock', () => {
+  const trades = [[t('buy', 10, 100, '2024-01-10', '1'), t('sell', 10, 150, '2025-03-10', '2')]];
+  const base = runPipeline(trades, 'zerodha', data), fixed = runPipeline(trades, 'zerodha', data, {}, {}, { INE000A01011: 'debt_fund' });
+  const h = base.holdings; assert.ok(Array.isArray(h));
+  assert.ok(base.tax.some((y) => y.equity.ltcg > 0));
+  assert.deepEqual(fixed.tax.map((y) => y.equity.ltcg), base.tax.map((y) => y.equity.ltcg), 'a stock forced to a fund type must be ignored');
+  const gold = runPipeline(trades, 'zerodha', data, {}, {}, { INE000A01011: 'gold_silver_etf' });
+  assert.ok(gold.tax.some((y) => y.slabGains !== 0 || y.other.ltcgTaxable > 0 || y.other.stcg !== 0), 'treated as a gold ETF, the gain is outside the equity pool');
+});

@@ -197,7 +197,7 @@ async function loadFundNavs() {
 function compute(a) {
   const d = S.data; d.priceHistory = S.hist; d.navHistory = S.fundOn ? S.fundNavs : undefined;
   d.shortlist = S.shortlist && S.allocCfg?.swingMatch ? { lines: S.shortlist, match: S.allocCfg.swingMatch, holidays: S.shortlistMeta?.holidays, extra: S.shortlistMeta?.extra, checked: S.shortlistMeta?.checked, liveFrom: S.shortlistMeta?.goLive } : undefined;
-  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {}, S.alloc?.acct?.[a.key]?.swing || {});
+  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {}, S.alloc?.acct?.[a.key]?.swing || {}, S.alloc?.acct?.[a.key]?.types || {});
   a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
 }
 async function recomputeAll(withFunds) {
@@ -793,7 +793,7 @@ function logCard(ms) {
 // ---------- allocation (design doc section 8): targets from your inputs, set against what you hold. A target, never an order.
 // Inputs are kept with each saved account in the private repo (so every browser shows the same), and in this browser as a fallback for an account that is not saved.
 // Only the keys that changed are sent (a patch), one save per account at a time, so two browsers editing different inputs do not overwrite each other.
-const MAP_KEYS = ['custom', 'stops', 'acted', 'swing'], BAD_KEYS = ['__proto__', 'constructor', 'prototype'];
+const MAP_KEYS = ['custom', 'stops', 'acted', 'swing', 'types'], BAD_KEYS = ['__proto__', 'constructor', 'prototype'];
 const okKey = (k) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k) && !BAD_KEYS.includes(k), mapKey = (k) => /^[^\x00-\x1f]{1,120}$/.test(k) && !BAD_KEYS.includes(k);
 const clampN = (v, max = 1e11) => (Number.isFinite(v) && v >= 0 ? Math.min(v, max) : undefined);
 /** The inputs as the server will accept them: clamped to the same limits, bad keys dropped. */
@@ -808,6 +808,7 @@ function cleanCfg(c) {
   const st = sub(c.stops, mapKey, (v) => Number.isFinite(v) && v >= 0, (v) => Math.min(v, 1e7)); if (Object.keys(st).length) o.stops = st;
   const ac = sub(c.acted, okKey, (v) => typeof v === 'string' && !Number.isNaN(Date.parse(v)) && /^\d{4}-\d\d-\d\d$/.test(v)); if (Object.keys(ac).length) o.acted = ac;
   const sw = sub(c.swing, mapKey, (v) => v === 'yes' || v === 'no'); if (Object.keys(sw).length) o.swing = sw;
+  const tp = sub(c.types, mapKey, (v) => typeof v === 'string' && ['listed_equity', 'gold_silver_etf', 'intl_etf', 'us_stock', 'equity_fund', 'debt_fund', 'hybrid_other', 'overseas_fof'].includes(v)); if (Object.keys(tp).length) o.types = tp;
   if (c.household && typeof c.household === 'object') { const hh_ = {}; const L = c.household.limits; if (L && typeof L === 'object') { const l = {}; for (const k of ['company', 'sector', 'house', 'region']) if (Number.isFinite(L[k]) && L[k] >= 0.01 && L[k] <= 1) l[k] = L[k]; if (Object.keys(l).length) hh_.limits = l; } if (Array.isArray(c.household.goals)) hh_.goals = c.household.goals.filter((g) => g && /^[A-Za-z0-9_-]{1,40}$/.test(String(g.id)) && typeof g.name === 'string' && g.name.length > 0 && g.name.length <= 40 && !/[\x00-\x1f<>]/.test(g.name) && Number.isFinite(g.amount) && g.amount > 0 && g.amount <= 1e11 && /^\d{4}-\d\d-\d\d$/.test(g.date)).slice(0, 20).map((g) => ({ id: String(g.id), name: g.name, amount: g.amount, date: g.date })); if (Object.keys(hh_).length) o.household = hh_; }
   if (Array.isArray(c.outside)) o.outside = c.outside.filter((x) => x && okKey(String(x.name)) && okKey(String(x.cls)) && Number.isFinite(x.value) && x.value >= 0).slice(0, 10).map((x) => ({ name: x.name, value: x.value, cls: x.cls }));
   return o;
@@ -1136,6 +1137,10 @@ function actionsCard(V, res, cur, capital, hs, A) {
 }
 
 function wireSnap() {
+  document.querySelectorAll('[data-fix]').forEach((el) => { el.onchange = () => {
+    const [ak, fk] = el.dataset.fix.split('|'), a = S.accounts.get(ak); if (!a) return; const A = acctCfg(ak), m = { ...(A.types ?? {}) };
+    if (el.value) m[fk] = el.value; else delete m[fk]; A.types = m; ALLOC_SAVE(); compute(a); render();
+  }; });
   document.querySelectorAll('[data-pnl]').forEach((el) => { el.onchange = async () => {
     const a = S.accounts.get(el.dataset.pnl); if (!a?.report || !el.files.length) return;
     try {
@@ -1221,6 +1226,20 @@ function reconCard(ms) {
   };
   return `<div class="card"><h2>Check against your broker's holdings statement</h2><div class="sub">Download the holdings statement from your broker (stocks, and separately mutual funds) and add it here. It is read in this browser and compared with what your tradebook says you hold; the file itself is not kept or uploaded. A match removes the "unverified" label. Choose several files at once if stocks and funds are separate.</div>${ms.map(row).join('')}<div class="sub">The result lasts for this session. A difference points at a missing order, a split or demerger, or shares that arrived by transfer.</div></div>`;
 }
+
+const STOCK_TYPES = ['listed_equity', 'gold_silver_etf', 'intl_etf', 'us_stock'], FUND_TYPES = ['equity_fund', 'debt_fund', 'hybrid_other', 'overseas_fof'];
+function correctionsCard(ms) {
+  const rules = S.data?.taxRules?.types; if (!rules) return '';
+  const lab = (t) => (rules[t]?.label ?? t);
+  const one = (a) => {
+    const fix = S.alloc?.acct?.[a.key]?.types ?? {}, hs = a.report.holdings.filter((h) => h.fixKey && h.type);
+    if (!hs.length) return '';
+    return `<div style="margin:12px 0"><b>${esc(a.label)}</b>${Object.keys(fix).length ? ` <span class="pill under">${Object.keys(fix).length} corrected</span>` : ''}<div class="tw" style="margin-top:6px"><table><thead><tr><th>Holding</th><th>Kind</th><th>Treated as</th><th>Change to</th></tr></thead><tbody>${hs.map((h) => { const fam = h.kind === 'Fund' ? FUND_TYPES : STOCK_TYPES, corrected = fix[h.fixKey] !== undefined;
+      return `<tr><td>${esc(h.name)}</td><td>${h.kind}</td><td>${esc(lab(h.type))}${corrected ? ' <span class="tag warn">your correction</span>' : ''}</td><td><select data-fix="${esc(a.key)}|${esc(h.fixKey)}"><option value="">${corrected ? 'Back to automatic' : 'Keep as is'}</option>${fam.filter((t) => t !== h.type).map((t) => `<option value="${t}">${esc(lab(t))}</option>`).join('')}</select></td></tr>`; }).join('')}</tbody></table></div></div>`;
+  };
+  const body = ms.map(one).join(''); if (!body) return '';
+  return `<div class="card"><h2>Correct how a holding is treated</h2><div class="sub">The tool guesses each holding's type from its name and category, and that decides its tax rules, its asset class and whether it counts as equity. If a guess is wrong, change it here: the correction is saved with the account and used every time. A stock can only be changed to another stock or ETF type, and a fund to another fund type. Missing buys and unexplained sells are answered under "Things to check" below.</div>${body}</div>`;
+}
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
@@ -1228,6 +1247,7 @@ function dataTab() {
   return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
   ${reconCard(ms)}
+  ${correctionsCard(ms)}
   ${swingProposalsCard(ms)}${saleProposalsCard(ms)}${swingGapNote(ms)}
   <div class="card"><h2>Things to check</h2>
   ${items.length ? `<div class="note">Your tradebook shows sells of shares it never shows buying. An IPO or rights allotment explains each one, but the price is an estimate. Confirm it, type the real price from your allotment or contract note, or reject it (the sell then stays unexplained and its gain is left out).</div>${items.map(([a, x], n) => `<div style="margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:8px"><span class="tag">estimated</span> <b>${esc(x.name)}</b> <span class="sub">${esc(a.label)} · ${x.kind} of ${x.qty} units around ${x.date} at ₹${x.unitCost}/unit</span><div class="sub" style="margin:4px 0">${esc(x.why)}</div><div class="row2"><button class="chip" data-dec="confirm" data-acct="${a.key}" data-k="${esc(x.key)}">Confirm ₹${x.unitCost}</button><input type="number" step="any" min="0" class="pxin" id="px${n}" placeholder="actual ₹ per unit" style="width:140px"><button class="chip" data-dec="price" data-acct="${a.key}" data-k="${esc(x.key)}" data-in="px${n}">Use this price</button><button class="chip" data-dec="reject" data-acct="${a.key}" data-k="${esc(x.key)}">Reject</button></div></div>`).join('')}` : ''}

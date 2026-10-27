@@ -27,10 +27,11 @@ export function cleanTrades(input: unknown): Trade[] | string {
   return out;
 }
 /** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates, owner answers): kept with the account so the desk works the same from any browser.
- * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the four maps (custom, stops, acted, swing) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
-export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'>; household?: { limits?: { company?: number; sector?: number; house?: number }; goals?: { id: string; name: string; amount: number; date: string }[] } }
+ * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the five maps (custom, stops, acted, swing, types) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
+export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'>; types?: Record<string, string>; household?: { limits?: { company?: number; sector?: number; house?: number }; goals?: { id: string; name: string; amount: number; date: string }[] } }
 export type SettingsPatch = { [K in keyof AccountSettings]?: AccountSettings[K] | null | Record<string, any> };
-const MAPS = ['custom', 'stops', 'acted', 'swing'] as const;
+const MAPS = ['custom', 'stops', 'acted', 'swing', 'types'] as const;
+export const ASSET_TYPES = ['listed_equity', 'gold_silver_etf', 'intl_etf', 'us_stock', 'equity_fund', 'debt_fund', 'hybrid_other', 'overseas_fof'];
 const nn = (v: unknown, max = 1e11): number | null => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
 const BANNED = new Set(['__proto__', 'constructor', 'prototype']);
 const okKey = (k: string) => /^[A-Za-z0-9 .,&()'_/-]{1,80}$/.test(k) && !BANNED.has(k);
@@ -67,7 +68,7 @@ export function cleanSettings(input: unknown): SettingsPatch | string | undefine
   if (i.profile !== undefined) { if (i.profile === null) out.profile = null; else { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; } }
   if (i.off !== undefined) { if (i.off === null) out.off = null; else { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; } }
   const spec: Record<string, [number, (k: string) => boolean, (v: any) => boolean]> = {
-    custom: [20, okKey, (v) => nn(v, 1) !== null], stops: [100, mapKey, (v) => nn(v, 1e7) !== null], acted: [20, okKey, realDate], swing: [2000, mapKey, (v) => v === 'yes' || v === 'no'] };
+    custom: [20, okKey, (v) => nn(v, 1) !== null], stops: [100, mapKey, (v) => nn(v, 1e7) !== null], acted: [20, okKey, realDate], swing: [2000, mapKey, (v) => v === 'yes' || v === 'no'], types: [500, mapKey, (v) => typeof v === 'string' && ASSET_TYPES.includes(v)] };
   for (const m of MAPS) if (i[m] !== undefined) {
     if (i[m] === null) { out[m] = null; continue; }
     if (typeof i[m] !== 'object' || Array.isArray(i[m])) return `bad ${m}`;

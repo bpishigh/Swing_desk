@@ -36,7 +36,7 @@ export const ELSS_MARGIN_DAYS = 5;
                      
                                                                                                                                                                   
                                                                        
-                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                       
                                                                                                                                 
                       
                                                                                                                
@@ -54,7 +54,7 @@ const masters = new WeakMap                    ();   // the fund list is large; 
 const masterFor = (amfi           , ov       ) => { let m = masters.get(amfi); if (!m) masters.set(amfi, (m = new FundMaster(amfi, ov))); return m; };
 const isFundType = (t         ) => !!t && /fund|fof|hybrid/.test(t);
 
-export function runPipeline(batches           , broker                     , d            , decisions                           = {}, swingAnswers                               = {})         {
+export function runPipeline(batches           , broker                     , d            , decisions                           = {}, swingAnswers                               = {}, typeFix                         = {})         {
   const m = mergeTrades(batches);
   const names = new Set(m.trades.map((t) => (t.symbol ?? t.instrument).toUpperCase()));
   const isins = new Set(m.trades.filter((t) => t.isin).map((t) => t.isin));
@@ -83,6 +83,7 @@ export function runPipeline(batches           , broker                     , d  
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }
+  for (const [k, v] of Object.entries(typeFix)) if (typeByKey.has(k) && d.taxRules.types[v                                 ] && isFundType(v) === isFundType(typeByKey.get(k))) typeByKey.set(k, v);   // the owner's correction wins over the guess
   const fundRep = replay(fundTrades, 365);
   const combined = { open: [...res.replay.open, ...fundRep.open], realised: [...res.replay.realised, ...fundRep.realised], breaks: [...res.replay.breaks, ...fundRep.breaks], applied: []             };
   const synth = (r                              , side                , value        , date        )        => ({ instrument: nameByKey.get(r.key) ?? r.key, isin: '', side, qty: r.qty, price: value / r.qty, value, date, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' });
@@ -160,6 +161,7 @@ export function runPipeline(batches           , broker                     , d  
   const catByName = new Map                (); for (const [k, nm] of nameByKey) if (catByKey.has(k)) catByName.set(nm, catByKey.get(k) );
   for (const t of books) {
     const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm);
+    if (e && e.type === undefined) { e.type = typeByKey.get(t.lot.key); e.fixKey = t.lot.key; }
     if (e && e.assetClass === undefined) {
       // An exchange-traded unit with a fund ISIN (INF...) is an ETF, not a share, whatever its listed name: the AMFI list gives its scheme name and category.
       let label = e.name;
