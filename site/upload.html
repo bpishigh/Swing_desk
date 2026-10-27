@@ -187,7 +187,12 @@ function loadHist() { return (histP ??= (async () => {
   for (const c of parts) { for (const [sym, a] of Object.entries(c.px)) { const t = (px[sym] ??= new Array(off).fill(null)); while (t.length < off) t.push(null); for (let i = 0; i < c.dates.length; i++) t.push(a[i] ?? null); } dates.push(...c.dates); off += c.dates.length; for (const a of Object.values(px)) while (a.length < off) a.push(null); }
   return { dates, px };
 })()); }
-async function fetchNav(code) { try { const j = await (await fetch('https://api.mfapi.in/mf/' + code)).json(); const m = {}; for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); m[`${yy}-${mm}-${dd}`] = Number(x.nav); } return Object.keys(m).length ? m : null; } catch { return null; } }
+async function fetchNav(code) {
+  // The page asks its own site first (the free NAV service no longer allows browsers to read it directly); the direct call is the fallback for a copy served without the site's API.
+  let j = null;
+  try { const r = await fetch('/api/nav?code=' + encodeURIComponent(code), { credentials: 'same-origin' }); if (r.ok) j = await r.json(); } catch {}
+  if (!j) { try { j = await (await fetch('https://api.mfapi.in/mf/' + code)).json(); } catch { j = null; } }
+  try { const m = {}; for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); m[`${yy}-${mm}-${dd}`] = Number(x.nav); } return Object.keys(m).length ? m : null; } catch { return null; } }
 async function loadBenchmarks() {
   const got = await Promise.all(BENCHMARKS.map(async (b) => [b.id, await fetchNav(b.code)]));
   let ok = 0; for (const [id, m] of got) if (m) { S.navs[id] = m; ok++; }
