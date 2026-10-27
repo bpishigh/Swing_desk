@@ -30,7 +30,7 @@ export function switchCost(lots           , ctx                                 
     const rl = rule && typeof rule.ltcg === 'number' ? rule.ltcg : null, longOn = !long ? turnsLong(ctx.rules, l, ctx.today) : null;
     const extra                     = {};
     if (longOn) { extra.longOn = longOn; extra.taxIfLong = gain > 0 && rl !== null ? gain * rl : gain <= 0 ? 0 : null; }
-    if (l.locked) { extra.locked = true; extra.lockEnd = new Date(Date.UTC(+l.date.slice(0, 4) + 3, +l.date.slice(5, 7) - 1, +l.date.slice(8, 10))).toISOString().slice(0, 10); }
+    if (l.locked) { extra.locked = true; /* 3 years from allotment, +5 days: a tradebook shows the order date */ extra.lockEnd = new Date(Date.UTC(+l.date.slice(0, 4) + 3, +l.date.slice(5, 7) - 1, +l.date.slice(8, 10) + 5)).toISOString().slice(0, 10); }
     if (load > 0) extra.loadEnds = addDay(l.date, loadEndDays(l.exitLoad ));
     out.lots.push({ date: l.date, qty: l.qty, value, gain, long, tax, load, loadNote, ...extra });
     out.value += value; out.gain += gain; out.load += load; out.charges += charges; if (long) out.longGain += gain; else out.shortGain += gain;

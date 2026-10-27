@@ -18,6 +18,8 @@ import { tradeHistory, type History } from './tradehistory.ts';
 import { matchBuy, sessionsBetween, gapNights, type ShortLine, type MatchSettings, type Cal } from './shortlist.ts';
 import { valuationSeries, type DayValue } from './valuation.ts';
 
+/** The 3-year ELSS lock runs from the day units are allotted, which can be a few days after the order date in a tradebook; this margin keeps a lot locked until it is clearly free. */
+export const ELSS_MARGIN_DAYS = 5;
 export interface PublicData {
   feed: FeedRow[]; demergers: DemergerRecord[]; ipos: IpoRecord[]; amfi: AmfiRow[]; fundOverrides: any[];
   charges: any; taxRules: any; divRules: any;
@@ -164,9 +166,9 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
       e.assetClass = assetClassOf(e.kind, label, e.category ?? '', typeByKey.get(t.lot.key) ?? '');
     }
   }
-  { const lim = new Date(); lim.setFullYear(lim.getFullYear() - 3); const cut = lim.toISOString().slice(0, 10);
+  { const lim = new Date(); lim.setFullYear(lim.getFullYear() - 3); lim.setDate(lim.getDate() - ELSS_MARGIN_DAYS); const cut = lim.toISOString().slice(0, 10);
     for (const t of books) { const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm), px = priceOf(t.lot.key); if (e && px !== undefined && /elss|tax saver|tax advantage/i.test(nm + ' ' + (e.category ?? '')) && t.lot.date > cut) e.locked = (e.locked ?? 0) + t.lot.qty * px; } }  // ELSS units are locked for 3 years from each purchase
-  const lockCut = (() => { const x = new Date(); x.setFullYear(x.getFullYear() - 3); return x.toISOString().slice(0, 10); })();
+  const lockCut = (() => { const x = new Date(); x.setFullYear(x.getFullYear() - 3); x.setDate(x.getDate() - ELSS_MARGIN_DAYS); return x.toISOString().slice(0, 10); })();
   const openLots: Report['openLots'] = books.flatMap((t) => { const nm = nameByKey.get(t.lot.key) ?? t.lot.key, e = byName.get(nm), px = priceOf(t.lot.key); return e && px !== undefined ? [{ name: nm, kind: e.kind, book: t.book, assetClass: e.assetClass ?? null, category: e.category, type: typeByKey.get(t.lot.key) ?? 'listed_equity', date: t.lot.date, qty: t.lot.qty, unitCost: t.lot.unitCost, price: px, locked: /elss|tax saver|tax advantage/i.test(nm + ' ' + (e.category ?? '')) && t.lot.date > lockCut, ...(t.swing ? { stop: t.swing.stop, setup: t.swing.setup } : {}) }] : []; });
   holdings.push(...byName.values());
 

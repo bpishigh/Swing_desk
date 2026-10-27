@@ -127,3 +127,8 @@ test('tiered exit load with free units', () => {
   assert.equal(loadRate(liq, 0), 0.00007); assert.equal(loadRate(liq, 3), 0.000045); assert.equal(loadRate(liq, 7), 0);
   assert.equal(loadRate({ days: 365, pct: 0.01 }, 364), 0.01); assert.equal(loadRate(undefined, 1), 0);
 });
+
+test('an ELSS lot is treated as locked until a few days after its third anniversary (allotment can follow the order date)', async () => {
+  const { ELSS_MARGIN_DAYS } = await import('../src/pm/pipeline.ts');
+  assert.equal(ELSS_MARGIN_DAYS, 5);
+});
