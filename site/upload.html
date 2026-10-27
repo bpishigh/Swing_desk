@@ -123,7 +123,8 @@ table.stk td:nth-child(2){text-align:left}@media (max-width:640px){table.stk the
 import { parseCsv } from './pm/csv.js';
 import { fundCard, stockCard, sellCostCard, factTiles, debtTiles, intlTiles } from './pm/fundcard.js';
 import { intlRegion } from './pm/intlregion.js'
-import { worstDrawdown } from './pm/drawdown.js';
+import { worstDrawdown } from './pm/drawdown.js'
+import { trimTiers, TARGET_NAMES, MAX_TRIMS } from './pm/trim.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -476,10 +477,29 @@ function verdictOf(h) {
     if (v === undefined) { v = fundVerdict(h, S.fundScores?.funds, S.fundGate ?? { ran: false, replaceOn: false }, nav); v.fund = true; { const hh = S.holdHealth?.funds?.[h.isin]; if (hh) v.reasons = v.reasons.concat(`Holdings trend (information only, C-101): ${Math.round(100 * hh.aboveShare)}% of the fund's stocks are above their 200-day average and they returned ${sgn(100 * hh.ret6m)} over 6 months${hh.pct === null ? '' : '; ' + Math.round(hh.pct) + 'th percentile among ' + hh.cat + ' funds'}. A back-test (C-104) did not show it predicts anything, so it is not used in any recommendation.`); } { const fq = S.fundQuality?.funds?.[h.isin]; if (fq) { const mg = fq.managers.map((m) => m.name + (m.since ? ' (since ' + m.since.slice(0, 7) + ')' : '')).join(', '); v.reasons = v.reasons.concat(`Fund facts (information only, C-108; no weight in the score, no effect on the verdict): managers ${mg}; size ${fq.aum != null ? '₹' + Math.round(fq.aum).toLocaleString('en-IN') + ' crore' : 'not listed'}; expense ratio ${fq.expense != null ? fq.expense + '%' : 'not listed'}; portfolio turnover ${fq.turnover != null ? fq.turnover + '%' : 'not listed'}; benchmark ${fq.benchmark ?? 'not listed'}.`); if (fq.vs5) v.reasons = v.reasons.concat(`Five-year return ${fq.vs5.fund}% a year against ${fq.vs5.benchR5}% for the median of ${fq.vs5.n} ${fq.vs5.bench} index funds (${fq.vs5.fund >= fq.vs5.benchR5 ? 'ahead by ' : 'behind by '}${Math.abs(fq.vs5.fund - fq.vs5.benchR5).toFixed(1)} points a year). A fact, not a prediction; funds that closed are missing from this comparison.`); if (fq.flags.length) v.reasons = v.reasons.concat('Flags: ' + fq.flags.map((x) => x.text).join('; ') + '.'); } } vmemo.set(mk, v); } return v;
   }
   if (h.kind !== 'Stock' || h.book !== 'Legacy' || !h.symbol || !S.hist || !S.data) return null;
-  let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed, S.data.demergers); vmemo.set(h.symbol, v); } return v;
+  let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed, S.data.demergers); vmemo.set(h.symbol, v); }
+  if (v.label !== 'Keep') return v;
+  const t = trimOf(h.symbol); if (!t) return v;
+  const k = 'trim|' + h.symbol + '|' + t.tier; let o = vmemo.get(k);
+  if (!o) { o = t.tier === 'trim' ? { ...v, label: 'Trim', reasons: ['Passes the exit test, but outside your ten-name target.', t.why], pending: ['Promote to Swing is not applied yet. A sale is not ordered: Trim runs down over time, through the sale-after and tax timing rules.'], rank: t }
+    : { ...v, reasons: v.reasons.concat(t.tier === 'keep' ? [] : [t.why]), pending: v.pending, rank: t }; vmemo.set(k, o); }
+  return o;
+}
+let trimMemo = null;
+/** Household-wide: the ten-name target counts every account's Legacy direct stocks that pass the exit test, so it is worked out once for all accounts. */
+function trimOf(sym) {
+  if (!S.hist || !S.data) return null;
+  const sig = [...S.accounts.values()].map((a) => a.key + ':' + (a.report?.holdings?.length ?? 0)).join(',') + '|' + S.hist.dates.at(-1);
+  if (!trimMemo || trimMemo.sig !== sig) {
+    const by = new Map();
+    for (const a of S.accounts.values()) for (const h of a.report?.holdings ?? []) if (h.kind === 'Stock' && h.book === 'Legacy' && h.symbol && h.value > 0) by.set(h.symbol, (by.get(h.symbol) ?? 0) + h.value);
+    const cands = [...by].filter(([sy]) => stockVerdict(sy, S.hist, S.data.feed, S.data.demergers).label === 'Keep').map(([symbol, weight]) => ({ symbol, weight }));
+    trimMemo = { sig, res: new Map(trimTiers(cands, S.hist, S.data.feed, S.data.demergers).map((r) => [r.symbol, r])) };
+  }
+  return trimMemo.res.get(sym) ?? null;
 }
 const segOf = (h) => (h.kind === 'Stock' ? segmentOf(h.symbol, S.segments) : null);
-const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' || v.label === 'Replace' ? 'bad' : v.label === 'Keep' ? 'ok' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
+const vTag = (v) => (!v ? '<span class="sub">–</span>' : `<span class="tag ${v.label === 'Exit' || v.label === 'Replace' ? 'bad' : v.label === 'Keep' ? 'ok' : v.label === 'Trim' ? 'warn' : ''}" title="${esc(v.reasons.concat(v.pending).join(' '))}">${v.label}${v.partial ? '*' : ''}</span>`);
 const vWhy0 = (v) => (!v ? '' : v.fund ? v.reasons.concat(v.pending).join('; ') : v.label === 'Exit' ? [v.below200 ? `below its 200 SMA ${fmt2(v.sma200)}` : '', v.belowSwing ? `below the swing low ${fmt2(v.swingLow.price)}` : ''].filter(Boolean).join(' and ') + (v.partial ? ' (200-day not yet available)' : '') + (v.adjusted ? ' (prices adjusted for ' + v.adjusted.length + ' split/bonus)' : '') : v.label === 'No verdict' ? v.reasons[0] : '');
 // Fund card: how much of this fund the household already owns through its other funds (look-through, C-78). Facts only.
 function overlapFor(h) {
@@ -514,7 +534,7 @@ function firmOf(h) {
   if (c.series && c.series !== 'EQ') notes.push(`it trades in the ${c.series} segment, which can be slower to sell`);
   if (c.advCr !== null && c.advCr < 10) notes.push('it trades under ₹10 crore a day, so selling a large position may take time');
   const inK = (x) => Math.round(x);
-  if (v.label === 'Keep') return { label: 'Passes', tr, keep, notes, line: tr ? `about ${inK(tr.back20)} in 100 similar stocks still passed the test a month later` : '' };
+  if (v.label === 'Keep' || v.label === 'Trim') return { label: 'Passes', tr, keep, notes, line: tr ? `about ${inK(tr.back20)} in 100 similar stocks still passed the test a month later` : '' };
   if (!tr) return { label: 'No track record', tr: null, keep, notes, line: 'there is no past data for this situation' };
   const border = tr.back20 >= FIRM_BACK;
   return { label: border ? 'Borderline' : 'Firm', tr, keep, notes, line: `about ${inK(tr.back20)} in 100 similar stocks in the past were back above the exit-test levels (the 200-day average and the swing low) within a month${border ? ', so this one could easily bounce back' : ', so most stayed weak'}` };
@@ -537,7 +557,7 @@ function fundTilesFor(h) {
 function ctxPanel(h, tot) {
   const c = ctxOf(h), v = verdictOf(h); if (!c) return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles: fundTilesFor(h), blocks: [sellCostFor(h)], notes: ['No price context is stored for this holding yet; the sale estimate above still applies.'] })}</td></tr>`;
   const ind = S.segments?.industry?.[h.symbol];
-  const lvl = v && v.label === 'Keep' ? Math.max(v.swingLow?.price ?? 0, v.sma200 ?? 0) : 0;
+  const lvl = v && (v.label === 'Keep' || v.label === 'Trim') ? Math.max(v.swingLow?.price ?? 0, v.sma200 ?? 0) : 0;
   const risk = h.value !== null && lvl > 0 && v.close > 0 ? h.value * (1 - lvl / v.close) : null;
   const dayShare = h.value !== null && c.advCr ? h.value / (c.advCr * 1e7) : null;
   const dtr = c.deliv !== null && c.delivPrev !== null ? c.deliv - c.delivPrev : null;
@@ -550,7 +570,7 @@ function ctxPanel(h, tot) {
     ...factTiles(S.stockFacts?.stocks?.[h.symbol]),
     { k: 'Relative strength', v: c.rs === null ? '–' : 'top ' + (100 - c.rs) + '%', s: 'of every stored stock, 3-month return' },
     { k: 'Next results', v: r ? esc(r.date) : '–', s: r ? 'about ' + r.sessions + ' sessions' + (r.sessions <= 10 ? ' · no new trades inside 10' : '') : 'no date announced' },
-    { k: 'Value at risk to exit level', v: v && v.label === 'Keep' ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', s: v && v.label === 'Keep' ? 'if it closed at the nearer of 200-day average and swing low' : '' },
+    { k: 'Value at risk to exit level', v: v && (v.label === 'Keep' || v.label === 'Trim') ? (risk === null ? '–' : short(risk)) : v && v.label === 'Exit' ? 'whole position' : '–', s: v && v.label === 'Keep' ? 'if it closed at the nearer of 200-day average and swing low' : '' },
     { k: 'Weight in the book', v: h.value === null ? '–' : pct(h.value / tot, 1), s: 'of the selected accounts' },
     { k: 'Avg traded value', v: c.advCr === null ? '–' : '₹' + c.advCr.toLocaleString('en-IN', { maximumFractionDigits: 1 }) + ' cr', s: 'a day, last 20 sessions' },
     { k: 'Your position', v: dayShare === null ? '–' : (dayShare * 100).toFixed(dayShare < 0.01 ? 2 : 1) + '%', s: 'of a day\'s trading' },
@@ -569,15 +589,16 @@ function verdictCard(V) {
   if (!vs.length && !fv.length) return '';
   const fc = (l) => fv.filter(([, v]) => v.label === l), fAct = fv.filter(([, v]) => ['Replace', 'Exit', 'Watch'].includes(v.label)).sort((a, b) => (b[0].value ?? 0) - (a[0].value ?? 0));
   const fundsHtml = fv.length ? `<div style="margin-top:12px"><b>Funds and ETFs:</b> ${fc('Keep').length} Keep, ${fc('Watch').length} Watch, ${fc('Replace').length} Replace, ${fc('Exit').length} Exit, ${fc('No verdict').length} no verdict.${S.fundGate && S.fundGate.ran ? '' : ' Waiting for the fund-score back-test (C-81).'}${fAct.slice(0, 8).map(([h, v]) => `<div style="margin:6px 0"><span class="tag ${v.label === 'Watch' ? '' : 'bad'}">${v.label}</span> ${esc(h.name)} <span class="sub">${esc(vWhy(v, h))}</span></div>`).join('')}<div class="sub">Fund bands come from the published scores (Strong, Average, Weak inside the category or the same-index group); Replace shows only when the back-test passed. Sector funds use the 200-day test on their NAV. Hybrid, debt, gold and international funds get no verdict.</div></div>` : '';
-  const ex = vs.filter(([, v]) => v.label === 'Exit').sort((a, b) => (b[0].value ?? 0) - (a[0].value ?? 0)), keep = vs.filter(([, v]) => v.label === 'Keep').length, nov = vs.length - ex.length - keep;
+  const ex = vs.filter(([, v]) => v.label === 'Exit').sort((a, b) => (b[0].value ?? 0) - (a[0].value ?? 0)), keep = vs.filter(([, v]) => v.label === 'Keep' || v.label === 'Trim').length, trims = vs.filter(([, v]) => v.label === 'Trim').sort((a, b) => (b[1].rank?.rank ?? 0) - (a[1].rank?.rank ?? 0)), nov = vs.length - ex.length - keep;
   const asOf = vs.map(([, v]) => v.asOf).filter(Boolean).sort().pop() || '';
   if (!vs.length) return `<div class="card"><h2>What to do <button class="chip" data-tab="holdings">all verdicts →</button></h2>${fundsHtml}</div>`;
   return `<div class="card"><h2>What to do <button class="chip" data-tab="holdings">all verdicts →</button></h2>
   ${S.regime ? `<div class="sub" style="margin-bottom:8px">Market is <b>${esc(S.regime.name)}</b> · ${S.regime.breadth}% of stocks above their 50-day average. Context only.</div>` : ''}
   <div style="margin-bottom:8px">${vs.length} direct stocks tested: <b>${ex.length}</b> fail the exit test${ex.length ? ` (${short(ex.reduce((a, [h]) => a + (h.value ?? 0), 0))} of value)` : ''}, <b>${keep}</b> pass${nov ? `, ${nov} cannot be tested` : ''}.</div>
   ${ex.slice(0, 4).map(([h, v]) => `<div style="margin:8px 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span style="min-width:0;flex:1"><span class="tag bad">Exit</span> <b>${esc(h.name)}</b><div class="sub why1" title="${esc(vWhy(v, h))}">${esc(vWhy(v, h))}</div></span><span>${h.value === null ? '' : short(h.value)} <span class="${cls((h.value ?? 0) - h.cost)}">${h.value === null || !h.cost ? '' : pct((h.value - h.cost) / h.cost, 0)}</span></span></div>`).join('')}${ex.length > 4 ? `<div class="sub">and ${ex.length - 4} more on the Holdings tab.</div>` : ''}${!ex.length ? '<div class="sub">No stock fails the exit test.</div>' : ''}
+  ${trims.length ? `<div style="margin-top:10px"><b>Trim (outside your ten-name target):</b>${trims.slice(0, 4).map(([h, v]) => `<div style="margin:6px 0"><span class="tag warn">Trim</span> <b>${esc(h.name)}</b> <span class="sub">rank ${v.rank.rank} of ${v.rank.of} by 3-month strength · ${h.value === null ? '' : short(h.value)}</span></div>`).join('')}<div class="sub">Lowest rank first, at most ${MAX_TRIMS} at a time, only after two weekly ranks in a row. Not an order to sell: it runs down through the tax-timing rules.</div></div>` : ''}
   ${(() => { const due = mergedHoldings(V).map((h) => [h, resultsOf(h)]).filter(([, r]) => r && r.sessions <= 10).sort((a, b) => a[1].date.localeCompare(b[1].date)); return due.length ? `<div style="margin-top:10px"><b>Results due within 10 sessions:</b> ${due.slice(0, 12).map(([h, r]) => `${esc(h.name)} <span class="sub">${esc(r.date.slice(5))}</span>`).join(' · ')}${due.length > 12 ? ` · +${due.length - 12} more` : ''}<div class="sub">Announced board-meeting dates (NSE); they can move. Information only: nothing is sold or held back because of a results date.</div></div>` : ''; })()}
-  <details class="how"><summary>How the exit test works</summary><div class="sub" style="margin-top:6px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test; whether it also fits your ten-name target (Trim) or qualifies for the Swing book (Promote) is not applied yet. Based on closes up to ${esc(asOf)}.</div></details>${fundsHtml}</div>`;
+  <details class="how"><summary>How the exit test works</summary><div class="sub" style="margin-top:6px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test. Trim means it passes but ranks below your ten-name target (by 3-month strength, after two weekly ranks in a row); whether it qualifies for the Swing book (Promote) is not applied yet. Based on closes up to ${esc(asOf)}.</div></details>${fundsHtml}</div>`;
 }
 function holdingsRows(V) {
   const tot = mergedHoldings(V).reduce((a, h) => a + (h.value ?? 0), 0) || 1;
@@ -651,7 +672,7 @@ function switchCard(V) {   // C-91, C-93: information only
 function holdings(V) {
   const kinds = ['All', 'Stock', 'ETF', 'Fund'];
   const th = (k, t) => `<th data-sort="${k}">${t}${S.sort.k === k ? (S.sort.d > 0 ? ' ▲' : ' ▼') : ''}</th>`;
-  return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="seg">${['All', 'Exit', 'Replace', 'Watch', 'Keep', 'No verdict'].map((k) => `<button data-vf="${k}" aria-pressed="${S.vf === k}">${k === 'All' ? 'Any verdict' : k}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
+  return `<div class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px"><div class="seg">${kinds.map((k) => `<button data-kind="${k}" aria-pressed="${S.kind === k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="seg">${['All', 'Exit', 'Trim', 'Replace', 'Watch', 'Keep', 'No verdict'].map((k) => `<button data-vf="${k}" aria-pressed="${S.vf === k}">${k === 'All' ? 'Any verdict' : k}</button>`).join('')}</div><input type="search" id="q" placeholder="Search holdings" value="${esc(S.q)}"><span class="sub">Click a heading to sort. Values at the latest close${V.asOf ? ' (' + esc(V.asOf) + ')' : ''}.</span></div>
   <div class="tw"><table><thead><tr>${th('name', 'Holding')}${th('kind', 'Type')}${th('book', 'Book')}${th('cap', 'Cap')}${th('verdict', 'Verdict')}${th('weight', 'Weight')}<th>Units</th>${th('cost', 'Cost ₹')}${th('value', 'Value ₹')}${th('gain', 'Gain ₹')}${th('gainPct', 'Gain %')}</tr></thead><tbody id="hbody">${holdingsBody(V)}</tbody></table></div></div>${weakReview(V)}${switchCard(V)}`;
 }
 

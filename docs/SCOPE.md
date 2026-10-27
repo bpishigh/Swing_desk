@@ -151,7 +151,7 @@ US candidates have a median ATR14 of 5% of price, so a 1.5 ATR stop is about 7.6
 
 ### J. Pending scope of work (from the 21 Oct 2026 audit; the owner asked for these to be recorded)
 Promised in docs/PORTFOLIO_MANAGER_DESIGN.md and not built. Nothing here is started.
-1. **Stock verdicts beyond Exit and Keep:** Trim, Promote and Harvest, the sale-after date, and the verdict decision log with its 3, 6 and 12 month follow-ups (design 4, phase 2). Only Exit and Keep exist (`src/pm/verdict.ts`).
+1. **Stock verdicts beyond Exit and Keep:** Trim built 27 Oct 2026 (`src/pm/trim.ts`: top ten by 3-month strength stay Keep; the rest are Trim after two weekly ranks in a row, lowest first, at most two at a time; no monthly counter yet). Still to build: Promote (needs the nightly screen result for held names), Harvest and the sale-after date (need the owner's margin and loss haircut), and the verdict decision log with 3, 6 and 12 month follow-ups (needs the scoring rules written first).
 2. **Fund verdicts:** Exit, Replace, Watch and Keep for held funds, the fund shortlist (top 3 by score), the back-test gate, and the design's score weights and measures (downside, risk-adjusted, benchmark and tracking difference, expense ratio) (design 9.1, phase 3). Only Strong, Average and Weak bands with a replace candidate exist (`src/pm/fundscore.ts`); `fundVerdictSales` is off.
 3. **Schedule CG CSV export** (design 7.1).
 4. **Holdings-snapshot reconciliation gate** and the "unverified" label; reconciliation against the P&L statement and contract notes (design 11, phases 1 and 4).
