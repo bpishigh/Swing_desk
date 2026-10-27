@@ -125,6 +125,8 @@ import { fundCard, stockCard, sellCostCard, factTiles, debtTiles, intlTiles } fr
 import { intlRegion } from './pm/intlregion.js'
 import { worstDrawdown } from './pm/drawdown.js'
 import { trimTiers, TARGET_NAMES, MAX_TRIMS } from './pm/trim.js';
+import { harvest, saleAfter, HARVEST_DEFAULTS } from './pm/harvest.js';
+import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -216,7 +218,7 @@ async function syncLog() {
     for (const h of a.report.holdings) {
       const v = verdictOf({ ...h, book: h.book }); if (!v || v.fund || v.label === 'No verdict' || !v.asOf) continue;   // the log holds stock verdicts only
       const l = last.get(h.symbol); if (l && l.verdict === v.label) continue;
-      add.push({ date: v.asOf, symbol: h.symbol, verdict: v.label, rule: 'exit test: 200 SMA and swing low', close: v.close, sma200: v.sma200, swingLow: v.swingLow ? v.swingLow.price : null, swingDate: v.swingLow ? v.swingLow.date : null, unrealised: h.value === null ? null : Math.round((h.value - h.cost) * 100) / 100 });
+      add.push({ date: v.asOf, symbol: h.symbol, verdict: v.label, rule: v.label === 'Trim' ? 'ten-name target: below the top ten at two weekly checks' : 'exit test: 200 SMA and swing low', close: v.close, sma200: v.sma200, swingLow: v.swingLow ? v.swingLow.price : null, swingDate: v.swingLow ? v.swingLow.date : null, unrealised: h.value === null ? null : Math.round((h.value - h.cost) * 100) / 100 });
     }
     if (!add.length) continue;
     const by = new Map(); for (const e of [...(a.verdictLog || []), ...add]) by.set(e.symbol + '|' + e.date, e);
@@ -688,6 +690,27 @@ function otherTax(y, slab) {
   const parts = [`${money(o.ltcgTax)} long-term`]; if (o.stcgTaxable) parts.push(o.stcgTax === null ? `${money(o.stcgTaxable)} short-term at your slab rate` : `${money(o.stcgTax)} short-term at ${(slab * 100).toFixed(0)}%`);
   return `<b>${o.tax === null ? '≥ ' + inr(o.ltcgTax) : inr(o.tax)}</b><div class="sub">${parts.join(' + ')}</div>`;
 }
+
+function harvestCard(g) {
+  if (!S.hist || !S.data) return '';
+  const today = new Date().toISOString().slice(0, 10), rules = S.data.taxRules, cur = fy(today), y = g.years.find((v) => v.fy === cur);
+  const latest = rules.types.listed_equity.rules.slice().sort((a, b) => b.transfer_from.localeCompare(a.transfer_from))[0], rate = { stcg: latest.stcg, ltcg: latest.ltcg };
+  const pos = { stcg: Math.max(0, y?.equity.taxable.stcg ?? 0), ltcgTaxable: Math.max(0, y?.equity.taxable.ltcg ?? 0) }, exLeft = y ? Math.max(0, y.equity.exemption - y.equity.exemptionUsed) : latest.exemption;
+  const lots0 = g.list.flatMap((a) => { const sym = new Map(a.report.holdings.map((h) => [h.name, h.symbol])); return (a.report.openLots ?? []).filter((l) => l.kind === 'Stock' && l.type === 'listed_equity' && l.book === 'Legacy').map((l) => ({ account: a.label, name: l.name, symbol: sym.get(l.name), date: l.date, qty: l.qty, unitCost: l.unitCost, price: l.price, long: isLong(rules, l, today) === true, daysToLong: Math.round((Date.parse(l.date) + 366 * 86400000 - Date.parse(today)) / 86400000) })); });
+  const exitN = new Set(g.list.flatMap((a) => a.report.holdings.filter((h) => h.kind === 'Stock' && verdictOf({ ...h, book: h.book })?.label === 'Exit').map((h) => h.name)));
+  const lots = lots0.filter((l) => !exitN.has(l.name));
+  if (!lots0.length) return '';
+  const ch = (value) => { try { return orderCharges({ instrument: '', isin: '', side: 'sell', qty: 1, price: value, value, date: today, time: '', exchange: 'NSE', orderId: '', tradeId: '', kind: 'stock' }, 'listed_equity', 'groww', S.data.charges).total; } catch { return 0; } };
+  const vol = (l) => { const a = l.symbol && S.hist.px[l.symbol]; if (!a) return null; const c = a.filter((v) => v !== null && v !== undefined).slice(-61); if (c.length < 40) return null; const r = c.slice(1).map((v, i) => Math.log(v / c[i])), m = r.reduce((t, x) => t + x, 0) / r.length; return Math.sqrt(r.reduce((t, x) => t + (x - m) ** 2, 0) / (r.length - 1)); };
+  const H = harvest(lots, pos, rate, ch, HARVEST_DEFAULTS), W = saleAfter(lots, today, exLeft, rate, vol, HARVEST_DEFAULTS);
+  const fire = H.filter((r) => r.fire), wait = W.filter((r) => r.wait);
+  const line = (tag, cls_, r, extra) => `<div style="margin:8px 0"><span class="tag ${cls_}">${tag}</span> <b>${esc(r.name)}</b>${g.list.length > 1 && r.account ? ` <span class="sub">${esc(r.account)}</span>` : ''} <span class="sub">${extra}</span><div class="sub">${esc(r.why)}</div></div>`;
+  return `<div class="cgbar" style="margin-top:12px"><b>Losses to book and gains worth waiting for</b> <span class="sub">listed shares in the Legacy book, this financial year (${cur})</span>
+    ${fire.length ? fire.slice(0, 6).map((r) => line('Harvest', 'warn', r, `tax value about ${money(r.taxValue)} against about ${money(r.roundTrip)} to sell and buy back`)).join('') : '<div class="sub" style="margin-top:6px">No loss is worth booking right now: the tax it would save does not beat the cost of selling and buying back by 25%.</div>'}
+    ${wait.length ? wait.slice(0, 6).map((r) => line('Sell after ' + r.date, 'ok', r, `waiting saves about ${money(r.taxSaved)}`)).join('') : '<div class="sub" style="margin-top:6px">No gain is close enough to its one-year date to be worth waiting for.</div>'}
+    ${exitN.size ? `<div class="sub" style="margin-top:6px">${[...exitN].filter((n) => lots0.some((l) => l.name === n)).length} stock(s) that fail the exit test are left out: Exit comes first and is never held back for tax.</div>` : ''}
+    <details class="how"><summary>How this is worked out</summary><div class="sub" style="margin-top:6px">Harvest: a loss cancels this year's short-term gains first, then long-term gains above the exemption. Any part that can only carry forward is counted at ${Math.round(HARVEST_DEFAULTS.haircut * 100)}%, because carry-forward is unconfirmed until a return is filed. It fires only when the tax value beats the round trip (charges both ways plus ${HARVEST_DEFAULTS.gapRisk * 100}% for overnight price risk) by ${HARVEST_DEFAULTS.margin * 100}%. Buy back the next day or later; the desk does not trade intraday. Sell-after: for a gain within ${HARVEST_DEFAULTS.windowDays} days of becoming long-term, waiting saves the rate difference (and uses your remaining exemption), set against the expected price move over the wait (daily swing × √days, an untested first formula). Neither is an order, and neither applies to a stock that fails the exit test, which is never held back for tax. Estimate before surcharge and cess; not tax advice.</div></details></div>`;
+}
 function tax(V) {
   const per = V.periods.find((p) => p.id === S.period) ?? V.periods[0], hiFy = per.id.startsWith('fy') ? per.id.slice(2) : null;
   const groups = taxGroups();
@@ -696,6 +719,7 @@ function tax(V) {
     const last = g.years.at(-1), showO = ys.some((y) => y.slabGains);
     const lastY = g.years.at(-1), kpi = (k, v, sub) => `<div class="mini"><div class="sub">${k}</div><div class="mv">${v}</div><div class="sub">${sub}</div></div>`, kp = lastY ? `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin:0 0 16px">${kpi('Estimated tax, FY ' + lastY.fy, money(lastY.equity.tax), 'on equity gains, after the exemption')}${kpi('Tax-free limit left', money(Math.max(0, lastY.equity.exemption - lastY.equity.exemptionUsed)), money(lastY.equity.exemptionUsed) + ' of ' + money(lastY.equity.exemption) + ' used')}${kpi('Gains booked, FY ' + lastY.fy, money(lastY.equity.stcg + lastY.equity.ltcg), 'short-term ' + money(lastY.equity.stcg) + ' · long-term ' + money(lastY.equity.ltcg))}</div>` : '';
     return `<div class="card"><h2>${esc(g.name)} · capital gains by financial year ${g.list.length > 1 ? `<span class="sub">(${g.list.map((a) => esc(a.label)).join(' + ')})</span>` : ''}</h2>${kp}<div class="tw"><table><thead><tr><th>FY</th><th>Short-term ₹</th><th>Long-term ₹</th><th>Exemption used ₹</th><th>Taxable ₹</th><th>Est. tax ₹</th>${showO ? '<th>Other assets ₹</th><th>Est. tax on other ₹</th>' : ''}<th></th></tr></thead><tbody>${ys.map((y) => `<tr class="${y.fy === hiFy ? 'hi' : ''}"><td>${y.fy}</td><td>${num(y.equity.stcg)}</td><td>${num(y.equity.ltcg)}</td><td>${inr(y.equity.exemptionUsed)}</td><td>${inr(y.equity.taxable.stcg + y.equity.taxable.ltcg)}</td><td><b>${inr(y.equity.tax)}</b></td>${showO ? `<td>${num(y.slabGains)}</td><td>${otherTax(y, g.slab)}</td>` : ''}<td>${y.lines.some((l) => l.confidence !== 'High') ? '<span class="tag" title="Some of this rests on a rule marked Medium or Low confidence in the design notes">check</span>' : ''}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${num(tot.s)}</td><td>${num(tot.l)}</td><td>${inr(tot.ex)}</td><td></td><td>${inr(tot.tx)}</td>${showO ? `<td>${num(tot.o)}</td><td></td>` : ''}<td></td></tr></tfoot></table></div>
+    ${harvestCard(g)}
     <div class="cgbar" style="margin-top:12px"><b>Schedule CG working file</b> <span class="sub">every sale grouped by return section (111A, 112A, other), one file per financial year. Made in this browser; nothing is uploaded.</span><div class="fchips" style="margin-top:6px">${ys.filter((y) => y.lines.length).slice(0, 6).map((y) => `<button class="chip" data-cg="${gi}|${y.fy}">FY ${y.fy} · CSV</button>`).join('') || '<span class="sub">No sales yet.</span>'}</div></div>
     <div class="sub" style="margin-top:8px">Short-term and long-term are equity and equity funds, after deductible charges, with same-year set-off and the exemption applied. "Other assets" are gold and silver ETFs, overseas, debt and hybrid funds: long-term gains at 12.5%, short-term at your slab rate (set it under the account's settings), with losses set off only inside this group and no carry-forward. Estimate before surcharge and cess; not tax advice.</div>
     ${last && (last.carryForward.stcl || last.carryForward.ltcl) ? `<div class="note">Unused loss after the latest year: short-term ${money(last.carryForward.stcl)}, long-term ${money(last.carryForward.ltcl)}. It only carries forward if that year's return was filed on time, which the tool cannot see, so treat it as unconfirmed.</div>` : ''}
@@ -721,11 +745,34 @@ function coverage(a) {
   let gap = 0, gf = '', gt = ''; for (let i = 1; i < ds.length; i++) { const g = (Date.parse(ds[i]) - Date.parse(ds[i - 1])) / 86400000; if (g > gap) { gap = g; gf = ds[i - 1]; gt = ds[i]; } }
   return { first: ds[0], last: ds.at(-1), years: Object.entries(years).map(([y, n]) => `${y}: ${n}`).join(' · '), gap: gap > 120 ? `Longest quiet stretch: ${Math.round(gap)} days (${gf} to ${gt}). Normal if you did not trade; if you did, a file may be missing.` : '' };
 }
+
+// Follow-ups for the verdict log, judged by the rules fixed in src/pm/scoring.ts (version 1, registered 27 Oct 2026).
+const adjMemo = new Map();
+function adjClose(sym, date) {
+  if (!S.hist?.px?.[sym]) return null;
+  let m = adjMemo.get(S.hist); if (!m) adjMemo.set(S.hist, (m = new Map()));
+  let a = m.get(sym); if (!a) { a = adjustSeries(S.hist.dates, S.hist.px[sym], (S.data?.feed ?? []).filter((r) => r.symbol === sym), S.hist.dates[0], S.data?.demergers ?? []).series; m.set(sym, a); }
+  const d = S.hist.dates; let lo = 0, hi = d.length - 1, best = -1; while (lo <= hi) { const mid = (lo + hi) >> 1; if (d[mid] <= date) { best = mid; lo = mid + 1; } else hi = mid - 1; }
+  while (best >= 0 && (a[best] === null || a[best] === undefined)) best--;
+  return best >= 0 ? a[best] : null;
+}
+function benchClose(date) { const n = S.navs?.n500; if (!n) return null; let best = null; for (const k in n) if (k <= date && (best === null || k > best)) best = k; return best ? n[best] : null; }
+function followUps(ms, e) {
+  const last = S.hist?.dates?.at(-1) ?? ''; if (!last) return [];
+  const all = ms.flatMap((a) => a.verdictLog || []);
+  const keepReturn = (date, due, exclude) => {
+    const latest = new Map(); for (const x of all) if (x.date <= date && (!latest.get(x.symbol) || latest.get(x.symbol).date <= x.date)) latest.set(x.symbol, x);
+    const rs = [...latest.values()].filter((x) => x.verdict === 'Keep' && x.symbol !== exclude).map((x) => { const a = adjClose(x.symbol, date), b = adjClose(x.symbol, due); return a && b ? b / a - 1 : null; }).filter((x) => x !== null);
+    return rs.length ? rs.reduce((t, x) => t + x, 0) / rs.length : null;
+  };
+  return HORIZONS.map((h) => scoreEntry(e, h, last, { priceAt: adjClose, benchAt: benchClose, keepReturn }));
+}
+const fuCell = (o) => o.status === 'pending' ? `<span class="sub" title="${esc(o.note)}">due ${o.due.slice(2)}</span>` : o.status === 'scored' ? `<span class="tag ${o.right ? 'ok' : 'bad'}" title="${esc(o.note)}">${o.right ? 'right' : 'wrong'}</span>` : `<span class="sub" title="${esc(o.note)}">–</span>`;
 function logCard(ms) {
   const rows = ms.flatMap((a) => (a.verdictLog || []).map((e) => [a, e])).sort((x, y) => y[1].date.localeCompare(x[1].date) || x[1].symbol.localeCompare(y[1].symbol));
   if (!rows.length) return '';
   const now = S.data?.prices || {};
-  return `<div class="card"><h2>Verdict log</h2><div class="sub" style="margin-bottom:6px">Every change of verdict is recorded with the price it rested on, so the verdicts can be judged later by what the stock did next. Newest first.</div><div class="tw"><table><thead><tr><th>Date</th><th>Account</th><th>Stock</th><th>Verdict</th><th>Close then ₹</th><th>200 SMA ₹</th><th>Swing low ₹</th><th>Since then</th></tr></thead><tbody>${rows.slice(0, 60).map(([a, e]) => { const p = now[e.symbol]; const ch = p && e.close ? (p - e.close) / e.close : null; return `<tr><td>${esc(e.date)}</td><td>${esc(a.label)}</td><td>${esc(e.symbol)}</td><td><span class="tag ${e.verdict === 'Exit' ? 'bad' : 'ok'}">${e.verdict}</span></td><td>${fmt2(e.close)}</td><td>${e.sma200 === null ? '–' : fmt2(e.sma200)}</td><td>${e.swingLow === null ? '–' : fmt2(e.swingLow)}</td><td>${ch === null ? '–' : `<span class="${cls(ch)}">${pct(ch)}</span>`}</td></tr>`; }).join('')}</tbody></table></div>${rows.length > 60 ? `<div class="sub">Showing the latest 60 of ${rows.length}.</div>` : ''}</div>`;
+  return `<div class="card"><h2>Verdict log</h2><div class="sub" style="margin-bottom:6px">Every change of verdict is recorded with the price it rested on, so the verdicts can be judged later by what the stock did next. Newest first. The 3, 6 and 12 month columns judge each verdict by a rule fixed on ${SCORING_REGISTERED} (version ${SCORING_VERSION}); hover for the figures.</div><details class="how"><summary>The scoring rules</summary><div class="sub" style="margin-top:6px">${Object.entries(SCORE_RULES).map(([k, v]) => `<b>${k}</b>: ${esc(v)}`).join('<br>')}</div></details><div class="tw"><table><thead><tr><th>Date</th><th>Account</th><th>Stock</th><th>Verdict</th><th>Close then ₹</th><th>200 SMA ₹</th><th>Swing low ₹</th><th>Since then</th>${HORIZONS.map((h) => `<th>${h} mo</th>`).join('')}</tr></thead><tbody>${rows.slice(0, 60).map(([a, e]) => { const p = now[e.symbol]; const ch = p && e.close ? (p - e.close) / e.close : null; return `<tr><td>${esc(e.date)}</td><td>${esc(a.label)}</td><td>${esc(e.symbol)}</td><td><span class="tag ${e.verdict === 'Exit' ? 'bad' : e.verdict === 'Trim' ? 'warn' : 'ok'}">${e.verdict}</span></td><td>${fmt2(e.close)}</td><td>${e.sma200 === null ? '–' : fmt2(e.sma200)}</td><td>${e.swingLow === null ? '–' : fmt2(e.swingLow)}</td><td>${ch === null ? '–' : `<span class="${cls(ch)}">${pct(ch)}</span>`}</td>${followUps(ms, e).map((o) => `<td>${fuCell(o)}</td>`).join('')}</tr>`; }).join('')}</tbody></table></div>${rows.length > 60 ? `<div class="sub">Showing the latest 60 of ${rows.length}.</div>` : ''}</div>`;
 }
 // ---------- allocation (design doc section 8): targets from your inputs, set against what you hold. A target, never an order.
 // Inputs are kept with each saved account in the private repo (so every browser shows the same), and in this browser as a fallback for an account that is not saved.
@@ -745,7 +792,7 @@ function cleanCfg(c) {
   const st = sub(c.stops, mapKey, (v) => Number.isFinite(v) && v >= 0, (v) => Math.min(v, 1e7)); if (Object.keys(st).length) o.stops = st;
   const ac = sub(c.acted, okKey, (v) => typeof v === 'string' && !Number.isNaN(Date.parse(v)) && /^\d{4}-\d\d-\d\d$/.test(v)); if (Object.keys(ac).length) o.acted = ac;
   const sw = sub(c.swing, mapKey, (v) => v === 'yes' || v === 'no'); if (Object.keys(sw).length) o.swing = sw;
-  if (c.household && typeof c.household === 'object') { const hh_ = {}; const L = c.household.limits; if (L && typeof L === 'object') { const l = {}; for (const k of ['company', 'sector', 'house']) if (Number.isFinite(L[k]) && L[k] >= 0.01 && L[k] <= 1) l[k] = L[k]; if (Object.keys(l).length) hh_.limits = l; } if (Array.isArray(c.household.goals)) hh_.goals = c.household.goals.filter((g) => g && /^[A-Za-z0-9_-]{1,40}$/.test(String(g.id)) && typeof g.name === 'string' && g.name.length > 0 && g.name.length <= 40 && !/[\x00-\x1f<>]/.test(g.name) && Number.isFinite(g.amount) && g.amount > 0 && g.amount <= 1e11 && /^\d{4}-\d\d-\d\d$/.test(g.date)).slice(0, 20).map((g) => ({ id: String(g.id), name: g.name, amount: g.amount, date: g.date })); if (Object.keys(hh_).length) o.household = hh_; }
+  if (c.household && typeof c.household === 'object') { const hh_ = {}; const L = c.household.limits; if (L && typeof L === 'object') { const l = {}; for (const k of ['company', 'sector', 'house', 'region']) if (Number.isFinite(L[k]) && L[k] >= 0.01 && L[k] <= 1) l[k] = L[k]; if (Object.keys(l).length) hh_.limits = l; } if (Array.isArray(c.household.goals)) hh_.goals = c.household.goals.filter((g) => g && /^[A-Za-z0-9_-]{1,40}$/.test(String(g.id)) && typeof g.name === 'string' && g.name.length > 0 && g.name.length <= 40 && !/[\x00-\x1f<>]/.test(g.name) && Number.isFinite(g.amount) && g.amount > 0 && g.amount <= 1e11 && /^\d{4}-\d\d-\d\d$/.test(g.date)).slice(0, 20).map((g) => ({ id: String(g.id), name: g.name, amount: g.amount, date: g.date })); if (Object.keys(hh_).length) o.household = hh_; }
   if (Array.isArray(c.outside)) o.outside = c.outside.filter((x) => x && okKey(String(x.name)) && okKey(String(x.cls)) && Number.isFinite(x.value) && x.value >= 0).slice(0, 10).map((x) => ({ name: x.name, value: x.value, cls: x.cls }));
   return o;
 }
