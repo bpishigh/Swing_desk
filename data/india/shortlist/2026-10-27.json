@@ -1,0 +1,47 @@
+{
+ "signalDate": "2026-10-27",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "ACUTAAS",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 3793.3,
+   "limit": 3831.23,
+   "stop": 3399.32,
+   "atrPct": 4.15,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  },
+  {
+   "sym": "DIVISLAB",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 9524.51,
+   "limit": 9619.76,
+   "stop": 8884.33,
+   "atrPct": 2.69,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "DIVISLAB",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 9505.5,
+   "limit": 9600.56,
+   "stop": 8865.32,
+   "atrPct": 2.69,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

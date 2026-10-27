@@ -1,126 +1,126 @@
 {
  "version": "IND-SCAN-1",
- "asOf": "2026-10-26",
+ "asOf": "2026-10-27",
  "light": "red",
  "funnel": {
   "tickers": 497,
   "passFloors": 489,
   "universe": 489,
-  "universeFloorDollarVolumeM": 52.4,
-  "withRs": 468,
+  "universeFloorDollarVolumeM": 52.9,
+  "withRs": 469,
   "rsGate": 97,
-  "template": 21,
-  "qualified": 6,
+  "template": 30,
+  "qualified": 8,
   "baseQuality": 0,
   "withSetup": 0
  },
  "groups": [
   {
-   "group": "Information Technology",
-   "members": 23,
-   "medianRs": 70.45,
-   "passes": true
-  },
-  {
    "group": "Healthcare",
    "members": 44,
-   "medianRs": 67.56,
+   "medianRs": 69.12,
    "passes": true
   },
   {
    "group": "Services",
    "members": 13,
-   "medianRs": 67.45,
+   "medianRs": 68.38,
+   "passes": true
+  },
+  {
+   "group": "Information Technology",
+   "members": 23,
+   "medianRs": 68.16,
    "passes": true
   },
   {
    "group": "Textiles",
    "members": 5,
-   "medianRs": 61.46,
+   "medianRs": 66.45,
    "passes": true
   },
   {
    "group": "Capital Goods",
    "members": 66,
-   "medianRs": 60.71,
+   "medianRs": 64.21,
    "passes": false
   },
   {
    "group": "Metals & Mining",
    "members": 18,
-   "medianRs": 59.85,
+   "medianRs": 59.72,
    "passes": false
   },
   {
    "group": "Automobile and Auto Components",
    "members": 38,
-   "medianRs": 57.6,
+   "medianRs": 57.37,
    "passes": false
   },
   {
    "group": "Telecommunication",
    "members": 10,
-   "medianRs": 53.75,
+   "medianRs": 55.88,
    "passes": false
   },
   {
    "group": "Oil Gas & Consumable Fuels",
    "members": 17,
-   "medianRs": 52.25,
+   "medianRs": 52.78,
    "passes": false
   },
   {
    "group": "Financial Services",
-   "members": 91,
-   "medianRs": 43.04,
+   "members": 92,
+   "medianRs": 43.06,
    "passes": false
   },
   {
    "group": "Power",
    "members": 15,
-   "medianRs": 38.76,
-   "passes": false
-  },
-  {
-   "group": "Consumer Services",
-   "members": 20,
-   "medianRs": 37.69,
-   "passes": false
-  },
-  {
-   "group": "Consumer Durables",
-   "members": 16,
-   "medianRs": 33.83,
-   "passes": false
-  },
-  {
-   "group": "Chemicals",
-   "members": 26,
-   "medianRs": 33.73,
+   "medianRs": 41.24,
    "passes": false
   },
   {
    "group": "Fast Moving Consumer Goods",
    "members": 27,
-   "medianRs": 31.91,
+   "medianRs": 37.61,
    "passes": false
   },
   {
-   "group": "Construction Materials",
-   "members": 11,
-   "medianRs": 23.34,
+   "group": "Consumer Services",
+   "members": 20,
+   "medianRs": 35.58,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 16,
+   "medianRs": 35.36,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 26,
+   "medianRs": 35.26,
    "passes": false
   },
   {
    "group": "Realty",
    "members": 11,
-   "medianRs": 19.49,
+   "medianRs": 26.07,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 11,
+   "medianRs": 21.79,
    "passes": false
   },
   {
    "group": "Construction",
    "members": 12,
-   "medianRs": 8.46,
+   "medianRs": 8.33,
    "passes": false
   }
  ],
@@ -132,29 +132,29 @@
    "group": "Healthcare",
    "path": "main",
    "rsPct": 98.29,
-   "close": 2058.9,
+   "close": 2142,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 69.65,
-   "tightness": 1.17,
-   "distPivot": 1.44,
+   "composite": 73.82,
+   "tightness": 1.24,
+   "distPivot": 0.05,
    "setup": null,
    "diag": {
-    "rs121": 133.03,
-    "rs6m2w": 88.15,
-    "atr14": 60.93,
-    "sma50": 1947.65,
-    "sma200": 1426.39,
-    "high52": 2089,
-    "low52": 870.45,
+    "rs121": 125.12,
+    "rs6m2w": 90.94,
+    "atr14": 60.02,
+    "sma50": 1953.45,
+    "sma200": 1431.57,
+    "high52": 2143.1,
+    "low52": 901.4,
     "failingNights": 0
    },
    "why": [
     "Strength: 98.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.4% below its 52-week high (limit 25%) and 136.5% above its 52-week low (needs 30%).",
-    "Group: Healthcare ranks 2 of 18 (median strength 67.6); the 4 strongest groups are traded in the red light.",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.1% below its 52-week high (limit 25%) and 137.6% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 69.1); the 4 strongest groups are traded in the red light.",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   },
@@ -163,30 +163,30 @@
    "type": "CS",
    "group": "Information Technology",
    "path": "main",
-   "rsPct": 92.93,
-   "close": 1993,
+   "rsPct": 92.52,
+   "close": 1997,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 66.57,
-   "tightness": 1.24,
-   "distPivot": 1.4,
+   "composite": 66.92,
+   "tightness": 1.25,
+   "distPivot": 1.2,
    "setup": null,
    "diag": {
-    "rs121": 1.19,
-    "rs6m2w": 47.03,
-    "atr14": 69.84,
-    "sma50": 1867.06,
-    "sma200": 1533.56,
+    "rs121": 2.94,
+    "rs6m2w": 45.99,
+    "atr14": 70.16,
+    "sma50": 1870.42,
+    "sma200": 1535.3,
     "high52": 2021.2,
     "low52": 1008.1,
     "failingNights": 0
    },
    "why": [
-    "Strength: 92.9th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.4% below its 52-week high (limit 25%) and 97.7% above its 52-week low (needs 30%).",
-    "Group: Information Technology ranks 1 of 18 (median strength 70.5); the 4 strongest groups are traded in the red light.",
+    "Strength: 92.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.2% below its 52-week high (limit 25%) and 98.1% above its 52-week low (needs 30%).",
+    "Group: Information Technology ranks 3 of 18 (median strength 68.2); the 4 strongest groups are traded in the red light.",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   },
@@ -195,30 +195,62 @@
    "type": "CS",
    "group": "Healthcare",
    "path": "main",
-   "rsPct": 97,
-   "close": 3348.8,
+   "rsPct": 97.44,
+   "close": 3793.3,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 59.43,
-   "tightness": 1.02,
-   "distPivot": 4.59,
+   "composite": 65.25,
+   "tightness": 1.31,
+   "distPivot": 2.74,
    "setup": null,
    "diag": {
-    "rs121": 110.2,
-    "rs6m2w": 35.31,
-    "atr14": 125.08,
-    "sma50": 3231.97,
-    "sma200": 2776.65,
-    "high52": 3740,
-    "low52": 1551,
+    "rs121": 99.39,
+    "rs6m2w": 35.4,
+    "atr14": 157.59,
+    "sma50": 3245.62,
+    "sma200": 2786.87,
+    "high52": 3900,
+    "low52": 1570,
     "failingNights": 0
    },
    "why": [
-    "Strength: 97th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 10.5% below its 52-week high (limit 25%) and 115.9% above its 52-week low (needs 30%).",
-    "Group: Healthcare ranks 2 of 18 (median strength 67.6); the 4 strongest groups are traded in the red light.",
+    "Strength: 97.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.7% below its 52-week high (limit 25%) and 141.6% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 69.1); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "DIVISLAB",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 94.02,
+   "close": 9505.5,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 64.19,
+   "tightness": 1.31,
+   "distPivot": 2.41,
+   "setup": null,
+   "diag": {
+    "rs121": 45.01,
+    "rs6m2w": 58.35,
+    "atr14": 256.07,
+    "sma50": 9185,
+    "sma200": 7264.67,
+    "high52": 9740,
+    "low52": 5647.5,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.4% below its 52-week high (limit 25%) and 68.3% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 69.1); the 4 strongest groups are traded in the red light.",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   },
@@ -228,61 +260,29 @@
    "group": "Textiles",
    "path": "main",
    "rsPct": 96.79,
-   "close": 208.96,
+   "close": 215.03,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 58.07,
-   "tightness": 1.14,
-   "distPivot": 14.88,
+   "composite": 58.08,
+   "tightness": 1.18,
+   "distPivot": 12.41,
    "setup": null,
    "diag": {
-    "rs121": 76.09,
-    "rs6m2w": 81.53,
-    "atr14": 10.89,
-    "sma50": 208.56,
-    "sma200": 156.02,
+    "rs121": 82.72,
+    "rs6m2w": 86.09,
+    "atr14": 10.9,
+    "sma50": 209.66,
+    "sma200": 156.43,
     "high52": 245.5,
     "low52": 107.1,
     "failingNights": 0
    },
    "why": [
     "Strength: 96.8th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 14.9% below its 52-week high (limit 25%) and 95.1% above its 52-week low (needs 30%).",
-    "Group: Textiles ranks 4 of 18 (median strength 61.5); the 4 strongest groups are traded in the red light.",
-    "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
-   "sym": "IPCALAB",
-   "type": "CS",
-   "group": "Healthcare",
-   "path": "main",
-   "rsPct": 91.65,
-   "close": 1938.6,
-   "tags": [
-    "results date not checked"
-   ],
-   "clears50M": true,
-   "composite": 55.36,
-   "tightness": 1.28,
-   "distPivot": 4.88,
-   "setup": null,
-   "diag": {
-    "rs121": 52.33,
-    "rs6m2w": 32.55,
-    "atr14": 68.54,
-    "sma50": 1932.19,
-    "sma200": 1665.6,
-    "high52": 2038,
-    "low52": 1251.6,
-    "failingNights": 0
-   },
-   "why": [
-    "Strength: 91.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 4.9% below its 52-week high (limit 25%) and 54.9% above its 52-week low (needs 30%).",
-    "Group: Healthcare ranks 2 of 18 (median strength 67.6); the 4 strongest groups are traded in the red light.",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.4% below its 52-week high (limit 25%) and 100.8% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 4 of 18 (median strength 66.5); the 4 strongest groups are traded in the red light.",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   }
@@ -291,13 +291,13 @@
   "qualified": 0
  },
  "thinGroup": {
-  "qualified": 1
+  "qualified": 2
  },
- "qualifiedTotal": 6,
+ "qualifiedTotal": 8,
  "notes": [
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
  ],
- "regimeDate": "2026-10-26",
+ "regimeDate": "2026-10-27",
  "industryCovered": 501
 }

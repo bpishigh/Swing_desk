@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-26",
+ "asOf": "2026-10-27",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,19 +12,19 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 9,
-  "open": 2,
-  "pending": 3,
+  "orders": 10,
+  "open": 5,
+  "pending": 1,
   "notFilled": 2,
   "closed": 2,
   "meanR": -0.9556322368075267,
   "winRate": 0
  },
  "comparator": {
-  "orders": 2,
+  "orders": 4,
   "open": 1,
-  "pending": 1,
-  "notFilled": 0,
+  "pending": 2,
+  "notFilled": 1,
   "closed": 0,
   "meanR": null,
   "winRate": null
@@ -32,35 +32,27 @@
  "light": "red",
  "newOrdersTonight": [
   {
-   "stream": "capwaived",
-   "sym": "COFORGE",
+   "stream": "comparator",
+   "sym": "ACUTAAS",
    "setup": "4",
-   "trigger": 2001.6,
-   "stop": 1826.99,
+   "trigger": 3793.3,
+   "stop": 3399.32,
    "status": "pending"
   },
   {
    "stream": "capwaived",
-   "sym": "ACUTAAS",
+   "sym": "DIVISLAB",
    "setup": "4",
-   "trigger": 3371.53,
-   "stop": 3085,
+   "trigger": 9524.51,
+   "stop": 8884.33,
    "status": "pending"
   },
   {
    "stream": "comparator",
-   "sym": "ACUTAAS",
+   "sym": "DIVISLAB",
    "setup": "4",
-   "trigger": 3348.8,
-   "stop": 3085,
-   "status": "pending"
-  },
-  {
-   "stream": "capwaived",
-   "sym": "WELSPUNLIV",
-   "setup": "4",
-   "trigger": 213.83,
-   "stop": 197.5,
+   "trigger": 9505.5,
+   "stop": 8865.32,
    "status": "pending"
   }
  ]

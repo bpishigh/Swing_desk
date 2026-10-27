@@ -1,10 +1,10 @@
 {
- "asOf": "2026-10-26",
+ "asOf": "2026-10-27",
  "source": "NSE event calendar",
  "dates": {
   "LAURUSLABS": {
    "date": "2026-10-29",
-   "sessions": 3,
+   "sessions": 2,
    "inWindow": true
   },
   "COFORGE": {
@@ -14,17 +14,17 @@
   },
   "ACUTAAS": {
    "date": "2026-10-27",
-   "sessions": 1,
+   "sessions": 0,
+   "inWindow": true
+  },
+  "DIVISLAB": {
+   "date": "2026-11-07",
+   "sessions": 8,
    "inWindow": true
   },
   "WELSPUNLIV": {
    "date": "2026-10-30",
-   "sessions": 4,
-   "inWindow": true
-  },
-  "IPCALAB": {
-   "date": "2026-11-05",
-   "sessions": 8,
+   "sessions": 3,
    "inWindow": true
   }
  }
