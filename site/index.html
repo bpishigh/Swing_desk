@@ -114,6 +114,7 @@ details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
     <button role="tab" id="t-funds" aria-selected="false">Funds</button>
     <button role="tab" id="t-scan" aria-selected="false">Scans</button>
     <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
+    <button role="tab" id="t-howto" aria-selected="false">How to use</button>
     <button role="tab" id="t-docs" aria-selected="false">Docs</button>
   </nav>
   <main id="main"></main>
@@ -415,6 +416,12 @@ function docView(which) {
   <div class="docgrid"><div style="position:sticky;top:8px">${toc}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${body}</div></div>
   <p class="note">${foot}</p></section>`;
 }
+function viewHowto() {
+  if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'howto') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'howto') render(); }); return '<div class="empty">Loading…</div>'; }
+  const cur = DOCS.docs.find((d) => d.id === 'howto');
+  if (!cur) return '<div class="empty">The guide was not published with this build.</div>';
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>${esc(cur.title)}</h2><span class="chip">updated ${ist(DOCS.generatedAt)}</span></div><div class="doc" style="min-width:0;overflow-wrap:anywhere;max-width:820px">${md(cur.md.replace(/^# .*\n/, ''))}</div></section>`;
+}
 const viewRules = () => docView('rules'), viewLog = () => docView('log');
 function viewDocs() {
   if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'docs') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'docs') render(); }); return '<div class="empty">Loading documents…</div>'; }
@@ -436,7 +443,7 @@ function tidyLong() {   // long explanatory lines show two lines and a "more" li
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, rules: viewRules, log: viewLog, docs: viewDocs }[tab]();
+  $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
   if (tab === 'scan') hydrateCharts();
   tidyLong();
@@ -472,7 +479,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'funds', 'health', 'portfolio', 'store', 'scan', 'rules', 'log', 'docs'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'funds', 'health', 'portfolio', 'store', 'scan', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>

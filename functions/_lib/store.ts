@@ -106,7 +106,7 @@ export function cleanDecisions(input: unknown): Record<string, Decision | 'clear
   return out;
 }
 /** One line of the verdict log: what the rule said about a held stock on a day, and the numbers it rested on. Only changes are logged. */
-export interface LogEntry { date: string; symbol: string; verdict: 'Exit' | 'Keep' | 'Trim'; rule: string; close: number; sma200: number | null; swingLow: number | null; swingDate: string | null; unrealised: number | null }
+export interface LogEntry { date: string; symbol: string; verdict: 'Exit' | 'Keep' | 'Trim' | 'Promote' | 'Harvest'; rule: string; close: number; sma200: number | null; swingLow: number | null; swingDate: string | null; unrealised: number | null }
 const LOG_CAP = 5000;
 const finite = (v: unknown, lo = -1e12, hi = 1e12) => typeof v === 'number' && Number.isFinite(v) && v >= lo && v <= hi;
 export function cleanLog(input: unknown): LogEntry[] | string {
@@ -117,7 +117,7 @@ export function cleanLog(input: unknown): LogEntry[] | string {
   for (const e of input) {
     if (!e || typeof e !== 'object') return 'bad log entry';
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date) || !/^[A-Za-z0-9&._-]{1,30}$/.test(e.symbol)) return 'bad log entry';
-    if (e.verdict !== 'Exit' && e.verdict !== 'Keep' && e.verdict !== 'Trim') return 'bad log verdict';
+    if (!['Exit', 'Keep', 'Trim', 'Promote', 'Harvest'].includes(e.verdict)) return 'bad log verdict';
     if (typeof e.rule !== 'string' || e.rule.length > 80) return 'bad log rule';
     if (!finite(e.close, 0, 1e8) || !(e.sma200 === null || finite(e.sma200, 0, 1e8)) || !(e.swingLow === null || finite(e.swingLow, 0, 1e8)) || !(e.unrealised === null || finite(e.unrealised))) return 'bad log numbers';
     if (!(e.swingDate === null || /^\d{4}-\d{2}-\d{2}$/.test(e.swingDate))) return 'bad log date';

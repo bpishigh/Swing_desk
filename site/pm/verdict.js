@@ -13,7 +13,7 @@ export const CA_LOOKBACK = 300;        // sessions: a split, bonus or demerger i
                                                                                                                     
                                                                                                    // from data/rules/demergers.json: the company's published share of cost (and so of value) that went to the child
                                                          
-                                                                   
+                                                                                           
                                
                                                                                                  
                                                                                                                                

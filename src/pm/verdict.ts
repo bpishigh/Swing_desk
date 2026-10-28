@@ -13,7 +13,7 @@ export interface PriceHistory { dates: string[]; px: Record<string, (number | nu
 export interface CorpActionRow { symbol: string; exDate: string; subject: string; faceVal?: string | number | null }
 export interface DemergerRec { parent: string; exDate: string; costPct: number; feed?: boolean }   // from data/rules/demergers.json: the company's published share of cost (and so of value) that went to the child
 export interface SwingLow { price: number; date: string }
-export type VerdictLabel = 'Exit' | 'Trim' | 'Keep' | 'No verdict';
+export type VerdictLabel = 'Exit' | 'Promote' | 'Harvest' | 'Trim' | 'Keep' | 'No verdict';
 export interface StockVerdict {
   symbol: string; label: VerdictLabel; reasons: string[]; pending: string[]; asOf: string | null;
   close: number | null; sma200: number | null; swingLow: SwingLow | null; below200: boolean | null; belowSwing: boolean | null;
