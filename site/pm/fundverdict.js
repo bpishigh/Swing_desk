@@ -66,6 +66,12 @@ export function fundVerdict(held                                                
     const pending = ['Replace is not available for debt and international funds; credit quality and maturity are not scored'].concat(row.g === 'intl' ? ['international band: the 10-year test could not be run (too few funds, C-103), so it is not shown to predict anything'] : []);   // C-103
     return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons, pending, asOf: null };
   }
+  if (row.g === 'idx') {   // C-110 (passed): the gap to the same-index median persists (rank correlation above zero in 10 of 10 years, mean +0.49), so the band is shown; Replace stays off, nothing is sold by it
+    const name = row.b === 'Strong' ? 'Leads' : row.b === 'Average' ? 'In line' : 'Lags';
+    const cheaper = scores.filter((x) => x.g === 'idx' && x.c === row.c && x.t != null).map((x) => x.t          ), low = cheaper.length ? Math.min(...cheaper) : null;
+    const save = row.t != null && low != null && row.t - low >= 0.05 ? [`expense ratio ${row.t.toFixed(2)}% against ${low.toFixed(2)}% for the cheapest ${row.c} index fund: a sure saving of ${(row.t - low).toFixed(2)} points a year if you switched (exit load and tax apply)`] : [];
+    return { label: row.b === 'Weak' ? 'Watch' : 'Keep', reasons: [`${name} its index: 3-year return against the median of ${row.p ?? '?'} ${row.c} index funds`, ...save], pending: ['The gap between funds on one index is cost plus tracking difference, and it persisted year to year in the back-test (C-110); it does not mean the fund beats its index. Replace is off for index funds and ETFs'], asOf: null };
+  }
   const plain = PLAIN.has(row.c), hybridNote = row.g === 'mf' && !plain ? ['hybrid fund: judged inside its own category; Replace is off for it'] : [];
   const ctx = marketContext(row, scores), withCtx = (v             )              => (ctx ? { ...v, reasons: [...v.reasons, ctx] } : v);
   if (row.b === 'Average' && plain && row.g === 'mf' && gate.nearWeakOn && row.s != null && row.s >= 25 && row.s < 35) return withCtx({ label: 'Watch', reasons: [`score ${row.s.toFixed(1)}: just above the Weak line in ${row.c}, near the bottom quarter`], pending: [], asOf: null });   // C-83

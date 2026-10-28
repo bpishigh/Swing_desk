@@ -104,3 +104,16 @@ test('thematic fund scored in its own theme (C-105): Weak lowers Keep to Watch, 
   const k = fundVerdict({ name: sc[1].n, isin: 'INF2' }, sc, g, up); assert.equal(k.label, 'Keep'); assert.ok(k.reasons.some((r) => /Strong among 9/.test(r)));
 });
 
+
+test('C-110: index fund shows Leads / In line / Lags, Keep or Watch, with the expense saving, Replace never', () => {
+  const g = { ran: true, replaceOn: true };
+  const sc = [
+    { n: 'Zed Nifty 50 Index Fund - Direct Plan - Growth', c: 'Nifty 50', b: 'Strong', g: 'idx', t: 0.20, p: 3 },
+    { n: 'Yal Nifty 50 Index Fund - Direct Plan - Growth', c: 'Nifty 50', b: 'Average', g: 'idx', t: 0.10, p: 3 },
+    { n: 'Xan Nifty 50 Index Fund - Direct Plan - Growth', c: 'Nifty 50', b: 'Weak', rp: 1, g: 'idx', t: 0.12, p: 3 },
+  ];
+  const a = fundVerdict({ name: sc[0].n }, sc, g), b = fundVerdict({ name: sc[1].n }, sc, g), c = fundVerdict({ name: sc[2].n }, sc, g);
+  assert.equal(a.label, 'Keep'); assert.match(a.reasons[0], /^Leads/); assert.match(a.reasons[1], /0\.10 points a year/);
+  assert.equal(b.label, 'Keep'); assert.match(b.reasons[0], /^In line/); assert.equal(b.reasons.length, 1);
+  assert.equal(c.label, 'Watch'); assert.match(c.reasons[0], /^Lags/); assert.match(c.pending[0], /Replace is off/);
+});
