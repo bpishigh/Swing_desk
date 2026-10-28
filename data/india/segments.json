@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-21T14:08:15.100Z",
+ "fetchedAt": "2026-10-28T14:08:06.381Z",
  "industry": {
   "ABB": "Capital Goods",
   "ADANIENSOL": "Power",
@@ -163,9 +163,9 @@
   "HINDCOPPER": "Metals & Mining",
   "HINDPETRO": "Oil Gas & Consumable Fuels",
   "HUDCO": "Financial Services",
+  "ICICILIFE": "Financial Services",
   "ICICIGI": "Financial Services",
   "ICICIAMC": "Financial Services",
-  "ICICIPRULI": "Financial Services",
   "IDFCFIRSTB": "Financial Services",
   "ITCHOTELS": "Consumer Services",
   "INDIANB": "Financial Services",
@@ -668,9 +668,9 @@
   "HINDCOPPER",
   "HINDPETRO",
   "HUDCO",
+  "ICICILIFE",
   "ICICIGI",
   "ICICIAMC",
-  "ICICIPRULI",
   "IDFCFIRSTB",
   "ITCHOTELS",
   "INDIANB",
