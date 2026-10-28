@@ -115,7 +115,7 @@
      "ltcg": 0.125
     }
    ],
-   "note": "to verify"
+   "note": "35% to 65% domestic equity, not a specified fund: 24 months, 12.5%, short-term at slab (checked against an AMC tax reckoner for FY 2025-26, 28 Oct 2026; its table was garbled, so still Medium). Conservative Hybrid funds (more than 65% debt) are taxed as debt_fund."
   },
   "overseas_fof": {
    "label": "Overseas and gold fund-of-funds (unlisted)",

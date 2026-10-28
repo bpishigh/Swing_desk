@@ -5,6 +5,7 @@ import type { TargetClass } from './allocation.ts';
 import { looseKey } from './fundverdict.ts';
 import { assetClassOf } from './assetclass.ts';
 import { normCategory, indexKey } from './fundscore.ts';
+import { fundHouse } from './limits.ts';
 
 export interface PickRow { n: string; i?: string; c: string; s?: number | null; b?: string | null; t?: number | null; g: string; r1?: number | null; r3?: number | null; r5?: number | null; pb?: string | null }
 export interface Pick { group: string; row: PickRow; held: boolean; headline: boolean; why: string }
@@ -55,7 +56,9 @@ export const CORE_ORDER: Partial<Record<TargetClass, string[]>> = {
   international: ['Nasdaq 100 and US tech giants', 'Other US', 'Emerging markets', 'Europe', 'China and Hong Kong', 'Global and other'],
 };
 const pc = (v: number | null | undefined) => (typeof v === 'number' ? `${v.toFixed(1)}%` : 'n/a');
-export interface PickOpts { held?: HeldFund[]; selling?: string[]; amount?: number; mix?: Mix; fundCapAmount?: number; hasPrev?: boolean }
+/** House limit (design section 9, household limits): a fund whose house would pass `limit` of the household's fund money after buying `amount` is not suggested. Names of the skipped funds are pushed to `skipped`. */
+export interface HouseCap { limit: number; houseValue: Record<string, number>; total: number; skipped?: string[] }
+export interface PickOpts { held?: HeldFund[]; selling?: string[]; amount?: number; mix?: Mix; fundCapAmount?: number; hasPrev?: boolean; houseCap?: HouseCap }
 /** The suggested fund in each group of a class, headline group first. Debt and liquid have no headline (maturity and credit risk are not scored): every group is listed and none is chosen. */
 export function pickFunds(cls: TargetClass, rows: PickRow[], o: PickOpts = {}): Pick[] {
   const held = o.held ?? [], amount = o.amount ?? 0, mix = o.mix ?? MARKET_MIX, hasPrev = !!o.hasPrev;
@@ -75,7 +78,8 @@ export function pickFunds(cls: TargetClass, rows: PickRow[], o: PickOpts = {}): 
   for (const [g, list] of groups) {
     if (cls === 'index') list.sort((a, b) => (a.t ?? 9) - (b.t ?? 9) || (b.s as number) - (a.s as number) || a.n.localeCompare(b.n));   // cost decides among funds that match the index
     else list.sort((a, b) => (b.s as number) - (a.s as number) || (a.t ?? 9) - (b.t ?? 9) || a.n.localeCompare(b.n));
-    const usable = list.filter(capRoom); if (!usable.length) continue;
+    const houseRoom = (r: PickRow) => { const hc = o.houseCap; if (!hc || !(hc.total + amount > 0)) return true; const h = fundHouse(r.n), after = ((hc.houseValue[h] ?? 0) + amount) / (hc.total + amount); if (after > hc.limit + 1e-9) { hc.skipped?.push(`${r.n} (${h} would be ${(after * 100).toFixed(0)}% of your fund money, limit ${(hc.limit * 100).toFixed(0)}%)`); return false; } return true; };
+    const usable = list.filter((r) => capRoom(r) && houseRoom(r)); if (!usable.length) continue;
     const top = cls === 'index' ? usable : usable.slice(0, 3), row = top.find((r) => heldOf(r)) ?? top[0], isH = !!heldOf(row);
     let dist = 0; const x = exposure(cls, g, mix);
     if (x) { const tot = T + amount; for (let k = 0; k < 3; k++) { const d = (E[k] + amount * x[k]) / (tot || 1) - mix[k]; dist += d * d; } }

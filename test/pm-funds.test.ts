@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { assetClassOf } from '../src/pm/assetclass.ts';
 import { FundMaster, type AmfiRow } from '../src/pm/funds.ts';
 const rows: AmfiRow[] = [
   ['1', 'INF000A01111', '-', 'Alpha Small Cap Fund - Growth Option - Direct Plan', 'Equity Scheme - Small Cap Fund'],
@@ -39,5 +40,7 @@ test('AMFI category sets the fund tax class', () => {
   assert.equal(fundTaxType('Income/Debt Oriented Schemes - Liquid Fund'), 'debt_fund');
   assert.equal(fundTaxType('Other Scheme - FoF Overseas'), 'overseas_fof');
   assert.equal(fundTaxType('Hybrid Scheme - Multi Asset Allocation'), 'hybrid_other');
+  assert.equal(fundTaxType('Hybrid Scheme - Conservative Hybrid Fund'), 'debt_fund');   // specified mutual fund: more than 65% in debt
+  assert.equal(assetClassOf('Fund', 'X Conservative Hybrid Fund', 'Hybrid Scheme - Conservative Hybrid Fund', 'debt_fund'), 'hybrid');   // allocation still counts it as hybrid
   assert.equal(fundTaxType('Something Unknown'), 'fund_unclassified');
 });

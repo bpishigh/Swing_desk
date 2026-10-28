@@ -42,6 +42,9 @@ export function fundTaxType(category        , name = '')              {
   if (/^equity scheme/.test(c) || /elss|index fund|sectoral|thematic/.test(c) && !/debt/.test(c)) return 'equity_fund';
   if (/index funds|other scheme - index|other scheme - etf/.test(c)) return /nifty|sensex|bse|nasdaq|s&p/.test(n) && !/nasdaq|s&p ?500|us /.test(n) ? 'equity_fund' : 'fund_unclassified';
   if (/debt|income|liquid|money market|gilt|overnight|ultra short|low duration|floater|corporate bond|credit risk|banking and psu|short duration|medium duration|long duration|dynamic bond/.test(c)) return 'debt_fund';
+  // A Conservative Hybrid fund holds 75% to 90% in debt: a "specified mutual fund" (more than 65% in debt and money-market instruments), taxed at the slab rate whatever the holding period when bought on or after 1 Apr 2023 (section 50AA).
+  // Its asset class stays Hybrid (assetclass.ts reads the category first); only the tax class changes.
+  if (/conservative hybrid/.test(c)) return 'debt_fund';
   if (/multi asset|conservative hybrid|hybrid/.test(c)) return 'hybrid_other';
   return 'fund_unclassified';
 }

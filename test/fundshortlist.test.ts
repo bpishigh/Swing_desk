@@ -64,3 +64,12 @@ test('new money: a class over its band is excluded from the spreading of leftove
   const r2 = routeNewMoney([{ cls: 'direct_equity', target: 0.5 }, { cls: 'debt', target: 0.5 }], held2, 2000, new Set<TargetClass>(['direct_equity']));
   assert.ok(r2.lines.find((l) => l.cls === 'direct_equity')!.amount > 0);   // 0.5 x 3000 = 1500 target, 500 held: a 1000 shortfall is filled
 });
+
+test('a fund whose house would pass the household limit is not suggested, and is named', () => {
+  const rs = [R('Axis Flexi Fund - Direct Plan - Growth', 'mf', 'Flexi Cap', 94, 'Strong'), R('Quant Value Fund - Direct Plan - Growth', 'mf', 'Value', 90, 'Strong')];
+  const skipped: string[] = [];
+  const p = pickFunds('active_equity_fund', rs, { amount: 10000, houseCap: { limit: 0.35, houseValue: { Axis: 60000, Quant: 10000 }, total: 100000, skipped } });
+  assert.deepEqual(p.map((x) => x.group), ['Value']);
+  assert.equal(skipped.length, 1); assert.match(skipped[0], /Axis/);
+  assert.equal(pickFunds('active_equity_fund', rs, { amount: 10000 }).length, 2);   // no cap, both
+});

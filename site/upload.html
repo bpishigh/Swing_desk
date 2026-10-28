@@ -149,7 +149,7 @@ import { fundVerdict, looseKey } from './pm/fundverdict.js';
 import { pickFunds } from './pm/fundshortlist.js';
 import { reviewTrade, patterns, stopSummary } from './pm/tradereview.js';
 import { segmentOf } from './pm/segment.js';
-import { checkLimits, goalStatus, assignGoals, LIMIT_DEFAULTS, GOAL_SOON_MONTHS } from './pm/limits.js';
+import { checkLimits, goalStatus, assignGoals, LIMIT_DEFAULTS, GOAL_SOON_MONTHS, fundHouse } from './pm/limits.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES, scaledBand, foldHybrid } from './pm/allocation.js';
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
@@ -1213,12 +1213,17 @@ function actionsCard(V, res, cur, capital, hs, A) {
   const plan = Object.keys(need).length ? planSales(lots, need, { today, rules: S.data.taxRules, exemptionLeft: exLeft, exit, weak, settings: C.rebalance, chargesOf, slabRate: A.slab > 0 ? A.slab / 100 : undefined }) : { lines: [], skipped: [], unmet: [], taxTotal: 0, slabGains: 0 };
   const sellingNames = plan.lines.map((l) => l.name), frows = S.fundScores?.funds ?? [];
   const NOPICK = { direct_equity: 'comes from tonight\'s Swing orders', gold: 'gold ETFs are not scored yet; choose a low-cost gold ETF', silver: 'silver ETFs are not scored yet; choose a low-cost silver ETF', sector_thematic: 'not a recommended use of new money', hybrid: 'not scored for new money' };
+  // Household limit on one fund house: a suggestion that would take a house past it is left out and named (design section 9).
+  const houseLimit = { ...LIMIT_DEFAULTS, ...(hh().limits ?? {}) }.house, houseValue = {}; let houseTotal = 0;
+  for (const h of hs) if ((h.kind === 'Fund' || h.kind === 'ETF') && h.value > 0) { const k = fundHouse(h.name); houseValue[k] = (houseValue[k] ?? 0) + h.value; houseTotal += h.value; }
+  const skipHouse = [], houseCapFor = (sk) => ({ limit: houseLimit, houseValue, total: houseTotal, skipped: sk });
   const picksFor = (cls, amount = 0) => {
     if (NOPICK[cls]) return `<div class="sub" style="margin-top:4px">${NOPICK[cls]}</div>`;
-    const heldF = hs.filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.assetClass === cls), mx = C.marketCapMix, p = pickFunds(cls, frows, { held: heldF.map((h) => ({ isin: h.isin, name: h.name, value: h.value ?? 0, category: h.category })), selling: sellingNames, amount, mix: mx ? [mx.large, mx.mid, mx.small] : undefined, fundCapAmount: res.fundCapAmount, hasPrev: !!S.fundScores?.prevMonth });
-    if (!p.length) return '<div class="sub" style="margin-top:4px">No scored fund passes in this class yet.</div>';
+    const heldF = hs.filter((h) => (h.kind === 'Fund' || h.kind === 'ETF') && h.assetClass === cls), mx = C.marketCapMix, p = pickFunds(cls, frows, { held: heldF.map((h) => ({ isin: h.isin, name: h.name, value: h.value ?? 0, category: h.category })), selling: sellingNames, amount, mix: mx ? [mx.large, mx.mid, mx.small] : undefined, fundCapAmount: res.fundCapAmount, hasPrev: !!S.fundScores?.prevMonth, houseCap: houseCapFor(skipHouse) });
+    const hs_ = [...new Set(skipHouse.splice(0))], capNote = hs_.length ? `<div class="sub" style="margin-top:4px">Left out because of your fund-house limit: ${hs_.slice(0, 4).map(esc).join('; ')}${hs_.length > 4 ? ` and ${hs_.length - 4} more` : ''}.</div>` : '';
+    if (!p.length) return capNote + '<div class="sub" style="margin-top:4px">No scored fund passes in this class yet' + (hs_.length ? ' that stays inside your fund-house limit' : '') + '.</div>';
     const short_ = (n) => esc(n.replace(/\s*-\s*(Direct Plan|Direct|Regular Plan).*$/i, '')), line = (x) => `${short_(x.row.n)} <span class="sub">${esc(x.why)}</span>`, head = p.find((x) => x.headline), rest = p.filter((x) => x !== head);
-    return `<div style="margin-top:4px">${head ? `Suggested: <b>${short_(head.row.n)}</b>` : '<b>Choose a category by maturity and credit risk, then the best fund in it</b>'}${rest.length ? `<details class="how"><summary>${rest.length} other${rest.length > 1 ? 's' : ''} that pass</summary><div class="sub" style="margin-top:6px">${rest.map(line).join('<br>')}${cls === 'debt' ? '<br>Maturity and credit quality are not scored: check them before buying.' : ''}</div></details>` : ''}</div>`;
+    return capNote + `<div style="margin-top:4px">${head ? `Suggested: <b>${short_(head.row.n)}</b>` : '<b>Choose a category by maturity and credit risk, then the best fund in it</b>'}${rest.length ? `<details class="how"><summary>${rest.length} other${rest.length > 1 ? 's' : ''} that pass</summary><div class="sub" style="margin-top:6px">${rest.map(line).join('<br>')}${cls === 'debt' ? '<br>Maturity and credit quality are not scored: check them before buying.' : ''}</div></details>` : ''}</div>`;
   };
   const soldBy = {}, proceeds = plan.lines.reduce((a, l) => { soldBy[l.cls] = (soldBy[l.cls] ?? 0) + l.value; return a + l.value - (l.tax ?? 0) - l.charges - (l.load ?? 0); }, 0), taxUnknown = plan.lines.filter((l) => l.tax === null).length;
   const afterSales = Object.fromEntries(Object.keys(held).map((c) => [c, (held[c] ?? 0) + (mm[c] ?? 0) - (soldBy[c] ?? 0)])), noBuy = new Set([...over0, ...Object.keys(need)]);
