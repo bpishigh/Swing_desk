@@ -30,9 +30,9 @@
    "inWindow": true
   },
   "FTNT": {
-   "date": "2026-10-28",
-   "sessions": 1,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   }
  }
 }
