@@ -13,7 +13,7 @@ import { FundMaster, fundTaxType,              } from './funds.js';
 import { assetClassOf,                 } from './assetclass.js';
 import { replay } from './ledger.js';
 import { performance,                      } from './performance.js';
-import { inferBooks, bookTotals, attributeSales,                } from './books.js';
+import { inferBooks, bookTotals, attributeSales,                             } from './books.js';
 import { buildTrades,                           } from './swingjournal.js';
 import { tradeHistory,              } from './tradehistory.js';
 import { matchBuy, sessionsBetween, gapNights,                                              } from './shortlist.js';
@@ -129,11 +129,21 @@ export function runPipeline(batches           , broker                     , d  
     return m ? { ...m, answer: swingAnswers[`${lot.key}|${lot.date}`] } : null;
   } : undefined;
   const tagged0 = inferBooks(combined.open, { typeOf: (k) => (typeByKey.get(k) ?? 'listed_equity')             , isFund: (k) => isFundType(typeByKey.get(k)), isEtf: (k) => isEtf((nameByKey.get(k) ?? k) + ' ' + (symOf.get(k) ?? ''), (typeByKey.get(k) ?? 'listed_equity')             ),
-    swingGoLive: d.shortlist ? (d.shortlist.liveFrom ?? (d.shortlist.lines.length ? d.shortlist.lines.map((l) => l.signalDate).sort()[0] : null)) : null, swingMatch });
+    swingGoLive: d.shortlist ? (d.shortlist.liveFrom ?? (d.shortlist.lines.length ? d.shortlist.lines.map((l) => l.signalDate).sort()[0] : null)) : null, swingMatch,
+    maxHold: d.shortlist && typeof d.shortlist.match.maxHoldSessions === 'number' && d.pricesAsOf ? { sessions: d.shortlist.match.maxHoldSessions, today: d.pricesAsOf, cal } : undefined });
   const sales = new Map                                    ();
   for (const r of combined.realised) { const k = `${r.key}|${r.sellDate}`, g = sales.get(k) ?? { key: r.key, date: r.sellDate, qty: 0, buyDates: []            , avgPrice: 0, _v: 0 }; g.qty += r.qty; g._v += r.proceeds; if (!g.buyDates.includes(r.buyDate)) g.buyDates.push(r.buyDate); sales.set(k, g); }
   const saleGroups              = [...sales.values()].map((g) => ({ key: g.key, date: g.date, qty: g.qty, buyDates: g.buyDates, avgPrice: g.qty > 0 ? g._v / g.qty : 0 }));
-  const { tagged: books, proposals: saleP, exits } = d.shortlist ? attributeSales(tagged0, saleGroups, swingAnswers) : { tagged: tagged0, proposals: [], exits: [] };
+  // A close at or below the lot's stop within the last few sessions before a sale is the Swing Desk's exit flag: that sale is taken as the Swing exit (design section 3, partial sells).
+  const exitFlag = (t        , g           )                => {
+    const ph = d.priceHistory, sym = symOf.get(g.key), stop = t.swing?.stop, win = d.shortlist?.match.exitFlagSessions;
+    if (!ph || !sym || !(stop && stop > 0) || !(typeof win === 'number' && win > 0)) return null;
+    const px = ph.px[sym]; if (!px) return null;
+    const hi = ph.dates.findIndex((x) => x >= g.date), end = hi < 0 ? ph.dates.length - 1 : (ph.dates[hi] === g.date ? hi : hi - 1);
+    for (let i = Math.max(0, end - win); i <= end; i++) { const c = px[i]; if (c != null && c <= stop && ph.dates[i] > t.lot.date) return `the close on ${ph.dates[i]} was at or below this lot's stop ${stop}, within ${win} sessions of the sale, so it is taken as your Swing exit`; }
+    return null;
+  };
+  const { tagged: books, proposals: saleP, exits } = d.shortlist ? attributeSales(tagged0, saleGroups, swingAnswers, exitFlag) : { tagged: tagged0, proposals: [], exits: [] };
   const goLive = d.shortlist ? (d.shortlist.liveFrom ?? (d.shortlist.lines.length ? d.shortlist.lines.map((l) => l.signalDate).sort()[0] : null)) : null;
   // A split, demerger or rename after the buy changes units for the open part but not for the sales already made, so such a trade cannot be scored reliably: it is left out and named.
   const evAfter                                  = [];

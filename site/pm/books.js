@@ -3,7 +3,7 @@
 // or by a buy that matches a saved nightly shortlist (the Swing Desk saves each night's shortlist under data/india/shortlist).
                                        
                                                
-                                            
+import { sessionsBetween,            } from './shortlist.js';
                                                                   
                                                                                                                                                 
                                                                                                    
@@ -17,9 +17,19 @@
                                                                         
                                                                                               
                                      
+                                                                                                                                                                   
+                                                                                                 
  
 export function inferBooks(open       , ctx             )           {
-  return open.map((lot) => {
+  return open.map((t0) => ageOut(inferOne(t0, ctx), ctx));
+}
+function ageOut(t        , ctx             )         {
+  const h = ctx.maxHold; if (!h || t.book !== 'Swing' || !(h.sessions > 0)) return t;
+  const n = sessionsBetween(t.lot.date, h.today, h.cal); if (n <= h.sessions) return t;
+  return { ...t, book: 'Legacy', rule: `rule 3: held ${n} sessions, past the ${h.sessions}-session maximum hold, so this lot is shown in Legacy (was: ${t.rule.replace(/^rule 4: /, '')})` };
+}
+function inferOne(lot     , ctx             )         {
+  {
     if (ctx.isFund(lot.key)) return { lot, book: 'Long-term'        , rule: 'rule 2: mutual funds and fund-like holdings are Long-term' };
     const t = ctx.typeOf(lot.key);
     if (t === 'gold_silver_etf' || t === 'intl_etf' || ctx.isEtf?.(lot.key)) return { lot, book: 'Long-term'        , rule: 'rule 2: ETFs other than direct equity are Long-term' };
@@ -35,7 +45,7 @@ export function inferBooks(open       , ctx             )           {
       }
     }
     return { lot, book: 'Legacy'        , rule: 'rule 3: direct stocks start as Legacy' };
-  });
+  }
 }
 export function bookTotals(tagged          , price                                     )                                                              {
   const out = { Swing: { cost: 0, value: 0, lots: 0 }, Legacy: { cost: 0, value: 0, lots: 0 }, 'Long-term': { cost: 0, value: 0, lots: 0 }, Liquidity: { cost: 0, value: 0, lots: 0 } };
@@ -49,7 +59,9 @@ export function bookTotals(tagged          , price                              
  * the Swing lot still shows open although the sale may have been your Swing exit. Each such sale is put to the owner; "yes" moves that many units of the Swing lot to Legacy (the book view only: tax is untouched),
  * "no" leaves it, no answer leaves it and lists the question. `answers` is keyed `sale:<key>|<sale date>` with 'yes' or 'no'. */
                                                                                                      
-export function attributeSales(tagged          , sells             , answers                              )                                                                      {
+/** `flag(lot, sale)`: a reason when the Swing Desk's exit (a close at or below the lot's stop) was flagged within the last few sessions before the sale; an unanswered sale with a flag is taken as the Swing exit without asking (design section 3, partial sells). The owner's own 'no' still wins. */
+                                                                  
+export function attributeSales(tagged          , sells             , answers                              , flag           )                                                                      {
   const out           = tagged.map((t) => ({ ...t })), proposals                 = [], exits              = [];
   const keys = new Set(out.filter((t) => t.book === 'Swing').map((t) => t.lot.key));
   for (const key of keys) {
@@ -59,12 +71,13 @@ export function attributeSales(tagged          , sells             , answers    
       if (!eligible().length) continue;                                   // the sale already used the Swing lot, or happened before it
       const ans = answers[`sale:${key}|${g.date}`];
       if (ans === 'no') continue;
-      if (ans !== 'yes') { const e = eligible()[0]; proposals.push({ key, date: g.date, qty: g.qty, avgPrice: g.avgPrice, swingDate: e.lot.date, swingQty: e.lot.qty }); continue; }
+      const auto = ans === undefined && flag ? flag(eligible()[0], g) : null;
+      if (ans !== 'yes' && !auto) { const e = eligible()[0]; proposals.push({ key, date: g.date, qty: g.qty, avgPrice: g.avgPrice, swingDate: e.lot.date, swingQty: e.lot.qty }); continue; }
       let left = g.qty;
       for (const t of eligible()) {
         if (left <= 1e-9) break;
         const take = Math.min(t.lot.qty, left); left -= take; exits.push({ key, buyDate: t.lot.date, date: g.date, qty: take, price: g.avgPrice });
-        const idx = out.indexOf(t), moved         = { lot: { ...t.lot, qty: take }, book: 'Legacy', rule: `rule 3: ${take} of these units were your Swing trade, sold on ${g.date} (you said so); the tax view still sells the oldest lot first` };
+        const idx = out.indexOf(t), moved         = { lot: { ...t.lot, qty: take }, book: 'Legacy', rule: `rule 3: ${take} of these units were your Swing trade, sold on ${g.date} ${auto ? `(${auto})` : '(you said so)'}; the tax view still sells the oldest lot first` };
         if (take >= t.lot.qty - 1e-9) out[idx] = moved;
         else { out[idx] = { ...t, lot: { ...t.lot, qty: t.lot.qty - take } }; out.push(moved); }
       }

@@ -3,7 +3,7 @@
 // anything else is Legacy. The "near" numbers are the owner-approved working values (settings/allocation.json, swingMatch; Engine Rules C-76). Sessions skip the exchange holidays in data/calendar.
 export interface ShortLine { sym: string; setup: string; trigger: number; limit: number; stop: number; signalDate: string; atrPct?: number; tags?: string[]; stream?: string }
 /** nearSessions: how many weekdays after the shortlist night still count (0 = entry session only). nearPricePct: how far outside the trigger-to-limit range, as % of the trigger. volatileExtraPct: extra room above the limit for a close-confirmed entry. */
-export interface MatchSettings { nearSessions: number; nearPricePct: number; volatileExtraPct?: number; maxExactPctOfAccount?: number; addWindowSessions?: number }
+export interface MatchSettings { maxHoldSessions?: number; exitFlagSessions?: number; nearSessions: number; nearPricePct: number; volatileExtraPct?: number; maxExactPctOfAccount?: number; addWindowSessions?: number }
 /** The size of the buy against the account, for the exact-match size check: an exact match this large is only proposed. */
 export interface SizeCtx { lotValue: number; accountValue: number }
 export interface Cal { holidays?: string[]; extra?: string[] }

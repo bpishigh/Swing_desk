@@ -133,7 +133,7 @@ import { intlRegion } from './pm/intlregion.js'
 import { worstDrawdown } from './pm/drawdown.js'
 import { trimTiers, TARGET_NAMES, MAX_TRIMS } from './pm/trim.js';
 import { harvest, saleAfter, HARVEST_DEFAULTS } from './pm/harvest.js';
-import { promoteOf } from './pm/promote.js';
+import { promoteOf, sizePromote } from './pm/promote.js';
 import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, mergeTrades } from './pm/reader.js';
@@ -515,7 +515,7 @@ function verdictOf(h) {
   let v = vmemo.get(h.symbol); if (!v) { v = stockVerdict(h.symbol, S.hist, S.data.feed, S.data.demergers); vmemo.set(h.symbol, v); }
   if (v.label !== 'Keep') return v;
   const pm = promoteMapOf().get(h.symbol);   // precedence: Exit, Promote, Harvest, Trim, Keep
-  if (pm) { const k = 'pro|' + h.symbol + '|' + pm.line.signalDate; let o = vmemo.get(k); if (!o) { o = { ...v, label: 'Promote', reasons: ['Passes the exit test and is on the latest Swing Desk shortlist.', pm.why], pending: ['Not an order: promoting gives the lot a Swing stop and moves it to the Swing book. Size and placement follow the Swing rules (Swing tab); the oldest lots go first.'], promote: pm }; vmemo.set(k, o); } return o; }
+  if (pm) { const sz = promoteSizeOf(h.symbol), k = 'pro|' + h.symbol + '|' + pm.line.signalDate + '|' + (sz ? sz.perAccount.map((x) => x.qty).join(',') : '-'); let o = vmemo.get(k); if (!o) { o = { ...v, label: 'Promote', reasons: ['Passes the exit test and is on the latest Swing Desk shortlist.', pm.why], pending: promoteLines(pm, sz), promote: { ...pm, size: sz } }; vmemo.set(k, o); } return o; }
   const hv = harvestMapOf().get(h.name);
   if (hv) { const k = 'hv|' + h.name + '|' + Math.round(hv.taxValue); let o = vmemo.get(k); if (!o) { o = { ...v, label: 'Harvest', reasons: ['Passes the exit test, but a loss lot is worth booking now.', hv.why], pending: ['Not an order. Sell, then buy back the next day or later; the exact lots and numbers are on the Tax tab.'], harvest: hv }; vmemo.set(k, o); } return o; }
   const t = trimOf(h.symbol); if (!t) return v;
@@ -524,7 +524,34 @@ function verdictOf(h) {
     : { ...v, reasons: v.reasons.concat(t.tier === 'keep' ? [] : [t.why]), pending: v.pending, rank: t }; vmemo.set(k, o); }
   return o;
 }
-let proMemo = null, hvMemo = null;
+function promoteLines(pm, sz) {
+  const base = 'Not an order: promoting gives the lot a Swing stop and moves it to the Swing book, oldest lots first.';
+  if (!sz) return [base + ' Size is not worked out here: it needs the market light and a swing capital for the account (Allocation tab).'];
+  const ok = sz.perAccount.filter((a) => a.ok);
+  if (!ok.length) return [base, 'Under the Swing rules nothing moves today: ' + sz.perAccount.map((a) => `${a.label}: ${a.note ?? a.binding}`).join('; ') + '.'];
+  return [base, 'Under the Swing rules move ' + ok.map((a) => `${a.qty.toLocaleString('en-IN')} shares in ${a.label} (limited by ${a.binding})`).join(' and ') + '. The rest stays Legacy.'];
+}
+let proMemo = null, hvMemo = null, psMemo = null;
+/** How many shares of a Promote move to Swing in each account, under the Swing rules (needs the market light and each account's swing capital). */
+function promoteSizeOf(sym) {
+  const pm = promoteMapOf().get(sym); if (!pm || !S.allocCfg?.swingPools || !S.dash) return null;
+  const sig = S.sel + '|' + [...S.accounts.values()].map((a) => a.key + ':' + (a.report?.openLots?.length ?? 0)).join(',') + '|' + (S.dash.india?.regime?.name ?? '') + '|' + sym;
+  if (psMemo && psMemo.has(sig)) return psMemo.get(sig);
+  if (!psMemo || psMemo.size > 200) psMemo = new Map();
+  let out = null;
+  try {
+    const P = S.allocCfg.swingPools, xs = members().map(calcAccount).filter((x) => x.res.ok && x.res.rows.some((r) => r.cls === 'direct_equity')), cap = {};
+    const accts = xs.map((x) => { cap[x.a.label] = x.res.rows.find((r) => r.cls === 'direct_equity').amount; const r = x.a.report; return { label: x.a.label, owner: ownerOf(x.a), value: x.cur.total, swingValue: r.books?.Swing?.value ?? 0, swingNames: (r.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name), capitalSource: P.capitalSource }; });
+    const rows = derivePools(accts, cap), chk = householdChecks(accts, P), adj = householdJournal(xs).rep;
+    const per = xs.map((x, i) => {
+      const lots = x.a.report.openLots ?? [], A = acctCfg(x.a.key), ro = openRiskOf(lots, A.stops ?? {}), hs = x.a.report.holdings.filter((h) => h.kind === 'Stock' && h.symbol === sym);
+      const sw = lots.filter((l) => l.book === 'Swing' && hs.some((h) => h.name === l.name));
+      return { label: x.a.label, heldQty: hs.filter((h) => h.book === 'Legacy').reduce((t, h) => t + h.qty, 0), swingCapital: rows[i]?.swingCapital ?? 0, openRisk: ro.openRisk, swingValueOfName: sw.reduce((t, l) => t + l.qty * l.price, 0), inSwing: sw.length > 0 };
+    });
+    out = sizePromote({ price: pm.price, stop: pm.stop, setup: pm.line.setup }, per, { light: S.dash.india?.regime?.name ?? null, vix: S.dash.india?.latest?.vix ?? null, maxPositions: P.maxPositions ?? 10, householdPositions: chk.positions, householdOpenRisk: per.reduce((t, a) => t + a.openRisk, 0), provenGreen: adj.provenGreen, halving: adj.halving });
+  } catch { out = null; }
+  psMemo.set(sig, out); return out;
+}
 /** Held Legacy stocks (household-wide, summed over accounts) that pass the exit test and sit on the latest nightly shortlist. */
 function promoteMapOf() {
   if (!S.hist || !S.data || !S.shortlist) return new Map();
@@ -670,7 +697,7 @@ function verdictCard(V) {
   <div class="vsum"><div class="vs bad"><b>${ex.length}</b><span>fail the exit test${ex.length ? ' · ' + short(ex.reduce((a, [h]) => a + (h.value ?? 0), 0)) : ''}</span></div>${pros.length ? `<div class="vs ok"><b>${pros.length}</b><span>to promote</span></div>` : ''}${hvs.length ? `<div class="vs warn"><b>${hvs.length}</b><span>to harvest</span></div>` : ''}<div class="vs warn"><b>${trims.length}</b><span>to trim</span></div><div class="vs ok"><b>${keep - trims.length - pros.length - hvs.length}</b><span>keep</span></div>${nov ? `<div class="vs"><b>${nov}</b><span>cannot be tested</span></div>` : ''}</div>
   <div class="sub">${vs.length} direct stocks tested against the 200-day average and the last swing low.</div>
   ${ex.length ? '<div class="vh">Sell: fail the exit test</div>' : ''}${ex.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag bad">Exit</span> <b>${esc(h.name)}</b><div class="sub why1" title="${esc(vWhy(v, h))}">${esc(vWhy(v, h))}</div></div><div class="amt">${h.value === null ? '' : short(h.value)}<div class="${cls((h.value ?? 0) - h.cost)}">${h.value === null || !h.cost ? '' : pct((h.value - h.cost) / h.cost, 0)}</div></div></div>`).join('')}${ex.length > 4 ? `<div class="sub" style="margin-top:6px">and ${ex.length - 4} more on the Holdings tab (filter: Exit).</div>` : ''}${!ex.length ? '<div class="sub">No stock fails the exit test.</div>' : ''}
-  ${pros.length ? `<div class="vh">Promote: on tonight's Swing shortlist</div>${pros.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag ok">Promote</span> <b>${esc(h.name)}</b><div class="sub">stop ${fmt2(v.promote.stop)}, ${v.promote.riskPct.toFixed(1)}% below the price · setup ${esc(v.promote.line.setup)}</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Not an order: the lot would move to the Swing book with that stop, sized by the Swing rules, oldest lots first.</div>` : ''}
+  ${pros.length ? `<div class="vh">Promote: on tonight's Swing shortlist</div>${pros.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag ok">Promote</span> <b>${esc(h.name)}</b><div class="sub">stop ${fmt2(v.promote.stop)}, ${v.promote.riskPct.toFixed(1)}% below the price · setup ${esc(v.promote.line.setup)}${v.promote.size ? ' · ' + (v.promote.size.total > 0 ? 'move ' + v.promote.size.total.toLocaleString('en-IN') + ' of ' + v.promote.qtyFull.toLocaleString('en-IN') + ' shares' : 'no room under the Swing rules today') : ''}</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Not an order: the lot would move to the Swing book with that stop, sized by the Swing rules, oldest lots first.</div>` : ''}
   ${hvs.length ? `<div class="vh">Harvest: a loss worth booking</div>${hvs.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag warn">Harvest</span> <b>${esc(h.name)}</b><div class="sub">tax value about ${short(v.harvest.taxValue)} against about ${short(v.harvest.roundTrip)} to sell and buy back</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Sell, then buy back the next day or later. Lots and numbers are on the Tax tab.</div>` : ''}
   ${trims.length ? `<div class="vh">Reduce: outside your ten-name target</div>${trims.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag warn">Trim</span> <b>${esc(h.name)}</b><div class="sub">rank ${v.rank.rank} of ${v.rank.of} by 3-month strength</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Weakest first, at most ${MAX_TRIMS} at a time, only after two weekly ranks in a row. Not an order to sell: it runs down through the tax-timing rules.</div>` : ''}
   ${(() => { const due = mergedHoldings(V).map((h) => [h, resultsOf(h)]).filter(([, r]) => r && r.sessions <= 10).sort((a, b) => a[1].date.localeCompare(b[1].date)); return due.length ? `<div class="vh">Results due within 10 sessions</div><div>${due.slice(0, 10).map(([h, r]) => `<span class="rchip">${esc(h.name.replace(/ (LIMITED|LTD\.?|LIMITED\.)$/i, ''))}<i>${esc(r.date.slice(5))}</i></span>`).join('')}${due.length > 10 ? `<span class="rchip">+${due.length - 10} more</span>` : ''}</div><div class="sub">Announced board-meeting dates (NSE); they can move. Information only: nothing is sold or held back because of a results date.</div>` : ''; })()}
@@ -1032,15 +1059,16 @@ function goalsCard(xs) {
       <label class="sub">Needed by<br><input id="g-date" type="date"></label></div>
       <button id="g-add" style="margin-top:8px">Add goal</button></details></div>`;
 }
-function lookThroughCard(xs) {
-  const L0 = lookOf(xs);
+function lookThroughCard(xs0) {
+  const pick = S.ltAcct && xs0.length > 1 ? xs0.find((x) => x.a.key === S.ltAcct) : null, xs = pick ? [pick] : xs0;
+  const L0 = lookOf(xs), who = xs0.length > 1 ? `<div class="seg" style="margin-top:8px"><button data-ltacct="" aria-pressed="${!pick}">All accounts</button>${xs0.map((x) => `<button data-ltacct="${esc(x.a.key)}" aria-pressed="${pick === x}">${esc(x.a.label)}</button>`).join('')}</div>${pick ? `<div class="sub" style="margin-top:4px">Showing ${esc(pick.a.label)} alone: percentages are of this account's capital, and the overlap and over-limit flags use this account only.</div>` : ''}` : '';
   if (!L0) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">Fund portfolios have not loaded yet (they are fetched once a month from the funds\' published disclosures).</div></div>';
   const { r, seen, ports, left, capital } = L0;
   const nFunds = [...seen.values()].filter((v) => v.kind !== 'Stock').length;   // mutual funds and ETFs
-  if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2><div class="sub">No equity funds or ETFs held, so there is nothing to open up.</div></div>';
+  if (!nFunds) return '<div class="card"><h2>What you really own · funds opened up</h2>' + who + '<div class="sub">No equity funds or ETFs held' + (pick ? ' in this account' : '') + ', so there is nothing to open up.</div></div>';
   const all = r.exposures.filter((e) => e.viaFunds > 0), q = (S.ltq || '').trim().toLowerCase(), hit = q ? all.filter((e) => (e.name + ' ' + e.sources.map((x) => x.fund).join(' ')).toLowerCase().includes(q)) : all, rows = q || S.ltAll ? hit.slice(0, 400) : hit.slice(0, 12);
   const ov = r.overlaps.slice(0, 5);
-  return `<div class="card"><h2>What you really own · funds opened up</h2>
+  return `<div class="card"><h2>What you really own · funds opened up</h2>${who}
     <div class="sub">${r.coverage === null ? '' : `Equity holdings found for ${Math.round(r.coverage * 100)}% of your equity fund money (${nFunds - r.notCovered.length} of ${nFunds} funds).`} ${r.notCovered.length ? `Not covered, left out and not estimated: ${r.notCovered.slice(0, 8).map((n) => { const v = [...seen.values()].find((x) => x.name === n), L = v?.isin ? S.live.get(v.isin) : null; return esc(n) + (L?.why ? ' (' + esc(L.why) + ')' : v && !L && !ports.funds[v.fundIsin] ? ' (looking it up…)' : ' (portfolio too thin or not equity)'); }).join('; ')}${r.notCovered.length > 8 ? ` and ${r.notCovered.length - 8} more` : ''}.` : ''} ${r.stale.length ? `Older than ${75} days (a fund house may be late): ${r.stale.map((x) => esc(x.fund) + ' (' + fmtD(x.asOf) + ')').join('; ')}.` : ''}</div>
     <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><input type="search" id="ltq" placeholder="Search a company or a fund" value="${esc(S.ltq || '')}" style="max-width:260px"><span class="sub">${q ? `${hit.length} of ${all.length} companies match` : `${all.length} companies through your funds`}</span>${!q && all.length > 12 ? `<button class="chip" id="ltall">${S.ltAll ? 'Show the top 12' : 'Show all ' + Math.min(all.length, 400)}</button>` : ''}</div>
     ${rows.length ? `<div class="tw" style="margin-top:8px"><table><thead><tr><th>Company</th><th class="num">Held directly ₹</th><th class="num">Through funds ₹</th><th class="num">Total ₹</th><th class="num">% of capital</th><th class="num">% of equity</th></tr></thead><tbody>${rows.map((e) => `<tr><td>${esc(e.name)}${e.overCap ? ' <span class="neg">above your single-stock limit</span>' : ''}<small>${e.sources.slice(0, 3).map((s) => esc(s.fund)).join(' · ')}</small></td><td class="num">${e.direct ? inr(e.direct) : '—'}</td><td class="num">${inr(e.viaFunds)}</td><td class="num"><b>${inr(e.total)}</b></td><td class="num">${pc(e.pctCapital)}</td><td class="num">${pc(e.pctEquity)}</td></tr>`).join('')}</tbody></table></div>` : `<div class="sub" style="margin-top:8px">${q ? 'No company or fund matches that search.' : 'No company shows up through your funds yet.'}</div>`}
@@ -1228,6 +1256,7 @@ function wireSnap() {
   }; });
 }
 function wireAlloc() {
+  document.querySelectorAll('[data-ltacct]').forEach((b) => { b.onclick = () => { S.ltAcct = b.dataset.ltacct; render(); }; });
   { const qi = document.getElementById('ltq'); if (qi) qi.oninput = () => { S.ltq = qi.value; const pos = qi.selectionStart; render(); const n = document.getElementById('ltq'); if (n) { n.focus(); n.setSelectionRange(pos, pos); } };
     const b = document.getElementById('ltall'); if (b) b.onclick = () => { S.ltAll = !S.ltAll; render(); }; }
   document.querySelectorAll('[data-lim]').forEach((el) => { el.onchange = () => { const v = Number(el.value); if (!(v >= 1 && v <= 100)) return; hh().limits = { ...(hh().limits ?? {}), [el.dataset.lim]: v / 100 }; ALLOC_SAVE(); render(); }; });

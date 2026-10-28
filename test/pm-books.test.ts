@@ -29,3 +29,24 @@ test('index ETFs are Long-term, like gold and international ETFs; a plain stock 
   const t = inferBooks([lot('NIFTYBEES', '2024-01-01', 10, 10), lot('STK', '2024-01-01', 10, 10)], c);
   assert.deepEqual(t.map((x) => x.book), ['Long-term', 'Legacy']); assert.match(t[0].rule, /ETFs other than direct equity/);
 });
+
+import { attributeSales } from '../src/pm/books.ts';
+test('a Swing lot past the maximum hold is shown in Legacy; a younger one stays Swing; no setting, no change', () => {
+  const l = lot('STK', '2026-01-05', 10, 10), base = { ...ctx, promoted: new Set(['STK|2026-01-05']) };
+  assert.equal(inferBooks([l], base)[0].book, 'Swing');
+  const aged = inferBooks([l], { ...base, maxHold: { sessions: 50, today: '2026-10-28' } })[0];
+  assert.equal(aged.book, 'Legacy'); assert.match(aged.rule, /maximum hold/);
+  assert.equal(inferBooks([l], { ...base, maxHold: { sessions: 500, today: '2026-10-28' } })[0].book, 'Swing');
+});
+test('a sale taken as the Swing exit by an exit flag moves the Swing units to Legacy without asking; the owner\'s no still wins', () => {
+  const sw = { lot: lot('STK', '2026-10-20', 10, 100), book: 'Swing' as const, rule: 'rule 4: x', swing: { tier: 'exact' as const, setup: '4', stop: 95, trigger: 100, limit: 101, signalDate: '2026-10-19' } };
+  const old = { lot: lot('STK', '2025-01-01', 10, 50), book: 'Legacy' as const, rule: 'rule 3' };
+  const sale = { key: 'STK', date: '2026-10-27', qty: 4, buyDates: ['2025-01-01'], avgPrice: 94 };
+  const flag = () => 'close at or below the stop';
+  const r = attributeSales([sw, old], [sale], {}, flag);
+  assert.equal(r.proposals.length, 0); assert.equal(r.exits.length, 1); assert.match(r.tagged.find((t) => t.book === 'Legacy' && t.lot.date === '2026-10-20')!.rule, /close at or below the stop/);
+  const no = attributeSales([sw, old], [sale], { 'sale:STK|2026-10-27': 'no' }, flag);
+  assert.equal(no.exits.length, 0); assert.equal(no.proposals.length, 0);
+  const none = attributeSales([sw, old], [sale], {}, () => null);
+  assert.equal(none.proposals.length, 1);
+});

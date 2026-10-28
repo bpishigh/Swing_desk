@@ -19,3 +19,22 @@ test('no latest night, no result; capwaived line preferred', () => {
   const r = promoteOf({ symbol: 'ABC', price: 100, qty: 50 }, [L('ABC', '2026-10-28', 95, 'comparator'), L('ABC', '2026-10-28', 90)], '2026-10-28');
   assert.equal(r!.stop, 90);
 });
+
+import { sizePromote } from '../src/pm/promote.ts';
+const acct = (o: object = {}) => ({ label: 'A', heldQty: 1000, swingCapital: 1_000_000, openRisk: 0, swingValueOfName: 0, inSwing: false, ...o });
+const ctx = (o: object = {}) => ({ light: 'green' as const, maxPositions: 8, householdPositions: 0, householdOpenRisk: 0, ...o });
+
+test('sizing is capped by one R of risk, then by what you hold', () => {
+  const r = sizePromote({ price: 100, stop: 95, setup: '4' }, [acct()], ctx());
+  assert.equal(r.perAccount[0].ok, true); assert.ok(r.perAccount[0].qty > 0 && r.perAccount[0].qty <= 1000);
+  const small = sizePromote({ price: 100, stop: 95, setup: '4' }, [acct({ heldQty: 5 })], ctx());
+  assert.equal(small.perAccount[0].qty, 5); assert.equal(small.perAccount[0].binding, 'the shares you hold');
+});
+test('no light, no sizing; no Legacy holding, no sizing', () => {
+  assert.equal(sizePromote({ price: 100, stop: 95, setup: '4' }, [acct()], ctx({ light: null })).total, 0);
+  assert.equal(sizePromote({ price: 100, stop: 95, setup: '4' }, [acct({ heldQty: 0 })], ctx()).perAccount[0].ok, false);
+});
+test('a full household position count blocks a new name but not one already in Swing', () => {
+  assert.equal(sizePromote({ price: 100, stop: 95, setup: '4' }, [acct()], ctx({ householdPositions: 99 })).perAccount[0].ok, false);
+  assert.equal(sizePromote({ price: 100, stop: 95, setup: '4' }, [acct({ inSwing: true })], ctx({ householdPositions: 99 })).perAccount[0].ok, true);
+});
