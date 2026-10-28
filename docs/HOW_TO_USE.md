@@ -26,7 +26,7 @@ The first rule that fires wins, in this order: **Exit, Promote, Harvest, Trim, K
 | **Exit** | Closed below its 200-day average or below its last major swing low. | Sell. Tax never delays an Exit. |
 | **Promote** | Passes the exit test and is on tonight's Swing shortlist. | Optional: give the lot the shortlist's stop and treat it as a Swing trade. The card says how many shares move in each account under the Swing rules (taken from the oldest lots); the rest stays Legacy. |
 | **Harvest** | Passes the exit test, but a loss lot is worth booking: the tax saved beats the cost of selling and buying back by 25%. | Sell the loss lot, buy back the next day or later. Lots and numbers are on the Tax tab. |
-| **Trim** | Passes the exit test but is outside your ten strongest stocks, at two weekly checks in a row. | Reduce gradually, weakest first, at most two names at a time. Not an order to sell at once. |
+| **Trim** | Passes the exit test but is outside your ten strongest stocks, at two weekly checks in a row. | Reduce gradually, weakest first, at most two names at a time and two newly marked a month. Not an order to sell at once. |
 | **Keep** | Passes the exit test and is inside the ten-name target. | Nothing. The test keeps watching. |
 | **Sell after <date>** | A gain close to its one-year date: waiting for the lower long-term rate saves more than the price risk. | Hold the sale until that date, unless the stock turns Exit. |
 | **Replace · Watch** | Funds only, from the published fund scores. | Watch: weakening. Replace: a clearly better fund exists. |
@@ -34,7 +34,7 @@ The first rule that fires wins, in this order: **Exit, Promote, Harvest, Trim, K
 
 Every verdict is written to the verdict log with the price it rested on, and is judged later against rules written down in advance (3, 6 and 12 months).
 
-**Books.** A Swing lot older than 120 sessions (provisional) is shown as Legacy. A sale made within 5 sessions of a close at or below a Swing lot's stop is treated as that lot's exit; any other partial sale of a stock that has Swing lots asks you yes or no on the Trades tab.
+**Books.** A Swing lot older than 60 sessions (provisional) is shown as Legacy. A sale made within 5 sessions of a close at or below a Swing lot's stop is treated as that lot's exit; any other partial sale of a stock that has Swing lots asks you yes or no on the Trades tab.
 
 ## Weekly, monthly, yearly
 - **Weekly:** open Overview once. Trim only counts after two weekly checks agree, so checking more often changes nothing.

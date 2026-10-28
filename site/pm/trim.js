@@ -4,7 +4,7 @@
 import { adjustSeries,                                                         } from './verdict.js';
 import { RS_SESSIONS } from './context.js';
 
-export const TARGET_NAMES = 10, MAX_TRIMS = 2, WEEK_SESSIONS = 5;
+export const TARGET_NAMES = 10, MAX_TRIMS = 2, MONTHLY_NEW_TRIMS = 2, WEEK_SESSIONS = 5;
 
                                                              
                                                                                                                                                                                                  
@@ -21,7 +21,7 @@ function ranks(items                                                        )   
 }
 
 /** `cands` are the household's Legacy direct stocks that currently pass the exit test. */
-export function trimTiers(cands             , hist              , feed                 , demergers                = [], target = TARGET_NAMES, maxTrims = MAX_TRIMS)               {
+export function trimTiers(cands             , hist              , feed                 , demergers                = [], target = TARGET_NAMES, maxTrims = MAX_TRIMS, markedThisMonth              = new Set(), monthlyCap = MONTHLY_NEW_TRIMS)               {
   const rows = cands.map((c) => {
     const raw = hist.px[c.symbol] ?? [], adj = adjustSeries(hist.dates, raw, feed.filter((r) => r.symbol === c.symbol), hist.dates[0], demergers).series;
     return { ...c, now: ret63Back(adj, 0), before: ret63Back(adj, WEEK_SESSIONS) };
@@ -37,7 +37,16 @@ export function trimTiers(cands             , hist              , feed          
     if (!outNow && !outBefore) return { ...base, tier: 'keep'         , why: `Ranked ${rk} of ${of}, inside the top ${target} at both weekly checks.` };
     return { ...base, tier: 'unsettled'         , why: `Ranked ${rk} now and ${pr} a week ago: on different sides of the top-${target} line, so no change until two weekly checks agree.` };
   });
-  const trims = out.filter((o) => o.tier === 'trim').sort((a, b) => (b.rank          ) - (a.rank          ));
-  trims.forEach((o, i) => { if (i >= maxTrims) { o.tier = 'trim-queued'; o.why += ` Queued: at most ${maxTrims} names are trimmed at a time, lowest rank first.`; } });
+  // Two limits, both for cost and tax reasons (rebalancing more often than needed adds turnover without adding return): at most `maxTrims` names open at a time, and at most `monthlyCap`
+  // names newly marked in a calendar month. A name already marked this month keeps its place first, so the picture does not flip back and forth within the month.
+  const byRank = out.filter((o) => o.tier === 'trim').sort((a, b) => (b.rank          ) - (a.rank          ));
+  const trims = [...byRank.filter((o) => markedThisMonth.has(o.symbol)), ...byRank.filter((o) => !markedThisMonth.has(o.symbol))];
+  let open = 0, fresh = 0;
+  for (const o of trims) {
+    const was = markedThisMonth.has(o.symbol);
+    if (open >= maxTrims) { o.tier = 'trim-queued'; o.why += ` Queued: at most ${maxTrims} names are trimmed at a time, lowest rank first.`; continue; }
+    if (!was && markedThisMonth.size + fresh >= monthlyCap) { o.tier = 'trim-queued'; o.why += ` Queued: at most ${monthlyCap} names are newly marked for trimming in a calendar month, and ${markedThisMonth.size} already ${markedThisMonth.size === 1 ? 'was' : 'were'} this month.`; continue; }
+    open++; if (!was) fresh++;
+  }
   return out;
 }

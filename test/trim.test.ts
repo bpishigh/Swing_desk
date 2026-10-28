@@ -28,3 +28,14 @@ test('a name that crossed the line only this week is unsettled, not trimmed', ()
 });
 
 test('ret63Back needs enough history', () => { assert.equal(ret63Back([1, 2, 3], 0), null); });
+
+test('at most two names are newly marked in a month; a name already marked this month keeps its place', () => {
+  // two open at a time allows S0 and S1; none marked yet, monthly cap 1 leaves S1 queued
+  const one = trimTiers(cands, { dates, px }, [], [], 10, 2, new Set(), 1), by1 = Object.fromEntries(one.map((x) => [x.symbol, x.tier]));
+  assert.equal(by1.S0, 'trim'); assert.equal(by1.S1, 'trim-queued');
+  // S1 was already marked this month: it keeps its place ahead of the weaker S0 when only one slot is left
+  const kept = trimTiers(cands, { dates, px }, [], [], 10, 2, new Set(['S1']), 2), by2 = Object.fromEntries(kept.map((x) => [x.symbol, x.tier]));
+  assert.equal(by2.S1, 'trim'); assert.equal(by2.S0, 'trim');
+  const full = trimTiers(cands, { dates, px }, [], [], 10, 2, new Set(['S12', 'S13']), 2), by3 = Object.fromEntries(full.map((x) => [x.symbol, x.tier]));
+  assert.equal(by3.S0, 'trim-queued'); assert.match(full.find((x) => x.symbol === 'S0')!.why, /calendar month/);
+});

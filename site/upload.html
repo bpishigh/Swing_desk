@@ -234,7 +234,7 @@ async function syncLog() {
     for (const h of a.report.holdings) {
       const v = verdictOf({ ...h, book: h.book }); if (!v || v.fund || v.label === 'No verdict' || !v.asOf) continue;   // the log holds stock verdicts only
       const l = last.get(h.symbol); if (l && l.verdict === v.label) continue;
-      add.push({ date: v.asOf, symbol: h.symbol, verdict: v.label, rule: v.label === 'Trim' ? 'ten-name target: below the top ten at two weekly checks' : v.label === 'Promote' ? 'on the latest Swing Desk shortlist' : v.label === 'Harvest' ? 'loss worth booking (tax value beats round trip)' : 'exit test: 200 SMA and swing low', close: v.close, sma200: v.sma200, swingLow: v.swingLow ? v.swingLow.price : null, swingDate: v.swingLow ? v.swingLow.date : null, unrealised: h.value === null ? null : Math.round((h.value - h.cost) * 100) / 100 });
+      add.push({ date: v.asOf, symbol: h.symbol, verdict: v.label, rule: v.label === 'Trim' ? 'ten-name target: below the top ten at two weekly checks' : v.label === 'Promote' ? 'on the latest Swing Desk shortlist' : v.label === 'Harvest' ? 'loss worth booking (tax value beats round trip)' : 'exit test: 200 SMA and swing low', close: v.close, sma200: v.sma200, swingLow: v.swingLow ? v.swingLow.price : null, swingDate: v.swingLow ? v.swingLow.date : null, unrealised: h.value === null ? null : Math.round((h.value - h.cost) * 100) / 100, ...(v.label === 'Harvest' && v.harvest ? { value: Math.round(v.harvest.value), taxValue: Math.round(v.harvest.taxValue), charges: Math.max(0, Math.round(v.harvest.roundTrip - HARVEST_DEFAULTS.gapRisk * v.harvest.value)) } : {}) });
     }
     if (!add.length) continue;
     const by = new Map(); for (const e of [...(a.verdictLog || []), ...add]) by.set(e.symbol + '|' + e.date, e);
@@ -573,15 +573,21 @@ function harvestMapOf() {
   hvMemo = { sig, map }; return map;
 }
 let trimMemo = null;
+/** Stocks the verdict log already shows as Trim in the latest price month (all accounts), so the monthly limit on new Trims is counted from what was actually recorded. */
+function markedThisMonth() {
+  const m = (S.hist?.dates?.at(-1) ?? '').slice(0, 7), out = new Set(); if (!m) return out;
+  for (const a of S.accounts.values()) for (const e of a.verdictLog || []) if (e.verdict === 'Trim' && e.date.startsWith(m)) out.add(e.symbol);
+  return out;
+}
 /** Household-wide: the ten-name target counts every account's Legacy direct stocks that pass the exit test, so it is worked out once for all accounts. */
 function trimOf(sym) {
   if (!S.hist || !S.data) return null;
   const sig = [...S.accounts.values()].map((a) => a.key + ':' + (a.report?.holdings?.length ?? 0)).join(',') + '|' + S.hist.dates.at(-1);
-  if (!trimMemo || trimMemo.sig !== sig + '|' + promoteMapOf().size) {
+  if (!trimMemo || trimMemo.sig !== sig + '|' + promoteMapOf().size + '|' + [...markedThisMonth()].sort().join(',')) {
     const by = new Map();
     for (const a of S.accounts.values()) for (const h of a.report?.holdings ?? []) if (h.kind === 'Stock' && h.book === 'Legacy' && h.symbol && h.value > 0) by.set(h.symbol, (by.get(h.symbol) ?? 0) + h.value);
     const pmap = promoteMapOf(), cands = [...by].filter(([sy]) => stockVerdict(sy, S.hist, S.data.feed, S.data.demergers).label === 'Keep' && !pmap.has(sy)).map(([symbol, weight]) => ({ symbol, weight }));
-    trimMemo = { sig, res: new Map(trimTiers(cands, S.hist, S.data.feed, S.data.demergers).map((r) => [r.symbol, r])) };
+    trimMemo = { sig, res: new Map(trimTiers(cands, S.hist, S.data.feed, S.data.demergers, undefined, undefined, markedThisMonth()).map((r) => [r.symbol, r])) };
   }
   return trimMemo.res.get(sym) ?? null;
 }
@@ -675,7 +681,7 @@ const vWhy = (v, h) => { const base = vWhy0(v); if (!h || !v || v.label === 'No 
 
 const GLOSSARY = [
   ['Exit', 'bad', 'The stock closed below its 200-day average or below its last major swing low. Sell it; tax never delays an Exit.'],
-  ['Trim', 'warn', 'It passes the exit test but is not among your ten strongest stocks by 3-month return, and has been outside the top ten at two weekly checks in a row. Reduce it gradually, weakest first, at most two at a time. Not an order to sell at once.'],
+  ['Trim', 'warn', 'It passes the exit test but is not among your ten strongest stocks by 3-month return, and has been outside the top ten at two weekly checks in a row. Reduce it gradually, weakest first, at most two at a time and at most two newly marked in a calendar month. Not an order to sell at once.'],
   ['Promote', 'ok', 'It passes the exit test and is on the latest nightly Swing Desk shortlist. The lot would move to the Swing book with the shortlist stop, sized by the Swing rules, oldest lots first. Comes before Harvest and Trim.'],
   ['Keep', 'ok', 'It passes the exit test and is inside your ten-name target. Hold it; the exit test keeps watching.'],
   ['Harvest', 'warn', 'A stock that passes the exit test but sits on a loss where selling now saves more tax than selling and buying back costs (by 25%). Shown on Holdings and the Tax tab. Buy back the next day or later.'],
@@ -701,7 +707,7 @@ function verdictCard(V) {
   ${hvs.length ? `<div class="vh">Harvest: a loss worth booking</div>${hvs.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag warn">Harvest</span> <b>${esc(h.name)}</b><div class="sub">tax value about ${short(v.harvest.taxValue)} against about ${short(v.harvest.roundTrip)} to sell and buy back</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Sell, then buy back the next day or later. Lots and numbers are on the Tax tab.</div>` : ''}
   ${trims.length ? `<div class="vh">Reduce: outside your ten-name target</div>${trims.slice(0, 4).map(([h, v]) => `<div class="vrow"><div class="nm"><span class="tag warn">Trim</span> <b>${esc(h.name)}</b><div class="sub">rank ${v.rank.rank} of ${v.rank.of} by 3-month strength</div></div><div class="amt">${h.value === null ? '' : short(h.value)}</div></div>`).join('')}<div class="sub" style="margin-top:6px">Weakest first, at most ${MAX_TRIMS} at a time, only after two weekly ranks in a row. Not an order to sell: it runs down through the tax-timing rules.</div>` : ''}
   ${(() => { const due = mergedHoldings(V).map((h) => [h, resultsOf(h)]).filter(([, r]) => r && r.sessions <= 10).sort((a, b) => a[1].date.localeCompare(b[1].date)); return due.length ? `<div class="vh">Results due within 10 sessions</div><div>${due.slice(0, 10).map(([h, r]) => `<span class="rchip">${esc(h.name.replace(/ (LIMITED|LTD\.?|LIMITED\.)$/i, ''))}<i>${esc(r.date.slice(5))}</i></span>`).join('')}${due.length > 10 ? `<span class="rchip">+${due.length - 10} more</span>` : ''}</div><div class="sub">Announced board-meeting dates (NSE); they can move. Information only: nothing is sold or held back because of a results date.</div>` : ''; })()}
-  <details class="how"><summary>How the exit test works</summary><div class="sub" style="margin-top:6px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test. Trim means it passes but ranks below your ten-name target (by 3-month strength, after two weekly ranks in a row); Promote means it passes and is on the latest Swing Desk shortlist; Harvest means a loss lot is worth booking for tax. Based on closes up to ${esc(asOf)}.</div></details>${glossaryHtml()}${fundsHtml}</div>`;
+  <details class="how"><summary>How the exit test works</summary><div class="sub" style="margin-top:6px">Exit test: a close below the 200-day average, or below the last major swing low (the latest close that is the lowest of the 10 sessions either side). Exit is never held back for tax. Keep means the stock passes this test. Trim means it passes but ranks below your ten-name target (by 3-month strength, after two weekly ranks in a row; at most two open at a time and two newly marked a month); Promote means it passes and is on the latest Swing Desk shortlist; Harvest means a loss lot is worth booking for tax. Based on closes up to ${esc(asOf)}.</div></details>${glossaryHtml()}${fundsHtml}</div>`;
 }
 function holdingsRows(V) {
   const tot = mergedHoldings(V).reduce((a, h) => a + (h.value ?? 0), 0) || 1;
@@ -854,7 +860,7 @@ function coverage(a) {
   return { first: ds[0], last: ds.at(-1), years: Object.entries(years).map(([y, n]) => `${y}: ${n}`).join(' · '), gap: gap > 120 ? `Longest quiet stretch: ${Math.round(gap)} days (${gf} to ${gt}). Normal if you did not trade; if you did, a file may be missing.` : '' };
 }
 
-// Follow-ups for the verdict log, judged by the rules fixed in src/pm/scoring.ts (version 1, registered 27 Oct 2026).
+// Follow-ups for the verdict log, judged by the rules fixed in src/pm/scoring.ts (version 2, registered 28 Oct 2026; version 1 rules unchanged).
 const adjMemo = new Map();
 function adjClose(sym, date) {
   if (!S.hist?.px?.[sym]) return null;
@@ -864,6 +870,7 @@ function adjClose(sym, date) {
   while (best >= 0 && (a[best] === null || a[best] === undefined)) best--;
   return best >= 0 ? a[best] : null;
 }
+function nextAdjClose(sym, date) { const d = S.hist?.dates; if (!d) return null; const i = d.findIndex((x) => x > date); return i < 0 ? null : adjClose(sym, d[i]); }
 function benchClose(date) { const n = S.navs?.n500; if (!n) return null; let best = null; for (const k in n) if (k <= date && (best === null || k > best)) best = k; return best ? n[best] : null; }
 function followUps(ms, e) {
   const last = S.hist?.dates?.at(-1) ?? ''; if (!last) return [];
@@ -873,7 +880,7 @@ function followUps(ms, e) {
     const rs = [...latest.values()].filter((x) => x.verdict === 'Keep' && x.symbol !== exclude).map((x) => { const a = adjClose(x.symbol, date), b = adjClose(x.symbol, due); return a && b ? b / a - 1 : null; }).filter((x) => x !== null);
     return rs.length ? rs.reduce((t, x) => t + x, 0) / rs.length : null;
   };
-  return HORIZONS.map((h) => scoreEntry(e, h, last, { priceAt: adjClose, benchAt: benchClose, keepReturn }));
+  return HORIZONS.map((h) => scoreEntry(e, h, last, { priceAt: adjClose, benchAt: benchClose, keepReturn, nextClose: nextAdjClose }));
 }
 const fuCell = (o) => o.status === 'pending' ? `<span class="sub" title="${esc(o.note)}">due ${o.due.slice(2)}</span>` : o.status === 'scored' ? `<span class="tag ${o.right ? 'ok' : 'bad'}" title="${esc(o.note)}">${o.right ? 'right' : 'wrong'}</span>` : `<span class="sub" title="${esc(o.note)}">–</span>`;
 function logCard(ms) {

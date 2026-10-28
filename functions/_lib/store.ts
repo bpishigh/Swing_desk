@@ -106,7 +106,7 @@ export function cleanDecisions(input: unknown): Record<string, Decision | 'clear
   return out;
 }
 /** One line of the verdict log: what the rule said about a held stock on a day, and the numbers it rested on. Only changes are logged. */
-export interface LogEntry { date: string; symbol: string; verdict: 'Exit' | 'Keep' | 'Trim' | 'Promote' | 'Harvest'; rule: string; close: number; sma200: number | null; swingLow: number | null; swingDate: string | null; unrealised: number | null }
+export interface LogEntry { date: string; symbol: string; verdict: 'Exit' | 'Keep' | 'Trim' | 'Promote' | 'Harvest'; rule: string; close: number; sma200: number | null; swingLow: number | null; swingDate: string | null; unrealised: number | null; value?: number; taxValue?: number; charges?: number }
 const LOG_CAP = 5000;
 const finite = (v: unknown, lo = -1e12, hi = 1e12) => typeof v === 'number' && Number.isFinite(v) && v >= lo && v <= hi;
 export function cleanLog(input: unknown): LogEntry[] | string {
@@ -121,7 +121,8 @@ export function cleanLog(input: unknown): LogEntry[] | string {
     if (typeof e.rule !== 'string' || e.rule.length > 80) return 'bad log rule';
     if (!finite(e.close, 0, 1e8) || !(e.sma200 === null || finite(e.sma200, 0, 1e8)) || !(e.swingLow === null || finite(e.swingLow, 0, 1e8)) || !(e.unrealised === null || finite(e.unrealised))) return 'bad log numbers';
     if (!(e.swingDate === null || /^\d{4}-\d{2}-\d{2}$/.test(e.swingDate))) return 'bad log date';
-    out.push({ date: e.date, symbol: e.symbol, verdict: e.verdict, rule: e.rule, close: e.close, sma200: e.sma200, swingLow: e.swingLow, swingDate: e.swingDate, unrealised: e.unrealised });
+    if (['value', 'taxValue', 'charges'].some((k) => e[k] !== undefined) && !['value', 'taxValue', 'charges'].every((k) => finite(e[k], 0, 1e12))) return 'bad log numbers';
+    out.push({ date: e.date, symbol: e.symbol, verdict: e.verdict, rule: e.rule, close: e.close, sma200: e.sma200, swingLow: e.swingLow, swingDate: e.swingDate, unrealised: e.unrealised, ...(e.value !== undefined ? { value: e.value, taxValue: e.taxValue, charges: e.charges } : {}) });
   }
   return out;
 }
