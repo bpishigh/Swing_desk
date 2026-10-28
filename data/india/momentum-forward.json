@@ -247,6 +247,71 @@
    "basis": 3006,
    "width": 7.86,
    "room": 0.7
+  },
+  "CPPLUS|4|2026-10-28": {
+   "sym": "CPPLUS",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-28",
+   "trigger": 4054.49,
+   "stop": 3710.17,
+   "limit": 4095.03,
+   "basis": 4054.49,
+   "width": 8.49,
+   "room": 1.64
+  },
+  "PTCIL|2|2026-10-28": {
+   "sym": "PTCIL",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-28",
+   "trigger": 24468.84,
+   "stop": 23095,
+   "limit": 24713.53,
+   "basis": 24468.84,
+   "width": 5.61,
+   "room": 1.18
+  },
+  "LALPATHLAB|2|2026-10-28": {
+   "sym": "LALPATHLAB",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-28",
+   "trigger": 1940.37,
+   "stop": 1797.8,
+   "limit": 1959.77,
+   "basis": 1940.37,
+   "width": 7.35,
+   "room": 0.69
+  },
+  "LALPATHLAB|4|2026-10-28": {
+   "sym": "LALPATHLAB",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-28",
+   "trigger": 1940.37,
+   "stop": 1797.8,
+   "limit": 1959.77,
+   "basis": 1940.37,
+   "width": 7.35,
+   "room": 0.69
+  },
+  "SHYAMMETL|2|2026-10-28": {
+   "sym": "SHYAMMETL",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-28",
+   "trigger": 1157.31,
+   "stop": 1089.89,
+   "limit": 1168.88,
+   "basis": 1157.31,
+   "width": 5.83,
+   "room": 1.23
   }
  },
  "lastLogged": {
@@ -268,10 +333,15 @@
   "DIVISLAB|2": "2026-10-27",
   "DIVISLAB|4": "2026-10-27",
   "GLAND|2": "2026-10-27",
-  "GLAND|4": "2026-10-27"
+  "GLAND|4": "2026-10-27",
+  "CPPLUS|4": "2026-10-28",
+  "PTCIL|2": "2026-10-28",
+  "LALPATHLAB|2": "2026-10-28",
+  "LALPATHLAB|4": "2026-10-28",
+  "SHYAMMETL|2": "2026-10-28"
  },
  "summary": {
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -284,7 +354,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 2,
+     "open": 4,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -324,7 +394,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 2,
+     "open": 4,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -337,14 +407,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 5,
+     "open": 6,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 9,
+     "open": 11,
      "meanNet": null,
      "win": null,
      "excess": null

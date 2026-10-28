@@ -1,0 +1,401 @@
+{
+ "version": "IND-SCAN-1",
+ "asOf": "2026-10-28",
+ "light": "red",
+ "funnel": {
+  "tickers": 497,
+  "passFloors": 489,
+  "universe": 489,
+  "universeFloorDollarVolumeM": 52.7,
+  "withRs": 469,
+  "rsGate": 98,
+  "template": 32,
+  "qualified": 14,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Textiles",
+   "members": 5,
+   "medianRs": 75,
+   "passes": true
+  },
+  {
+   "group": "Healthcare",
+   "members": 44,
+   "medianRs": 69.98,
+   "passes": true
+  },
+  {
+   "group": "Capital Goods",
+   "members": 66,
+   "medianRs": 66.03,
+   "passes": true
+  },
+  {
+   "group": "Services",
+   "members": 13,
+   "medianRs": 66.03,
+   "passes": true
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 18,
+   "medianRs": 64.32,
+   "passes": false
+  },
+  {
+   "group": "Information Technology",
+   "members": 23,
+   "medianRs": 63.03,
+   "passes": false
+  },
+  {
+   "group": "Automobile and Auto Components",
+   "members": 38,
+   "medianRs": 56.52,
+   "passes": false
+  },
+  {
+   "group": "Telecommunication",
+   "members": 10,
+   "medianRs": 55.77,
+   "passes": false
+  },
+  {
+   "group": "Oil Gas & Consumable Fuels",
+   "members": 17,
+   "medianRs": 52.78,
+   "passes": false
+  },
+  {
+   "group": "Power",
+   "members": 15,
+   "medianRs": 44.44,
+   "passes": false
+  },
+  {
+   "group": "Financial Services",
+   "members": 92,
+   "medianRs": 43.91,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 16,
+   "medianRs": 40.49,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 26,
+   "medianRs": 35.15,
+   "passes": false
+  },
+  {
+   "group": "Fast Moving Consumer Goods",
+   "members": 27,
+   "medianRs": 34.4,
+   "passes": false
+  },
+  {
+   "group": "Consumer Services",
+   "members": 20,
+   "medianRs": 33.65,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 11,
+   "medianRs": 25.43,
+   "passes": false
+  },
+  {
+   "group": "Realty",
+   "members": 11,
+   "medianRs": 21.37,
+   "passes": false
+  },
+  {
+   "group": "Construction",
+   "members": 12,
+   "medianRs": 12.61,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "LAURUSLABS",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 98.08,
+   "close": 2181.9,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 71.54,
+   "tightness": 1.26,
+   "distPivot": 0.77,
+   "setup": null,
+   "diag": {
+    "rs121": 118,
+    "rs6m2w": 87.5,
+    "atr14": 62.7,
+    "sma50": 1961.35,
+    "sma200": 1436.96,
+    "high52": 2198.8,
+    "low52": 902.35,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 98.1th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.8% below its 52-week high (limit 25%) and 141.8% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 2 of 18 (median strength 70); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "DIVISLAB",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 94.23,
+   "close": 9558.5,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 65.95,
+   "tightness": 1.31,
+   "distPivot": 1.86,
+   "setup": null,
+   "diag": {
+    "rs121": 45.66,
+    "rs6m2w": 51.8,
+    "atr14": 267.75,
+    "sma50": 9206.63,
+    "sma200": 7280.65,
+    "high52": 9740,
+    "low52": 5647.5,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.9% below its 52-week high (limit 25%) and 69.3% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 2 of 18 (median strength 70); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "PPLPHARMA",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 87.39,
+   "close": 232.8,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 63.82,
+   "tightness": 1.34,
+   "distPivot": 1.21,
+   "setup": null,
+   "diag": {
+    "rs121": 7.54,
+    "rs6m2w": 34.27,
+    "atr14": 8.89,
+    "sma50": 206.78,
+    "sma200": 176.42,
+    "high52": 235.64,
+    "low52": 132.3,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 87.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.2% below its 52-week high (limit 25%) and 76% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 2 of 18 (median strength 70); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "WELCORP",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 99.57,
+   "close": 2564.3,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.74,
+   "tightness": 0.97,
+   "distPivot": 11.58,
+   "setup": null,
+   "diag": {
+    "rs121": 240.09,
+    "rs6m2w": 183.84,
+    "atr14": 134.09,
+    "sma50": 2526.25,
+    "sma200": 1510.39,
+    "high52": 2900,
+    "low52": 710,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 99.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 11.6% below its 52-week high (limit 25%) and 261.2% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 66); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "CPPLUS",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 98.72,
+   "close": 3979,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 59.23,
+   "tightness": 1.11,
+   "distPivot": 13.87,
+   "setup": null,
+   "diag": {
+    "rs121": 159.79,
+    "rs6m2w": 131.02,
+    "atr14": 229.55,
+    "sma50": 3765.22,
+    "sma200": 2784.45,
+    "high52": 4620,
+    "low52": 1304,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 98.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 13.9% below its 52-week high (limit 25%) and 205.1% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 66); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 96.79,
+   "close": 215.51,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 58.08,
+   "tightness": 1.19,
+   "distPivot": 12.22,
+   "setup": null,
+   "diag": {
+    "rs121": 84.27,
+    "rs6m2w": 83.74,
+    "atr14": 10.46,
+    "sma50": 210.69,
+    "sma200": 156.85,
+    "high52": 245.5,
+    "low52": 107.1,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 96.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.2% below its 52-week high (limit 25%) and 101.2% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 1 of 18 (median strength 75); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "COFORGE",
+   "type": "CS",
+   "group": "Information Technology",
+   "path": "main",
+   "rsPct": 85.68,
+   "close": 1961.9,
+   "tags": [
+    "results date not checked",
+    "failed qualification 1 night(s)"
+   ],
+   "clears50M": true,
+   "composite": 57.61,
+   "tightness": 1.22,
+   "distPivot": 2.93,
+   "setup": null,
+   "diag": {
+    "rs121": 2.09,
+    "rs6m2w": 57.56,
+    "atr14": 74.26,
+    "sma50": 1873.42,
+    "sma200": 1536.9,
+    "high52": 2021.2,
+    "low52": 1008.1,
+    "failingNights": 1
+   },
+   "why": [
+    "Strength: 85.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.9% below its 52-week high (limit 25%) and 94.6% above its 52-week low (needs 30%).",
+    "Group: Information Technology ranks 6 of 18 (median strength 63); the 4 strongest groups are traded in the red light.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "PTCIL",
+   "type": "CS",
+   "group": "Capital Goods",
+   "path": "main",
+   "rsPct": 95.3,
+   "close": 24005,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 57.18,
+   "tightness": 0.99,
+   "distPivot": 7.97,
+   "setup": null,
+   "diag": {
+    "rs121": 29.58,
+    "rs6m2w": 65.51,
+    "atr14": 898.21,
+    "sma50": 22846.2,
+    "sma200": 18769.7,
+    "high52": 26085,
+    "low52": 14499,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 95.3th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 8% below its 52-week high (limit 25%) and 65.6% above its 52-week low (needs 30%).",
+    "Group: Capital Goods ranks 3 of 18 (median strength 66); the 4 strongest groups are traded in the red light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 8% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 1
+ },
+ "qualifiedTotal": 14,
+ "notes": [
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
+ ],
+ "regimeDate": "2026-10-28",
+ "industryCovered": 501
+}

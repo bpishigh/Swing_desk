@@ -1,0 +1,84 @@
+{
+ "signalDate": "2026-10-28",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "CPPLUS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 4054.49,
+   "limit": 4095.04,
+   "stop": 3710.17,
+   "atrPct": 5.77,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "PPLPHARMA",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 236.11,
+   "limit": 238.47,
+   "stop": 213.89,
+   "atrPct": 3.82,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  },
+  {
+   "sym": "PPLPHARMA",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 232.8,
+   "limit": 235.13,
+   "stop": 210.58,
+   "atrPct": 3.82,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  },
+  {
+   "sym": "WELCORP",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 2627.14,
+   "limit": 2653.42,
+   "stop": 2315,
+   "atrPct": 5.23,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "WELCORP",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 2564.3,
+   "limit": 2589.94,
+   "stop": 2315,
+   "atrPct": 5.23,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 218.04,
+   "limit": 220.22,
+   "stop": 202.34,
+   "atrPct": 4.86,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}
