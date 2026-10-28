@@ -1,18 +1,18 @@
 {
  "scan": {
-  "target": "2026-10-26",
-  "attempts": 1
+  "target": "2026-10-27",
+  "attempts": 0
  },
  "breadth": {
-  "target": "2026-10-26",
-  "attempts": 1
+  "target": "2026-10-27",
+  "attempts": 0
  },
  "daily": {
-  "target": "2026-10-26",
+  "target": "2026-10-27",
   "attempts": 1
  },
  "screen": {
-  "target": "2026-10-26",
+  "target": "2026-10-27",
   "attempts": 0
  }
 }
