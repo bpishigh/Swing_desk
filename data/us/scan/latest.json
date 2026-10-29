@@ -10,7 +10,7 @@
   "withRs": 1471,
   "rsGate": 299,
   "template": 169,
-  "qualified": 14,
+  "qualified": 13,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -572,7 +572,7 @@
  "thinGroup": {
   "qualified": 1
  },
- "qualifiedTotal": 14,
+ "qualifiedTotal": 13,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
