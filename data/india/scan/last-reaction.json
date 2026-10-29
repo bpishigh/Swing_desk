@@ -1,20 +1,30 @@
 {
- "asOf": "2026-10-28",
+ "asOf": "2026-10-29",
  "rows": {
   "LAURUSLABS": {
    "date": "2026-07-24",
    "move": 0.0925,
    "excess": 0.0825
   },
+  "ACUTAAS": {
+   "date": "2026-10-27",
+   "move": 0.1079,
+   "excess": 0.0927
+  },
   "DIVISLAB": {
    "date": "2026-08-01",
    "move": 0.04,
    "excess": 0.027
   },
-  "PPLPHARMA": {
-   "date": "2026-10-27",
-   "move": 0.1928,
-   "excess": 0.1776
+  "GESHIP": {
+   "date": "2026-08-03",
+   "move": 0.0626,
+   "excess": 0.0496
+  },
+  "ADANIPORTS": {
+   "date": "2026-10-28",
+   "move": 0.067,
+   "excess": 0.0577
   },
   "WELCORP": {
    "date": "2026-07-24",
@@ -26,15 +36,15 @@
    "move": -0.0266,
    "excess": -0.0271
   },
-  "WELSPUNLIV": {
-   "date": "2026-08-13",
-   "move": -0.0071,
-   "excess": -0.0043
-  },
   "COFORGE": {
    "date": "2026-10-23",
    "move": 0.0441,
    "excess": 0.0588
+  },
+  "WELSPUNLIV": {
+   "date": "2026-08-13",
+   "move": -0.0071,
+   "excess": -0.0043
   },
   "PTCIL": {
    "date": "2026-08-14",

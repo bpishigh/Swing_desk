@@ -312,6 +312,32 @@
    "basis": 1157.31,
    "width": 5.83,
    "room": 1.23
+  },
+  "ADANIPORTS|2|2026-10-29": {
+   "sym": "ADANIPORTS",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-29",
+   "trigger": 1875.74,
+   "stop": 1687.9,
+   "limit": 1894.5,
+   "basis": 1875.74,
+   "width": 10.01,
+   "room": 0.08
+  },
+  "COFORGE|4|2026-10-29": {
+   "sym": "COFORGE",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-29",
+   "trigger": 1982.46,
+   "stop": 1812.2,
+   "limit": 2002.28,
+   "basis": 1982.46,
+   "width": 8.59,
+   "room": 0.23
   }
  },
  "lastLogged": {
@@ -338,10 +364,12 @@
   "PTCIL|2": "2026-10-28",
   "LALPATHLAB|2": "2026-10-28",
   "LALPATHLAB|4": "2026-10-28",
-  "SHYAMMETL|2": "2026-10-28"
+  "SHYAMMETL|2": "2026-10-28",
+  "ADANIPORTS|2": "2026-10-29",
+  "COFORGE|4": "2026-10-29"
  },
  "summary": {
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -414,7 +442,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 11,
+     "open": 13,
      "meanNet": null,
      "win": null,
      "excess": null

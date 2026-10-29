@@ -1,25 +1,35 @@
 {
- "asOf": "2026-10-28",
+ "asOf": "2026-10-29",
  "source": "NSE event calendar",
  "dates": {
   "LAURUSLABS": {
    "date": "2026-10-29",
-   "sessions": 1,
+   "sessions": 0,
    "inWindow": true
+  },
+  "ACUTAAS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "DIVISLAB": {
    "date": "2026-11-07",
-   "sessions": 7,
+   "sessions": 6,
    "inWindow": true
   },
-  "PPLPHARMA": {
+  "GESHIP": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ADANIPORTS": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "WELCORP": {
    "date": "2026-10-29",
-   "sessions": 1,
+   "sessions": 0,
    "inWindow": true
   },
   "CPPLUS": {
@@ -27,15 +37,15 @@
    "sessions": null,
    "inWindow": null
   },
-  "WELSPUNLIV": {
-   "date": "2026-10-30",
-   "sessions": 2,
-   "inWindow": true
-  },
   "COFORGE": {
    "date": null,
    "sessions": null,
    "inWindow": null
+  },
+  "WELSPUNLIV": {
+   "date": "2026-10-30",
+   "sessions": 1,
+   "inWindow": true
   },
   "PTCIL": {
    "date": null,

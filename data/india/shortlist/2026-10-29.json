@@ -1,0 +1,47 @@
+{
+ "signalDate": "2026-10-29",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "ADANIPORTS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 1875.74,
+   "limit": 1894.5,
+   "stop": 1750.98,
+   "atrPct": 2.67,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "ADANIPORTS",
+   "setup": "4",
+   "stream": "comparator",
+   "trigger": 1872,
+   "limit": 1890.72,
+   "stop": 1747.23,
+   "atrPct": 2.67,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "CPPLUS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 4015.31,
+   "limit": 4055.47,
+   "stop": 3680.54,
+   "atrPct": 5.65,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}
