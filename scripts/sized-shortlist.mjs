@@ -2,9 +2,11 @@
 // Runs the saved accounts (portfolio/accounts/*.json, the private repo) through the same pipeline and the same sizing the Portfolio page uses (src/pm/orderinputs.ts),
 // for tonight's candidates (the scan's Ready list plus the paper book's new orders), and writes portfolio/book/shortlist-sized-latest.json in the private repo.
 // The public shortlist files (data/india/shortlist) are never touched. An account whose last save is older than swingPools.ledgerMaxAgeDays (default 7) is marked unsized. Changes no rule.
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { runPipeline } from '../src/pm/pipeline.ts';
-import { acctAllocation, poolAccounts, poolInputs, candidatesFrom, dashNames, orderRun, staleAccounts, buildOverlay } from '../src/pm/orderinputs.ts';
+import { acctAllocation, poolAccounts, poolInputs, candidatesFrom, dashNames, orderRun, staleAccounts, buildOverlay, sizedMessage } from '../src/pm/orderinputs.ts';
 import { loadPublicData, readJson as J } from './pm-nightly-lib.mjs';
 
 const DRY = process.argv.includes('--dry'), OUT = 'portfolio/book/shortlist-sized-latest.json';
@@ -41,4 +43,13 @@ const { out } = orderRun(ok, pool, cands, { light, vix, P, taxRules: data.taxRul
 const ov = buildOverlay({ asOf, light, vix, out, stale: staleAccounts(saved.filter((s) => ok.some((x) => x.a.label === s.label)), data.pricesAsOf, maxAge), maxAgeDays: maxAge, accounts: ok.map((x) => x.a.label) });
 if (reg?.date && scan?.asOf && reg.date !== scan.asOf) ov.notes = [...ov.notes, `The market light is from ${reg.date} and the scan is from ${scan.asOf}.`];
 write(ov);
+// ONE Telegram message per night, sent again only if its text changed (a re-run after you upload an account). State: portfolio/book/sized-state.json. A failed send is retried on the next run.
+const msg = sizedMessage(ov);
+if (msg && !DRY) {
+  const hash = createHash('sha1').update(msg).digest('hex'), st = J('portfolio/book/sized-state.json', {});
+  if (st.asOf !== asOf || st.hash !== hash) {
+    try { execFileSync('node', ['scripts/alert.mjs', msg], { stdio: 'inherit' }); writeFileSync('portfolio/book/sized-state.json', JSON.stringify({ asOf, hash }, null, 1) + '\n'); }
+    catch { console.error('sized shortlist alert not sent; will retry next run'); }
+  }
+} else if (msg) console.log(msg);
 console.log(JSON.stringify({ asOf, light, accounts: ov.accounts.length, candidates: cands.length, placed: ov.lines.filter((l) => l.account).length, stale: ov.stale.length }));

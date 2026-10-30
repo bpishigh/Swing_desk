@@ -125,3 +125,22 @@ export function buildOverlay(p                                                  
   return { asOf: p.asOf, light: o.light, vix: p.vix, ledgerMaxAgeDays: p.maxAgeDays, stale: p.stale.map((s) => ({ ...s, ageDays: Number.isFinite(s.ageDays) ? s.ageDays : -1 })), banner,
     risk: o.risk, cap: o.cap, maxPos: o.maxPos, why: o.why, householdOpenRisk: Math.round(o.householdOpenRisk), householdCapRs: Math.round(o.householdCapRs), householdPositions: o.householdPositions, accounts: p.accounts, notes: o.notes, lines };
 }
+
+/** The Telegram text for the overlay, or null when there is nothing to say (no lines, no banner and a market light is saved). Placed lines first with the account, quantity, price and the limit that bound; then the lines nobody can take, each with its first reason. */
+export function sizedMessage(ov         , maxLines = 12)                {
+  if (!ov.lines.length && !ov.banner && ov.light) return null;   // a missing market light is worth saying, nothing else is if there are no lines
+  const placed = ov.lines.filter((l) => l.account), rest = ov.lines.filter((l) => !l.account);
+  const acct = (l           ) => l.perAccount.find((p) => p.label === l.account) ;
+  const out           = [`Swing orders ${ov.asOf} (${ov.light ?? 'no'} light${ov.risk ? `, risk ${ov.risk}% per trade` : ''}):`];
+  if (ov.banner) out.push(ov.banner);
+  if (!ov.lines.length) out.push(ov.notes.find((n) => /No market light/.test(n)) ?? 'No orders in tonight\'s plan.');
+  for (const l of placed.slice(0, maxLines)) { const a = acct(l); out.push(`${l.name} (${l.setup}): ${l.account} buy ${a.qty}, first ${a.first}, at ${l.entry}, stop ${l.stop}. Limited by ${a.binding}.`); }
+  const room = Math.max(0, maxLines - placed.length);
+  // the reason once when every account gives the same one, else each account's own
+  const why = (l           ) => { const r = l.perAccount.map((p) => p.note ?? p.binding), u = [...new Set(r)]; const t = !l.perAccount.length ? l.verdict : u.length === 1 ? u[0] : l.perAccount.map((p, i) => `${p.label}: ${r[i]}`).join('; '); return t.length > 160 ? t.slice(0, 157) + '...' : t; };
+  for (const l of rest.slice(0, room)) out.push(`Not placed, ${l.name} (${l.setup}): ${why(l)}`);
+  const more = placed.length + rest.length - Math.min(placed.length, maxLines) - Math.min(rest.length, room);
+  if (more > 0) out.push(`+${more} more on the Scans tab.`);
+  out.push('A suggestion, never an order.');
+  return out.join('\n');
+}

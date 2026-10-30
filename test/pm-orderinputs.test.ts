@@ -89,3 +89,24 @@ test('GET ?view=sized needs a sign-in', async () => {
   const res = await handle(new Request('https://x/api/portfolio?view=sized'), env, (async () => new Response('{}', { status: 500 })) as typeof fetch);
   assert.equal(res.status, 401);
 });
+
+import { sizedMessage } from '../src/pm/orderinputs.ts';
+test('Telegram text: placed lines name the account, quantity and binding limit; a line nobody takes gives its reason once', () => {
+  const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
+  const { out } = orderRun(ok, pool, [cand, { ...cand, sym: 'WIDE', name: 'Wide Ltd', stop: 500 }] as any, ctx());
+  const ov = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
+  const m = sizedMessage(ov)!;
+  assert.match(m, /^Swing orders 2026-10-30 \(green light/); assert.match(m, /AAA Ltd \(.*\): [AB] buy \d+, first \d+, at 1005, stop 940\. Limited by /);
+  const wide = m.split('\n').find((x) => x.startsWith('Not placed, Wide Ltd'))!; assert.ok(wide && !/A: .*; B: /.test(wide), 'one shared reason, not repeated per account');
+  assert.match(m, /A suggestion, never an order\.$/);
+});
+test('Telegram text: nothing to say gives no message; a stale account is named in it', () => {
+  const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
+  const none = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out: orderRun(ok, pool, [], ctx()).out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
+  assert.equal(sizedMessage(none), null);
+  const { out } = orderRun(ok, pool, [cand] as any, ctx());
+  const stale = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [{ label: 'B', savedAt: '2026-10-01', ageDays: 29 }], maxAgeDays: 7, accounts: ['A', 'B'] });
+  assert.match(sizedMessage(stale)!, /Not sized for B: ledger last saved 2026-10-01, 29 days ago/);
+  const dark = buildOverlay({ asOf: '2026-10-30', light: null, vix: null, out: orderRun(ok, pool, [cand] as any, ctx({ light: null })).out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
+  assert.match(sizedMessage(dark)!, /No market light/);
+});

@@ -1,34 +1,25 @@
 // Nightly Exit alerts for the direct stocks in the uploaded accounts (portfolio/accounts/*.json), 17 Oct 2026.
 // Replays each account through the same pipeline the upload page uses, runs stockVerdict (200 SMA + swing low) on every open direct-stock holding, and
 // sends ONE Telegram message when a holding newly turns Exit (or on the first run, one summary). Usage: node scripts/holding-alerts.mjs [--dry]
-// State: portfolio/book/holdings-state.json. Changes no rule; positions are never typed in.
+// State: portfolio/book/holdings-state.json. Changes no rule; positions are never typed in. Books (Swing or Legacy) come from the saved shortlists and the owner's answers, as on the page (fixed 30 Oct 2026: before, every stock read Legacy).
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { runPipeline } from '../src/pm/pipeline.ts';
 import { stockVerdict } from '../src/pm/verdict.ts';
 import { morningSummary } from '../src/pm/morning.ts';
+import { loadPublicData } from './pm-nightly-lib.mjs';
 const DRY = process.argv.includes('--dry');
 const J = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const files = existsSync('portfolio/accounts') ? readdirSync('portfolio/accounts').filter((f) => f.endsWith('.json')) : [];
 if (!files.length) { console.log('no accounts'); process.exit(0); }
-const bf = readdirSync('data/india/bhav').filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).sort();
-const bhav = J('data/india/bhav/' + bf[bf.length - 1]);
-const prices = {}; for (const [s, r] of Object.entries(bhav.rows)) if (r[5] != null) prices[s] = r[5];
-const byDay = {};
-const hd = 'data/india/prices-hist';
-if (existsSync(hd)) for (const f of readdirSync(hd).filter((x) => /^\d{4}-\d\d\.json$/.test(x))) { const c = J(`${hd}/${f}`); c.dates.forEach((d, i) => { const o = (byDay[d] = {}); for (const [s, a] of Object.entries(c.px)) if (a[i] != null) o[s] = a[i]; }); }
-for (const f of bf) { const o = (byDay[f.slice(0, 10)] = {}); for (const [s, r] of Object.entries(f === bf[bf.length - 1] ? bhav.rows : J('data/india/bhav/' + f).rows)) if (r[5] != null) o[s] = r[5]; }
-const dates = Object.keys(byDay).sort(); const px = {};
-dates.forEach((d, i) => { for (const [s, v] of Object.entries(byDay[d])) (px[s] ??= new Array(dates.length).fill(null))[i] = v; });
-const hist = { dates, px };
-const RULE = (f) => (existsSync(`portfolio/rules/${f}.json`) ? `portfolio/rules/${f}.json` : `data/rules/${f}.json`);   // household records live in the private repo (portfolio/rules); the public file is an empty stub
-const data = { feed: J('data/india/corp-actions-history.json', []), demergers: J(RULE('demergers')).records, ipos: J(RULE('ipos')).records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J(RULE('fund-overrides')).records, charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date ?? bf[bf.length - 1].slice(0, 10), priceHistory: hist };
+// the public inputs are the same ones the Portfolio page loads, including the saved nightly shortlists, so Swing lots are recognised here as they are on the page (scripts/pm-nightly-lib.mjs, C-111)
+const { data } = loadPublicData(), hist = data.priceHistory, dates = hist.dates;
 const asOf = dates[dates.length - 1];
 const now = {}, rows = [];
 for (const f of files) {
   const a = J('portfolio/accounts/' + f); const owner = a.owner || a.label;
   if (!a.trades?.length) continue;
-  let rep; try { rep = runPipeline([a.trades], a.broker, data, a.decisions || {}); } catch (e) { console.error('pipeline failed for', a.label, e.message); continue; }
+  let rep; try { rep = runPipeline([a.trades], a.broker, data, a.decisions || {}, a.settings?.swing || {}, a.settings?.types || {}); } catch (e) { console.error('pipeline failed for', a.label, e.message); continue; }
   for (const h of rep.holdings) {
     if (h.kind !== 'Stock' || !(h.qty > 0)) continue;
     const v = stockVerdict(h.symbol, hist, data.feed, data.demergers);
