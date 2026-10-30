@@ -11,7 +11,7 @@ const acct = (key: string, label: string, owner: string, report: any, A: any = {
 const cand = { sym: 'AAA', name: 'AAA Ltd', setup: '1', trigger: 1005, stop: 940 };
 const ctx = (extra: any = {}) => ({ light: 'green', vix: 14, P, taxRules, taxRowConfident: true, today: '2026-10-30', ...extra });
 
-test('ledgerMaxAgeDays is a setting and starts at 7', () => assert.equal(P.ledgerMaxAgeDays, 7));
+test('ledgerMaxAgeDays is a setting: 35 days, as the owner uploads trades monthly', () => assert.equal(P.ledgerMaxAgeDays, 35));
 
 test('candidates: the scan Ready list first, then the paper book orders, one line per stock', () => {
   const scan = { ready: [{ sym: 'AAA', setup: { id: '1', trigger: 100, stop: 90 }, diag: { atr14: 3 }, close: 98 }, { sym: 'BBB', setup: null }] };
