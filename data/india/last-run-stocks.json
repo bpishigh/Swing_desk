@@ -1,37 +1,37 @@
 {
- "ts": "2026-10-29T14:07:51.258Z",
- "date": "2026-10-29",
+ "ts": "2026-10-30T14:07:46.726Z",
+ "date": "2026-10-30",
  "status": "written",
  "fetched": [
-  "2026-10-29"
+  "2026-10-30"
  ],
  "skipped": [],
  "notPublished": false,
- "sessionsStored": 255,
- "stocks": 2927,
+ "sessionsStored": 256,
+ "stocks": 2919,
  "flags": [
-  "2445 of 2927 stocks have a 200 SMA; 2661 have a warm EMA",
-  "corporate actions: 100 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 1 unresolved (averages omitted), 2 older than the averages now reach",
+  "2427 of 2919 stocks have a 200 SMA; 2640 have a warm EMA",
+  "corporate actions: 100 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 2 unresolved (averages omitted), 2 older than the averages now reach",
   "NSE circulars: 51 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 185,
+  "checked": 222,
   "newlyRead": 0,
   "unreadable": [],
   "errors": 0,
   "problem": null
  },
  "derivation": {
-  "tried": 3,
+  "tried": 2,
   "derived": [],
   "failed": [
    "ALLCARGO 2025-11-12: break is outside the 200-close window",
    "DCMSRIND 2025-12-26: Dhan page not found",
-   "SHIVAM-RE1 2026-10-29: Dhan page not found"
+   "SHIVAM-RE1 2026-10-29,2026-10-30: more than one unresolved break"
   ]
  },
  "circularProblems": [],
  "newUnresolved": [
-  "SHIVAM-RE1|2026-10-29"
+  "SHIVAM-RE1|2026-10-30"
  ]
 }
