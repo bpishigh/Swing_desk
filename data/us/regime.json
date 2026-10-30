@@ -1,14 +1,12 @@
 {
  "latest": {
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "name": "yellow",
-  "notes": [
-   "6 distribution days cap at Yellow"
-  ],
-  "breadth": 58.1,
-  "breadthDate": "2026-10-28",
-  "distribution": 6,
+  "notes": [],
+  "breadth": 65.1,
+  "breadthDate": "2026-10-29",
+  "distribution": 7,
   "followThrough": "none"
  },
- "alertedFor": "2026-10-22"
+ "alertedFor": "2026-10-29"
 }
