@@ -1,8 +1,9 @@
 // Portfolio storage in the private repo through the GitHub contents API. Only the folder `portfolio/accounts/` is ever touched.
 import { mergeTrades, type Trade } from '../../src/pm/reader.ts';
 import type { Decision } from '../../src/pm/resolver.ts';
+import { cleanManual, type ManualTrade } from '../../src/pm/manual.ts';
 export interface StoreEnv { GITHUB_TOKEN: string; REPO: string; BRANCH?: string }
-export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; verdictLog?: LogEntry[]; settings?: AccountSettings; savedAt: string; trades: Trade[] }
+export interface Account { label: string; broker: 'groww' | 'zerodha'; owner?: string; decisions?: Record<string, Decision>; verdictLog?: LogEntry[]; settings?: AccountSettings; savedAt: string; uploadedAt?: string; manual?: ManualTrade[]; trades: Trade[] }
 const DIR = 'portfolio/accounts';
 const LABEL = /^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/;
 const DATE = /^\d{4}-\d\d-\d\d$/;
@@ -25,6 +26,21 @@ export function cleanTrades(input: unknown): Trade[] | string {
     out.push(o);
   }
   return out;
+}
+/** Hand-added trades (Engine Rules C-114): a patch of entries to add (same id replaces) and ids to remove. */
+export interface ManualPatch { add?: ManualTrade[]; remove?: string[] }
+export function cleanManualPatch(input: unknown): ManualPatch | undefined | string {
+  if (input === undefined || input === null) return undefined;
+  if (typeof input !== 'object' || Array.isArray(input)) return 'bad manual patch';
+  const i = input as Record<string, unknown>, out: ManualPatch = {};
+  if (i.add !== undefined) { const a = cleanManual(i.add); if (typeof a === 'string') return a; out.add = a; }
+  if (i.remove !== undefined) { if (!Array.isArray(i.remove) || i.remove.length > 200 || i.remove.some((x) => typeof x !== 'string' || !/^[A-Za-z0-9_.-]{1,40}$/.test(x))) return 'bad manual remove list'; out.remove = i.remove as string[]; }
+  return out;
+}
+export function applyManual(cur: ManualTrade[] | undefined, patch: ManualPatch | undefined): ManualTrade[] {
+  const gone = new Set(patch?.remove ?? []), added = new Map((patch?.add ?? []).map((m) => [m.id, m]));
+  const out = (cur ?? []).filter((m) => !gone.has(m.id) && !added.has(m.id)).concat((patch?.add ?? []).filter((m) => !gone.has(m.id)));
+  return out.slice(-200);
 }
 /** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates, owner answers): kept with the account so the desk works the same from any browser.
  * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the five maps (custom, stops, acted, swing, types) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
@@ -161,20 +177,20 @@ export function github(env: StoreEnv, fetchFn: typeof fetch = fetch) {
 }
 export const pathFor = (label: string) => `${DIR}/${slug(label)}.json`;
 
-export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = [], settings?: SettingsPatch) {
+export async function saveAccount(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch = fetch, now = new Date(), owner?: string, decisions: Record<string, Decision | 'clear'> = {}, log: LogEntry[] = [], settings?: SettingsPatch, manual?: ManualPatch, isUpload = true) {
   for (let attempt = 0; ; attempt++) {
-    try { return await saveOnce(env, label, broker, incoming, fetchFn, now, owner, decisions, log, settings); }
+    try { return await saveOnce(env, label, broker, incoming, fetchFn, now, owner, decisions, log, settings, manual, isUpload); }
     catch (e: any) { if (attempt < 3 && /write failed 409/.test(String(e?.message))) continue; throw e; }   // another save landed first: read again and re-apply
   }
 }
 export class NoSuchAccount extends Error {}
-async function saveOnce(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch, now: Date, owner: string | undefined, decisions: Record<string, Decision | 'clear'>, log: LogEntry[], settings?: SettingsPatch) {
+async function saveOnce(env: StoreEnv, label: string, broker: 'groww' | 'zerodha', incoming: Trade[], fetchFn: typeof fetch, now: Date, owner: string | undefined, decisions: Record<string, Decision | 'clear'>, log: LogEntry[], settings?: SettingsPatch, manualPatch?: ManualPatch, isUpload = true) {
   const gh = github(env, fetchFn), path = pathFor(label), cur = await gh.get(path);
   if (!cur && incoming.length === 0) throw new NoSuchAccount('no such account: only an upload creates one');
   const merged = mergeTrades([cur?.data.trades ?? [], incoming]);
   const dec: Record<string, Decision> = { ...(cur?.data.decisions ?? {}) }; for (const [k, v] of Object.entries(decisions)) { if (v === 'clear') delete dec[k]; else dec[k] = v; }
-  const vlog = mergeLog(cur?.data.verdictLog, log);
-  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...(mergeSettings(cur?.data.settings, settings) ? { settings: mergeSettings(cur?.data.settings, settings) } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), trades: merged.trades };
+  const vlog = mergeLog(cur?.data.verdictLog, log), manual = applyManual(cur?.data.manual, manualPatch), uploadedAt = incoming.length > 0 && isUpload ? now.toISOString() : (cur?.data.uploadedAt ?? cur?.data.savedAt);   // the last UPLOAD date: a settings-only save does not move it (C-114)
+  const acc: Account = { label: cur?.data.label ?? label, broker, ...(Object.keys(dec).length ? { decisions: dec } : {}), ...(vlog.length ? { verdictLog: vlog } : {}), ...(mergeSettings(cur?.data.settings, settings) ? { settings: mergeSettings(cur?.data.settings, settings) } : {}), ...((owner ?? cur?.data.owner) ? { owner: owner ?? cur?.data.owner } : {}), savedAt: now.toISOString(), ...(uploadedAt ? { uploadedAt } : {}), ...(manual.length ? { manual } : {}), trades: merged.trades };
   await gh.put(path, acc, cur?.sha, `portfolio: update ${slug(label)}`);
   return { trades: merged.trades.length, added: merged.trades.length - (cur?.data.trades.length ?? 0), duplicates: merged.duplicates };
 }
@@ -238,7 +254,7 @@ export async function moveHolding(env: StoreEnv, from: string, to: string, keys:
   const sel = src.data.trades.filter((t) => want.has(key(t))), rest = src.data.trades.filter((t) => !want.has(key(t)));
   if (!sel.length) return { moved: 0, error: 'no matching transactions in that account' };
   const dec: Record<string, Decision | 'clear'> = {}; for (const k of keys) { const d = src.data.decisions?.[k]; if (d) dec[k] = d; }
-  await saveAccount(env, to, src.data.broker, sel, fetchFn, now, owner ?? (await gh.get(pathFor(to)))?.data.owner ?? src.data.owner, dec);
+  await saveAccount(env, to, src.data.broker, sel, fetchFn, now, owner ?? (await gh.get(pathFor(to)))?.data.owner ?? src.data.owner, dec, [], undefined, undefined, false);   // a move is not an upload
   for (let attempt = 0; ; attempt++) {
     const cur = await gh.get(pathFor(from)); if (!cur) break;
     const left = cur.data.trades.filter((t) => !want.has(key(t))), decs = { ...(cur.data.decisions ?? {}) }; for (const k of keys) delete decs[k];

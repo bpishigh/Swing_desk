@@ -8,6 +8,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { runPipeline } from '../src/pm/pipeline.ts';
 import { acctAllocation, poolAccounts, poolInputs, candidatesFrom, paperPicks, paperVerdicts, buildPaperTest, paperMessage, dashNames, orderRun, staleAccounts, buildOverlay, sizedMessage } from '../src/pm/orderinputs.ts';
+import { tradesOf } from '../src/pm/manual.ts';
 import { loadPublicData, readJson as J } from './pm-nightly-lib.mjs';
 
 const DRY = process.argv.includes('--dry'), OUT = 'portfolio/book/shortlist-sized-latest.json', OUT_PAPER = 'portfolio/book/paper-test-latest.json';
@@ -38,9 +39,9 @@ const send = (msg, stateFile) => {
 const xs = [], failed = [], saved = [];
 for (const f of files) {
   const a = J('portfolio/accounts/' + f); if (!a.trades?.length) continue;
-  const A = a.settings ?? {}, acct = { key: f.replace(/\.json$/, ''), label: a.label, owner: a.owner || '', report: null };
-  try { acct.report = runPipeline([a.trades], a.broker, data, a.decisions || {}, A.swing || {}, A.types || {}); } catch (e) { failed.push(`${a.label}: ${e.message}`); continue; }
-  xs.push({ a: acct, A, ...acctAllocation(C, acct.report, A) }); saved.push({ label: a.label, savedAt: a.savedAt });
+  const eff = tradesOf(a, J('data/names.json', { india: {} }).india), A = { ...(a.settings ?? {}), stops: { ...eff.stops, ...(a.settings?.stops ?? {}) } }, acct = { key: f.replace(/\.json$/, ''), label: a.label, owner: a.owner || '', report: null };   // hand-added trades count until an upload covers them; their typed stops too (C-114)
+  try { acct.report = runPipeline([eff.effective], a.broker, data, a.decisions || {}, A.swing || {}, A.types || {}); } catch (e) { failed.push(`${a.label}: ${e.message}`); continue; }
+  xs.push({ a: acct, A, ...acctAllocation(C, acct.report, A) }); saved.push({ label: a.label, savedAt: a.uploadedAt ?? a.savedAt });   // the last UPLOAD, not the last save (C-114)
 }
 const base = { asOf, light, vix, ledgerMaxAgeDays: maxAge, stale: [], risk: 0, cap: 0, maxPos: 0, why: [], householdOpenRisk: 0, householdCapRs: 0, householdPositions: 0, accounts: xs.map((x) => x.a.label), notes: [], lines: [] };
 // the paper-test file and its message (every night, whatever the accounts look like)

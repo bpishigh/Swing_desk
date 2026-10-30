@@ -5,6 +5,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { runPipeline } from '../src/pm/pipeline.ts';
+import { tradesOf } from '../src/pm/manual.ts';
 import { stockVerdict } from '../src/pm/verdict.ts';
 import { morningSummary } from '../src/pm/morning.ts';
 import { loadPublicData } from './pm-nightly-lib.mjs';
@@ -19,7 +20,8 @@ const now = {}, rows = [];
 for (const f of files) {
   const a = J('portfolio/accounts/' + f); const owner = a.owner || a.label;
   if (!a.trades?.length) continue;
-  let rep; try { rep = runPipeline([a.trades], a.broker, data, a.decisions || {}, a.settings?.swing || {}, a.settings?.types || {}); } catch (e) { console.error('pipeline failed for', a.label, e.message); continue; }
+  const names = J('data/names.json', { india: {} }).india, eff = tradesOf(a, names);   // hand-added trades count here too, until an upload covers them (C-114)
+  let rep; try { rep = runPipeline([eff.effective], a.broker, data, a.decisions || {}, a.settings?.swing || {}, a.settings?.types || {}); } catch (e) { console.error('pipeline failed for', a.label, e.message); continue; }
   for (const h of rep.holdings) {
     if (h.kind !== 'Stock' || !(h.qty > 0)) continue;
     const v = stockVerdict(h.symbol, hist, data.feed, data.demergers);

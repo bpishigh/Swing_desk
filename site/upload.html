@@ -150,6 +150,7 @@ import { pickFunds } from './pm/fundshortlist.js';
 import { reviewTrade, patterns, stopSummary } from './pm/tradereview.js';
 import { segmentOf } from './pm/segment.js';
 import { checkLimits, goalStatus, assignGoals, LIMIT_DEFAULTS, GOAL_SOON_MONTHS, fundHouse } from './pm/limits.js';
+import { tradesOf as handTrades, makeManual } from './pm/manual.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES, scaledBand, foldHybrid } from './pm/allocation.js';
 import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
@@ -211,7 +212,8 @@ async function loadFundNavs() {
 function compute(a) {
   const d = S.data; d.priceHistory = S.hist; d.navHistory = S.fundOn ? S.fundNavs : undefined;
   d.shortlist = S.shortlist && S.allocCfg?.swingMatch ? { lines: S.shortlist, match: S.allocCfg.swingMatch, holidays: S.shortlistMeta?.holidays, extra: S.shortlistMeta?.extra, checked: S.shortlistMeta?.checked, liveFrom: S.shortlistMeta?.goLive } : undefined;
-  a.report = runPipeline([a.trades], a.broker, d, a.decisions || {}, S.alloc?.acct?.[a.key]?.swing || {}, S.alloc?.acct?.[a.key]?.types || {});
+  a.rec = handTrades(a, S.dash?.names ?? {});   // uploaded trades plus the hand-added ones no upload covers yet (C-114)
+  a.report = runPipeline([a.rec.effective], a.broker, d, a.decisions || {}, S.alloc?.acct?.[a.key]?.swing || {}, S.alloc?.acct?.[a.key]?.types || {});
   a.complete = !!a.report.series && (a.report.funds.mapped === 0 || Object.keys(a.report.fundCodes).every((i) => S.fundNavs?.[i]));
 }
 async function recomputeAll(withFunds) {
@@ -372,7 +374,49 @@ function reviewView(D, V) {
     <div class="sub" style="margin-top:8px">Result ${num(r.n.result)} · index ${num(r.n.bench)} · run-up before buying ${num(r.n.runUp20)} · vs year high ${num(r.n.belowHigh)} · worst dip ${num(r.n.worstDip)} · best run ${num(r.n.bestRun)} · 20 sessions after the sale ${num(r.n.after20)}</div></details>`).join('');
   return head + cards;
 }
-function tradesTab(V) {
+// Trades added by hand between monthly uploads (Engine Rules C-114). They count in positions, open risk and sizing until an upload covers them; the broker's file always wins.
+const HAND_STATUS = { pending: ['warn', 'Counted until your next upload shows it'], matched: ['ok', 'Matched your upload'], difference: ['bad', 'Differs from your upload; the broker\'s figure is used'], check: ['bad', 'Not in your upload; left out'] };
+function handCard(V) {
+  const all = [...S.accounts.values()].filter((a) => a.trades.length); if (!all.length) return '';
+  const h = S.hand ?? {}, today = new Date().toISOString().slice(0, 10), first = (V.ms ?? []).find((a) => a.trades.length) ?? all[0], pick = h.account && S.accounts.has(keyOf(h.account)) ? keyOf(h.account) : first.key;
+  const rows = all.flatMap((a) => (a.manual ?? []).map((m) => ({ a, m, n: (a.rec?.notes ?? []).find((x) => x.id === m.id) }))).sort((x, y) => y.m.date.localeCompare(x.m.date));
+  const list = rows.length ? `<div style="margin-top:12px">${rows.map(({ a, m, n }) => { const st = HAND_STATUS[n?.status ?? 'pending'], px = (x) => x.toLocaleString('en-IN', { maximumFractionDigits: 2 }); return `<div style="padding:10px 0;border-top:1px solid var(--line-soft,#e5e7eb)"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><span><b>${m.side === 'buy' ? 'Bought' : 'Sold'} ${m.qty} ${esc(m.symbol)}</b> at ${px(m.price)}${m.stop ? `, stop ${px(m.stop)}` : ''} <span class="sub">· ${esc(m.date)} · ${esc(a.label)}${m.fromOrder ? ' · from an order' : ''}</span></span><span><span class="chip ${st[0]}">${esc(st[1])}</span> <button class="chip" data-hand="rm" data-acct="${esc(a.key)}" data-id="${esc(m.id)}">Remove</button></span></div>${n && n.status !== 'pending' ? `<div class="sub" style="margin-top:4px">${esc(n.text)}</div>` : ''}</div>`; }).join('')}</div>` : '<div class="sub" style="margin-top:8px">Nothing added by hand.</div>';
+  return `<div class="card" id="hacard"><h2>Add a trade by hand</h2><div class="sub">Type a trade you placed since your last upload, exactly as it happened: shares, price and date are never filled in for you. It counts in your positions, open risk, the nightly sizing and the exit alerts until your next upload covers it; the broker's file then wins and any difference is listed here.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin-top:10px">
+      <label class="sub">Account<br><select id="hacct">${all.map((a) => `<option value="${esc(a.key)}" ${a.key === pick ? 'selected' : ''}>${esc(a.label)}</option>`).join('')}</select></label>
+      <label class="sub">Side<br><select id="hside"><option value="buy">Bought</option><option value="sell">Sold</option></select></label>
+      <label class="sub">Stock symbol<br><input id="hsym" size="12" value="${esc(h.symbol ?? '')}" placeholder="e.g. SYRMA" style="text-transform:uppercase"></label>
+      <label class="sub">Shares<br><input id="hqty" type="number" min="1" step="1" style="width:90px"></label>
+      <label class="sub">Price paid or received<br><input id="hprice" type="number" min="0" step="0.05" style="width:110px"></label>
+      <label class="sub">Date<br><input id="hdate" type="date" max="${today}" value="${today}"></label>
+      <label class="sub">Stop (buys)<br><input id="hstop" type="number" min="0" step="0.05" style="width:100px" value="${esc(h.stop ?? '')}"></label>
+      <button class="chip" data-hand="add">Add trade</button></div>${list}</div>`;
+}
+async function handAdd() {
+  const a = S.accounts.get($('hacct').value); if (!a) return;
+  const v = (id) => $(id).value.trim(), today = new Date().toISOString().slice(0, 10);
+  const qty = Number(v('hqty')), price = Number(v('hprice')), sym = v('hsym').toUpperCase(), date = v('hdate'), side = $('hside').value, stop = v('hstop') === '' ? undefined : Number(v('hstop'));
+  for (const id of ['hsym', 'hqty', 'hprice', 'hdate', 'hstop']) $(id).style.borderColor = '';
+  const bad = []; if (!/^[A-Z0-9&._-]{1,30}$/.test(sym)) bad.push('hsym'); if (!(qty > 0) || !Number.isInteger(qty)) bad.push('hqty'); if (!(price > 0)) bad.push('hprice'); if (!/^\d{4}-\d\d-\d\d$/.test(date) || date > today) bad.push('hdate'); if (stop !== undefined && !(stop >= 0)) bad.push('hstop');
+  if (bad.length) { for (const id of bad) $(id).style.borderColor = 'var(--red)'; return notify('Check the highlighted fields.'); }
+  const m = makeManual({ symbol: sym, side, qty, price, date, stop: side === 'buy' ? stop : undefined, fromOrder: !!S.hand?.fromOrder }, a.trades, S.dash?.names ?? {});
+  a.manual = [...(a.manual ?? []), m]; S.hand = null; compute(a); render();
+  if (S.canSave && a.saved) { try { const r = await api('POST', { label: a.label, broker: a.broker, trades: [], manual: { add: [m] } }); notify(r.ok ? 'Trade added and saved.' : 'Added here but not saved (' + r.status + ').'); } catch { notify('Added here but not saved.'); } }
+  else notify('Added for this session only: save the account to keep it.');
+}
+async function handRemove(key, id) {
+  const a = S.accounts.get(key); if (!a) return;
+  a.manual = (a.manual ?? []).filter((m) => m.id !== id); compute(a); render();
+  if (S.canSave && a.saved) { try { const r = await api('POST', { label: a.label, broker: a.broker, trades: [], manual: { remove: [id] } }); notify(r.ok ? 'Removed.' : 'Removed here but not saved (' + r.status + ').'); } catch { notify('Removed here but not saved.'); } }
+}
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-taken]');
+  if (t) { S.hand = { symbol: t.dataset.taken, account: t.dataset.takenacct, stop: t.dataset.takenstop, fromOrder: true }; S.tab = 'trades'; render(); document.getElementById('hacard')?.scrollIntoView({ block: 'start' }); return; }
+  const b = e.target.closest('[data-hand]'); if (!b) return;
+  if (b.dataset.hand === 'add') handAdd(); else if (b.dataset.hand === 'rm') handRemove(b.dataset.acct, b.dataset.id);
+});
+function tradesTab(V) { return handCard(V) + tradesTab0(V); }
+function tradesTab0(V) {
   const D = tradesData(V), F = D.F, view = S.tv ?? 'table';
   if (!D.rows.length) return '<div class="card empty">No trades yet for this selection.</div>';
   const seg = (f, opts) => `<div class="seg">${opts.map((o) => `<button data-tf="${f}:${esc(o)}" aria-pressed="${F[f] === o}">${esc(o)}</button>`).join('')}</div>`;
@@ -541,7 +585,7 @@ function promoteSizeOf(sym) {
     const accts = xs.map((x) => { cap[x.a.label] = x.res.rows.find((r) => r.cls === 'direct_equity').amount; const r = x.a.report; return { label: x.a.label, owner: ownerOf(x.a), value: x.cur.total, swingValue: r.books?.Swing?.value ?? 0, swingNames: (r.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name), capitalSource: P.capitalSource }; });
     const rows = derivePools(accts, cap), chk = householdChecks(accts, P), adj = householdJournal(xs).rep;
     const per = xs.map((x, i) => {
-      const lots = x.a.report.openLots ?? [], A = acctCfg(x.a.key), ro = openRiskOf(lots, A.stops ?? {}), hs = x.a.report.holdings.filter((h) => h.kind === 'Stock' && h.symbol === sym);
+      const lots = x.a.report.openLots ?? [], A = acctCfg(x.a.key), ro = openRiskOf(lots, stopsOf(x.a)), hs = x.a.report.holdings.filter((h) => h.kind === 'Stock' && h.symbol === sym);
       const sw = lots.filter((l) => l.book === 'Swing' && hs.some((h) => h.name === l.name));
       return { label: x.a.label, heldQty: hs.filter((h) => h.book === 'Legacy').reduce((t, h) => t + h.qty, 0), swingCapital: rows[i]?.swingCapital ?? 0, openRisk: ro.openRisk, swingValueOfName: sw.reduce((t, l) => t + l.qty * l.price, 0), inSwing: sw.length > 0 };
     });
@@ -941,8 +985,10 @@ const ALLOC_SAVE = () => {
 const pc = (x) => (x * 100).toFixed(1).replace(/\.0$/, '') + '%';
 // Each account has its own money, capital, risk profile and horizon (owner, 20 Oct). The household view is the sum of the accounts' own targets and holdings.
 const acctCfg = (key) => { S.alloc.acct = S.alloc.acct ?? {}; return (S.alloc.acct[key] = S.alloc.acct[key] ?? {}); };
+/** Stops for open risk: the ones typed with hand-added buys, overridden by the ones typed on the page. */
+const stopsOf = (a) => ({ ...(a.rec?.stops ?? {}), ...(acctCfg(a.key).stops ?? {}) });
 function calcAccount(a) {
-  const C = S.allocCfg, A = acctCfg(a.key), V1 = { ms: [a], R: [a.report] };
+  const C = S.allocCfg, A = { ...acctCfg(a.key), stops: stopsOf(a) }, V1 = { ms: [a], R: [a.report] };
   return { a, A, V1, ...acctAllocation(C, a.report, A) };   // the allocation maths is shared with the nightly sized shortlist (src/pm/orderinputs.ts, C-111)
 }
 const clashCard = (res) => `<div class="card"><h2>These inputs cannot all be met</h2><p>${esc(res.error)}</p>${res.clashes.map((c) => `<div class="sub">• ${esc(c)}</div>`).join('')}</div>`;
@@ -1152,7 +1198,7 @@ function ordersCard(ok, accts, rows, stcg, P) {
   const swingLots = ok.flatMap((x) => [...new Set((x.a.report.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name))].map((n) => ({ x, n })));
   const stopsBox = swingLots.length ? `<details style="margin-top:10px"><summary class="sub">Stops of your open Swing positions (for open risk)</summary><div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">${swingLots.map(({ x, n }) => `<label class="sub">${esc(n)} · ${esc(x.a.label)}<br><input data-a="${esc(x.a.key)}" data-stop="${esc(n)}" type="number" min="0" step="0.05" value="${acctCfg(x.a.key).stops?.[n] ?? ''}" style="width:100px"></label>`).join('')}</div></details>` : '';
   const head = `<div class="sub">Market light ${esc(light ?? 'not saved')}${out.risk ? ` · risk per trade ${out.risk}% of the account's swing capital · open-risk limit ${out.cap}% · up to ${out.maxPos} swing positions in the household (${out.householdPositions} now)` : ''}${out.why.length ? ' · ' + esc(out.why.join('; ')) : ''}. Household open risk ${money(out.householdOpenRisk)} of ${money(out.householdCapRs)}.</div>`;
-  const body = out.lines.length ? `<div style="overflow-x:auto"><table><thead><tr><th>Stock</th><th>Setup</th><th class="num">Buy at</th><th class="num">Stop</th>${oa.map((a) => `<th class="num">${esc(a.label)}</th>`).join('')}<th>Goes to</th></tr></thead><tbody>${out.lines.map((l) => `<tr><td>${esc(l.name)}</td><td>${esc(l.setup)}</td><td class="num">${inr(l.entry)}</td><td class="num">${inr(l.stop)}</td>${l.perAccount.map((p) => `<td class="num">${p.ok ? `${p.qty} <span class="sub">(${esc(p.binding)})</span>` : `<span class="sub">${esc(p.note ?? p.binding)}</span>`}</td>`).join('')}<td>${esc(l.verdict)}<div class="sub">${l.steps.map(esc).join('; ')}</div></td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">No orders in tonight\'s plan.</div>';
+  const body = out.lines.length ? `<div style="overflow-x:auto"><table><thead><tr><th>Stock</th><th>Setup</th><th class="num">Buy at</th><th class="num">Stop</th>${oa.map((a) => `<th class="num">${esc(a.label)}</th>`).join('')}<th>Goes to</th></tr></thead><tbody>${out.lines.map((l) => `<tr><td>${esc(l.name)}</td><td>${esc(l.setup)}</td><td class="num">${inr(l.entry)}</td><td class="num">${inr(l.stop)}</td>${l.perAccount.map((p) => `<td class="num">${p.ok ? `${p.qty} <span class="sub">(${esc(p.binding)})</span>${p.label === l.account ? ` <button class="chip" data-taken="${esc(l.sym)}" data-takenacct="${esc(p.label)}" data-takenstop="${l.stop}">Taken</button>` : ''}` : `<span class="sub">${esc(p.note ?? p.binding)}</span>`}</td>`).join('')}<td>${esc(l.verdict)}<div class="sub">${l.steps.map(esc).join('; ')}</div></td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">No orders in tonight\'s plan.</div>';
   return `<div class="card"><h2>Tonight's swing orders by account</h2>${head}${body}${stopsBox}<div class="sub" style="margin-top:8px">${out.notes.map(esc).join(' ')} A suggestion, never an order: you place it with your broker, and each trade is funded from the bank.</div></div>`;
 }
 
@@ -1491,7 +1537,7 @@ async function loadSaved() {
     if (!res.ok) { const e = await res.json().catch(() => ({})); const hint = { 401: 'the login was not accepted: check POLICY_AUD, TEAM_DOMAIN and ALLOWED_EMAILS, and that Access covers this address', 404: 'the save route is not deployed on this address', 502: 'GitHub refused: check GITHUB_TOKEN (Contents read and write) and REPO' }[res.status] || 'unexpected response'; setStatus(`Saving is not available (${res.status} ${e.error || ''}${e.reason ? ' - ' + e.reason : ''}): ${hint}.`); return; }
     const j = await res.json(); S.canSave = true; $('saveBox').hidden = false;
     let seenH = false;
-    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, verdictLog: a.verdictLog || [], saved: true, trades: a.trades, report: null }); if (a.settings) { S.alloc.acct = S.alloc.acct ?? {}; S.alloc.acct[key] = JSON.parse(JSON.stringify(a.settings)); S.accounts.get(key).settingsSaved = JSON.parse(JSON.stringify(a.settings)); if (a.settings.household && !seenH) { seenH = true; S.alloc.household = JSON.parse(JSON.stringify(a.settings.household)); } delete S.alloc.acct[key].household; } }
+    for (const a of j.accounts) { const key = keyOf(a.label); S.accounts.set(key, { key, label: a.label, broker: a.broker, owner: a.owner || '', decisions: a.decisions || {}, verdictLog: a.verdictLog || [], saved: true, trades: a.trades, manual: a.manual || [], uploadedAt: a.uploadedAt || a.savedAt || '', report: null }); if (a.settings) { S.alloc.acct = S.alloc.acct ?? {}; S.alloc.acct[key] = JSON.parse(JSON.stringify(a.settings)); S.accounts.get(key).settingsSaved = JSON.parse(JSON.stringify(a.settings)); if (a.settings.household && !seenH) { seenH = true; S.alloc.household = JSON.parse(JSON.stringify(a.settings.household)); } delete S.alloc.acct[key].household; } }
     if (S.sel.startsWith('a:') && !S.accounts.has(S.sel.slice(2))) S.sel = 'ALL';
     if (S.sel.startsWith('o:') && ![...S.accounts.values()].some((a) => ownerOf(a) === S.sel.slice(2))) S.sel = 'ALL';
     ALLOC_SAVE();
