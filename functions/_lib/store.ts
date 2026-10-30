@@ -190,6 +190,12 @@ export async function loadMorning(env: StoreEnv, fetchFn: typeof fetch = fetch):
   return f ? (f.data as any).morning ?? null : null;
 }
 
+/** Tonight's shortlist sized for the household (portfolio/book/shortlist-sized-latest.json, written by scripts/sized-shortlist.mjs, Engine Rules C-111). Null when not written yet. */
+export async function loadSized(env: StoreEnv, fetchFn: typeof fetch = fetch): Promise<unknown | null> {
+  const f = await github(env, fetchFn).get('portfolio/book/shortlist-sized-latest.json');
+  return f ? f.data : null;
+}
+
 /** Household-specific rule records (IPO allotments, demergers, typed fund matches, exit loads of the funds held) kept in the private data repo under portfolio/rules/, so they are never in the public code repo.
  * A missing file gives an empty list; the page then simply has fewer typed records to apply. */
 export async function loadRules(env: StoreEnv, fetchFn: typeof fetch = fetch): Promise<{ ipos: unknown[]; demergers: unknown[]; fundOverrides: unknown[]; exitLoads: unknown[] }> {

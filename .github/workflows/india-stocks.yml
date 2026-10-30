@@ -121,6 +121,7 @@ jobs:
           ln -sfn .portfolio-repo/portfolio portfolio
           git pull --rebase origin main
           node --max-old-space-size=6000 scripts/book-alerts.mjs india
+          node --max-old-space-size=6000 scripts/sized-shortlist.mjs || echo "sized shortlist failed; the book alerts are unaffected"
           node --max-old-space-size=6000 scripts/holding-alerts.mjs
           # the book files live in the separate private repo (top-level portfolio/ folder) checked out at .portfolio-repo and linked as portfolio/; commit and push there
           cd .portfolio-repo

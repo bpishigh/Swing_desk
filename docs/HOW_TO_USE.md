@@ -4,7 +4,7 @@ The Repo Desk is one site with two jobs. The **desk** (Market, Funds, Scans, Eng
 
 ## The 5-minute evening routine
 1. **Market tab.** Read the regime light (Green, Amber or Red). It sets how much risk a new Swing trade may carry and which setups are allowed. Check the "fresh" chips at the top: if the data is old, the nightly job has not run yet, so wait.
-2. **Scans tab.** Read tonight's shortlist. Each line has a trigger (the price that confirms the entry), a limit (the most you will pay) and a stop (where the trade is wrong). A line tagged *over cap* or *room fail* is one the desk itself would not take as listed.
+2. **Scans tab.** Read tonight's shortlist. Each line has a trigger (the price that confirms the entry), a limit (the most you will pay) and a stop (where the trade is wrong). A line tagged *over cap* or *room fail* is one the desk itself would not take as listed. Once your accounts are saved, the India tab also shows tonight's orders sized for each account (how many shares, and which limit bound), worked out each night from your last upload. If an account has not been saved for more than 7 days it shows as not sized.
 3. **Portfolio tab, Overview.** The "What to do" card lists what needs action today: stocks to sell, to promote, to harvest, to trim. If it says nothing, do nothing.
 
 ## The Portfolio Manager, tab by tab

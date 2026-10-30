@@ -204,7 +204,8 @@
     "maxPositions": 10,
     "cashFunded": false,
     "capitalSource": "own",
-    "note": "Each account's capital is recorded as own income, so the cash step of routing is skipped."
+  "ledgerMaxAgeDays": 7,
+    "note": "Each account's capital is recorded as own income, so the cash step of routing is skipped. ledgerMaxAgeDays (C-111, 30 Oct 2026, PROVISIONAL first guess): the nightly sized shortlist marks an account unsized when its last save is older than this many days."
   },
   "swingMatch": {
     "status": "APPROVED as working values by the owner on 20 Oct 2026; not yet tested on shortlist history (2 nights). Review after 40 or more shortlist nights. A wrong near match is only a proposal the owner can reject.",

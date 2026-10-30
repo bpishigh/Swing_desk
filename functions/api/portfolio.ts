@@ -1,13 +1,14 @@
 // Cloudflare Pages Function behind Cloudflare Access. GET returns the saved accounts; POST merges new clean transactions into one account.
 // Needs Pages secrets: GITHUB_TOKEN (fine-grained, contents read/write on the private data repo only), REPO ("owner/name" of the private data repo), TEAM_DOMAIN, POLICY_AUD, ALLOWED_EMAILS.
 import { checkAccess } from '../_lib/access.ts';
-import { cleanTrades, loadAccounts, loadMorning, loadRules, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, NoSuchAccount, deleteAccount, renameAccount, moveHolding } from '../_lib/store.ts';
+import { cleanTrades, loadAccounts, loadMorning, loadSized, loadRules, saveAccount, validLabel, validOwner, cleanDecisions, cleanLog, cleanSettings, NoSuchAccount, deleteAccount, renameAccount, moveHolding } from '../_lib/store.ts';
 
 const reply = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
 export async function handle(req: Request, env: any, fetchFn: typeof fetch = fetch): Promise<Response> {
   const who = await checkAccess(req, env, fetchFn); if (!who.ok) return reply(401, { error: 'not signed in', reason: who.reason });
   if (req.method === 'GET' && new URL(req.url).searchParams.get('view') === 'morning') { try { return reply(200, { morning: await loadMorning(env, fetchFn) }); } catch (e: any) { return reply(502, { error: e.message }); } }
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('view') === 'sized') { try { return reply(200, { sized: await loadSized(env, fetchFn) }); } catch (e: any) { return reply(502, { error: e.message }); } }
   if (req.method === 'GET' && new URL(req.url).searchParams.get('view') === 'rules') { try { return reply(200, { rules: await loadRules(env, fetchFn) }); } catch (e: any) { return reply(502, { error: e.message }); } }
   if (req.method === 'GET') { try { return reply(200, { accounts: await loadAccounts(env, fetchFn) }); } catch (e: any) { return reply(502, { error: e.message }); } }
   if (req.method === 'POST') {

@@ -155,6 +155,7 @@ import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
 import { sizeOrders, openRiskOf } from './pm/swingorders.js';
 import { journalReport } from './pm/swingjournal.js';
+import { acctAllocation, mergeHoldings, householdJournal, poolAccounts, poolInputs, candidatesFrom, orderRun, normName } from './pm/orderinputs.js';
 import { lookThrough, schemeBase } from './pm/lookthrough.js';
 import { isLong, applyQuarterCap } from './pm/rebalance.js';
 import { switchCost } from './pm/switchcost.js';
@@ -498,11 +499,7 @@ function attentionItems(V) {
 }
 
 // ---------- holdings
-function mergedHoldings(V) {
-  const by = new Map();
-  for (const r of V.R) for (const h of r.holdings) { const k = h.kind + '|' + h.name; const e = by.get(k) ?? by.set(k, { name: h.name, symbol: h.symbol, isin: h.isin, kind: h.kind, book: h.book, assetClass: h.assetClass ?? null, category: h.category, locked: 0, qty: 0, cost: 0, value: 0, anyNull: false }).get(k); e.qty += h.qty; e.cost += h.cost; e.locked += h.locked ?? 0; if (h.value === null) e.anyNull = true; else e.value += h.value; }
-  return [...by.values()].map((e) => ({ ...e, value: e.anyNull ? null : e.value })).sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
-}
+function mergedHoldings(V) { return mergeHoldings(V.R); }
 // ---------- verdicts for direct stocks: the exit test and Keep (design doc section 4). Funds and ETFs get none yet.
 const PASSES = ['Keep', 'Trim', 'Promote', 'Harvest'];   // every label that means the stock passes the exit test
 const vmemo = new Map(), fmt2 = (n) => n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -945,13 +942,8 @@ const pc = (x) => (x * 100).toFixed(1).replace(/\.0$/, '') + '%';
 // Each account has its own money, capital, risk profile and horizon (owner, 20 Oct). The household view is the sum of the accounts' own targets and holdings.
 const acctCfg = (key) => { S.alloc.acct = S.alloc.acct ?? {}; return (S.alloc.acct[key] = S.alloc.acct[key] ?? {}); };
 function calcAccount(a) {
-  const C = S.allocCfg, A = acctCfg(a.key), V1 = { ms: [a], R: [a.report] }, hs = mergedHoldings(V1);
-  const outside = (A.outside ?? []).filter((o) => o.value > 0);   // typed by you: EPF and the like. Counted toward a class, never sold or scored.
-  const held = [...hs.map((h) => ({ name: h.name, value: h.value, cls: h.assetClass ?? null, category: h.category, kind: h.kind })), ...outside.map((o) => ({ name: o.name, value: o.value, cls: o.cls, kind: 'Outside' }))];
-  const lockedElss = hs.reduce((t, h) => t + (h.locked ?? 0), 0), cur = currentByClass(C, held);
-  const capital = A.capital > 0 ? A.capital : Math.round(cur.total + cur.unclassified), profile = A.profile ?? 'Balanced', horizon = A.horizon ?? 10, off = new Set(A.off ?? []);
-  const res = allocate(C, { capital, profile, horizonYears: horizon, buffer: A.buffer, inScope: TARGET_CLASSES.filter((c) => !off.has(c)), custom: A.custom });
-  return { a, A, V1, hs, held, lockedElss, cur, capital, profile, horizon, off, res };
+  const C = S.allocCfg, A = acctCfg(a.key), V1 = { ms: [a], R: [a.report] };
+  return { a, A, V1, ...acctAllocation(C, a.report, A) };   // the allocation maths is shared with the nightly sized shortlist (src/pm/orderinputs.ts, C-111)
 }
 const clashCard = (res) => `<div class="card"><h2>These inputs cannot all be met</h2><p>${esc(res.error)}</p>${res.clashes.map((c) => `<div class="sub">• ${esc(c)}</div>`).join('')}</div>`;
 const selBox = (a, f, opts, v) => `<select data-a="${esc(a)}" data-f="${f}">${opts.map((o) => `<option ${o === v ? 'selected' : ''}>${o}</option>`).join('')}</select>`;
@@ -1122,19 +1114,7 @@ function profileLimits(x) {
 
 // Two swing pools (design section 5): each account's swing capital comes from its own capital and its own profile; household limits and routing sit on top.
 // The journal of recognised Swing trades across the household (Engine Rules C-77): the Swing Desk's own R, equity, halving and Journal Test, on real trades.
-function householdJournal(xs) {
-  const ok = xs.filter((x) => x.res.ok && x.res.rows.some((r) => r.cls === 'direct_equity'));
-  const start = ok.reduce((t, x) => t + x.res.rows.find((r) => r.cls === 'direct_equity').amount, 0);
-  const trades = ok.flatMap((x) => (x.a.report.journal ?? []).map((t) => ({ ...t, acct: x.a.label, acctKey: x.a.key })));
-  const rep = journalReport(trades, start), blocked = [];
-  if (ok.some((x) => (x.a.report.saleProposals ?? []).length)) blocked.push('sales waiting for your answer');
-  if (ok.some((x) => (x.a.report.swingProposals ?? []).length)) blocked.push('near-match buys waiting for your answer');
-  if (ok.some((x) => (x.a.report.resolver?.unexplained ?? []).length)) blocked.push('sells the statements cannot explain');
-  if (ok.some((x) => (x.a.report.journalSkipped ?? []).length)) blocked.push('trades left out after a split or demerger');
-  if (trades.some((t) => t.closed && t.r === null)) blocked.push('a closed trade with no usable stop');
-  if (blocked.length) rep.provenGreen = false;
-  return { rep, ok, blocked };
-}
+// householdJournal now lives in src/pm/orderinputs.ts (C-111) so the nightly sized shortlist uses the same code.
 function journalCard(xs) {
   if (!xs.some((x) => (x.a.report.journal ?? []).length)) return '';
   const { rep: J, blocked } = householdJournal(xs), R = (r) => (r === null || r === undefined ? '—' : (r >= 0 ? '+' : '–') + Math.abs(r).toFixed(2) + 'R'), pc1 = (v) => (Number.isFinite(v) ? v.toFixed(1) + '%' : '—');
@@ -1153,10 +1133,8 @@ function journalCard(xs) {
 }
 function poolsCard(xs) {
   const C = S.allocCfg, P = C.swingPools; if (!P || xs.length < 2) return '';
-  const ok = xs.filter((x) => x.res.ok && x.res.rows.some((r) => r.cls === 'direct_equity')); if (ok.length < 2) return '';
-  const nowFy = fy(new Date().toISOString().slice(0, 10)), cap = {};
-  const accts = ok.map((x) => { cap[x.a.label] = x.res.rows.find((r) => r.cls === 'direct_equity').amount; const r = x.a.report; return { label: x.a.label, owner: ownerOf(x.a), value: x.cur.total, swingValue: r.books?.Swing?.value ?? 0, swingNames: (r.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name), capitalSource: P.capitalSource }; });
-  const rows = derivePools(accts, cap), stcg = {}; for (const x of ok) { const y = x.a.report.tax.find((t) => t.fy === nowFy); stcg[ownerOf(x.a)] = (stcg[ownerOf(x.a)] ?? 0) + (y ? y.equity.stcg : 0); }
+  const ok = poolAccounts(xs); if (ok.length < 2) return '';
+  const { accts, rows, stcg } = poolInputs(ok, P, new Date().toISOString().slice(0, 10));   // shared with the nightly sized shortlist (C-111)
   const chk = householdChecks(accts, P), route = routeTrade(accts, rows, '(a new stock)', { s: P, stcgYtd: stcg, taxRowConfident: S.data.taxRules.types.listed_equity.confidence === 'High' });
   const body = rows.map((r, i) => `<tr><td>${esc(r.label)}<span class="sub"> · ${esc(r.owner)}</span></td><td class="sub">${esc(ok[i].profile)}, ${pc(ok[i].res.rows.find((q) => q.cls === 'direct_equity').target)}</td><td class="num"><b>${money(r.swingCapital)}</b></td><td class="num">${money(r.swingValue)}</td><td class="num">${r.room >= 0 ? money(r.room) : '−' + money(-r.room)}</td><td class="num">${r.positions}</td></tr>`).join('');
   return `<div class="card"><h2>Swing pools by account</h2><div style="overflow-x:auto"><table><thead><tr><th>Account</th><th>Own swing target</th><th class="num">Swing capital</th><th class="num">In swing now</th><th class="num">Room</th><th class="num">Positions</th></tr></thead><tbody>${body}</tbody></table></div>
@@ -1164,25 +1142,13 @@ function poolsCard(xs) {
     <div style="margin-top:8px"><b>Next new swing trade goes to:</b> ${route.account ? esc(route.account) : 'no account'} <span class="sub">· ${route.steps.map(esc).join('; ')}</span></div>
     <div class="sub" style="margin-top:6px">Capital in each account is recorded as that person's own income and each trade is funded from the bank, as you told me on 20 Oct; both are in settings. Open-risk limits per trade are applied below.</div></div>` + ordersCard(ok, accts, rows, stcg, P);
 }
-const normName = (n) => String(n ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\b(limited|ltd)\b/g, '').replace(/\s+/g, ' ').trim();
 // Tonight's Swing Desk plan, sized and routed by account. The plan is public (trigger, stop, setup); holdings stay in this browser.
+// The sizing itself (candidates, pools, open risk, journal, routing) is src/pm/orderinputs.ts, shared with the nightly sized shortlist (C-111).
 function ordersCard(ok, accts, rows, stcg, P) {
   const D = S.dash; if (!D?.paperIndia && !D?.scanIndia) return '';
-  const cands = [], seen = new Set(), nm = D.names ?? {};
-  for (const c of D.scanIndia?.ready ?? []) if (c.setup && !seen.has(c.sym)) { seen.add(c.sym); cands.push({ sym: c.sym, name: nm[c.sym], setup: c.setup.id, trigger: c.setup.trigger, stop: c.setup.stop, atr: c.diag?.atr14 ?? undefined, close: c.close }); }
-  for (const o of D.paperIndia?.newOrdersTonight ?? []) if (!seen.has(o.sym)) { seen.add(o.sym); cands.push({ sym: o.sym, name: nm[o.sym], setup: o.setup, trigger: o.trigger, stop: o.stop }); }
+  const cands = candidatesFrom(D.scanIndia, D.paperIndia, D.names ?? {});
   const today = new Date().toISOString().slice(0, 10), light = D.india?.regime?.name ?? null, vix = D.india?.latest?.vix ?? null;
-  const oa = ok.map((x, i) => {
-    const lots = x.a.report.openLots ?? [], A = acctCfg(x.a.key), r = openRiskOf(lots, A.stops ?? {}), swingNames = accts[i].swingNames;
-    const blocked = lots.filter((l) => l.book === 'Legacy' && isLong(S.data.taxRules, l, today) === false).map((l) => l.name);
-    const heldValue = {}; for (const l of lots) if (l.book === 'Swing') heldValue[l.name] = (heldValue[l.name] ?? 0) + l.qty * l.price;
-    return { ...accts[i], ...r, blocked, swingNames, heldValue };
-  });
-  // use the account's own name for a stock when it holds it, so "already held" and blocks match
-  const own = new Map(); for (const a of oa) for (const n of [...a.swingNames, ...a.blocked]) own.set(normName(n), n);
-  for (const c of cands) { const k = normName(c.name ?? c.sym); if (own.has(k)) c.name = own.get(k); else c.name = c.name ?? c.sym; }
-  const jr = householdJournal(ok).rep;
-  const out = sizeOrders(cands, oa, rows, { light, vix, s: P, stcgYtd: stcg, taxRowConfident: S.data.taxRules.types.listed_equity.confidence === 'High', provenGreen: jr.provenGreen, halving: jr.halving });
+  const { out, oa } = orderRun(ok, { accts, rows, stcg }, cands, { light, vix, P, taxRules: S.data.taxRules, taxRowConfident: S.data.taxRules.types.listed_equity.confidence === 'High', today });
   const swingLots = ok.flatMap((x) => [...new Set((x.a.report.openLots ?? []).filter((l) => l.book === 'Swing').map((l) => l.name))].map((n) => ({ x, n })));
   const stopsBox = swingLots.length ? `<details style="margin-top:10px"><summary class="sub">Stops of your open Swing positions (for open risk)</summary><div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">${swingLots.map(({ x, n }) => `<label class="sub">${esc(n)} · ${esc(x.a.label)}<br><input data-a="${esc(x.a.key)}" data-stop="${esc(n)}" type="number" min="0" step="0.05" value="${acctCfg(x.a.key).stops?.[n] ?? ''}" style="width:100px"></label>`).join('')}</div></details>` : '';
   const head = `<div class="sub">Market light ${esc(light ?? 'not saved')}${out.risk ? ` · risk per trade ${out.risk}% of the account's swing capital · open-risk limit ${out.cap}% · up to ${out.maxPos} swing positions in the household (${out.householdPositions} now)` : ''}${out.why.length ? ' · ' + esc(out.why.join('; ')) : ''}. Household open risk ${money(out.householdOpenRisk)} of ${money(out.householdCapRs)}.</div>`;

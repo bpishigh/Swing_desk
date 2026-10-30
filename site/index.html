@@ -258,7 +258,17 @@ const INFO = {
  "capwaived": "Same patterns, triggers and fills as official, but the stop-width cap and room test are not applied: the stop sits at the chart level, never wider than 2.5 ATR (average daily range), and trades with stops wider than 12% are skipped. Shows what those two rules cost or save.",
  "comparator": "A plain yardstick: same stop rule as cap-waived, but it buys at the next close after a mechanical signal (a 20-day breakout or a pullback back above the average) instead of waiting for the pattern's trigger. Shows whether the trigger rules add anything over simply buying the signal."
 };
-function viewScan() {
+let SIZED; // undefined = not asked yet, false = unavailable (not signed in, or not written yet), object = the nightly sized shortlist (Engine Rules C-111)
+function sizedCard() {
+  if (SIZED === undefined) { SIZED = null; fetch('/api/portfolio?view=sized', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { SIZED = d && d.sized ? d.sized : false; if (tab === 'scan') render(); }).catch(() => { SIZED = false; }); }
+  const z = SIZED; if (!z || !z.lines) return '';
+  const accts = z.accounts || [], head = `<div class="note">Market light ${esc(z.light ?? 'not saved')}${z.risk ? ` · risk per trade ${fmt(z.risk, 2)}% of an account's swing capital · open-risk limit ${fmt(z.cap, 2)}% · up to ${z.maxPos} swing positions in the household (${z.householdPositions} now)` : ''}${(z.why || []).length ? ' · ' + esc(z.why.join('; ')) : ''}. Household open risk ₹${Math.round(z.householdOpenRisk).toLocaleString('en-IN')} of ₹${Math.round(z.householdCapRs).toLocaleString('en-IN')}.</div>`;
+  const cell = (p) => (p.ok ? `${p.qty} <span class="note">(${esc(p.binding)})</span>` : `<span class="note">${esc(p.note || p.binding)}</span>`);
+  const body = z.lines.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th>Setup</th><th class="num">Buy at</th><th class="num">Stop</th>${accts.map((a) => `<th class="num">${esc(a)}</th>`).join('')}<th>Goes to</th></tr></thead><tbody>${z.lines.map((l) => `<tr><td>${esc(l.name)}</td><td>${esc(l.setup)}</td><td class="num">${fmt(l.entry, 2)}</td><td class="num">${fmt(l.stop, 2)}</td>${accts.map((a) => `<td class="num">${(l.perAccount.find((p) => p.label === a) ? cell(l.perAccount.find((p) => p.label === a)) : '')}</td>`).join('')}<td>${esc(l.verdict)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">No orders in tonight\'s plan.</div>';
+  return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2>Tonight's orders sized for your accounts</h2><span class="chip ok">data ${esc(z.asOf)}</span></div>${z.banner ? `<div class="note" style="margin:6px 0"><span class="chip warn">Not sized</span> ${esc(z.banner)}</div>` : ''}${head}${body}<div class="note" style="margin-top:8px">${(z.notes || []).map(esc).join(' ')} A suggestion, never an order: you place it with your broker. Sized each night from your last upload.</div></section>`;
+}
+function viewScan() { return (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody(); }
+function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
   const mk = `<div class="chips" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
   if (!sc) return `<section class="card">${mk}<div class="empty" style="margin-top:14px">No ${scanMkt === 'us' ? 'US' : 'India'} scan has run yet.</div></section>`;
