@@ -10,7 +10,7 @@
                                                       
                              
                                                                                                                                       
-                                                                                                  
+                                                                                                                       
  
 
 const norm = (s        ) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -176,7 +176,7 @@ export function readRows(rows            , opts                        = {})    
     trades.push({ instrument: get(r, 'instrument') || sym, symbol: sym || get(r, 'instrument'), isin, side, qty, price, value, date: iso, time, exchange: get(r, 'exchange').toUpperCase(), orderId: get(r, 'orderId'), tradeId: get(r, 'tradeId'), kind });
   });
   void dateHasTime;
-  const identity = idFrom(rows, h.idx);
+  const identity                         = idFrom(rows, h.idx); if (identity.clientCode) identity.codeInFile = identity.clientCode;   // codeInFile: read from the file's own header lines, never from the file name
   const fromName = opts.filename ? /(?:^|[^A-Za-z0-9])([A-Z]{2}\d{4,}|\d{8,})(?:[^A-Za-z0-9]|$)/.exec(opts.filename)?.[1] : undefined;
   if (!identity.clientCode && fromName) identity.clientCode = fromName;
   const unmapped = headers.filter((x, i) => x.trim() && !h.fields[i]).length;
@@ -222,4 +222,23 @@ export function readSheets(sheets                                           , op
 export function detectBroker(r            )                             {
   const m = r.profile.mapping, trade = m.tradeId !== undefined, status = m.status !== undefined;
   return trade && !status ? 'zerodha' : status && !trade ? 'groww' : null;
+}
+/** For statements (holdings, profit and loss): the first sheet of a workbook the reader accepts, so a cover or summary sheet in front does not hide the table. */
+export function firstSheetThatReads   (sheets                                           , read                                )           {
+  for (const s of sheets) { const r = read(s.rows); if (r) return r; }
+  return null;
+}
+/** A short fingerprint of a broker client code (16 hex), kept with the account so a later upload can be checked against it. The code itself is never stored. */
+export async function clientKeyOf(code        )                  {
+  const d = await (globalThis       ).crypto.subtle.digest('SHA-256', new TextEncoder().encode('swing-desk|' + code.trim().toUpperCase()));
+  return [...new Uint8Array(d)].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+/** Which account a file belongs to, given the fingerprint read from it. `accounts` = label key -> its stored fingerprint (or undefined). Returns what the upload should do. */
+export function routeByClientKey(fileKey               , named        , accounts                                    )                                                       {
+  if (!fileKey) return { action: 'ok' };
+  const match = Object.entries(accounts).find(([, k]) => k === fileKey)?.[0];
+  if (match) return match === named ? { action: 'ok' } : { action: 'wrong', owner: match };
+  const own = accounts[named];
+  if (own && own !== fileKey) return { action: 'wrong' };
+  return { action: 'learn' };
 }

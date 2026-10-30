@@ -97,3 +97,10 @@ test('save: a hand-added trade is stored with the account; a settings-only save 
   await saveAccount(env, 'Other', 'zerodha', [t('buy', 1, 1, '2026-10-01', '4')], g.fetchFn, new Date('2026-11-05T10:00:00Z'), undefined, {}, [], undefined, undefined, false);
   assert.equal(g.read('Other').uploadedAt, '2026-09-02T10:00:00.000Z');   // a first save still gets a date; the flag only stops a later move from refreshing it
 });
+
+test('J10: a client key is accepted as 16 hex or null, nothing else', async () => {
+  const { cleanSettings } = await import('../functions/_lib/store.ts');
+  assert.deepEqual(cleanSettings({ clientKey: 'abcdef0123456789' }), { clientKey: 'abcdef0123456789' });
+  assert.deepEqual(cleanSettings({ clientKey: null }), { clientKey: null });
+  for (const bad of ['AB1234', 'abcdef012345678', 'ABCDEF0123456789', 5]) assert.equal(cleanSettings({ clientKey: bad }), 'bad client key');
+});

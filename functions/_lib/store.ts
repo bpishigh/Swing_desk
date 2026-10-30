@@ -44,7 +44,7 @@ export function applyManual(cur: ManualTrade[] | undefined, patch: ManualPatch |
 }
 /** The account's own allocation inputs (capital, profile, horizon, slab rate, stops, quarter dates, owner answers): kept with the account so the desk works the same from any browser.
  * A POST carries a PATCH: only the keys that changed. A key set to null is deleted; inside the five maps (custom, stops, acted, swing, types) a key set to null is deleted, other keys are merged. Whitelisted and bounded. */
-export interface AccountSettings { capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'>; types?: Record<string, string>; household?: { limits?: { company?: number; sector?: number; house?: number }; goals?: { id: string; name: string; amount: number; date: string }[] } }
+export interface AccountSettings { clientKey?: string; capital?: number; money?: number; buffer?: number; horizon?: number; slab?: number; profile?: string; off?: string[]; custom?: Record<string, number>; outside?: { name: string; value: number; cls: string }[]; stops?: Record<string, number>; acted?: Record<string, string>; swing?: Record<string, 'yes' | 'no'>; types?: Record<string, string>; household?: { limits?: { company?: number; sector?: number; house?: number }; goals?: { id: string; name: string; amount: number; date: string }[] } }
 export type SettingsPatch = { [K in keyof AccountSettings]?: AccountSettings[K] | null | Record<string, any> };
 const MAPS = ['custom', 'stops', 'acted', 'swing', 'types'] as const;
 export const ASSET_TYPES = ['listed_equity', 'gold_silver_etf', 'intl_etf', 'us_stock', 'equity_fund', 'debt_fund', 'hybrid_other', 'overseas_fof'];
@@ -81,6 +81,7 @@ export function cleanSettings(input: unknown): SettingsPatch | string | undefine
   const i = input as Record<string, any>, out: Record<string, any> = {};
   for (const f of ['capital', 'money', 'buffer'] as const) if (i[f] !== undefined) { if (i[f] === null) { out[f] = null; continue; } const n = nn(i[f]); if (n === null) return `bad ${f}`; out[f] = n; }
   for (const [f, max] of [['horizon', 60], ['slab', 60]] as const) if (i[f] !== undefined) { if (i[f] === null) { out[f] = null; continue; } const n = nn(i[f], max); if (n === null) return `bad ${f}`; out[f] = n; }
+  if (i.clientKey !== undefined) { if (i.clientKey === null) out.clientKey = null; else { if (typeof i.clientKey !== 'string' || !/^[0-9a-f]{16}$/.test(i.clientKey)) return 'bad client key'; out.clientKey = i.clientKey; } }
   if (i.profile !== undefined) { if (i.profile === null) out.profile = null; else { if (!['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(i.profile)) return 'bad profile'; out.profile = i.profile; } }
   if (i.off !== undefined) { if (i.off === null) out.off = null; else { if (!Array.isArray(i.off) || i.off.length > 20 || i.off.some((x: any) => typeof x !== 'string' || !okKey(x))) return 'bad scope'; out.off = i.off; } }
   const spec: Record<string, [number, (k: string) => boolean, (v: any) => boolean]> = {

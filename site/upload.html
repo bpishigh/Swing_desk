@@ -136,7 +136,7 @@ import { harvest, saleAfter, HARVEST_DEFAULTS } from './pm/harvest.js';
 import { promoteOf, sizePromote } from './pm/promote.js';
 import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
-import { readRows, readSheets, detectBroker, mergeTrades } from './pm/reader.js';
+import { readRows, readSheets, firstSheetThatReads, detectBroker, clientKeyOf, routeByClientKey, mergeTrades } from './pm/reader.js';
 import { readSnapshot, reconcile } from './pm/snapshot.js';
 import { readPnl, reconcilePnl } from './pm/plrecon.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -939,6 +939,7 @@ const clampN = (v, max = 1e11) => (Number.isFinite(v) && v >= 0 ? Math.min(v, ma
 /** The inputs as the server will accept them: clamped to the same limits, bad keys dropped. */
 function cleanCfg(c) {
   const o = {}; if (!c) return o;
+  if (typeof c.clientKey === 'string' && /^[0-9a-f]{16}$/.test(c.clientKey)) o.clientKey = c.clientKey;
   for (const f of ['capital', 'money', 'buffer']) { const v = clampN(c[f]); if (v !== undefined) o[f] = v; }
   for (const f of ['horizon', 'slab']) { const v = clampN(c[f], 60); if (v !== undefined) o[f] = v; }
   if (['Cautious', 'Balanced', 'Aggressive', 'Custom'].includes(c.profile)) o.profile = c.profile;
@@ -1262,7 +1263,7 @@ function wireSnap() {
     const a = S.accounts.get(el.dataset.pnl); if (!a?.report || !el.files.length) return;
     try {
       const lines = [];
-      for (const f of [...el.files]) { const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text()); const r = readPnl(rows); if (!r) { notify(`${f.name}: no profit and loss table found (needs quantity, sale value and profit columns, and an ISIN or name).`); return; } lines.push(...r.lines); }
+      for (const f of [...el.files]) { const r = /\.xlsx$/i.test(f.name) ? firstSheetThatReads(await readXlsxAsync(new Uint8Array(await f.arrayBuffer())), readPnl) : readPnl(parseCsv(await f.text())); if (!r) { notify(`${f.name}: no profit and loss table found (needs quantity, sale value and profit columns, and an ISIN or name).`); return; } lines.push(...r.lines); }
       a.pnlLines = lines; const dated = lines.filter((l) => l.sellDate); if (dated.length) { const c = new Map(); for (const l of dated) { const k = fyOfDate(l.sellDate); c.set(k, (c.get(k) ?? 0) + 1); } a.pnlFy = [...c].sort((x, y) => y[1] - x[1])[0][0]; }
       runPnl(a); render(); notify(a.pnlRecon.verified ? `${a.label}: gains match the statement for FY ${a.pnlRecon.fy}.` : `${a.label}: the gains differ from the statement for FY ${a.pnlRecon.fy}; see the Data tab.`);
     } catch (e) { notify('Could not read the statement: ' + e.message); }
@@ -1272,7 +1273,7 @@ function wireSnap() {
     const a = S.accounts.get(el.dataset.snap); if (!a?.report || !el.files.length) return;
     try {
       const lines = []; let note = null;
-      for (const f of [...el.files]) { const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text()); const r = readSnapshot(rows); if (!r) { notify(`${f.name}: no holdings table found (needs a quantity column and an ISIN or name column).`); return; } lines.push(...r.lines); note = note || r.note; }
+      for (const f of [...el.files]) { const r = /\.xlsx$/i.test(f.name) ? firstSheetThatReads(await readXlsxAsync(new Uint8Array(await f.arrayBuffer())), readSnapshot) : readSnapshot(parseCsv(await f.text())); if (!r) { notify(`${f.name}: no holdings table found (needs a quantity column and an ISIN or name column).`); return; } lines.push(...r.lines); note = note || r.note; }
       const rec = reconcile(lines, a.report.holdings.map((h) => ({ name: h.name, isin: h.isin, qty: h.qty, kind: h.kind })));
       a.recon = { ...rec, rows: rec.rows.slice(0, 200), date: new Date().toISOString().slice(0, 10), note }; render();
       notify(rec.verified ? `${a.label}: all ${rec.matched} holdings match the statement.` : `${a.label}: ${rec.differ + rec.onlyStatement + rec.onlyLedger} difference(s) found; see the Data tab.`);
@@ -1554,13 +1555,19 @@ $('run').onclick = async () => {
   if (owner && !/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(owner)) return setStatus('Owner name: letters and numbers only.');
   setStatus('Reading files…'); await new Promise((r) => setTimeout(r, 20));
   try {
-    const batches = [], notes = [], seen = new Set();
+    const batches = [], notes = [], seen = new Set(), codes = new Set();
     for (const f of files) {
       const r = /\.xlsx$/i.test(f.name) ? readSheets(await readXlsxAsync(new Uint8Array(await f.arrayBuffer())), { filename: f.name }) : readRows(parseCsv(await f.text()), { filename: f.name });   // every sheet of a workbook (J10)
-      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else { batches.push(r.trades); const b = detectBroker(r); if (b) seen.add(b); if (r.sheetsRead && r.sheetsRead.length > 1) notes.push(`${f.name}: read ${r.sheetsRead.length} sheets (${r.sheetsRead.join(', ')})`); }
+      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else { batches.push(r.trades); const b = detectBroker(r); if (b) seen.add(b); if (r.identity.codeInFile) codes.add(r.identity.codeInFile.trim().toUpperCase()); if (r.sheetsRead && r.sheetsRead.length > 1) notes.push(`${f.name}: read ${r.sheetsRead.length} sheets (${r.sheetsRead.join(', ')})`); }
     }
     if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
     const key = keyOf(label), ex = S.accounts.get(key);
+    // the client code in the file decides which account it belongs to (J10): a mismatch stops the upload before anything is added
+    if (codes.size > 1) throw new Error('These files carry different client codes, so they belong to different accounts. Add them one account at a time.');
+    const fileKey = codes.size ? await clientKeyOf([...codes][0]) : null;
+    const route = routeByClientKey(fileKey, key, Object.fromEntries([...S.accounts].map(([k]) => [k, acctCfg(k).clientKey])));
+    if (route.action === 'wrong') throw new Error(route.owner ? `Nothing added. The client code in this file matches the account "${S.accounts.get(route.owner).label}", not "${label}". Use that account name.` : `Nothing added. The client code in this file is not the one "${ex.label}" was set up with. Check that it is the right account.`);
+    if (route.action === 'learn') { acctCfg(key).clientKey = fileKey; notes.push('The client code in this file is now tied to this account, so a later file with another code is stopped.'); }
     const detected = seen.size === 1 ? [...seen][0] : files.some((f) => /tradebook/i.test(f.name) || /\.csv$/i.test(f.name)) ? 'zerodha' : 'groww';   // from the file's own columns when they say, else the old file-name guess (J10)
     const broker = $('broker').value === 'auto' ? (ex && ex.trades.length ? ex.broker : detected) : $('broker').value;
     const a = ex ?? { key, label, broker, owner: '', trades: [], report: null };
@@ -1571,7 +1578,7 @@ $('run').onclick = async () => {
     let msg = `Done: ${a.label} now has ${a.trades.length} transactions.${notes.length ? ' ' + notes.join(' ') : ''}`;
     if (S.canSave && $('save').checked) {
       try {
-        const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat() }) });
+        const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat(), ...(route.action === 'learn' ? { settings: { clientKey: fileKey } } : {}) }) });
         const j = await res.json().catch(() => ({})); msg += res.ok ? ` Saved (${j.added} new).` : ` NOT SAVED (${res.status}): ${j.error || 'the save service refused it'}. These ${batches.flat().length} transactions are in this tab only and will be gone on reload.`; if (res.ok) a.saved = true;
       } catch (e) { msg += ` NOT SAVED: could not reach the save service (${e.message}). These transactions are in this tab only and will be gone on reload; reload the page to sign in again, then upload again.`; }
     } else msg += S.canSave ? ' Not saved: the save box is not ticked, so this is in this tab only.' : ' Not saved: the save service is not reachable, so this is in this tab only.';

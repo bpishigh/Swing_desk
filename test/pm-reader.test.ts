@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { deflateRawSync } from 'node:zlib';
 import { parseCsv } from '../src/pm/csv.ts';
 import { readXlsx } from '../src/pm/xlsx.ts';
-import { readRows, readSheets, detectBroker, mergeTrades, aggregateFills, accountAlias, parseDateColumn } from '../src/pm/reader.ts';
+import { readRows, readSheets, firstSheetThatReads, detectBroker, clientKeyOf, routeByClientKey, mergeTrades, aggregateFills, accountAlias, parseDateColumn } from '../src/pm/reader.ts';
 import { replay } from '../src/pm/ledger.ts';
 
 const kite = `symbol,isin,trade_date,exchange,segment,series,trade_type,auction,quantity,price,trade_id,order_id,order_execution_time
@@ -112,4 +112,24 @@ ABC LTD,INE000A01010,10,1000,NSE,X1,10-01-2024 10:15 AM,Executed,BUY`);
   assert.equal(detectBroker(readRows(kiteRows)), 'zerodha');
   assert.equal(detectBroker(readRows(grow)), 'groww');
   assert.equal(detectBroker(readRows(parseCsv('Name,Quantity,Price,Type,Date\nABC,1,10,BUY,2024-01-01'))), null);
+});
+
+test('J10: a statement workbook with a cover sheet in front is read from the sheet that holds the table', () => {
+  const read = (rows: string[][]) => (rows[0]?.[0] === 'Qty' ? { n: rows.length } : null);
+  assert.deepEqual(firstSheetThatReads([{ name: 'Cover', rows: [['Client', 'Z1']] }, { name: 'Holdings', rows: [['Qty'], ['5']] }], read), { n: 2 });
+  assert.equal(firstSheetThatReads([{ name: 'Cover', rows: [['x']] }], read), null);
+});
+
+test('J10: the client code in a file routes it to the right account; the code itself is never stored', async () => {
+  const k = await clientKeyOf(' ab1234 '), same = await clientKeyOf('AB1234'), other = await clientKeyOf('ZZ9999');
+  assert.match(k, /^[0-9a-f]{16}$/); assert.equal(k, same); assert.notEqual(k, other); assert.ok(!k.includes('1234'));
+  assert.equal(routeByClientKey(null, 'a', { a: k }).action, 'ok');                                  // no code in the file: no check
+  assert.equal(routeByClientKey(k, 'a', { a: k, b: other }).action, 'ok');                           // the named account has this code
+  assert.deepEqual(routeByClientKey(k, 'b', { a: k, b: other }), { action: 'wrong', owner: 'a' });   // named b, but the code is a's
+  assert.deepEqual(routeByClientKey(k, 'new', { a: other }), { action: 'learn' });                    // a new account learns the code
+  assert.deepEqual(routeByClientKey(k, 'a', { a: undefined }), { action: 'learn' });                  // an older account without a code learns it
+  assert.deepEqual(routeByClientKey(k, 'a', { a: other }), { action: 'wrong' });                      // the account has another code
+  const r = readRows(parseCsv(`Client Code,AB1234\n${kite}`), { filename: 'tradebook-12345678.csv' });
+  assert.equal(r.identity.codeInFile, 'AB1234');
+  assert.equal(readRows(parseCsv(kite), { filename: 'tradebook-20241031.csv' }).identity.codeInFile, undefined);   // a number in the file name is not a client code for routing
 });
