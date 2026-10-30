@@ -62,7 +62,7 @@ for (let i = from; i <= t; i++) {
   book.lastLight = light; book.asOf = days[i].date;
 }
 book.version = 'IND-PAPER-1';
-const summary = { ...summarize(book), light, newOrdersTonight: book.ledger.filter((p) => p.signalDate === asOf).map((p) => ({ stream: p.stream, sym: p.sym, setup: p.setup, trigger: +p.trigger.toFixed(2), stop: +p.stop.toFixed(2), status: p.status })) };
+const summary = { ...summarize(book), light, newOrdersTonight: book.ledger.filter((p) => p.signalDate === asOf).map((p) => ({ stream: p.stream, sym: p.sym, setup: p.setup, trigger: +p.trigger.toFixed(2), stop: +p.stop.toFixed(2), status: p.status, kind: p.kind, tags: p.tags, stopPct: +p.stopPct.toFixed(2), maxStopPct: p.maxStopPct, roomR: p.roomR === null ? null : +p.roomR.toFixed(2) }))   // kind/tags/widths added for the Paper test tab (C-113); output only };
 writeFileSync(bookFile, JSON.stringify(book) + '\n');
 writeFileSync(`${dir}/latest.json`, JSON.stringify(summary, null, 1) + '\n');
 console.log(JSON.stringify({ asOf, light, official: summary.official, newOrders: summary.newOrdersTonight.length }));

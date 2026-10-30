@@ -113,6 +113,7 @@ details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
     <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
     <button role="tab" id="t-funds" aria-selected="false">Funds</button>
     <button role="tab" id="t-scan" aria-selected="false">Scans</button>
+    <button role="tab" id="t-paper" aria-selected="false">Paper test</button>
     <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
     <button role="tab" id="t-howto" aria-selected="false">How to use</button>
     <button role="tab" id="t-docs" aria-selected="false">Docs</button>
@@ -258,10 +259,12 @@ const INFO = {
  "capwaived": "Same patterns, triggers and fills as official, but the stop-width cap and room test are not applied: the stop sits at the chart level, never wider than 2.5 ATR (average daily range), and trades with stops wider than 12% are skipped. Shows what those two rules cost or save.",
  "comparator": "A plain yardstick: same stop rule as cap-waived, but it buys at the next close after a mechanical signal (a 20-day breakout or a pullback back above the average) instead of waiting for the pattern's trigger. Shows whether the trigger rules add anything over simply buying the signal."
 };
+// "close 1625.00, needs +4.0%" under a buy-above level (Engine Rules C-113)
+function awayNote(l) { if (!(l.close > 0)) return ''; const g = (l.entry / l.close - 1) * 100; return `<div class="note">close ${fmt(l.close, 2)} · ${g > 0 ? 'needs +' + fmt(g, 1) + '%' : 'already above'}</div>`; }
 let SIZED; // undefined = not asked yet, false = unavailable (not signed in, or not written yet), object = the nightly sized shortlist (Engine Rules C-111)
 function sizedCard() {
   if (SIZED === undefined) { SIZED = null; fetch('/api/portfolio?view=sized', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { SIZED = d && d.sized ? d.sized : d ? 'none' : false; if (tab === 'scan') render(); }).catch(() => { SIZED = false; }); }
-  const z = SIZED, title = `<h2 style="margin:0">Tonight's orders sized for your accounts</h2>`;
+  const z = SIZED, title = `<h2 style="margin:0">Tonight's official orders sized for your accounts</h2>`;
   if (z === 'none') return `<section class="card" style="margin-bottom:16px">${title}<div class="empty" style="margin-top:10px">Not written yet. The nightly job writes it after the India scan, from your saved accounts; it appears after the next run.</div></section>`;
   if (!z || !z.lines) return '';
   const dm = (d) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '');
@@ -271,9 +274,26 @@ function sizedCard() {
   if (z.risk) chips.push(`<span class="chip">Risk ${fmt(z.risk, 2)}% per trade</span>`, `<span class="chip">Open-risk limit ${fmt(z.cap, 2)}%</span>`, `<span class="chip">${z.householdPositions} of ${z.maxPos} swing positions</span>`, `<span class="chip">Open risk ₹${Math.round(z.householdOpenRisk).toLocaleString('en-IN')} of ₹${Math.round(z.householdCapRs).toLocaleString('en-IN')}</span>`);
   const stale = st.length ? `<div style="margin:12px 0;padding:10px 12px;border-radius:8px;background:var(--yellow-bg);color:var(--yellow)"><b>Not sized: ledger older than ${z.ledgerMaxAgeDays} days</b><div style="margin-top:4px">${st.map((x) => `${esc(x.label)} <span style="opacity:.85">· ${x.savedAt ? 'saved ' + esc(dm(x.savedAt)) + ', ' + x.ageDays + ' days ago' : 'no save date'}</span>`).join('<br>')}</div><div style="margin-top:4px;opacity:.85">Upload these accounts again on the Portfolio tab to include them.</div></div>` : '';
   const lh = (t, n) => `<h3 style="margin:16px 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)">${t}${n === undefined ? '' : ` <span style="font-weight:400">(${n})</span>`}</h3>`;
-  const buy = placed.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">Buy at</th><th class="num">Stop</th>${accts.map((a) => `<th class="num">${esc(a)}</th>`).join('')}</tr></thead><tbody>${placed.map((l) => `<tr><td>${esc(l.name)}<div class="note">${esc(l.setup)}</div></td><td class="num">${fmt(l.entry, 2)}</td><td class="num">${fmt(l.stop, 2)}</td>${accts.map((a) => { const p = l.perAccount.find((x) => x.label === a); return `<td class="num">${p && p.ok ? `<b>${p.qty}</b><div class="note">first ${p.first} · ${esc(p.binding)}</div>` : '<span class="note">–</span>'}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` : `<div class="note">${z.light ? 'Nothing to buy tonight.' : 'No market light is saved, so nothing is sized.'}</div>`;
-  const skipped = rest.length ? lh('Skipped', rest.length) + rest.map((l) => `<div style="padding:8px 0;border-top:1px solid var(--line-soft)"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b>${esc(l.name)}</b> <span class="note">${esc(l.setup)}</span></span><span class="note">buy at ${fmt(l.entry, 2)} · stop ${fmt(l.stop, 2)}</span></div><div class="note" style="margin-top:2px">${esc(l.reason ?? l.verdict)}</div></div>`).join('') : '';
+  const buy = placed.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">Buy above</th><th class="num">Stop</th>${accts.map((a) => `<th class="num">${esc(a)}</th>`).join('')}</tr></thead><tbody>${placed.map((l) => `<tr><td>${esc(l.name)}<div class="note">${esc(l.setup)}</div></td><td class="num">${fmt(l.entry, 2)}${awayNote(l)}</td><td class="num">${fmt(l.stop, 2)}</td>${accts.map((a) => { const p = l.perAccount.find((x) => x.label === a); return `<td class="num">${p && p.ok ? `<b>${p.qty}</b><div class="note">first ${p.first} · ${esc(p.binding)}</div>` : '<span class="note">–</span>'}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>` : `<div class="note">${z.light ? 'Nothing to buy tonight.' : 'No market light is saved, so nothing is sized.'}</div>`;
+  const skipped = rest.length ? lh('Skipped', rest.length) + rest.map((l) => `<div style="padding:8px 0;border-top:1px solid var(--line-soft)"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b>${esc(l.name)}</b> <span class="note">${esc(l.setup)}</span></span><span class="note">buy above ${fmt(l.entry, 2)}${l.close ? ' · close ' + fmt(l.close, 2) : ''} · stop ${fmt(l.stop, 2)}</span></div><div class="note" style="margin-top:2px">${esc(l.reason ?? l.verdict)}</div></div>`).join('') : '';
   return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${chips.join('')}</div>${stale}${z.light ? lh('Buy tonight') + buy + skipped : `<div class="note" style="margin-top:12px">${buy}</div>`}<div class="note" style="margin-top:12px">${(z.notes || []).filter((n) => !/^No market light/.test(n)).map(esc).join(' ')} A suggestion, never an order: you place it with your broker. Sized each night from your last upload; the same text goes to Telegram.</div></section>`;
+}
+let PAPERT; // undefined = not asked yet, false = unavailable, 'none' = not written yet, object = the nightly paper-test file (Engine Rules C-113)
+function viewPaper() {
+  if (PAPERT === undefined) { PAPERT = null; fetch('/api/portfolio?view=paper', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { PAPERT = d && d.paper ? d.paper : d ? 'none' : false; if (tab === 'paper') render(); }).catch(() => { PAPERT = false; }); }
+  const z = PAPERT, title = '<h2 style="margin:0">Paper test: not for placing</h2>';
+  if (z === undefined || z === null) return `<section class="card">${title}<div class="empty" style="margin-top:10px">Loading…</div></section>`;
+  if (z === false) return `<section class="card">${title}<div class="empty" style="margin-top:10px">Sign in to see tonight's paper-test picks.</div></section>`;
+  if (z === 'none') return `<section class="card">${title}<div class="empty" style="margin-top:10px">Not written yet. The nightly job writes it after the India scan.</div></section>`;
+  const lh = (t, n) => `<h3 style="margin:16px 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)">${t} <span style="font-weight:400">(${n})</span></h3>`;
+  const sg = (n) => (n >= 0 ? '+' : '−') + fmt(Math.abs(n), 2);
+  const chips = z.tally.map((t) => `<span class="chip">${esc(cap(t.stream))}: ${t.orders} orders${t.meanR === null ? '' : ' · avg ' + sg(t.meanR) + 'R'}</span>`).join('');
+  const sec = (stream, name, how) => {
+    const ls = z.lines.filter((l) => l.stream === stream);
+    const rows = ls.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">${stream === 'comparator' ? 'Reference level' : 'Buy above'}</th><th class="num">Stop</th><th class="num">Stop width</th><th>What the live rules say</th></tr></thead><tbody>${ls.map((l) => `<tr><td>${esc(l.name)} <span class="chip">${esc(stream)}</span><div class="note">setup ${esc(l.setup)}${l.tags && l.tags.length ? ' · ' + esc(l.tags.join(', ')) : ''}</div></td><td class="num">${fmt(l.entry, 2)}${stream === 'comparator' ? '<div class="note">enters at the next close</div>' : awayNote(l)}</td><td class="num">${fmt(l.stop, 2)}</td><td class="num">${l.stopPct === null ? '–' : fmt(l.stopPct, 1) + '%'}${l.maxStopPct ? `<div class="note">limit ${fmt(l.maxStopPct, 0)}%</div>` : ''}</td><td class="note">${esc(l.live || '–')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note">None tonight.</div>';
+    return lh(name, ls.length) + `<div class="note" style="margin-bottom:6px">${how}</div>` + rows;
+  };
+  return `<section class="card"><div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="margin:12px 0;padding:10px 12px;border-radius:8px;background:var(--yellow-bg);color:var(--yellow)">${esc(z.notice)}</div><div style="display:flex;flex-wrap:wrap;gap:6px">${chips}</div>${sec('capwaived', 'Capwaived', 'Same patterns and triggers as the official list, but the stop-width cap and room test are not applied: the stop is at most 2.5 ATR below the trigger.')}${sec('comparator', 'Comparator', 'Bought at the next close after a plain signal (a 20-day breakout, or back above the 20 or 50-day average), with the capwaived stop rule.')}<div class="note" style="margin-top:12px">Never sized against your accounts and never counted in your open risk. The official orders are on the Scans tab.</div></section>`;
 }
 function viewScan() { return (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody(); }
 function viewScanBody() {
@@ -463,7 +483,7 @@ function tidyLong() {   // long explanatory lines show two lines and a "more" li
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
+  $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
   if (tab === 'scan') hydrateCharts();
   tidyLong();
@@ -499,7 +519,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
   const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
   $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'funds', 'health', 'portfolio', 'store', 'scan', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['market', 'funds', 'health', 'portfolio', 'store', 'scan', 'paper', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>

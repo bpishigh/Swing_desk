@@ -64,12 +64,20 @@ export function poolInputs(ok       , P     , today        ) {
   return { accts, cap, rows, stcg };
 }
 
-/** Tonight's candidates, in the order the plan lists them: the scan's Ready list first, then the paper book's new orders for tonight. */
+/** Tonight's OFFICIAL candidates, in the order the plan lists them: the scan's Ready list first, then the paper book's official-stream orders for tonight. Capwaived and comparator picks are paper-test only (see paperPicks) and never reach the order list (C-113). */
 export function candidatesFrom(scan     , paper     , names                         = {})         {
   const cands         = [], seen = new Set        ();
   for (const c of scan?.ready ?? []) if (c.setup && !seen.has(c.sym)) { seen.add(c.sym); cands.push({ sym: c.sym, name: names[c.sym], setup: c.setup.id, trigger: c.setup.trigger, stop: c.setup.stop, atr: c.diag?.atr14 ?? undefined, close: c.close }); }
-  for (const o of paper?.newOrdersTonight ?? []) if (!seen.has(o.sym)) { seen.add(o.sym); cands.push({ sym: o.sym, name: names[o.sym], setup: o.setup, trigger: o.trigger, stop: o.stop }); }
+  for (const o of paper?.newOrdersTonight ?? []) if (o.stream === 'official' && !seen.has(o.sym)) { seen.add(o.sym); cands.push({ sym: o.sym, name: names[o.sym], setup: o.setup, trigger: o.trigger, stop: o.stop }); }
   return cands;
+}
+                                                     
+                                                                                                                                                                     
+/** Tonight's paper-test picks (capwaived and comparator streams of the India paper book, C-53). A symbol that is also an official candidate is still listed here under its own stream. */
+export function paperPicks(paper     , names                         = {})              {
+  return (paper?.newOrdersTonight ?? []).filter((o     ) => o.stream === 'capwaived' || o.stream === 'comparator').map((o     ) => ({
+    stream: o.stream               , cand: { sym: o.sym, name: names[o.sym], setup: o.setup, trigger: o.trigger, stop: o.stop }, kind: o.kind ?? (o.stream === 'comparator' ? 'close' : 'trigger'),
+    tags: o.tags ?? [], stopPct: typeof o.stopPct === 'number' ? o.stopPct : null, maxStopPct: typeof o.maxStopPct === 'number' ? o.maxStopPct : null, roomR: typeof o.roomR === 'number' ? o.roomR : null }));
 }
 /** Company names the dashboard shows (build-site.mjs): only for the symbols on the scan's Ready and Watch lists and the paper book's live and recent lists, not for tonight's new orders. Kept the same so a name matches an account's own name the same way on the page and at night. */
 export function dashNames(scan     , paper     , namesIndia                         = {})                         {
@@ -99,7 +107,7 @@ export function orderRun(ok       , pool                                        
                                                                               
                           
                                                                                                                               
-                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                       
  
 /** A reason in fewer words: the stop-width skip says the numbers and nothing else. */
 export function shortReason(r        )         {
@@ -115,9 +123,10 @@ export function staleAccounts(accts                                       , asOf
   });
 }
 /** The overlay file. A stale account's quantities are blanked with the reason, a line routed to it is not placed, and the file carries a banner; the other accounts keep their sizes. */
-export function buildOverlay(p                                                                                                                                        )          {
+export function buildOverlay(p                                                                                                                                                                         )          {
   const staleBy = new Map(p.stale.map((s) => [s.label, s])), why = (s           ) => (s.savedAt ? `ledger last saved ${s.savedAt}, ${s.ageDays} days ago (limit ${p.maxAgeDays}): not sized` : 'ledger has no save date: not sized');
-  const lines = p.out.lines.map((l) => {
+  const lines = p.out.lines.map((l0) => {
+    const l = { ...l0, close: p.closes?.[l0.sym] ?? null };
     const perAccount = l.perAccount.map((a) => { const s = staleBy.get(a.label); return s ? { ...a, qty: 0, first: 0, value: 0, ok: false, binding: why(s), note: why(s) } : a; });
     const routed = l.account ? staleBy.get(l.account) : undefined;
     // why nobody can take it, from the accounts that are not stale (their reasons are about the stock and the limits); when every account is stale, from all of them
@@ -136,17 +145,22 @@ export function buildOverlay(p                                                  
 
 /** '2026-10-13' as '13 Oct'. */
 const dm = (d        ) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '');
-/** The Telegram text for the overlay, or null when there is nothing to say (no lines, no banner and a market light is saved). Sections: what to buy tonight, what was skipped and why (each in a few words), and which accounts were not sized. */
+/** "close 1625.00, needs +4.0%" : where tonight's close sits against a buy-above level. */
+export function awayText(entry        , close                           )         {
+  if (!(typeof close === 'number' && close > 0)) return '';
+  const g = (entry / close - 1) * 100;
+  return g > 0 ? `close ${close.toFixed(2)}, needs +${g.toFixed(1)}%` : `close ${close.toFixed(2)}, already above it`;
+}
+/** The Telegram text for the OFFICIAL orders (Engine Rules C-113): what to buy tonight, what was skipped and why (each in a few words), and which accounts were not sized. Sent every night. Paper-test picks are never in it (see paperMessage). */
 export function sizedMessage(ov         , maxLines = 10)                {
-  if (!ov.lines.length && !ov.stale.length && ov.light) return null;   // a missing market light is worth saying; nothing else is if there are no lines
   const placed = ov.lines.filter((l) => l.account), rest = ov.lines.filter((l) => !l.account);
   const day = new Date(ov.asOf + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
-  const out           = [`Swing orders · ${day} · ${ov.light ? ov.light.toUpperCase() + ' light' : 'NO market light'}`];
+  const out           = [`Swing orders · OFFICIAL · ${day} · ${ov.light ? ov.light.toUpperCase() + ' light' : 'NO market light'}`];
   if (ov.light) out.push(`Risk ${ov.risk}% of swing capital per trade, up to ${ov.maxPos} swing positions.`); else out.push('No market light is saved, so nothing is sized.');
   if (ov.light) {
     out.push('', 'BUY TONIGHT');
-    if (!placed.length) out.push('Nothing.');
-    for (const l of placed.slice(0, maxLines)) { const a = l.perAccount.find((p) => p.label === l.account) ; out.push(`• ${l.name} (${l.setup}): ${l.account} buy ${a.qty}, first ${a.first}, at ${l.entry}, stop ${l.stop}. Limit: ${a.binding}.`); }
+    if (!placed.length) out.push('No official orders tonight.');
+    for (const l of placed.slice(0, maxLines)) { const a = l.perAccount.find((p) => p.label === l.account) , aw = awayText(l.entry, l.close); out.push(`• ${l.name} (${l.setup}): ${l.account} buy ${a.qty}, first ${a.first}, buy above ${l.entry}${aw ? ` (${aw})` : ''}, stop ${l.stop}. Limit: ${a.binding}.`); }
     if (placed.length > maxLines) out.push(`+${placed.length - maxLines} more on the Scans tab.`);
     if (rest.length) {
       out.push('', `SKIPPED (${rest.length})`);
@@ -159,6 +173,48 @@ export function sizedMessage(ov         , maxLines = 10)                {
     for (const s of ov.stale) out.push(`• ${s.label}: ${s.savedAt ? `saved ${dm(s.savedAt)}, ${s.ageDays} days ago` : 'no save date'}`);
     out.push('Upload them again to include them.');
   }
-  out.push('', 'A suggestion, never an order.');
+  out.push('', 'A suggestion, never an order. Paper-test picks are in a separate message.');
+  return out.join('\n');
+}
+
+// ---- The paper-test file (private repo only; Engine Rules C-113): the paper book's capwaived and comparator picks for tonight, each tagged with its stream. Never sized against real accounts.
+                                                                                                                                                                                                                                                                           
+                                                                                                                                   
+                                                                                                                          
+export const PAPER_NOTICE = 'Not for placing. These paper trades test whether the stop-width cap and the room rule cost winners (C-53). Read at 300 picks or 12 months, whichever is later.';
+/** What the LIVE rules say about each paper pick, from a separate sizing run per stream so paper picks never use real open-risk room or position slots. Keyed `stream:sym`. Empty when the accounts cannot be sized. */
+export function paperVerdicts(ok       , pool                                                             , picks             , ctx             , stale             , maxAgeDays        )                         {
+  const res                         = {};
+  for (const stream of ['capwaived', 'comparator']                 ) {
+    const cands = picks.filter((p) => p.stream === stream).map((p) => p.cand); if (!cands.length) continue;
+    const { out } = orderRun(ok, pool, cands, ctx), ov = buildOverlay({ asOf: ctx.today, light: ctx.light, vix: null, out, stale, maxAgeDays, accounts: ok.map((x) => x.a.label) });
+    for (const l of ov.lines) res[`${stream}:${l.sym}`] = l.account ? 'passes the live rules' : (l.reason ?? l.verdict);
+  }
+  return res;
+}
+export function buildPaperTest(p                                                                                                                                           )            {
+  const lines              = p.picks.map((k) => ({ stream: k.stream, sym: k.cand.sym, name: k.cand.name ?? k.cand.sym, setup: String(k.cand.setup), kind: k.kind, entry: k.cand.trigger, stop: k.cand.stop, close: p.closes?.[k.cand.sym] ?? null,
+    stopPct: k.stopPct, maxStopPct: k.maxStopPct, roomR: k.roomR, tags: k.tags, live: p.verdicts[`${k.stream}:${k.cand.sym}`] ?? null }));
+  const tally               = ['official', 'capwaived', 'comparator'].map((st) => { const t = p.paper?.[st] ?? {}; return { stream: st, orders: t.orders ?? 0, open: t.open ?? 0, pending: t.pending ?? 0, closed: t.closed ?? 0, meanR: typeof t.meanR === 'number' ? t.meanR : null }; });
+  return { asOf: p.asOf, light: p.light, lines, tally, notice: PAPER_NOTICE };
+}
+const sgn = (n        ) => (n >= 0 ? '+' : '−') + Math.abs(n).toFixed(2);
+/** The separate nightly Telegram note for the paper test. Sent every night, each pick tagged with its stream, and says plainly it is not for placing. */
+export function paperMessage(pt           , maxLines = 10)         {
+  const day = new Date(pt.asOf + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const out           = [`Swing PAPER TEST · ${day} · ${pt.light ? pt.light.toUpperCase() + ' light' : 'NO market light'}`, 'Not for placing. These paper trades test whether the stop-width cap and the room rule cost winners (C-53).'];
+  const section = (stream             , title        ) => {
+    const ls = pt.lines.filter((l) => l.stream === stream);
+    out.push('', `${title} (${ls.length})`);
+    if (!ls.length) out.push('None tonight.');
+    for (const l of ls.slice(0, maxLines)) {
+      const lvl = l.kind === 'close' ? `enter at the next close (reference ${l.entry})` : `buy above ${l.entry}${l.close ? ` (${awayText(l.entry, l.close)})` : ''}`;
+      out.push(`• ${l.name} (setup ${l.setup}) [${stream}]: ${lvl}, stop ${l.stop}${l.stopPct !== null ? `, ${l.stopPct}% wide` : ''}.${l.live ? ` Live rules: ${l.live}.` : ''}`);
+    }
+    if (ls.length > maxLines) out.push(`+${ls.length - maxLines} more on the Paper test tab.`);
+  };
+  section('capwaived', 'CAPWAIVED, buy above a trigger, stop at most 2.5 ATR away');
+  section('comparator', 'COMPARATOR, bought at the next close after a signal');
+  out.push('', 'So far: ' + pt.tally.map((t) => `${t.stream} ${t.orders} orders${t.meanR !== null ? ` (avg ${sgn(t.meanR)}R)` : ''}`).join(', ') + '.');
   return out.join('\n');
 }
