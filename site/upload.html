@@ -1510,6 +1510,7 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     S.holdHealth = await fetch('pm-data/holdhealth.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.intlFacts = await fetch('pm-data/intlfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.fundMix = await fetch('pm-data/mix-auto.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    S.data.fundMix = S.fundMix?.funds ?? {};   // the Equity Savings tax class reads each fund's stated minimum equity (C-115)
     S.sectors = await fetch('pm-data/sectors.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.debtStats = await fetch('pm-data/debtstats.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     S.stockFacts = await fetch('pm-data/stockfacts.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);

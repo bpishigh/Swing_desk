@@ -23,7 +23,7 @@ export function loadPublicData() {
   }
   if (existsSync('data/calendar')) for (const f of readdirSync('data/calendar').filter((x) => /^markets-\d{4}\.json$/.test(x))) { const c = J('data/calendar/' + f).india ?? {}; for (const h of c.holidays ?? []) holidays.push(typeof h === 'string' ? h : h.date); for (const e of c.extraSessions ?? []) extra.push(typeof e === 'string' ? e : e.date); }
   const alloc = J('settings/allocation.json');
-  const data = { feed: J('data/india/corp-actions-history.json', []), demergers: J(RULE('demergers')).records, ipos: J(RULE('ipos')).records, amfi: J('data/rules/amfi-schemes.json').rows, fundOverrides: J(RULE('fund-overrides')).records,
+  const data = { feed: J('data/india/corp-actions-history.json', []), demergers: J(RULE('demergers')).records, ipos: J(RULE('ipos')).records, amfi: J('data/rules/amfi-schemes.json').rows, fundMix: J('data/funds/mix-auto.json', { funds: {} }).funds, fundOverrides: J(RULE('fund-overrides')).records,
     charges: J('data/rules/charges.json'), taxRules: J('data/rules/tax.json'), divRules: J('data/rules/dividend.json'), prices, pricesAsOf: bhav.date ?? bf[bf.length - 1].slice(0, 10), priceHistory: { dates, px },
     shortlist: lines.length && alloc.swingMatch ? { lines, match: alloc.swingMatch, holidays: holidays.filter(Boolean), extra: extra.filter(Boolean), checked, liveFrom: goLive } : undefined };
   return { data, alloc, asOf: dates[dates.length - 1] };

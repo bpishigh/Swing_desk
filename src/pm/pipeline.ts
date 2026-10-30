@@ -27,6 +27,7 @@ export interface PublicData {
   prices: Record<string, number>; pricesAsOf: string;      // latest close by NSE symbol
   priceHistory?: { dates: string[]; px: Record<string, (number | null)[]> };   // stored closes by day, for the valuation chart
   shortlist?: { lines: ShortLine[]; match: MatchSettings; holidays?: string[]; extra?: string[]; checked?: string[]; liveFrom?: string | null };   // saved nightly shortlists (public) and the provisional near-match numbers
+  fundMix?: Record<string, { eqMin?: number | null }>;      // each fund's stated minimum equity (data/funds/mix-auto.json), for the Equity Savings tax class (C-115)
   navHistory?: Record<string, Record<string, number>>;     // fund NAV by ISIN and date (fetched in the browser, opt-in)
 }
 export interface Report {
@@ -79,7 +80,7 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
   const catByKey = new Map<string, string>(); const fundTrades: Trade[] = [], unmapped = new Set<string>(), navOf = new Map<string, number>();
   for (const t of funds) {
     const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; }
-    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
+    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name, d.fundMix?.[x.match.isin]?.eqMin ?? null)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }

@@ -33,12 +33,14 @@ export class FundMaster {
 
                                                                                                               
 /** Tax class of a fund from its AMFI category (design section 7). Anything the category does not settle stays unclassified, shown with a flag. */
-export function fundTaxType(category        , name = '')              {
+export function fundTaxType(category        , name = '', eqMin                = null)              {
   const c = category.toLowerCase(), n = name.toLowerCase();
   if (/fof overseas|overseas|international/.test(c) || /gold|silver/.test(n) && /fund of fund|fof/.test(n + ' ' + c)) return 'overseas_fof';
   if (/index fund|etf/.test(c) && /gold|silver/.test(n)) return 'overseas_fof';
   if (/arbitrage/.test(c) || /balanced advantage|dynamic asset/.test(c)) return 'equity_fund';
-  if (/aggressive hybrid|equity savings/.test(c)) return /equity savings/.test(c) ? 'hybrid_other' : 'equity_fund';
+  // Equity Savings (C-115): taxed as an equity fund when the fund's own stated minimum equity incl. arbitrage is 65% or more; below that, or not known, the cautious hybrid rule
+  if (/equity savings/.test(c)) return eqMin !== null && eqMin >= 65 ? 'equity_fund' : 'hybrid_other';
+  if (/aggressive hybrid/.test(c)) return 'equity_fund';
   if (/^equity scheme/.test(c) || /elss|index fund|sectoral|thematic/.test(c) && !/debt/.test(c)) return 'equity_fund';
   if (/index funds|other scheme - index|other scheme - etf/.test(c)) return /nifty|sensex|bse|nasdaq|s&p/.test(n) && !/nasdaq|s&p ?500|us /.test(n) ? 'equity_fund' : 'fund_unclassified';
   if (/debt|income|liquid|money market|gilt|overnight|ultra short|low duration|floater|corporate bond|credit risk|banking and psu|short duration|medium duration|long duration|dynamic bond/.test(c)) return 'debt_fund';

@@ -27,6 +27,7 @@ export const ELSS_MARGIN_DAYS = 5;
                                                                                         
                                                                                                                                
                                                                                                                                                                                                                               
+                                                                                                                                                                     
                                                                                                                         
  
                          
@@ -79,7 +80,7 @@ export function runPipeline(batches           , broker                     , d  
   const catByKey = new Map                (); const fundTrades          = [], unmapped = new Set        (), navOf = new Map                ();
   for (const t of funds) {
     const x = fm.resolve(t.instrument, t.isin); if (!x.match) { unmapped.add(t.instrument); continue; }
-    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
+    catByKey.set(x.match.isin, x.match.category); typeByKey.set(x.match.isin, fundTaxType(x.match.category, x.match.name, d.fundMix?.[x.match.isin]?.eqMin ?? null)); nameByKey.set(x.match.isin, x.match.name); if (x.match.nav) navOf.set(x.match.isin, x.match.nav);
     fundCodes[x.match.isin] = x.match.code; fundTrades.push({ ...t, isin: x.match.isin });
   }
   for (const k of kids.values()) if (k.childIsin) { if (k.childName) nameByKey.set(k.childIsin, k.childName); if (k.childSymbol) symKid.set(k.childIsin, k.childSymbol); }

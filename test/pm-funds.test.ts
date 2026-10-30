@@ -43,4 +43,9 @@ test('AMFI category sets the fund tax class', () => {
   assert.equal(fundTaxType('Hybrid Scheme - Conservative Hybrid Fund'), 'debt_fund');   // specified mutual fund: more than 65% in debt
   assert.equal(assetClassOf('Fund', 'X Conservative Hybrid Fund', 'Hybrid Scheme - Conservative Hybrid Fund', 'debt_fund'), 'hybrid');   // allocation still counts it as hybrid
   assert.equal(fundTaxType('Something Unknown'), 'fund_unclassified');
+  // C-115: Equity Savings is taxed as an equity fund when its stated minimum equity is 65% or more, else (below, or unknown) the cautious hybrid rule
+  assert.equal(fundTaxType('Hybrid Scheme - Equity Savings', 'X Equity Savings Fund', 65), 'equity_fund');
+  assert.equal(fundTaxType('Hybrid Scheme - Equity Savings', 'X Equity Savings Fund', 20), 'hybrid_other');
+  assert.equal(fundTaxType('Hybrid Scheme - Equity Savings', 'X Equity Savings Fund'), 'hybrid_other');
+  assert.equal(fundTaxType('Hybrid Scheme - Equity Savings', 'X Equity Savings Fund', null), 'hybrid_other');
 });
