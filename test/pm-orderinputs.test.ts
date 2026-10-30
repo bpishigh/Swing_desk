@@ -60,7 +60,7 @@ test('overlay: with nothing stale the lines are exactly the sized lines and ther
   const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
   const { out } = orderRun(ok, pool, [cand] as any, ctx());
   const ov = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
-  assert.equal(ov.banner, null); assert.deepEqual(ov.lines, out.lines); assert.equal(ov.risk, out.risk);
+  assert.equal(ov.banner, null); assert.deepEqual(ov.lines.map(({ reason, ...l }) => l), out.lines); assert.ok(ov.lines.every((l) => l.reason === null || !l.account)); assert.equal(ov.risk, out.risk);
 });
 test('overlay: a stale account is blanked with the reason, a line routed to it is not placed, the other account keeps its size', () => {
   const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
@@ -90,14 +90,15 @@ test('GET ?view=sized needs a sign-in', async () => {
   assert.equal(res.status, 401);
 });
 
-import { sizedMessage } from '../src/pm/orderinputs.ts';
+import { sizedMessage, shortReason } from '../src/pm/orderinputs.ts';
 test('Telegram text: placed lines name the account, quantity and binding limit; a line nobody takes gives its reason once', () => {
   const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
   const { out } = orderRun(ok, pool, [cand, { ...cand, sym: 'WIDE', name: 'Wide Ltd', stop: 500 }] as any, ctx());
   const ov = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
   const m = sizedMessage(ov)!;
-  assert.match(m, /^Swing orders 2026-10-30 \(green light/); assert.match(m, /AAA Ltd \(.*\): [AB] buy \d+, first \d+, at 1005, stop 940\. Limited by /);
-  const wide = m.split('\n').find((x) => x.startsWith('Not placed, Wide Ltd'))!; assert.ok(wide && !/A: .*; B: /.test(wide), 'one shared reason, not repeated per account');
+  assert.match(m, /^Swing orders · Fri 30 Oct · GREEN light\nRisk 0\.5% of swing capital per trade/); assert.match(m, /BUY TONIGHT\n• AAA Ltd \(.*\): [AB] buy \d+, first \d+, at 1005, stop 940\. Limit: /);
+  const wide = m.split('\n').find((x) => x.startsWith('• Wide Ltd'))!; assert.ok(wide && /stop [\d.]+% below entry, over the \d+% limit/.test(wide) && !/A: .*; B: /.test(wide), 'one shared reason in a few words, not repeated per account');
+  assert.match(m, /SKIPPED \(1\)/);
   assert.match(m, /A suggestion, never an order\.$/);
 });
 test('Telegram text: nothing to say gives no message; a stale account is named in it', () => {
@@ -106,7 +107,15 @@ test('Telegram text: nothing to say gives no message; a stale account is named i
   assert.equal(sizedMessage(none), null);
   const { out } = orderRun(ok, pool, [cand] as any, ctx());
   const stale = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [{ label: 'B', savedAt: '2026-10-01', ageDays: 29 }], maxAgeDays: 7, accounts: ['A', 'B'] });
-  assert.match(sizedMessage(stale)!, /Not sized for B: ledger last saved 2026-10-01, 29 days ago/);
+  assert.match(sizedMessage(stale)!, /NOT SIZED \(ledger older than 7 days\)\n• B: saved 1 Oct, 29 days ago\nUpload them again/);
   const dark = buildOverlay({ asOf: '2026-10-30', light: null, vix: null, out: orderRun(ok, pool, [cand] as any, ctx({ light: null })).out, stale: [], maxAgeDays: 7, accounts: ['A', 'B'] });
   assert.match(sizedMessage(dark)!, /No market light/);
+});
+
+test('a stale account does not hide the real reason: the stock\'s own reason comes from the accounts that are current', () => {
+  const xs = [acct('a', 'A', 'P1', rep()), acct('b', 'B', 'P2', rep())], ok = poolAccounts(xs), pool = poolInputs(ok, P, '2026-10-30');
+  const { out } = orderRun(ok, pool, [{ ...cand, sym: 'WIDE', name: 'Wide Ltd', stop: 500 }] as any, ctx());
+  const ov = buildOverlay({ asOf: '2026-10-30', light: 'green', vix: 14, out, stale: [{ label: 'B', savedAt: '2026-10-01', ageDays: 29 }], maxAgeDays: 7, accounts: ['A', 'B'] });
+  assert.match(ov.lines[0].reason!, /^stop [\d.]+% below entry, over the \d+% limit for /); assert.doesNotMatch(ov.lines[0].reason!, /ledger/);
+  assert.equal(shortReason('something else'), 'something else');
 });

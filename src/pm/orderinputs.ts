@@ -99,7 +99,12 @@ export function orderRun(ok: any[], pool: { accts: any[]; rows: any[]; stcg: Rec
 export interface StaleAcct { label: string; savedAt: string; ageDays: number }
 export interface Overlay {
   asOf: string; light: string | null; vix: number | null; ledgerMaxAgeDays: number; stale: StaleAcct[]; banner: string | null;
-  risk: number; cap: number; maxPos: number; why: string[]; householdOpenRisk: number; householdCapRs: number; householdPositions: number; accounts: string[]; notes: string[]; lines: OrderLine[];
+  risk: number; cap: number; maxPos: number; why: string[]; householdOpenRisk: number; householdCapRs: number; householdPositions: number; accounts: string[]; notes: string[]; lines: (OrderLine & { reason: string | null })[];
+}
+/** A reason in fewer words: the stop-width skip says the numbers and nothing else. */
+export function shortReason(r: string): string {
+  const m = /^the stop is ([\d.]+)% below the entry after the 1\.5 ATR floor, over the ([\d.]+)% limit for (.+): skip, do not resize$/.exec(r);
+  return m ? `stop ${m[1]}% below entry, over the ${m[2]}% limit for ${m[3]}` : r;
 }
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(b.slice(0, 10)) - Date.parse(a.slice(0, 10))) / 86400000);
 /** Accounts whose last save is more than `maxAgeDays` days before `asOf` (design section 1.1: a stale ledger is never used silently). */
@@ -112,13 +117,16 @@ export function staleAccounts(accts: { label: string; savedAt?: string }[], asOf
 /** The overlay file. A stale account's quantities are blanked with the reason, a line routed to it is not placed, and the file carries a banner; the other accounts keep their sizes. */
 export function buildOverlay(p: { asOf: string; light: string | null; vix: number | null; out: OrdersOut; stale: StaleAcct[]; maxAgeDays: number; accounts: string[] }): Overlay {
   const staleBy = new Map(p.stale.map((s) => [s.label, s])), why = (s: StaleAcct) => (s.savedAt ? `ledger last saved ${s.savedAt}, ${s.ageDays} days ago (limit ${p.maxAgeDays}): not sized` : 'ledger has no save date: not sized');
-  const lines: OrderLine[] = p.out.lines.map((l) => {
+  const lines = p.out.lines.map((l) => {
     const perAccount = l.perAccount.map((a) => { const s = staleBy.get(a.label); return s ? { ...a, qty: 0, first: 0, value: 0, ok: false, binding: why(s), note: why(s) } : a; });
     const routed = l.account ? staleBy.get(l.account) : undefined;
-    if (routed) return { ...l, perAccount, account: null, verdict: `Not sized: ${l.account}: ${why(routed)}` };
+    // why nobody can take it, from the accounts that are not stale (their reasons are about the stock and the limits); when every account is stale, from all of them
+    const own = l.perAccount.filter((a) => !staleBy.has(a.label)), src = own.length ? own : l.perAccount, notes = src.map((a) => shortReason(a.note ?? a.binding)), u = [...new Set(notes)];
+    const reason = u.length <= 1 ? (u[0] ?? l.verdict) : src.map((a, i) => `${a.label}: ${notes[i]}`).join('; ');
+    if (routed) return { ...l, perAccount, account: null, verdict: `Not sized: ${l.account}: ${why(routed)}`, reason: `it would go to ${l.account}, whose ledger is too old to size` };
     // a line nobody can take: say why again from the (now blanked) per-account reasons, so a stale account is named and not shown under the reason it would have had
     const verdict = !l.account && l.verdict.startsWith('No account can take it: ') && perAccount.some((a, i) => a !== l.perAccount[i]) ? 'No account can take it: ' + perAccount.map((a) => `${a.label}: ${a.note ?? a.binding}`).join('; ') : l.verdict;
-    return { ...l, perAccount, verdict };
+    return { ...l, perAccount, verdict, reason: l.account ? null : reason };
   });
   const banner = p.stale.length ? `Not sized for ${p.stale.map((s) => s.label).join(', ')}: ${p.stale.map(why).join('; ')}. Upload the account again to size it. Household limits for the other accounts still count that account's last known positions.` : null;
   const o = p.out;
@@ -126,21 +134,31 @@ export function buildOverlay(p: { asOf: string; light: string | null; vix: numbe
     risk: o.risk, cap: o.cap, maxPos: o.maxPos, why: o.why, householdOpenRisk: Math.round(o.householdOpenRisk), householdCapRs: Math.round(o.householdCapRs), householdPositions: o.householdPositions, accounts: p.accounts, notes: o.notes, lines };
 }
 
-/** The Telegram text for the overlay, or null when there is nothing to say (no lines, no banner and a market light is saved). Placed lines first with the account, quantity, price and the limit that bound; then the lines nobody can take, each with its first reason. */
-export function sizedMessage(ov: Overlay, maxLines = 12): string | null {
-  if (!ov.lines.length && !ov.banner && ov.light) return null;   // a missing market light is worth saying, nothing else is if there are no lines
+/** '2026-10-13' as '13 Oct'. */
+const dm = (d: string) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '');
+/** The Telegram text for the overlay, or null when there is nothing to say (no lines, no banner and a market light is saved). Sections: what to buy tonight, what was skipped and why (each in a few words), and which accounts were not sized. */
+export function sizedMessage(ov: Overlay, maxLines = 10): string | null {
+  if (!ov.lines.length && !ov.stale.length && ov.light) return null;   // a missing market light is worth saying; nothing else is if there are no lines
   const placed = ov.lines.filter((l) => l.account), rest = ov.lines.filter((l) => !l.account);
-  const acct = (l: OrderLine) => l.perAccount.find((p) => p.label === l.account)!;
-  const out: string[] = [`Swing orders ${ov.asOf} (${ov.light ?? 'no'} light${ov.risk ? `, risk ${ov.risk}% per trade` : ''}):`];
-  if (ov.banner) out.push(ov.banner);
-  if (!ov.lines.length) out.push(ov.notes.find((n) => /No market light/.test(n)) ?? 'No orders in tonight\'s plan.');
-  for (const l of placed.slice(0, maxLines)) { const a = acct(l); out.push(`${l.name} (${l.setup}): ${l.account} buy ${a.qty}, first ${a.first}, at ${l.entry}, stop ${l.stop}. Limited by ${a.binding}.`); }
-  const room = Math.max(0, maxLines - placed.length);
-  // the reason once when every account gives the same one, else each account's own
-  const why = (l: OrderLine) => { const r = l.perAccount.map((p) => p.note ?? p.binding), u = [...new Set(r)]; const t = !l.perAccount.length ? l.verdict : u.length === 1 ? u[0] : l.perAccount.map((p, i) => `${p.label}: ${r[i]}`).join('; '); return t.length > 160 ? t.slice(0, 157) + '...' : t; };
-  for (const l of rest.slice(0, room)) out.push(`Not placed, ${l.name} (${l.setup}): ${why(l)}`);
-  const more = placed.length + rest.length - Math.min(placed.length, maxLines) - Math.min(rest.length, room);
-  if (more > 0) out.push(`+${more} more on the Scans tab.`);
-  out.push('A suggestion, never an order.');
+  const day = new Date(ov.asOf + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const out: string[] = [`Swing orders · ${day} · ${ov.light ? ov.light.toUpperCase() + ' light' : 'NO market light'}`];
+  if (ov.light) out.push(`Risk ${ov.risk}% of swing capital per trade, up to ${ov.maxPos} swing positions.`); else out.push('No market light is saved, so nothing is sized.');
+  if (ov.light) {
+    out.push('', 'BUY TONIGHT');
+    if (!placed.length) out.push('Nothing.');
+    for (const l of placed.slice(0, maxLines)) { const a = l.perAccount.find((p) => p.label === l.account)!; out.push(`• ${l.name} (${l.setup}): ${l.account} buy ${a.qty}, first ${a.first}, at ${l.entry}, stop ${l.stop}. Limit: ${a.binding}.`); }
+    if (placed.length > maxLines) out.push(`+${placed.length - maxLines} more on the Scans tab.`);
+    if (rest.length) {
+      out.push('', `SKIPPED (${rest.length})`);
+      for (const l of rest.slice(0, maxLines)) out.push(`• ${l.name}: ${l.reason ?? l.verdict}`);
+      if (rest.length > maxLines) out.push(`+${rest.length - maxLines} more on the Scans tab.`);
+    }
+  }
+  if (ov.stale.length) {
+    out.push('', `NOT SIZED (ledger older than ${ov.ledgerMaxAgeDays} days)`);
+    for (const s of ov.stale) out.push(`• ${s.label}: ${s.savedAt ? `saved ${dm(s.savedAt)}, ${s.ageDays} days ago` : 'no save date'}`);
+    out.push('Upload them again to include them.');
+  }
+  out.push('', 'A suggestion, never an order.');
   return out.join('\n');
 }
