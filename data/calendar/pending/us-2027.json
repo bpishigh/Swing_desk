@@ -1,0 +1,9 @@
+{
+  "note": "NOT LOADED (the folder 'pending' is not read by any script). NYSE 2027 holidays, ready to move into data/calendar/markets-2027.json together with the NSE 2027 list once NSE publishes its circular (usually December). Putting a markets-2027.json in place with US only would switch off the 1 December missing-calendar alert while India's 2027 holidays are still unknown.",
+  "source": "NYSE Group, 'NYSE Group Announces 2026, 2027 and 2028 Holiday and Early Closings Calendar' (ir.theice.com, Dec 2025), read 31 Oct 2026",
+  "us": {
+    "holidays": ["2027-01-01", "2027-01-18", "2027-02-15", "2027-03-26", "2027-05-31", "2027-06-18", "2027-07-05", "2027-09-06", "2027-11-25", "2027-12-24"],
+    "shortSessions": [{ "date": "2027-11-26", "what": "early close 1 pm ET (day after Thanksgiving)" }]
+  },
+  "indiaProvisionalNotForUse": "A third-party list (financecalendar.com, 31 Oct 2026) shows 26 Jan, 10 Mar, 22 Mar, 26 Mar, 14 Apr, 15 Apr, 17 May, 16 Jun and 29 Oct 2027 as closures. It cites no NSE circular and says dates may change, so it is not recorded as holidays. Use the NSE circular."
+}
