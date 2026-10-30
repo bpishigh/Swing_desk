@@ -136,7 +136,7 @@ import { harvest, saleAfter, HARVEST_DEFAULTS } from './pm/harvest.js';
 import { promoteOf, sizePromote } from './pm/promote.js';
 import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
-import { readRows, mergeTrades } from './pm/reader.js';
+import { readRows, readSheets, detectBroker, mergeTrades } from './pm/reader.js';
 import { readSnapshot, reconcile } from './pm/snapshot.js';
 import { readPnl, reconcilePnl } from './pm/plrecon.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -1554,15 +1554,14 @@ $('run').onclick = async () => {
   if (owner && !/^[A-Za-z0-9][A-Za-z0-9 _.-]{0,39}$/.test(owner)) return setStatus('Owner name: letters and numbers only.');
   setStatus('Reading files…'); await new Promise((r) => setTimeout(r, 20));
   try {
-    const batches = [], notes = [];
+    const batches = [], notes = [], seen = new Set();
     for (const f of files) {
-      const rows = /\.xlsx$/i.test(f.name) ? (await readXlsxAsync(new Uint8Array(await f.arrayBuffer())))[0].rows : parseCsv(await f.text());
-      const r = readRows(rows, { filename: f.name });
-      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else batches.push(r.trades);
+      const r = /\.xlsx$/i.test(f.name) ? readSheets(await readXlsxAsync(new Uint8Array(await f.arrayBuffer())), { filename: f.name }) : readRows(parseCsv(await f.text()), { filename: f.name });   // every sheet of a workbook (J10)
+      if (r.rejected) notes.push(`${f.name}: not read (${r.rejected})`); else { batches.push(r.trades); const b = detectBroker(r); if (b) seen.add(b); if (r.sheetsRead && r.sheetsRead.length > 1) notes.push(`${f.name}: read ${r.sheetsRead.length} sheets (${r.sheetsRead.join(', ')})`); }
     }
     if (!batches.length) throw new Error('No readable tradebook among the files. ' + notes.join(' '));
     const key = keyOf(label), ex = S.accounts.get(key);
-    const detected = files.some((f) => /tradebook/i.test(f.name) || /\.csv$/i.test(f.name)) ? 'zerodha' : 'groww';
+    const detected = seen.size === 1 ? [...seen][0] : files.some((f) => /tradebook/i.test(f.name) || /\.csv$/i.test(f.name)) ? 'zerodha' : 'groww';   // from the file's own columns when they say, else the old file-name guess (J10)
     const broker = $('broker').value === 'auto' ? (ex && ex.trades.length ? ex.broker : detected) : $('broker').value;
     const a = ex ?? { key, label, broker, owner: '', trades: [], report: null };
     a.label = ex ? ex.label : label; a.broker = broker; if (owner) a.owner = owner;

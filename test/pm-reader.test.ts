@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { deflateRawSync } from 'node:zlib';
 import { parseCsv } from '../src/pm/csv.ts';
 import { readXlsx } from '../src/pm/xlsx.ts';
-import { readRows, mergeTrades, aggregateFills, accountAlias, parseDateColumn } from '../src/pm/reader.ts';
+import { readRows, readSheets, detectBroker, mergeTrades, aggregateFills, accountAlias, parseDateColumn } from '../src/pm/reader.ts';
 import { replay } from '../src/pm/ledger.ts';
 
 const kite = `symbol,isin,trade_date,exchange,segment,series,trade_type,auction,quantity,price,trade_id,order_id,order_execution_time
@@ -95,4 +95,21 @@ test('xlsx: shared strings, numbers, preamble, skipped empty cells; read through
   const sheets = readXlsx(xlsxFile(sheet, s));
   const r = readRows(sheets[0].rows);
   assert.equal(r.trades.length, 1); assert.equal(r.trades[0].date, '2024-01-12'); assert.equal(r.trades[0].kind, 'fund'); assert.equal(r.trades[0].price, 25);
+});
+
+test('J10: every sheet of a workbook is read, a non-tradebook sheet is skipped, and the broker comes from the columns', () => {
+  const kiteRows = parseCsv(kite), grow = parseCsv(`Stock name,ISIN,Quantity,Value,Exchange,Exchange Order Id,Execution date and time,Order status,Type
+ABC LTD,INE000A01010,10,1000,NSE,X1,10-01-2024 10:15 AM,Executed,BUY`);
+  const two = readSheets([{ name: 'Summary', rows: [['Client', 'Z1'], ['Report', 'x']] }, { name: 'FY24', rows: kiteRows }, { name: 'FY25', rows: parseCsv(kite.replace(/,1,O1/, ',11,O11').replace(/,2,O1/, ',12,O11').replace(/,3,O2/, ',13,O12')) }]);
+  assert.equal(two.rejected, undefined);
+  assert.deepEqual(two.sheetsRead, ['FY24', 'FY25']);
+  assert.equal(two.trades.length, 6);
+  assert.equal(mergeTrades([two.trades]).trades.length, 6);
+  const none = readSheets([{ name: 'A', rows: [['x']] }, { name: 'B', rows: [] }]);
+  assert.ok(none.rejected);
+  const one = readSheets([{ name: 'Only', rows: [['x']] }]);
+  assert.ok(one.rejected && !/^Only:/.test(one.rejected));
+  assert.equal(detectBroker(readRows(kiteRows)), 'zerodha');
+  assert.equal(detectBroker(readRows(grow)), 'groww');
+  assert.equal(detectBroker(readRows(parseCsv('Name,Quantity,Price,Type,Date\nABC,1,10,BUY,2024-01-01'))), null);
 });

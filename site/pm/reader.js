@@ -208,3 +208,18 @@ export function aggregateFills(trades         )          {
   return out;
 }
 export const accountAlias = (clientCode        , salt        )         => 'A' + (globalThis       ).process.getBuiltinModule('node:crypto').createHmac('sha256', salt).update(clientCode.trim().toUpperCase()).digest('hex').slice(0, 8); // Node only; the browser never writes aliases
+
+// ---- workbooks and brokers (scope J10)
+/** Reads every sheet of a workbook, not just the first. A sheet that is not a tradebook (a summary, a blank) is skipped without a note; the file is rejected only when no sheet reads. */
+export function readSheets(sheets                                           , opts                        = {})                                        {
+  const ok                                         = [], reasons           = [];
+  for (const s of sheets) { const r = readRows(s.rows, opts); if (r.rejected) reasons.push(`${s.name}: ${r.rejected}`); else ok.push({ name: s.name, r }); }
+  if (!ok.length) { const e = readRows([], opts); return { ...e, rejected: reasons.length ? (sheets.length > 1 ? reasons.join('; ') : reasons[0].replace(/^[^:]*: /, '')) : e.rejected, sheetsRead: [] }; }
+  const first = ok[0].r;
+  return { ...first, trades: ok.flatMap((x) => x.r.trades), issues: ok.flatMap((x) => x.r.issues), confidence: ok.every((x) => x.r.confidence === 'high') ? 'high' : 'low', sheetsRead: ok.map((x) => x.name) };
+}
+/** The broker from the file's own columns, or null when they do not say. A trade-id column is Zerodha's tradebook; an order-status column is Groww's order history. Both or neither: null, and the caller falls back to the file name. */
+export function detectBroker(r            )                             {
+  const m = r.profile.mapping, trade = m.tradeId !== undefined, status = m.status !== undefined;
+  return trade && !status ? 'zerodha' : status && !trade ? 'groww' : null;
+}
