@@ -10,7 +10,7 @@
   "withRs": 467,
   "rsGate": 98,
   "template": 33,
-  "qualified": 18,
+  "qualified": 15,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -223,108 +223,6 @@
    ]
   },
   {
-   "sym": "COFORGE",
-   "type": "CS",
-   "group": "Information Technology",
-   "path": "main",
-   "rsPct": 89.27,
-   "close": 2045,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 66.12,
-   "tightness": 1.27,
-   "distPivot": 0.81,
-   "setup": null,
-   "diag": {
-    "rs121": -1.86,
-    "rs6m2w": 50.8,
-    "atr14": 74.51,
-    "sma50": 1881.98,
-    "sma200": 1540.14,
-    "high52": 2061.8,
-    "low52": 1008.1,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 89.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.8% below its 52-week high (limit 25%) and 102.9% above its 52-week low (needs 30%).",
-    "Group: Information Technology ranks 6 of 18 (median strength 59); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
-   "sym": "ADANIPORTS",
-   "type": "CS",
-   "group": "Services",
-   "path": "main",
-   "rsPct": 86.91,
-   "close": 1850,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 63.62,
-   "tightness": 1.18,
-   "distPivot": 1.18,
-   "setup": null,
-   "diag": {
-    "rs121": 25.39,
-    "rs6m2w": 15.31,
-    "atr14": 49.01,
-    "sma50": 1743.26,
-    "sma200": 1653.53,
-    "high52": 1891.1,
-    "low52": 1292,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 86.9th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.2% below its 52-week high (limit 25%) and 43.2% above its 52-week low (needs 30%).",
-    "Group: Services ranks 5 of 18 (median strength 64); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
-   "sym": "GESHIP",
-   "type": "CS",
-   "group": "Services",
-   "path": "main",
-   "rsPct": 94.21,
-   "close": 1593.6,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 61.8,
-   "tightness": 1.17,
-   "distPivot": 3.24,
-   "setup": null,
-   "diag": {
-    "rs121": 50.88,
-    "rs6m2w": 5.98,
-    "atr14": 51.34,
-    "sma50": 1453.43,
-    "sma200": 1403.94,
-    "high52": 1798,
-    "low52": 1002.55,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 94.2th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 11.4% below its 52-week high (limit 25%) and 59% above its 52-week low (needs 30%).",
-    "Group: Services ranks 5 of 18 (median strength 64); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 3.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "CPPLUS",
    "type": "CS",
    "group": "Capital Goods",
@@ -451,6 +349,38 @@
     "Group: Capital Goods ranks 3 of 18 (median strength 65.9); the 4 strongest groups are traded in the red light.",
     "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 8.2% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
+  },
+  {
+   "sym": "LLOYDSME",
+   "type": "CS",
+   "group": "Metals & Mining",
+   "path": "main",
+   "rsPct": 85.84,
+   "close": 1825.3,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 51.5,
+   "tightness": 1.06,
+   "distPivot": 6.01,
+   "setup": null,
+   "diag": {
+    "rs121": 43.65,
+    "rs6m2w": 20,
+    "atr14": 47.9,
+    "sma50": 1823.47,
+    "sma200": 1630.69,
+    "high52": 2125,
+    "low52": 1042.9,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 85.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 14.1% below its 52-week high (limit 25%) and 75% above its 52-week low (needs 30%).",
+    "Group: Metals & Mining ranks 4 of 18 (median strength 65.8); the 4 strongest groups are traded in the red light.",
+    "Watch: a pattern is forming but there is under 3R of room before the next overhead high."
+   ]
   }
  ],
  "noGroup": {
@@ -459,7 +389,7 @@
  "thinGroup": {
   "qualified": 1
  },
- "qualifiedTotal": 18,
+ "qualifiedTotal": 15,
  "notes": [
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
