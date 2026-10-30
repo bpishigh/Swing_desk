@@ -23,31 +23,14 @@
    "inWindow": true
   },
   "XOM": {
-   "date": "2026-10-30",
-   "sessions": 1,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "CVX": {
-   "date": "2026-10-30",
-   "sessions": 1,
-   "inWindow": true
-  },
-  "P": {
-   "date": "2026-12-01",
-   "sessions": 22,
-   "inWindow": false,
-   "estimated": true
-  },
-  "HPE": {
-   "date": "2026-12-03",
-   "sessions": 24,
-   "inWindow": false,
-   "estimated": true
-  },
-  "NTAP": {
-   "date": "2026-12-01",
-   "sessions": 22,
-   "inWindow": false
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   }
  }
 }

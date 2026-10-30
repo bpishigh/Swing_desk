@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 299,
   "template": 174,
-  "qualified": 20,
+  "qualified": 15,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -563,108 +563,6 @@
     "Group: Petroleum refining ranks 1 of 59 (median strength 91.1); the 2 strongest groups are traded in the yellow light.",
     "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 1.1% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
-  },
-  {
-   "sym": "P",
-   "type": "CS",
-   "group": "Computer hardware",
-   "path": "main",
-   "rsPct": 95.85,
-   "close": 137.2,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 57.51,
-   "tightness": 1.1,
-   "distPivot": 12.93,
-   "setup": null,
-   "diag": {
-    "rs121": 37.17,
-    "rs6m2w": 96.76,
-    "atr14": 8.62,
-    "sma50": 119.37,
-    "sma200": 85.27,
-    "high52": 157.57,
-    "low52": 56.78,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 95.9th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.9% below its 52-week high (limit 25%) and 141.6% above its 52-week low (needs 30%).",
-    "Group: Computer hardware ranks 3 of 59 (median strength 87.1); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
-   "sym": "HPE",
-   "type": "CS",
-   "group": "Computer hardware",
-   "path": "main",
-   "rsPct": 95.51,
-   "close": 58.87,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 57.31,
-   "tightness": 0.86,
-   "distPivot": 19.97,
-   "setup": null,
-   "diag": {
-    "rs121": 163.46,
-    "rs6m2w": 126.46,
-    "atr14": 3.61,
-    "sma50": 59.67,
-    "sma200": 40.61,
-    "high52": 73.56,
-    "low52": 19.84,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 95.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 20% below its 52-week high (limit 25%) and 196.7% above its 52-week low (needs 30%).",
-    "Group: Computer hardware ranks 3 of 59 (median strength 87.1); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 0.9, needs under 0.7); price is 20% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "NTAP",
-   "type": "CS",
-   "group": "Computer hardware",
-   "path": "main",
-   "rsPct": 92.52,
-   "close": 218.42,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 55.51,
-   "tightness": 1.03,
-   "distPivot": 9.32,
-   "setup": null,
-   "diag": {
-    "rs121": 81.24,
-    "rs6m2w": 107.08,
-    "atr14": 9.38,
-    "sma50": 205.05,
-    "sma200": 149.6,
-    "high52": 240.87,
-    "low52": 93.69,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 92.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 9.3% below its 52-week high (limit 25%) and 133.1% above its 52-week low (needs 30%).",
-    "Group: Computer hardware ranks 3 of 59 (median strength 87.1); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 9.3% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -673,7 +571,7 @@
  "thinGroup": {
   "qualified": 2
  },
- "qualifiedTotal": 20,
+ "qualifiedTotal": 15,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
