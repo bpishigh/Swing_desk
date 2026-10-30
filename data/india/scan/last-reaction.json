@@ -1,10 +1,10 @@
 {
- "asOf": "2026-10-29",
+ "asOf": "2026-10-30",
  "rows": {
   "LAURUSLABS": {
-   "date": "2026-07-24",
-   "move": 0.0925,
-   "excess": 0.0825
+   "date": "2026-10-29",
+   "move": 0.1025,
+   "excess": 0.1101
   },
   "ACUTAAS": {
    "date": "2026-10-27",
@@ -16,30 +16,30 @@
    "move": 0.04,
    "excess": 0.027
   },
-  "GESHIP": {
-   "date": "2026-08-03",
-   "move": 0.0626,
-   "excess": 0.0496
+  "COFORGE": {
+   "date": "2026-10-23",
+   "move": 0.0441,
+   "excess": 0.0588
   },
   "ADANIPORTS": {
    "date": "2026-10-28",
    "move": 0.067,
    "excess": 0.0577
   },
-  "WELCORP": {
-   "date": "2026-07-24",
-   "move": -0.0081,
-   "excess": -0.018
+  "GESHIP": {
+   "date": "2026-08-03",
+   "move": 0.0626,
+   "excess": 0.0496
   },
   "CPPLUS": {
    "date": "2026-08-12",
    "move": -0.0266,
    "excess": -0.0271
   },
-  "COFORGE": {
-   "date": "2026-10-23",
-   "move": 0.0441,
-   "excess": 0.0588
+  "SYRMA": {
+   "date": "2026-07-29",
+   "move": 0.055,
+   "excess": 0.0499
   },
   "WELSPUNLIV": {
    "date": "2026-08-13",

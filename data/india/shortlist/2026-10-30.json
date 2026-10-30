@@ -1,0 +1,60 @@
+{
+ "signalDate": "2026-10-30",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "ADANIPORTS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 1875.34,
+   "limit": 1894.1,
+   "stop": 1752.83,
+   "atrPct": 2.65,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "CPPLUS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 3952.49,
+   "limit": 3992.01,
+   "stop": 3636.92,
+   "atrPct": 5.52,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "SYRMA",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 1689.37,
+   "limit": 1706.27,
+   "stop": 1491.64,
+   "atrPct": 4.87,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 227.45,
+   "limit": 229.73,
+   "stop": 204.8,
+   "atrPct": 4.99,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

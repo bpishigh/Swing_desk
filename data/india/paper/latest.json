@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-29",
+ "asOf": "2026-10-30",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,22 +12,22 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 16,
-  "open": 7,
-  "pending": 2,
-  "notFilled": 4,
-  "closed": 3,
-  "meanR": -0.6245517213892678,
-  "winRate": 0.3333333333333333
+  "orders": 20,
+  "open": 6,
+  "pending": 4,
+  "notFilled": 6,
+  "closed": 4,
+  "meanR": -0.46913650321487455,
+  "winRate": 0.25
  },
  "comparator": {
   "orders": 7,
   "open": 5,
-  "pending": 1,
+  "pending": 0,
   "notFilled": 1,
-  "closed": 0,
-  "meanR": null,
-  "winRate": null
+  "closed": 1,
+  "meanR": -0.9030247148288978,
+  "winRate": 0
  },
  "light": "red",
  "newOrdersTonight": [
@@ -35,24 +35,32 @@
    "stream": "capwaived",
    "sym": "ADANIPORTS",
    "setup": "4",
-   "trigger": 1875.74,
-   "stop": 1750.98,
-   "status": "pending"
-  },
-  {
-   "stream": "comparator",
-   "sym": "ADANIPORTS",
-   "setup": "4",
-   "trigger": 1872,
-   "stop": 1747.23,
+   "trigger": 1875.34,
+   "stop": 1752.83,
    "status": "pending"
   },
   {
    "stream": "capwaived",
    "sym": "CPPLUS",
    "setup": "4",
-   "trigger": 4015.31,
-   "stop": 3680.54,
+   "trigger": 3952.49,
+   "stop": 3636.92,
+   "status": "pending"
+  },
+  {
+   "stream": "capwaived",
+   "sym": "SYRMA",
+   "setup": "4",
+   "trigger": 1689.37,
+   "stop": 1491.64,
+   "status": "pending"
+  },
+  {
+   "stream": "capwaived",
+   "sym": "WELSPUNLIV",
+   "setup": "4",
+   "trigger": 227.45,
+   "stop": 204.8,
    "status": "pending"
   }
  ]

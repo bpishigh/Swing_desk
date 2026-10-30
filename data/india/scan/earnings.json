@@ -1,11 +1,11 @@
 {
- "asOf": "2026-10-29",
+ "asOf": "2026-10-30",
  "source": "NSE event calendar",
  "dates": {
   "LAURUSLABS": {
-   "date": "2026-10-29",
-   "sessions": 0,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "ACUTAAS": {
    "date": null,
@@ -14,10 +14,10 @@
   },
   "DIVISLAB": {
    "date": "2026-11-07",
-   "sessions": 6,
+   "sessions": 5,
    "inWindow": true
   },
-  "GESHIP": {
+  "COFORGE": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -27,24 +27,24 @@
    "sessions": null,
    "inWindow": null
   },
-  "WELCORP": {
-   "date": "2026-10-29",
-   "sessions": 0,
-   "inWindow": true
+  "GESHIP": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "CPPLUS": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "COFORGE": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+  "SYRMA": {
+   "date": "2026-10-30",
+   "sessions": 0,
+   "inWindow": true
   },
   "WELSPUNLIV": {
    "date": "2026-10-30",
-   "sessions": 1,
+   "sessions": 0,
    "inWindow": true
   },
   "PTCIL": {

@@ -338,6 +338,84 @@
    "basis": 1982.46,
    "width": 8.59,
    "room": 0.23
+  },
+  "AUROPHARMA|2|2026-10-30": {
+   "sym": "AUROPHARMA",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-30",
+   "trigger": 1690.37,
+   "stop": 1553,
+   "limit": 1707.27,
+   "basis": 1690.37,
+   "width": 8.13,
+   "room": 0.36
+  },
+  "AUROPHARMA|4|2026-10-30": {
+   "sym": "AUROPHARMA",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-30",
+   "trigger": 1690.37,
+   "stop": 1553,
+   "limit": 1707.27,
+   "basis": 1690.37,
+   "width": 8.13,
+   "room": 0.36
+  },
+  "WELSPUNLIV|2|2026-10-30": {
+   "sym": "WELSPUNLIV",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-10-30",
+   "trigger": 227.45,
+   "stop": 204.8,
+   "limit": 229.72,
+   "basis": 227.45,
+   "width": 9.96,
+   "room": 0.8
+  },
+  "LLOYDSME|2|2026-10-30": {
+   "sym": "LLOYDSME",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-30",
+   "trigger": 1848.69,
+   "stop": 1752.2,
+   "limit": 1867.18,
+   "basis": 1848.69,
+   "width": 5.22,
+   "room": 2.86
+  },
+  "LLOYDSME|4|2026-10-30": {
+   "sym": "LLOYDSME",
+   "id": "4",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-10-30",
+   "trigger": 1848.69,
+   "stop": 1752.2,
+   "limit": 1867.18,
+   "basis": 1848.69,
+   "width": 5.22,
+   "room": 2.86
+  },
+  "AJANTPHARM|2|2026-10-30": {
+   "sym": "AJANTPHARM",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-10-30",
+   "trigger": 3627.14,
+   "stop": 3260,
+   "limit": 3663.41,
+   "basis": 3627.14,
+   "width": 10.12,
+   "room": 0.46
   }
  },
  "lastLogged": {
@@ -366,10 +444,16 @@
   "LALPATHLAB|4": "2026-10-28",
   "SHYAMMETL|2": "2026-10-28",
   "ADANIPORTS|2": "2026-10-29",
-  "COFORGE|4": "2026-10-29"
+  "COFORGE|4": "2026-10-29",
+  "AUROPHARMA|2": "2026-10-30",
+  "AUROPHARMA|4": "2026-10-30",
+  "WELSPUNLIV|2": "2026-10-30",
+  "LLOYDSME|2": "2026-10-30",
+  "LLOYDSME|4": "2026-10-30",
+  "AJANTPHARM|2": "2026-10-30"
  },
  "summary": {
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -382,7 +466,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 4,
+     "open": 6,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -422,7 +506,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 4,
+     "open": 6,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -435,14 +519,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 6,
+     "open": 9,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 13,
+     "open": 14,
      "meanNet": null,
      "win": null,
      "excess": null
