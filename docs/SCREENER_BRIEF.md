@@ -34,7 +34,7 @@ The sector gate and ranking already run from the official NSE index file. The st
 - At least 30% above the 52-week low and within 25% of the 52-week high.
 - Traded value over Rs 10 crore a day; price over Rs 50; market cap over Rs 1,000 crore.
 
-Then the same setup, stop, room (2R, not 3R) and results-date checks as the US. Setup 3 (earnings gap) is allowed in India. India VIX above 20 halves risk per trade. The RS-leader test for India is: top 20% of the Nifty 500 on 3- or 6-month return.
+Then the same setup, stop, room (3R, as in the US; C-112) and results-date checks as the US. Setup 3 (earnings gap) is allowed in India. India VIX above 20 halves risk per trade. The RS-leader test for India is: top 20% of the Nifty 500 on 3- or 6-month return.
 
 ## 4. Proposed in outline (change C-20, not built): one whole-market nightly scan
 
@@ -49,7 +49,7 @@ Apply one trend template to every liquid listed stock each night in both markets
 | High and low used | 50-session | 52-week |
 | Relative strength | 1-month return versus sector ETF; RS line versus SPY checked by eye | Top 20% of Nifty 500 on 3 or 6 months |
 | Liquidity | $50 million a day | Rs 10 crore a day |
-| Room to resistance | 3R | 2R |
+| Room to resistance | 3R | 3R (C-112) |
 | Setups | 1, 1ipo, 2, 4 | 1, 1ipo, 2, 3, 4 |
 | Max positions (Green) | 4 | 10 |
 
