@@ -213,10 +213,12 @@ function viewHealth() {
   const dataRows = [['India index and sectors', D.india.date, D.expected.india], ['India stocks', D.india.stocks?.date, D.expected.india], ['US daily', D.us.date, D.expected.us], ['US screen (weekly)', D.us.screen?.feedDate, null]].map(([n, d, e]) => `<tr><td>${n}</td><td>${esc(d ?? '–')}</td><td>${esc(e ?? 'Saturday')}</td><td>${e ? (d >= e ? '<span class="chip ok">current</span>' : '<span class="chip warn">behind</span>') : '<span class="chip">weekly</span>'}</td></tr>`).join('');
   let use = '<div class="empty">No usage estimate yet.</div>';
   if (u) {
-    const used = u.usedMinutesEstimate, pct = Math.min(100, (used / u.budget) * 100), proj = Math.min(100, (u.projectedMonthEnd / u.budget) * 100);
-    use = `<div class="row" style="justify-content:space-between"><span><b>${fmt(used, 0)}</b> of ${fmt(u.budget, 0)} free minutes (estimate)</span><span class="chip ${u.projectedMonthEnd > 1400 ? 'warn' : 'ok'}">month-end projection ${fmt(u.projectedMonthEnd, 0)}</span></div>
-    <div class="bar" style="margin:8px 0" role="img" aria-label="${used} of ${u.budget} minutes used"><span style="width:${pct}%"></span><em style="left:${proj}%" title="projection"></em></div>
-    <div class="note">As of ${esc(u.date)}. ${esc(u.note)}</div>
+    const used = u.usedMinutesEstimate, capped = Number(u.budget) > 0;
+    const pct = capped ? Math.min(100, (used / u.budget) * 100) : 0, proj = capped ? Math.min(100, (u.projectedMonthEnd / u.budget) * 100) : 0;
+    use = capped ? `<div class="row" style="justify-content:space-between"><span><b>${fmt(used, 0)}</b> of ${fmt(u.budget, 0)} free minutes (estimate)</span><span class="chip ${u.projectedMonthEnd > 0.7 * u.budget ? 'warn' : 'ok'}">month-end projection ${fmt(u.projectedMonthEnd, 0)}</span></div>
+    <div class="bar" style="margin:8px 0" role="img" aria-label="${used} of ${u.budget} minutes used"><span style="width:${pct}%"></span><em style="left:${proj}%" title="projection"></em></div>`
+    : `<div class="row" style="justify-content:space-between"><span><b>${fmt(used, 0)}</b> Actions minutes this month (estimate, no monthly cap)</span><span class="chip">month-end projection ${fmt(u.projectedMonthEnd, 0)}</span></div>`;
+    use += `<div class="note">As of ${esc(u.date)}. ${esc(u.note)}</div>
     <div class="tablewrap"><table><thead><tr><th>Workflow</th><th class="num">Minutes</th></tr></thead><tbody>${Object.entries(u.byWorkflow).slice(0, 8).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num">${v}</td></tr>`).join('')}</tbody></table></div>`;
   }
   const o = H.orchestrator;

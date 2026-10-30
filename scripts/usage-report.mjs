@@ -1,4 +1,5 @@
-// Once a day: estimate this month's GitHub Actions minutes from the runs list, write data/ops/usage.json, and alert at 60/80/95% of the free budget.
+// Once a day: estimate this month's GitHub Actions minutes from the runs list and write data/ops/usage.json. It alerts at 60/80/95% of a budget only
+// when BUDGET_MIN in src/ops/usage.ts is a number; it is null while the repository is public (no monthly cap), so today this only records usage.
 // Usage: node scripts/usage-report.mjs [--force]   Needs GITHUB_REPOSITORY and GITHUB_TOKEN. Runs after 06:00 IST, at most once per IST day.
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -42,10 +43,10 @@ const dom = ist.getUTCDate(), dim = new Date(Date.UTC(ist.getUTCFullYear(), ist.
 const projected = projectMonth(total, dom, dim);
 const alerted = prev.month === month ? prev.alerted || [] : [];
 const t = dueAlert(total, alerted);
-const out = { date: today, month, usedMinutesEstimate: total, budget: BUDGET_MIN, projectedMonthEnd: projected, byWorkflow: Object.fromEntries(Object.entries(byWorkflow).sort((a, b) => b[1] - a[1])), alerted, note: 'Estimate from run durations (each run rounded up to a minute, calendar month); GitHub billing page is the authority.' };
+const out = { date: today, month, usedMinutesEstimate: total, budget: BUDGET_MIN, projectedMonthEnd: projected, byWorkflow: Object.fromEntries(Object.entries(byWorkflow).sort((a, b) => b[1] - a[1])), alerted, note: 'Estimate from run durations (each run rounded up to a minute, calendar month); GitHub billing page is the authority.' + (BUDGET_MIN ? '' : ' No monthly cap: the repository is public, so "budget" is null and nothing is alerted.') };
 if (t) {
   try {
-    execFileSync('node', ['scripts/alert.mjs', `GitHub Actions: about ${total} of ${BUDGET_MIN} free minutes used this month (${Math.round((100 * total) / BUDGET_MIN)}%), heading for about ${projected}. Biggest: ${Object.entries(out.byWorkflow).slice(0, 3).map(([k, v]) => `${k} ${v}`).join(', ')}.`], { stdio: 'inherit' });
+    execFileSync('node', ['scripts/alert.mjs', `GitHub Actions: about ${total} of ${BUDGET_MIN} free minutes used this month (${Math.round((100 * total) / (BUDGET_MIN || 1))}%), heading for about ${projected}. Biggest: ${Object.entries(out.byWorkflow).slice(0, 3).map(([k, v]) => `${k} ${v}`).join(', ')}.`], { stdio: 'inherit' });
     out.alerted = [...alerted, ...[60, 80, 95].filter((x) => x <= t)];
   } catch { console.error('alert could not be sent; will try again tomorrow'); }
 }

@@ -6,7 +6,7 @@ Status as at 30 Oct 2026 (sections A to I were written on 11 to 14 Oct and carry
 - India index, whole-market stock store, NSE circular reading, corporate-action resolver, scheduled through the tick.
 - US daily feed (Tiingo, Nasdaq backup), weekly screen, S&P 500 breadth; India Nifty 500 breadth; regime engine run with phone alerts for both markets.
 - Phone alert path confirmed (11 Oct).
-- Lean tick, daily Actions-minutes estimate (60/80/95% alerts), CI skips data-only pushes.
+- Lean tick, daily Actions-minutes estimate (60/80/95% alerts, switched off 30 Oct 2026: the repository is public, so there is no monthly cap; the estimate is still recorded), CI skips data-only pushes.
 - Four cron-job.org jobs created and job A test-run (204). Old `source-test` jobs stay until one real evening (Mon 12 Oct) is confirmed.
 - Dashboard v1 (`site/index.html`, data from `scripts/build-site.mjs`, rebuilt by the tick): Market, Screens, Data health, Claude Desk comparison (removed 17 Oct). Hosted as a Cloudflare Worker behind Access.
 - Comparison tool (`src/ops/compare.ts`, `scripts/compare.mjs`). First real comparison not run yet.
@@ -35,7 +35,7 @@ Status as at 30 Oct 2026 (sections A to I were written on 11 to 14 Oct and carry
 
 ## Checks after each change (so it cannot fall apart quietly)
 - After repointing cron-job.org: the next evening, confirm one `tick` run per slot, `india-nightly`/`india-stocks` start from 19:07 IST, `us-nightly` and `us-breadth` after the US close. Then remove the dispatch steps from `source-test.yml` (it becomes a manual probe).
-- Week 1 of live running: read `data/ops/usage.json`. Target projected month-end below 1,400 of 2,000. If above 70% (1,400): trim windows, or move orchestration out of Actions.
+- Week 1 of live running: read `data/ops/usage.json`. Historical (written while the repository was private): target projected month-end below 1,400 of 2,000, and if above 70% trim windows or move orchestration out of Actions. Since the repository became public (owner, 30 Oct 2026) there is no cap, so the figure is only watched for a workflow that suddenly uses far more than usual (30 Oct: about 2,800 used, projected 2,893, with `ci` 690 and `source-test` 504 the largest).
 - Before 10 Mar 2028: GitHub has marked REST API version 2022-11-28 deprecated (sunset 10 Mar 2028). Update the `X-GitHub-Api-Version` header in cron-job.org and in `scripts/dispatch-*.mjs`.
 - 1 Nov 2026 (US clocks go back): the US data start moves from 21:30 to 22:30 UTC. Windows B and C already cover it. Check that evening that the US day is written and the alert time is still late enough.
 - First Saturday (17 Oct): `us-screen` starts by itself; compare with the Claude Desk's screen the same morning.
@@ -100,17 +100,17 @@ Phase 3 partly built 22 Oct 2026 (Engine Rules C-81): fund verdicts Keep, Watch 
 Phase 8 (fund overlap and look-through) built 21 Oct 2026 (Engine Rules C-78); phase 9 remains. Fund overlap and look-through; fold the ledger into the Swing Desk nightly shortlist. Prerequisite met: the Swing Desk has saved each night's shortlist since 16 Oct 2026 (`data/india/shortlist/<date>.json` with `index.json`; the Promote label already reads it), so phase 9 is unblocked.
 
 ### I. Housekeeping
-Nightly US job check; India screener NSE daily-file loader; 1 Nov DST change; Actions minutes.
+Nightly US job check; India screener NSE daily-file loader; 1 Nov DST change; Actions minutes (no cap while the repository is public; watch for a runaway workflow only).
 
 ### Suggested order
 B1 (Exit and Keep) -> B2 -> B5 and B6 -> B3 -> B4 -> D -> E -> C -> F alongside -> G -> H. The Swing Desk shortlist saving (H prerequisite) was done on 16 Oct 2026.
 
 ## Sustainability rules
-- Every job has a minutes budget and is safe to run twice (idempotent).
+- Every job is safe to run twice (idempotent) and should stay lean. There is no minutes budget while the repository is public (owner, 30 Oct 2026); public repositories still have GitHub's concurrency and 6-hour job limits.
 - Every job reports its own staleness; the tick alerts when a day is missing.
 - Orchestration stays small and pure (`src/ingest/*-plan.ts`) so it can move out of Actions if the budget demands it (a free Cloudflare Worker is the option; not needed unless usage stays above 70%).
 - A rule or number change is made in one commit, logged here, and compared against the Claude Desk before it is relied on.
-- When the free minutes run out: runs stop starting until the month resets. GitHub's own emails and the 60/80/95% alerts are the warning; the fallback is to cut windows, or to move to a paid plan.
+- Actions minutes: no monthly cap while the repository is public (owner, 30 Oct 2026), so runs do not stop at 2,000 and the 60/80/95% alerts are off (`BUDGET_MIN` is null in `src/ops/usage.ts`; set a number there to switch them back on). If the repository goes private again, the free allowance is 2,000 a month: set `BUDGET_MIN` back to 2000 and the fallback is to cut windows, or to move to a paid plan.
 
 ## Order
 1. Owner repoints cron-job.org (above). 2. A few nights of side-by-side comparison. 3. Small gaps that change numbers. 4. Trades design. 5. App. 6. Claude Desk wind-down (needs the owner's go-ahead).
@@ -124,16 +124,16 @@ Status at 13 Oct: Portfolio Manager phase 1 is built and on the dashboard (Portf
 4. Portfolio Manager open items: some IPO prices stay "unconfirmed" until a holdings or P&L statement is uploaded; some demerger cost splits are secondary-sourced (company PDFs unreachable from here); other parents listed as "NEEDS RECORD" in the feed affect parent cost basis only; holdings/P&L check (optional); fund NAV history in the chart is opt-in (calls mfapi.in from the browser).
 5. Morning: read the Claude Desk's stored numbers, build the snapshot, run `scripts/compare.mjs --claude=<snapshot>`, commit `data/compare/latest.json`.
 6. Hosting: DONE. The dashboard is already deployed on Cloudflare (Workers static assets, wrangler.jsonc) behind Cloudflare Access, with the Portfolio save route (worker.ts, steps in docs/PORTFOLIO_SAVE_SETUP.md). Owner to confirm the checklist in that file (token, five settings, Access covering workers.dev and previews, 401 when signed out). 
-7. Checks: Actions minutes (target below 1,400 of 2,000), 17 Oct first automatic US screen, 1 Nov DST change.
+7. Checks: Actions minutes (no cap since the repository became public; the old target was below 1,400 of 2,000), 17 Oct first automatic US screen, 1 Nov DST change.
 
 ## Demergers without a typed record (C-50, proposed 15 Oct 2026)
 The filing's cost share is the tax split of a purchase price, not the market's split, and often differs from the ex-date price fall (Allcargo, Veranda, DCM Shriram, Shankara). So a demerger with no usable typed record is now handled from the prices: a one-day fall of 15% or more is taken as the demerger and the earlier closes are scaled by the observed ratio ("adjusted from price"); a smaller fall drops the closes before the ex-date and the stock is treated like a recent listing. Typed records that pass the price check still win. Blocked-by-corporate-action stocks fell from 22 to 6 (the rest are bonus or NCRPS schemes). Status Proposed; criterion 2 (method check against typed records) could not be evaluated. Pending filing figures are kept in data/rules/demergers-pending.json for reference.
 
 ## US whole-market scan (C-20a, built 16 Oct 2026)
-Nightly step in us-grouped-nightly runs scripts/us-scan.mjs and writes data/us/scan/<date>.json, latest.json and state.json (hysteresis: in after one night, out after two failing nights). All numbers live in src/ingest/us-scan-settings.ts (US-SCAN-1). No rule changes (those are C-20b). Open: SIC back-fill (backfill-us-sic.yml) needs a real contact in the SEC_UA secret, since SEC returns 403 for an undeclared User-Agent; until then the group step shortlists nothing and the scan note says "No SIC file". Composite weights and the special-dividend threshold await sign-off. Actions minutes are projected at 2,298 of 2,000: removing the source-test dispatch steps (451 min) is the main lever.
+Nightly step in us-grouped-nightly runs scripts/us-scan.mjs and writes data/us/scan/<date>.json, latest.json and state.json (hysteresis: in after one night, out after two failing nights). All numbers live in src/ingest/us-scan-settings.ts (US-SCAN-1). No rule changes (those are C-20b). Open: SIC back-fill (backfill-us-sic.yml) needs a real contact in the SEC_UA secret, since SEC returns 403 for an undeclared User-Agent; until then the group step shortlists nothing and the scan note says "No SIC file". Composite weights and the special-dividend threshold await sign-off. Actions minutes were projected at 2,298 of 2,000 on 16 Oct, when the repository was private; with it public there is no cap (30 Oct: projected 2,893, not a problem).
 
 ## source-test retired as a scheduler (16 Oct 2026)
-Old cron-job.org jobs calling source-test.yml paused by the owner on 16 Oct. The dispatch steps (India nightly start, US start) are removed from source-test.yml; tick.yml already runs dispatch-nightly.mjs and dispatch-us.mjs. source-test is now a manual probe. It was the largest Actions-minutes item (about 451 min a month). Check data/ops/usage.json in a week.
+Old cron-job.org jobs calling source-test.yml paused by the owner on 16 Oct. The dispatch steps (India nightly start, US start) are removed from source-test.yml; tick.yml already runs dispatch-nightly.mjs and dispatch-us.mjs. source-test is now a manual probe. It was the largest Actions-minutes item (about 451 min a month). Check data/ops/usage.json in a week. 30 Oct 2026: `source-test` still shows about 504 minutes this month although its scheduler steps were removed; worth finding what still runs it, as a waste check only.
 
 ## Backtester module and India history (planned 17 Oct 2026, from the external review)
 **Status 20 Oct 2026: partly built.** Built: as-of data view (`src/backtest/india-asof.ts`), shared India loader (`india-loader.ts`), live-exit simulator (`desk-sim.ts`), run manifest with attempt counts and the holdout gate (`manifest.ts`, `scripts/backtest-manifest.mjs`, `docs/backtests/README.md`), first registered run C-70. Still to build: the standard report on every run (pick quality at 20, 60 and 120 sessions, full funnel with trigger fills, bootstrap intervals, regime and group splits, ex-top-group figure, sensitivity curve per named parameter), the 2010 to 2019 history and the whole-universe corporate-action back-fill (after 1 Nov), and a US loader on the same footing. Original plan follows.

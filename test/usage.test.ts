@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { estimateMinutes, projectMonth, dueAlert } from '../src/ops/usage.ts';
+import { BUDGET_MIN, estimateMinutes, projectMonth, dueAlert } from '../src/ops/usage.ts';
 
 test('each run counts as whole minutes, at least one', () => {
   const r = estimateMinutes([
@@ -12,10 +12,15 @@ test('each run counts as whole minutes, at least one', () => {
 });
 test('projection is straight-line', () => assert.equal(projectMonth(300, 10, 31), 930));
 test('one alert for the highest newly crossed threshold, none repeated', () => {
-  assert.equal(dueAlert(1000, []), null);
-  assert.equal(dueAlert(1300, []), 60);
-  assert.equal(dueAlert(1700, []), 80);
-  assert.equal(dueAlert(1700, [60]), 80);
-  assert.equal(dueAlert(1700, [60, 80]), null);
-  assert.equal(dueAlert(1950, [60, 80]), 95);
+  assert.equal(dueAlert(1000, [], 2000), null);
+  assert.equal(dueAlert(1300, [], 2000), 60);
+  assert.equal(dueAlert(1700, [], 2000), 80);
+  assert.equal(dueAlert(1700, [60], 2000), 80);
+  assert.equal(dueAlert(1700, [60, 80], 2000), null);
+  assert.equal(dueAlert(1950, [60, 80], 2000), 95);
+});
+test('no budget means no alert, whatever the usage (public repository, owner 30 Oct 2026)', () => {
+  assert.equal(BUDGET_MIN, null);
+  assert.equal(dueAlert(2893, []), null);
+  assert.equal(dueAlert(5000, [], null), null);
 });

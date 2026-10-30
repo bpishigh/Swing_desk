@@ -2,7 +2,8 @@
 // An estimate: GitHub bills each job rounded up to a whole minute; a run here is counted as one job.
 
 export interface RunLite { name: string; startedAt: string; endedAt: string }
-export const BUDGET_MIN = 2000;                 // free plan, private repo
+/** Monthly minutes to alert against, or null for no cap. The repository is public (owner, 30 Oct 2026), and GitHub-hosted standard runners are free for public repositories, so there is no monthly cap and nothing to alert against. Set a number here (2000 was the free private-repo allowance) to switch the 60/80/95% alerts back on. The figures in data/ops/usage.json are still written, to spot a workflow that suddenly uses far more than usual. */
+export const BUDGET_MIN: number | null = null;
 export const THRESHOLDS = [60, 80, 95];         // percent of the budget
 
 export function estimateMinutes(runs: RunLite[]): { total: number; byWorkflow: Record<string, number> } {
@@ -21,8 +22,9 @@ export function projectMonth(usedSoFar: number, dayOfMonth: number, daysInMonth:
   return Math.round((usedSoFar / Math.max(1, dayOfMonth)) * daysInMonth);
 }
 
-/** Thresholds newly crossed and not yet alerted this month; the highest only (one message). */
-export function dueAlert(used: number, alerted: number[], budget = BUDGET_MIN): number | null {
+/** Thresholds newly crossed and not yet alerted this month; the highest only (one message). No budget (null or 0) means no alert. */
+export function dueAlert(used: number, alerted: number[], budget: number | null = BUDGET_MIN): number | null {
+  if (!budget) return null;
   const pct = (used / budget) * 100;
   const crossed = THRESHOLDS.filter((t) => pct >= t && !alerted.includes(t));
   return crossed.length ? crossed[crossed.length - 1] : null;
