@@ -1,10 +1,8 @@
 {
- "ts": "2026-10-30T14:07:46.726Z",
+ "ts": "2026-10-30T16:58:41.572Z",
  "date": "2026-10-30",
  "status": "written",
- "fetched": [
-  "2026-10-30"
- ],
+ "fetched": [],
  "skipped": [],
  "notPublished": false,
  "sessionsStored": 256,
@@ -15,7 +13,7 @@
   "NSE circulars: 51 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 222,
+  "checked": 206,
   "newlyRead": 0,
   "unreadable": [],
   "errors": 0,
@@ -31,7 +29,5 @@
   ]
  },
  "circularProblems": [],
- "newUnresolved": [
-  "SHIVAM-RE1|2026-10-30"
- ]
+ "newUnresolved": []
 }
