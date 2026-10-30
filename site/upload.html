@@ -1527,7 +1527,10 @@ document.addEventListener('click', (e) => { const b = e.target.closest('[data-mv
     S.hist = await hp; $('run').disabled = false; setStatus(`Public data ready (prices as of ${px.asOf}).`);
     await loadSaved();
     await recomputeAll(true);
-    await bench; render();
+    await bench;
+    const tk = decodeURIComponent(location.hash.replace(/^#taken=/, '')).split('~');   // a Taken link from the Scans page opens the by-hand form filled in
+    if (/^#taken=/.test(location.hash) && tk.length === 3) { S.hand = { symbol: tk[0], account: tk[1], stop: tk[2], fromOrder: true }; S.tab = 'trades'; history.replaceState(null, '', location.pathname); }
+    render();
   } catch (e) { setStatus('Could not load public data: ' + e.message); }
   render();
 })();
