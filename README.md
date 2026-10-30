@@ -3,16 +3,22 @@
 Rules live in the Engine Rules document, code and architecture in the Code and Architecture document, scope in the Scope of Work document. This repo is public (from 22 Oct 2026, so GitHub Actions minutes are unlimited). Nothing personal (capital, holdings, trades, account files) may be committed anywhere in it: `scripts/check-no-personal-data.mjs` enforces that under `data/` and `fixtures/` and fails if any file under `portfolio/` is tracked. The owner's saved accounts and the holdings book live in the separate private repo `bpishigh/swing_desk_portfolio`; the nightly workflows check it out at `.portfolio-repo` and link its top-level `portfolio/` folder as `portfolio/` (both ignored by git here) using the `PORTFOLIO_TOKEN` secret, and the Worker reads and writes it through its `REPO` setting.
 
 ## Names used in this project
-- **Claude Desk**: the live desk today. App v9.1 on Claude Artifacts with its built-in database, filled by three Claude scheduled tasks (India nightly, morning, weekly US screen). To be wound down once the Repo Desk matches it.
-- **Repo Desk**: this repository. The TypeScript engine, the nightly GitHub job, JSON data, and later the app and alerts. It replaces the Claude Desk.
+- **Repo Desk**: this repository and the site it publishes. The TypeScript engine, the nightly GitHub jobs, JSON data, the Portfolio Manager and the alerts.
+- **Claude Desk**: the older desk on Claude Artifacts, to be wound down once the Repo Desk matches it.
 
-## Phase 0 (current)
-- `scripts/source-test.mjs` probes each candidate data source from GitHub's servers and appends one line per source to `data/source-test/log.ndjson` (status, bytes, rows, latency, newest date seen, and for NSE files whether today's file is up yet).
-- Scheduling now runs from `.github/workflows/tick.yml` (lean, about 20 seconds: starts due jobs, alerts, writes the daily Actions-minutes estimate). `source-test.yml` is the older probe-plus-dispatch workflow, kept until cron-job.org points at the tick; see [docs/SCOPE.md](docs/SCOPE.md) for the cron-job.org entries and the checks. `source-test.yml` runs it every 30 minutes, started by an outside scheduler (cron-job.org) because GitHub's own cron fired too rarely in this repo. The workflow has no `schedule:` block. Slots: weekdays 10:07–23:37 UTC, Tue–Fri 00:07–06:37 UTC, Sat 00:07–06:37 UTC.
-- `scripts/summarise-source-test.mjs` prints the per-source verdict (usable / blocked) from the log.
-- Probes skip holidays (previous date comes from `data/calendar/markets-2026.json`), count a 404 on a dated NSE file as "not published yet", and add keyed EOD APIs (Tiingo, Polygon, EODHD, plus FRED for VIX, history-depth probes and a cross-check of the newest SPY close free tiers) that run only if a `TIINGO_KEY`, `POLYGON_KEY` or `EODHD_KEY` secret exists, plus Yahoo with the cookie and crumb handshake.
-- Alert channel: Telegram. A test message was sent on 3 Oct 2026 and the owner confirmed it reached his phone.
-- Seven-day test done (10 Oct 2026): the runner reaches NSE reliably, so the Repo Desk fills India from the runner. Next: nightly India job (index close file, stored history, SMAs and returns computed from stored closes).
+## What it does today
+- **Site** (`site/`, served by Cloudflare Pages behind Access): the desk tabs (Market, Funds, Scans, Paper test, Engine Rules, Docs) and the Portfolio Manager (`site/upload.html`). `site/pm/*.js` and `site/pm-data/` are built copies made by `scripts/build-pm-site.mjs` from `src/pm/*.ts` and the public data.
+- **Nightly data** (India and US): described in the two sections below, run by the half-hourly tick.
+- **Scan and paper book**: the nightly screen writes `data/india/scan/latest.json`; the paper book IND-PAPER-1 (`scripts/paper-book-india.mjs`) keeps three streams (official, capwaived, comparator) in `data/india/paper/latest.json`. Only official picks are orders; the other two are a test and live on the Paper test tab (C-113).
+- **Portfolio Manager**: broker files are read in the browser; accounts are saved to the private repo through the Pages Functions in `functions/` (`/api/portfolio`). Trades can also be added by hand between monthly uploads and are reconciled on the next upload (C-114).
+- **Nightly sized orders** (`scripts/sized-shortlist.mjs`): runs the saved accounts through the same pipeline and sizing as the page and sends two Telegram messages, the official orders and the paper test, each only when its text changed. Results are written to the private repo, never here. `scripts/holding-alerts.mjs` sends exit alerts for open trades.
+- **Rules**: every rule and code change is first a row in the Engine Rules change log. Where a document and the code disagree, the side that is latest and accurate wins (C-79).
+- **Tests**: `node --test test/*.test.ts` (not bare `node --test`, which runs research scripts and rewrites `data/`).
+
+## Alerts and probes
+- Alert channel: Telegram (`scripts/alert.mjs`).
+- `scripts/source-test.mjs` probes candidate data sources from GitHub's servers and appends to `data/source-test/log.ndjson`; `scripts/summarise-source-test.mjs` prints the verdict per source.
+- Scheduling runs from `.github/workflows/tick.yml` (about 20 seconds: starts due jobs, alerts, writes the daily Actions-minutes estimate), started every 30 minutes by cron-job.org because GitHub's own cron fired too rarely. `source-test.yml` is the older probe-plus-dispatch workflow, kept until cron-job.org points at the tick; see [docs/SCOPE.md](docs/SCOPE.md).
 
 ## Repo Desk India data (runs by itself every session day)
 - **When.** The half-hourly `source-test` run (started by cron-job.org) also runs `scripts/dispatch-nightly.mjs`. From 19:00 IST on a session day it starts `india-nightly` and `india-stocks` for that day if either is behind, skips one that is already running, retries every half hour (20 tries per job per day), and sends one Telegram alert if the day is still missing at 22:30 IST. A missed day is caught up the next time (the stock job fills missed sessions). State: `data/india/orchestrator.json`. Both workflows can still be run by hand.
