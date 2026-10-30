@@ -1,38 +1,52 @@
 {
- "asOf": "2026-10-28",
+ "asOf": "2026-10-29",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
-  "COP": {
-   "date": "2026-11-05",
-   "sessions": 6,
+  "ECO": {
+   "date": "2026-11-11",
+   "sessions": 9,
    "inWindow": true
   },
-  "EQNR": {
+  "TRMD": {
    "date": "2026-11-04",
+   "sessions": 4,
+   "inWindow": true
+  },
+  "STNG": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "COP": {
+   "date": "2026-11-05",
    "sessions": 5,
-   "inWindow": true,
-   "estimated": true
+   "inWindow": true
   },
   "XOM": {
    "date": "2026-10-30",
-   "sessions": 2,
+   "sessions": 1,
+   "inWindow": true
+  },
+  "CVX": {
+   "date": "2026-10-30",
+   "sessions": 1,
    "inWindow": true
   },
   "P": {
    "date": "2026-12-01",
-   "sessions": 23,
+   "sessions": 22,
    "inWindow": false,
    "estimated": true
   },
   "HPE": {
    "date": "2026-12-03",
-   "sessions": 25,
+   "sessions": 24,
    "inWindow": false,
    "estimated": true
   },
   "NTAP": {
    "date": "2026-12-01",
-   "sessions": 23,
+   "sessions": 22,
    "inWindow": false
   }
  }

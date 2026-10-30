@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-28",
+ "asOf": "2026-10-29",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -12,53 +12,55 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 5,
-  "open": 2,
-  "pending": 0,
+  "orders": 6,
+  "open": 1,
+  "pending": 1,
   "notFilled": 1,
-  "closed": 2,
-  "meanR": 0.10496002849110482,
-  "winRate": 0.5
+  "closed": 3,
+  "meanR": -1.036545759137899,
+  "winRate": 0.3333333333333333
  },
  "comparator": {
-  "orders": 4,
-  "open": 2,
-  "pending": 0,
+  "orders": 5,
+  "open": 0,
+  "pending": 1,
   "notFilled": 0,
-  "closed": 2,
-  "meanR": 0.5335282968860897,
-  "winRate": 1
+  "closed": 4,
+  "meanR": -0.44640492294950196,
+  "winRate": 0.5
  },
  "light": "yellow",
- "newOrdersTonight": [],
- "open": [
+ "newOrdersTonight": [
   {
    "stream": "capwaived",
-   "sym": "FTNT",
+   "sym": "STNG",
    "setup": "4",
-   "entry": 178.07,
-   "stop": 166.22
+   "trigger": 95.45,
+   "stop": 86.01,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
   },
   {
    "stream": "comparator",
-   "sym": "FTNT",
+   "sym": "STNG",
    "setup": "4",
-   "entry": 183.33,
-   "stop": 166.22
-  },
+   "trigger": 95.07,
+   "stop": 85.63,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  }
+ ],
+ "open": [
   {
    "stream": "capwaived",
    "sym": "NTAP",
    "setup": "4",
    "entry": 218.48,
    "stop": 202.56
-  },
-  {
-   "stream": "comparator",
-   "sym": "HPE",
-   "setup": "4",
-   "entry": 60.33,
-   "stop": 53.91
   }
  ]
 }
