@@ -20,5 +20,18 @@ Average one-way turnover per rebalance 65.3%; average holdings 30.0.
 - Conditions {"beatsIndex":true,"meanExcessAboveZero":true,"ciLowAboveZero":false,"twoThirdsYears":false}
 - By year (sleeve / Nifty 200): 2021 71.8%/30.3%, 2022 -11.0%/3.6%, 2023 48.0%/23.5%, 2024 32.4%/13.6%, 2025 -5.9%/6.5%
 
+## Addendum, exploration, not judged: India 2011-2019
+- Compounded annual: sleeve 13.79%, Nifty 200 9.84%; gap 3.94% a year, after the sleeve's own costs
+- Worst relative fall against the Nifty 200 (sleeve value divided by index value, peak to trough): -16.0% from 2018-04-30 to 2019-11-29
+- Costs: 19 rebalances, average 0.34% of the portfolio per rebalance, about 0.73% a year
+- Gap by year (sleeve minus Nifty 200): 2011 11.8 pts, 2012 -1.4 pts, 2013 -0.5 pts, 2014 3.1 pts, 2015 20.1 pts, 2016 -8.5 pts, 2017 26.0 pts, 2018 -6.0 pts, 2019 -4.6 pts
+- Without 2017 (the best year): sleeve 96.4% against Nifty 200 71.8% over the other 8 years
+
+## Addendum, exploration, not judged: India 2021-2025
+- Compounded annual: sleeve 24.39%, Nifty 200 15.91%; gap 8.48% a year, after the sleeve's own costs
+- Worst relative fall against the Nifty 200 (sleeve value divided by index value, peak to trough): -20.8% from 2021-12-31 to 2023-02-28
+- Costs: 9 rebalances, average 0.28% of the portfolio per rebalance, about 0.53% a year
+- Gap by year (sleeve minus Nifty 200): 2021 41.6 pts, 2022 -14.6 pts, 2023 24.6 pts, 2024 18.8 pts, 2025 -12.4 pts
+
 ## Replication metric against NSE's series
 Not run: no NSE price series supplied (data/replay/nse-momentum30-price.csv).
