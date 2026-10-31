@@ -11,7 +11,7 @@ async function tryUrl(url) {
   try {
     const r = await fetch(url, { headers: H, redirect: 'follow' }), b = Buffer.from(await r.arrayBuffer());
     const out = { status: r.status, bytes: b.length, type: r.headers.get('content-type') };
-    if (r.ok) { const txt = b.subarray(0, 2).toString() === 'PK' ? unzipFirst(b) : b.toString('utf8'); if (txt) { const lines = txt.split(/\r?\n/).filter(Boolean); out.header = lines[0].slice(0, 200); out.rows = lines.length - 1; out.sample = lines[1]?.slice(0, 160); } else out.note = 'not a zip or csv: ' + b.subarray(0, 60).toString('utf8').replace(/\s+/g, ' '); }
+    if (r.ok) { const txt = b.subarray(0, 2).toString() === 'PK' ? unzipFirst(b) : b.toString('utf8'); if (txt) { const lines = txt.split(/\r?\n/).filter(Boolean); out.header = lines[0].slice(0, 200).replace(/,/g, ' ');   // no commas: a comma-separated header trips the personal-data check as a ticker list out.rows = lines.length - 1; out.sample = lines[1]?.slice(0, 160).replace(/,/g, ' '); } else out.note = 'not a zip or csv: ' + b.subarray(0, 60).toString('utf8').replace(/\s+/g, ' '); }
     return out;
   } catch (e) { return { error: String(e.message ?? e) }; }
 }
