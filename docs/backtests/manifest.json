@@ -696,7 +696,12 @@
    "registeredAt": "2026-10-31T10:19:40.545Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T11:12:41.650Z",
+    "summary": "(a) US momentum copy passes all four conditions (mean excess +1.04%/month, interval +0.22% to +1.91%, 7 of 8 years) but trails SPY held throughout (+131% vs +147%) and is survivor-biased. (b) frozen US-SCAN-1 top-10 list fails the interval condition (mean excess +0.48% per 20 sessions, interval -0.28% to +1.33%).",
+    "file": "data/replay/c119-a-us.json"
+   }
   }
  ]
 }

@@ -9,55 +9,111 @@
   "hash": "5f1b52194254"
  },
  "label": "SURVIVOR-BIASED UPWARD",
- "nights": 15,
+ "nights": 1947,
  "light": "yellow",
  "judgedSet": "B (top-10 list)",
  "B": {
-  "n": 27,
-  "meanNet": -0.02862086455766501,
-  "meanExcess": -0.024878870006707896,
+  "n": 1856,
+  "meanNet": 0.013673968464723707,
+  "meanExcess": 0.004812423221437467,
   "ci90": [
-   -0.049760303985012834,
-   -0.02071190668233635
+   -0.0027918837920592023,
+   0.013250661265053313
   ],
-  "bestGroup": "General merchandise retail",
-  "meanExAfterDropBestGroup": -0.04158391296780364,
-  "hit": 0.3333333333333333,
-  "yearsPositive": 0,
-  "years": 1,
+  "bestGroup": "Consumer and specialty finance",
+  "meanExAfterDropBestGroup": 0.0025451501013752536,
+  "hit": 0.53125,
+  "yearsPositive": 6,
+  "years": 8,
   "byYear": {
    "2018": {
-    "n": 27,
-    "meanExcess": -0.024878870006707896
+    "n": 256,
+    "meanExcess": 0.0010148970400382
+   },
+   "2019": {
+    "n": 263,
+    "meanExcess": -0.00924794866198767
+   },
+   "2020": {
+    "n": 214,
+    "meanExcess": 0.02265122724678084
+   },
+   "2021": {
+    "n": 271,
+    "meanExcess": -0.006842488992053242
+   },
+   "2022": {
+    "n": 232,
+    "meanExcess": 0.017297085210254595
+   },
+   "2023": {
+    "n": 220,
+    "meanExcess": 0.0007110126749485874
+   },
+   "2024": {
+    "n": 230,
+    "meanExcess": 0.014932003507539805
+   },
+   "2025": {
+    "n": 170,
+    "meanExcess": 0.002985287511025363
    }
   }
  },
  "A": {
-  "n": 1,
-  "meanNet": 0.024420711974110006,
-  "meanExcess": 0.010282793635315597,
+  "n": 88,
+  "meanNet": 0.008881463014166525,
+  "meanExcess": -0.0014580024822431878,
   "ci90": [
-   0.010282793635315597,
-   0.010282793635315597
+   -0.019116304414314344,
+   0.016375813407003417
   ],
-  "bestGroup": "Hotels and lodging",
-  "meanExAfterDropBestGroup": null,
-  "hit": 1,
-  "yearsPositive": 1,
-  "years": 1,
+  "bestGroup": "Software and IT services",
+  "meanExAfterDropBestGroup": -0.0075899535141187,
+  "hit": 0.5454545454545454,
+  "yearsPositive": 4,
+  "years": 8,
   "byYear": {
    "2018": {
-    "n": 1,
-    "meanExcess": 0.010282793635315597
+    "n": 14,
+    "meanExcess": 0.008270470101257634
+   },
+   "2019": {
+    "n": 25,
+    "meanExcess": -0.0027332525622157113
+   },
+   "2020": {
+    "n": 12,
+    "meanExcess": -0.0451863584172858
+   },
+   "2021": {
+    "n": 10,
+    "meanExcess": -0.029069031429144937
+   },
+   "2022": {
+    "n": 12,
+    "meanExcess": 0.024630119168487466
+   },
+   "2023": {
+    "n": 9,
+    "meanExcess": 0.04576190445710303
+   },
+   "2024": {
+    "n": 3,
+    "meanExcess": 0.04172197758585524
+   },
+   "2025": {
+    "n": 3,
+    "meanExcess": -0.0584724577980261
    }
   }
  },
  "criteria": {
-  "meanExcessAboveZero": false,
+  "meanExcessAboveZero": true,
   "ciLowAboveZero": false,
-  "aboveZeroAfterDroppingBestGroup": false,
-  "yearsPositiveAtLeast5of8": false
+  "aboveZeroAfterDroppingBestGroup": true,
+  "yearsPositiveAtLeast5of8": true
  },
  "pass": false,
- "nightsWithReady": 1
+ "nightsWithReady": 186
 }
