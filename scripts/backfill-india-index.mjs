@@ -20,7 +20,7 @@ const canon = (name) => {
   if (/^CNX /i.test(n)) return 'Nifty ' + n.slice(4);
   return name;
 };
-const sessions = readdirSync('data/india/bhav-hist').filter((f) => f.endsWith('.json.gz')).map((f) => f.slice(0, 10)).sort();
+const sessions = ['data/india/bhav-pre2020', 'data/india/bhav-hist'].flatMap((d) => (existsSync(d) ? readdirSync(d) : [])).filter((f) => f.endsWith('.json.gz')).map((f) => f.slice(0, 10)).sort();
 mkdirSync('data/india/idx-hist', { recursive: true });
 const files = new Map(); const load = (y) => { if (!files.has(y)) { const p = `data/india/idx-hist/idx-${y}.json`; files.set(y, existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : {}); } return files.get(y); };
 const have = (iso) => !!load(iso.slice(0, 4))['Nifty 500']?.[iso];   // keyed on Nifty 500: days that hold only India VIX (stored from 2014) must still be fetched

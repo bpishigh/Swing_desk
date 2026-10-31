@@ -9,7 +9,7 @@ import { inflateRawSync } from 'node:zlib';
 import { parseBhavcopy, parseOldBhavcopy } from '../src/ingest/india-stocks.ts';
 
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
-const FROM = arg('from', '2020-01-01'), TO = arg('to', '2025-10-16'), MAX = Number(arg('max', 100000)), OUT = arg('out', 'data/india/bhav-hist'), OLD = arg('format', 'new') === 'old';
+const FROM = arg('from', '2020-01-01'), TO = arg('to', '2025-10-16'), MAX = Number(arg('max', 100000)), OUT = arg('out', arg('format', 'new') === 'old' ? 'data/india/bhav-pre2020' : 'data/india/bhav-hist'), OLD = arg('format', 'new') === 'old';
 const MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 const unzipFirst = (b) => { if (b.readUInt32LE(0) !== 0x04034b50) throw new Error('not a zip'); const n = b.readUInt16LE(26), e = b.readUInt16LE(28), cs = b.readUInt32LE(18), m = b.readUInt16LE(8), d = b.subarray(30 + n + e, cs ? 30 + n + e + cs : undefined); return (m === 8 ? inflateRawSync(d) : d).toString('utf8'); };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -12,6 +12,7 @@ export interface IndiaData {
   dates: string[]; T: number; days: ReturnType<typeof toDays>; sel: any[];
   res: ReturnType<typeof resolveHistory>;
   industry: Record<string, string>; allowed: Set<string>; types: Map<string, string>;
+  actionsUsed: any[]; overridesUsed: any;
   FH: ReturnType<typeof buildHistories>;                     // fully adjusted: for realised returns only
   RD: { dates: Record<string, string[]>; fetchedAt?: string };
   syms: string[];
@@ -27,17 +28,22 @@ export interface IndiaData {
 const R = (p: string) => JSON.parse(readFileSync(p, 'utf8'));
 const jsonIf = (p: string, d: unknown) => (existsSync(p) ? R(p) : d);
 
-export function loadIndia(root = 'data/india'): IndiaData {
+export interface LoadOpts { pre2020?: boolean; to?: string; allSymbols?: boolean }
+/** Default = exactly what every test before C-118 saw (2020 on, today's industry map). C-118 opts: pre2020 adds 2010-2019 files and actions; to cuts the end; allSymbols keeps delisted names. */
+export function loadIndia(root = 'data/india', opts: LoadOpts = {}): IndiaData {
   const bhav: any[] = [];
+  if (opts.pre2020) for (const f of readdirSync(`${root}/bhav-pre2020`).filter((x) => x.endsWith('.json.gz')).sort()) bhav.push(JSON.parse(gunzipSync(readFileSync(`${root}/bhav-pre2020/${f}`)).toString()));
   for (const f of readdirSync(`${root}/bhav-hist`).filter((x) => x.endsWith('.json.gz')).sort()) bhav.push(JSON.parse(gunzipSync(readFileSync(`${root}/bhav-hist/${f}`)).toString()));
   for (const f of readdirSync(`${root}/bhav`).filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) bhav.push(R(`${root}/bhav/${f}`));
   bhav.sort((a, b) => (a.date < b.date ? -1 : 1));
-  const sel = bhav.filter((d, i) => i === 0 || d.date !== bhav[i - 1].date);
-  const actions = [...R(`${root}/corp-actions-history.json`), ...(jsonIf(`${root}/corp-actions.json`, []) as any[])];
+  const sel0 = bhav.filter((d, i) => i === 0 || d.date !== bhav[i - 1].date), sel = opts.to ? sel0.filter((d) => d.date <= (opts.to as string)) : sel0;
+  const actions = [...(opts.pre2020 ? (R(`${root}/corp-actions-history-pre2019.json`) as any[]) : []), ...R(`${root}/corp-actions-history.json`), ...(jsonIf(`${root}/corp-actions.json`, []) as any[])];
   const ov = { ...(jsonIf(`${root}/corp-action-overrides-hist.json`, {}) as object), ...(jsonIf(`${root}/corp-action-overrides.json`, {}) as object) };
   const res = resolveHistory(sel, actions, ov as any);
-  const industry: Record<string, string> = R(`${root}/segments.json`).industry ?? {}, allowed = new Set(Object.keys(industry)), types = new Map([...allowed].map((s) => [s, 'CS']));
+  const industry: Record<string, string> = R(`${root}/segments.json`).industry ?? {}, allowed = new Set(Object.keys(industry));
+  const types = new Map([...allowed].map((s) => [s, 'CS']));
   const days = toDays(sel), dates = days.map((d) => d.date), T = days.length;
+  if (opts.allSymbols) for (const d of days) for (const r of d.rows) allowed.add(r[0]);
   const FH = buildHistories(days, res.splits, allowed);
   const RD = R(`${root}/results-dates.json`), syms = [...allowed].filter((s) => FH.series.has(s));
   const first = (d: string) => { let lo = 0, hi = T; while (lo < hi) { const m = (lo + hi) >> 1; if (dates[m] < d) lo = m + 1; else hi = m; } return lo; };
@@ -51,5 +57,5 @@ export function loadIndia(root = 'data/india'): IndiaData {
   // a fingerprint of what the run saw: the session list, the corporate-action inputs and the results dates (not the full price files)
   const h = createHash('sha1'); h.update(dates.join(',')); h.update(JSON.stringify(actions)); h.update(JSON.stringify(ov)); h.update(JSON.stringify(RD.dates)); h.update(String(res.splits.length));
   const snapshot = { sessions: T, first: dates[0], last: dates[T - 1], symbols: syms.length, splits: res.splits.length, hash: h.digest('hex').slice(0, 12) };
-  return { dates, T, days, sel, res, industry, allowed, types, FH, RD, syms, first, cc, ret, mkt, mk, sma, dv20, snapshot };
+  return { actionsUsed: actions, overridesUsed: ov, dates, T, days, sel, res, industry, allowed, types, FH, RD, syms, first, cc, ret, mkt, mk, sma, dv20, snapshot };
 }

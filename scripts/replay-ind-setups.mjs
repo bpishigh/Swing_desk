@@ -10,10 +10,11 @@ import { deskSim, dateCalendar } from '../src/backtest/desk-sim.ts';
 import { loadIndia } from '../src/backtest/india-loader.ts';
 import { SETUPS } from '../src/engine/setups.ts';
 const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
-const EXITS = arg('exits', 'port'), COSTX = Number(arg('costx', 1)), SUF = (COSTX === 1 ? '' : `-cost${COSTX}x`) + (EXITS === 'live' ? '-live' : '');   // C-67: --costx=2 doubles every cost; separate output files
-const LIMIT = +arg('limit', 0), FROM = arg('from', '2021-01-04'), HOLD = 20, MAXHOLD = 60;
+const EXITS = arg('exits', 'port'), COSTX = Number(arg('costx', 1)), SUF = (COSTX === 1 ? '' : `-cost${COSTX}x`) + (EXITS === 'live' ? '-live' : '') + (process.argv.includes('--oos') ? '-oos' : '');   // C-67: --costx=2 doubles every cost; separate output files
+const OOS = process.argv.includes('--oos');   // C-118 test (b): the same replay on 2011-2019 (signals), 2010 warm-up, today's industry map; results dates do not exist before 2020, so rule 8 cannot fire
+const LIMIT = +arg('limit', 0), FROM = arg('from', OOS ? '2011-01-03' : '2021-01-04'), HOLD = 20, MAXHOLD = 60;
 const R = (p) => JSON.parse(readFileSync(p, 'utf8'));
-const D = loadIndia(), { dates, T, days, res, industry, allowed, types, FH, RD, syms, first, cc, ret, mkt, mk, sma, dv20 } = D;   // C-69: the shared loader
+const D = OOS ? loadIndia('data/india', { pre2020: true, to: '2020-04-30' }) : loadIndia(), { dates, T, days, res, industry, allowed, types, FH, RD, syms, first, cc, ret, mkt, mk, sma, dv20 } = D;   // C-69: the shared loader
 const EV = {}; for (const s of syms) EV[s] = (RD.dates[s] || []).map((d) => ({ E: first(d), d })).filter((e) => Math.abs(new Date(dates[e.E] ?? '2100-01-01') - new Date(e.d)) <= 4 * 864e5 || e.E >= T);
 const mean = (a) => a.reduce((x, y) => x + y, 0) / (a.length || 1), sd = (a) => { const m = mean(a); return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / Math.max(1, a.length - 1)); };
 const med = (a) => { const s = [...a].sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : NaN; };
@@ -48,7 +49,7 @@ function simulate(sym, t, setup, costPct, o = {}) {
   if (left > 1e-9) { let last = -1; for (let i = Math.min(T - 1, e + MAXHOLD); i >= e; i--) if (s.c[i] > 0) { last = i; break; } if (last < 0) return null; sell(left, s.c[last]); if (reason === 'end') reason = last >= e + MAXHOLD ? 'max-hold' : 'data-end'; exitIdx = last; }
   return { R: pnl - (costPct * E) / Rk, held: (exitIdx ?? e) - e + 1, reason, width: Rk / E };
 }
-const start = Math.max(first(FROM), 260); let nights = []; for (let t = start; t + MAXHOLD + 2 < T; t++) nights.push(t); if (LIMIT) nights = nights.slice(0, LIMIT);
+const start = Math.max(first(FROM), 260); let nights = []; for (let t = start; t + MAXHOLD + 2 < T; t++) nights.push(t); if (OOS) nights = nights.filter((t) => dates[t] <= '2019-12-31'); if (LIMIT) nights = nights.slice(0, LIMIT);
 const trades = [], cands = {}, lastEntry = new Map(); let prev = {}; const t0 = Date.now();
 const roomOk = (r) => r === null || r >= 3;
 for (const [ni, t] of nights.entries()) {
@@ -66,7 +67,7 @@ for (const [ni, t] of nights.entries()) {
       const setup = { id, trigger: trig, stop: stopAt, limit: trig * (1 + SETUPS[id].lim / 100), basis: id === '1' ? trig / (1 + SETUPS[id].trig / 100) : trig };
       const cost = COSTX * tierCost(dv20(r.sym, t)), v = {}; let filled = true;
       for (const [k, o] of Object.entries(VARS)) { const x = simulate(r.sym, t, setup, cost, o); if (!x) { filled = false; break; } v[k] = { R: x.R, held: x.held, reason: x.reason, pct: x.R * x.width }; }
-      if (filled) trades.push({ s: r.sym, id, cls, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), width, room, v });
+      if (filled) trades.push({ s: r.sym, g: industry[r.sym], ei: t + 1, id, cls, d: dates[t], y: dates[t].slice(0, 4), ym: dates[t].slice(0, 7), width, room, v });
     }
   }
   if (ni % 100 === 0) console.error(`night ${ni}/${nights.length} ${dates[t]} trades ${trades.length} ${((Date.now() - t0) / 1000).toFixed(0)}s`);
@@ -98,6 +99,20 @@ if (EXITS === 'live') {
   }
   const rs = {}; for (const x of valid) rs[x.v.live.reason] = (rs[x.v.live.reason] || 0) + 1; console.log('live exit reasons (valid):', JSON.stringify(rs));
   rep.liveVsPort = out;
+}
+if (OOS) {   // C-118 (b): pass rule on the valid desk trades with the live exits; excess = trade return minus the equal-weight market over the same sessions (today's survivors, so the market is flattered and the excess understated)
+  const { bootMean } = await import('../src/backtest/ind-base.ts'), { formatReport } = await import('../src/backtest/report.ts');
+  const k = EXITS === 'live' ? 'live' : 'desk', tr = [...valid].sort((a, b) => (a.d < b.d ? -1 : 1)), mret = (x) => { const a = mk[x.ei], b = mk[Math.min(T - 1, x.ei + x.v[k].held - 1)]; return b / a - 1; };
+  const ex = tr.map((x) => x.v[k].pct - mret(x)), [lo, hi] = bootMean(ex), groups = [...new Set(tr.map((x) => x.g))];
+  const dropped = groups.map((g) => ({ g, m: mean(tr.filter((x) => x.g !== g).map((x, i) => x.v[k].pct - mret(x))) , n: tr.filter((x) => x.g === g).length })), bestG = groups.map((g) => ({ g, sum: tr.filter((x) => x.g === g).reduce((a, x) => a + x.v[k].pct - mret(x), 0) })).sort((a, b) => b.sum - a.sum)[0]?.g;
+  const exDrop = tr.filter((x) => x.g !== bestG).map((x) => x.v[k].pct - mret(x));
+  const byYear = {}; tr.forEach((x, i) => (byYear[x.y] ??= []).push(ex[i])); const yearsPos = Object.values(byYear).filter((v) => mean(v) > 0).length;
+  const crit = { meanExcessAboveZero: mean(ex) > 0, ciLowAboveZero: lo > 0, aboveZeroAfterDroppingBestGroup: mean(exDrop) > 0, yearsPositiveAtLeast6of9: yearsPos >= 6 && Object.keys(byYear).length === 9 };
+  const bySetup = Object.fromEntries(['1', '2', '4'].map((id) => [id, { n: tr.filter((x) => x.id === id).length, meanR: SU(tr.filter((x) => x.id === id), k).R }]));
+  const recs = tr.map((x, i) => ({ sym: x.s, entry: x.d, group: x.g, regime: 'green-fixed', net: { 0: x.v[k].pct }, mkt: { 0: mret(x) } }));
+  const oos = { exits: EXITS, trades: tr.length, perYear: 'see byYear', meanExcess: mean(ex), ci90: [lo, hi], bestGroupDropped: bestG, meanExcessAfterDrop: mean(exDrop), yearsWithTrades: Object.keys(byYear).length, yearsPositive: yearsPos, byYear: Object.fromEntries(Object.entries(byYear).map(([y, v]) => [y, { n: v.length, meanExcess: mean(v) }])), bySetup, criteria: crit, pass: Object.values(crit).every(Boolean), caveats: ['survivor-biased: groups from today\'s industry map', 'light fixed to green', 'no results dates before 2020: rule 8 off', 'market = equal-weight of today\'s symbols'] };
+  writeFileSync('data/replay/c118-b-oos.json', JSON.stringify(oos, null, 1) + '\n'); writeFileSync('docs/replay/C118-B-REPORT.md', formatReport('C-118 test (b): C-64 desk setups with live exits, India signals 2011-2019', recs, { market: 'india', survivorBiased: true, pricesAdjusted: true, sweepSize: 1, window: '2011-01 to 2019-12' }, { splitHorizon: 0, horizons: [0] }) + '\n');
+  console.log('C-118 (b)', JSON.stringify(oos, null, 1));
 }
 mkdirSync('data/replay', { recursive: true }); writeFileSync(`data/replay/ind-setups${SUF}.json`, JSON.stringify({ generated: new Date().toISOString().slice(0, 10), nights: nights.length, cands, rep }, null, 1));
 writeFileSync(`data/replay/ind-setups-trades${SUF}.json`, JSON.stringify(trades) + '\n');

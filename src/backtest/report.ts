@@ -67,10 +67,10 @@ export function caveats(c: Caveats): string[] {
 
 const pc = (x: number, d = 1): string => (Number.isFinite(x) ? (x * 100).toFixed(d) + '%' : 'n/a');
 /** The report as plain text for a result file. */
-export function formatReport(title: string, trades: TradeRec[], cav: Caveats, ctx: { splitHorizon?: number } = {}): string {
-  const h = ctx.splitHorizon ?? 60, q = pickQuality(trades), ex = exTopGroup(trades, h), L: string[] = [`# ${title}`, ''];
+export function formatReport(title: string, trades: TradeRec[], cav: Caveats, ctx: { splitHorizon?: number; horizons?: number[] } = {}): string {
+  const h = ctx.splitHorizon ?? 60, q = pickQuality(trades, ctx.horizons ?? HORIZONS), ex = exTopGroup(trades, h), L: string[] = [`# ${title}`, ''];
   L.push('## Pick quality (same picks at every length)', '| Sessions | Picks | Mean net | Median net | Mean excess | Hit rate | Excess 90% interval |', '|---|---|---|---|---|---|---|');
-  for (const s of q) L.push(`| ${s.h} | ${s.n} | ${pc(s.meanNet)} | ${pc(s.medianNet)} | ${pc(s.meanExcess)} | ${pc(s.hit, 0)} | ${pc(s.ci[0])} to ${pc(s.ci[1])} |`);
+  for (const s of q) L.push(`| ${s.h || 'held to exit'} | ${s.n} | ${pc(s.meanNet)} | ${pc(s.medianNet)} | ${pc(s.meanExcess)} | ${pc(s.hit, 0)} | ${pc(s.ci[0])} to ${pc(s.ci[1])} |`);
   L.push('', `## Without the best group (${h} sessions)`, ex.dropped ? `Dropped ${ex.dropped}: ${ex.n} picks, mean excess ${pc(ex.meanExcess)}, interval ${pc(ex.ci[0])} to ${pc(ex.ci[1])}.` : 'No group labels, not computed.');
   for (const key of ['year', 'regime', 'group'] as const) {
     const s = splitBy(trades, key, h); if (!s.length || (key !== 'year' && s.every((x) => x.label === 'none'))) continue;
