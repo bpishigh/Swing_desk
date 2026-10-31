@@ -84,6 +84,7 @@ All pre-registered: the pass rule was written before the run. "Judged" is India 
 | C-127 | Do setups work on top-momentum stocks only? | Failed | India top group −0.04R against −0.05R for the rest; US +0.01R against +0.02R. India 2021-25 only (reported): +0.31R against +0.06R |
 | C-128 | Does a published weekly momentum book (Clenow-style) beat the index? | Failed | India +96% against +103%; US +77% against SPY's +142%. India 2021-25 only (reported): +210% against +100% |
 | C-129 | Does a large-cap-tilted momentum sleeve built to NSE's Nifty200 Momentum 30 outline beat the Nifty 200? (stand-ins for the parts NSE doesn't publish) | Failed the rule, direction positive | India Feb 2011-2019: +213% against the Nifty 200's +129%, but the monthly edge (+0.32%) is too noisy to confirm (range -0.07% to +0.72%) and it beat the index in only 4 of 9 years. Equal-weight twin +207%. NSE's own series not yet compared. Addendum (same run, nothing judged): after the sleeve's own trading costs it made 13.79% a year against 9.84% for the Nifty 200, a gap of 3.94 points; costs about 0.73% a year (no tax); worst fall relative to the Nifty 200 -16.0% (Apr 2018 to Nov 2019). The yearly gap is lumpy: 2017 +26.0 points, 2015 +20.1, 2011 +11.8, but 2016 -8.5, 2018 -6.0, 2019 -4.6, 2012 -1.4. Without 2017: +96.4% against +71.8% over the other eight years, about 1.8 points a year. 2021-25 (reported only): +182% against +102%, 24.4% a year against 15.9%, 3 of 5 years, worst relative fall -20.8% |
+| C-130 | Proposed: a momentum stream (the C-129 rules, India) on the scans and as a forward paper book, with a monthly twin, beside the current desk rules | Proposed, awaiting sign-off | Pass rule written first: the paper book must beat the Nifty 200 after costs at 24 months, never trail it by more than 10 points at the 12-month read, keep its worst relative fall within 25%, and keep turnover at or below 80% per review. It cannot be confirmed statistically: a 90% lower bound above zero needs about 0.83% a month over 24 months, or about 13 years at the size C-129 found. Passing supports moving capital in steps; failing stops the stream |
 
 ---
 
@@ -164,7 +165,7 @@ This is the plain-words reading of every result above, part by part, for the des
 - A reviewer said the cash rule cost about 70 points. It cost about 220 (C-120, India).
 
 **Waiting on the owner**
-- Add the momentum stream to the scans and to paper testing (draft entry C-130, see the Engine Rules).
+- Sign off the momentum stream entry C-130 (pass rule, 12 and 24 month reads, stop conditions), then build the scan page and the paper book.
 - Whether the existing forward tests C-53 and C-66 run to their pre-registered read (recommended) or are stopped.
 - Whether the setups keep placing live orders while the evidence stands as above.
 - The NSE Nifty200 Momentum 30 price history, to run the replication check (data/replay/nse-momentum30-price.csv).
