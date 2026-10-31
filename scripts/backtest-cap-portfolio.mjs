@@ -35,9 +35,9 @@ function evaluate(label, file, cal, idxMap, win) {
   for (const [name, book] of [['current', current], ['wider', wider]]) {
     const pf = portfolio(book), rs = book.map((t) => t.r), by = {}; for (const t of book) (by[t.d.slice(0, 4)] ??= []).push(t.r);
     const idx = (pf.from && pf.to) ? lastOnOrBefore(idxMap, pf.to) / lastOnOrBefore(idxMap, pf.from) - 1 : NaN, [lo, hi] = ciMean(book), yrs = Object.keys(by), pos = yrs.filter((y) => mean(by[y]) > 0).length;
-    out[name] = { trades: book.length, meanR: mean(rs), ci90: [lo, hi], portfolio: pf, indexReturn: idx, yearsWithTrades: yrs.length, yearsPositive: pos, byYear: Object.fromEntries(yrs.map((y) => [y, { n: by[y].length, meanR: mean(by[y]) }])) };
+    out[name] = { tradeCount: book.length, meanR: mean(rs), ci90: [lo, hi], portfolio: pf, indexReturn: idx, yearsWithTrades: yrs.length, yearsPositive: pos, byYear: Object.fromEntries(yrs.map((y) => [y, { n: by[y].length, meanR: mean(by[y]) }])) };
   }
-  const w = out.wider; out.criteria = { meanRAboveZero: w.meanR > 0, ciLowAboveZero: w.ci90[0] > 0, atLeast100Trades: w.trades >= 100, beatsIndex: w.portfolio.compounded > w.indexReturn, twoThirdsYearsPositive: w.yearsPositive >= Math.ceil((2 / 3) * w.yearsWithTrades) };
+  const w = out.wider; out.criteria = { meanRAboveZero: w.meanR > 0, ciLowAboveZero: w.ci90[0] > 0, atLeast100Trades: w.tradeCount >= 100, beatsIndex: w.portfolio.compounded > w.indexReturn, twoThirdsYearsPositive: w.yearsPositive >= Math.ceil((2 / 3) * w.yearsWithTrades) };
   out.pass = Object.values(out.criteria).every(Boolean); return out;
 }
 const res = {
@@ -49,6 +49,6 @@ const out = { run: new Date().toISOString().slice(0, 10), caps: '12 / 10.5 / 9 %
 writeFileSync('data/replay/c126-cap-portfolio.json', JSON.stringify(out, null, 1) + '\n');
 const f = (x) => (x * 100).toFixed(1) + '%', g = (x) => (x >= 0 ? '+' : '') + x.toFixed(2); let md = '# C-126: stop-width cap at 1.5 times, portfolio against the index\n\n0.5% risk per trade, at most 5 open, live exits, costs inside R. Index is price only.\n\n';
 for (const r of Object.values(res)) { md += `## ${r.label}: ${r.pass ? 'PASS' : 'FAIL'}${r.label.includes('reported') ? ' (not judged)' : ''}\n\n| | Trades | Mean R (90%) | Taken / skipped | Portfolio | Max fall | Index | Years positive |\n|---|---|---|---|---|---|---|---|\n`;
-  for (const n of ['current', 'wider']) { const b = r[n]; md += `| ${n} cap | ${b.trades} | ${g(b.meanR)} (${g(b.ci90[0])} to ${g(b.ci90[1])}) | ${b.portfolio.taken} / ${b.portfolio.skipped} | ${f(b.portfolio.compounded)} | ${f(b.portfolio.maxDrawdown)} | ${f(b.indexReturn)} | ${b.yearsPositive} of ${b.yearsWithTrades} |\n`; }
+  for (const n of ['current', 'wider']) { const b = r[n]; md += `| ${n} cap | ${b.tradeCount} | ${g(b.meanR)} (${g(b.ci90[0])} to ${g(b.ci90[1])}) | ${b.portfolio.taken} / ${b.portfolio.skipped} | ${f(b.portfolio.compounded)} | ${f(b.portfolio.maxDrawdown)} | ${f(b.indexReturn)} | ${b.yearsPositive} of ${b.yearsWithTrades} |\n`; }
   md += `\nConditions (wider cap): ${JSON.stringify(r.criteria)}\n\n`; }
 md += `Judged markets (India 2011-2019 and US): ${out.judgedPass ? 'PASS' : 'FAIL'}\n`; writeFileSync('docs/replay/C126-REPORT.md', md); console.log(md);
