@@ -1,12 +1,12 @@
 {
- "commonSessions": 1573,
+ "commonSessions": 1873,
  "first": "2012-02-21",
  "last": "2019-12-31",
- "flagDays": 1374,
- "agreement": 0.9942,
- "flipsNifty500": 44,
- "flipsBSE500": 36,
- "dailyReturnCorrelation": 0.9992,
+ "flagDays": 1674,
+ "agreement": 0.994,
+ "flipsNifty500": 54,
+ "flipsBSE500": 46,
+ "dailyReturnCorrelation": 0.999,
  "byYear": {
   "2012": {
    "days": 17,
@@ -19,19 +19,19 @@
    "niftyOnShare": 0.635
   },
   "2014": {
-   "days": 88,
+   "days": 229,
    "agreement": 1,
    "niftyOnShare": 1
   },
   "2015": {
-   "days": 35,
-   "agreement": 1,
-   "niftyOnShare": 1
+   "days": 194,
+   "agreement": 0.995,
+   "niftyOnShare": 0.588
   },
   "2016": {
    "days": 246,
-   "agreement": 1,
-   "niftyOnShare": 0.943
+   "agreement": 0.996,
+   "niftyOnShare": 0.626
   },
   "2017": {
    "days": 248,
