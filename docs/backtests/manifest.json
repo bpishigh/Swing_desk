@@ -1028,6 +1028,36 @@
     "summary": "FAIL in both judged markets. India 2011-2019 top group -0.04R, portfolio -10.2% vs index +111.8%; US 2018-2025 +0.01R, -0.9% vs SPY +148.3%. India 2021-2025 reported: top +0.31R vs +0.06R outside, +15.1% vs index +97.5%.",
     "file": "data/replay/c127-india.json"
    }
+  },
+  {
+   "id": "C-128-r1",
+   "changeLog": "C-128",
+   "title": "Clenow-style fast momentum book (weekly 90-session slope x R squared) against the index, India 2011-2019 and US 2018-2025 (India 2021-2025 reported)",
+   "hypothesis": "A weekly-ranked, published-style momentum book beats the index after costs.",
+   "script": "scripts/backtest-clenow.mjs",
+   "params": {
+    "rank": "annualised exponential-regression slope x R squared, 90 sessions, every Wednesday, trade at next close",
+    "filters": "above 100-session average; no one-day move above 15% in 90 sessions; no new buys unless index above 200-session average",
+    "exits": "leaves top 20% of ranked list, fails filters, leaves eligible list",
+    "sizing": "0.1% of equity per 20-session ATR move, no leverage",
+    "universe": "eligible list as in C-121, rebuilt each month start",
+    "judged": "India 2011-2019, US 2018-2025",
+    "sweeps": "one setting, one run",
+    "survivorship": "US survivor-biased upward"
+   },
+   "passRule": "Both judged markets, all four: compounded return beats the index over the same dates after costs; beats the equal-weight eligible list; mean weekly excess over the index above zero with 90% block-bootstrap (13 weeks) lower end above zero; excess over the index positive in at least two thirds of calendar years.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T18:52:57.416Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
