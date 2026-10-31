@@ -994,6 +994,35 @@
     "summary": "FAIL in both judged markets. India 2011-2019 wider cap -0.19R, portfolio -10.3% vs index +120.5%; US 2018-2025 -0.13R, -9.2% vs SPY +147.1%. India 2021-2025 reported +0.32R, +18.2% vs +108.5%.",
     "file": "data/replay/c126-cap-portfolio.json"
    }
+  },
+  {
+   "id": "C-127-r1",
+   "changeLog": "C-127",
+   "title": "Desk setups restricted to top-momentum stocks: portfolio against the index, India 2011-2019 and US 2018-2025 (India 2021-2025 reported)",
+   "hypothesis": "Desk setup trades in stocks in the top momentum group make money, beat the same setups outside the group, and beat the index.",
+   "script": "scripts/backtest-setups-momentum.mjs",
+   "params": {
+    "momentum": "same eligible list and cut as C-121, latest month-start signal on or before the trade date",
+    "trades": "all filled setup trades from the C-125 replays, live exits, costs in R",
+    "portfolio": "0.5% risk per trade, max 5 positions, date order",
+    "benchmark": "Nifty 500 / SPY buy and hold, price only",
+    "judged": "India 2011-2019, US 2018-2025",
+    "sweeps": "one setting, one run",
+    "survivorship": "US survivor-biased upward"
+   },
+   "passRule": "Both judged markets, all five: top-group mean R above zero with 90% month-cluster interval lower end above zero; at least 100 top-group trades; top group beats not-top group with interval lower end on the difference above zero; top-group portfolio compounded return beats the index over the same dates; mean R above zero in at least two thirds of years with trades.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T18:17:13.806Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
