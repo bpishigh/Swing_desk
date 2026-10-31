@@ -702,6 +702,37 @@
     "summary": "(a) US momentum copy passes all four conditions (mean excess +1.04%/month, interval +0.22% to +1.91%, 7 of 8 years) but trails SPY held throughout (+131% vs +147%) and is survivor-biased. (b) frozen US-SCAN-1 top-10 list fails the interval condition (mean excess +0.48% per 20 sessions, interval -0.28% to +1.33%).",
     "file": "data/replay/c119-a-us.json"
    }
+  },
+  {
+   "id": "C-120-r1",
+   "changeLog": "C-120",
+   "title": "The 200-day cash rule on its own: India Nifty 500 2011-2025 and US SPY 2018-2025",
+   "hypothesis": "Holding the index only while it is above its 200-session average reduces the worst fall by a third or more without giving up more than 20% of buy-and-hold compounded return.",
+   "script": "scripts/backtest-cash-rule.mjs",
+   "params": {
+    "signals": "India 2011-01 to 2025-10; US 2018-01 to 2025-10",
+    "cost": "0.10% India, 0.02% US per switch",
+    "cash": "0% (side note 5% India, 3% US)",
+    "benchmark": "hold the same index throughout, same dates",
+    "sweeps": "none, one run"
+   },
+   "passRule": "In both markets: worst peak-to-trough fall at least one third smaller than buy-and-hold; compounded return at least 80% of buy-and-hold; in at least half of calendar years the rule's return is within 3 points of buy-and-hold or better.",
+   "data": {
+    "sessions": 0,
+    "first": "2010-01-01",
+    "last": "2025-12-31",
+    "symbols": 2,
+    "hash": "idx-hist-2010-2025+SPY"
+   },
+   "registeredAt": "2026-10-31T11:30:19.659Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T11:30:58.648Z",
+    "summary": "Fails in both markets. India: worst fall cut 36% (met) but return 41% of buy-and-hold and 6 of 15 years (missed). US: no fall cut, return 24% of buy-and-hold (missed), 4 of 8 years.",
+    "file": "data/replay/c120-cash.json"
+   }
   }
  ]
 }
