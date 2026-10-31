@@ -1,0 +1,75 @@
+{
+ "exits": "live",
+ "trades": 35,
+ "perYear": "see byYear",
+ "meanExcess": -0.001404697269314614,
+ "ci90": [
+  -0.01800669181275362,
+  0.01559849241461023
+ ],
+ "bestGroupDropped": "Consumer Durables",
+ "meanExcessAfterDrop": -0.009794188913285245,
+ "yearsWithTrades": 8,
+ "yearsPositive": 3,
+ "byYear": {
+  "2011": {
+   "n": 5,
+   "meanExcess": -0.004599113674299772
+  },
+  "2012": {
+   "n": 3,
+   "meanExcess": -0.05102327465540884
+  },
+  "2013": {
+   "n": 3,
+   "meanExcess": 0.00213225101245745
+  },
+  "2015": {
+   "n": 2,
+   "meanExcess": -0.021317384881078764
+  },
+  "2016": {
+   "n": 3,
+   "meanExcess": -0.005558462307392802
+  },
+  "2017": {
+   "n": 5,
+   "meanExcess": 0.013510503000492915
+  },
+  "2018": {
+   "n": 4,
+   "meanExcess": 0.06326247082245151
+  },
+  "2019": {
+   "n": 10,
+   "meanExcess": -0.01407880067335932
+  }
+ },
+ "bySetup": {
+  "1": {
+   "n": 7,
+   "meanR": -0.08291469388968589
+  },
+  "2": {
+   "n": 23,
+   "meanR": -0.3190474596721547
+  },
+  "4": {
+   "n": 5,
+   "meanR": 0.6173941722811855
+  }
+ },
+ "criteria": {
+  "meanExcessAboveZero": false,
+  "ciLowAboveZero": false,
+  "aboveZeroAfterDroppingBestGroup": false,
+  "yearsPositiveAtLeast6of9": false
+ },
+ "pass": false,
+ "caveats": [
+  "survivor-biased: groups from today's industry map",
+  "light fixed to green",
+  "no results dates before 2020: rule 8 off",
+  "market = equal-weight of today's symbols"
+ ]
+}

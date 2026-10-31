@@ -663,7 +663,12 @@
    "registeredAt": "2026-10-31T09:21:51.582Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T09:45:32.465Z",
+    "summary": "Both frozen rules FAIL on India 2011-2019. (a) momentum: mean excess +0.35%/month, 90% interval -0.21% to +0.92%, +0.12% after dropping best 3 months, 5 of 9 years positive: fails interval and years. (b) desk setups: 35 valid trades, mean excess -0.14%, interval -1.8% to +1.6%, -1.0% after dropping best group, 3 of 8 years positive: fails all four.",
+    "file": "data/replay/c118-a-oos.json"
+   }
   }
  ]
 }
