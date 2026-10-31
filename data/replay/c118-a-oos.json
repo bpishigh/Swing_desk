@@ -1,0 +1,178 @@
+{
+ "run": "2026-10-31",
+ "data": {
+  "sessions": 2501,
+  "first": "2010-01-04",
+  "last": "2020-01-31",
+  "symbols": 2420,
+  "splits": 296,
+  "hash": "3cc3d45f8ca7"
+ },
+ "index": {
+  "fromNifty500": 1896,
+  "fromBse500Scaled": 605,
+  "missing": 0
+ },
+ "flags": {
+  "delisted": 5,
+  "noEntryPrice": 10
+ },
+ "oos": {
+  "months": 108,
+  "invested": 70,
+  "meanNet": 0.003992830620046018,
+  "meanExUniverse": 0.003491696962501843,
+  "ci90": [
+   -0.002080400270691696,
+   0.009227520895737862
+  ],
+  "compStrategy": 0.2936020998333093,
+  "compUniverse": -0.06703627613613383,
+  "compIndex": 1.0044420732169308,
+  "meanExAfterDrop3": 0.0012418639113388357,
+  "years": 9,
+  "yearsPositive": 5,
+  "byYear": {
+   "2011": {
+    "meanExcess": 0,
+    "strategy": 0,
+    "universe": 0,
+    "index": -0.2554898071942878
+   },
+   "2012": {
+    "meanExcess": 0.009789679238272281,
+    "strategy": 0.07883430578509487,
+    "universe": -0.04945012968177254,
+    "index": 0.2999906685248266
+   },
+   "2013": {
+    "meanExcess": -0.009763058700840337,
+    "strategy": -0.28301019435259056,
+    "universe": -0.18801794698440955,
+    "index": 0.00623586295627665
+   },
+   "2014": {
+    "meanExcess": 0.015650051681801704,
+    "strategy": 0.7967355848397863,
+    "universe": 0.4890351748254622,
+    "index": 0.4160694583363411
+   },
+   "2015": {
+    "meanExcess": -0.004261883411252972,
+    "strategy": -0.14659613973923236,
+    "universe": -0.084527960835864,
+    "index": -0.0343190440475063
+   },
+   "2016": {
+    "meanExcess": -0.015686349229042218,
+    "strategy": -0.11918011252847127,
+    "universe": 0.06917061558313131,
+    "index": 0.06001538275924445
+   },
+   "2017": {
+    "meanExcess": 0.025267411395381984,
+    "strategy": 0.7905623678932034,
+    "universe": 0.34674167858720084,
+    "index": 0.339903965854526
+   },
+   "2018": {
+    "meanExcess": 0.0036980000216175553,
+    "strategy": -0.2580353246406153,
+    "universe": -0.28359033020258617,
+    "index": -0.033388724602749
+   },
+   "2019": {
+    "meanExcess": 0.00673142166657859,
+    "strategy": -0.06796028776590513,
+    "universe": -0.14039165157665268,
+    "index": 0.09629369246655073
+   }
+  }
+ },
+ "doubleCost": {
+  "months": 108,
+  "invested": 70,
+  "meanNet": 0.0020773235710090303,
+  "meanExUniverse": 0.002537335361106351,
+  "ci90": [
+   -0.0030428647620623583,
+   0.008277179628204625
+  ],
+  "compStrategy": 0.05009578397509107,
+  "compUniverse": -0.16087828947220373,
+  "compIndex": 1.0044420732169308,
+  "meanExAfterDrop3": 0.0003039226578579238,
+  "years": 9,
+  "yearsPositive": 5,
+  "byYear": {
+   "2011": {
+    "meanExcess": 0,
+    "strategy": 0,
+    "universe": 0,
+    "index": -0.2554898071942878
+   },
+   "2012": {
+    "meanExcess": 0.008615560949497026,
+    "strategy": 0.046879200541513955,
+    "universe": -0.06510798890907243,
+    "index": 0.2999906685248266
+   },
+   "2013": {
+    "meanExcess": -0.010772907306053977,
+    "strategy": -0.30075546864004876,
+    "universe": -0.1977548390394449,
+    "index": 0.00623586295627665
+   },
+   "2014": {
+    "meanExcess": 0.01410691323729008,
+    "strategy": 0.7449099497371827,
+    "universe": 0.4716149555103255,
+    "index": 0.4160694583363411
+   },
+   "2015": {
+    "meanExcess": -0.005594677556051177,
+    "strategy": -0.1690674323404564,
+    "universe": -0.09365365451910557,
+    "index": -0.0343190440475063
+   },
+   "2016": {
+    "meanExcess": -0.016856438779840124,
+    "strategy": -0.14295187861012104,
+    "universe": 0.05551165579039519,
+    "index": 0.06001538275924445
+   },
+   "2017": {
+    "meanExcess": 0.023987878709007582,
+    "strategy": 0.7424215982962605,
+    "universe": 0.32945545957936884,
+    "index": 0.339903965854526
+   },
+   "2018": {
+    "meanExcess": 0.0030011118432689376,
+    "strategy": -0.2755017324696529,
+    "universe": -0.2943938381896338,
+    "index": -0.033388724602749
+   },
+   "2019": {
+    "meanExcess": 0.006348577152838812,
+    "strategy": -0.08553168902879205,
+    "universe": -0.1528333862998147,
+    "index": 0.09629369246655073
+   }
+  }
+ },
+ "criteria": {
+  "meanExcessAboveZero": true,
+  "ciLowAboveZero": false,
+  "aboveZeroAfterDropping3Months": true,
+  "yearsPositiveAtLeast6of9": false
+ },
+ "criteriaDoubleCost": {
+  "meanExcessAboveZero": true,
+  "ciLowAboveZero": false,
+  "aboveZeroAfterDropping3Months": true,
+  "yearsPositiveAtLeast6of9": false
+ },
+ "pass": false,
+ "passDoubleCost": false
+}
