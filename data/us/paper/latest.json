@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-29",
+ "asOf": "2026-10-30",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -14,53 +14,37 @@
  "capwaived": {
   "orders": 6,
   "open": 1,
-  "pending": 1,
+  "pending": 0,
   "notFilled": 1,
-  "closed": 3,
-  "meanR": -1.036545759137899,
-  "winRate": 0.3333333333333333
+  "closed": 4,
+  "meanR": -1.034270970802412,
+  "winRate": 0.25
  },
  "comparator": {
   "orders": 5,
-  "open": 0,
-  "pending": 1,
+  "open": 1,
+  "pending": 0,
   "notFilled": 0,
   "closed": 4,
   "meanR": -0.44640492294950196,
   "winRate": 0.5
  },
  "light": "yellow",
- "newOrdersTonight": [
+ "newOrdersTonight": [],
+ "open": [
   {
    "stream": "capwaived",
    "sym": "STNG",
    "setup": "4",
-   "trigger": 95.45,
-   "stop": 86.01,
-   "tags": [
-    "inside base",
-    "over cap"
-   ]
+   "entry": 95.45,
+   "stop": 86.01
   },
   {
    "stream": "comparator",
    "sym": "STNG",
    "setup": "4",
-   "trigger": 95.07,
-   "stop": 85.63,
-   "tags": [
-    "inside base",
-    "over cap"
-   ]
-  }
- ],
- "open": [
-  {
-   "stream": "capwaived",
-   "sym": "NTAP",
-   "setup": "4",
-   "entry": 218.48,
-   "stop": 202.56
+   "entry": 92.6,
+   "stop": 85.63
   }
  ]
 }
