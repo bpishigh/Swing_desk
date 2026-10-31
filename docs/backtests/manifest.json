@@ -769,6 +769,65 @@
     "summary": "Fails. India 2011-2019: both horizons miss three of four conditions (3-month +0.15% a month, interval -0.41% to +0.72%). US 2018-2025 (survivor-biased): both horizons meet three conditions and miss years (5 of 8, needs 6). India 2020-2025 reported only: would pass.",
     "file": "data/replay/c121-india.json"
    }
+  },
+  {
+   "id": "C-122-r1",
+   "changeLog": "C-122",
+   "title": "India 2010-2019 price breaks: rule-based overrides for the liquid unresolved breaks",
+   "hypothesis": "Clearing the liquid unresolved breaks (174 of 1,886) with the existing R1-R4 rules puts large stocks back into the early ranking without changing any 2020 on result.",
+   "script": "scripts/derive-india-overrides-pre2020.mjs",
+   "params": {
+    "liquid": "20-session average traded value at least Rs 5 crore before the break",
+    "rules": "R1 to R4 of derive-india-overrides.mjs, unchanged",
+    "window": "breaks dated before 2020-02-01"
+   },
+   "passRule": "Data fix, no pass rule: the rule counts are recorded and leftovers listed; nothing dated 2020 or later may change.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "da0b3bd1411d"
+   },
+   "registeredAt": "2026-10-31T13:24:21.152Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "abandoned",
+   "result": {
+    "at": "2026-10-31T13:25:34.886Z",
+    "summary": "abandoned: Rule R5 added before applying, after a dry run that only listed leftovers (no data written, no test run); re-registered with the amended rule set"
+   }
+  },
+  {
+   "id": "C-122-r2",
+   "changeLog": "C-122",
+   "title": "India 2010-2019 price breaks: rule-based overrides for the liquid unresolved breaks",
+   "hypothesis": "Clearing the liquid unresolved breaks (174 of 1,886) with R1-R5 puts large stocks (HDFC, HDFC Bank, SBI, Axis and others) back into the early ranking without changing any 2020 on result.",
+   "script": "scripts/derive-india-overrides-pre2020.mjs",
+   "params": {
+    "liquid": "20-session average traded value at least Rs 5 crore before the break",
+    "rules": "R1 to R4 of derive-india-overrides.mjs, unchanged, plus R5: list gives no ratio, price step within 5% of 1/n (n>=2), ten-session median volume at least max(1.5, n/3) times before",
+    "window": "breaks dated before 2020-02-01"
+   },
+   "passRule": "Data fix, no pass rule: the rule counts are recorded and leftovers listed; nothing dated 2020 or later may change.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "da0b3bd1411d"
+   },
+   "registeredAt": "2026-10-31T13:25:48.739Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T13:28:30.206Z",
+    "summary": "136 of 174 liquid unresolved 2010-2019 India breaks cleared by R1-R5 (22/15/10/52/37); 38 liquid left; nothing dated 2020 or later changed.",
+    "file": "data/replay/c122-overrides.json"
+   }
   }
  ]
 }

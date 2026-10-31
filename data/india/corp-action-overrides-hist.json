@@ -349,5 +349,633 @@
  "HEG|2026-09-07": {
   "factor": 0.3738,
   "note": "MANUAL (typed override, 17 Oct 2026): demerger of the graphite business into HEG Graphite, 1:1, record date 7 Sep 2026; factor = observed ex-date ratio 0.3738 (the day's market move is not removed)"
+ },
+ "SHREEASHTA|2010-02-01": {
+  "factor": 0.2401,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x12.8; observed ratio 0.2401; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "STRTECH|2010-03-09": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.2042); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "M&M|2010-03-29": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R5: split 1:2, list gives no ratio (price step 0.5122, volume x1.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ZEENEWS|2010-04-15": {
+  "factor": 0.25,
+  "derived": true,
+  "note": "R1: split 1:4 (price step 0.2435); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ENGINERSIN|2010-05-06": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2, volume x19.6); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "STER|2010-06-21": {
+  "factor": 0.2696,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x2.7; observed ratio 0.2696; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TATATEA|2010-06-30": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R1: split 1:10 (price step 0.1018); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RNRL|2010-07-05": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.724 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MMTC|2010-07-29": {
+  "factor": 0.0609,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x38.6; observed ratio 0.0609; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "EDELWEISS|2010-08-10": {
+  "factor": 0.1043,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x8.9; observed ratio 0.1043; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MAGMA|2010-08-13": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.2088); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "HDFC|2010-08-18": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2065, volume x5.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "REDINGTON|2010-08-20": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1953, volume x1.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "LUPIN|2010-08-27": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1997, volume x3.5); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "KOTAKBANK|2010-09-13": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R5: split 1:2, list gives no ratio (price step 0.5259, volume x2.6); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RESURGERE|2010-09-15": {
+  "factor": 0.0406,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x4.9; observed ratio 0.0406; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "BHUSANSTL|2010-09-21": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.1962); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MUNDRAPORT|2010-09-23": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.1978); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SOUTHBANK|2010-09-23": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.1, volume x16.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AQUA|2010-10-01": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0999, volume x7.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "PARSVNATH|2010-10-18": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R5: split 1:2, list gives no ratio (price step 0.4938, volume x4.4); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SUPREMEIND|2010-10-18": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1983, volume x1.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JISLJALEQS|2010-10-29": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2038, volume x7.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "PFOCUS|2010-10-29": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0973, volume x13.1); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ATLANTA|2010-11-08": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.2012); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SUNPHARMA|2010-11-25": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1997, volume x5.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "WELCORP|2010-12-03": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7302 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RUCHISOYA|2010-12-08": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7203 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "LICHSGFIN|2010-12-30": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2036, volume x2.6); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ONGC|2011-02-08": {
+  "factor": 0.2361,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x2.2; observed ratio 0.2361; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AUROPHARMA|2011-02-10": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2079, volume x3.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MPHASIS|2011-02-25": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7192 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "HINDZINC|2011-03-07": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0974, volume x7.6); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TRIVENI|2011-05-03": {
+  "factor": 0.4004,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.4004; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SMARTLINK|2011-05-31": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6563 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SUNTV|2011-06-02": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7215 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TITAN|2011-06-23": {
+  "factor": 0.0533,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x11.7; observed ratio 0.0533; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "HDFCBANK|2011-07-14": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2008, volume x4.4); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "KSOILS|2011-08-16": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6865 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JBCHEPHARM|2011-08-29": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6838 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TATAMOTORS|2011-09-12": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.1913); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TATAPOWER|2011-09-26": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0978, volume x6.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "BHEL|2011-10-03": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1951, volume x2.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "VIPIND|2011-10-31": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2026, volume x4.2); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RENUKA|2011-11-14": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7439 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IGL|2012-04-10": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.661 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "GRAVITA|2012-05-25": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2099, volume x3.5); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SWELECTES|2012-07-17": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R1: split 1:2 (price step 0.5204); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TULIP|2012-07-26": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7398 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AMARAJABAT|2012-09-25": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R1: split 1:2 (price step 0.5171); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MOTHERSUMI|2012-10-03": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6827 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ORISSAMINE|2012-10-29": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0959, volume x7.5); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "BOMDYEING|2012-10-30": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2069, volume x2.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "M&MFIN|2013-02-15": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2, volume x3.1); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SUZLON|2013-02-28": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6598 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "OPTOCIRCUI|2013-05-31": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.623 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "APOLLOTYRE|2013-06-13": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7455 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "FRL|2013-06-21": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6707 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ASIANPAINT|2013-07-30": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0998, volume x6.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IRB|2013-08-01": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7476 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RANBAXY|2013-09-16": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6966 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "FEDERALBNK|2013-10-17": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2054, volume x5.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "PFIZER|2013-12-05": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7499 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MOTHERSUMI|2013-12-20": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6871 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MINDTREE|2014-06-03": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R5: split 1:2, list gives no ratio (price step 0.5114, volume x1.5); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "LAKSHVILAS|2014-07-25": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.739 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AXISBANK|2014-07-28": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1991, volume x3.6); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "DLF|2014-10-14": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7144 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SBIN|2014-11-20": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.1021, volume x9.0); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "CORPBANK|2015-01-22": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1913, volume x1.7); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "HCLTECH|2015-03-19": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R5: split 1:2, list gives no ratio (price step 0.4882, volume x1.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TECHM|2015-03-19": {
+  "factor": 0.2454,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x3.4; observed ratio 0.2454; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "GRANULES|2015-03-23": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.1036, volume x5.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TWL|2015-04-23": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.1939); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ADANIENT|2015-06-03": {
+  "factor": 0.1723,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.1723; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "UNITECH|2015-06-03": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6431 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MASTEK|2015-06-12": {
+  "factor": 0.34,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.34; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MOTHERSUMI|2015-07-23": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6681 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AMTEKAUTO|2015-08-19": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.694 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AMTEKAUTO|2015-08-20": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7128 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AMTEKAUTO|2015-08-24": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7459 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "AMTEKAUTO|2015-09-03": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6502 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IDFC|2015-10-01": {
+  "factor": 0.4279,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.4279; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "CADILAHC|2015-10-06": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.2045); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JSL|2015-11-19": {
+  "factor": 0.3913,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.3913; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ABIRLANUVO|2016-01-20": {
+  "factor": 0.4271,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.4271; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MAX|2016-01-27": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7392 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TIDEWATER|2016-03-16": {
+  "factor": 0.25,
+  "derived": true,
+  "note": "R1: split 1:4 (price step 0.2426); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "WELSPUNIND|2016-03-21": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R1: split 1:10 (price step 0.1039); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "FRL|2016-05-11": {
+  "factor": 0.125,
+  "derived": true,
+  "note": "R1: split 1:8 (price step 0.1258); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TCI|2016-08-26": {
+  "factor": 0.5303,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.5303; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "VGUARD|2016-08-30": {
+  "factor": 0.111111,
+  "derived": true,
+  "note": "R5: split 1:9, list gives no ratio (price step 0.1061, volume x9.7); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "NBVENTURES|2016-09-01": {
+  "factor": 0.5,
+  "derived": true,
+  "note": "R1: split 1:2 (price step 0.4784); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "BAJFINANCE|2016-09-08": {
+  "factor": 0.1021,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x6.6; observed ratio 0.1021; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MINDAIND|2016-09-12": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.191); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "GRASIM|2016-10-06": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.2046, volume x4.2); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "KARURVYSYA|2016-11-17": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1997, volume x3.3); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SUNILHITEC|2016-12-01": {
+  "factor": 0.0525,
+  "derived": true,
+  "note": "R3: split or bonus, list ratio differs; volume x6.9; observed ratio 0.0525; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JSWSTEEL|2017-01-04": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R5: split 1:10, list gives no ratio (price step 0.0991, volume x11.8); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "SINTEX|2017-05-25": {
+  "factor": 0.2483,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.2483; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MOTHERSUMI|2017-07-05": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6663 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "INFIBEAM|2017-08-31": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R1: split 1:10 (price step 0.1018); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ORIENTPPR|2018-01-11": {
+  "factor": 0.3043,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.3043; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "PHILIPCARB|2018-04-19": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.21); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "HCC|2018-05-03": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7457 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "INGERRAND|2018-05-24": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.716 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MCDOWELL-N|2018-06-15": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R1: split 1:5 (price step 0.196); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MINDAIND|2018-07-11": {
+  "factor": 0.333333,
+  "derived": true,
+  "note": "R1: split 1:3 (price step 0.3356); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "PCJEWELLER|2018-07-16": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.744 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ADANIENT|2018-09-06": {
+  "factor": 0.776,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.776; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ZENSARTECH|2018-09-07": {
+  "factor": 0.2,
+  "derived": true,
+  "note": "R5: split 1:5, list gives no ratio (price step 0.1947, volume x1.9); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "YESBANK|2018-09-21": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7096 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "INFIBEAM|2018-10-22": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7382 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "MOTHERSUMI|2018-10-30": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7077 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ARVIND|2018-11-28": {
+  "factor": 0.3491,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.3491; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "DISHTV|2019-01-25": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6677 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "ZEEL|2019-01-25": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7339 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RCOM|2019-02-04": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6509 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RPOWER|2019-02-04": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6515 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RCOM|2019-02-05": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7351 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RPOWER|2019-02-05": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6977 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RELINFRA|2019-02-06": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.679 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "RELINFRA|2019-02-07": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7171 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "CGPOWER|2019-02-13": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7018 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JETAIRWAYS|2019-04-18": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.6854 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "YESBANK|2019-04-30": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7083 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IIFL|2019-05-30": {
+  "factor": 0.4779,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.4779; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JISLJALEQS|2019-06-19": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.719 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "JETAIRWAYS|2019-06-20": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 1.8988 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "DHFL|2019-07-15": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.708 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IDEA|2019-07-29": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.7297 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "GFLLIMITED|2019-08-06": {
+  "factor": 0.1089,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.1089; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "TATACOMM|2019-09-17": {
+  "factor": 0.6519,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.6519; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "IBULHSGFIN|2019-09-30": {
+  "ignore": true,
+  "note": "R4: genuine one-day move to 0.656 of the prior close; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "THOMASCOOK|2019-12-05": {
+  "factor": 0.4445,
+  "derived": true,
+  "note": "R2: demerger, observed ex-date price ratio 0.4445; no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "NIFTYBEES|2019-12-19": {
+  "factor": 0.1,
+  "derived": true,
+  "note": "R1: split 1:10 (price step 0.1007); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
  }
 }

@@ -1,0 +1,286 @@
+{
+ "run": "2026-10-31",
+ "beforeCounts": {
+  "resolved": 296,
+  "real": 1914,
+  "unresolved": 1886
+ },
+ "counts": {
+  "R1": 22,
+  "R2": 15,
+  "R3": 10,
+  "R4": 52,
+  "R5": 37,
+  "left": 38,
+  "illiquid": 1712,
+  "already": 0
+ },
+ "left": [
+  {
+   "key": "KRBL|2010-02-10",
+   "ratio": 0.1179,
+   "volx": 10.93,
+   "avgCrore": 9.1,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "CROMPGREAV|2010-03-08",
+   "ratio": 0.5644,
+   "volx": 1.47,
+   "avgCrore": 29.3,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "JAYSREETEA|2010-08-13",
+   "ratio": 0.5138,
+   "volx": 0.53,
+   "avgCrore": 6.9,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "AEGISCHEM|2010-08-18",
+   "ratio": 0.5726,
+   "volx": 1.23,
+   "avgCrore": 21.6,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "BLKASHYAP|2010-09-29",
+   "ratio": 0.1048,
+   "volx": 1.53,
+   "avgCrore": 13.2,
+   "why": "list ratio does not match the price move"
+  },
+  {
+   "key": "SINTEX|2010-10-27",
+   "ratio": 0.4967,
+   "volx": 0.97,
+   "avgCrore": 52.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "COROMANDEL|2010-12-23",
+   "ratio": 0.5007,
+   "volx": 1.01,
+   "avgCrore": 6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "GLODYNE|2011-02-10",
+   "ratio": 0.6343,
+   "volx": 1.11,
+   "avgCrore": 7.9,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "NATIONALUM|2011-03-15",
+   "ratio": 0.2273,
+   "volx": 1.71,
+   "avgCrore": 8.8,
+   "why": "list ratio does not match the price move"
+  },
+  {
+   "key": "MANAPPURAM|2011-06-09",
+   "ratio": 0.5074,
+   "volx": 0.67,
+   "avgCrore": 11.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "COX&KINGS|2011-06-21",
+   "ratio": 0.5208,
+   "volx": 0.61,
+   "avgCrore": 6.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "TATAMTRDVR|2011-09-12",
+   "ratio": 0.1897,
+   "volx": 2.03,
+   "avgCrore": 23.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "AMRUTANJAN|2012-10-25",
+   "ratio": 0.1907,
+   "volx": 1.15,
+   "avgCrore": 5.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "20MICRONS|2013-01-28",
+   "ratio": 0.5262,
+   "volx": 0.89,
+   "avgCrore": 8.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "COREEDUTEC|2013-02-27",
+   "ratio": 0.5419,
+   "volx": 64.34,
+   "avgCrore": 16.3,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "FINANTECH|2013-08-01",
+   "ratio": 0.355,
+   "volx": 15.47,
+   "avgCrore": 36.4,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "STAR|2013-12-19",
+   "ratio": 0.4236,
+   "volx": 0.2,
+   "avgCrore": 59.8,
+   "why": "only a cash action listed for a large move"
+  },
+  {
+   "key": "GRUH|2014-06-09",
+   "ratio": 0.5098,
+   "volx": 1.08,
+   "avgCrore": 6.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "NCC|2014-09-18",
+   "ratio": 0.6555,
+   "volx": 0.45,
+   "avgCrore": 14.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "PERSISTENT|2015-03-10",
+   "ratio": 0.4552,
+   "volx": 3.16,
+   "avgCrore": 12.7,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "WABAG|2015-03-26",
+   "ratio": 0.4796,
+   "volx": 1.19,
+   "avgCrore": 15.1,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "KOTAKBANK|2015-07-08",
+   "ratio": 0.496,
+   "volx": 1.03,
+   "avgCrore": 122.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "LAMBODHARA|2015-10-15",
+   "ratio": 0.5097,
+   "volx": 0.46,
+   "avgCrore": 8.3,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "CROMPGREAV|2016-03-15",
+   "ratio": 0.2833,
+   "volx": 1.39,
+   "avgCrore": 171.7,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "KAJARIACER|2016-10-04",
+   "ratio": 0.5001,
+   "volx": 1.42,
+   "avgCrore": 8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "8KMILES|2016-10-10",
+   "ratio": 0.4078,
+   "volx": 0.91,
+   "avgCrore": 5.9,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "BHAGERIA|2016-10-26",
+   "ratio": 0.525,
+   "volx": 1.46,
+   "avgCrore": 8.1,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "ICIL|2016-11-11",
+   "ratio": 0.1876,
+   "volx": 2.23,
+   "avgCrore": 13.3,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "ONGC|2016-12-15",
+   "ratio": 0.6762,
+   "volx": 1.03,
+   "avgCrore": 149.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "DAAWAT|2017-02-07",
+   "ratio": 0.1078,
+   "volx": 4.32,
+   "avgCrore": 8.9,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "AVANTIFEED|2018-06-26",
+   "ratio": 0.3833,
+   "volx": 1.52,
+   "avgCrore": 135.5,
+   "why": "list ratio does not match the price move"
+  },
+  {
+   "key": "BOROSIL|2018-08-02",
+   "ratio": 0.2901,
+   "volx": 3.67,
+   "avgCrore": 6.2,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "DHFL|2018-09-21",
+   "ratio": 0.5742,
+   "volx": 8.68,
+   "avgCrore": 260.3,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "INFIBEAM|2018-09-28",
+   "ratio": 0.2917,
+   "volx": 3.07,
+   "avgCrore": 171.7,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "KPIT|2019-01-24",
+   "ratio": 0.5952,
+   "volx": 1.46,
+   "avgCrore": 48.4,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "IDEA|2019-03-29",
+   "ratio": 0.6293,
+   "volx": 1.29,
+   "avgCrore": 147,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "JETAIRWAYS|2019-06-18",
+   "ratio": 0.5921,
+   "volx": 2.02,
+   "avgCrore": 167.4,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "CENTURYTEX|2019-10-11",
+   "ratio": 0.4464,
+   "volx": 1.82,
+   "avgCrore": 68,
+   "why": "no action on the list for a large move"
+  }
+ ]
+}
