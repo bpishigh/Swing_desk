@@ -977,5 +977,97 @@
   "factor": 0.1,
   "derived": true,
   "note": "R1: split 1:10 (price step 0.1007); no announcement checked (derived by rule, scripts/derive-india-overrides-pre2020.mjs, C-122)"
+ },
+ "KOTAKBANK|2015-07-08": {
+  "factor": 0.5,
+  "note": "bonus 1:1, ex-date 8 Jul 2015 (stockpricearchive.com); observed step 0.4960; typed 31 Oct 2026 (C-123)"
+ },
+ "ONGC|2016-12-15": {
+  "factor": 0.6666666666666666,
+  "note": "bonus 1:2, ex-date 15 Dec 2016 (Business Standard: stock trades ex-bonus); observed step 0.6762; typed 31 Oct 2026 (C-123)"
+ },
+ "AVANTIFEED|2018-06-26": {
+  "factor": 0.3333333333333333,
+  "note": "split Rs 2 to Re 1 (1:2) and bonus 1:2, ex-date 26 Jun 2018 (Business Standard); factor 1/2 x 2/3; the rest of the step is that day's 16-19% gain; observed step 0.3833; typed 31 Oct 2026 (C-123)"
+ },
+ "KAJARIACER|2016-10-04": {
+  "factor": 0.5,
+  "note": "split 1:2, ex-date 4 Oct 2016 (stockpricearchive.com); observed step 0.5001; typed 31 Oct 2026 (C-123)"
+ },
+ "ICIL|2016-11-11": {
+  "factor": 0.2,
+  "note": "split 1:5, ex-date 11 Nov 2016 (stockpricearchive.com); observed step 0.1876; typed 31 Oct 2026 (C-123)"
+ },
+ "KRBL|2010-02-10": {
+  "factor": 0.1,
+  "note": "split 1:10, ex-date 10 Feb 2010 (stockpricearchive.com); observed step 0.1179; typed 31 Oct 2026 (C-123)"
+ },
+ "AMRUTANJAN|2012-10-25": {
+  "factor": 0.2,
+  "note": "split 1:5, ex-date 25 Oct 2012 (stockpricearchive.com); observed step 0.1907; typed 31 Oct 2026 (C-123)"
+ },
+ "PERSISTENT|2015-03-10": {
+  "factor": 0.5,
+  "note": "bonus 1:1, ex-date 10 Mar 2015 (stockpricearchive.com); observed step 0.4552; typed 31 Oct 2026 (C-123)"
+ },
+ "WABAG|2015-03-26": {
+  "factor": 0.5,
+  "note": "bonus 1:1, ex-date 26 Mar 2015 (stockpricearchive.com); observed step 0.4796; typed 31 Oct 2026 (C-123)"
+ },
+ "COROMANDEL|2010-12-23": {
+  "factor": 0.5,
+  "note": "split 1:2, ex-date 23 Dec 2010 (stockpricearchive.com); observed step 0.5007; typed 31 Oct 2026 (C-123)"
+ },
+ "TATAMTRDVR|2011-09-12": {
+  "factor": 0.2,
+  "note": "sub-division 1:5 on the day the ordinary share (TATAMOTORS, factor 0.2 already resolved) split; observed step 0.1897; typed 31 Oct 2026 (C-123)"
+ },
+ "BLKASHYAP|2010-09-29": {
+  "factor": 0.1048,
+  "note": "split 1:5 confirmed for 29 Sep 2010 (stockpricearchive.com); the step is about 1:10, so a stacked action is likely; observed ratio used; observed step 0.1048; typed 31 Oct 2026 (C-123)"
+ },
+ "NATIONALUM|2011-03-15": {
+  "factor": 0.2273,
+  "note": "split 1:2 confirmed for 15 Mar 2011 (stockpricearchive.com); the step is about 1:4.4, so a stacked action is likely; observed ratio used; observed step 0.2273; typed 31 Oct 2026 (C-123)"
+ },
+ "AEGISCHEM|2010-08-18": {
+  "factor": 0.5726,
+  "note": "bonus confirmed for 18 Aug 2010 (stockpricearchive.com, listed as 2:3); the stated ratio does not fit the step; observed ratio used; observed step 0.5726; typed 31 Oct 2026 (C-123)"
+ },
+ "CROMPGREAV|2016-03-15": {
+  "factor": 0.2833,
+  "note": "demerger of the consumer business, ex-date 15 Mar 2016 (Business Standard, Business Today: stock down about 70%); observed step 0.2833; typed 31 Oct 2026 (C-123)"
+ },
+ "KPIT|2019-01-24": {
+  "factor": 0.5952,
+  "note": "demerger of KPIT Engineering, 1:1, ex-date 24 Jan 2019 (Business Standard: close Rs 218, open Rs 136); observed step 0.5952; typed 31 Oct 2026 (C-123)"
+ },
+ "CENTURYTEX|2019-10-11": {
+  "factor": 0.4464,
+  "note": "demerger of the cement business to UltraTech, ex-date 11 Oct 2019 (Business Standard); observed step 0.4464; typed 31 Oct 2026 (C-123)"
+ },
+ "STAR|2013-12-19": {
+  "factor": 0.4236,
+  "note": "special dividend after the Agila Specialties sale, ex-date 19 Dec 2013 (Business Standard: Strides Arcolab slumps ex-dividend); history adjusted as a cash distribution; observed step 0.4236; typed 31 Oct 2026 (C-123)"
+ },
+ "IDEA|2019-03-29": {
+  "factor": 0.604,
+  "note": "rights issue 87 for 38 at Rs 12.50, ex-date 29 Mar 2019 (Business Standard); theoretical ex-rights factor from the prior close of Rs 29; observed step 0.6293; typed 31 Oct 2026 (C-123)"
+ },
+ "DHFL|2018-09-21": {
+  "ignore": true,
+  "note": "genuine one-day fall, DHFL on 21 Sep 2018 (IL&FS contagion), widely reported; no corporate action; typed 31 Oct 2026 (C-123)"
+ },
+ "INFIBEAM|2018-09-28": {
+  "ignore": true,
+  "note": "genuine one-day fall of 71% on 28 Sep 2018 after a WhatsApp rumour (Bloomberg, Business Standard); no corporate action; typed 31 Oct 2026 (C-123)"
+ },
+ "JETAIRWAYS|2019-06-18": {
+  "ignore": true,
+  "note": "genuine one-day fall of about 41% on 18 Jun 2019 as the airline went to the NCLT (The Week, Business Today); no corporate action; typed 31 Oct 2026 (C-123)"
+ },
+ "FINANTECH|2013-08-01": {
+  "ignore": true,
+  "note": "genuine one-day fall on 1 Aug 2013 after the NSEL payment default, widely reported; no corporate action; typed 31 Oct 2026 (C-123)"
  }
 }

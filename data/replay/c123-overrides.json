@@ -1,0 +1,111 @@
+{
+ "run": "2026-10-31",
+ "typed": 23,
+ "leftUnresolved": [
+  {
+   "key": "CROMPGREAV|2010-03-08",
+   "ratio": 0.5644,
+   "volx": 1.47,
+   "avgCrore": 29.3,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "JAYSREETEA|2010-08-13",
+   "ratio": 0.5138,
+   "volx": 0.53,
+   "avgCrore": 6.9,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "SINTEX|2010-10-27",
+   "ratio": 0.4967,
+   "volx": 0.97,
+   "avgCrore": 52.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "GLODYNE|2011-02-10",
+   "ratio": 0.6343,
+   "volx": 1.11,
+   "avgCrore": 7.9,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "MANAPPURAM|2011-06-09",
+   "ratio": 0.5074,
+   "volx": 0.67,
+   "avgCrore": 11.6,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "COX&KINGS|2011-06-21",
+   "ratio": 0.5208,
+   "volx": 0.61,
+   "avgCrore": 6.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "20MICRONS|2013-01-28",
+   "ratio": 0.5262,
+   "volx": 0.89,
+   "avgCrore": 8.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "COREEDUTEC|2013-02-27",
+   "ratio": 0.5419,
+   "volx": 64.34,
+   "avgCrore": 16.3,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "GRUH|2014-06-09",
+   "ratio": 0.5098,
+   "volx": 1.08,
+   "avgCrore": 6.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "NCC|2014-09-18",
+   "ratio": 0.6555,
+   "volx": 0.45,
+   "avgCrore": 14.8,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "LAMBODHARA|2015-10-15",
+   "ratio": 0.5097,
+   "volx": 0.46,
+   "avgCrore": 8.3,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "8KMILES|2016-10-10",
+   "ratio": 0.4078,
+   "volx": 0.91,
+   "avgCrore": 5.9,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "BHAGERIA|2016-10-26",
+   "ratio": 0.525,
+   "volx": 1.46,
+   "avgCrore": 8.1,
+   "why": "other: the list gives no price ratio"
+  },
+  {
+   "key": "DAAWAT|2017-02-07",
+   "ratio": 0.1078,
+   "volx": 4.32,
+   "avgCrore": 8.9,
+   "why": "no action on the list for a large move"
+  },
+  {
+   "key": "BOROSIL|2018-08-02",
+   "ratio": 0.2901,
+   "volx": 3.67,
+   "avgCrore": 6.2,
+   "why": "no action on the list for a large move"
+  }
+ ]
+}

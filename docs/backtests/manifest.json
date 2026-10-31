@@ -828,6 +828,36 @@
     "summary": "136 of 174 liquid unresolved 2010-2019 India breaks cleared by R1-R5 (22/15/10/52/37); 38 liquid left; nothing dated 2020 or later changed.",
     "file": "data/replay/c122-overrides.json"
    }
+  },
+  {
+   "id": "C-123-r1",
+   "changeLog": "C-123",
+   "title": "India 2010-2019: typed overrides for the liquid breaks C-122 left",
+   "hypothesis": "Typing the confirmed corporate actions for the remaining liquid breaks puts the affected stocks back into the early ranking without changing any 2020 on result.",
+   "script": "scripts/apply-india-overrides-typed-pre2020.mjs",
+   "params": {
+    "source": "corporate-action pages and news per date, observed step cross-check",
+    "window": "breaks dated before 2020-02-01",
+    "unconfirmed": "left unresolved and listed"
+   },
+   "passRule": "Data fix, no pass rule: counts before and after recorded; nothing dated 2020 or later may change.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "f5cca23faa15"
+   },
+   "registeredAt": "2026-10-31T13:43:04.730Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T13:45:08.398Z",
+    "summary": "23 of 38 liquid 2010-2019 India breaks typed from sources (splits/bonuses, demergers, rights, 4 genuine falls); 15 unconfirmed stay unresolved; nothing dated 2020 or later changed.",
+    "file": "data/replay/c123-overrides.json"
+   }
   }
  ]
 }
