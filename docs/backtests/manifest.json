@@ -763,7 +763,12 @@
    "registeredAt": "2026-10-31T12:38:22.153Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T12:55:35.542Z",
+    "summary": "Fails. India 2011-2019: both horizons miss three of four conditions (3-month +0.15% a month, interval -0.41% to +0.72%). US 2018-2025 (survivor-biased): both horizons meet three conditions and miss years (5 of 8, needs 6). India 2020-2025 reported only: would pass.",
+    "file": "data/replay/c121-india.json"
+   }
   }
  ]
 }
