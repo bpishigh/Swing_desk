@@ -1,0 +1,63 @@
+{
+ "run": "2026-10-31",
+ "data": {
+  "sessions": 2513,
+  "first": "2016-10-31",
+  "last": "2026-10-30",
+  "symbols": 2279,
+  "splits": 0,
+  "hash": "5f1b52194254"
+ },
+ "label": "SURVIVOR-BIASED UPWARD",
+ "nights": 15,
+ "light": "yellow",
+ "judgedSet": "B (top-10 list)",
+ "B": {
+  "n": 27,
+  "meanNet": -0.02862086455766501,
+  "meanExcess": -0.024878870006707896,
+  "ci90": [
+   -0.049760303985012834,
+   -0.02071190668233635
+  ],
+  "bestGroup": "General merchandise retail",
+  "meanExAfterDropBestGroup": -0.04158391296780364,
+  "hit": 0.3333333333333333,
+  "yearsPositive": 0,
+  "years": 1,
+  "byYear": {
+   "2018": {
+    "n": 27,
+    "meanExcess": -0.024878870006707896
+   }
+  }
+ },
+ "A": {
+  "n": 1,
+  "meanNet": 0.024420711974110006,
+  "meanExcess": 0.010282793635315597,
+  "ci90": [
+   0.010282793635315597,
+   0.010282793635315597
+  ],
+  "bestGroup": "Hotels and lodging",
+  "meanExAfterDropBestGroup": null,
+  "hit": 1,
+  "yearsPositive": 1,
+  "years": 1,
+  "byYear": {
+   "2018": {
+    "n": 1,
+    "meanExcess": 0.010282793635315597
+   }
+  }
+ },
+ "criteria": {
+  "meanExcessAboveZero": false,
+  "ciLowAboveZero": false,
+  "aboveZeroAfterDroppingBestGroup": false,
+  "yearsPositiveAtLeast5of8": false
+ },
+ "pass": false,
+ "nightsWithReady": 1
+}

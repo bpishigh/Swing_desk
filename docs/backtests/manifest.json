@@ -669,6 +669,34 @@
     "summary": "Both frozen rules FAIL on India 2011-2019. (a) momentum: mean excess +0.35%/month, 90% interval -0.21% to +0.92%, +0.12% after dropping best 3 months, 5 of 9 years positive: fails interval and years. (b) desk setups: 35 valid trades, mean excess -0.14%, interval -1.8% to +1.6%, -1.0% after dropping best group, 3 of 8 years positive: fails all four.",
     "file": "data/replay/c118-a-oos.json"
    }
+  },
+  {
+   "id": "C-119-r1",
+   "changeLog": "C-119",
+   "title": "US rules on 2018-2025 (survivor-biased): (a) momentum baseline copy, (b) frozen US-SCAN-1 top-10 list",
+   "hypothesis": "The rules the desk runs on US stocks also work on eight years of data no earlier US test used.",
+   "script": "scripts/backtest-us-base-oos.mjs; scripts/backtest-us-scan-oos.mjs",
+   "params": {
+    "signals": "2018-01-01 to 2025-09-30",
+    "costTiers": "0.20/0.35/0.60% by 20-day dollar volume",
+    "regime": "(a) SPY 200-session average; (b) light fixed Yellow",
+    "benchmarks": "(a) eligible list, SPY; (b) SPY",
+    "sweeps": "none, one run each",
+    "survivorship": "SURVIVOR-BIASED UPWARD: store holds only stocks liquid and trading today"
+   },
+   "passRule": "For each: mean excess above zero with the lower end of the 90% block-bootstrap interval above zero; above zero after dropping the best three months (a) or best industry group (b); above zero in at least 5 of 8 calendar-year buckets.",
+   "data": {
+    "sessions": 2513,
+    "first": "2016-10-31",
+    "last": "2026-10-30",
+    "symbols": 2279,
+    "splits": 0,
+    "hash": "5f1b52194254"
+   },
+   "registeredAt": "2026-10-31T10:19:40.545Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
