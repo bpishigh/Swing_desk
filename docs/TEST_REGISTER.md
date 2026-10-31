@@ -10,6 +10,7 @@ One page that lists every test we have run on the Swing Desk and Portfolio Manag
 - **India 2021 to 2025 looks good in several tests.** It is one strong market, and not a judged period.
 - **The original desk rules (sector ranking, stop widening, room rule, market light) were never backtested.** They came from design.
 - **Fund tests**: the fund score works as a warning and a cost filter, not as a buy signal.
+- **The factor looks real in direction but is unconfirmed**: a Nifty200 Momentum 30-style sleeve (C-129) made +213% against the Nifty 200's +129% in India 2011-2019, but the test could not confirm it. Comparing it with NSE's own index series is the next check.
 - **What is still open**: India before 2010, the market light on its own, and forward paper trading on new data.
 
 ## Plain words
@@ -81,6 +82,7 @@ All pre-registered: the pass rule was written before the run. "Judged" is India 
 | C-126 | Does widening the stop caps by 1.5 times make the setups work? | Failed | India −0.19R, portfolio −10.3% against the index's +120.5%. US −0.13R, −9.2% against SPY's +147.1% |
 | C-127 | Do setups work on top-momentum stocks only? | Failed | India top group −0.04R against −0.05R for the rest; US +0.01R against +0.02R. India 2021-25 only (reported): +0.31R against +0.06R |
 | C-128 | Does a published weekly momentum book (Clenow-style) beat the index? | Failed | India +96% against +103%; US +77% against SPY's +142%. India 2021-25 only (reported): +210% against +100% |
+| C-129 | Does a large-cap-tilted momentum sleeve built to NSE's Nifty200 Momentum 30 outline beat the Nifty 200? (stand-ins for the parts NSE doesn't publish) | Failed the rule, direction positive | India Feb 2011-2019: +213% against the Nifty 200's +129%, but the monthly edge (+0.32%) is too noisy to confirm (range -0.07% to +0.72%) and it beat the index in only 4 of 9 years. Equal-weight twin +207%. NSE's own series not yet compared |
 
 ---
 
