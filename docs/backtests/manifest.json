@@ -858,6 +858,66 @@
     "summary": "23 of 38 liquid 2010-2019 India breaks typed from sources (splits/bonuses, demergers, rights, 4 genuine falls); 15 unconfirmed stay unresolved; nothing dated 2020 or later changed.",
     "file": "data/replay/c123-overrides.json"
    }
+  },
+  {
+   "id": "C-118-r2",
+   "changeLog": "C-118",
+   "title": "DATA-FIX RE-RUN (C-122, C-123): C-54 momentum baseline on India 2011-2019, test (a) only",
+   "hypothesis": "The rules tuned on 2021-2026 also work on 2010-2019 data they have never seen.",
+   "script": "scripts/backtest-ind-base1-oos.mjs",
+   "params": {
+    "signals": "2011-01-01 to 2019-12-31 (2010 warm-up)",
+    "costTiers": "0.35/0.50/0.80% round trip",
+    "regimeIndex": "Nifty 500 from 2012-02-21, BSE 500 scaled before and on missing sessions (99.4% flag agreement)",
+    "sweeps": "none, one run each",
+    "survivorship": "(a) delisted included; (b) today's industry map, labelled survivor-biased",
+    "dataFixRerun": "Same rule, same pass rule, same code; only the 2010-2019 data changed: 159 liquid price breaks cleared (C-122, C-123). The earlier result is kept in data/replay/pre-c122."
+   },
+   "passRule": "(a) as C-54: mean excess over the equal-weight eligible list above zero with 90% block-bootstrap lower bound above zero, above zero after dropping the best three months, above zero in at least 6 of 9 calendar years.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T13:54:42.964Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-121-r2",
+   "changeLog": "C-121",
+   "title": "DATA-FIX RE-RUN (C-122, C-123): Slower momentum: C-54 selection held 3 and 6 monthly steps, India 2011-2019 (2020-2025 reported) and US 2018-2025 (survivor-biased)",
+   "hypothesis": "The C-54 momentum selection beats the equal-weight eligible list when each month's picks are held 3 or 6 months instead of 1.",
+   "script": "scripts/backtest-slow-momentum.mjs",
+   "params": {
+    "horizons": "3 and 6 monthly steps (about 63 and 126 sessions), overlapping groups, equal weight",
+    "cash": "none, always invested",
+    "cost": "C-54 and C-119 liquidity tiers, half on entry, half on exit",
+    "benchmark": "equal-weight eligible list, always invested; index reported only",
+    "judged": "India 2011-2019 and US 2018-2025",
+    "reported": "India 2020-2025",
+    "sweeps": "2 horizons, one run",
+    "us_data_hash": "5f1b52194254",
+    "survivorship": "US SURVIVOR-BIASED UPWARD",
+    "dataFixRerun": "Same rule, same pass rule, same code; only the 2010-2019 data changed: 159 liquid price breaks cleared (C-122, C-123). The earlier result is kept in data/replay/pre-c122."
+   },
+   "passRule": "Both horizons must pass all four in both judged markets: mean monthly excess over the eligible list above zero; lower end of the 90% block-bootstrap interval (6-month blocks) above zero; above zero after dropping the best three months; above zero in at least two thirds of calendar years. One horizon alone is a fail for the family.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T13:54:59.269Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
