@@ -1063,6 +1063,39 @@
     "summary": "FAIL in both judged markets. India 2011-2019 book +96.2% vs index +102.6%, mean weekly excess -0.01%; US 2018-2025 +76.6% vs SPY +142.3%. India 2021-2025 reported: +210.3% vs index +100.3%.",
     "file": "data/replay/c128-india.json"
    }
+  },
+  {
+   "id": "C-129-r1",
+   "changeLog": "C-129",
+   "title": "Nifty200 Momentum 30-style sleeve (methodology replication with stand-ins) against the Nifty 200 and Nifty 500, India 2011-2019 (2021-2025 reported)",
+   "hypothesis": "A cap-tilted, volatility-adjusted momentum sleeve built to NSE's published outline beats the Nifty 200 on our data.",
+   "script": "scripts/backtest-momentum30.mjs",
+   "params": {
+    "universe": "top 200 by 20-session median traded value (stand-in for Nifty 200)",
+    "score": "equal blend of z-scores of 6m and 12m return divided by daily volatility; multiplier 1+z or 1/(1-z) (assumption)",
+    "holdings": "top 30, buffer: keep while ranked 45 or better (assumption)",
+    "weights": "traded value x multiplier, cap lower of 5% or 5x value-only weight",
+    "rebalance": "first-session signals of June and December, trade next close",
+    "costs": "tiered by traded value, half per side",
+    "benchmarks": "Nifty 200 (BSE 500 scaled before 2012), Nifty 500, price only",
+    "diagnostic": "same 30 names equal-weighted (not judged)",
+    "replication": "correlation with NSE Momentum 30 price series if supplied (not judged)",
+    "judged": "India 2011-2019",
+    "sweeps": "one setting, one run"
+   },
+   "passRule": "All three: sleeve compounded return beats the Nifty 200 over 2011-2019; mean monthly excess over the Nifty 200 above zero with 90% block-bootstrap (6 months) lower end above zero; sleeve beats the Nifty 200 in at least two thirds of calendar years.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T20:02:49.427Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
