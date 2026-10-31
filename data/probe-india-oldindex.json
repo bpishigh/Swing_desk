@@ -1,0 +1,150 @@
+{
+ "at": "2026-10-31T08:39:27.335Z",
+ "results": [
+  {
+   "date": "2010-06-15",
+   "archives": {
+    "status": 404,
+    "html": true,
+    "rows": 0
+   },
+   "nsearchives": {
+    "status": 404,
+    "html": true,
+    "rows": 0
+   }
+  },
+  {
+   "date": "2011-03-16",
+   "archives": {
+    "status": 404,
+    "html": true,
+    "rows": 0
+   },
+   "nsearchives": {
+    "status": 404,
+    "html": true,
+    "rows": 0
+   }
+  },
+  {
+   "date": "2012-06-14",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 30,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "S&P CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | S&P CNX 500 | CNX Midcap | CNX Smallcap | S&P CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 30,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "S&P CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | S&P CNX 500 | CNX Midcap | CNX Smallcap | S&P CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2013-09-18",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 36,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 36,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2014-03-12",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 36,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 36,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2014-12-10",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 45,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 45,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2015-06-17",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 49,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 49,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2015-11-04",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 53,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 53,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "CNX Nifty | CNX Nifty Junior | CNX 100 | CNX 200 | CNX 500 | CNX Midcap | CNX Smallcap | CNX Nifty Dividend | CNX Auto | CNX Bank | CNX Energy | CNX Finance"
+   }
+  },
+  {
+   "date": "2015-11-09",
+   "archives": {
+    "status": 200,
+    "html": false,
+    "rows": 53,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "Nifty 50 | Nifty 500 | Nifty500 Shariah"
+   },
+   "nsearchives": {
+    "status": 200,
+    "html": false,
+    "rows": 53,
+    "header": "Index Name Index Date Open Index Value High Index Value Low Index Value Closing Index Value Points Change Change(%) Volume Turnover (Rs. Cr.) P/E P/B Div Yield",
+    "names": "Nifty 50 | Nifty 500 | Nifty500 Shariah"
+   }
+  }
+ ]
+}
