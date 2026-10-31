@@ -1,0 +1,33 @@
+name: backfill-india-bse500
+# Backtester data: BSE 500 daily closes (one request per month: the archive caps a request at 26 rows) into data/india/idx-hist, under the name "BSE 500". Manual and resumable.
+on:
+  workflow_dispatch:
+    inputs:
+      from: { description: "First month (YYYY-MM)", default: "2010-01" }
+      to: { description: "Last month (YYYY-MM)", default: "2019-12" }
+concurrency: backfill-india-bse500
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/backfill-india-bse500.mjs --from=${{ inputs.from }} --to=${{ inputs.to }}
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit files
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india/idx-hist
+          git commit -m "backfill-india-bse500: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
