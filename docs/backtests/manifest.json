@@ -928,6 +928,38 @@
     "summary": "Data-fix re-run, India 2011-2019: 3-month +0.29%/month (interval -0.24% to +0.85%), 6-month +0.36% (-0.18% to +0.90%); each meets three of four (interval misses); 6 of 9 years at both.",
     "file": "data/replay/c121-india.json"
    }
+  },
+  {
+   "id": "C-125-r1-x",
+   "changeLog": "C-125",
+   "title": "Diagnostic: valid vs gate-removed setup trades, India (2011-2019 and 2021-2026) and US (2018-2025)",
+   "hypothesis": "Trades removed by the stop-width cap and the 3R room test do no better than the valid ones.",
+   "script": "scripts/diagnose-setup-gates.mjs",
+   "params": {
+    "groups": "valid, tooWide (cap to 1.5x cap), lowRoom (<3R)",
+    "exits": "live",
+    "bootstrap": "90%, blocks, seed 20261031",
+    "sweeps": "none, no threshold tried",
+    "us": "survivor-biased upward; run only if the replay can be built faithfully"
+   },
+   "passRule": "Information only, no pass rule: report each group's mean R, median R, win rate and return per trade, and the difference from valid with a 90% interval.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T17:26:32.199Z",
+   "attempt": 1,
+   "exploration": true,
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T17:29:56.622Z",
+    "summary": "Diagnostic: gate-removed trades do not do clearly worse than valid ones in India (2011-19, 2021-26) or the US (survivor-biased); no group shows edge; the stop-width cap, not the room test, removes most trades.",
+    "file": "data/replay/c125-gates.json"
+   }
   }
  ]
 }
