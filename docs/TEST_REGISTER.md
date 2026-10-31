@@ -24,7 +24,7 @@ Built 1 Nov 2026 (rows C-1 to C-50 added the same day) from the Engine Rules cha
 | ID | Date | Question | Window | Result | Key numbers | Lesson |
 |---|---|---|---|---|---|---|
 | C-51 | 16 Oct | Replay of the frozen US scan (US-SCAN-1) as early evidence | US, 229 nights | Not adopted; exploratory only | Ready list gave 11 picks (needed 150); top-10 list +0.60% per 20 sessions, interval -1.86% to +3.12% | One group (metal mining) drove the year |
-| C-52 | 16 Oct | US-SCAN-2: tightness in the score, replayed light, group cap | US | Not adopted | See row | Parked |
+| C-52 | 16 Oct | US-SCAN-2: tightness in the score, replayed light, group cap | US | Not executable; not adopted | Setup picks 52 (150 needed); stage 2 had 19 trades (150 needed); Ready mean +0.51% (interval -2.3% to +3.5%), -1.07% without metal mining; stage 2 mean -0.19R | Too few picks to test at all; US-SCAN-1 stays frozen |
 | C-53 | 17 Oct | Forward paper book on the US top-10 list, three streams | US forward | Adopted, running | | Forward evidence, no result yet |
 | C-54 | 17 Oct | Baseline: 12-1 momentum top decile, monthly, cash below 200-day | India | Adopted as the baseline test | | Basis for C-118 onward |
 | C-59 | 18 Oct | Do stocks run up before results, and does it predict the next 20 sessions? | India, 3 then 7 years | Passes on relative returns; profit view thin; parked | | Tag not recommended |
@@ -63,13 +63,15 @@ These rows are the original design, data-source decisions, document corrections 
 | C-21, C-23, C-27, C-28, C-37, C-39 | Documentation and code alignment | No test. |
 | C-29 to C-34 | Correlation control, pending-order risk, 100-trade gate, MAE and MFE, US risk step-down and US VIX rule | Proposed or rejected (C-33). Parameters are "untested guesses". |
 | C-41 | Definition of the swing low for the Legacy exit test | Adopted by the owner, no test. |
-| C-42 | Weekly-close exit when a stock is within 1 ATR of its 200-day | Replay on stored closes with criteria written first. Parked. See row. |
-| C-43 | Swing low must sit 1.5 ATR below the prior high | Same replay. Rejected. |
-| C-44 | Back-adjust stored closes for corporate actions before exit tests | Data fix. Interim. |
-| C-45, C-46 | Re-entry tag; showing how firm each Exit is | Display only, untested (C-45 cannot be replayed, volume is stored only from Oct 2025). |
-| C-47, C-48 | 50-day against 200-day as extra information, and as a re-entry filter | Same replay. Both rejected. |
-| C-49 | Swing-low window of 7 or 15 sessions instead of 10 | Same replay. Rejected. |
-| C-50 | Automatic handling of demergers | Coverage criterion met. Adopted. |
+| C-42 | Weekly-close exit when a stock is within 1 ATR of its 200-day | Replay 2022-25 (20 and 60 session horizons, against the median Nifty 500 stock), criteria written first. No band passes, so all exit at the first close. Near band: back to Keep 43.2% vs 11.2% (passes), but 60-session excess gap only +0.43 (needs 1 point); 1 of 4 years pass. Mid band: gap +1.30 but not consistent by year. Parked. |
+| C-43 | Swing low must sit 1.5 ATR below the prior high | Same replay. Fails: the deep subgroup is 13,960 of 14,577 swing-only observations, so the test barely discriminates; 60-session excess gap -0.14 (needs 1 point), 1 of 4 years pass. Swing-low leg above the 200-day treated as context only. Rejected. |
+| C-44 | Back-adjust stored closes for corporate actions before exit tests | 791 actions adjusted (524 split or bonus, 79 dividend, 187 rights, 1 demerger); stocks blocked fell from 124 to 22; replay group results unchanged (both-fail -3.0 vs Keep -1.45 median 60-session excess). Interim. |
+| C-45 | Re-entry tag (top-quarter relative strength and up-day volume) | Display only, untested: volume is stored only from Oct 2025. 39 of today's Exit stocks qualify. Needs 250 sessions of volume before a test can run. |
+| C-46 | Show how firm each Exit is | Replay Apr 2021 to Oct 2026: back above the test within 20 sessions: both fail 11%, 200-day only far 15%, near 43%, mid 38%, swing low only 60%, Keep 78%. Median 60-session excess: both fail -3.0, Keep -1.45; mean -0.7 vs +2.3. The Exit rule separates stocks only modestly and the spread inside each state is wide. Interim. |
+| C-47 | 50-day against 200-day as extra information on a verdict | Same replay. Both cuts fail. Inside Exit, 50-below-200 stocks were back to Keep less often (14.6% vs 28.6%) but the excess and year conditions failed. Stays a plain context line. Rejected. |
+| C-48 | 50-day against 200-day, and relative strength, as re-entry filters | All three filters fail. F1 (50-day at or above 200-day): back to Keep 39.4% vs 14.6% but median 60-session excess only +0.59 better (needs 2); F2 (top-quarter relative strength): back to Keep 40.3% vs 18.6% but excess 1.24 points worse. Tag stays untested. Rejected. |
+| C-49 | Swing-low window of 7 or 15 sessions instead of 10 | Neither passes; the window stays 10. Window 7 flags more stocks (22,641 observations vs 16,686) and more of them bounce back (65.4% back to Keep within 20 sessions). Rejected. |
+| C-50 | Automatic handling of demergers | Coverage passes: stocks blocked by a corporate action fell from 22 to 6 of 2,917 (the 6 left are bonus or NCRPS cases, not demergers). Method check not evaluable as written: only two typed demerger records exist in the price data. Adopted. |
 
 Lesson: the live desk's sector ranking, stop widening, room rule and light came from design, not evidence. The later tests (C-118 onward) are the first to check the setup rules against history, and they found no edge.
 
