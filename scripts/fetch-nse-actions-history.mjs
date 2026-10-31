@@ -12,8 +12,10 @@ const MON = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, se
 const iso = (s) => { const m = /^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/.exec(s ?? ''); return m ? `${m[3]}-${String(MON[m[2].toLowerCase()]).padStart(2, '0')}-${m[1].padStart(2, '0')}` : null; };
 const dmy = (d) => d.toISOString().slice(0, 10).split('-').reverse().join('-');
 const rows = new Map(); const log = [];
-const today = new Date();
-for (let y = 2019; y <= today.getUTCFullYear(); y++) {
+const arg = (k, d) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;   // --from-year, --to-year, --out (default: 2019 to this year into corp-actions-history.json)
+const FROM_Y = Number(arg('from-year', 2019)), OUT = arg('out', 'data/india/corp-actions-history.json'), LOG = OUT.replace(/\.json$/, '-log.json');
+const today = new Date(), TO_Y = Number(arg('to-year', today.getUTCFullYear()));
+for (let y = FROM_Y; y <= TO_Y; y++) {
   const from = new Date(Date.UTC(y, 0, 1)), to = y === today.getUTCFullYear() ? today : new Date(Date.UTC(y, 11, 31));
   let ok = false;
   for (let a = 0; a < 4 && !ok; a++) {
@@ -27,6 +29,6 @@ for (let y = 2019; y <= today.getUTCFullYear(); y++) {
 }
 const out = [...rows.values()].sort((a, b) => (a.exDate + a.symbol).localeCompare(b.exDate + b.symbol));
 mkdirSync('data/india', { recursive: true });
-writeFileSync('data/india/corp-actions-history.json', JSON.stringify(out));
-writeFileSync('data/india/corp-actions-history-log.json', JSON.stringify({ ts: new Date().toISOString(), rows: out.length, calls: log }, null, 1) + '\n');
+writeFileSync(OUT, JSON.stringify(out));
+writeFileSync(LOG, JSON.stringify({ ts: new Date().toISOString(), rows: out.length, calls: log }, null, 1) + '\n');
 console.log(JSON.stringify({ rows: out.length, calls: log }));
