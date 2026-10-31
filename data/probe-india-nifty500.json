@@ -1,0 +1,70 @@
+{
+ "at": "2026-10-31T08:32:20.612Z",
+ "niftyindices": [
+  {
+   "year": 2010,
+   "status": 200,
+   "bytes": 95848,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /> <meta http-e"
+  },
+  {
+   "year": 2011,
+   "status": 200,
+   "bytes": 95848,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /> <meta http-e"
+  },
+  {
+   "year": 2013,
+   "status": 200,
+   "bytes": 95848,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /> <meta http-e"
+  },
+  {
+   "year": 2015,
+   "status": 200,
+   "bytes": 95848,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html> <head> <meta charset=\"utf-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\" /> <meta http-e"
+  }
+ ],
+ "nse": [
+  {
+   "year": 2010,
+   "status": 200,
+   "bytes": 22082,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta content=\"noindex, nofollow\" name=\"robots\"/> <meta charset=\"UTF-8\"> <title>NSE India</title> <style> "
+  },
+  {
+   "year": 2012,
+   "status": 200,
+   "bytes": 22082,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta content=\"noindex, nofollow\" name=\"robots\"/> <meta charset=\"UTF-8\"> <title>NSE India</title> <style> "
+  },
+  {
+   "year": 2014,
+   "status": 200,
+   "bytes": 22082,
+   "n": 0,
+   "first": null,
+   "last": null,
+   "head": " <!DOCTYPE html> <html lang=\"en\"> <head> <meta content=\"noindex, nofollow\" name=\"robots\"/> <meta charset=\"UTF-8\"> <title>NSE India</title> <style> "
+  }
+ ]
+}
