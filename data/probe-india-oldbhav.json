@@ -1,0 +1,293 @@
+{
+ "at": "2026-10-31T06:23:27.097Z",
+ "results": [
+  {
+   "date": "2010-06-15",
+   "old_archives": {
+    "status": 200,
+    "bytes": 40533,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,",
+    "rows": 1394,
+    "sample": "20MICRONS,EQ,40.75,41.5,39.15,41.05,41.1,40.75,5989,244540.9,15-JUN-2010,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 40533,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,",
+    "rows": 1394,
+    "sample": "20MICRONS,EQ,40.75,41.5,39.15,41.05,41.1,40.75,5989,244540.9,15-JUN-2010,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2012-03-14",
+   "old_archives": {
+    "status": 200,
+    "bytes": 55563,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1575,
+    "sample": "20MICRONS,EQ,80.65,83.8,80.1,81.15,82,81.75,54019,4416975.3,14-MAR-2012,627,INE144J01019,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 55563,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1575,
+    "sample": "20MICRONS,EQ,80.65,83.8,80.1,81.15,82,81.75,54019,4416975.3,14-MAR-2012,627,INE144J01019,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2014-09-17",
+   "old_archives": {
+    "status": 200,
+    "bytes": 58353,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1609,
+    "sample": "20MICRONS,EQ,32.8,32.8,31.5,31.65,31.55,32,68791,2200563.95,17-SEP-2014,217,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 58353,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1609,
+    "sample": "20MICRONS,EQ,32.8,32.8,31.5,31.65,31.55,32,68791,2200563.95,17-SEP-2014,217,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2016-09-14",
+   "old_archives": {
+    "status": 200,
+    "bytes": 62056,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1701,
+    "sample": "20MICRONS,EQ,37.55,37.55,36.25,36.7,36.7,36.65,169046,6215400.05,14-SEP-2016,211,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 62056,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1701,
+    "sample": "20MICRONS,EQ,37.55,37.55,36.25,36.7,36.7,36.65,169046,6215400.05,14-SEP-2016,211,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2018-06-13",
+   "old_archives": {
+    "status": 200,
+    "bytes": 68185,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1877,
+    "sample": "20MICRONS,EQ,40.15,40.4,38.9,39.1,38.9,39.4,64393,2554598.8,13-JUN-2018,640,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 68185,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1877,
+    "sample": "20MICRONS,EQ,40.15,40.4,38.9,39.1,38.9,39.4,64393,2554598.8,13-JUN-2018,640,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2019-06-12",
+   "old_archives": {
+    "status": 200,
+    "bytes": 68001,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1917,
+    "sample": "20MICRONS,EQ,37.1,37.4,36.4,36.7,36.75,37.15,31915,1170991.6,12-JUN-2019,466,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 68001,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1917,
+    "sample": "20MICRONS,EQ,37.1,37.4,36.4,36.7,36.75,37.15,31915,1170991.6,12-JUN-2019,466,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2019-08-15",
+   "old_archives": {
+    "status": 404,
+    "bytes": 3425,
+    "type": "text/html;charset=UTF-8"
+   },
+   "old_nsearchives": {
+    "status": 404,
+    "bytes": 3815,
+    "type": "text/html;charset=UTF-8"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2019-12-31",
+   "old_archives": {
+    "status": 200,
+    "bytes": 69270,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1958,
+    "sample": "20MICRONS,EQ,33.6,37.4,33.1,35.2,35.25,33.1,242285,8636712.9,31-DEC-2019,2089,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 69270,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1958,
+    "sample": "20MICRONS,EQ,33.6,37.4,33.1,35.2,35.25,33.1,242285,8636712.9,31-DEC-2019,2089,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 200,
+    "bytes": 214425,
+    "type": "text/csv",
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "rows": 1949,
+    "sample": "20MICRONS, EQ, 31-Dec-2019, 33.10, 33.60, 37.40, 33.10, 35.25, 35.20, 35.65, 242285, 86.37, 2089, 59358, 24.50"
+   }
+  },
+  {
+   "date": "2020-01-02",
+   "old_archives": {
+    "status": 200,
+    "bytes": 69955,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1956,
+    "sample": "20MICRONS,EQ,36,36.2,35.1,35.55,35.8,35.8,25846,917663.55,02-JAN-2020,247,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 69955,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1956,
+    "sample": "20MICRONS,EQ,36,36.2,35.1,35.55,35.8,35.8,25846,917663.55,02-JAN-2020,247,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 200,
+    "bytes": 214885,
+    "type": "text/csv",
+    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "rows": 1946,
+    "sample": "20MICRONS, EQ, 02-Jan-2020, 35.80, 36.00, 36.20, 35.10, 35.80, 35.55, 35.51, 25846, 9.18, 247, 17500, 67.71"
+   }
+  },
+  {
+   "date": "2018-01-01",
+   "old_archives": {
+    "status": 200,
+    "bytes": 69786,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1872,
+    "sample": "20MICRONS,EQ,58.95,60.7,57.9,58.75,58.7,58.3,156506,9316661.05,01-JAN-2018,1527,INE144J01027,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 69786,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1872,
+    "sample": "20MICRONS,EQ,58.95,60.7,57.9,58.75,58.7,58.3,156506,9316661.05,01-JAN-2018,1527,INE144J01027,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2012-01-02",
+   "old_archives": {
+    "status": 200,
+    "bytes": 52248,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1526,
+    "sample": "20MICRONS,EQ,62.05,63.9,61.4,62.5,63.5,62.25,70533,4393274.15,02-JAN-2012,621,INE144J01019,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 52248,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,",
+    "rows": 1526,
+    "sample": "20MICRONS,EQ,62.05,63.9,61.4,62.5,63.5,62.25,70533,4393274.15,02-JAN-2012,621,INE144J01019,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  },
+  {
+   "date": "2011-01-03",
+   "old_archives": {
+    "status": 200,
+    "bytes": 42678,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,",
+    "rows": 1471,
+    "sample": "20MICRONS,EQ,45.5,47.25,44.6,46.65,46.35,45.15,26971,1243030.75,03-JAN-2011,"
+   },
+   "old_nsearchives": {
+    "status": 200,
+    "bytes": 42678,
+    "type": "application/zip",
+    "header": "SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,",
+    "rows": 1471,
+    "sample": "20MICRONS,EQ,45.5,47.25,44.6,46.65,46.35,45.15,26971,1243030.75,03-JAN-2011,"
+   },
+   "new_archives": {
+    "status": 404,
+    "bytes": 3546,
+    "type": "text/html;charset=UTF-8"
+   }
+  }
+ ]
+}
