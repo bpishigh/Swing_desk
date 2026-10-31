@@ -1,0 +1,59 @@
+{
+ "at": "2026-10-31T08:49:05.904Z",
+ "calls": [
+  {
+   "label": "year 2010",
+   "status": 200,
+   "n": 26,
+   "firstDate": "2010-01-04",
+   "lastDate": "2010-02-08",
+   "sample": "2010-01-04 2010-01-05 2010-01-06 2010-01-07 2010-01-08 2010-01-11 2010-01-12 2010-01-13 2010-01-14 2010-01-15 2010-01-18 2010-01-19",
+   "closeField": "Day Month year Turnover tdate I_name I_open I_high I_low I_close I_pe I_pb I_yl Turnover_1 TOTAL_SHARES_TRADED Previousclose Chg ChgPer Volume"
+  },
+  {
+   "label": "month Jan 2010",
+   "status": 200,
+   "n": 19,
+   "firstDate": "2010-01-04",
+   "lastDate": "2010-01-29",
+   "sample": "2010-01-04 2010-01-05 2010-01-06 2010-01-07 2010-01-08 2010-01-11 2010-01-12 2010-01-13 2010-01-14 2010-01-15 2010-01-18 2010-01-19",
+   "closeField": "Day Month year Turnover tdate I_name I_open I_high I_low I_close I_pe I_pb I_yl Turnover_1 TOTAL_SHARES_TRADED Previousclose Chg ChgPer Volume"
+  },
+  {
+   "label": "month Feb 2010",
+   "status": 200,
+   "n": 20,
+   "firstDate": "2010-02-01",
+   "lastDate": "2010-02-26",
+   "sample": "2010-02-01 2010-02-02 2010-02-03 2010-02-04 2010-02-05 2010-02-06 2010-02-08 2010-02-09 2010-02-10 2010-02-11 2010-02-15 2010-02-16",
+   "closeField": "Day Month year Turnover tdate I_name I_open I_high I_low I_close I_pe I_pb I_yl Turnover_1 TOTAL_SHARES_TRADED Previousclose Chg ChgPer Volume"
+  },
+  {
+   "label": "half Jan 2010",
+   "status": 200,
+   "n": 10,
+   "firstDate": "2010-01-04",
+   "lastDate": "2010-01-15",
+   "sample": "2010-01-04 2010-01-05 2010-01-06 2010-01-07 2010-01-08 2010-01-11 2010-01-12 2010-01-13 2010-01-14 2010-01-15",
+   "closeField": "Day Month year Turnover tdate I_name I_open I_high I_low I_close I_pe I_pb I_yl Turnover_1 TOTAL_SHARES_TRADED Previousclose Chg ChgPer Volume"
+  },
+  {
+   "label": "year 2012 period D",
+   "status": 200,
+   "n": 26,
+   "firstDate": "2012-01-02",
+   "lastDate": "2012-02-06",
+   "sample": "2012-01-02 2012-01-03 2012-01-04 2012-01-05 2012-01-06 2012-01-07 2012-01-09 2012-01-10 2012-01-11 2012-01-12 2012-01-13 2012-01-16",
+   "closeField": "Day Month year Turnover tdate I_name I_open I_high I_low I_close I_pe I_pb I_yl Turnover_1 TOTAL_SHARES_TRADED Previousclose Chg ChgPer Volume"
+  },
+  {
+   "label": "year 2012 period M",
+   "status": 200,
+   "n": 0,
+   "firstDate": null,
+   "lastDate": null,
+   "sample": "",
+   "closeField": null
+  }
+ ]
+}
