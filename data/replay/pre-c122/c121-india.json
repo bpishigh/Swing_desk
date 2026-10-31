@@ -1,0 +1,512 @@
+{
+ "run": "2026-10-31",
+ "market": "india",
+ "data": {
+  "sessions": 4173,
+  "first": "2010-01-04",
+  "last": "2026-10-30",
+  "symbols": 4421,
+  "splits": 858,
+  "hash": "ea6ef68b578e"
+ },
+ "label": "India, delisted names kept",
+ "horizons": {
+  "3months": {
+   "judged": {
+    "months": 106,
+    "from": "2011-03-01",
+    "to": "2019-12-02",
+    "meanNet": 0.006620586440949721,
+    "meanExUniverse": 0.0014686777820654912,
+    "ci90": [
+     -0.004063392110586041,
+     0.007174577801048
+    ],
+    "meanExAfterDrop3": -0.0005711314487286005,
+    "compStrategy": 0.6186867414675914,
+    "compUniverse": 0.40185893939900263,
+    "compIndex": 1.2572544850436032,
+    "years": 9,
+    "yearsPositive": 5,
+    "byYear": {
+     "2011": {
+      "months": 10,
+      "meanExcess": 0.01233576208749566,
+      "strategy": -0.16569763459462772,
+      "universe": -0.2645205451232647,
+      "index": -0.16158765856762503
+     },
+     "2012": {
+      "months": 12,
+      "meanExcess": -0.003495085780061453,
+      "strategy": 0.3053484798938062,
+      "universe": 0.3332359003199501,
+      "index": 0.2999906685248266
+     },
+     "2013": {
+      "months": 12,
+      "meanExcess": -0.010285124205259422,
+      "strategy": -0.2516467760869404,
+      "universe": -0.14894216691257,
+      "index": 0.00623586295627665
+     },
+     "2014": {
+      "months": 12,
+      "meanExcess": 0.011255872408314474,
+      "strategy": 0.7087642476732634,
+      "universe": 0.47993927255368796,
+      "index": 0.4160694583363411
+     },
+     "2015": {
+      "months": 12,
+      "meanExcess": 0.000030238914786046315,
+      "strategy": -0.006054783226648097,
+      "universe": 0.0020621753332481507,
+      "index": -0.0343190440475063
+     },
+     "2016": {
+      "months": 12,
+      "meanExcess": -0.014064626269655765,
+      "strategy": -0.14623390754170396,
+      "universe": 0.015311277951157276,
+      "index": 0.06001538275924445
+     },
+     "2017": {
+      "months": 12,
+      "meanExcess": 0.020631214301460213,
+      "strategy": 0.8379861174551044,
+      "universe": 0.4547941694748596,
+      "index": 0.339903965854526
+     },
+     "2018": {
+      "months": 12,
+      "meanExcess": -0.00606957178954656,
+      "strategy": -0.28801838875036967,
+      "universe": -0.22346470042524014,
+      "index": -0.033388724602749
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.004690601088627928,
+      "strategy": 0.046674707107750235,
+      "universe": -0.012431638293385228,
+      "index": 0.09629369246655073
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": false,
+     "aboveZeroAfterDropping3Months": false,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "doubleCostJudged": {
+    "months": 106,
+    "from": "2011-03-01",
+    "to": "2019-12-02",
+    "meanNet": 0.0044187432860016765,
+    "meanExUniverse": 0.00008093099196740073,
+    "ci90": [
+     -0.0054702131705634,
+     0.005800319045795167
+    ],
+    "meanExAfterDrop3": -0.00196569690532358,
+    "compStrategy": 0.2821582916014327,
+    "compUniverse": 0.2856183287352685,
+    "compIndex": 1.2572544850436032,
+    "years": 9,
+    "yearsPositive": 4,
+    "byYear": {
+     "2011": {
+      "months": 10,
+      "meanExcess": 0.011044862189512738,
+      "strategy": -0.18382341667740743,
+      "universe": -0.27096761353724386,
+      "index": -0.16158765856762503
+     },
+     "2012": {
+      "months": 12,
+      "meanExcess": -0.004996020454109952,
+      "strategy": 0.2703361370273927,
+      "universe": 0.3204200308328222,
+      "index": 0.2999906685248266
+     },
+     "2013": {
+      "months": 12,
+      "meanExcess": -0.011659106107632449,
+      "strategy": -0.2703001048017296,
+      "universe": -0.15593177326032115,
+      "index": 0.00623586295627665
+     },
+     "2014": {
+      "months": 12,
+      "meanExcess": 0.010096058100503678,
+      "strategy": 0.6665325182254376,
+      "universe": 0.462439999136373,
+      "index": 0.4160694583363411
+     },
+     "2015": {
+      "months": 12,
+      "meanExcess": -0.0014691762077413074,
+      "strategy": -0.033596874169448676,
+      "universe": -0.007940843002831599,
+      "index": -0.0343190440475063
+     },
+     "2016": {
+      "months": 12,
+      "meanExcess": -0.015612111797305185,
+      "strategy": -0.1709433272523262,
+      "universe": 0.00477015213682197,
+      "index": 0.06001538275924445
+     },
+     "2017": {
+      "months": 12,
+      "meanExcess": 0.01924880460842546,
+      "strategy": 0.7898221248322108,
+      "universe": 0.4389054294401815,
+      "index": 0.339903965854526
+     },
+     "2018": {
+      "months": 12,
+      "meanExcess": -0.0074922915028850555,
+      "strategy": -0.3069120912676513,
+      "universe": -0.2306082149521026,
+      "index": -0.033388724602749
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.0033946819651962373,
+      "strategy": 0.023151737992160415,
+      "universe": -0.01957714085055906,
+      "index": 0.09629369246655073
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": false,
+     "aboveZeroAfterDropping3Months": false,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "reported2020to2025": {
+    "months": 69,
+    "from": "2020-01-01",
+    "to": "2025-09-01",
+    "meanNet": 0.026779398221999682,
+    "meanExUniverse": 0.007156270135950395,
+    "ci90": [
+     0.0005180287311270633,
+     0.013662722165959073
+    ],
+    "meanExAfterDrop3": 0.004573746464817992,
+    "compStrategy": 3.9197239949898037,
+    "compUniverse": 2.207316538958573,
+    "compIndex": 1.3073847695390786,
+    "years": 6,
+    "yearsPositive": 4,
+    "byYear": {
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.008551637566633854,
+      "strategy": 0.3908725274693723,
+      "universe": 0.24090673680147767,
+      "index": 0.17152304609218394
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": 0.017844462058469887,
+      "strategy": 0.7823434018559556,
+      "universe": 0.4528900423711988,
+      "index": 0.3102131408337465
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": -0.009055110932024676,
+      "strategy": -0.10983175977704651,
+      "universe": 0.003961924007629847,
+      "index": 0.015605059159526702
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": 0.01842000644496053,
+      "strategy": 0.7751141201301694,
+      "universe": 0.4533393785560089,
+      "index": 0.2481456247027216
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.011061121278251334,
+      "strategy": 0.40927801177624534,
+      "universe": 0.2563203189044627,
+      "index": 0.17516118732748365
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": -0.007564750846101565,
+      "strategy": -0.10881682801148085,
+      "universe": -0.02952295542369232,
+      "index": 0.00911272034093269
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": true
+    },
+    "pass": true
+   }
+  },
+  "6months": {
+   "judged": {
+    "months": 103,
+    "from": "2011-06-01",
+    "to": "2019-12-02",
+    "meanNet": 0.006401106278164441,
+    "meanExUniverse": 0.0014489432802160791,
+    "ci90": [
+     -0.003953828225440067,
+     0.006898733625093491
+    ],
+    "meanExAfterDrop3": -0.00046847263385014603,
+    "compStrategy": 0.5823213917622942,
+    "compUniverse": 0.35836717366636384,
+    "compIndex": 1.2145149804980568,
+    "years": 9,
+    "yearsPositive": 4,
+    "byYear": {
+     "2011": {
+      "months": 7,
+      "meanExcess": -0.0016966780932689562,
+      "strategy": -0.2921215999369383,
+      "universe": -0.28733831890468564,
+      "index": -0.17746239857373414
+     },
+     "2012": {
+      "months": 12,
+      "meanExcess": -0.0025981321873795476,
+      "strategy": 0.3182456937627751,
+      "universe": 0.3332359003199501,
+      "index": 0.2999906685248266
+     },
+     "2013": {
+      "months": 12,
+      "meanExcess": -0.004184033004901243,
+      "strategy": -0.18987855565065315,
+      "universe": -0.14894216691257,
+      "index": 0.00623586295627665
+     },
+     "2014": {
+      "months": 12,
+      "meanExcess": 0.008284790922088016,
+      "strategy": 0.6577301816617351,
+      "universe": 0.47993927255368796,
+      "index": 0.4160694583363411
+     },
+     "2015": {
+      "months": 12,
+      "meanExcess": 0.0021373305107564877,
+      "strategy": 0.019617125830664994,
+      "universe": 0.0020621753332481507,
+      "index": -0.0343190440475063
+     },
+     "2016": {
+      "months": 12,
+      "meanExcess": -0.008530970013940707,
+      "strategy": -0.08584859663384448,
+      "universe": 0.015311277951157276,
+      "index": 0.06001538275924445
+     },
+     "2017": {
+      "months": 12,
+      "meanExcess": 0.019395902634407644,
+      "strategy": 0.8127621654015496,
+      "universe": 0.4547941694748596,
+      "index": 0.339903965854526
+     },
+     "2018": {
+      "months": 12,
+      "meanExcess": -0.006846805576711974,
+      "strategy": -0.2958756454768482,
+      "universe": -0.22346470042524014,
+      "index": -0.033388724602749
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.005768408758609561,
+      "strategy": 0.06128068041304369,
+      "universe": -0.012431638293385228,
+      "index": 0.09629369246655073
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": false,
+     "aboveZeroAfterDropping3Months": false,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "doubleCostJudged": {
+    "months": 103,
+    "from": "2011-06-01",
+    "to": "2019-12-02",
+    "meanNet": 0.005299913887984822,
+    "meanExUniverse": 0.0011589855611145302,
+    "ci90": [
+     -0.004257729127652966,
+     0.006614329259774701
+    ],
+    "meanExAfterDrop3": -0.0007675127337689703,
+    "compStrategy": 0.41295703432584063,
+    "compUniverse": 0.24909604821839415,
+    "compIndex": 1.2145149804980568,
+    "years": 9,
+    "yearsPositive": 4,
+    "byYear": {
+     "2011": {
+      "months": 7,
+      "meanExcess": -0.0019107813634560889,
+      "strategy": -0.29753513157134737,
+      "universe": -0.29167821226561885,
+      "index": -0.17746239857373414
+     },
+     "2012": {
+      "months": 12,
+      "meanExcess": -0.002929423104311214,
+      "strategy": 0.30067682890826575,
+      "universe": 0.3204200308328222,
+      "index": 0.2999906685248266
+     },
+     "2013": {
+      "months": 12,
+      "meanExcess": -0.004569281002710974,
+      "strategy": -0.20027363615107963,
+      "universe": -0.15593177326032115,
+      "index": 0.00623586295627665
+     },
+     "2014": {
+      "months": 12,
+      "meanExcess": 0.008241096741086683,
+      "strategy": 0.6375956856081264,
+      "universe": 0.462439999136373,
+      "index": 0.4160694583363411
+     },
+     "2015": {
+      "months": 12,
+      "meanExcess": 0.0018008986715520889,
+      "strategy": 0.005406587613340674,
+      "universe": -0.007940843002831599,
+      "index": -0.0343190440475063
+     },
+     "2016": {
+      "months": 12,
+      "meanExcess": -0.008867377256281766,
+      "strategy": -0.09903842305031774,
+      "universe": 0.00477015213682197,
+      "index": 0.06001538275924445
+     },
+     "2017": {
+      "months": 12,
+      "meanExcess": 0.019174211251956643,
+      "strategy": 0.7888140929561895,
+      "universe": 0.4389054294401815,
+      "index": 0.339903965854526
+     },
+     "2018": {
+      "months": 12,
+      "meanExcess": -0.007196827585821658,
+      "strategy": -0.30539909948420974,
+      "universe": -0.2306082149521026,
+      "index": -0.033388724602749
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.005409284146112634,
+      "strategy": 0.04915172253923639,
+      "universe": -0.01957714085055906,
+      "index": 0.09629369246655073
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": false,
+     "aboveZeroAfterDropping3Months": false,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "reported2020to2025": {
+    "months": 69,
+    "from": "2020-01-01",
+    "to": "2025-09-01",
+    "meanNet": 0.02622288989834443,
+    "meanExUniverse": 0.006599761812295145,
+    "ci90": [
+     0.0008177413429995542,
+     0.012359915955869844
+    ],
+    "meanExAfterDrop3": 0.004160563725534541,
+    "compStrategy": 3.7625817551559777,
+    "compUniverse": 2.207316538958573,
+    "compIndex": 1.3073847695390786,
+    "years": 6,
+    "yearsPositive": 4,
+    "byYear": {
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.004500714048834048,
+      "strategy": 0.3233748483835539,
+      "universe": 0.24090673680147767,
+      "index": 0.17152304609218394
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": 0.018418690556491823,
+      "strategy": 0.7932231512460937,
+      "universe": 0.4528900423711988,
+      "index": 0.3102131408337465
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": -0.006499532682296566,
+      "strategy": -0.0799801460216103,
+      "universe": 0.003961924007629847,
+      "index": 0.015605059159526702
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": 0.014378122214849636,
+      "strategy": 0.6988792132072428,
+      "universe": 0.4533393785560089,
+      "index": 0.2481456247027216
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.010575281887952195,
+      "strategy": 0.40131350302132107,
+      "universe": 0.2563203189044627,
+      "index": 0.17516118732748365
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": -0.0045661941401787245,
+      "strategy": -0.08371575004967058,
+      "universe": -0.02952295542369232,
+      "index": 0.00911272034093269
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": true
+    },
+    "pass": true
+   }
+  }
+ },
+ "pass": false
+}
