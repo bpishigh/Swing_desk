@@ -1101,6 +1101,30 @@
     "summary": "FAIL on the registered rule (2 of 4 conditions). India 2011-2019 (106 months): sleeve +213.1% vs Nifty 200 +129.3%; mean monthly excess +0.32% (90% -0.07% to +0.72%), below the 0.46% detectable; 4 of 9 years. Equal-weight diagnostic +206.6%. 2021-2025 reported +182.2% vs +101.7%. NSE series comparison not run.",
     "file": "data/replay/c129-momentum30.json"
    }
+  },
+  {
+   "id": "C-129-r2-x",
+   "changeLog": "C-129",
+   "title": "Addendum to C-129: cost drag, annual gap, worst relative fall and dependence on 2017 for the Momentum 30-style sleeve",
+   "hypothesis": "Information only: how large the sleeve's edge is per year after its own costs, how deep its worst stretch against the Nifty 200 was, and whether one year carries the 2011-2019 result.",
+   "script": "scripts/backtest-momentum30.mjs",
+   "params": {
+    "same run as C-129-r1": "no parameter changed; the script now also records each rebalance's cost as a share of the portfolio",
+    "asked for after the result was read": "reviewer request, 1 Nov 2026"
+   },
+   "passRule": "Information only, no pass rule; reported beside C-129 and not judged.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-10-31T20:12:29.996Z",
+   "attempt": 2,
+   "exploration": true,
+   "status": "registered"
   }
  ]
 }
