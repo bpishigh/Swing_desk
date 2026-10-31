@@ -1,0 +1,68 @@
+{
+ "run": "2026-10-31",
+ "market": "us",
+ "windows": [
+  {
+   "label": "US 2018-2025 (survivor-biased upward)",
+   "judged": true,
+   "pass": false,
+   "weeks": 403,
+   "from": "2018-01-04",
+   "to": "2025-09-25",
+   "strategy": 0.765904894181547,
+   "index": 1.4227753028239016,
+   "list": 1.1922075031690649,
+   "maxDrawdown": -0.3033106497166923,
+   "meanWeeklyExcess": -0.0007073691624315025,
+   "ci90": [
+    -0.00214016507954098,
+    0.0006710252190566214
+   ],
+   "yearsBeatIndex": 3,
+   "years": 8,
+   "avgPositions": 22.60891089108911,
+   "weeksIndexFilterOff": 86,
+   "byYear": {
+    "2018": {
+     "strategy": -0.05261912763610466,
+     "index": -0.08666838481646466
+    },
+    "2019": {
+     "strategy": 0.11111260951023283,
+     "index": 0.30148748337162945
+    },
+    "2020": {
+     "strategy": 0.13404867169096146,
+     "index": 0.15802515021990993
+    },
+    "2021": {
+     "strategy": 0.2324424549361741,
+     "index": 0.27356371028137416
+    },
+    "2022": {
+     "strategy": -0.08840162835576992,
+     "index": -0.19472446236559116
+    },
+    "2023": {
+     "strategy": 0.010632885498956135,
+     "index": 0.2431931984143545
+    },
+    "2024": {
+     "strategy": 0.17187362206207535,
+     "index": 0.24821162600432145
+    },
+    "2025": {
+     "strategy": 0.11175356799658354,
+     "index": 0.10594779919665154
+    }
+   },
+   "criteria": {
+    "beatsIndex": false,
+    "beatsList": false,
+    "meanExcessAboveZero": false,
+    "ciLowAboveZero": false,
+    "twoThirdsYears": false
+   }
+  }
+ ]
+}

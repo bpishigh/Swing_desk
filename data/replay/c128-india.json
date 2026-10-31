@@ -1,0 +1,122 @@
+{
+ "run": "2026-10-31",
+ "market": "india",
+ "windows": [
+  {
+   "label": "India 2011-2019",
+   "judged": true,
+   "pass": false,
+   "weeks": 468,
+   "from": "2011-01-06",
+   "to": "2019-12-27",
+   "strategy": 0.9620989602684871,
+   "index": 1.0263474746138286,
+   "list": 0.658241298131496,
+   "maxDrawdown": -0.28782250982475177,
+   "meanWeeklyExcess": -0.00007849671673390189,
+   "ci90": [
+    -0.00131055659354899,
+    0.0011437875357598766
+   ],
+   "yearsBeatIndex": 5,
+   "years": 9,
+   "avgPositions": 23.624733475479744,
+   "weeksIndexFilterOff": 162,
+   "byYear": {
+    "2011": {
+     "strategy": -0.009292070023488419,
+     "index": -0.2603981160670098
+    },
+    "2012": {
+     "strategy": 0.0765296062399401,
+     "index": 0.3013180463400862
+    },
+    "2013": {
+     "strategy": -0.084610808520719,
+     "index": 0.044269975671168194
+    },
+    "2014": {
+     "strategy": 0.43343792956654426,
+     "index": 0.35812969255498794
+    },
+    "2015": {
+     "strategy": 0.02656497937559088,
+     "index": 0.0074833702882493025
+    },
+    "2016": {
+     "strategy": 0.09521803153421682,
+     "index": 0.028357931521617585
+    },
+    "2017": {
+     "strategy": 0.5107290870394265,
+     "index": 0.3644592904294004
+    },
+    "2018": {
+     "strategy": -0.17623308273925264,
+     "index": -0.03783972827037407
+    },
+    "2019": {
+     "strategy": 0.0020436741738900643,
+     "index": 0.09141075913116214
+    }
+   },
+   "criteria": {
+    "beatsIndex": false,
+    "beatsList": true,
+    "meanExcessAboveZero": false,
+    "ciLowAboveZero": false,
+    "twoThirdsYears": false
+   }
+  },
+  {
+   "label": "India 2021-2025 (reported)",
+   "judged": false,
+   "pass": false,
+   "weeks": 251,
+   "from": "2021-01-07",
+   "to": "2025-10-30",
+   "strategy": 2.1026177466331024,
+   "index": 1.002685681746713,
+   "list": 1.6949446632883158,
+   "maxDrawdown": -0.20817977029206414,
+   "meanWeeklyExcess": 0.001970609067123177,
+   "ci90": [
+    -0.000033460792651239894,
+    0.004068810468664934
+   ],
+   "yearsBeatIndex": 3,
+   "years": 5,
+   "avgPositions": 35.54365079365079,
+   "weeksIndexFilterOff": 46,
+   "byYear": {
+    "2021": {
+     "strategy": 0.6417149680419265,
+     "index": 0.26142477116461715
+    },
+    "2022": {
+     "strategy": -0.06288876356333584,
+     "index": 0.04333296276457799
+    },
+    "2023": {
+     "strategy": 0.6194681254396417,
+     "index": 0.25276070053987043
+    },
+    "2024": {
+     "strategy": 0.37243654211457833,
+     "index": 0.1570138020799765
+    },
+    "2025": {
+     "strategy": -0.09265031745864916,
+     "index": 0.04983693618234608
+    }
+   },
+   "criteria": {
+    "beatsIndex": true,
+    "beatsList": true,
+    "meanExcessAboveZero": true,
+    "ciLowAboveZero": false,
+    "twoThirdsYears": false
+   }
+  }
+ ]
+}
