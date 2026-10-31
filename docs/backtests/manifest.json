@@ -637,6 +637,33 @@
     "summary": "Both failed. Template on NAV: 6 of 19 counted dates (needs 20 dates, 60%). Keep vs Exit at 6 months: thematic 6 of 12, equity 8 of 17. Mean gaps 0.1 to 0.6 points. Template not used; thematic label reworded as a trend flag. Information only: top third by 126-session return beat group on 25/40 dates at 12m (+0.43 points).",
     "file": "data/funds/backtest-swingrules.json"
    }
+  },
+  {
+   "id": "C-118-r1",
+   "changeLog": "C-118",
+   "title": "Frozen desk rules on India 2011-2019: (a) C-54 momentum baseline, (b) C-64 desk setups",
+   "hypothesis": "The rules tuned on 2021-2026 also work on 2010-2019 data they have never seen.",
+   "script": "scripts/backtest-ind-base1-oos.mjs; scripts/replay-ind-setups-oos.mjs",
+   "params": {
+    "signals": "2011-01-01 to 2019-12-31 (2010 warm-up)",
+    "costTiers": "0.35/0.50/0.80% round trip",
+    "regimeIndex": "Nifty 500 from 2012-02-21, BSE 500 scaled before and on missing sessions (99.4% flag agreement)",
+    "sweeps": "none, one run each",
+    "survivorship": "(a) delisted included; (b) today's industry map, labelled survivor-biased"
+   },
+   "passRule": "(a) as C-54: mean excess over the equal-weight eligible list above zero with 90% block-bootstrap lower bound above zero, above zero after dropping the best three months, above zero in at least 6 of 9 calendar years. (b) as C-64: mean excess over the equal-weight market above zero with 90% lower bound above zero, above zero after dropping the best group, above zero in at least 6 of 9 calendar years.",
+   "data": {
+    "sessions": 2501,
+    "first": "2010-01-04",
+    "last": "2020-01-31",
+    "symbols": 2420,
+    "splits": 296,
+    "hash": "3cc3d45f8ca7"
+   },
+   "registeredAt": "2026-10-31T09:21:51.582Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
