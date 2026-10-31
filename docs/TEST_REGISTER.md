@@ -1,16 +1,17 @@
 # Test register: what we tested, what happened, what we learned
 
-One page that lists every test we have run on the Swing Desk and Portfolio Manager rules, in plain words, so nothing is repeated by accident. The full record of each test is its row in the Engine Rules change log (docs/ENGINE_RULES.md); the reports are in docs/replay/. Built 1 Nov 2026.
+One page that lists every test we have run on the Swing Desk and Portfolio Manager rules, in plain words, so nothing is repeated by accident. The full record of each test is its row in the Engine Rules change log (docs/ENGINE_RULES.md); the reports are in docs/replay/. Built 1 Nov 2026; brought up to date through C-129 and its addendum on 1 Nov 2026.
 
 ## Start here
 
-- **No stock rule we tested beats the index in both India and the US.** That includes the desk's swing setups, momentum picking, holding picks longer, a cash switch, and a published weekly momentum book.
+- **No stock rule we tested has passed its pre-registered test against the index in both India and the US.** That includes the desk's swing setups, momentum picking, holding picks longer, a cash switch, and a published weekly momentum book. One idea (C-129, below) came out ahead of the index in direction but failed on significance.
 - **The swing setups show no edge.** Changing their stop limits (C-126) or limiting them to strong-momentum stocks (C-127) did not help.
 - **Momentum picking is the only thing with a small edge**, and only against its own list of stocks, not against the index. India: about +0.5% a month more than that list, but the range of doubt just touches zero. The US result is larger but flattered by survivor bias.
 - **India 2021 to 2025 looks good in several tests.** It is one strong market, and not a judged period.
 - **The original desk rules (sector ranking, stop widening, room rule, market light) were never backtested.** They came from design.
 - **Fund tests**: the fund score works as a warning and a cost filter, not as a buy signal.
-- **The factor looks real in direction but is unconfirmed**: a Nifty200 Momentum 30-style sleeve (C-129) made +213% against the Nifty 200's +129% in India 2011-2019, but the test could not confirm it. Comparing it with NSE's own index series is the next check.
+- **The momentum factor looks positive in direction but is unconfirmed (C-129).** A sleeve built to NSE's Nifty200 Momentum 30 outline made +213% against the Nifty 200's +129% in India 2011-2019 (13.8% a year against 9.8%), and +182% against +102% in 2021-25 (reported only). It still failed its own rule: the monthly edge (+0.32%) was too noisy to confirm, and it beat the index in only 4 of 9 years. 2017 carries the result: without it the lead is about 1.8 points a year, not 3.9. Trading costs take about 0.73% a year, and tax is not counted. The test was too small to detect an edge of this size (it could only see 0.46% a month or more). We have not compared it with NSE's own index series.
+- **The rules running on the desk today are in a weaker position than momentum.** The setups, the stop caps and the room test have no edge in any judged test, and the market light and sector ranking were never tested. They still scan, give signals and run in paper tests. Momentum has weak positive evidence. Neither is proven, so owner's direction on 1 Nov is to run both and judge both the same way (see section 5).
 - **What is still open**: India before 2010, the market light on its own, and forward paper trading on new data.
 
 ## Plain words
@@ -82,7 +83,7 @@ All pre-registered: the pass rule was written before the run. "Judged" is India 
 | C-126 | Does widening the stop caps by 1.5 times make the setups work? | Failed | India −0.19R, portfolio −10.3% against the index's +120.5%. US −0.13R, −9.2% against SPY's +147.1% |
 | C-127 | Do setups work on top-momentum stocks only? | Failed | India top group −0.04R against −0.05R for the rest; US +0.01R against +0.02R. India 2021-25 only (reported): +0.31R against +0.06R |
 | C-128 | Does a published weekly momentum book (Clenow-style) beat the index? | Failed | India +96% against +103%; US +77% against SPY's +142%. India 2021-25 only (reported): +210% against +100% |
-| C-129 | Does a large-cap-tilted momentum sleeve built to NSE's Nifty200 Momentum 30 outline beat the Nifty 200? (stand-ins for the parts NSE doesn't publish) | Failed the rule, direction positive | India Feb 2011-2019: +213% against the Nifty 200's +129%, but the monthly edge (+0.32%) is too noisy to confirm (range -0.07% to +0.72%) and it beat the index in only 4 of 9 years. Equal-weight twin +207%. NSE's own series not yet compared |
+| C-129 | Does a large-cap-tilted momentum sleeve built to NSE's Nifty200 Momentum 30 outline beat the Nifty 200? (stand-ins for the parts NSE doesn't publish) | Failed the rule, direction positive | India Feb 2011-2019: +213% against the Nifty 200's +129%, but the monthly edge (+0.32%) is too noisy to confirm (range -0.07% to +0.72%) and it beat the index in only 4 of 9 years. Equal-weight twin +207%. NSE's own series not yet compared. Addendum (same run, nothing judged): after the sleeve's own trading costs it made 13.79% a year against 9.84% for the Nifty 200, a gap of 3.94 points; costs about 0.73% a year (no tax); worst fall relative to the Nifty 200 -16.0% (Apr 2018 to Nov 2019). The yearly gap is lumpy: 2017 +26.0 points, 2015 +20.1, 2011 +11.8, but 2016 -8.5, 2018 -6.0, 2019 -4.6, 2012 -1.4. Without 2017: +96.4% against +71.8% over the other eight years, about 1.8 points a year. 2021-25 (reported only): +182% against +102%, 24.4% a year against 15.9%, 3 of 5 years, worst relative fall -20.8% |
 
 ---
 
@@ -137,7 +138,40 @@ Exit rules for held stocks, tested in a replay of 2022-25 against the typical Ni
 
 ---
 
-## 5. Where this leaves us
+## 5. What the evidence says now (1 Nov 2026)
+
+This is the plain-words reading of every result above, part by part, for the desk as it runs today.
+
+| Part of the desk | What the tests say | How sure we are |
+|---|---|---|
+| Swing setups (the daily "Ready" list) | No edge in any judged test: C-118(b), C-119(b), C-126, C-127. Only 3-5% of trades pass the gates, and the trades the gates removed did no worse (C-125) | Fairly sure there is no edge. Small samples, but they all point the same way |
+| Stop-width cap and 3R room test | Nothing supports them (C-125, C-126). Nothing contradicts them strongly either | Low. They were design choices and still are |
+| Market light, sector ranking, trend template | Never tested on their own. Every replay fixed the light | Unknown |
+| Live exits (give-back and trailing stops) | They agree with the replay's exits and are better on valid trades (C-68) | Moderate |
+| Legacy Keep / Exit | Separates stocks only modestly: Exit median 60-session excess -3.0 against -1.45 for Keep (C-46) | Moderate. Useful as a warning |
+| Momentum picking (monthly, top tenth of liquid names) | India about +0.5% a month over its own list, but the range of doubt touches zero. US larger but survivor-biased. Holding longer did not help (C-121). A weekly Clenow-style version lost to the index (C-128) | Low. Small, unconfirmed |
+| NSE-style momentum sleeve, twice a year (C-129) | Ahead of the Nifty 200 in compounded return in both windows. Failed on significance and consistency. Carried by 2017 | Low to moderate. Best evidence we have, still short of proof |
+| Cash switch (C-120) | Cut the worst fall but gave away most of the return (India +154% against +373%, about 220 points) | Fairly sure it should not be a rule |
+
+**What the results do and do not mean.** A fail means the test could not show an edge. It does not prove there is none. Every stock rule has been judged against the index, and the index has been hard to beat after costs. The momentum sleeve is the only one that gets close.
+
+**Two sets of rules, one standard.** The current desk rules and a momentum stream are both unproven. The owner's direction is to run both, as scans and as forward paper books, and to judge both against the index on the same dates with the pass rule and power written down first. Showing a list or logging a paper book costs nothing. Real money, or replacing the setups, waits for the read date.
+
+**Corrections to statements made in this project** (so they are not repeated)
+- "Every test says holding longer beats monthly" is wrong. In C-121, 3-month and 6-month holds did worse than monthly (+0.29% and +0.36% against +0.49%).
+- Earnings-driven picking is not untested. It was tested in C-59 to C-63.
+- A reviewer said the gap in 2021-25 was similar to the earlier one. It is larger: 8.5 points a year against 3.9.
+- A reviewer said the cash rule cost about 70 points. It cost about 220 (C-120, India).
+
+**Waiting on the owner**
+- Add the momentum stream to the scans and to paper testing (draft entry C-130, see the Engine Rules).
+- Whether the existing forward tests C-53 and C-66 run to their pre-registered read (recommended) or are stopped.
+- Whether the setups keep placing live orders while the evidence stands as above.
+- The NSE Nifty200 Momentum 30 price history, to run the replication check (data/replay/nse-momentum30-price.csv).
+
+---
+
+## 6. Where this leaves us
 
 **Ruled out (do not repeat without a new reason)**
 - A 200-day cash switch as a rule (C-120).
@@ -145,9 +179,11 @@ Exit rules for held stocks, tested in a replay of 2022-25 against the typical Ni
 - Wider stop caps for the setups (C-126).
 - Setups limited to top-momentum stocks (C-127).
 - A Clenow-style weekly momentum book (C-128).
+- Re-running the C-129 sleeve on 2011-2019 with new settings. That window is spent; a new read needs new data (the forward book) or the NSE series.
 - Earnings run-up filters (C-60, C-62), longer fixed holds (C-70), excluding India skip days (C-72).
 
 **Running, no result yet**
+- Momentum stream forward paper book (C-130), once approved.
 - Earnings run-up forward test (C-61), momentum-in-setups forward test (C-66), US paper book (C-53).
 
 **Not yet tested**
