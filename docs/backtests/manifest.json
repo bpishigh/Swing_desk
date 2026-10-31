@@ -733,6 +733,37 @@
     "summary": "Fails in both markets. India: worst fall cut 36% (met) but return 41% of buy-and-hold and 6 of 15 years (missed). US: no fall cut, return 24% of buy-and-hold (missed), 4 of 8 years.",
     "file": "data/replay/c120-cash.json"
    }
+  },
+  {
+   "id": "C-121-r1",
+   "changeLog": "C-121",
+   "title": "Slower momentum: C-54 selection held 3 and 6 monthly steps, India 2011-2019 (2020-2025 reported) and US 2018-2025 (survivor-biased)",
+   "hypothesis": "The C-54 momentum selection beats the equal-weight eligible list when each month's picks are held 3 or 6 months instead of 1.",
+   "script": "scripts/backtest-slow-momentum.mjs",
+   "params": {
+    "horizons": "3 and 6 monthly steps (about 63 and 126 sessions), overlapping groups, equal weight",
+    "cash": "none, always invested",
+    "cost": "C-54 and C-119 liquidity tiers, half on entry, half on exit",
+    "benchmark": "equal-weight eligible list, always invested; index reported only",
+    "judged": "India 2011-2019 and US 2018-2025",
+    "reported": "India 2020-2025",
+    "sweeps": "2 horizons, one run",
+    "us_data_hash": "5f1b52194254",
+    "survivorship": "US SURVIVOR-BIASED UPWARD"
+   },
+   "passRule": "Both horizons must pass all four in both judged markets: mean monthly excess over the eligible list above zero; lower end of the 90% block-bootstrap interval (6-month blocks) above zero; above zero after dropping the best three months; above zero in at least two thirds of calendar years. One horizon alone is a fail for the family.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "da0b3bd1411d"
+   },
+   "registeredAt": "2026-10-31T12:38:22.153Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }

@@ -1,0 +1,348 @@
+{
+ "run": "2026-10-31",
+ "market": "us",
+ "data": {
+  "sessions": 2513,
+  "first": "2016-10-31",
+  "last": "2026-10-30",
+  "symbols": 2279,
+  "splits": 0,
+  "hash": "5f1b52194254"
+ },
+ "label": "SURVIVOR-BIASED UPWARD",
+ "horizons": {
+  "3months": {
+   "judged": {
+    "months": 91,
+    "from": "2018-03-01",
+    "to": "2025-09-02",
+    "meanNet": 0.022518163269139156,
+    "meanExUniverse": 0.012147768049161638,
+    "ci90": [
+     0.004515749866422412,
+     0.020059231201902786
+    ],
+    "meanExAfterDrop3": 0.008077675273000434,
+    "compStrategy": 4.539548136518101,
+    "compUniverse": 1.2187936280414329,
+    "compIndex": 1.4870670432585102,
+    "years": 8,
+    "yearsPositive": 5,
+    "byYear": {
+     "2018": {
+      "months": 10,
+      "meanExcess": -0.0015034005344710586,
+      "strategy": -0.138050495522544,
+      "universe": -0.11665671881580841,
+      "index": -0.09242604429909307
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.007297906415610531,
+      "strategy": 0.41167787448594906,
+      "universe": 0.3130977494373415,
+      "index": 0.32021620736251566
+     },
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.03713151271329975,
+      "strategy": 0.8280073959459511,
+      "universe": 0.20482740303967084,
+      "index": 0.15173226636890913
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": -0.0037721313616340523,
+      "strategy": 0.14194559774390814,
+      "universe": 0.23140035465562092,
+      "index": 0.28605283709907603
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": 0.004851035689124339,
+      "strategy": -0.15153868490421363,
+      "universe": -0.18391563672946265,
+      "index": -0.19639828290231398
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": -0.003236001508917728,
+      "strategy": 0.1201472256688827,
+      "universe": 0.16472974643942662,
+      "index": 0.22157077340004183
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.025664281339945572,
+      "strategy": 0.5543806088898431,
+      "universe": 0.18937320114445222,
+      "index": 0.2627189146526163
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": 0.0339157398188087,
+      "strategy": 0.47628097165045014,
+      "universe": 0.14048048745155595,
+      "index": 0.13053467353661619
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "doubleCostJudged": {
+    "months": 91,
+    "from": "2018-03-01",
+    "to": "2025-09-02",
+    "meanNet": 0.02181757718855307,
+    "meanExUniverse": 0.011631258891652478,
+    "ci90": [
+     0.0039997968238719315,
+     0.019550095670767268
+    ],
+    "meanExAfterDrop3": 0.007557951788151943,
+    "compStrategy": 4.202706716883594,
+    "compUniverse": 1.1822781520749661,
+    "compIndex": 1.4870670432585102,
+    "years": 8,
+    "yearsPositive": 5,
+    "byYear": {
+     "2018": {
+      "months": 10,
+      "meanExcess": -0.0020725172011377274,
+      "strategy": -0.1446685120436636,
+      "universe": -0.11834212364712238,
+      "index": -0.09242604429909307
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.006765364748943852,
+      "strategy": 0.39941974344887976,
+      "universe": 0.3098151960859772,
+      "index": 0.32021620736251566
+     },
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.0366335960466331,
+      "strategy": 0.8131872174819972,
+      "universe": 0.20183155007650067,
+      "index": 0.15173226636890913
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": -0.00428608969496738,
+      "strategy": 0.13286458408872637,
+      "universe": 0.2291218105231292,
+      "index": 0.28605283709907603
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": 0.00432095235579102,
+      "strategy": -0.15844240106426033,
+      "universe": -0.1853027174951034,
+      "index": -0.19639828290231398
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": -0.003742876508917727,
+      "strategy": 0.11129103204726754,
+      "universe": 0.16252574372173134,
+      "index": 0.22157077340004183
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.025160948006612227,
+      "strategy": 0.5423984345998474,
+      "universe": 0.18707715587026064,
+      "index": 0.2627189146526163
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": 0.033438554633623524,
+      "strategy": 0.4669591074129227,
+      "universe": 0.13784647455997945,
+      "index": 0.13053467353661619
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   }
+  },
+  "6months": {
+   "judged": {
+    "months": 88,
+    "from": "2018-06-01",
+    "to": "2025-09-02",
+    "meanNet": 0.021564491009934926,
+    "meanExUniverse": 0.011137035730120821,
+    "ci90": [
+     0.0032187068930011192,
+     0.019227323958401387
+    ],
+    "meanExAfterDrop3": 0.00779509460145454,
+    "compStrategy": 3.8826767610885673,
+    "compUniverse": 1.1635742878660542,
+    "compIndex": 1.434412513641325,
+    "years": 8,
+    "yearsPositive": 5,
+    "byYear": {
+     "2018": {
+      "months": 7,
+      "meanExcess": -0.01147127071888983,
+      "strategy": -0.20868286129620583,
+      "universe": -0.138640571896549,
+      "index": -0.11164059658057457
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.005895689331762331,
+      "strategy": 0.38983400879303676,
+      "universe": 0.3130977494373415,
+      "index": 0.32021620736251566
+     },
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.037558885719682696,
+      "strategy": 0.8444130649695791,
+      "universe": 0.20482740303967084,
+      "index": 0.15173226636890913
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": -0.0072202809236158625,
+      "strategy": 0.0968695923824281,
+      "universe": 0.23140035465562092,
+      "index": 0.28605283709907603
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": 0.002420657375146679,
+      "strategy": -0.17545300231947059,
+      "universe": -0.18391563672946265,
+      "index": -0.19639828290231398
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": -0.002324116850937129,
+      "strategy": 0.13414353336538087,
+      "universe": 0.16472974643942662,
+      "index": 0.22157077340004183
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.02634947427530845,
+      "strategy": 0.5691478836888992,
+      "universe": 0.18937320114445222,
+      "index": 0.2627189146526163
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": 0.034243814683855,
+      "strategy": 0.49549157248747044,
+      "universe": 0.14048048745155595,
+      "index": 0.13053467353661619
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   },
+   "doubleCostJudged": {
+    "months": 88,
+    "from": "2018-06-01",
+    "to": "2025-09-02",
+    "meanNet": 0.021208761843268243,
+    "meanExUniverse": 0.010965386108908699,
+    "ci90": [
+     0.0030439246960314234,
+     0.019056647822037753
+    ],
+    "meanExAfterDrop3": 0.0076221318563564995,
+    "compStrategy": 3.7347535353938532,
+    "compUniverse": 1.1291331294109948,
+    "compIndex": 1.434412513641325,
+    "years": 8,
+    "yearsPositive": 5,
+    "byYear": {
+     "2018": {
+      "months": 7,
+      "meanExcess": -0.011655175480794599,
+      "strategy": -0.21082708252528148,
+      "universe": -0.13981313905186865,
+      "index": -0.11164059658057457
+     },
+     "2019": {
+      "months": 12,
+      "meanExcess": 0.005733355998428989,
+      "strategy": 0.38374451952207767,
+      "universe": 0.3098151960859772,
+      "index": 0.32021620736251566
+     },
+     "2020": {
+      "months": 12,
+      "meanExcess": 0.037412010719682684,
+      "strategy": 0.8368833347587012,
+      "universe": 0.20183155007650067,
+      "index": 0.15173226636890913
+     },
+     "2021": {
+      "months": 12,
+      "meanExcess": -0.0074015309236158565,
+      "strategy": 0.09245004759400399,
+      "universe": 0.2291218105231292,
+      "index": 0.28605283709907603
+     },
+     "2022": {
+      "months": 12,
+      "meanExcess": 0.0022255740418133563,
+      "strategy": -0.17881772872944657,
+      "universe": -0.1853027174951034,
+      "index": -0.19639828290231398
+     },
+     "2023": {
+      "months": 12,
+      "meanExcess": -0.0024982835176037984,
+      "strategy": 0.1296489057309591,
+      "universe": 0.16252574372173134,
+      "index": 0.22157077340004183
+     },
+     "2024": {
+      "months": 12,
+      "meanExcess": 0.026179474275308427,
+      "strategy": 0.563094714719909,
+      "universe": 0.18707715587026064,
+      "index": 0.2627189146526163
+     },
+     "2025": {
+      "months": 9,
+      "meanExcess": 0.03408144431348462,
+      "strategy": 0.4901081260898479,
+      "universe": 0.13784647455997945,
+      "index": 0.13053467353661619
+     }
+    },
+    "criteria": {
+     "meanExcessAboveZero": true,
+     "ciLowAboveZero": true,
+     "aboveZeroAfterDropping3Months": true,
+     "yearsPositiveAtLeastTwoThirds": false
+    },
+    "pass": false
+   }
+  }
+ },
+ "pass": false
+}
