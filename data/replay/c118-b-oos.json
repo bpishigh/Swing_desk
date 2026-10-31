@@ -1,6 +1,6 @@
 {
  "exits": "live",
- "trades": 35,
+ "validCount": 35,
  "perYear": "see byYear",
  "meanExcess": -0.001404697269314614,
  "ci90": [
