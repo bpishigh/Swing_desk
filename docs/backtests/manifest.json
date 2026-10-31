@@ -885,7 +885,12 @@
    "registeredAt": "2026-10-31T13:54:42.964Z",
    "attempt": 2,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T14:21:22.396Z",
+    "summary": "Data-fix re-run, India 2011-2019 test (a): fails on one condition (interval lower bound -0.03%); mean excess +0.49%/month, +0.28% without best three months, 6 of 9 years.",
+    "file": "data/replay/c118-a-oos.json"
+   }
   },
   {
    "id": "C-121-r2",
@@ -917,7 +922,12 @@
    "registeredAt": "2026-10-31T13:54:59.269Z",
    "attempt": 2,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T14:21:22.589Z",
+    "summary": "Data-fix re-run, India 2011-2019: 3-month +0.29%/month (interval -0.24% to +0.85%), 6-month +0.36% (-0.18% to +0.90%); each meets three of four (interval misses); 6 of 9 years at both.",
+    "file": "data/replay/c121-india.json"
+   }
   }
  ]
 }
