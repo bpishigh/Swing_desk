@@ -203,5 +203,9 @@
    }
   }
  },
- "replication": "not run: NSE series not supplied"
+ "replication": {
+  "months": 178,
+  "correlation": 0.9150730180958789,
+  "trackingDifferenceMonthly": 0.0002241633672694348
+ }
 }

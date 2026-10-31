@@ -34,4 +34,4 @@ Average one-way turnover per rebalance 65.3%; average holdings 30.0.
 - Gap by year (sleeve minus Nifty 200): 2021 41.6 pts, 2022 -14.6 pts, 2023 24.6 pts, 2024 18.8 pts, 2025 -12.4 pts
 
 ## Replication metric against NSE's series
-Not run: no NSE price series supplied (data/replay/nse-momentum30-price.csv).
+- 178 months; correlation of monthly returns 0.915 (target about 0.9); mean monthly tracking difference 0.02%
