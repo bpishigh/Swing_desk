@@ -1022,7 +1022,12 @@
    "registeredAt": "2026-10-31T18:17:13.806Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T18:40:59.909Z",
+    "summary": "FAIL in both judged markets. India 2011-2019 top group -0.04R, portfolio -10.2% vs index +111.8%; US 2018-2025 +0.01R, -0.9% vs SPY +148.3%. India 2021-2025 reported: top +0.31R vs +0.06R outside, +15.1% vs index +97.5%.",
+    "file": "data/replay/c127-india.json"
+   }
   }
  ]
 }

@@ -1,0 +1,77 @@
+{
+ "run": "2026-10-31",
+ "market": "us",
+ "windows": [
+  {
+   "label": "US 2018-2025 (survivor-biased upward)",
+   "judged": true,
+   "pass": false,
+   "all": 1448,
+   "topCount": 318,
+   "topMeanR": 0.012639268390118384,
+   "topCi90": [
+    -0.14406521763646993,
+    0.17132489263590345
+   ],
+   "notTopCount": 1130,
+   "notTopMeanR": 0.022084067198158547,
+   "diffCi90": [
+    -0.1698689555400611,
+    0.14228139295126044
+   ],
+   "portfolio": {
+    "taken": 232,
+    "skipped": 86,
+    "compounded": -0.00895669338681726,
+    "maxDrawdown": -0.10512357782884185,
+    "from": "2018-01-03",
+    "to": "2025-10-06"
+   },
+   "indexReturn": 1.4831219728620546,
+   "yearsPositive": 3,
+   "yearsWithTrades": 8,
+   "byYear": {
+    "2018": {
+     "n": 51,
+     "meanR": -0.12004334293672425
+    },
+    "2019": {
+     "n": 52,
+     "meanR": 0.11618743122271402
+    },
+    "2020": {
+     "n": 40,
+     "meanR": -0.012766719207887406
+    },
+    "2021": {
+     "n": 34,
+     "meanR": -0.22462812311062236
+    },
+    "2022": {
+     "n": 92,
+     "meanR": 0.1897994021342939
+    },
+    "2023": {
+     "n": 19,
+     "meanR": -0.3466245543110696
+    },
+    "2024": {
+     "n": 18,
+     "meanR": 0.1911330331714956
+    },
+    "2025": {
+     "n": 12,
+     "meanR": -0.17235805776712831
+    }
+   },
+   "criteria": {
+    "topMeanAboveZero": true,
+    "topCiLowAboveZero": false,
+    "atLeast100Top": true,
+    "beatsNotTop": false,
+    "portfolioBeatsIndex": false,
+    "twoThirdsYears": false
+   }
+  }
+ ]
+}

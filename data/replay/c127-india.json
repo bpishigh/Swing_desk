@@ -1,0 +1,140 @@
+{
+ "run": "2026-10-31",
+ "market": "india",
+ "windows": [
+  {
+   "label": "India 2011-2019",
+   "judged": true,
+   "pass": false,
+   "all": 925,
+   "topCount": 292,
+   "topMeanR": -0.04148129421070121,
+   "topCi90": [
+    -0.21213493707069295,
+    0.13287218250495714
+   ],
+   "notTopCount": 633,
+   "notTopMeanR": -0.04548902333063671,
+   "diffCi90": [
+    -0.18949297592761502,
+    0.20265523834838053
+   ],
+   "portfolio": {
+    "taken": 263,
+    "skipped": 29,
+    "compounded": -0.102453045729196,
+    "maxDrawdown": -0.1696926747849722,
+    "from": "2011-04-04",
+    "to": "2020-02-06"
+   },
+   "indexReturn": 1.1177028116837158,
+   "yearsPositive": 4,
+   "yearsWithTrades": 9,
+   "byYear": {
+    "2011": {
+     "n": 5,
+     "meanR": -0.3769995275571046
+    },
+    "2012": {
+     "n": 32,
+     "meanR": 0.18372697644395972
+    },
+    "2013": {
+     "n": 24,
+     "meanR": 0.23967595965669267
+    },
+    "2014": {
+     "n": 41,
+     "meanR": 0.0018805953996390398
+    },
+    "2015": {
+     "n": 37,
+     "meanR": -0.0856074106866014
+    },
+    "2016": {
+     "n": 15,
+     "meanR": -0.6309593658965125
+    },
+    "2017": {
+     "n": 29,
+     "meanR": 0.4879750770368984
+    },
+    "2018": {
+     "n": 31,
+     "meanR": -0.25864109550026904
+    },
+    "2019": {
+     "n": 78,
+     "meanR": -0.19791884039489155
+    }
+   },
+   "criteria": {
+    "topMeanAboveZero": false,
+    "topCiLowAboveZero": false,
+    "atLeast100Top": true,
+    "beatsNotTop": false,
+    "portfolioBeatsIndex": false,
+    "twoThirdsYears": false
+   }
+  },
+  {
+   "label": "India 2021-2025 (reported, exits to 2025-12-31)",
+   "judged": false,
+   "pass": false,
+   "all": 937,
+   "topCount": 295,
+   "topMeanR": 0.30538923970226406,
+   "topCi90": [
+    0.09054764130303074,
+    0.5316255096862276
+   ],
+   "notTopCount": 642,
+   "notTopMeanR": 0.06489247592023187,
+   "diffCi90": [
+    0.04291867583789165,
+    0.4411180175381064
+   ],
+   "portfolio": {
+    "taken": 223,
+    "skipped": 72,
+    "compounded": 0.151282498635962,
+    "maxDrawdown": -0.10334850084843061,
+    "from": "2021-01-15",
+    "to": "2025-11-06"
+   },
+   "indexReturn": 0.9749731795628267,
+   "yearsPositive": 3,
+   "yearsWithTrades": 5,
+   "byYear": {
+    "2021": {
+     "n": 61,
+     "meanR": 0.27736455302416163
+    },
+    "2022": {
+     "n": 37,
+     "meanR": 0.22010541914940618
+    },
+    "2023": {
+     "n": 84,
+     "meanR": 0.889537514813126
+    },
+    "2024": {
+     "n": 60,
+     "meanR": -0.11179565525648376
+    },
+    "2025": {
+     "n": 53,
+     "meanR": -0.056353291693352264
+    }
+   },
+   "criteria": {
+    "topMeanAboveZero": true,
+    "topCiLowAboveZero": true,
+    "atLeast100Top": true,
+    "beatsNotTop": true,
+    "portfolioBeatsIndex": false,
+    "twoThirdsYears": false
+   }
+  }
+ ]
+}
