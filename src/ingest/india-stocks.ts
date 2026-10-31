@@ -57,6 +57,32 @@ export function parseBhavcopy(text: string): BhavDay {
   return { date: [...dates][0], rows };
 }
 
+/**
+ * Parse NSE's OLD daily file cmDDMONYYYYbhav.csv (used to 2019): SYMBOL, SERIES, OPEN, HIGH, LOW, CLOSE, LAST, PREVCLOSE, TOTTRDQTY, TOTTRDVAL, TIMESTAMP, TOTALTRADES, ISIN.
+ * Same output as parseBhavcopy (EQ and BE only, EQ wins, one date inside the file); the delivery share does not exist in this format and is null.
+ */
+export function parseOldBhavcopy(text: string): BhavDay {
+  const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/).filter((l) => l.trim() !== '');
+  if (lines.length < 2) throw new Error('bhavcopy has no data rows');
+  const head = splitLine(lines[0]).map((h) => h.toUpperCase());
+  const col = (n: string): number => { const i = head.indexOf(n); if (i < 0) throw new Error(`old bhavcopy: no column ${n}`); return i; };
+  const iSym = col('SYMBOL'), iSer = col('SERIES'), iO = col('OPEN'), iH = col('HIGH'), iL = col('LOW'), iC = col('CLOSE'), iPc = col('PREVCLOSE'), iV = col('TOTTRDQTY'), iDate = col('TIMESTAMP');
+  const dates = new Set<string>(); const rows: Record<string, Row> = {};
+  for (const line of lines.slice(1)) {
+    const f = splitLine(line);
+    const series = f[iSer];
+    if (series !== 'EQ' && series !== 'BE') continue;
+    const date = parseNseDate(f[iDate] ?? ''); const close = num(f[iC]);
+    if (!date || close === null || close <= 0) continue;
+    dates.add(date);
+    const sym = f[iSym];
+    if (sym in rows && rows[sym][0] === 'EQ') continue;
+    rows[sym] = [series, num(f[iPc]), num(f[iO]), num(f[iH]), num(f[iL]), close, num(f[iV]) ?? 0, null];
+  }
+  if (dates.size !== 1) throw new Error(`old bhavcopy carries ${dates.size} dates (${[...dates].join(', ')}), expected one`);
+  return { date: [...dates][0], rows };
+}
+
 const round2 = (x: number): number => Math.round(x * 100) / 100;
 
 export interface StockStats {

@@ -1,11 +1,12 @@
 name: backfill-india-bhav
-# Backtester data: NSE daily all-stock files, 2020 to 15 Oct 2025, into data/india/bhav-hist (gzipped). Manual and resumable; run again until it reports nothing left.
+# Backtester data: NSE daily all-stock files, 2020 to 15 Oct 2025 (format new) and 2010 to 2019 (format old), into data/india/bhav-hist (gzipped). Manual and resumable; run again until it reports nothing left.
 on:
   workflow_dispatch:
     inputs:
       from: { description: "First date", default: "2020-01-01" }
       to: { description: "Last date", default: "2025-10-16" }
       max: { description: "Most files per run", default: "450" }
+      format: { description: "new (2020 on) or old (2010 to 2019)", default: "new" }
 concurrency: backfill-india-bhav
 permissions:
   contents: write
@@ -17,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: node scripts/backfill-india-bhav.mjs --from=${{ inputs.from }} --to=${{ inputs.to }} --max=${{ inputs.max }}
+      - run: node scripts/backfill-india-bhav.mjs --from=${{ inputs.from }} --to=${{ inputs.to }} --max=${{ inputs.max }} --format=${{ inputs.format || 'new' }}
       - run: node scripts/check-no-personal-data.mjs
         if: always()
       - name: Commit files

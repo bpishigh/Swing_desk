@@ -71,3 +71,18 @@ test('a one-day move beyond the band is a break: averages straddling it are omit
   assert.equal(late.sma50, 100);                                           // window of 50 closes now starts after it
   assert.equal(late.sma200, undefined);
 });
+
+test('old-format daily file (to 2019): EQ and BE kept, one date, delivery share null', async () => {
+  const { parseOldBhavcopy } = await import('../src/ingest/india-stocks.ts');
+  const csv = 'SYMBOL,SERIES,OPEN,HIGH,LOW,CLOSE,LAST,PREVCLOSE,TOTTRDQTY,TOTTRDVAL,TIMESTAMP,TOTALTRADES,ISIN,\n'
+    + '20MICRONS,EQ,40.75,41.5,39.15,41.05,41.1,40.75,5989,244540.9,15-JUN-2010,76,INE144J01027,\n'
+    + 'ABAN,EQ,10,11,9,10.5,10.4,10,100,1000,15-JUN-2010,3,INE421A01028,\n'
+    + 'ABAN,BE,1,1,1,1,1,1,1,1,15-JUN-2010,1,INE421A01028,\n'
+    + 'GOLDBEES,GS,1,1,1,1,1,1,1,1,15-JUN-2010,1,INE000000000,\n';
+  const d = parseOldBhavcopy(csv);
+  assert.equal(d.date, '2010-06-15');
+  assert.deepEqual(Object.keys(d.rows).sort(), ['20MICRONS', 'ABAN']);
+  assert.deepEqual(d.rows['20MICRONS'], ['EQ', 40.75, 40.75, 41.5, 39.15, 41.05, 5989, null]);
+  assert.equal(d.rows.ABAN[0], 'EQ');
+  assert.throws(() => parseOldBhavcopy(csv.replace('15-JUN-2010,3', '16-JUN-2010,3')), /expected one/);
+});
