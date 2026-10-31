@@ -1095,7 +1095,12 @@
    "registeredAt": "2026-10-31T20:02:49.427Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-10-31T20:08:02.221Z",
+    "summary": "FAIL on the registered rule (2 of 4 conditions). India 2011-2019 (106 months): sleeve +213.1% vs Nifty 200 +129.3%; mean monthly excess +0.32% (90% -0.07% to +0.72%), below the 0.46% detectable; 4 of 9 years. Equal-weight diagnostic +206.6%. 2021-2025 reported +182.2% vs +101.7%. NSE series comparison not run.",
+    "file": "data/replay/c129-momentum30.json"
+   }
   }
  ]
 }
