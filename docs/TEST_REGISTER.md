@@ -1,6 +1,6 @@
 # Test register: what we tested, what happened, what we learned
 
-Built 1 Nov 2026 from the Engine Rules change log (docs/ENGINE_RULES.md), the manifest (docs/backtests/manifest.json) and the reports in docs/replay/. The change log row is the full record of every test; this page is the one-page index so that nothing is run twice by accident. Numbers are quoted from those rows; where a row is long, this page gives the headline and points to the row.
+Built 1 Nov 2026 (rows C-1 to C-50 added the same day) from the Engine Rules change log (docs/ENGINE_RULES.md), the manifest (docs/backtests/manifest.json) and the reports in docs/replay/. The change log row is the full record of every test; this page is the one-page index so that nothing is run twice by accident. Numbers are quoted from those rows; where a row is long, this page gives the headline and points to the row.
 
 ## Process rule (proposed, not yet in the Engine Rules)
 
@@ -48,6 +48,31 @@ Built 1 Nov 2026 from the Engine Rules change log (docs/ENGINE_RULES.md), the ma
 | C-127 | 1 Nov | Setups on top-momentum stocks only | India 2011-19, US 2018-25 | Fails | India top group -0.04R vs -0.05R outside; US +0.01R vs +0.02R | Momentum rank does not rescue the setups. India 2021-25 only: +0.31R vs +0.06R |
 | C-128 | 1 Nov | Clenow-style weekly momentum book, no setups | India 2011-19, US 2018-25 | Fails | India +96.2% vs index +102.6%; US +76.6% vs SPY +142.3% | A faster rank did not beat the index. India 2021-25: +210% vs +100% (reported) |
 
+## A0. Rules C-1 to C-50 (before the backtester): mostly design choices, few tests
+
+These rows are the original design, data-source decisions, document corrections and the Legacy book exit work. Only C-42 to C-49 were tested with written pass criteria. The original desk rules were never backtested; the rows say so.
+
+| IDs | What | Evidence |
+|---|---|---|
+| C-1, C-2 | Sector ranking (2 x 3M + 1M, top 4 weekly) and two-weekend persistence | Design choice. C-1: "No separate evidence record exists". C-2: "no backtest on record". |
+| C-4, C-5 | Widen a too-close stop to 1.5 ATR(14); room to resistance 3R (US) and 2R (India; India moved to 3R in C-112) | Design choice, "no backtest on record". The stop cap and 3R room were only examined later (C-64, C-125, C-126), which found no edge either way. |
+| C-6, C-22, C-24, C-35, C-36, C-38 | The market light: which setups each colour allows, Red as pilots only, follow-through tracking, Red allows setups 1 and 4 | Rules and fixes. C-24 says "Backtest later". No test of the light on its own exists. All replays fixed it. |
+| C-25 | US skips setup 3 and needs results 10 or more days away | "Backtest later". C-63 later tested results timing on India only. |
+| C-3, C-7 to C-14, C-26, C-40 | Data sources (NSE index file, stored closes, Alpha Vantage, ETF Database, Yahoo, Tiingo) | Source tests, not strategy tests. Alpha Vantage, ETF Database and Yahoo full-page history were rejected; Yahoo was parked pending a re-test from GitHub servers (C-26). |
+| C-15, C-16, C-19, C-20 | US weekly sector-holding screen and the whole-market scan | Built and tried on 30 stocks. No backtest at that stage; the scans were replayed later (C-51, C-52, C-118, C-119). |
+| C-21, C-23, C-27, C-28, C-37, C-39 | Documentation and code alignment | No test. |
+| C-29 to C-34 | Correlation control, pending-order risk, 100-trade gate, MAE and MFE, US risk step-down and US VIX rule | Proposed or rejected (C-33). Parameters are "untested guesses". |
+| C-41 | Definition of the swing low for the Legacy exit test | Adopted by the owner, no test. |
+| C-42 | Weekly-close exit when a stock is within 1 ATR of its 200-day | Replay on stored closes with criteria written first. Parked. See row. |
+| C-43 | Swing low must sit 1.5 ATR below the prior high | Same replay. Rejected. |
+| C-44 | Back-adjust stored closes for corporate actions before exit tests | Data fix. Interim. |
+| C-45, C-46 | Re-entry tag; showing how firm each Exit is | Display only, untested (C-45 cannot be replayed, volume is stored only from Oct 2025). |
+| C-47, C-48 | 50-day against 200-day as extra information, and as a re-entry filter | Same replay. Both rejected. |
+| C-49 | Swing-low window of 7 or 15 sessions instead of 10 | Same replay. Rejected. |
+| C-50 | Automatic handling of demergers | Coverage criterion met. Adopted. |
+
+Lesson: the live desk's sector ranking, stop widening, room rule and light came from design, not evidence. The later tests (C-118 onward) are the first to check the setup rules against history, and they found no edge.
+
 ## B. Data and tooling (no rule results)
 
 C-116 (India 2010-2019 and US survivorship labelling), C-117 (standard report), C-122 to C-124 (price-break fixes). Any India result before 2020 now carries the repaired data. Re-running scripts/derive-india-overrides.mjs rewrites the overrides file and would drop the pre-2020 entries.
@@ -89,7 +114,7 @@ C-116 (India 2010-2019 and US survivorship labelling), C-117 (standard report), 
 ## E. Not yet tested
 
 - India before 2010, including the 2008 bear market.
-- The market light (green, yellow, red): all replays fixed it (India green, US yellow).
+- The market light (green, yellow, red) on its own: no test exists, and all replays fixed it (India green, US yellow). The sector ranking (C-1, C-2) was also never backtested.
 - The results-date rule in the replays (it was off).
 - Forward paper trading of a momentum book on new data (the earnings and momentum forward tests C-61, C-66 and the US paper book C-53 are already running; their reads are not in yet).
 - Other families, such as value or quality screens: I found none in the change log, but check it before running one.
