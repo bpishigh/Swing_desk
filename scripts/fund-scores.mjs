@@ -3,7 +3,7 @@
 // Writes data/funds/scores.json (public data) and the monthly band history for the Replace hysteresis. Usage: node scripts/fund-scores.mjs [--limit N]
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { themeOf } from '../src/pm/fundtheme.ts';
-import { normCategory, scorable, scoreAll, scoreIndexGroups, indexKey, replaceCandidate, SETTINGS, INDEX_SETTINGS } from '../src/pm/fundscore.ts';
+import { normCategory, scorable, dedupeSchemes, scoreAll, scoreIndexGroups, indexKey, replaceCandidate, SETTINGS, INDEX_SETTINGS } from '../src/pm/fundscore.ts';
 import { scoreRisk, debtGroup, intlGroup, riskStats, RISK } from '../src/pm/fundrisk.ts';
 import { nasdaqBars } from './nasdaq.mjs';
 const J = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
@@ -60,6 +60,8 @@ await pool(usSchemes, fetchUs, 3);
 // A one-day move over 40% in a fund's NAV is a data break (unit split or consolidation, bad print), not performance: leave that scheme out rather than score it on a false return.
 const broken = (m) => { const d = Object.keys(m).sort(); for (let i = 1; i < d.length; i++) { const r = m[d[i]] / m[d[i - 1]]; if (r > 1.4 || r < 0.6) return d[i]; } return null; };
 for (const mp of [series, usSeries]) for (const [k, m] of [...mp]) { const b = broken(m); if (b) { console.log('dropped (data break on', b + '):', k); mp.delete(k); } }
+// The same fund listed under two scheme codes (Kotak Aggressive Hybrid: F00 and LL7) would take two rank places and count twice as a peer: keep one.
+for (const [nm, ls] of [['mf', () => mf], ['idx', () => idx], ['debt', () => debt], ['intl', () => intl]]) { const { kept, dropped } = dedupeSchemes(ls(), series); for (const d of dropped) console.log(`duplicate listing dropped (${nm}): ${d.name} ${d.drop} (same fund as ${d.keep})`); if (nm === 'mf') mf = kept; else if (nm === 'idx') idx = kept; else if (nm === 'debt') debt = kept; else intl = kept; }
 const need = [...new Set([...mf, ...idx, ...debt, ...intl].map((x) => x.code))].length;
 console.log('india fetched', series.size, 'of', need, 'failed', failed, '| us fetched', usSeries.size, 'of', usSchemes.length, 'failed', usFailed);
 { const prev = existsSync('data/funds/scores.json') ? JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds?.length ?? 0 : 0; if (prev && need < prev * 0.8) { console.error(`the universe shrank from ${prev} funds to ${need}: keeping the previous scores`); process.exit(1); } }

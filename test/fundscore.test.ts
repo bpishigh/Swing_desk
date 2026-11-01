@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normCategory, scoreAll, cagr, replaceCandidate, SETTINGS } from '../src/pm/fundscore.ts';
+import { normCategory, scoreAll, cagr, replaceCandidate, dedupeSchemes, SETTINGS } from '../src/pm/fundscore.ts';
 
 const ymd = (d: Date) => d.toISOString().slice(0, 10);
 const series = (growth: number, years = 6): Record<string, number> => { const o: Record<string, number> = {}; const end = Date.parse('2026-10-16T00:00:00Z'); const days = Math.round(365 * years); for (let i = days; i >= 0; i--) o[ymd(new Date(end - i * 86400000))] = 100 * Math.pow(1 + growth, (days - i) / 365); return o; };
@@ -57,4 +57,12 @@ test('C-92: consistency window length is a setting; default 1 year keeps the liv
   const a = scoreAll(schemes, series, '2026-10-20'), b = scoreAll(schemes, series, '2026-10-20', { ...SETTINGS, consistencyYears: 3 });
   assert.ok(a.every((x) => x.consistency !== null) && b.every((x) => x.consistency !== null));
   assert.ok(a.some((x, i) => x.consistency !== b[i].consistency), 'the 3-year measure is a different measure');
+});
+
+test('the same fund listed under two codes is kept once; different funds with similar names stay', () => {
+  const mk = (code: string, name: string) => ({ code, isin: code, name, category: 'Aggressive Hybrid' });
+  const s = new Map<string, Record<string, number>>([['A', series(0.12)], ['B', series(0.12, 5.9)], ['C', series(0.12)], ['D', series(0.2)]]);
+  const r = dedupeSchemes([mk('A', 'Kotak Aggressive Hybrid Fund'), mk('B', 'Kotak Aggressive Hybrid Fund'), mk('C', 'Other Fund'), mk('D', 'Other Fund')], s);
+  assert.deepEqual(r.kept.map((x) => x.code), ['A', 'C', 'D']);
+  assert.deepEqual(r.dropped.map((x) => x.drop), ['B']);
 });
