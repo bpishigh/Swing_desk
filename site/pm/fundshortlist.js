@@ -77,7 +77,7 @@ export function pickFunds(cls             , rows           , o           = {})  
   const capRoom = (r         ) => { const h = heldOf(r); return o.fundCapAmount == null || !h || (h.value ?? 0) < o.fundCapAmount; };
   for (const [g, list] of groups) {
     if (cls === 'index') list.sort((a, b) => (a.t ?? 9) - (b.t ?? 9) || (b.s          ) - (a.s          ) || a.n.localeCompare(b.n));   // cost decides among funds that match the index
-    else list.sort((a, b) => (b.s          ) - (a.s          ) || (a.t ?? 9) - (b.t ?? 9) || a.n.localeCompare(b.n));
+    else list.sort((a, b) => (a.t ?? 99) - (b.t ?? 99) || (b.s          ) - (a.s          ) || a.n.localeCompare(b.n));   // C-145: among funds that pass the screen the cheapest comes first; the score has not been shown to pick winners (C-81, C-94, C-144)
     const houseRoom = (r         ) => { const hc = o.houseCap; if (!hc || !(hc.total + amount > 0)) return true; const h = fundHouse(r.n), after = ((hc.houseValue[h] ?? 0) + amount) / (hc.total + amount); if (after > hc.limit + 1e-9) { hc.skipped?.push(`${r.n} (${h} would be ${(after * 100).toFixed(0)}% of your fund money, limit ${(hc.limit * 100).toFixed(0)}%)`); return false; } return true; };
     const usable = list.filter((r) => capRoom(r) && houseRoom(r)); if (!usable.length) continue;
     const top = cls === 'index' ? usable : usable.slice(0, 3), row = top.find((r) => heldOf(r)) ?? top[0], isH = !!heldOf(row);
