@@ -1,5 +1,5 @@
 name: backfill-us-bench
-# C-119 support: SPY and QQQ daily bars (about 10 years) from Nasdaq's public quote API into data/us/hist-bench. Manual.
+# C-119 support: SPY, QQQ and the nine original SPDR sector ETFs, daily bars (about 10 years) from Nasdaq's public quote API into data/us/hist-bench. Manual.
 on: workflow_dispatch
 concurrency: backfill-us-bench
 permissions:
