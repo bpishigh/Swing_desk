@@ -5,8 +5,9 @@ import { bootMean, mean, BASE, eligible as indEligible, tierCost } from '../src/
 import { loadIndia } from '../src/backtest/india-loader.ts';
 import { asOfHistories } from '../src/backtest/india-asof.ts';
 import { spliceIndex } from '../src/backtest/index-splice.ts';
+import { selectSleeve, capped } from '../src/engine/momentum-sleeve.ts';
 const R = (p) => JSON.parse(readFileSync(p, 'utf8')), f = (x) => (x * 100).toFixed(1) + '%', g = (x) => (x * 100).toFixed(2) + '%';
-const UNI = 200, HOLD = 30, KEEP = 45, W6 = 126, W12 = 252, CAPW = 0.05, CAPX = 5;
+const UNI = 200, CAPW = 0.05, CAPX = 5;
 const D = loadIndia('data/india', { pre2020: true, allSymbols: true }), { dates } = D, N = D.T, series = D.FH.series, from = '2011-01-01', to = '2025-10-31';
 const idxOf = (name) => { const o = {}; for (let y = 2010; y <= 2025; y++) { let j; try { j = R(`data/india/idx-hist/idx-${y}.json`); } catch { continue; } for (const [d, v] of Object.entries(j[name] ?? {})) o[d] = v[3]; } return o; };
 const bse = idxOf('BSE 500'), carry = (a) => { for (let i = 1; i < a.length; i++) if (!(a[i] > 0)) a[i] = a[i - 1]; return a; };
@@ -16,25 +17,8 @@ const cache = '/tmp/c128-el-india.json'; let EL;
 if (existsSync(cache)) EL = R(cache); else { EL = M.map((t) => indEligible(asOfHistories(D.days, t, D.res, D.allowed), t, BASE.skip).map((p) => ({ sym: p.sym, value: p.value }))); writeFileSync(cache, JSON.stringify(EL)); }
 if (EL.length !== M.length) throw new Error(`list count ${EL.length} != signals ${M.length}`);
 const px = (sym, i) => { const s = series.get(sym); if (!s) return NaN; for (let k = i; k >= Math.max(0, i - 400); k--) if (s.c[k] > 0) return s.c[k]; return NaN; };
-function volAdj(s, t, w) {   // return over w sessions divided by the daily-return standard deviation over the same window; null when incomplete
-  if (t - w < 0) return null; const c = s.c; if (!(c[t] > 0) || !(c[t - w] > 0)) return null; const r = []; for (let i = t - w + 1; i <= t; i++) { if (!(c[i] > 0) || !(c[i - 1] > 0)) continue; r.push(c[i] / c[i - 1] - 1); }
-  if (r.length < 0.9 * w) return null; const m = mean(r), sd = Math.sqrt(r.reduce((a, b) => a + (b - m) ** 2, 0) / (r.length - 1)); return sd > 0 ? (c[t] / c[t - w] - 1) / sd : null;
-}
-const z = (a) => { const m = mean(a), sd = Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / (a.length - 1)); return a.map((v) => (v - m) / sd); };
-function capped(raw, cap) {   // pro-rata weights with per-name caps, redistributing the excess
-  let w = raw.map((x) => x / raw.reduce((a, b) => a + b, 0)); const fixed = new Array(w.length).fill(false);
-  for (let it = 0; it < 40; it++) { let over = false, free = 0, used = 0; w.forEach((x, i) => { if (!fixed[i] && x > cap[i] + 1e-12) { w[i] = cap[i]; fixed[i] = true; over = true; } }); if (!over) break;
-    w.forEach((x, i) => { if (fixed[i]) used += x; else free += raw[i]; }); w = w.map((x, i) => (fixed[i] ? x : (raw[i] / free) * (1 - used))); }
-  return w;
-}
-function select(k, prev) {   // returns [{sym, value, mult, rank}] for the chosen 30 and the universe value total
-  const t = M[k], uni = EL[k].slice(0, UNI), rows = [];
-  for (const p of uni) { const s = series.get(p.sym); if (!s) continue; const a6 = volAdj(s, t, W6), a12 = volAdj(s, t, W12); if (a6 === null || a12 === null) continue; rows.push({ ...p, a6, a12 }); }
-  const z6 = z(rows.map((r) => r.a6)), z12 = z(rows.map((r) => r.a12)); rows.forEach((r, i) => { r.s = (z6[i] + z12[i]) / 2; r.mult = r.s >= 0 ? 1 + r.s : 1 / (1 - r.s); });
-  rows.sort((a, b) => b.s - a.s || (a.sym < b.sym ? -1 : 1)); rows.forEach((r, i) => { r.rank = i + 1; });
-  const keep = rows.filter((r) => prev.has(r.sym) && r.rank <= KEEP), chosen = new Set(keep.map((r) => r.sym)); for (const r of rows) { if (chosen.size >= HOLD) break; if (!chosen.has(r.sym)) chosen.add(r.sym); }
-  return { picks: rows.filter((r) => chosen.has(r.sym)), total: uni.reduce((a, b) => a + b.value, 0), universe: rows.length };
-}
+// The arithmetic (volAdj, z-scores, caps, selection, weights) is the shared module the live job uses (src/engine/momentum-sleeve.ts), so the C-130 live-versus-replay check compares two runs of one definition against two data paths.
+const select = (k, prev) => { const sel = selectSleeve(EL[k], series, M[k], prev); return { picks: sel.picks, total: sel.total, universe: sel.universe }; };
 const k0 = EL.findIndex((l) => l.length >= UNI);   // the first lists are empty: eligibility needs 260 sessions of history and the data starts in 2010
 const signals = M.map((t, k) => k).filter((k) => k >= k0 && (k === k0 || ['06', '12'].includes(dates[M[k]].slice(5, 7))));
 function run(weighting) {   // weighting: 'tilt' (score x traded value, capped) or 'equal'

@@ -172,9 +172,7 @@ This is the plain-words reading of every result above, part by part, for the des
 - Point-in-time Nifty 200 constituent and market-cap data: not bought. The mid-cap tilt stays named, not removed.
 - Real money in the momentum factor: left to the owner personally until the Portfolio Manager is fully working. The desk takes no step toward it.
 - Setups do not place live orders on their own.
-
-**Still open**
-- Whether the existing forward tests C-53 (US top-10 paper book) and C-66 (momentum inside the desk's setup shapes, India) run to their pre-registered read (recommended) or are stopped.
+- C-53 (US top-10 paper book) and C-66 (momentum inside the desk's setup shapes, India) keep running to their pre-registered read.
 
 ---
 
