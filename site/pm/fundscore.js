@@ -120,3 +120,23 @@ export function scoreIndexGroups(schemes          , series                  , as
   for (const x of out) if (x.rank !== null) x.band = x.d3  >= s.leadsPp ? 'Strong' : x.d3  <= s.lagsPp ? 'Weak' : 'Average';
   return out;
 }
+
+/** Same fund listed twice (two scheme codes, one name and category, NAVs that move together): keep one so it does not fill two rank places or count twice as a peer.
+ *  Kept: the longer NAV history, then the lower code. Series are compared on shared dates; a constant ratio within 1% over 250+ shared days counts as the same fund. */
+export function dedupeSchemes                  (list     , series                  )                                                                              {
+  const key = (x   ) => normCategory(x.category) + '|' + x.name.toLowerCase().replace(/\s+/g, ' ').trim();
+  const same = (a   , b   )          => {
+    const A = series.get(a.code), B = series.get(b.code); if (!A || !B) return false;
+    let n = 0, lo = Infinity, hi = -Infinity; for (const d of Object.keys(A)) { const y = B[d]; if (!(y > 0)) continue; const r = A[d] / y; n++; if (r < lo) lo = r; if (r > hi) hi = r; }
+    return n >= 250 && hi / lo < 1.01;
+  };
+  const len = (x   ) => Object.keys(series.get(x.code) ?? {}).length;
+  const groups = new Map             (); for (const x of list) { const k = key(x); (groups.get(k) ?? groups.set(k, []).get(k) ).push(x); }
+  const dropCodes = new Set        (), dropped                                                      = [];
+  for (const g of groups.values()) {
+    if (g.length < 2) continue;
+    const ord = [...g].sort((a, b) => len(b) - len(a) || (a.code < b.code ? -1 : 1)), keep      = [];
+    for (const x of ord) { const twin = keep.find((k) => same(k, x)); if (twin) { dropCodes.add(x.code); dropped.push({ drop: x.code, keep: twin.code, name: x.name }); } else keep.push(x); }
+  }
+  return { kept: list.filter((x) => !dropCodes.has(x.code)), dropped };
+}
