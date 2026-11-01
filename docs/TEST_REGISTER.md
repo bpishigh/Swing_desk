@@ -168,11 +168,13 @@ This is the plain-words reading of every result above, part by part, for the des
 - A reviewer said the cash rule cost about 70 points. It cost about 220 (C-120, India).
 - The C-129 replay's universe was every listed symbol, not only companies, so a gold ETF entered the sleeve at 1.8%, 5.0% and 2.1% of the portfolio on three review dates in 2011-12 and 2.4% in Jun 2025 (none at other dates to Oct 2025; liquid funds and silver ETFs would have entered in Dec 2025 and Jun 2026). Too small to move the result materially; recorded, not re-run (owner, 1 Nov); re-run only if C-129 figures are ever used for a real-money decision.
 
-**Waiting on the owner**
-- Whether to buy point-in-time Nifty 200 constituent and market-cap data to remove the mid-cap tilt (optional; nothing depends on it).
-- Whether any real money goes into the momentum factor, through an index fund as a capped line sized by the 20% household drawdown limit. That belongs to the Portfolio Manager, not the desk.
-- Whether the existing forward tests C-53 and C-66 run to their pre-registered read (recommended) or are stopped.
-- Whether the setups keep placing live orders while the evidence stands as above.
+**Decided by the owner (1 Nov 2026)**
+- Point-in-time Nifty 200 constituent and market-cap data: not bought. The mid-cap tilt stays named, not removed.
+- Real money in the momentum factor: left to the owner personally until the Portfolio Manager is fully working. The desk takes no step toward it.
+- Setups do not place live orders on their own.
+
+**Still open**
+- Whether the existing forward tests C-53 (US top-10 paper book) and C-66 (momentum inside the desk's setup shapes, India) run to their pre-registered read (recommended) or are stopped.
 
 ---
 
