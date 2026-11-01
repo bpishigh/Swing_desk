@@ -1,0 +1,25 @@
+{
+  "note": "What the pre-registered tests found for each rule behind the swing Ready list. Information only: no rule reads this file. Update it when a test is recorded in the Engine Rules; each line names the test.",
+  "asOf": "2026-11-01",
+  "rules": [
+    { "rule": "Trend template",
+      "india": { "label": "Edge found in picking stocks", "text": "Stocks passing it beat those failing it by 1.19% a month, in 8 of 9 years (2011 to 2019).", "ref": "C-135" },
+      "us": { "label": "Not confirmed", "text": "Passing stocks led by 0.24% a month, but the range includes zero. The US data has no delisted stocks, which hides losers.", "ref": "C-135" } },
+    { "rule": "Market light",
+      "india": { "label": "No predictive value found", "text": "Green months did not come before better index returns than other months (2013 to 2019; 2006 to 2009 also not clear).", "ref": "C-133, C-136" },
+      "us": { "label": "No predictive value found", "text": "Green months did not come before better index returns than other months (2018 to 2023).", "ref": "C-133" } },
+    { "rule": "Sector gate and ranking",
+      "india": { "label": "No edge shown", "text": "The top four sectors did worse than the average sector (2013 to 2019), though not by a clear margin.", "ref": "C-134" },
+      "us": { "label": "Worse than average", "text": "The top four sectors did clearly worse than the average sector (2018 to 2023).", "ref": "C-134" } },
+    { "rule": "Setups (breakout, 20 EMA and 50 SMA pullbacks)",
+      "india": { "label": "No edge in judged tests", "text": "Only a few trades pass the gates, and they did not make money on average.", "ref": "C-118, C-127" },
+      "us": { "label": "No edge in judged tests", "text": "No clear edge over the index in the judged window.", "ref": "C-119, C-127" } },
+    { "rule": "Stop-width cap and 3R room test",
+      "india": { "label": "Not shown to help", "text": "They remove most trades, and the trades they removed did no worse than those they kept.", "ref": "C-125, C-126" },
+      "us": { "label": "Not shown to help", "text": "Same finding: the removed trades did no worse than the kept ones.", "ref": "C-125, C-126" } },
+    { "rule": "Results-date gate (results more than 10 sessions away)",
+      "india": { "label": "Not a return filter", "text": "Picks near results were not worse on average. The gate only narrows the spread of outcomes.", "ref": "C-63" },
+      "us": { "label": "Not testable", "text": "No history of past US results dates is stored.", "ref": "" } }
+  ],
+  "footer": "These are the rules the list runs on. No test has shown that following the list earns more than holding the index. Nothing here places an order."
+}

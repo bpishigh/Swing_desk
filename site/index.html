@@ -386,6 +386,12 @@ function paperBookCard(mkt) {
   <h3>Live</h3>${ptbl(pb.live || [], 'No pending or open paper positions.')}<h3>Recently closed</h3>${ptbl(pb.recent || [], 'Nothing closed yet.')}</details></section>` : '';
 }
 function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
+function evidenceCard() {
+  const ev = D.evidence; if (!ev) return '';
+  const k = scanMkt === 'us' ? 'us' : 'india';
+  const rows = ev.rules.map((r) => { const x = r[k]; return `<tr><td>${esc(r.rule)}</td><td><b>${esc(x.label)}</b><div class="note nm">${esc(x.text)}</div></td><td class="note">${esc(x.ref)}</td></tr>`; }).join('');
+  return `<details class="fold" open><summary>What the tests say about these rules</summary><div class="tablewrap"><table><thead><tr><th>Rule</th><th>What was found</th><th>Test</th></tr></thead><tbody>${rows}</tbody></table></div><p class="note">${esc(ev.footer)} Updated ${esc(ev.asOf)}.</p></details>`;
+}
 function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
   const mk = '', mk0 = `<div class="chips" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
@@ -408,6 +414,7 @@ function viewScanBody() {
   return `<section class="card"><div class="row" style="justify-content:space-between;gap:10px">${mk}<span class="note">${esc(sc.version)} · ${esc(sc.asOf)} ${chipLight}</span></div>
   <div class="chips" style="margin:16px 0 10px" role="group" aria-label="List">${[['ready', 'Ready', sc.ready.length], ['watch', 'Watch', sc.watch.length]].map(([k, l, n]) => `<button class="chip-btn" data-st="${k}" aria-pressed="${scanTab === k}">${l} ${n}</button>`).join('')}</div>
   ${tbl}
+  ${evidenceCard()}
   <details class="fold"><summary>How the list was narrowed</summary><p class="note" style="margin:8px 0 0">${stages.map(([k, v]) => `${k} <b>${fmt(v, 0)}</b>`).join(' → ')}</p><p class="note">Frozen settings; the forward-test clock runs from ${scanMkt === 'us' ? '16' : '17'} Oct 2026${sc.source ? '; data source: ' + esc(sc.source) : ''}. Names are candidates for a trigger, not orders. Results dates are not checked.</p></details></section>`;
 }
 let FUNDS = null, fundCat = {}, fundGroup = 'mf';
