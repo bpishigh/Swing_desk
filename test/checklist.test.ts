@@ -41,7 +41,7 @@ test('sector rank: Yellow needs the top 2; one weekend and not new is a fail', (
   assert.equal(get(once, 'Only one weekend')!.s, 'fail');
 });
 test('results gap: more than 10 trading days, setup 3 exempt in India, no date is n/a', () => {
-  assert.equal(get(ntChecks({ ...base(), resultsInWeekdays: 10 }), 'Results in')!.s, 'fail');
+  assert.equal(get(ntChecks({ ...base(), resultsInWeekdays: 10 }), 'Results in')!.s, 'warn');
   assert.equal(get(ntChecks({ ...base(), setup: '3' }), 'Results:')!.s, 'pass');
   assert.equal(get(ntChecks({ ...base(), resultsInWeekdays: null }), 'Enter the next results')!.s, 'na');
 });
@@ -68,7 +68,10 @@ test('replay vs v9 ntChecks (500 cases)', () => {
       listedSessions: i.listed, resultsInWeekdays: i.resultsInWeekdays, openCount: i.openCount, openRiskRs: i.openRiskRs, entriesToday: i.entriesToday, sectorCount: i.sectorCount, industryCount: i.industryCount,
     });
     // one intended wording change (OQ-8): v9 said "isn't allowed in Yellow" even in Red; the engine now says Red
-    const norm = got.map((x) => ({ ...x, t: x.t.replace("isn't allowed in Red", "isn't allowed in Yellow") }));
+    // second intended change (C-138): results within 10 sessions is a flag ('warn'), not a block ('fail'); v9 said 'fail' with the old wording
+    const norm = got.map((x) => /^Results in \d+ trading days: flag/.test(x.t)
+      ? { s: 'fail', t: x.t.replace(/^(Results in \d+) trading days: flag.*$/, '$1 trading days (needs more than 10)') }
+      : { ...x, t: x.t.replace("isn't allowed in Red", "isn't allowed in Yellow") });
     assert.deepEqual(norm, c.expected, `case ${n}`);
   }
 });

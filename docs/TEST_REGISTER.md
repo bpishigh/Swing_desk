@@ -180,7 +180,7 @@ This is the plain-words reading of every result above, part by part, for the des
 - The brief is a proposal. The live desk rules stand: setups, stop cap, room test, sector gate and the light's sizing and entry rules, and the sized order shortlist and nightly order message.
 - The sector gate stays in the strategies running now; each new stream decides it by a registered check.
 - The main benchmark stays the plain index; the momentum fund is shown beside it.
-- The results date becomes a flag instead of a gate: approved, timing open (it changes the official stream that C-53 and C-66 read).
+- The results date becomes a flag instead of a gate: approved and applied 1 Nov 2026 (C-138). C-53 and C-66 keep running; C-53's official stream notes the amendment date.
 
 ---
 

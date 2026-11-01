@@ -12,7 +12,7 @@
 | 4 | Brief makes the trend template the India main-line filter | Asked which template and how it differs | See "Trend template" below. Not adopted; nothing changes. |
 | 5 | Brief says live orders from the desk's screens are paused | Keep live desk rules | The sized shortlist and the nightly order message for official candidates stay as built (C-111, C-113). Real-money decisions stay with the owner. |
 | 6 | Brief lists "resolved owner decisions" | Keep live desk rules | Those items are proposals only. The owner's recorded decisions are the ones in the Test Register. |
-| 7 | Brief makes the results date a flag, not a gate | OK with the suggestion | Approved as a proposed change, see C-137. Timing is open: applying it changes the official stream that C-53 and C-66 read, so the owner is asked when. |
+| 7 | Brief makes the results date a flag, not a gate | OK with the suggestion | Approved as a proposed change, see C-137. Applied 1 Nov 2026 as C-138. |
 | 8 | Brief benchmarks the desk against the momentum index fund | Keep the plain index | Nifty 500 (India) and SPY (US) stay the main benchmark. The momentum fund is shown beside it. |
 | 9 | Fund expense 0.3 to 0.4% | Go with suggestion | Use 0.20% base expense plus 0.20% tracking error (Kotak direct plan, Sep 2026 factsheet). |
 | 10 | Stream 1 "partly built" | Go with suggestion | Stream 1 is built: the India and US momentum paper books start with the 2 Nov signal. |

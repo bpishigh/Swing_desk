@@ -75,7 +75,7 @@ export function ntChecks(i: CheckInput): CheckItem[] {
   else items.push({ s: 'na', t: 'Enter the nearest overhead resistance to check ' + needR + 'R room' });
   const rd = i.resultsInWeekdays;
   if (setup.resultsExempt && !us) items.push({ s: 'pass', t: 'Results: setup 3 trades after results' });
-  else if (rd !== null) items.push({ s: rd > 10 ? 'pass' : 'fail', t: 'Results in ' + rd + ' trading days (needs more than 10)' });
+  else if (rd !== null) items.push({ s: rd > 10 ? 'pass' : 'warn', t: 'Results in ' + rd + (rd > 10 ? ' trading days (needs more than 10)' : ' trading days: flag, not a block (C-138). Your call whether to hold through results') });
   else items.push({ s: 'na', t: us ? 'Enter the next results date (earnings calendar)' : 'Enter the next results date (ET results calendar)' });
   if (!us) {
     items.push({ s: i.band === 'yes' ? 'fail' : i.band === 'no' ? 'pass' : 'na', t: 'Not in a 2%, 5% or 10% price band' });
