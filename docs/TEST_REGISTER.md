@@ -86,7 +86,7 @@ All pre-registered: the pass rule was written before the run. "Judged" is India 
 | C-127 | Do setups work on top-momentum stocks only? | Failed | India top group −0.04R against −0.05R for the rest; US +0.01R against +0.02R. India 2021-25 only (reported): +0.31R against +0.06R |
 | C-128 | Does a published weekly momentum book (Clenow-style) beat the index? | Failed | India +96% against +103%; US +77% against SPY's +142%. India 2021-25 only (reported): +210% against +100% |
 | C-129 | Does a large-cap-tilted momentum sleeve built to NSE's Nifty200 Momentum 30 outline beat the Nifty 200? (stand-ins for the parts NSE doesn't publish) | Failed the rule, direction positive | India Feb 2011-2019: +213% against the Nifty 200's +129%, but the monthly edge (+0.32%) is too noisy to confirm (range -0.07% to +0.72%) and it beat the index in only 4 of 9 years. Equal-weight twin +207%. Replication check on NSE's series: monthly correlation 0.915, tracking difference +0.02% a month; NSE's own series made +318% over the same dates (back-calculated by NSE, not live). Addendum (same run, nothing judged): after the sleeve's own trading costs it made 13.79% a year against 9.84% for the Nifty 200, a gap of 3.94 points; costs about 0.73% a year (no tax); worst fall relative to the Nifty 200 -16.0% (Apr 2018 to Nov 2019). The yearly gap is lumpy: 2017 +26.0 points, 2015 +20.1, 2011 +11.8, but 2016 -8.5, 2018 -6.0, 2019 -4.6, 2012 -1.4. Without 2017: +96.4% against +71.8% over the other eight years, about 1.8 points a year. 2021-25 (reported only): +182% against +102%, 24.4% a year against 15.9%, 3 of 5 years, worst relative fall -20.8% |
-| C-130 | Proposed: a momentum stream (the C-129 rules, India) on the scans and as a forward paper book, with monthly and equal-weight twins, beside the current desk rules | Proposed, awaiting sign-off | Judges the build, not the factor, because 24 months cannot confirm the factor (it would need about 13 years). Pass conditions: live code gives the same portfolio as the replay code on each review date; monthly-return correlation with NSE's Nifty200 Momentum 30 series at or above 0.9 (rolling 36 months); tracking difference shown by calendar year with the mid-cap tilt named. Stops only for divergence from NSE's index, never for trailing the Nifty 200. Paper only: for holding the factor, an index fund is the better instrument (direct plan expense 0.20%, tracking error 0.20%, no tax passed on) |
+| C-130 | Proposed: a momentum stream (the C-129 rules, India) on the scans and as a forward paper book, with monthly and equal-weight twins, beside the current desk rules | Built 1 Nov 2026, starts on paper at the first session after 1 Nov; stop thresholds and the real-money bar are still proposals | Judges the build, not the factor, because 24 months cannot confirm the factor (it would need about 13 years). Pass conditions: live code gives the same portfolio as the replay code on each review date; monthly-return correlation with NSE's Nifty200 Momentum 30 series at or above 0.9 (rolling 36 months); tracking difference shown by calendar year with the mid-cap tilt named. Stops only for divergence from NSE's index, never for trailing the Nifty 200. Paper only: for holding the factor, an index fund is the better instrument (direct plan expense 0.20%, tracking error 0.20%, no tax passed on). Built as MOM-30 v1: a Momentum sleeve tab on the Scans and Paper test pages, a nightly list and paper book, and a scoreboard against NSE's index, Nifty 500, Nifty 200 and an index fund (month-end lines). A check while building found the C-129 replay's universe let a gold ETF in (GOLDBEES, 1.8% to 5.0% of the portfolio on three review dates in 2011-12, 2.4% in Jun 2025); the live build takes listed companies only (see the C-130 row in Engine Rules) |
 
 ---
 
@@ -165,9 +165,11 @@ This is the plain-words reading of every result above, part by part, for the des
 - Earnings-driven picking is not untested. It was tested in C-59 to C-63.
 - A reviewer said the gap in 2021-25 was similar to the earlier one. It is larger: 8.5 points a year against 3.9.
 - A reviewer said the cash rule cost about 70 points. It cost about 220 (C-120, India).
+- The C-129 replay's universe was every listed symbol, not only companies, so a gold ETF entered the sleeve at 1.8%, 5.0% and 2.1% of the portfolio on three review dates in 2011-12 and 2.4% in Jun 2025 (none at other dates to Oct 2025; liquid funds and silver ETFs would have entered in Dec 2025 and Jun 2026). Too small to move the result materially, but not re-run.
 
 **Waiting on the owner**
-- Sign off the momentum stream entry C-130 (pass conditions, 12 and 24 month reads, the two stop thresholds), then build the scan page and the paper book.
+- Confirm the two stop thresholds for C-130 (correlation below 0.85 on any 12 months; live and replay differing on two review dates) and the three-year bar before any real money. The page and the paper book are built.
+- Whether to re-run C-129 with the universe corrected to listed companies (about 20 minutes; one run; the registered result would be replaced by the corrected one).
 - Whether to buy point-in-time Nifty 200 constituent and market-cap data to remove the mid-cap tilt (optional; nothing depends on it).
 - Whether any real money goes into the momentum factor, through an index fund as a capped line sized by the 20% household drawdown limit. That belongs to the Portfolio Manager, not the desk.
 - Whether the existing forward tests C-53 and C-66 run to their pre-registered read (recommended) or are stopped.
@@ -187,7 +189,7 @@ This is the plain-words reading of every result above, part by part, for the des
 - Earnings run-up filters (C-60, C-62), longer fixed holds (C-70), excluding India skip days (C-72).
 
 **Running, no result yet**
-- Momentum stream forward paper book (C-130), once approved.
+- Momentum stream forward paper book (C-130): built, starts at the first session after 1 Nov 2026 (signal Mon 2 Nov, simulated fill at the next close); first review 1 Dec.
 - Earnings run-up forward test (C-61), momentum-in-setups forward test (C-66), US paper book (C-53).
 
 **Not yet tested**

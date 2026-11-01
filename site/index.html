@@ -6,87 +6,92 @@
 <title>Repo Desk</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23205c4a'/%3E%3Cpath d='M3 11l3-4 3 2 4-5' stroke='white' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
 <meta name="robots" content="noindex">
+<script>try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
 <style>
 :root {
-  --bg: #eef1f5; --panel: #ffffff; --ink: #0f172a; --muted: #566072; --line: #dde3ea; --line-soft: #e8edf2;
-  --accent: #2641c4; --accent-soft: #e5eafb;
-  --green: #0b7a48; --green-bg: #dcf3e7; --yellow: #8a5a00; --yellow-bg: #fbefcf; --red: #b42318; --red-bg: #fbe4e1;
-  --ok: #0b7a48; --warn: #8a5a00; --bad: #b42318; --neutral-bg: #e6ebf1;
-  --font: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --bg: #ffffff; --panel: #f6f7fa; --ink: #15171c; --muted: #6d727d; --line: #e6e8ed; --line-soft: #eceef2;
+  --accent: #4552c2; --accent-soft: #e9ebfa;
+  --green: #1a8754; --green-bg: #e3f3ea; --yellow: #8a6414; --yellow-bg: #f6efdc; --red: #c8372d; --red-bg: #fbe8e6;
+  --ok: #1a8754; --warn: #8a6414; --bad: #c8372d; --neutral-bg: #eceef2;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: var(--font);
+  --c2: #8c94dd; --c3: #b6bbea; --c4: #898e98; --c5: #c9cdd4;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1319; --panel: #171e27; --ink: #e8edf3; --muted: #9aa6b4; --line: #2a3441; --line-soft: #202a35;
-    --accent: #8da2ff; --accent-soft: #1f2a52;
-    --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
-    --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
+    --bg: #11151b; --panel: #1a2029; --ink: #e5e9ef; --muted: #8793a3; --line: #29313c; --line-soft: #222a35;
+    --accent: #7fb2d6; --accent-soft: #1e2d3a;
+    --green: #5fcf9a; --green-bg: #15332a; --yellow: #d8b45a; --yellow-bg: #332b14; --red: #ff7b72; --red-bg: #3d1f1d;
+    --ok: #5fcf9a; --warn: #d8b45a; --bad: #ff7b72; --neutral-bg: #222a35; color-scheme: dark;
+    --c2: #a8c7df; --c3: #5c7e98; --c4: #7a8696; --c5: #4a5563;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0e1319; --panel: #171e27; --ink: #e8edf3; --muted: #9aa6b4; --line: #2a3441; --line-soft: #202a35;
-  --accent: #8da2ff; --accent-soft: #1f2a52;
-  --green: #6fd197; --green-bg: #173826; --yellow: #e8c45c; --yellow-bg: #3b3210; --red: #ff8f84; --red-bg: #43201c;
-  --ok: #6fd197; --warn: #e8c45c; --bad: #ff8f84; --neutral-bg: #272f34; color-scheme: dark;
+  --bg: #11151b; --panel: #1a2029; --ink: #e5e9ef; --muted: #8793a3; --line: #29313c; --line-soft: #222a35;
+  --accent: #7fb2d6; --accent-soft: #1e2d3a;
+  --green: #5fcf9a; --green-bg: #15332a; --yellow: #d8b45a; --yellow-bg: #332b14; --red: #ff7b72; --red-bg: #3d1f1d;
+  --ok: #5fcf9a; --warn: #d8b45a; --bad: #ff7b72; --neutral-bg: #222a35; color-scheme: dark;
+  --c2: #a8c7df; --c3: #5c7e98; --c4: #7a8696; --c5: #4a5563;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--font); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
 .sub.clamp { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .more { display: inline-block; font-size: 12px; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; font-weight: 600; }
 details.how > summary { cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; }
-.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 48px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 24px; padding-block: 32px 72px; }
 header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; padding-bottom: 12px; }
-h1 { font-size: 20px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
-.sub { color: var(--muted); font-size: 12.5px; }
-nav { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; }
-nav button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 14px; font: inherit; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; }
+h1 { font: 400 26px/1.2 var(--serif); margin: 0; letter-spacing: -.01em; }
+.sub { color: var(--muted); font-size: 14px; }
+nav { display: flex; gap: 26px; border-bottom: 1px solid var(--line); margin-bottom: 28px; overflow-x: auto; }
+nav button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 0; font: inherit; font-size: 15px; color: var(--muted); cursor: pointer; white-space: nowrap; }
 nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 nav button:focus-visible, th button:focus-visible, .chip-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 16px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 20px; }
 .grid2.wide { grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
-.card h2 { margin: 0 0 2px; font-size: 15px; font-weight: 600; }
-.card h3 { margin: 18px 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.card { background: var(--panel); border: 0; border-radius: 14px; padding: 24px; min-width: 0; }
+.card h2 { margin: 0 0 4px; font: 400 22px/1.3 var(--serif); letter-spacing: -.01em; }
+.card h3 { margin: 22px 0 8px; font-size: 14px; color: var(--muted); font-weight: 500; }
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
 .badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 13px; }
 .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .green { color: var(--green); background: var(--green-bg); } .yellow { color: var(--yellow); background: var(--yellow-bg); } .red { color: var(--red); background: var(--red-bg); }
-.chip { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: var(--neutral-bg); color: var(--muted); }
+.chip { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--neutral-bg); color: var(--muted); }
 .chip.ok { color: var(--ok); } .chip.warn { color: var(--warn); background: var(--yellow-bg); } .chip.bad { color: var(--bad); background: var(--red-bg); }
-.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 14px; }
-.kv div { min-width: 0; } .kv dt { font-size: 11.5px; color: var(--muted); margin: 0; } .kv dd { margin: 2px 0 0; font-family: var(--mono); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.kv dd small { font-family: var(--font); font-size: 11.5px; color: var(--muted); font-weight: 400; display: block; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; margin-top: 18px; }
+.kv div { min-width: 0; } .kv dt { font-size: 14px; color: var(--muted); margin: 0; order: 2; } .kv div { display: flex; flex-direction: column; } .kv dd { margin: 0; font: 400 26px/1.2 var(--serif); font-variant-numeric: tabular-nums; }
+.kv dd small { font-family: var(--font); font-size: 13px; color: var(--muted); font-weight: 400; display: block; }
 .num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .pos { color: var(--green); } .neg { color: var(--red); }
 .notesrow td { border-bottom: 1px solid var(--line); padding-top: 0; white-space: normal; overflow-wrap: anywhere; }
 .wrapnote { min-width: 300px; max-width: 460px; white-space: normal; overflow-wrap: anywhere; }
 .tablewrap { overflow-x: auto; margin-inline: -4px; padding-inline: 4px; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th, td { padding: 6px 8px; border-bottom: 1px solid var(--line-soft); text-align: left; vertical-align: top; }
-th { font-size: 11.5px; font-weight: 600; color: var(--muted); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { font-size: 13.5px; font-weight: 400; color: var(--muted); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
 th.num, td.num { text-align: right; }
 th button { all: unset; cursor: pointer; } th button::after { content: " ↕"; opacity: .4; } th[aria-sort="ascending"] button::after { content: " ↑"; opacity: 1; } th[aria-sort="descending"] button::after { content: " ↓"; opacity: 1; }
 tr.dim td { color: var(--muted); }
 .sym[data-tip] { border-bottom: 1px dotted var(--muted); cursor: help; } .nm { font-size: 11.5px; margin-top: 1px; }
-.sc-row { cursor: pointer; } .sc-row:hover td { background: var(--line-soft); } .sc-why td { background: var(--line-soft); } ul.why { margin: 0; padding-left: 18px; } ul.why li { font-size: 12.5px; line-height: 1.5; margin: 3px 0; }
+.sc-row { cursor: pointer; } .sc-row:hover td { background: var(--panel); } .sc-why td { background: var(--panel); } ul.why { margin: 0; padding-left: 18px; } ul.why li { font-size: 12.5px; line-height: 1.5; margin: 3px 0; }
   .chartbox { margin: 4px 0 10px; }
 details.fold > summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 6px 0; } details.fold { margin-top: 12px; }
 .strip { display: flex; gap: 2px; flex-wrap: wrap; }
 .strip i { width: 9px; height: 18px; border-radius: 2px; display: block; }
 .strip i.green { background: var(--green); } .strip i.yellow { background: var(--yellow); } .strip i.red { background: var(--red); }
-.note { color: var(--muted); font-size: 12.5px; }
-.empty { padding: 28px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; }
+.note { color: var(--muted); font-size: 14px; }
+.empty { padding: 32px 16px; text-align: center; color: var(--muted); background: var(--panel); border-radius: 14px; }
 .bar { height: 10px; background: var(--neutral-bg); border-radius: 5px; overflow: hidden; position: relative; }
 .bar > span { display: block; height: 100%; background: var(--accent); }
 .bar > em { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip-btn { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 3px 12px; cursor: pointer; font-size: 12.5px; }
-.chip-btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chip-btn { font: inherit; border: 0; background: var(--neutral-bg); color: var(--muted); border-radius: 999px; padding: 4px 14px; cursor: pointer; font-size: 14px; }
+.chip-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 ul.flat { margin: 6px 0 0; padding-left: 18px; } ul.flat li { margin: 2px 0; }
-svg text { fill: var(--muted); font: 10.5px var(--mono); }
+svg text { fill: var(--muted); font: 11.5px var(--font); } svg.mchart text { font-size: 8.5px; }
 .spark path.l { fill: none; stroke-width: 1.6; } .spark .c { stroke: var(--ink); } .spark .s50 { stroke: var(--accent); stroke-dasharray: 3 2; } .spark .s200 { stroke: var(--warn); stroke-dasharray: 1 3; }
 .doc h2,.doc h3,.doc h4,.doc h5{margin:18px 0 6px}.doc pre{overflow:auto;background:var(--bg,#0001);padding:8px;border-radius:6px}.doc ul,.doc ol{padding-left:22px}.doc table{font-size:12.5px}.docgrid{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:18px;align-items:start}@media(max-width:700px){.docgrid{grid-template-columns:1fr}}
 footer { margin: 28px 0 8px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 12.5px; }
@@ -99,6 +104,13 @@ footer button:hover { color: var(--accent); }
 details.why > summary { cursor: pointer; color: var(--accent); font-size: 12.5px; }
 details.why ul { margin: 6px 0 2px; padding-left: 18px; }
 details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
+.rail { display: flex; flex-wrap: wrap; gap: 4px 34px; border-bottom: 1px solid var(--line); margin: 18px 0 28px; }
+.strat { font: inherit; text-align: left; border: 0; border-bottom: 2px solid transparent; background: none; padding: 10px 0; color: var(--muted); cursor: pointer; }
+.strat .n { display: block; font-size: 17px; color: var(--muted); } .strat .s { display: block; font-size: 14px; margin-top: 1px; }
+.strat.on { border-bottom-color: var(--accent); } .strat.on .n { color: var(--ink); }
+.mbar { height: 4px; border-radius: 2px; background: var(--neutral-bg); min-width: 70px; flex: 1; } .mbar i { display: block; height: 100%; border-radius: 2px; background: var(--accent); }
+.ttl { font: 400 22px/1.3 var(--serif); letter-spacing: -.01em; margin: 0; } .big { font: 400 32px/1.2 var(--serif); letter-spacing: -.01em; margin: 0; }
+.lnk { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; }
 .rsec{border-top:1px solid var(--line);padding:2px 0}.rsec>summary{cursor:pointer;list-style:none;padding:12px 0;font-size:12px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.rsec>summary::-webkit-details-marker{display:none}.rsec>summary::before{content:'▸';display:inline-block;width:18px;transition:transform .15s}.rsec[open]>summary::before{transform:rotate(90deg)}.rsec[open]>summary{color:var(--ink)}
 </style>
 </head>
@@ -106,7 +118,7 @@ details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
 <div class="wrap">
   <header>
     <div><h1>Repo Desk</h1><div class="sub" id="gen">Loading…</div></div>
-    <div class="row" id="fresh"></div>
+    <div class="row"><span class="row" id="fresh"></span><button class="chip-btn" id="themebtn" type="button" aria-label="Colour theme">Auto</button></div>
   </header>
   <nav role="tablist" aria-label="Sections">
     <button role="tab" id="t-market" aria-selected="true">Market</button>
@@ -278,10 +290,77 @@ function sizedCard() {
   const skipped = rest.length ? lh('Skipped', rest.length) + rest.map((l) => `<div style="padding:8px 0;border-top:1px solid var(--line-soft)"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><b>${esc(l.name)}</b> <span class="note">${esc(l.setup)}</span></span><span class="note">buy above ${fmt(l.entry, 2)}${l.close ? ' · close ' + fmt(l.close, 2) : ''} · stop ${fmt(l.stop, 2)}</span></div><div class="note" style="margin-top:2px">${esc(l.reason ?? l.verdict)}</div></div>`).join('') : '';
   return `<section class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${chips.join('')}</div>${stale}${z.light ? lh('Buy tonight') + buy + skipped : `<div class="note" style="margin-top:12px">${buy}</div>`}<div class="note" style="margin-top:12px">${(z.notes || []).filter((n) => !/^No market light/.test(n)).map(esc).join(' ')} A suggestion, never an order: you place it with your broker. Sized each night from your last upload; the same text goes to Telegram.</div></section>`;
 }
-let paperMkt = 'in';
+let paperMkt = 'in', stratSel = {}, momAll = false;
+const curStrat = (m) => { const l = (D.strategies || []).filter((x) => x.market === m); return l.find((x) => x.id === stratSel[m]) || l[0] || { id: 'swing', name: 'Swing setups', view: 'setups', market: m, status: 'live' }; };
+const mmm = (ym) => (ym ? new Date(ym + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '–');
+const dmy = (d) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '–');
+function stratSub(s, kind, m) {
+  if (s.view === 'ranked_list') { const z = D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
+  const sc = m === 'us' ? D.scan : D.scanIndia; return kind === 'scan' ? (sc ? `${sc.ready.length} ready, ${sc.watch.length} watching` : 'no scan yet') : 'paper book';
+}
+function topBar(kind) {
+  const m = kind === 'scan' ? scanMkt : paperMkt, cur = curStrat(m), key = kind === 'scan' ? 'sm' : 'pm';
+  const mk = `<div class="chips" role="group" aria-label="Market">${(kind === 'scan' ? [['us', 'US'], ['in', 'India']] : [['in', 'India'], ['us', 'US']]).map(([k, l]) => `<button class="chip-btn" data-${key}="${k}" aria-pressed="${m === k}">${l}</button>`).join('')}</div>`;
+  const rail = (D.strategies || []).filter((x) => x.market === m).map((x) => `<button class="strat${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name)}</span><span class="s">${esc(stratSub(x, kind, m))}${x.status === 'paper_only' ? ' · paper only' : ''}</span></button>`).join('');
+  return mk + `<div class="rail" role="group" aria-label="Strategy">${rail}</div>`;
+}
+const pcs = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
+function momRows(z) { return z.rows.filter((r) => ['Held', 'In buffer', 'Would leave', 'Preview'].includes(r.status)).sort((a, b) => (b.weightNow ?? b.weightTarget ?? 0) - (a.weightNow ?? a.weightTarget ?? 0)); }
+function viewMomentumScan() {
+  const z = D.momentum;
+  if (!z) return '<section class="card"><h2>Momentum sleeve</h2><div class="empty" style="margin-top:12px">The nightly momentum job has not written a list yet.</div></section>';
+  const run = z.state === 'running', rows = momRows(z), shown = momAll ? rows : rows.slice(0, 10), mx = Math.max(...rows.map((r) => r.weightNow ?? r.weightTarget ?? 0), 0.05);
+  const stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`;
+  const whenStart = run ? '' : z.pending ? `<p class="note">The signal was made on ${esc(dmy(z.pending.signalDate))}. The simulated purchase happens at the next close.</p>` : `<p class="note">The book starts on the first session after ${esc(dmy(z.startAfter))}: the signal is taken at that close and filled at the next close. Below is tonight's ranking as a preview.</p>`;
+  const stCol = (st) => (st === 'Would leave' ? 'var(--red)' : st === 'Would enter' ? 'var(--green)' : 'var(--muted)');
+  return `<h2 class="big">Momentum sleeve</h2>
+  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded stocks. It changes only on review dates, the first session of June and December. Paper only: no orders and no alerts come from it.</p>
+  <dl class="kv">${stat(run ? z.heldCount : '30', run ? 'stocks held' : 'stocks planned')}${stat(esc(mmm(z.nextReview)), 'next review')}${stat(fmt(z.replication.correlation, 2), "match with NSE's index in the replay")}${stat(z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 1), 'since the paper book started')}</dl>
+  ${whenStart}
+  <section style="margin-top:36px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3 class="ttl">${run ? 'Current holdings' : 'Preview of the first 30'}</h3><span class="note">${momAll ? 'all ' + rows.length : 'top ' + shown.length + ' of ' + rows.length}, by weight · data ${esc(z.asOf)}</span></div>
+  <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Stock</th><th style="min-width:170px">Weight</th><th>Status</th><th class="num">6 months</th><th class="num">12 months</th></tr></thead><tbody>${shown.map((r) => { const w = r.weightNow ?? r.weightTarget ?? 0; return `<tr><td><b>${esc(r.sym)}</b>${r.name ? `<div class="note nm">${esc(r.name)}</div>` : ''}</td><td><div class="row" style="flex-wrap:nowrap;gap:12px"><div class="mbar"><i style="width:${Math.round(w / mx * 100)}%"></i></div><span class="num" style="min-width:48px">${fmt(w * 100, 1)}%</span></div></td><td style="color:${stCol(r.status)}">${esc(r.status)}</td><td class="num">${pcs(r.r6, 0)}</td><td class="num">${pcs(r.r12, 0)}</td></tr>`; }).join('')}</tbody></table></div>
+  ${rows.length > 10 ? `<p style="margin:14px 0 0"><button class="lnk" data-momall="1">${momAll ? 'Show fewer' : 'Show all ' + rows.length}</button></p>` : ''}</section>
+  <section class="card" style="margin-top:36px"><h2>${run ? 'At the ' + esc(mmm(z.nextReview)) + ' review' : 'Before the first build'}</h2>
+  ${run ? `<p style="margin:10px 0 0">${z.wouldEnter.length} would come in${z.wouldEnter.length ? ' (' + z.wouldEnter.map(esc).join(', ') + ')' : ''} and ${z.wouldLeave.length} would leave${z.wouldLeave.length ? ' (' + z.wouldLeave.map(esc).join(', ') + ')' : ''}.</p>` : '<p style="margin:10px 0 0">Nothing is held yet.</p>'}
+  <p class="note" style="margin:6px 0 0">Ranks refresh every night, but the book only changes on a review date. Judged on whether it is built correctly, not on beating the market: see the Paper test page. Evidence for momentum is weak and mixed (Engine Rules C-130); for simply holding the factor, an index fund costs less and tracks the index more closely.</p></section>`;
+}
+function viewMomentumPaper() {
+  const z = D.momentum, s = curStrat('in');
+  if (!z) return '<section class="card"><h2>Momentum sleeve, on paper</h2><div class="empty" style="margin-top:12px">The nightly momentum job has not written a book yet.</div></section>';
+  const run = z.state === 'running', rv = z.reviews || [], last = rv.at(-1), chk = last?.check || z.pending?.check;
+  const b = z.board, names = { sleeve: 'Momentum sleeve (paper)', nse: 'NSE Nifty200 Momentum 30 index', n500: 'Nifty 500', n200: 'Nifty 200', fund: 'Momentum index fund (after expenses)' }, cols = { sleeve: 'var(--accent)', nse: 'var(--c2)', fund: 'var(--c3)', n200: 'var(--c4)', n500: 'var(--c5)' };
+  let board = `<p class="note">${run ? `The paper book started on ${esc(dmy(last?.fillDate || z.lastBuild))}. The first comparison with the index and the other lines is at the next month-end after that; until then only the book's own return is shown (${z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 2)}).` : `Not started. The book begins on the first session after ${esc(dmy(s.startAfter))}.`}</p>`;
+  if (b) {
+    const keys = ['sleeve', 'nse', 'fund', 'n200', 'n500'].filter((k) => b.lines[k]), W = 640, H = 190, P = { l: 40, r: 8, t: 14, b: 26 };
+    const all = keys.flatMap((k) => b.lines[k].map((p) => p.x)).filter((v) => v !== null), lo = Math.min(...all, 100) - 1, hi = Math.max(...all, 100) + 1, n = b.lines.sleeve.length;
+    const X = (i) => P.l + (n < 2 ? 0 : i / (n - 1)) * (W - P.l - P.r), Y = (v) => P.t + (1 - (v - lo) / (hi - lo)) * (H - P.t - P.b);
+    const path = (k) => b.lines[k].map((p, i) => (p.x === null ? '' : `${i && b.lines[k][i - 1].x !== null ? 'L' : 'M'}${X(i).toFixed(1)},${Y(p.x).toFixed(1)}`)).join('');
+    board = `<svg class="mchart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Month-end lines rebased to 100 at ${esc(dmy(b.origin + '-28'))}"><line x1="${P.l}" x2="${W - P.r}" y1="${Y(100)}" y2="${Y(100)}" stroke="var(--line)"/>${keys.map((k) => `<path d="${path(k)}" fill="none" stroke="${cols[k]}" stroke-width="${k === 'sleeve' ? 2.6 : 1.6}" stroke-linejoin="round"/>`).join('')}<text x="2" y="${Y(100) + 4}">100</text><text x="${P.l}" y="${H - 6}">${esc(mmm(b.origin))}</text><text x="${W - P.r}" y="${H - 6}" text-anchor="end">${esc(mmm(b.lines.sleeve.at(-1).m))}</text></svg>
+    <div class="tablewrap"><table><thead><tr><th>Since ${esc(mmm(b.origin))}</th><th class="num">Return</th></tr></thead><tbody>${keys.map((k) => { const v = b.lines[k].at(-1)?.x; return `<tr><td><span style="display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;background:${cols[k]}"></span>${esc(names[k])}</td><td class="num">${typeof v === 'number' ? sgn(v - 100, 1, '%') : '–'}</td></tr>`; }).join('')}</tbody></table></div>`;
+  }
+  const mo = (m) => { const d = new Date((last?.fillDate || z.lastBuild || s.startAfter) + 'T00:00:00Z'); d.setUTCMonth(d.getUTCMonth() + m); return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }); };
+  const item = (t, how, st) => `<div class="row" style="justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)"><div style="flex:1 1 320px"><div>${t}</div><div class="note">${how}</div></div><div class="note">${st}</div></div>`;
+  const rtab = rv.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Review</th><th class="num">Stocks</th><th class="num">In</th><th class="num">Out</th><th class="num">Turnover</th><th class="num">Cost</th></tr></thead><tbody>${rv.map((r) => `<tr><td>${esc(dmy(r.fillDate))}</td><td class="num">${r.count}</td><td class="num">${r.entered.length}</td><td class="num">${r.left.length}</td><td class="num">${rv[0] === r ? 'first build' : fmt(r.turnoverPct, 1) + '%'}</td><td class="num">${fmt(r.costPct, 2)}%</td></tr>`).join('')}</tbody></table></div>` : '';
+  return `<h2 class="big">Momentum sleeve, on paper</h2>
+  <p class="note" style="margin:8px 0 0;max-width:62ch">Simulated trades with trading costs included. Not for placing: no real orders. It is judged on whether it is built correctly, not on beating the market this year.</p>
+  <section style="margin-top:32px">${board}<p class="note" style="margin-top:12px;max-width:70ch">The sleeve pays trading costs (about 0.7% a year in the replay) and the index does not, so it starts behind. The fund line, when added, is after its expenses; the dividend adjustment is stated beside it.</p></section>
+  <section style="margin-top:40px"><h3 class="ttl">Is it built right?</h3>
+  ${item('Live build matches the replay build', 'Checked on every review date: same names, weights within 0.1 point.', chk ? (chk.pass ? 'Matched on the last check' : `Different: ${chk.sameNames ? '' : 'names, '}max ${fmt(chk.maxWeightDiffPp, 2)} pt`) : 'First check at the first signal')}
+  ${item("Moves with NSE's index", 'Monthly correlation of 0.9 or better, cumulative then rolling 36 months.', `Replay ${fmt(z.replication.correlation, 2)}; live from month 12`)}
+  ${item('Monthly reference line added', "NSE's series (by hand) and an index-fund NAV, once a month.", b ? 'Running' : 'Starts at the first month-end')}
+  </section>
+  <section style="margin-top:40px"><h3 class="ttl">More detail</h3>
+  <details class="fold"><summary>When we read the result</summary><p class="note">12-month read ${esc(mo(12))}; full 24-month read ${esc(mo(24))}. Real money, if any, goes in through an index fund and only after three years that include a bad stretch (a proposal, Engine Rules C-130).</p></details>
+  <details class="fold"><summary>When we would stop</summary><p class="note">If the match with NSE's index falls below 0.85 over any 12 months, or live and replay builds differ on two review dates (proposals, awaiting your confirmation). Trailing the Nifty 200 alone is not a reason to stop. None triggered.</p></details>
+  <details class="fold"><summary>Reviews so far</summary>${rtab || '<p class="note">None yet.</p>'}</details>
+  <details class="fold"><summary>Difference from NSE's index</summary><p class="note">This version ranks by traded value in place of NSE's free-float market size, so it leans to mid-caps. Replay: about 4 points a year behind NSE's index over 2011 to 2019, and ahead over 2021 to Oct 2025.</p></details></section>`;
+}
+
 let PAPERT; // undefined = not asked yet, false = unavailable, 'none' = not written yet, object = the nightly paper-test file (Engine Rules C-113)
-function viewPaper() {
-  const mkChips = `<div class="chips" role="group" aria-label="Market" style="margin-bottom:14px">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-pm="${k}" aria-pressed="${paperMkt === k}">${l}</button>`).join('')}</div>`;
+function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'ranked_list' ? viewMomentumPaper() : viewPaperSwing()); }
+function viewPaperSwing() {
+  const mkChips0 = `<div class="chips" role="group" aria-label="Market" style="margin-bottom:14px">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-pm="${k}" aria-pressed="${paperMkt === k}">${l}</button>`).join('')}</div>`;
+  const mkChips = '';
   if (paperMkt === 'us') return `<section class="card"><h2 style="margin:0 0 10px">Paper test: not for placing</h2>${mkChips}<div class="note">The US paper book. No orders are sent from it; it tests the stop-width cap and the room rule.</div></section>` + paperBookCard('us');
   if (PAPERT === undefined) { PAPERT = null; fetch('/api/portfolio?view=paper', { cache: 'no-store', headers: { accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).then((d) => { PAPERT = d && d.paper ? d.paper : d ? 'none' : false; if (tab === 'paper') render(); }).catch(() => { PAPERT = false; }); }
   const z = PAPERT, title = '<h2 style="margin:0">Paper test: not for placing</h2>';
@@ -308,10 +387,10 @@ function paperBookCard(mkt) {
   <div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Pending</th><th class="num">Open</th><th class="num">Not filled</th><th class="num">Closed</th><th class="num">Mean R</th><th class="num">Win rate</th></tr></thead><tbody>${streams}</tbody></table></div>
   <h3>Live</h3>${ptbl(pb.live || [], 'No pending or open paper positions.')}<h3>Recently closed</h3>${ptbl(pb.recent || [], 'Nothing closed yet.')}</details></section>` : '';
 }
-function viewScan() { return (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody(); }
+function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan() : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
 function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
-  const mk = `<div class="chips" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
+  const mk = '', mk0 = `<div class="chips" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;
   if (!sc) return `<section class="card">${mk}<div class="empty" style="margin-top:14px">No ${scanMkt === 'us' ? 'US' : 'India'} scan has run yet.</div></section>`;
   const f = sc.funnel || {};
   const chipLight = `<span class="chip ${sc.light === 'green' ? 'ok' : sc.light === 'red' ? 'bad' : 'warn'}">${esc(cap(sc.light))} light</span>`;
@@ -505,6 +584,8 @@ document.addEventListener('click', (e) => {
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : (['name', 'rank', 'rk', 'n'].includes(key) ? 1 : -1); s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; return render(); }
+  if (t.dataset.momall) { momAll = !momAll; return render(); }
   if (t.dataset.sm) { scanMkt = t.dataset.sm; return render(); }
   if (t.dataset.pm) { paperMkt = t.dataset.pm; return render(); }
   if (t.dataset.fc) { fundCat[fundGroup] = t.dataset.fc; return render(); }
@@ -520,6 +601,11 @@ document.addEventListener('click', (e) => {
   const show = (e) => { const i = e.target.closest?.('.info, .sym[data-tip]'); if (!i) return; tip.textContent = i.dataset.tip; tip.style.display = 'block'; const r = i.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left)) + 'px'; tip.style.top = (r.bottom + h + 10 < innerHeight ? r.bottom + 6 : Math.max(8, r.top - h - 6)) + 'px'; };
   const hide = (e) => { if (e.target.closest?.('.info, .sym[data-tip]')) tip.style.display = 'none'; };
   document.addEventListener('mouseover', show); document.addEventListener('mouseout', hide); document.addEventListener('focusin', show); document.addEventListener('focusout', hide);
+})();
+(() => {
+  const b = $('#themebtn'), lab = { auto: 'Auto', light: 'Light', dark: 'Night' }, get = () => { try { return localStorage.getItem('theme') || 'auto'; } catch (e) { return 'auto'; } };
+  const apply = (v) => { if (v === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', v); b.textContent = lab[v]; };
+  apply(get()); b.onclick = () => { const n = { auto: 'light', light: 'dark', dark: 'auto' }[get()]; try { localStorage.setItem('theme', n); } catch (e) { /* private mode: the choice lasts until reload */ } apply(n); };
 })();
 fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => {
   D = d;

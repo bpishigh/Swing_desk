@@ -1,0 +1,16 @@
+{
+  "version": "STRAT-1",
+  "note": "Strategies shown as tabs on the Scans and Paper test pages. Add an entry here, register the rule in Engine Rules first, then add its data job. view is one of: setups, ranked_list.",
+  "strategies": [
+    { "id": "swing-in", "name": "Swing setups", "market": "in", "status": "live", "rule": "IND-SCAN-1", "view": "setups" },
+    { "id": "swing-us", "name": "Swing setups", "market": "us", "status": "live", "rule": "US-SCAN-1", "view": "setups" },
+    {
+      "id": "mom30-india", "name": "Momentum sleeve", "market": "in", "status": "paper_only", "rule": "C-130", "view": "ranked_list",
+      "startAfter": "2026-11-01", "dataFile": "data/india/momentum-sleeve/latest.json",
+      "benchmarks": ["nse-mom30", "momentum-fund", "nifty200", "nifty500"],
+      "checks": ["live_equals_replay", "corr_vs_nse_0.9", "monthly_reference_line"],
+      "stops": { "corr12mBelow": 0.85, "liveReplayDiffReviews": 2 },
+      "readAtMonths": [12, 24]
+    }
+  ]
+}
