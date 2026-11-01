@@ -19,6 +19,16 @@ export function routeNewMoney(targets                                        , h
   return { lines };
 }
 
+/** What the new money does to the allocation, before any sale: the split of `amount` (as routeNewMoney, never to a class already over its band) and each class's share of `base + amount` afterwards, so the allocation view can show the effect. */
+export function newMoneyEffect(targets                                        , held                             , amount        , band                            , toEdge         , base        )                                                                                                                                                                              {
+  const over0 = new Set(Object.keys(sellNeeds(targets, held, band, {}, toEdge))                 ), r = routeNewMoney(targets, held, amount, over0), add                                       = {};
+  for (const l of r.lines) add[l.cls] = l.amount;
+  const denom = base + (amount > 0 ? amount : 0), after                                       = {};
+  for (const c of TARGET_CLASSES) after[c] = denom > 0 ? ((held[c] ?? 0) + (add[c] ?? 0)) / denom : 0;
+  const out = (sh                            ) => targets.filter((t) => Math.abs(sh(t.cls) - t.target) > band(t.cls)).length;
+  return { ...r, add, after, outsideBefore: out((c) => (base > 0 ? (held[c] ?? 0) / base : 0)), outsideAfter: out((c) => after[c] ?? 0) };
+}
+
                                                                                                                                                                                                                                                                                
                                                                                                      
 /** A recorded exit load: sold within `days` of purchase costs `pct` (fraction) of the sale value. */

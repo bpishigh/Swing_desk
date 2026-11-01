@@ -68,6 +68,7 @@ One page that lists every test we have run on the Swing Desk and Portfolio Manag
 | C-70 | 20 Oct | Does a longer fixed hold pay more than the live exits? | India | Failed (fit) | Holdout never opened |
 | C-72 | 20 Oct | Should India skip days be excluded from the distribution count? | India | Failed (fit) | Flag not built |
 | C-61, C-66 | 18 Oct | Forward paper tests of the run-up signal and of momentum inside setups | India, new data | Running | No result yet |
+| C-144 | 1 Nov | Does the overall (across-category) fund score predict next-year risk-adjusted return? | India funds, 2016 to 2025 | Failed | Display only, not shown to predict (top fifth won 5 of 10 years, bar 6) |
 | C-53 | 17 Oct | Forward paper book on the US top-10 list | US, new data | Running | No result yet |
 
 ### 1c. Backtester tests (31 Oct to 1 Nov 2026)

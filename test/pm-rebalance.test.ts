@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { routeNewMoney, planSales, sellNeeds, type OpenLot } from '../src/pm/rebalance.ts';
+import { routeNewMoney, planSales, sellNeeds, newMoneyEffect, type OpenLot } from '../src/pm/rebalance.ts';
 import { TARGET_CLASSES, type TargetClass } from '../src/pm/allocation.ts';
 
 const rules = JSON.parse(readFileSync('data/rules/tax.json', 'utf8'));
@@ -131,4 +131,15 @@ test('tiered exit load with free units', () => {
 test('an ELSS lot is treated as locked until a few days after its third anniversary (allotment can follow the order date)', async () => {
   const { ELSS_MARGIN_DAYS } = await import('../src/pm/pipeline.ts');
   assert.equal(ELSS_MARGIN_DAYS, 5);
+});
+
+test('newMoneyEffect shows where new money lands and the allocation afterwards', () => {
+  const targets = [{ cls: 'active_equity_fund', target: 0.6 }, { cls: 'debt', target: 0.3 }, { cls: 'gold', target: 0.1 }] as any;
+  const held = { active_equity_fund: 700, debt: 200, gold: 100 } as any;   // equity is 70% against 60%: over its 5% band
+  const r = newMoneyEffect(targets, held, 500, () => 0.05, false, 1000);
+  assert.ok(!r.error); assert.ok((r.add.debt ?? 0) > 0);
+  assert.ok(Math.abs(Object.values(r.add).reduce((a: number, b: any) => a + b, 0) - 500) < 1e-6);
+  assert.ok(Math.abs(Object.values(r.after).reduce((a: number, b: any) => a + b, 0) - 1) < 1e-9);
+  assert.equal(r.outsideBefore, 2); assert.equal(r.outsideAfter, 0);
+  assert.ok((r.after.active_equity_fund as number) < 0.7);
 });

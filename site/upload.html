@@ -88,6 +88,8 @@ table { font-size:14px; } th, td { padding:8px 7px; }
 .trk .band { position:absolute; top:0; bottom:0; background:var(--accent-bg); border-radius:6px; }
 .trk .fill { position:absolute; top:2px; bottom:2px; left:0; border-radius:4px; background:var(--accent); min-width:2px; }
 .trk .fill.over { background:var(--red); } .trk .fill.under { background:var(--yellow); } .trk .fill.ok { background:var(--green); }
+.trk .aft { position:absolute; top:-3px; bottom:-3px; width:0; border-left:2px dashed var(--accent); }
+.brow .val .nowp { color:var(--accent); font-weight:600; }
 .trk .tick { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--ink); border-radius:1px; }
 .key { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--muted); margin-top:10px; } .key i { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
 .pill { display:inline-block; font-size:12px; font-weight:600; padding:2px 9px; border-radius:999px; background:var(--track); color:var(--muted); white-space:nowrap; }
@@ -185,7 +187,7 @@ import { segmentOf } from './pm/segment.js';
 import { checkLimits, goalStatus, assignGoals, LIMIT_DEFAULTS, GOAL_SOON_MONTHS, fundHouse } from './pm/limits.js';
 import { tradesOf as handTrades, makeManual } from './pm/manual.js';
 import { allocate, currentByClass, gapRows, capBreaches, rollUp, TARGET_CLASSES, scaledBand, foldHybrid } from './pm/allocation.js';
-import { routeNewMoney, planSales, sellNeeds } from './pm/rebalance.js';
+import { routeNewMoney, planSales, sellNeeds, newMoneyEffect } from './pm/rebalance.js';
 import { derivePools, householdChecks, routeTrade } from './pm/swingpools.js';
 import { sizeOrders, openRiskOf } from './pm/swingorders.js';
 import { journalReport } from './pm/swingjournal.js';
@@ -1156,29 +1158,31 @@ function lookThroughCard(xs0) {
 }
 const CLS_COLOR = ['#2641c4', '#0b7a48', '#c2570c', '#7c3aed', '#0e7490', '#b42318', '#64748b', '#a16207', '#be185d'];
 /** What you hold against what you aimed for, one bar per asset class: a tick at the target, a shaded band you may drift in, and a fill for what you hold. */
-function balanceCard(gaps, res, cur, capital, tableRows) {
+function balanceCard(gaps, res, cur, capital, tableRows, eff) {
   const rows = gaps.filter((g) => g.target > 0 || g.current > 0), mx = Math.max(0.2, ...rows.map((g) => Math.max(g.target + g.band, g.current))) * 1.05;
   const out = rows.filter((g) => g.state === 'overweight' || g.state === 'underweight').length, pos = (v) => Math.min(100, (v / mx) * 100) + '%';
   const rb = rows.map((g) => { const st = g.state === 'overweight' ? 'over' : g.state === 'underweight' ? 'under' : 'ok', amt = Math.abs(g.amountToTarget);
     return `<div class="brow"><div class="nm">${esc(g.label)}</div>
-      <div class="trk" title="Target ${pc(g.target)}, band ±${pc(g.band)}"><div class="band" style="left:${pos(Math.max(0, g.target - g.band))};width:${(Math.min(mx, g.target + g.band) - Math.max(0, g.target - g.band)) / mx * 100}%"></div><div class="fill ${st}" style="width:${pos(g.current)}"></div><div class="tick" style="left:${pos(g.target)}"></div></div>
-      <div class="val">${pc(g.current)} <span class="sub">of ${pc(g.target)}</span>${g.state === 'within band' ? '' : `<small><span class="pill ${st}">${g.state === 'overweight' ? 'over by' : 'room for'} ${money(amt)}</span></small>`}</div></div>`; }).join('');
+      <div class="trk" title="Target ${pc(g.target)}, band ±${pc(g.band)}"><div class="band" style="left:${pos(Math.max(0, g.target - g.band))};width:${(Math.min(mx, g.target + g.band) - Math.max(0, g.target - g.band)) / mx * 100}%"></div><div class="fill ${st}" style="width:${pos(g.current)}"></div><div class="tick" style="left:${pos(g.target)}"></div>${eff && (eff.after[g.cls] ?? 0) > 0 && Math.abs((eff.add[g.cls] ?? 0)) > 0.5 ? `<div class="aft" title="After new money: ${pc(eff.after[g.cls])}" style="left:${pos(eff.after[g.cls])}"></div>` : ''}</div>
+      <div class="val">${pc(g.current)} <span class="sub">of ${pc(g.target)}</span>${eff && (eff.add[g.cls] ?? 0) > 0.5 ? `<small class="nowp">+${money(eff.add[g.cls])} → ${pc(eff.after[g.cls])}</small>` : ''}${g.state === 'within band' ? '' : `<small><span class="pill ${st}">${g.state === 'overweight' ? 'over by' : 'room for'} ${money(amt)}</span></small>`}</div></div>`; }).join('');
   return `<div class="card"><div class="heads"><h2>Holdings against your targets</h2><span class="pill ${out ? 'under' : 'ok'}">${out ? out + ' of ' + rows.length + ' outside their band' : 'in balance'}</span></div>
+    ${eff ? `<div class="sub" style="margin:-4px 0 10px">With the new money of ${money(eff.amount)} added: ${eff.outsideAfter ? eff.outsideAfter + ' of ' + rows.length + ' classes outside their band' : 'every class inside its band'}${eff.outsideBefore !== eff.outsideAfter ? ' (now ' + eff.outsideBefore + ')' : ''}. The dashed mark on each bar shows where that class lands.</div>` : ''}
     <div class="rows">${rb}</div>
-    <div class="key"><span><i style="background:var(--green)"></i>inside the band</span><span><i style="background:var(--red)"></i>over</span><span><i style="background:var(--yellow)"></i>under</span><span><i style="background:var(--accent-bg)"></i>band you may drift in</span><span><i style="background:var(--ink);width:3px"></i>target</span></div>
+    <div class="key"><span><i style="background:var(--green)"></i>inside the band</span><span><i style="background:var(--red)"></i>over</span><span><i style="background:var(--yellow)"></i>under</span><span><i style="background:var(--accent-bg)"></i>band you may drift in</span><span><i style="background:var(--ink);width:3px"></i>target</span>${eff ? '<span><i style="background:none;border-left:2px dashed var(--accent);width:0;border-radius:0"></i>after new money</span>' : ''}</div>
     <details class="how"><summary>How the targets are set</summary><div class="sub" style="margin-top:8px">Equity share ${pc(res.equityShare)}. Nothing is proposed while a class is inside its band. Hybrid funds are split into equity, debt and gold by their category (${money(cur.hybridFolded)} here). A target, never an order.</div>
-    <div class="tw"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th><th>Position</th><th>Rule behind the target</th></tr></thead><tbody>${tableRows}</tbody></table></div></details></div>`;
+    <div class="tw"><table><thead><tr><th>Asset class</th><th class="num">Target</th><th class="num">Amount</th><th class="num">Now</th><th class="num">Amount</th>${eff ? '<th class="num">After new money</th>' : ''}<th>Position</th><th>Rule behind the target</th></tr></thead><tbody>${tableRows}</tbody></table></div></details></div>`;
 }
 function allocDetail(x) {
   const C = S.allocCfg, { A, hs, held, lockedElss, cur, capital, res } = x;
   if (!res.ok) return clashCard(res);
   const gaps = gapRows(C, res.rows, cur.byClass, capital), gm = Object.fromEntries(gaps.map((g) => [g.cls, g])), by = Object.fromEntries(res.rows.map((r) => [r.cls, r]));
   const stateCol = (st) => (st === 'within band' ? 'var(--muted)' : st === 'not in scope' ? 'var(--warn, #b45309)' : 'var(--accent)');
-  const body = gaps.map((g) => { const r = by[g.cls]; return `<tr><td>${esc(g.label)}</td><td class="num"><b>${pc(g.target)}</b></td><td class="num">${money(g.target * capital)}</td><td class="num">${pc(g.current)}</td><td class="num">${money(g.current * capital)}</td><td style="color:${stateCol(g.state)}">${g.state}${g.state === 'within band' ? '' : ' · ' + (g.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(g.amountToTarget))}</td><td class="sub">${esc(r ? r.rule : 'switched off, but you hold some')}</td></tr>`; }).join('');
-  const unclAmt = cur.unclassified + 0, uncRow = unclAmt > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(unclAmt / capital)}</td><td class="num">${money(unclAmt)}</td><td class="sub">not counted against any target</td><td class="sub">the category or name does not settle the asset class; see “Not counted” below</td></tr>` : '';
+  const tg0 = res.rows.map((r) => ({ cls: r.cls, target: r.target })), tm0 = Object.fromEntries(tg0.map((t) => [t.cls, t.target])), eff = A.money > 0 ? { ...newMoneyEffect(tg0, cur.byClass, A.money, (c) => scaledBand(C, c, tm0[c] ?? 0), C.rebalance.mode === 'band-edge', capital), amount: A.money } : null;   // the entered new money, shown on the allocation itself
+  const body = gaps.map((g) => { const r = by[g.cls]; return `<tr><td>${esc(g.label)}</td><td class="num"><b>${pc(g.target)}</b></td><td class="num">${money(g.target * capital)}</td><td class="num">${pc(g.current)}</td><td class="num">${money(g.current * capital)}</td>${eff ? `<td class="num">${(eff.add[g.cls] ?? 0) > 0.5 ? pc(eff.after[g.cls]) + ' <span class="sub">(+' + money(eff.add[g.cls]) + ')</span>' : '–'}</td>` : ''}<td style="color:${stateCol(g.state)}">${g.state}${g.state === 'within band' ? '' : ' · ' + (g.amountToTarget >= 0 ? 'room ' : 'over ') + money(Math.abs(g.amountToTarget))}</td><td class="sub">${esc(r ? r.rule : 'switched off, but you hold some')}</td></tr>`; }).join('');
+  const unclAmt = cur.unclassified + 0, uncRow = unclAmt > 0 ? `<tr><td>Not classified</td><td class="num">–</td><td class="num">–</td><td class="num">${pc(unclAmt / capital)}</td><td class="num">${money(unclAmt)}</td>${eff ? '<td class="num">–</td>' : ''}<td class="sub">not counted against any target</td><td class="sub">the category or name does not settle the asset class; see “Not counted” below</td></tr>` : '';
   const br = capBreaches(held, capital, res.positionCap, res.fundCap);
   const unc = hs.filter((h) => h.value !== null && !h.assetClass);
-  return balanceCard(gaps, res, cur, capital, body + uncRow) + actionsCard(x.V1, res, cur, capital, hs, A) + ``;
+  return balanceCard(gaps, res, cur, capital, body + uncRow, eff) + actionsCard(x.V1, res, cur, capital, hs, A) + ``;
 }
 function profileLimits(x) {
   const C = S.allocCfg, { hs, cur, capital, res, held, lockedElss } = x;

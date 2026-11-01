@@ -19,6 +19,16 @@ export function routeNewMoney(targets: { cls: TargetClass; target: number }[], h
   return { lines };
 }
 
+/** What the new money does to the allocation, before any sale: the split of `amount` (as routeNewMoney, never to a class already over its band) and each class's share of `base + amount` afterwards, so the allocation view can show the effect. */
+export function newMoneyEffect(targets: { cls: TargetClass; target: number }[], held: Record<TargetClass, number>, amount: number, band: (c: TargetClass) => number, toEdge: boolean, base: number): { lines: MoneyLine[]; error?: string; add: Partial<Record<TargetClass, number>>; after: Partial<Record<TargetClass, number>>; outsideBefore: number; outsideAfter: number } {
+  const over0 = new Set(Object.keys(sellNeeds(targets, held, band, {}, toEdge)) as TargetClass[]), r = routeNewMoney(targets, held, amount, over0), add: Partial<Record<TargetClass, number>> = {};
+  for (const l of r.lines) add[l.cls] = l.amount;
+  const denom = base + (amount > 0 ? amount : 0), after: Partial<Record<TargetClass, number>> = {};
+  for (const c of TARGET_CLASSES) after[c] = denom > 0 ? ((held[c] ?? 0) + (add[c] ?? 0)) / denom : 0;
+  const out = (sh: (c: TargetClass) => number) => targets.filter((t) => Math.abs(sh(t.cls) - t.target) > band(t.cls)).length;
+  return { ...r, add, after, outsideBefore: out((c) => (base > 0 ? (held[c] ?? 0) / base : 0)), outsideAfter: out((c) => after[c] ?? 0) };
+}
+
 export interface OpenLot { account?: string; name: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; assetClass: string | null; category?: string; type: string; date: string; qty: number; unitCost: number; price: number; locked?: boolean; exitLoad?: ExitLoad | null }
 export interface RebalSettings { minTrade: number; maxCostShare: number; exitLoadCheckDays?: number }
 /** A recorded exit load: sold within `days` of purchase costs `pct` (fraction) of the sale value. */
