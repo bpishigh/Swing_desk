@@ -1130,6 +1130,45 @@
     "summary": "Exploration, same run as C-129-r1. 2011-2019: sleeve 13.79% a year vs Nifty 200 9.84% (gap 3.94 points, net of ~0.73% a year trading cost); worst relative fall -16.0%; without 2017 the lead is about 1.8 points a year. 2021-2025: 24.39% vs 15.91%.",
     "file": "data/replay/c129-momentum30.json"
    }
+  },
+  {
+   "id": "C-131-r1",
+   "changeLog": "C-131",
+   "title": "US momentum sleeve (C-129 method on US stocks) against SPY, replay Dec 2017 to Dec 2023 judged, 2024 to Oct 2026 reported; survivor-biased data",
+   "hypothesis": "The C-129 sleeve method beats SPY on US data, with the caveat that the store only holds companies listed today.",
+   "script": "scripts/backtest-momentum30-us.mjs",
+   "params": {
+    "universe": "top 200 listed companies by 20-session median dollar volume; price >= 5; median dollar volume >= 20 million; >= 260 sessions",
+    "score": "equal blend of z-scores of 6m and 12m return divided by daily volatility; multiplier 1+z or 1/(1-z)",
+    "holdings": "top 30, keep while ranked 45 or better",
+    "weights": "dollar volume x multiplier, cap lower of 5% or 5x value-only weight (5% alone if it cannot allocate 100%)",
+    "rebalance": "first-session signals of June and December, trade next close",
+    "costs": "US tiers 0.2/0.35/0.6% round trip by 20-day dollar volume, half per side",
+    "benchmark": "SPY price only",
+    "diagnostics": "same 30 names equal-weighted; QQQ (not judged)",
+    "judged": "Dec 2017 to Dec 2023",
+    "reported": "Jan 2024 to Oct 2026",
+    "sweeps": "one setting, one run",
+    "bias": "survivor bias: delisted stocks missing"
+   },
+   "passRule": "All three: sleeve compounded return beats SPY over Dec 2017 to Dec 2023; mean monthly excess over SPY above zero with 90% block-bootstrap (6 months) lower end above zero; sleeve beats SPY in at least two thirds of calendar years 2018 to 2023 (4 of 6).",
+   "data": {
+    "sessions": 2513,
+    "first": "2016-10-31",
+    "last": "2026-10-30",
+    "symbols": 2279,
+    "splits": 0,
+    "hash": "5f1b52194254"
+   },
+   "registeredAt": "2026-11-01T05:45:19.361Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "done",
+   "result": {
+    "at": "2026-11-01T05:46:16.324Z",
+    "summary": "FAIL on the registered rule (2 of 4 conditions). US Dec 2017 to Dec 2023 (72 months, survivor-biased data): sleeve +97.1% vs SPY +78.1% (QQQ +162.9%); mean monthly excess +0.28% (90% -0.90% to +1.51%), below the 0.94% detectable; 2 of 6 years; 2020 carries it (+85.1% vs +16.2%). 2024 to Oct 2026 reported only: sleeve +235.8% vs SPY +57.9% (hindsight-flattered). Costs about 0.27% a year.",
+    "file": "data/replay/c131-momentum30-us.json"
+   }
   }
  ]
 }
