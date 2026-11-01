@@ -16,6 +16,7 @@ const newDates = probe.bars.map((b) => b[0]).filter((d) => d > through && !have.
 console.log(`base through ${through}; tails ${[...have].join(',') || 'none'}; new sessions available ${newDates.join(',') || 'none'}`);
 if (!newDates.length) process.exit(0);
 const rows = new Map(newDates.map((d) => [d, []])), flagged = []; let next = 0, failed = 0;
+const opens = new Map(newDates.map((d) => [d, {}]));   // C-139: the session's open per ticker, kept beside the tail so paper books can fill at the next open
 async function worker() {
   while (next < syms.length) {
     const s = syms[next++]; let g = null;
@@ -26,7 +27,7 @@ async function worker() {
     for (const b of g.bars) {
       const [d, , h, l, c, v] = [b[0], b[1], b[2], b[3], b[4], b[5]];
       if (base.has(d)) { if (Math.abs(c / base.get(d) - 1) > 0.003) bad = true; }
-      else if (rows.has(d)) rows.get(d).push([s, c, h, l, v]);
+      else if (rows.has(d)) { rows.get(d).push([s, c, h, l, v]); if (b[1] > 0) opens.get(d)[s] = b[1]; }
     }
     if (bad) flagged.push(s);
     await sleep(120);
@@ -40,7 +41,7 @@ for (const s of flagged) {    // split or restatement: replace the base file wit
 mkdirSync('data/us/hist-tail', { recursive: true });
 let wrote = 0;
 for (const [d, r] of rows) {
-  if (r.length >= 0.9 * syms.length) { writeFileSync(`data/us/hist-tail/${d}.json.gz`, gzipSync(JSON.stringify({ date: d, rows: r }))); wrote++; console.log(`${d}: ${r.length}/${syms.length}`); }
+  if (r.length >= 0.9 * syms.length) { writeFileSync(`data/us/hist-tail/${d}.json.gz`, gzipSync(JSON.stringify({ date: d, rows: r }))); wrote++; mkdirSync('data/us/open', { recursive: true }); writeFileSync(`data/us/open/${d}.json.gz`, gzipSync(JSON.stringify({ date: d, open: opens.get(d) }))); console.log(`${d}: ${r.length}/${syms.length}`); }
   else console.log(`${d}: only ${r.length}/${syms.length}, not written (retry next run)`);
 }
 console.log(JSON.stringify({ wrote, failed, flaggedForRefetch: flagged.length, flagged: flagged.slice(0, 20) }));

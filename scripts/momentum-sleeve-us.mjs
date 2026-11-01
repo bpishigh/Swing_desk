@@ -1,6 +1,6 @@
 // Nightly MOM-30 v1 momentum sleeve, US (Engine Rules C-131 step 2): paper only, comparison only, no orders, no alerts. The India job is scripts/momentum-sleeve.mjs.
 // Writes data/us/momentum-sleeve/latest.json (tonight's ranks, the list and its status), state.json (the paper book) and reads settings/strategies.json.
-// The book changes only on review dates (first session of June and December) and once at the start: signal on the first session's close, simulated fill at the next close.
+// The book changes only on review dates (first session of June and December) and once at the start: signal on the first session's close, simulated fill at the next session's open (C-139; C-130 and C-131 were registered at the next close).
 // Usage: node --max-old-space-size=6000 scripts/momentum-sleeve-us.mjs [--asof=YYYY-MM-DD] [--dry]
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { buildHistories } from '../src/ingest/us-scan.ts';
@@ -21,21 +21,25 @@ const FH = buildHistories(days, [], allowed), series = FH.series, names = R('dat
 const px = (sym, i) => { const s = series.get(sym); if (!s) return NaN; for (let k = i; k >= Math.max(0, i - 400); k--) if (s.c[k] > 0) return s.c[k]; return NaN; };
 const ret = (sym, w) => { const s = series.get(sym); return s && s.c[t] > 0 && s.c[t - w] > 0 ? s.c[t] / s.c[t - w] - 1 : null; };
 
+// C-139: paper books fill at the next session's open. US opens come from data/us/open/<date>.json.gz (written by us-hist-update); a name with no stored open falls back to its close and is counted.
+const OPEN = (() => { const f = `data/us/open/${D}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } })();
+const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/us/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
 const held = () => new Set(Object.keys(st.book?.shares ?? {}));
+const valueAt = (f) => { let v = st.book.cash; for (const [sym, sh] of Object.entries(st.book.shares)) { const p = f(sym); v += sh * (p > 0 ? p : 0); } return v; };
 const value = (i) => { let v = st.book.cash; for (const [sym, sh] of Object.entries(st.book.shares)) { const p = px(sym, i); v += sh * (p > 0 ? p : 0); } return v; };
 
-// 1) fill a pending rebalance at tonight's close (the session after the signal)
+// 1) fill a pending rebalance at tonight's open (the session after the signal; C-139)
 if (st.pending && D > st.pending.signalDate) {
-  const first = !st.book, V = first ? 100 : value(t), tgt = new Map(st.pending.target.map((x) => [x.sym, x.w * V]));
-  const cur = first ? new Map() : new Map(Object.entries(st.book.shares).map(([s, n]) => [s, n * (px(s, t) > 0 ? px(s, t) : 0)]));
+  const first = !st.book, V = first ? 100 : valueAt(fp), tgt = new Map(st.pending.target.map((x) => [x.sym, x.w * V]));
+  const cur = first ? new Map() : new Map(Object.entries(st.book.shares).map(([s, n]) => [s, n * (fp(s) > 0 ? fp(s) : 0)]));
   const lastValue = { ...(st.book?.lastValue ?? {}), ...st.pending.values };
-  let traded = 0, cost = 0; for (const sym of new Set([...cur.keys(), ...tgt.keys()])) { if (!(px(sym, t) > 0)) continue; const d = Math.abs((tgt.get(sym) ?? 0) - (cur.get(sym) ?? 0)); traded += d; cost += d * usCost(lastValue[sym] ?? 0) / 2; }
+  let traded = 0, cost = 0; for (const sym of new Set([...cur.keys(), ...tgt.keys()])) { if (!(fp(sym) > 0)) continue; const d = Math.abs((tgt.get(sym) ?? 0) - (cur.get(sym) ?? 0)); traded += d; cost += d * usCost(lastValue[sym] ?? 0) / 2; }
   const V2 = V - cost, shares = {}; let cash = 0;
-  for (const [sym, amt] of tgt) { const p = px(sym, t); if (p > 0) shares[sym] = (amt / V) * V2 / p; else cash += (amt / V) * V2; }
+  for (const [sym, amt] of tgt) { const p = fp(sym); if (p > 0) shares[sym] = (amt / V) * V2 / p; else cash += (amt / V) * V2; }
   const before = first ? [] : Object.keys(st.book.shares), after = Object.keys(shares);
-  st.reviews.push({ signalDate: st.pending.signalDate, fillDate: D, count: after.length, entered: after.filter((s) => !before.includes(s)), left: before.filter((s) => !after.includes(s)), turnoverPct: Math.round(traded / (2 * V) * 1000) / 10, costPct: Math.round(cost / V * 10000) / 100, check: st.pending.check });
+  st.reviews.push({ signalDate: st.pending.signalDate, fillDate: D, fillBasis: fbClose.size ? `open, ${fbClose.size} name(s) at the close (no open stored)` : 'open', closeFallbacks: [...fbClose], count: after.length, entered: after.filter((s) => !before.includes(s)), left: before.filter((s) => !after.includes(s)), turnoverPct: Math.round(traded / (2 * V) * 1000) / 10, costPct: Math.round(cost / V * 10000) / 100, check: st.pending.check });
   st.book = { cash, shares, lastValue, startedFill: st.book?.startedFill ?? D }; st.pending = null;
 }
 // 2) mark the book

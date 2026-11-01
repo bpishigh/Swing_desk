@@ -39,7 +39,7 @@ jobs:
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           mkdir -p data/us/hist-tail data/us/paper data/us/momentum-sleeve
-          git add data/us/hist-tail data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve
+          git add data/us/hist-tail data/us/open data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve
           git commit -m "us-hist-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
