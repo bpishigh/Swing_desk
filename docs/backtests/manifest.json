@@ -1197,7 +1197,12 @@
    "registeredAt": "2026-11-01T06:18:03.697Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-01T06:28:31.354Z",
+    "summary": "Run 1 Nov 2026 (manifest C-133-r1): FAILS in both judged markets, so nothing changes. India Jan 2013 to Dec 2019 (80 months; 4 first-of-month sessions had no index file): Green months averaged +0.89% the next month against +1.04% for the other months (difference -0.15%, 90% interval -1.72% to +1.31%); Green beat the others in 2 of 6 counted years. US Jan 2018 to Dec 2023 (72 months): Green +0.15% against +1.31% (difference -1.16%, interval -3.05% to +0.61%); 0 of 5 years. Red months were few (India 10, US 8) and did not do worse next month on average (India Red +1.36%, US Red +2.47%). The trend part alone did no better (India -0.39%, US -1.06%). Reported only: India Jan 2020 to Oct 2025 difference +0.03% (Red months averaged -1.41% with one -28.8% month, the March 2020 fall), US Jan 2024 to Oct 2026 -0.14%. Power: the smallest difference this sample could detect is about 1.45% (India) and 1.77% (US) a month, so only a large effect could have shown. Breadth uses today's lists (survivor bias). Files: data/replay/c133-light.json, docs/replay/C133-REPORT.md",
+    "file": "data/replay/c133-light.json"
+   }
   },
   {
    "id": "C-134-r1",
@@ -1226,7 +1231,12 @@
    "registeredAt": "2026-11-01T06:18:20.061Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-01T06:28:31.602Z",
+    "summary": "Run 1 Nov 2026 (manifest C-134-r1): FAILS in both judged markets, so nothing changes. India Jan 2013 to Dec 2019 (84 months): the top-four sleeve compounded +15.3% against +55.0% for all twelve sectors equal weight (Nifty 500 +107.1%); mean monthly excess -0.36% (90% interval -0.85% to +0.12%); beat all sectors in 1 of 7 years. US Jan 2018 to Dec 2023 (72 months): top four -3.3% against +58.4% for all nine sector ETFs (SPY +73.3%); mean excess -0.72% (interval -1.25% to -0.19%, so significantly worse than the average sector); 1 of 6 years. Reported only: India Jan 2020 to Oct 2025 +155.4% against +157.5% (3 of 6 years); US Jan 2024 to Oct 2026 +3.0% against +40.3% (0 of 3). A bug check run after the registered run, not a test and not judged: in the US window the nine sectors ranked by the score alone (no gate) gave the top four +0.66% a month, the bottom four +0.67% and all nine +0.75%, so the ranking has no edge there either and the gate's extra weakness is real, not a coding slip. Sector indices are not tradable and no costs were charged. Files: data/replay/c134-sectors.json, docs/replay/C134-REPORT.md",
+    "file": "data/replay/c134-sectors.json"
+   }
   },
   {
    "id": "C-135-r1",
@@ -1255,7 +1265,12 @@
    "registeredAt": "2026-11-01T06:18:37.416Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-01T06:28:31.821Z",
+    "summary": "Run 1 Nov 2026 (manifest C-135-r1): FAILS as registered (both markets must pass): India passes all four conditions, the US misses one. India Jan 2011 to Dec 2019 (73 months; the first list with 200 names was May 2011): stocks passing the template beat those failing by +1.19% a month (90% interval +0.51% to +1.87%), in 8 of 9 years; compounded after costs pass +25.5%, fail -48.3%, whole 500 -30.3% (levels are low because every name is charged a full round-trip cost every month, which overstates cost; the registered comparison is the difference). US Jan 2018 to Dec 2023 (69 months, survivor-biased): +0.24% a month (interval -0.35% to +0.89%), 4 of 6 years; pass +19.7% against fail -1.5%: misses the interval. Reported only: India Jan 2020 to Oct 2025 +0.82% (+0.22% to +1.43%), 5 of 6 years; US Jan 2024 to Oct 2026 +0.51% (-0.44% to +1.45%). Reading: in India the template separates stronger from weaker stocks, the first clear India result among the desk's rules, but it is a stock-selection effect on the same data C-118 to C-129 used, not a tested trading rule: whether entries on passing stocks pay is what C-118(b) and C-126 already answered (no edge). Files: data/replay/c135-template.json, docs/replay/C135-REPORT.md",
+    "file": "data/replay/c135-template.json"
+   }
   },
   {
    "id": "C-136-r1",
@@ -1281,7 +1296,12 @@
    "registeredAt": "2026-11-01T06:18:53.617Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-01T06:28:32.064Z",
+    "summary": "Run 1 Nov 2026 (manifest C-136-r1): FAILS on two of four conditions, so nothing changes. BSE 500 trend light (volume field usable: zero on 0.0% of sessions, so the distribution cap was kept; no breadth), Jan 2006 to Dec 2009 (48 months, includes the 2008 bear market): Green months averaged +3.31% the next month against +0.21% for the others (difference +3.10%, 90% interval -2.22% to +7.17%); Green beat the others in 0 of the 3 years counted (2006, 2007 and 2009; 2008 had only one Green month and was not counted). Inside each year the other months did as well or better, so the large gap comes from Green months sitting in the rising years and the other months in the 2008 fall, not from a within-year edge. The point estimate is large and the right sign, but 48 months through one crash cannot confirm it (smallest detectable difference about 4.1% a month). The Red state had only 4 months. Sector ranking and trend template could not be tested before 2010: no sector index series or stock prices are stored. Files: data/replay/c133-light.json, docs/replay/C133-REPORT.md",
+    "file": "data/replay/c133-light.json"
+   }
   }
  ]
 }

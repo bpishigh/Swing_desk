@@ -8,13 +8,13 @@ One page that lists every test we have run on the Swing Desk and Portfolio Manag
 - **The swing setups show no edge.** Changing their stop limits (C-126) or limiting them to strong-momentum stocks (C-127) did not help.
 - **Momentum picking is the only thing with a small edge**, and only against its own list of stocks, not against the index. India: about +0.5% a month more than that list, but the range of doubt just touches zero. The US result is larger but flattered by survivor bias.
 - **India 2021 to 2025 looks good in several tests.** It is one strong market, and not a judged period.
-- **The original desk rules (sector ranking, stop widening, room rule, market light) were never backtested.** They came from design.
+- **The market light and the sector ranking have now been tested on their own, and neither shows an edge (C-133, C-134, C-136).** Green months did not come before better index returns than other months in India or the US, nor in the 2006-2009 window; the top-four sectors did worse than the average sector in both markets. The stop widening and room rule (C-125, C-126) also had no support. The trend template (C-135) is the one original rule with a clear result: in India, stocks passing it beat those failing it by about 1.2% a month, in 8 of 9 years, but the US did not confirm it and it is a stock-picking effect, not a tested way to trade.
 - **Fund tests**: the fund score works as a warning and a cost filter, not as a buy signal.
 - **The momentum factor looks positive in direction but is unconfirmed (C-129).** A sleeve built to NSE's Nifty200 Momentum 30 outline made +213% against the Nifty 200's +129% in India 2011-2019 (13.8% a year against 9.8%), and +182% against +102% in 2021-25 (reported only). It still failed its own rule: the monthly edge (+0.32%) was too noisy to confirm, and it beat the index in only 4 of 9 years. 2017 carries the result: without it the lead is about 1.8 points a year, not 3.9. Trading costs take about 0.73% a year, and tax is not counted. The test was too small to detect an edge of this size (it could only see 0.46% a month or more). Compared with NSE's own index series, it tracks well (monthly correlation 0.915, target 0.9), so it is a fair copy of the strategy with a mid-cap tilt (traded value stands in for market size). NSE's series made more over 2011-2019 (+318% against our +213%), but its pre-2020 history is NSE's own back-calculation and not a live record.
-- **The rules running on the desk today are in a weaker position than momentum.** The setups, the stop caps and the room test have no edge in any judged test, and the market light and sector ranking were never tested. They still scan, give signals and run in paper tests. Momentum has weak positive evidence. Neither is proven, so owner's direction on 1 Nov is to run both and judge both the same way (see section 5).
+- **The rules running on the desk today are in a weaker position than momentum.** The setups, the stop caps and the room test have no edge in any judged test, and the market light and sector ranking, tested on their own on 1 Nov 2026, showed none either. They still scan, give signals and run in paper tests. Momentum has weak positive evidence. Neither is proven, so owner's direction on 1 Nov is to run both and judge both the same way (see section 5).
 - **Momentum has had a weak two years.** NSE's Nifty200 Momentum 30 index is down 17.2% over two years against 3.8% for the Nifty 500, and 24% below its Sep 2024 peak. Since Jan 2021 it is +116% (14.4% a year) against +94% (12.2% a year), about 2 points a year, price only. Several momentum ETFs have fallen significantly over the same stretch. The evidence is best described as weak and mixed.
 - **For holding the factor, an index fund beats self-running it.** The direct plan of Kotak's Nifty 200 Momentum 30 fund charges 0.20% (base) with tracking error 0.20%; our sleeve costs about 0.73% a year in trading, deviates from the index by about 4 points a year, and passes short-term tax on. The sleeve is a research tool and a paper book, not a way to hold the factor.
-- **What is still open**: India before 2010, the market light on its own, and forward paper trading on new data.
+- **What is still open**: the US without survivor bias, India's sector ranking and trend template before 2010 (no data stored), and forward paper trading on new data.
 
 ## Plain words
 
@@ -150,7 +150,9 @@ This is the plain-words reading of every result above, part by part, for the des
 |---|---|---|
 | Swing setups (the daily "Ready" list) | No edge in any judged test: C-118(b), C-119(b), C-126, C-127. Only 3-5% of trades pass the gates, and the trades the gates removed did no worse (C-125) | Fairly sure there is no edge. Small samples, but they all point the same way |
 | Stop-width cap and 3R room test | Nothing supports them (C-125, C-126). Nothing contradicts them strongly either | Low. They were design choices and still are |
-| Market light, sector ranking, trend template | Never tested on their own. Every replay fixed the light | Unknown |
+| Market light | No predictive value found. Green months did not precede better index returns: India 2013-2019 Green +0.89% next month against +1.04% for others, US 2018-2023 +0.15% against +1.31%, BSE 500 2006-2009 not significant (C-133, C-136) | Fairly sure it has no measurable edge as a predictor of the next month. The test could only see a large effect, so it may still help with risk in ways not measured |
+| Sector ranking | The top four sectors did worse than the average sector in India 2013-2019 (+15% against +55%) and the US 2018-2023 (-3% against +58%) (C-134) | Fairly sure. The US result is significantly negative |
+| Trend template | Clear in India: passing stocks beat failing ones by +1.19% a month, 8 of 9 years. Not confirmed in the US (+0.24%, interval touches zero) (C-135) | Moderate in India, low in the US. A stock-picking effect, not a trading rule |
 | Live exits (give-back and trailing stops) | They agree with the replay's exits and are better on valid trades (C-68) | Moderate |
 | Legacy Keep / Exit | Separates stocks only modestly: Exit median 60-session excess -3.0 against -1.45 for Keep (C-46) | Moderate. Useful as a warning |
 | Momentum picking (monthly, top tenth of liquid names) | India about +0.5% a month over its own list, but the range of doubt touches zero. US larger but survivor-biased. Holding longer did not help (C-121). A weekly Clenow-style version lost to the index (C-128) | Low. Small, unconfirmed |
@@ -193,10 +195,14 @@ This is the plain-words reading of every result above, part by part, for the des
 - Earnings run-up forward test (C-61), momentum-in-setups forward test (C-66), US paper book (C-53).
 
 **Not yet tested**
-- India before 2010, including the 2008 bear market.
-- The market light on its own, and the sector ranking (C-1, C-2).
-- The results-date rule in the replays (it was off).
+- Sector ranking and trend template before 2010, including the 2008 bear market: no sector index series or stock prices are stored for those years (the market light was tested for 2006-2009 on the BSE 500, C-136). It would need a separate data job.
 - Other kinds of idea, such as value or quality screens: none found in the change log, but check before running one.
-- The US without survivor bias (forward data only).
+- The US without survivor bias (forward data only; no free source of delisted tickers has been found).
+
+**Closed on 1 Nov 2026**
+- The market light on its own: C-133 (India, US) and C-136 (India 2006-2009). No edge shown.
+- The sector ranking on its own: C-134. No edge shown; worse than the average sector.
+- The trend template on its own: C-135. Clear in India, not confirmed in the US.
+- The results-date rule: already tested as a gate in C-63 (India, Jan 2021 to Sep 2026, not supported as a return filter, no case to change it). It is not re-run: that data is spent, and the US has no history of past results dates.
 
 Note: earnings-driven stock picking is **not** an untested idea. It was tested in C-59 to C-63.
