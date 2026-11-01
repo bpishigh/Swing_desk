@@ -176,6 +176,12 @@ This is the plain-words reading of every result above, part by part, for the des
 - Setups do not place live orders on their own.
 - C-53 (US top-10 paper book) and C-66 (momentum inside the desk's setup shapes, India) keep running to their pre-registered read.
 
+**Decided by the owner on the multi-stream build brief (1 Nov 2026, C-137)**
+- The brief is a proposal. The live desk rules stand: setups, stop cap, room test, sector gate and the light's sizing and entry rules, and the sized order shortlist and nightly order message.
+- The sector gate stays in the strategies running now; each new stream decides it by a registered check.
+- The main benchmark stays the plain index; the momentum fund is shown beside it.
+- The results date becomes a flag instead of a gate: approved, timing open (it changes the official stream that C-53 and C-66 read).
+
 ---
 
 ## 6. Where this leaves us
