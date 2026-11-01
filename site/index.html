@@ -70,6 +70,7 @@ nav button:focus-visible, th button:focus-visible, .chip-btn:focus-visible { out
 .notesrow td { border-bottom: 1px solid var(--line); padding-top: 0; white-space: normal; overflow-wrap: anywhere; }
 .wrapnote { min-width: 300px; max-width: 460px; white-space: normal; overflow-wrap: anywhere; }
 .tablewrap { overflow-x: auto; margin-inline: -4px; padding-inline: 4px; }
+@media (max-width: 640px) { .fundall th:nth-child(1), .fundall td:nth-child(1), .fundall th:nth-child(5), .fundall td:nth-child(5), .fundall th:nth-child(4), .fundall td:nth-child(4), .fundall th:nth-child(7), .fundall td:nth-child(7), .fundall th:nth-child(8), .fundall td:nth-child(8), .fundall th:nth-child(9), .fundall td:nth-child(9) { display: none !important; } .fundall th, .fundall td { padding-inline: 8px; } }
 @media (max-width: 640px) { .fundtbl th:nth-child(3), .fundtbl td:nth-child(3), .fundtbl th:nth-child(n+5):nth-child(-n+7), .fundtbl td:nth-child(n+5):nth-child(-n+7), .fundtbl th:nth-child(9), .fundtbl td:nth-child(9) { display: none; } .fundtbl th, .fundtbl td { padding-inline: 8px; } .fundtbl td:nth-child(2) { min-width: 120px; } }
 table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 th, td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -207,9 +208,9 @@ const pctVs = (c, s) => (typeof c === 'number' && typeof s === 'number' && s ? (
 const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST' : '–');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
 let D = null; let tab = 'today';
-const GROUPS = { today: ['today', 'market'], scan: ['scan'], paper: ['paper'], portfolio: ['portfolio'], funds: ['funds'], ref: ['rules', 'howto', 'docs'] };
-const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
-const lastIn = { ref: 'rules', today: 'today' };
+const GROUPS = { today: ['today', 'market'], scan: ['scan'], paper: ['paper'], portfolio: ['portfolio'], funds: ['funds', 'fundsall'], ref: ['rules', 'howto', 'docs'] };
+const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], funds: [['funds', 'By category'], ['fundsall', 'All funds vs index']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
+const lastIn = { ref: 'rules', today: 'today', funds: 'funds' };
 const groupOf = (t) => Object.keys(GROUPS).find((g) => GROUPS[g].includes(t));
 const subNav = (t) => { const g = groupOf(t); if (!SUBS[g]) return ''; return `<div class="subnav chips" role="group" aria-label="Section pages">${SUBS[g].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${t === k}">${l}</button>`).join('')}</div>`; };
 const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
@@ -602,6 +603,38 @@ function viewFunds() {
   </tbody></table></div>` : '<div class="empty">Nothing ranked in this group yet.</div>'}
   <p class="note" style="margin:20px 0 0">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a fund for its details, or a column heading to sort. Cost (expense ratio, from AMFI) is shown but not part of the score. Fund facts come from the fund pages and carry no weight in any score. Past returns are not a forecast.</p></section></div>`;
 }
+// All funds in one table: score, returns, and the gap to the index return over the same period (equity and hybrid mutual funds).
+let fundAllCat = '';
+sortState.fundall = { key: 's', dir: -1 };
+const FUND_BENCH = { 'Large Cap': 'Nifty 50', 'Mid Cap': 'Nifty Midcap 150', 'Small Cap': 'Nifty Smallcap 250', 'Thematic · banking and financial': 'Nifty Bank', 'Thematic · pharma and healthcare': 'Nifty Healthcare' };
+const BROAD_BENCH = 'Nifty 100', BROAD_CATS = ['Large & Mid Cap', 'Flexi Cap', 'Multi Cap', 'ELSS', 'Focused', 'Value', 'Dividend Yield', 'Thematic · business cycle', 'Thematic · consumption', 'Thematic · infrastructure', 'Thematic · ESG', 'Thematic · quant and factor'];
+function viewFundsAll() {
+  if (FUNDS === null) { fetch('data/funds.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : false)).then((d) => { FUNDS = d || false; if (tab === 'fundsall') render(); }).catch(() => { FUNDS = false; if (tab === 'fundsall') render(); }); return '<div class="empty">Loading…</div>'; }
+  if (!FUNDS) return '<section class="card"><h2>All funds</h2><div class="empty" style="margin-top:12px">No fund scores yet.</div></section>';
+  const med = (a) => { const v = a.filter((x) => typeof x === 'number' && isFinite(x)).sort((x, y) => x - y); return v.length ? (v.length % 2 ? v[(v.length - 1) / 2] : (v[v.length / 2 - 1] + v[v.length / 2]) / 2) : null; };
+  const idxFunds = FUNDS.funds.filter((f) => f.g === 'idx' && f.rk), bench = {};
+  for (const nm of new Set([...Object.values(FUND_BENCH), BROAD_BENCH])) { const g = idxFunds.filter((f) => f.c === nm); bench[nm] = g.length ? { n: nm, k: g.length, r1: med(g.map((f) => f.r1)), r3: med(g.map((f) => f.r3)), r5: med(g.map((f) => f.r5)) } : null; }
+  const benchOf = (c) => bench[FUND_BENCH[c] ?? (BROAD_CATS.includes(c) ? BROAD_BENCH : '')] ?? null;
+  const all = FUNDS.funds.filter((f) => (f.g || 'mf') === 'mf' && f.rk);
+  const cats = [...new Set(all.map((f) => f.c))].sort();
+  if (fundAllCat && !cats.includes(fundAllCat)) fundAllCat = '';
+  const diff = (a, b) => (typeof a === 'number' && typeof b === 'number' ? a - b : null);
+  const rows = all.filter((f) => !fundAllCat || f.c === fundAllCat).map((f) => { const b = benchOf(f.c); return { ...f, bn: b ? b.n : null, x1: diff(f.r1, b?.r1), x3: diff(f.r3, b?.r3), x5: diff(f.r5, b?.r5), b3: b?.r3 ?? null }; });
+  const list = sortRows(rows, 'fundall');
+  const clean = (n) => esc(n.replace(/ - Direct Plan - Growth( Option)?| - Direct - Growth| - Growth - Direct Plan| - Direct Plan/i, ''));
+  const band = (f) => `<span class="chip ${f.rp ? 'bad' : f.b === 'Strong' ? 'ok' : f.b === 'Weak' ? 'warn' : ''}">${f.rp ? 'Replace' : f.b === 'Strong' ? 'Strong' : f.b === 'Weak' ? 'Weak' : 'Average'}</span>`;
+  const withIdx = rows.filter((r) => r.x3 !== null), beat = withIdx.filter((r) => r.x3 > 0).length;
+  const bl = [...new Set(rows.map((r) => r.bn).filter(Boolean))].map((n) => { const b = bench[n]; return `${esc(n)} ${b ? sgn(b.r3, 1, '%') + ' a year over 3 years' : ''}`; });
+  return `<div class="stack"><section class="card"><p class="eyebrow">All funds · ${esc(FUNDS.version)} · refreshed weekly, last ${esc(FUNDS.asOf)}</p>
+  <h2 class="big" style="font-size:34px;margin:0 0 12px">${rows.length} mutual funds, ranked and set against their index.</h2>
+  <p class="note" style="max-width:760px">Every ranked Indian mutual fund in one list. The score is the fund's standing inside its own category (0 to 100), so compare scores within a category, not across them. The gap is the fund's return minus the index's return over the same period, in percentage points a year.</p>${withIdx.length ? `<p class="note" style="max-width:760px">${beat} of the ${withIdx.length} funds that have an index are ahead of it over 3 years. Read that with care: funds that were closed or merged are not in the list, which flatters the rest, and Nifty 100 is a loose match for flexi, multi and ELSS funds.</p>` : ''}
+  <div style="margin-top:24px"><label class="lbl" for="facat" style="display:block;margin-bottom:8px">Category</label><select id="facat" class="sel" data-facat><option value="">All categories (${all.length})</option>${cats.map((c) => `<option value="${esc(c)}"${fundAllCat === c ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
+  <details class="fold"><summary>Which index, and how reliable is the gap</summary><div class="note" style="margin:10px 0 0;max-width:760px"><p style="margin:0 0 8px">The index return is the middle (median) return of the index funds on that index in this list, so it is what an investor would have earned through a plain index fund, after its costs. Large Cap uses Nifty 50, Mid Cap Nifty Midcap 150, Small Cap Nifty Smallcap 250, banking and pharma themes their sector index. Large and Mid Cap, Flexi Cap, Multi Cap, ELSS, Focused, Value and the other themes use Nifty 100 as a broad proxy, which is not a perfect match for funds that hold mid and small caps. Hybrid and balanced funds have no index here, so they show a dash. A gap over a few years can come from one good stretch; it is not a forecast.</p><p style="margin:0">${bl.join(' · ')}</p></div></details></section>
+  <section class="card"><div class="tablewrap"><table class="fundall"><thead><tr><th class="num">#</th>${th('Fund', 'n', 'fundall')}${th('Score', 's', 'fundall', 1)}${th('1Y %', 'r1', 'fundall', 1)}${th('3Y %', 'r3', 'fundall', 1)}${th('3Y gap', 'x3', 'fundall', 1)}${th('5Y %', 'r5', 'fundall', 1)}${th('5Y gap', 'x5', 'fundall', 1)}<th>Index</th></tr></thead><tbody>
+  ${list.map((f, i) => `<tr><td class="num">${i + 1}</td><td>${clean(f.n)}<div class="note" style="margin:2px 0 0">${esc(f.c)} · #${f.rk} of ${f.p} ${band(f)}</div></td><td class="num">${fmt(f.s, 1)}</td><td class="num">${sgn(f.r1, 1)}</td><td class="num">${sgn(f.r3, 1)}</td><td class="num">${f.x3 === null ? '–' : sgn(f.x3, 1)}</td><td class="num">${f.r5 === null ? '–' : sgn(f.r5, 1)}</td><td class="num">${f.x5 === null ? '–' : sgn(f.x5, 1)}</td><td class="note">${f.bn ? esc(f.bn) + ' ' + fmt(f.b3, 1) + '%' : '–'}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="note" style="margin:20px 0 0">${list.length} funds shown. Click a column heading to sort. Funds ranked in other groups (debt, international, index funds, US ETFs) stay on the By category page. Returns are in percent a year, direct plans after costs.</p></section></div>`;
+}
 const CHARTS = {}; let chartRange = 130;
 const chartP = (mk) => (CHARTS[mk] ??= fetch(`data/charts-${mk}.json`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null));
 function chartSvg(d, range) {
@@ -713,14 +746,14 @@ function tidyLong() {   // long explanatory lines show two lines and a "more" li
 function render() {
   if (!D) return;
   SPARKS.length = 0; const g = groupOf(tab); if (g && lastIn[g] !== undefined) lastIn[g] = tab;
-  $('#main').innerHTML = subNav(tab) + { today: viewToday, market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
+  $('#main').innerHTML = subNav(tab) + { today: viewToday, market: viewMarket, funds: viewFunds, fundsall: viewFundsAll, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + g)));
   if (tab === 'scan') hydrateCharts();
   drawSparks(); tidyLong(); applyRq();
   $('#foot').innerHTML = [['log', 'Engine Rules change log'], ['store', 'Data store'], ['health', 'Data health']].map(([k, l]) => `<button data-foot="${k}" ${tab === k ? 'aria-current="page"' : ''}>${l}</button>`).join('');
 }
 const toggleRow = (r) => { const k = r.dataset.open; scanOpen.has(k) ? scanOpen.delete(k) : scanOpen.add(k); render(); };
-document.addEventListener('change', (e) => { if (e.target.dataset && e.target.dataset.fcsel !== undefined) { fundCat[fundGroup] = e.target.value; render(); } });
+document.addEventListener('change', (e) => { if (e.target.dataset && e.target.dataset.fcsel !== undefined) { fundCat[fundGroup] = e.target.value; render(); } if (e.target.dataset && e.target.dataset.facat !== undefined) { fundAllCat = e.target.value; render(); } });
 let rq = '';
 function applyRq() { const q = rq.trim().toLowerCase(); document.querySelectorAll('details.rsec').forEach((d) => { const hit = !q || d.textContent.toLowerCase().includes(q); d.style.display = hit ? '' : 'none'; if (q && hit) d.open = true; }); }
 document.addEventListener('input', (e) => { if (e.target.id === 'rsearch') { rq = e.target.value; applyRq(); } });
@@ -762,7 +795,7 @@ fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((
   D = d;
   const behind = [['India', d.india.date, d.expected.india], ['US', d.us.date, d.expected.us]].filter(([, got, exp]) => !(got >= exp));
   $('#fresh').innerHTML = behind.length ? behind.map(([n, got, exp]) => `<span class="chip warn">${n} behind: data ${got ?? '–'}, expected ${exp}</span>`).join('') : `<span class="chip ok" title="Last data change ${esc(ist(d.generatedAt))}. Data comes from the repo's nightly jobs.">Data fresh · ${esc(d.india.date.slice(8))} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(d.india.date.slice(5, 7)) - 1]}</span>`;
-  const h = location.hash.slice(1); if (['today', 'market', 'funds', 'health', 'portfolio', 'store', 'scan', 'paper', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
+  const h = location.hash.slice(1); if (['today', 'market', 'funds', 'fundsall', 'health', 'portfolio', 'store', 'scan', 'paper', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>
