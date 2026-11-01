@@ -70,6 +70,7 @@ nav button:focus-visible, th button:focus-visible, .chip-btn:focus-visible { out
 .notesrow td { border-bottom: 1px solid var(--line); padding-top: 0; white-space: normal; overflow-wrap: anywhere; }
 .wrapnote { min-width: 300px; max-width: 460px; white-space: normal; overflow-wrap: anywhere; }
 .tablewrap { overflow-x: auto; margin-inline: -4px; padding-inline: 4px; }
+@media (max-width: 640px) { .fundtbl th:nth-child(3), .fundtbl td:nth-child(3), .fundtbl th:nth-child(n+5):nth-child(-n+7), .fundtbl td:nth-child(n+5):nth-child(-n+7), .fundtbl th:nth-child(9), .fundtbl td:nth-child(9) { display: none; } .fundtbl th, .fundtbl td { padding-inline: 8px; } .fundtbl td:nth-child(2) { min-width: 120px; } }
 table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 th, td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 th { font-size: 13.5px; font-weight: 400; color: var(--muted); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
@@ -596,7 +597,7 @@ function viewFunds() {
   <div style="margin-top:24px"><label class="lbl" for="fcsel" style="display:block;margin-bottom:8px">Category</label><select id="fcsel" class="sel" data-fcsel>${cats.map((c) => `<option value="${esc(c)}"${cur === c ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
   <details class="fold"><summary>How funds are scored</summary><p class="note" style="margin:10px 0 0;max-width:760px">${FUND_INTRO[fundGroup]}</p></details></section>
   <section class="card">
-  ${list.length ? `<div class="tablewrap"><table><thead><tr>${th('#', 'rk', 'fund', 1)}${th('Fund', 'n', 'fund')}${th('1Y %', 'r1', 'fund', 1)}${th('3Y %', 'r3', 'fund', 1)}${th('5Y %', 'r5', 'fund', 1)}${th('Cost %/yr', 't', 'fund', 1)}${th('Beat median', 'k', 'fund', 1)}${th('Score', 's', 'fund', 1)}<th></th></tr></thead><tbody>
+  ${list.length ? `<div class="tablewrap"><table class="fundtbl"><thead><tr>${th('#', 'rk', 'fund', 1)}${th('Fund', 'n', 'fund')}${th('1Y %', 'r1', 'fund', 1)}${th('3Y %', 'r3', 'fund', 1)}${th('5Y %', 'r5', 'fund', 1)}${th('Cost %/yr', 't', 'fund', 1)}${th('Beat median', 'k', 'fund', 1)}${th('Score', 's', 'fund', 1)}<th></th></tr></thead><tbody>
   ${list.map((f) => `<tr data-open="${esc(key(f))}" tabindex="0" style="cursor:pointer"><td class="num">${f.rk}</td><td>${scanOpen.has(key(f)) ? '▾ ' : '▸ '}${clean(f.n)}</td><td class="num">${sgn(f.r1, 1)}</td><td class="num">${sgn(f.r3, 1)}</td><td class="num">${f.r5 === null ? '–' : sgn(f.r5, 1)}</td><td class="num">${f.t == null ? '–' : fmt(f.t, 2)}</td><td class="num">${f.k === null ? '–' : fmt(f.k, 0) + '%'}</td><td class="num">${fmt(f.s, 1)}</td><td>${band(f)}</td></tr>${scanOpen.has(key(f)) ? `<tr><td colspan="9">${card(f)}</td></tr>` : ''}`).join('')}
   </tbody></table></div>` : '<div class="empty">Nothing ranked in this group yet.</div>'}
   <p class="note" style="margin:20px 0 0">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a fund for its details, or a column heading to sort. Cost (expense ratio, from AMFI) is shown but not part of the score. Fund facts come from the fund pages and carry no weight in any score. Past returns are not a forecast.</p></section></div>`;
@@ -670,7 +671,7 @@ function docView(which) {
   if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === which) render(); }).catch(() => { DOCS = { docs: [] }; if (tab === which) render(); }); return '<div class="empty">Loading…</div>'; }
   const cur = DOCS.docs.find((d) => d.id === 'rules');
   if (!cur) return '<div class="empty">The rules were not published with this build.</div>';
-  const sp = splitRules(cur.md), src = which === 'log' ? sp.log : sp.rules;
+  const sp = splitRules(cur.md), src = (which === 'log' ? sp.log : sp.rules).replace(/^(?:\s*<!--[\s\S]*?-->\s*)?# .*\n+(?:.*@Owner.*\n+)?/, '');
   const ver = (cur.md.match(/Rules version:\*\*\s*(R-[\d.]+)/) || [])[1] || '', rev = (cur.md.match(/doc rev (\d+)/) || [])[1] || '';
   const heads = [...src.matchAll(/^## (.+)$/gm)].map((m) => m[1]);
   const toc = heads.map((h, i) => `<button class="chip-btn" style="display:block;margin:2px 0;text-align:left" data-jump="rules-h${i}">${esc(h)}</button>`).join('');
