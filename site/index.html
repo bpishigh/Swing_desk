@@ -112,23 +112,78 @@ details.why li { margin: 3px 0; font-size: 12.5px; line-height: 1.45; }
 .ttl { font: 400 22px/1.3 var(--serif); letter-spacing: -.01em; margin: 0; } .big { font: 400 32px/1.2 var(--serif); letter-spacing: -.01em; margin: 0; }
 .lnk { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; }
 .rsec{border-top:1px solid var(--line);padding:2px 0}.rsec>summary{cursor:pointer;list-style:none;padding:12px 0;font-size:12px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.rsec>summary::-webkit-details-marker{display:none}.rsec>summary::before{content:'▸';display:inline-block;width:18px;transition:transform .15s}.rsec[open]>summary::before{transform:rotate(90deg)}.rsec[open]>summary{color:var(--ink)}
+/* v2: more room everywhere, then the Today page */
+.wrap { max-width: 1120px; padding-block: 28px 96px; }
+header { align-items: center; padding-bottom: 20px; gap: 12px 24px; }
+nav { gap: 40px; margin-bottom: 40px; }
+nav button { padding: 14px 2px; font-weight: 500; }
+nav button[aria-selected="true"] { font-weight: 600; }
+.card { padding: 32px; }
+.card h2 { margin: 0 0 10px; }
+.card h3 { margin: 32px 0 14px; }
+.grid2 { gap: 32px; }
+.kv { gap: 32px 28px; margin-top: 28px; }
+.kv div { gap: 6px; }
+th, td { padding: 14px 20px 14px 0; }
+.rail { margin: 28px 0 36px; gap: 8px 44px; }
+details.fold { margin-top: 28px; }
+details.fold > summary { padding: 8px 0; }
+.chips { gap: 10px; }
+.chip-btn { padding: 8px 18px; }
+.row { gap: 12px 18px; }
+.note { line-height: 1.6; }
+.note.nm { margin-top: 4px; }
+.empty { padding: 40px 24px; }
+.stack { display: flex; flex-direction: column; gap: 32px; }
+.subnav { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 32px; }
+.hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 40px 56px; align-items: center; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+.hero .big { font-size: 40px; line-height: 1.12; margin: 0 0 18px; }
+.hero p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.6; max-width: 520px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 20px; }
+.tile { border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.tile.red { background: var(--red-bg); } .tile.yellow { background: var(--yellow-bg); } .tile.green { background: var(--green-bg); }
+.tile .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tile .lab { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.tile .badge { background: var(--bg); }
+.tile .px { font: 400 30px/1.2 var(--serif); color: var(--ink); }
+.tile .tr { font-size: 14px; font-weight: 500; }
+.tile .fine { font-size: 13px; color: var(--ink); opacity: .8; line-height: 1.5; }
+.tile svg { display: block; width: 100%; height: 56px; margin: 4px 0; }
+.since { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; padding: 22px 32px; }
+.since > span { font-size: 14px; }
+.cta { display: inline-block; font: inherit; font-weight: 600; font-size: 15px; padding: 13px 22px; border-radius: 10px; border: 1px solid var(--line); background: none; color: var(--ink); cursor: pointer; }
+.cta.main { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.lrow { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px 24px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.lrow:first-of-type { border-top: 0; }
+.head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 18px; }
+.head h2 { margin: 0; }
+.evnote { display: flex; gap: 14px; align-items: flex-start; margin-top: 24px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.evnote .chip { flex: none; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 40px; }
+.lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  .card { padding: 22px; } .since { padding: 20px 22px; }
+  nav { gap: 22px; margin-bottom: 28px; } nav button { font-size: 14px; }
+  .hero .big { font-size: 30px; } .tiles { gap: 14px; } .tile { padding: 18px; }
+  .grid2 { gap: 20px; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div><h1>Repo Desk</h1><div class="sub" id="gen">Loading…</div></div>
-    <div class="row"><span class="row" id="fresh"></span><button class="chip-btn" id="themebtn" type="button" aria-label="Colour theme">Auto</button></div>
+    <h1>Repo Desk</h1>
+    <div class="row"><span class="row" id="fresh">Loading…</span><button class="chip-btn" id="themebtn" type="button" aria-label="Colour theme">Auto</button></div>
   </header>
   <nav role="tablist" aria-label="Sections">
-    <button role="tab" id="t-market" aria-selected="true">Market</button>
-    <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
-    <button role="tab" id="t-funds" aria-selected="false">Funds</button>
+    <button role="tab" id="t-today" aria-selected="true">Today</button>
     <button role="tab" id="t-scan" aria-selected="false">Scans</button>
-    <button role="tab" id="t-paper" aria-selected="false">Paper test</button>
-    <button role="tab" id="t-rules" aria-selected="false">Engine Rules</button>
-    <button role="tab" id="t-howto" aria-selected="false">How to use</button>
-    <button role="tab" id="t-docs" aria-selected="false">Docs</button>
+    <button role="tab" id="t-books" aria-selected="false">Books</button>
+    <button role="tab" id="t-funds" aria-selected="false">Funds</button>
+    <button role="tab" id="t-ref" aria-selected="false">Reference</button>
   </nav>
   <main id="main"></main>
   <footer id="foot"></footer>
@@ -142,7 +197,12 @@ const sgn = (x, d = 2, suf = '') => (typeof x === 'number' && isFinite(x) ? `<sp
 const pctVs = (c, s) => (typeof c === 'number' && typeof s === 'number' && s ? (c / s - 1) * 100 : null);
 const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST' : '–');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
-let D = null; let tab = 'market';
+let D = null; let tab = 'today';
+const GROUPS = { today: ['today', 'market'], scan: ['scan'], books: ['paper', 'portfolio'], funds: ['funds'], ref: ['rules', 'howto', 'docs'] };
+const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], books: [['paper', 'Paper test'], ['portfolio', 'My portfolio']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
+const lastIn = { books: 'paper', ref: 'rules', today: 'today' };
+const groupOf = (t) => Object.keys(GROUPS).find((g) => GROUPS[g].includes(t));
+const subNav = (t) => { const g = groupOf(t); if (!SUBS[g]) return ''; return `<div class="subnav chips" role="group" aria-label="Section pages">${SUBS[g].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${t === k}">${l}</button>`).join('')}</div>`; };
 const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
 let screenSector = 'all'; 
 function spark(rows) {
@@ -216,6 +276,40 @@ function holdingsCard() {
     <div class="grid2" style="margin-top:14px"><div><h3>Changes</h3>${chg}</div><div><h3>Results due</h3>${due}</div></div>
     <div class="note" style="margin-top:10px">Information only; no rule changes. Full detail on the Portfolio tab.</div></section>`;
 }
+function miniSpark(rows) {
+  const p = (rows || []).filter((r) => typeof r.close === 'number'); if (p.length < 3) return '';
+  const lo = Math.min(...p.map((r) => r.close)), hi = Math.max(...p.map((r) => r.close)), sp = hi - lo || 1;
+  const pts = p.map((r, i) => `${((i / (p.length - 1)) * 120).toFixed(1)},${(6 + (1 - (r.close - lo) / sp) * 44).toFixed(1)}`).join(' ');
+  return `<svg viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>`;
+}
+function viewToday() {
+  const mk = [['India', D.india, D.scanIndia, D.paperIndia, 'in', 'india'], ['US', D.us, D.scan, D.paper, 'us', 'us']];
+  const sess = (m) => { const t = m.timeline || [], n0 = m.regime?.name; let n = 0; for (let i = t.length - 1; i >= 0 && t[i].regime === n0; i--) n++; return n; };
+  const ready = mk.reduce((n, x) => n + (x[2]?.ready.length || 0), 0), watch = mk.map((x) => [x[0], x[2]?.watch.length || 0]);
+  const pc = (x) => (typeof x === 'number' && isFinite(x) ? (x > 0 ? '+' : '−') + fmt(Math.abs(x), 1) + '%' : '–');
+  const lights = mk.filter((x) => x[1].regime).map((x) => `${x[0]} is ${cap(x[1].regime.name)}`).join(', ');
+  const ind = mk[0][1], run = ind.regime ? sess(ind) : 0, runTxt = run > 1 ? ` India has been ${cap(ind.regime.name)} for ${run} sessions${run === (ind.timeline || []).length ? ' tracked' : ''}.` : '';
+  const tile = ([n, m, , , k]) => { const r = m.regime; if (!r) return `<div class="tile"><div class="lab">${n}</div><div class="fine">No regime yet.</div></div>`; const L = m.latest || {}, d50 = pctVs(L.close, L.sma50), d200 = pctVs(L.close, L.sma200), dist = (r.distribution || []).length;
+    return `<div class="tile ${r.name}"><div class="top"><span class="lab">${n}</span><span class="badge ${r.name}">${cap(r.name)}</span></div><div class="px">${fmt(L.close, n === 'US' ? 2 : 0)}</div><div class="tr">${pc(d50)} vs 50-day · ${pc(d200)} vs 200-day</div>${miniSpark(m.index)}<div class="fine">Breadth ${r.breadth === null ? '–' : fmt(r.breadth, 1) + '%'} · ${dist} distribution day${dist === 1 ? '' : 's'}</div></div>`; };
+  const changed = mk.filter((x) => { const t = x[1].timeline || []; return t.length > 1 && t[t.length - 1].regime !== t[t.length - 2].regime; });
+  const pend = mk.reduce((n, x) => n + ['official', 'capwaived', 'comparator'].reduce((a, s) => a + (x[3]?.[s]?.pending || 0), 0), 0);
+  const closed = (D.paperIndia?.recent || []).find((p) => typeof p.resultR === 'number');
+  const since = `<span><span class="chip">Lights</span> ${changed.length ? changed.map((x) => `${x[0]} moved to ${cap(x[1].regime.name)}`).join(', ') : 'unchanged since the last scan'}</span><span><span class="chip">Paper</span> ${pend} order${pend === 1 ? '' : 's'} waiting to fill</span>${closed ? `<span><span class="chip">Closed</span> ${esc(closed.sym)}, ${esc(String(closed.exitReason || closed.status).replace('closed · ', ''))}, ${sgn(closed.resultR, 2, 'R')}</span>` : ''}`;
+  const evK = (k) => { const ev = D.evidence; if (!ev) return ''; const edge = ev.rules.filter((r) => /^Edge found/.test(r[k].label)).map((r) => r.rule.toLowerCase()); return edge.length ? `${edge.join(' and ')} ${edge.length > 1 ? 'have' : 'has'} a measured edge in ${k === 'us' ? 'the US' : 'India'}` : `no rule has a measured edge in ${k === 'us' ? 'the US' : 'India'}`; };
+  const readyBody = ready ? mk.filter((x) => x[2]?.ready.length).map((x) => `<div class="lbl" style="margin-top:12px">${x[0]}</div><div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">Trigger</th><th class="num">Stop</th><th>Setup</th></tr></thead><tbody>${x[2].ready.slice(0, 6).map((c) => `<tr><td><b>${esc(c.sym)}</b></td><td class="num">${c.setup ? fmt(c.setup.trigger) : '–'}</td><td class="num">${c.setup ? fmt(c.setup.stop) : '–'}</td><td>${c.setup ? esc(c.setup.id) : '–'}</td></tr>`).join('')}</tbody></table></div>`).join('') : `<div class="empty">Nothing passed every gate tonight.<div class="note" style="margin-top:6px">Closest names are on Watch: ${watch.map(([n, c]) => `${c} ${n}`).join(', ')}.</div></div>`;
+  const streamRows = (pb) => ['capwaived', 'comparator', 'official'].map((s) => { const x = pb?.[s] || {}, lbl = { capwaived: 'Cap waived', comparator: 'Comparator', official: 'Official' }[s]; return `<div class="lrow"><span>${lbl}</span><span class="note">${x.orders ? `${x.closed ?? 0} closed · ${x.open ?? 0} open · ${x.pending ?? 0} pending` : 'no orders yet'}</span><span>${typeof x.meanR === 'number' ? sgn(x.meanR, 2, 'R') : '<span class="note">–</span>'}</span></div>`; }).join('');
+  const lead = (m) => (m.sectors || []).filter((s) => s.rank && s.rank <= 3).sort((a, b) => a.rank - b.rank).map((s) => `<div class="lrow"><span>${s.rank} · ${esc(s.name)}</span><span>${sgn(s.r1m, 1, '% 1M')}</span></div>`).join('');
+  const sectEv = (k) => { const r = D.evidence?.rules.find((x) => /^Sector/.test(x.rule)); return r ? `${k === 'us' ? 'US' : 'India'}: ${esc(r[k].label.toLowerCase())}.` : ''; };
+  return `<div class="stack">
+  <section class="card hero"><div><p class="eyebrow">Tonight · scan of the ${esc(dmy(D.india.date))} close</p><h2 class="big">${ready ? `${ready} Ready name${ready === 1 ? '' : 's'} tonight.` : 'No Ready names tonight.'}</h2><p>${esc(lights)}.${esc(runTxt)} ${watch.map(([n, c]) => `${c} ${n}`).join(' and ')} names on Watch. Paper only, nothing here places an order.</p><div class="ctas"><button class="cta main" data-mkt="in" data-to="scan">See Watch lists</button><button class="cta" data-go="paper">Paper books</button></div></div><div class="tiles">${mk.map(tile).join('')}</div></section>
+  <section class="card since"><span class="eyebrow" style="margin:0">Since the last scan</span>${since}</section>
+  <div class="grid2">
+    <section class="card"><div class="head"><h2>Ready list</h2><span class="note">${mk.map((x) => `${x[0]} ${x[2]?.ready.length ?? 0}`).join(' · ')}</span></div>${readyBody}<div class="evnote"><span class="chip warn">Evidence</span><span>${esc(evK('india').replace(/^./, (c) => c.toUpperCase()))}; ${esc(evK('us'))}. Following the list has not been shown to beat the index.</span></div></section>
+    <section class="card"><div class="head"><h2>Paper books</h2><button class="lnk" data-go="paper">Open</button></div>${mk.filter((x) => x[3]).map((x) => `<div class="lbl" style="margin-top:8px">${x[0]}</div>${streamRows(x[3])}`).join('')}<p class="note" style="margin:20px 0 0">Too early to read. Judged at 300 picks or 12 months. Momentum sleeves are paper only and ${D.momentum?.state === 'running' ? 'running' : 'start after ' + dmy((D.strategies || []).find((s) => s.view === 'ranked_list')?.startAfter)}.</p></section>
+  </div>
+  <section class="card"><div class="head"><h2>Sector leaders</h2><button class="lnk" data-go="market">All sectors</button></div><div class="cols"><div><div class="lbl">India</div>${lead(D.india)}</div><div><div class="lbl">US</div>${lead(D.us)}</div></div><p class="note" style="margin:24px 0 0">${sectEv('india')} ${sectEv('us')}</p></section>
+  </div>`;
+}
 function viewMarket() {
   return `${holdingsCard()}<div class="grid2">${marketCard('India', D.india)}${marketCard('US', D.us)}</div><div class="grid2 wide" style="margin-top:16px">${sectorTable('India', D.india, 'sectIndia')}${sectorTable('US', D.us, 'sectUS')}</div>
   <p class="note">Regime and sector ranking use the Engine Rules code. India distribution days ignore the skip-day flag for now (monthly expiry, half-days, the day after a holiday); that gap is on the scope list.</p>`;
@@ -265,7 +359,7 @@ function viewStoreMain() {
   <p class="note">The Portfolio tab reads your tradebooks inside your browser only; nothing personal is stored in the repo.</p></section>`;
 }
 
-let scanMkt = 'us', scanTab = 'ready'; const scanOpen = new Set();
+let scanMkt = 'in', scanTab = 'ready'; const scanOpen = new Set();
 const INFO = {
  "official": "Follows the live trading rules exactly: enter at the pattern's trigger price, stop at the chart level, and only if the stop-width cap and the 3R-of-room test pass. This is the result you would get trading the desk as written.",
  "capwaived": "Same patterns, triggers and fills as official, but the stop-width cap and room test are not applied: the stop sits at the chart level, never wider than 2.5 ATR (average daily range), and trades with stops wider than 12% are skipped. Shows what those two rules cost or save.",
@@ -375,22 +469,27 @@ function viewPaperSwing() {
   };
   return `<section class="card">${mkChips}<div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="margin:12px 0;padding:10px 12px;border-radius:8px;background:var(--yellow-bg);color:var(--yellow)">${esc(z.notice)}</div><div style="display:flex;flex-wrap:wrap;gap:6px">${chips}</div>${sec('capwaived', 'Capwaived', 'Same patterns and triggers as the official list, but the stop-width cap and room test are not applied: the stop is at most 2.5 ATR below the trigger.')}${sec('comparator', 'Comparator', 'Bought at the next close after a plain signal (a 20-day breakout, or back above the 20 or 50-day average), with the capwaived stop rule.')}<div class="note" style="margin-top:12px">Never sized against your accounts and never counted in your open risk. The official orders are on the Scans tab.</div></section>` + paperBookCard('in');
 }
+const STREAM = { official: 'Official', capwaived: 'Cap waived', comparator: 'Comparator' };
 function paperBookCard(mkt) {
   const pb = mkt === 'us' ? D.paper : D.paperIndia;
-  const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${k}<span class="info" tabindex="0" role="img" aria-label="About the ${k} stream" data-tip="${INFO[k]}">i</span></td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
-  const pr = (p) => { const n = (D.names || {})[p.sym]; return `<tr><td>${esc(p.stream)}</td><td><b class="sym"${n ? ` data-tip="${esc(n)}"` : ''}>${esc(p.sym)}</b></td><td>${esc(p.setup)}</td><td>${esc(p.signalDate)}</td><td>${esc(p.status)}${p.exitReason ? ' · ' + esc(p.exitReason) : ''}</td><td class="num">${fmt(p.trigger)}</td><td class="num">${fmt(p.stop)}</td><td class="num">${p.resultR === null ? '–' : sgn(p.resultR, 2, 'R')}</td></tr>`; };
+  const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${STREAM[k]}<span class="info" tabindex="0" role="img" aria-label="About the ${k} stream" data-tip="${INFO[k]}">i</span></td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
+  const pr = (p) => { const n = (D.names || {})[p.sym]; return `<tr><td>${esc(STREAM[p.stream] || p.stream)}</td><td><b class="sym"${n ? ` data-tip="${esc(n)}"` : ''}>${esc(p.sym)}</b></td><td>${esc(p.setup)}</td><td>${esc(p.signalDate)}</td><td>${esc(p.status)}${p.exitReason ? ' · ' + esc(p.exitReason) : ''}</td><td class="num">${fmt(p.trigger)}</td><td class="num">${fmt(p.stop)}</td><td class="num">${p.resultR === null ? '–' : sgn(p.resultR, 2, 'R')}</td></tr>`; };
   const ptbl = (rows, empty) => rows.length ? `<div class="tablewrap"><table><thead><tr><th>Stream</th><th>Stock</th><th>Setup</th><th>Signal</th><th>Status</th><th class="num">Trigger</th><th class="num">Stop</th><th class="num">Result</th></tr></thead><tbody>${rows.map(pr).join('')}</tbody></table></div>` : `<div class="empty">${empty}</div>`;
-  return pb ? `<section class="card" style="margin-top:14px"><details class="fold" open><summary>Paper book, ${esc(pb.version)} <span class="note">since ${esc(pb.startDate)} · as of ${esc(pb.asOf)}</span></summary>
-  <p class="note">Three chained streams on the scan's top ten, simulated fills, no real orders. Hover the i beside each stream for what it tests. Read at 300 picks or 12 months.</p>
+  const tot = pb ? ['official', 'capwaived', 'comparator'].reduce((a, k) => ({ closed: a.closed + (pb[k]?.closed || 0), open: a.open + (pb[k]?.open || 0) }), { closed: 0, open: 0 }) : { closed: 0, open: 0 };
+  const waiting = (pb?.live || []).filter((x) => x.status === 'pending'), running = (pb?.live || []).filter((x) => x.status !== 'pending');
+  return pb ? `<section class="card" style="margin-top:24px"><details class="fold" open><summary>Paper book, ${esc(pb.version)} <span class="note">since ${esc(pb.startDate)} · as of ${esc(pb.asOf)}</span></summary>
+  <h2 class="ttl" style="margin:20px 0 10px">Too early to read. ${tot.closed} trade${tot.closed === 1 ? '' : 's'} closed, ${tot.open} still running.</h2><p class="note" style="margin:0 0 24px">Three chained streams on the scan's top ten, simulated fills, no real orders. Hover the i beside each stream for what it tests. Read at 300 picks or 12 months.</p>
   <div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Pending</th><th class="num">Open</th><th class="num">Not filled</th><th class="num">Closed</th><th class="num">Mean R</th><th class="num">Win rate</th></tr></thead><tbody>${streams}</tbody></table></div>
-  <h3>Live</h3>${ptbl(pb.live || [], 'No pending or open paper positions.')}<h3>Recently closed</h3>${ptbl(pb.recent || [], 'Nothing closed yet.')}</details></section>` : '';
+  <h3>Waiting to fill <span class="note">(${waiting.length})</span></h3>${ptbl(waiting, 'No orders waiting to fill.')}<h3>Open <span class="note">(${running.length})</span></h3>${ptbl(running, 'No open paper positions.')}<details class="fold"><summary>Recently closed (${(pb.recent || []).length})</summary>${ptbl(pb.recent || [], 'Nothing closed yet.')}</details></details></section>` : '';
 }
 function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
 function evidenceCard() {
   const ev = D.evidence; if (!ev) return '';
   const k = scanMkt === 'us' ? 'us' : 'india';
+  const cls = (l) => (/^Edge found/.test(l) ? 'ok' : /^(Worse|Not confirmed)/.test(l) ? 'bad' : '');
+  const lines = ev.rules.map((r) => `<div class="lrow"><span>${esc(r.rule)}</span><span class="chip ${cls(r[k].label)}">${esc(r[k].label)}</span></div>`).join('');
   const rows = ev.rules.map((r) => { const x = r[k]; return `<tr><td>${esc(r.rule)}</td><td><b>${esc(x.label)}</b><div class="note nm">${esc(x.text)}</div></td><td class="note">${esc(x.ref)}</td></tr>`; }).join('');
-  return `<details class="fold" open><summary>What the tests say about these rules</summary><div class="tablewrap"><table><thead><tr><th>Rule</th><th>What was found</th><th>Test</th></tr></thead><tbody>${rows}</tbody></table></div><p class="note">${esc(ev.footer)} Updated ${esc(ev.asOf)}.</p></details>`;
+  return `<div style="margin-top:36px"><h3 style="margin:0 0 8px">What the tests say about these rules</h3>${lines}<p class="note" style="margin:16px 0 0">${esc(ev.footer)} Updated ${esc(ev.asOf)}.</p><details class="fold"><summary>Details and test IDs</summary><div class="tablewrap"><table><thead><tr><th>Rule</th><th>What was found</th><th>Test</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
 }
 function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
@@ -573,8 +672,9 @@ function tidyLong() {   // long explanatory lines show two lines and a "more" li
 }
 function render() {
   if (!D) return;
-  $('#main').innerHTML = { market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
-  document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + tab)));
+  const g = groupOf(tab); if (g && lastIn[g] !== undefined) lastIn[g] = tab;
+  $('#main').innerHTML = subNav(tab) + { today: viewToday, market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
+  document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + g)));
   if (tab === 'scan') hydrateCharts();
   tidyLong();
   $('#foot').innerHTML = [['log', 'Engine Rules change log'], ['store', 'Data store'], ['health', 'Data health']].map(([k, l]) => `<button data-foot="${k}" ${tab === k ? 'aria-current="page"' : ''}>${l}</button>`).join('');
@@ -585,14 +685,16 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('.sc-why') && !e.target.closest('[data-cr]')) return;
   const row = e.target.closest('tr[data-open]'); if (row) return toggleRow(row);
   const t = e.target.closest('button'); if (!t) return;
-  if (t.id?.startsWith('t-')) { tab = t.id.slice(2); history.replaceState(null, '', '#' + tab); return render(); }
+  if (t.id?.startsWith('t-')) { const g = t.id.slice(2); tab = lastIn[g] || g; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.go) { tab = t.dataset.go; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.mkt) { scanMkt = paperMkt = t.dataset.mkt; tab = t.dataset.to || 'scan'; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : (['name', 'rank', 'rk', 'n'].includes(key) ? 1 : -1); s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; return render(); }
   if (t.dataset.momall) { momAll = !momAll; return render(); }
-  if (t.dataset.sm) { scanMkt = t.dataset.sm; return render(); }
-  if (t.dataset.pm) { paperMkt = t.dataset.pm; return render(); }
+  if (t.dataset.sm) { scanMkt = paperMkt = t.dataset.sm; return render(); }
+  if (t.dataset.pm) { scanMkt = paperMkt = t.dataset.pm; return render(); }
   if (t.dataset.fc) { fundCat[fundGroup] = t.dataset.fc; return render(); }
   if (t.dataset.cr) { chartRange = Number(t.dataset.cr); return render(); }
   if (t.dataset.fg) { fundGroup = t.dataset.fg; return render(); }
@@ -614,10 +716,9 @@ document.addEventListener('click', (e) => {
 })();
 fetch('data/dashboard.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => {
   D = d;
-  $('#gen').textContent = `Last data change ${ist(d.generatedAt)}. Data comes from the repo's nightly jobs.`;
-  const f = (n, got, exp) => `<span class="chip ${got >= exp ? 'ok' : 'warn'}">${n} ${got ?? '–'}${got >= exp ? '' : ' (behind)'}</span>`;
-  $('#fresh').innerHTML = f('India', d.india.date, d.expected.india) + f('US', d.us.date, d.expected.us);
-  const h = location.hash.slice(1); if (['market', 'funds', 'health', 'portfolio', 'store', 'scan', 'paper', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
+  const behind = [['India', d.india.date, d.expected.india], ['US', d.us.date, d.expected.us]].filter(([, got, exp]) => !(got >= exp));
+  $('#fresh').innerHTML = behind.length ? behind.map(([n, got, exp]) => `<span class="chip warn">${n} behind: data ${got ?? '–'}, expected ${exp}</span>`).join('') : `<span class="chip ok" title="Last data change ${esc(ist(d.generatedAt))}. Data comes from the repo's nightly jobs.">Data fresh · ${esc(d.india.date.slice(8))} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(d.india.date.slice(5, 7)) - 1]}</span>`;
+  const h = location.hash.slice(1); if (['today', 'market', 'funds', 'health', 'portfolio', 'store', 'scan', 'paper', 'rules', 'log', 'docs', 'howto'].includes(h)) tab = h;
   render();
 }).catch(() => { $('#gen').textContent = 'Could not load data/dashboard.json'; $('#main').innerHTML = '<div class="empty">The data file did not load.</div>'; });
 </script>
