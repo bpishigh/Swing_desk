@@ -163,10 +163,14 @@ details.fold > summary { padding: 8px 0; }
 .evnote .chip { flex: none; }
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 40px; }
 .lbl { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+@media (max-width: 760px) { .docgrid { grid-template-columns: 1fr !important; gap: 20px !important; } .docgrid > div:first-child { position: static !important; } }
+.sel { font: inherit; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); width: 100%; max-width: 360px; }
+.sel:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.docgrid { gap: 40px; margin-top: 24px; }
 @media (max-width: 640px) {
   .wrap { padding-inline: 16px; }
   .card { padding: 22px; } .since { padding: 20px 22px; }
-  nav { gap: 22px; margin-bottom: 28px; } nav button { font-size: 14px; }
+  nav { flex-wrap: wrap; overflow: visible; gap: 0 28px; margin-bottom: 28px; } nav button { font-size: 14px; padding: 12px 0; }
   .hero .big { font-size: 30px; } .tiles { gap: 14px; } .tile { padding: 18px; }
   .grid2 { gap: 20px; }
 }
@@ -181,7 +185,8 @@ details.fold > summary { padding: 8px 0; }
   <nav role="tablist" aria-label="Sections">
     <button role="tab" id="t-today" aria-selected="true">Today</button>
     <button role="tab" id="t-scan" aria-selected="false">Scans</button>
-    <button role="tab" id="t-books" aria-selected="false">Books</button>
+    <button role="tab" id="t-paper" aria-selected="false">Paper test</button>
+    <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
     <button role="tab" id="t-funds" aria-selected="false">Funds</button>
     <button role="tab" id="t-ref" aria-selected="false">Reference</button>
   </nav>
@@ -198,9 +203,9 @@ const pctVs = (c, s) => (typeof c === 'number' && typeof s === 'number' && s ? (
 const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST' : '–');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
 let D = null; let tab = 'today';
-const GROUPS = { today: ['today', 'market'], scan: ['scan'], books: ['paper', 'portfolio'], funds: ['funds'], ref: ['rules', 'howto', 'docs'] };
-const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], books: [['paper', 'Paper test'], ['portfolio', 'My portfolio']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
-const lastIn = { books: 'paper', ref: 'rules', today: 'today' };
+const GROUPS = { today: ['today', 'market'], scan: ['scan'], paper: ['paper'], portfolio: ['portfolio'], funds: ['funds'], ref: ['rules', 'howto', 'docs'] };
+const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
+const lastIn = { ref: 'rules', today: 'today' };
 const groupOf = (t) => Object.keys(GROUPS).find((g) => GROUPS[g].includes(t));
 const subNav = (t) => { const g = groupOf(t); if (!SUBS[g]) return ''; return `<div class="subnav chips" role="group" aria-label="Section pages">${SUBS[g].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${t === k}">${l}</button>`).join('')}</div>`; };
 const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
@@ -209,10 +214,10 @@ function spark(rows) {
   const W = 420, H = 110, P = { l: 4, r: 44, t: 8, b: 16 };
   const pts = rows.filter((r) => typeof r.close === 'number');
   if (pts.length < 3) return '<div class="note">Not enough index history.</div>';
-  const vals = pts.flatMap((r) => [r.close, r.sma50, r.sma200]).filter((v) => typeof v === 'number');
+  const vals = pts.flatMap((r) => [r.close, r.sma50]).filter((v) => typeof v === 'number');
   const lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
   const x = (i) => P.l + (i / (pts.length - 1)) * (W - P.l - P.r), y = (v) => P.t + (1 - (v - lo) / span) * (H - P.t - P.b);
-  const path = (k) => { let d = '', pen = false; pts.forEach((r, i) => { if (typeof r[k] !== 'number') { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(r[k]).toFixed(1)}`; pen = true; }); return d; };
+  const path = (k) => { let d = '', pen = false; pts.forEach((r, i) => { if (typeof r[k] !== 'number' || y(r[k]) < P.t - 1 || y(r[k]) > H - P.b + 1) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(r[k]).toFixed(1)}`; pen = true; }); return d; };
   const last = pts[pts.length - 1];
   return `<svg class="spark" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Index close with 50 and 200 day averages, last ${pts.length} sessions">
     <path class="l s200" d="${path('sma200')}"/><path class="l s50" d="${path('sma50')}"/><path class="l c" d="${path('close')}"/>
@@ -297,22 +302,23 @@ function viewToday() {
   const since = `<span><span class="chip">Lights</span> ${changed.length ? changed.map((x) => `${x[0]} moved to ${cap(x[1].regime.name)}`).join(', ') : 'unchanged since the last scan'}</span><span><span class="chip">Paper</span> ${pend} order${pend === 1 ? '' : 's'} waiting to fill</span>${closed ? `<span><span class="chip">Closed</span> ${esc(closed.sym)}, ${esc(String(closed.exitReason || closed.status).replace('closed · ', ''))}, ${sgn(closed.resultR, 2, 'R')}</span>` : ''}`;
   const evK = (k) => { const ev = D.evidence; if (!ev) return ''; const edge = ev.rules.filter((r) => /^Edge found/.test(r[k].label)).map((r) => r.rule.toLowerCase()); return edge.length ? `${edge.join(' and ')} ${edge.length > 1 ? 'have' : 'has'} a measured edge in ${k === 'us' ? 'the US' : 'India'}` : `no rule has a measured edge in ${k === 'us' ? 'the US' : 'India'}`; };
   const readyBody = ready ? mk.filter((x) => x[2]?.ready.length).map((x) => `<div class="lbl" style="margin-top:12px">${x[0]}</div><div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">Trigger</th><th class="num">Stop</th><th>Setup</th></tr></thead><tbody>${x[2].ready.slice(0, 6).map((c) => `<tr><td><b>${esc(c.sym)}</b></td><td class="num">${c.setup ? fmt(c.setup.trigger) : '–'}</td><td class="num">${c.setup ? fmt(c.setup.stop) : '–'}</td><td>${c.setup ? esc(c.setup.id) : '–'}</td></tr>`).join('')}</tbody></table></div>`).join('') : `<div class="empty">Nothing passed every gate tonight.<div class="note" style="margin-top:6px">Closest names are on Watch: ${watch.map(([n, c]) => `${c} ${n}`).join(', ')}.</div></div>`;
-  const streamRows = (pb) => ['capwaived', 'comparator', 'official'].map((s) => { const x = pb?.[s] || {}, lbl = { capwaived: 'Cap waived', comparator: 'Comparator', official: 'Official' }[s]; return `<div class="lrow"><span>${lbl}</span><span class="note">${x.orders ? `${x.closed ?? 0} closed · ${x.open ?? 0} open · ${x.pending ?? 0} pending` : 'no orders yet'}</span><span>${typeof x.meanR === 'number' ? sgn(x.meanR, 2, 'R') : '<span class="note">–</span>'}</span></div>`; }).join('');
+  const streamRows = (pb) => ['official', 'capwaived', 'comparator'].map((s) => { const x = pb?.[s] || {}, lbl = STREAM[s]; return `<div class="lrow"><span>${lbl}<div class="note nm">${STREAMSHORT[s]}</div></span><span class="note">${x.orders ? `${x.closed ?? 0} closed · ${x.open ?? 0} open · ${x.pending ?? 0} pending` : 'no orders yet'}</span><span>${typeof x.meanR === 'number' ? sgn(x.meanR, 2, 'R') : '<span class="note">–</span>'}</span></div>`; }).join('');
   const lead = (m) => (m.sectors || []).filter((s) => s.rank && s.rank <= 3).sort((a, b) => a.rank - b.rank).map((s) => `<div class="lrow"><span>${s.rank} · ${esc(s.name)}</span><span>${sgn(s.r1m, 1, '% 1M')}</span></div>`).join('');
   const sectEv = (k) => { const r = D.evidence?.rules.find((x) => /^Sector/.test(x.rule)); return r ? `${k === 'us' ? 'US' : 'India'}: ${esc(r[k].label.toLowerCase())}.` : ''; };
   return `<div class="stack">
-  <section class="card hero"><div><p class="eyebrow">Tonight · scan of the ${esc(dmy(D.india.date))} close</p><h2 class="big">${ready ? `${ready} Ready name${ready === 1 ? '' : 's'} tonight.` : 'No Ready names tonight.'}</h2><p>${esc(lights)}.${esc(runTxt)} ${watch.map(([n, c]) => `${c} ${n}`).join(' and ')} names on Watch. Paper only, nothing here places an order.</p><div class="ctas"><button class="cta main" data-mkt="in" data-to="scan">See Watch lists</button><button class="cta" data-go="paper">Paper books</button></div></div><div class="tiles">${mk.map(tile).join('')}</div></section>
+  <section class="card hero"><div><p class="eyebrow">Tonight · scan of the ${esc(dmy(D.india.date))} close</p><h2 class="big">${ready ? `${ready} Ready name${ready === 1 ? '' : 's'} tonight.` : 'No Ready names tonight.'}</h2><p>${esc(lights)}.${esc(runTxt)} ${watch.map(([n, c]) => `${c} ${n}`).join(' and ')} names on Watch. Paper only, nothing here places an order.</p><div class="ctas"><button class="cta main" data-mkt="in" data-to="scan">See Watch lists</button><button class="cta" data-go="paper">Paper test</button></div></div><div class="tiles">${mk.map(tile).join('')}</div></section>
   <section class="card since"><span class="eyebrow" style="margin:0">Since the last scan</span>${since}</section>
   <div class="grid2">
     <section class="card"><div class="head"><h2>Ready list</h2><span class="note">${mk.map((x) => `${x[0]} ${x[2]?.ready.length ?? 0}`).join(' · ')}</span></div>${readyBody}<div class="evnote"><span class="chip warn">Evidence</span><span>${esc(evK('india').replace(/^./, (c) => c.toUpperCase()))}; ${esc(evK('us'))}. Following the list has not been shown to beat the index.</span></div></section>
-    <section class="card"><div class="head"><h2>Paper books</h2><button class="lnk" data-go="paper">Open</button></div>${mk.filter((x) => x[3]).map((x) => `<div class="lbl" style="margin-top:8px">${x[0]}</div>${streamRows(x[3])}`).join('')}<p class="note" style="margin:20px 0 0">Too early to read. Judged at 300 picks or 12 months. Momentum sleeves are paper only and ${D.momentum?.state === 'running' ? 'running' : 'start after ' + dmy((D.strategies || []).find((s) => s.view === 'ranked_list')?.startAfter)}.</p></section>
+    <section class="card"><div class="head"><h2>Paper test</h2><button class="lnk" data-go="paper">Open</button></div>${mk.filter((x) => x[3]).map((x) => `<div class="lbl" style="margin-top:8px">${x[0]}</div>${streamRows(x[3])}`).join('')}<p class="note" style="margin:20px 0 0">Too early to read. Judged at 300 picks or 12 months. Momentum sleeves are paper only and ${D.momentum?.state === 'running' ? 'running' : 'start after ' + dmy((D.strategies || []).find((s) => s.view === 'ranked_list')?.startAfter)}.</p></section>
   </div>
   <section class="card"><div class="head"><h2>Sector leaders</h2><button class="lnk" data-go="market">All sectors</button></div><div class="cols"><div><div class="lbl">India</div>${lead(D.india)}</div><div><div class="lbl">US</div>${lead(D.us)}</div></div><p class="note" style="margin:24px 0 0">${sectEv('india')} ${sectEv('us')}</p></section>
   </div>`;
 }
 function viewMarket() {
-  return `${holdingsCard()}<div class="grid2">${marketCard('India', D.india)}${marketCard('US', D.us)}</div><div class="grid2 wide" style="margin-top:16px">${sectorTable('India', D.india, 'sectIndia')}${sectorTable('US', D.us, 'sectUS')}</div>
-  <p class="note">Regime and sector ranking use the Engine Rules code. India distribution days ignore the skip-day flag for now (monthly expiry, half-days, the day after a holiday); that gap is on the scope list.</p>`;
+  const lt = [['India', D.india], ['US', D.us]].filter(([, m]) => m.regime).map(([n, m]) => `${n} ${cap(m.regime.name)}`).join(', ');
+  return `<div class="stack">${holdingsCard()}<section class="card"><p class="eyebrow">Market detail · data ${esc(D.india.date)}</p><h2 class="big" style="font-size:34px;margin:0 0 10px">${esc(lt)}.</h2><p class="note" style="margin:0">Index levels, breadth, distribution days and sector ranking behind the lights.</p></section><div class="grid2">${marketCard('India', D.india)}${marketCard('US', D.us)}</div><div class="grid2 wide">${sectorTable('India', D.india, 'sectIndia')}${sectorTable('US', D.us, 'sectUS')}</div>
+  <p class="note">Regime and sector ranking use the Engine Rules code. India distribution days ignore the skip-day flag for now (monthly expiry, half-days, the day after a holiday); that gap is on the scope list.</p></div>`;
 }
 function viewHealth() {
   const H = D.health, u = H.usage;
@@ -461,15 +467,16 @@ function viewPaperSwing() {
   if (z === 'none') return `<section class="card">${mkChips}${title}<div class="empty" style="margin-top:10px">Not written yet. The nightly job writes it after the India scan.</div></section>` + paperBookCard('in');
   const lh = (t, n) => `<h3 style="margin:16px 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)">${t} <span style="font-weight:400">(${n})</span></h3>`;
   const sg = (n) => (n >= 0 ? '+' : '−') + fmt(Math.abs(n), 2);
-  const chips = z.tally.map((t) => `<span class="chip">${esc(cap(t.stream))}: ${t.orders} orders${t.meanR === null ? '' : ' · avg ' + sg(t.meanR) + 'R'}</span>`).join('');
+  const chips = z.tally.map((t) => `<span class="chip">${esc(STREAM[t.stream] || cap(t.stream))}: ${t.orders} orders${t.meanR === null ? '' : ' · avg ' + sg(t.meanR) + 'R'}</span>`).join('');
   const sec = (stream, name, how) => {
     const ls = z.lines.filter((l) => l.stream === stream);
-    const rows = ls.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">${stream === 'comparator' ? 'Reference level' : 'Buy above'}</th><th class="num">Stop</th><th class="num">Stop width</th><th>What the live rules say</th></tr></thead><tbody>${ls.map((l) => `<tr><td>${esc(l.name)} <span class="chip">${esc(stream)}</span><div class="note">setup ${esc(l.setup)}${l.tags && l.tags.length ? ' · ' + esc(l.tags.join(', ')) : ''}</div></td><td class="num">${fmt(l.entry, 2)}${stream === 'comparator' ? '<div class="note">enters at the next close</div>' : awayNote(l)}</td><td class="num">${fmt(l.stop, 2)}</td><td class="num">${l.stopPct === null ? '–' : fmt(l.stopPct, 1) + '%'}${l.maxStopPct ? `<div class="note">limit ${fmt(l.maxStopPct, 0)}%</div>` : ''}</td><td class="note">${esc(l.live || '–')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note">None tonight.</div>';
+    const rows = ls.length ? `<div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">${stream === 'comparator' ? 'Reference level' : 'Buy above'}</th><th class="num">Stop</th><th class="num">Stop width</th><th>What the live rules say</th></tr></thead><tbody>${ls.map((l) => `<tr><td>${esc(l.name)} <span class="chip">${esc(STREAM[stream] || stream)}</span><div class="note">setup ${esc(l.setup)}${l.tags && l.tags.length ? ' · ' + esc(l.tags.join(', ')) : ''}</div></td><td class="num">${fmt(l.entry, 2)}${stream === 'comparator' ? '<div class="note">enters at the next close</div>' : awayNote(l)}</td><td class="num">${fmt(l.stop, 2)}</td><td class="num">${l.stopPct === null ? '–' : fmt(l.stopPct, 1) + '%'}${l.maxStopPct ? `<div class="note">limit ${fmt(l.maxStopPct, 0)}%</div>` : ''}</td><td class="note">${esc(l.live || '–')}</td></tr>`).join('')}</tbody></table></div>` : '<div class="note">None tonight.</div>';
     return lh(name, ls.length) + `<div class="note" style="margin-bottom:6px">${how}</div>` + rows;
   };
-  return `<section class="card">${mkChips}<div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="margin:12px 0;padding:10px 12px;border-radius:8px;background:var(--yellow-bg);color:var(--yellow)">${esc(z.notice)}</div><div style="display:flex;flex-wrap:wrap;gap:6px">${chips}</div>${sec('capwaived', 'Capwaived', 'Same patterns and triggers as the official list, but the stop-width cap and room test are not applied: the stop is at most 2.5 ATR below the trigger.')}${sec('comparator', 'Comparator', 'Bought at the next close after a plain signal (a 20-day breakout, or back above the 20 or 50-day average), with the capwaived stop rule.')}<div class="note" style="margin-top:12px">Never sized against your accounts and never counted in your open risk. The official orders are on the Scans tab.</div></section>` + paperBookCard('in');
+  return `<section class="card">${mkChips}<div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">${title}<span class="chip ok">data ${esc(z.asOf)}</span></div><div style="margin:12px 0;padding:10px 12px;border-radius:8px;background:var(--yellow-bg);color:var(--yellow)">${esc(z.notice)}</div><div style="display:flex;flex-wrap:wrap;gap:6px">${chips}</div>${sec('capwaived', 'No stop cap', 'Same patterns and triggers as the official list, but the stop-width cap and room test are not applied: the stop is at most 2.5 ATR below the trigger.')}${sec('comparator', 'Buy the signal', 'Bought at the next close after a plain signal (a 20-day breakout, or back above the 20 or 50-day average), with the capwaived stop rule.')}<div class="note" style="margin-top:12px">Never sized against your accounts and never counted in your open risk. The official orders are on the Scans tab.</div></section>` + paperBookCard('in');
 }
-const STREAM = { official: 'Official', capwaived: 'Cap waived', comparator: 'Comparator' };
+const STREAM = { official: 'Desk rules', capwaived: 'No stop cap', comparator: 'Buy the signal' };
+const STREAMSHORT = { official: 'The desk as written, every gate on', capwaived: 'Same trades with the stop-width cap and 3R room test off', comparator: 'Buys the next close after a signal, no pattern trigger' };
 function paperBookCard(mkt) {
   const pb = mkt === 'us' ? D.paper : D.paperIndia;
   const streams = pb ? ['official', 'capwaived', 'comparator'].map((k) => { const s = pb[k] || {}; return `<tr><td>${STREAM[k]}<span class="info" tabindex="0" role="img" aria-label="About the ${k} stream" data-tip="${INFO[k]}">i</span></td><td class="num">${s.orders ?? 0}</td><td class="num">${s.pending ?? 0}</td><td class="num">${s.open ?? 0}</td><td class="num">${s.notFilled ?? 0}</td><td class="num">${s.closed ?? 0}</td><td class="num">${s.meanR === null || s.meanR === undefined ? '–' : sgn(s.meanR, 2, 'R')}</td><td class="num">${s.winRate === null || s.winRate === undefined ? '–' : fmt(s.winRate * 100, 0) + '%'}</td></tr>`; }).join('') : '';
@@ -554,14 +561,16 @@ function viewFunds() {
     return FC.fundCard({ why, tiles, fq: q, hh: h, note: !q && fundGroup !== 'us' ? 'No fund facts (managers, size, expense ratio) could be read for this fund from the fund page.' : '' });
   };
   const key = (f) => 'fund:' + (f.i || f.n);
-  return `<section class="card"><div class="row" style="justify-content:space-between;gap:10px"><h2>Fund ranking</h2><span class="note">${esc(FUNDS.version)} · refreshed weekly, last ${esc(FUNDS.asOf)}</span></div>
-  <div class="chips" style="margin:10px 0" role="group" aria-label="Fund type">${FUND_GROUPS.map(([k, l]) => `<button class="chip-btn" data-fg="${k}" aria-pressed="${fundGroup === k}">${l}</button>`).join('')}</div>
-  <p class="note">${FUND_INTRO[fundGroup]}</p>
-  <div class="chips" style="margin:12px 0" role="group" aria-label="Category">${cats.map((c) => `<button class="chip-btn" data-fc="${esc(c)}" aria-pressed="${cur === c}">${esc(c)}</button>`).join('')}</div>
+  const nTop = list.filter((f) => f.b === 'Strong').length, nBot = list.filter((f) => f.b === 'Weak').length, tl = fundGroup === 'idx' ? [nTop + ' lead their index group', nBot + ' lag'] : [nTop + ' Strong', nBot + ' Weak'];
+  return `<div class="stack"><section class="card"><p class="eyebrow">Fund ranking · ${esc(FUNDS.version)} · refreshed weekly, last ${esc(FUNDS.asOf)}</p><h2 class="big" style="font-size:34px;margin:0 0 12px">${list.length ? `${list.length} ${esc(cur)} funds ranked.` : 'Nothing ranked in this group yet.'}</h2><p class="note" style="max-width:640px;margin:0">${list.length ? tl.join(', ') + '. ' : ''}Ranked only against funds in the same category. Past returns are not a forecast.</p>
+  <div class="chips" style="margin-top:28px" role="group" aria-label="Fund type">${FUND_GROUPS.map(([k, l]) => `<button class="chip-btn" data-fg="${k}" aria-pressed="${fundGroup === k}">${l}</button>`).join('')}</div>
+  <div style="margin-top:24px"><label class="lbl" for="fcsel" style="display:block;margin-bottom:8px">Category</label><select id="fcsel" class="sel" data-fcsel>${cats.map((c) => `<option value="${esc(c)}"${cur === c ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></div>
+  <details class="fold"><summary>How funds are scored</summary><p class="note" style="margin:10px 0 0;max-width:760px">${FUND_INTRO[fundGroup]}</p></details></section>
+  <section class="card">
   ${list.length ? `<div class="tablewrap"><table><thead><tr>${th('#', 'rk', 'fund', 1)}${th('Fund', 'n', 'fund')}${th('1Y %', 'r1', 'fund', 1)}${th('3Y %', 'r3', 'fund', 1)}${th('5Y %', 'r5', 'fund', 1)}${th('Cost %/yr', 't', 'fund', 1)}${th('Beat median', 'k', 'fund', 1)}${th('Score', 's', 'fund', 1)}<th></th></tr></thead><tbody>
   ${list.map((f) => `<tr data-open="${esc(key(f))}" tabindex="0" style="cursor:pointer"><td class="num">${f.rk}</td><td>${scanOpen.has(key(f)) ? '▾ ' : '▸ '}${clean(f.n)}</td><td class="num">${sgn(f.r1, 1)}</td><td class="num">${sgn(f.r3, 1)}</td><td class="num">${f.r5 === null ? '–' : sgn(f.r5, 1)}</td><td class="num">${f.t == null ? '–' : fmt(f.t, 2)}</td><td class="num">${f.k === null ? '–' : fmt(f.k, 0) + '%'}</td><td class="num">${fmt(f.s, 1)}</td><td>${band(f)}</td></tr>${scanOpen.has(key(f)) ? `<tr><td colspan="9">${card(f)}</td></tr>` : ''}`).join('')}
   </tbody></table></div>` : '<div class="empty">Nothing ranked in this group yet.</div>'}
-  <p class="note">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a fund for its details, or a column heading to sort. Cost (expense ratio, from AMFI) is shown but not part of the score. Fund facts come from the fund pages and carry no weight in any score. Past returns are not a forecast.</p></section>`;
+  <p class="note" style="margin:20px 0 0">${list.length} ranked in this group. ${unr} not ranked (under 3 years of history, or too few peers). Click a fund for its details, or a column heading to sort. Cost (expense ratio, from AMFI) is shown but not part of the score. Fund facts come from the fund pages and carry no weight in any score. Past returns are not a forecast.</p></section></div>`;
 }
 const CHARTS = {}; let chartRange = 130;
 const chartP = (mk) => (CHARTS[mk] ??= fetch(`data/charts-${mk}.json`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null));
@@ -642,8 +651,9 @@ function docView(which) {
   const title = which === 'log' ? 'Engine Rules change log' : 'Engine Rules';
   const foot = which === 'log' ? 'Every rule change, tried idea and open question, newest last. Only changes marked Adopted alter the rules.' : 'The rules the desk runs on, shown as they stand. The change log is linked at the bottom of the page. The live document is the source of truth; this view refreshes with every update.';
   return `<section class="card"><div class="row" style="justify-content:space-between"><h2>${title}</h2><span class="chip">${esc(ver)}${rev ? ' · doc rev ' + esc(rev) : ''} · updated ${ist(DOCS.generatedAt)}</span></div>
+  <div class="row" style="margin-top:20px"><input id="rsearch" class="sel" type="search" placeholder="Search these ${which === 'log' ? 'entries' : 'rules'}" value="${esc(rq)}" aria-label="Search">${which === 'log' ? '<button class="lnk" data-go="rules">Back to the rules</button>' : '<button class="lnk" data-foot="log">Change log</button>'}</div>
   <div class="docgrid"><div style="position:sticky;top:8px">${toc}</div><div class="doc" style="min-width:0;overflow-wrap:anywhere">${body}</div></div>
-  <p class="note">${foot}</p></section>`;
+  <p class="note" style="margin:28px 0 0">${foot}</p></section>`;
 }
 function viewHowto() {
   if (!DOCS) { fetch('data/docs.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { DOCS = d; if (tab === 'howto') render(); }).catch(() => { DOCS = { docs: [] }; if (tab === 'howto') render(); }); return '<div class="empty">Loading…</div>'; }
@@ -676,10 +686,14 @@ function render() {
   $('#main').innerHTML = subNav(tab) + { today: viewToday, market: viewMarket, funds: viewFunds, health: viewHealth, portfolio: viewPortfolio, store: viewStore, scan: viewScan, paper: viewPaper, rules: viewRules, log: viewLog, docs: viewDocs, howto: viewHowto }[tab]();
   document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-selected', String(b.id === 't-' + g)));
   if (tab === 'scan') hydrateCharts();
-  tidyLong();
+  tidyLong(); applyRq();
   $('#foot').innerHTML = [['log', 'Engine Rules change log'], ['store', 'Data store'], ['health', 'Data health']].map(([k, l]) => `<button data-foot="${k}" ${tab === k ? 'aria-current="page"' : ''}>${l}</button>`).join('');
 }
 const toggleRow = (r) => { const k = r.dataset.open; scanOpen.has(k) ? scanOpen.delete(k) : scanOpen.add(k); render(); };
+document.addEventListener('change', (e) => { if (e.target.dataset && e.target.dataset.fcsel !== undefined) { fundCat[fundGroup] = e.target.value; render(); } });
+let rq = '';
+function applyRq() { const q = rq.trim().toLowerCase(); document.querySelectorAll('details.rsec').forEach((d) => { const hit = !q || d.textContent.toLowerCase().includes(q); d.style.display = hit ? '' : 'none'; if (q && hit) d.open = true; }); }
+document.addEventListener('input', (e) => { if (e.target.id === 'rsearch') { rq = e.target.value; applyRq(); } });
 document.addEventListener('keydown', (e) => { if (e.key !== 'Enter' && e.key !== ' ') return; const r = e.target.closest?.('tr[data-open]'); if (r) { e.preventDefault(); toggleRow(r); } });
 document.addEventListener('click', (e) => {
   if (e.target.closest('.sc-why') && !e.target.closest('[data-cr]')) return;
