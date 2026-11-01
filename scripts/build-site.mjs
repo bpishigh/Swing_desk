@@ -98,9 +98,9 @@ for (const [mk, dir] of [['us', 'data/us/scan'], ['india', 'data/india/scan']]) 
 const fs = read('data/funds/scores.json', null);
 if (fs) { const o = { asOf: fs.asOf, prevMonth: fs.prevMonth ?? null, version: fs.version, source: fs.source, funds: fs.funds.map((x) => ({ n: x.name, i: x.isin || undefined, c: x.cat, r1: x.r1, r3: x.r3, r5: x.r5, k: x.consistency, s: x.score, rk: x.rank, p: x.peers, b: x.band, rp: x.replace ? 1 : 0, d: x.d3 ?? null, dg: x.d3g ?? null, t: x.ter ?? null, g: x.g, note: x.note, dd: x.dd ?? undefined, vol: x.vol ?? undefined, ra: x.ra ?? undefined, wd: x.wd ?? undefined, fl: x.flag ?? undefined, pb: x.pb ?? undefined })) }; const txt = JSON.stringify(o) + '\n'; if (!existsSync('site/data/funds.json') || readFileSync('site/data/funds.json', 'utf8') !== txt) writeFileSync('site/data/funds.json', txt); }
 // Strategy tabs (settings/strategies.json) and the momentum sleeve's nightly file (data/india/momentum-sleeve/latest.json): rules-testing data, nothing personal.
-const strategies = read('settings/strategies.json', { strategies: [] }).strategies.map(({ id, name, market, status, rule, view, startAfter, readAtMonths, stops }) => ({ id, name, market, status, rule, view, startAfter, readAtMonths, stops }));
-const momentum = read('data/india/momentum-sleeve/latest.json', null);
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum };
+const strategies = read('settings/strategies.json', { strategies: [] }).strategies.map(({ id, name, market, status, rule, view, startAfter, readAtMonths, stops, comparisonOnly }) => ({ id, name, market, status, rule, view, startAfter, readAtMonths, stops, comparisonOnly }));
+const momentum = read('data/india/momentum-sleeve/latest.json', null), momentumUs = read('data/us/momentum-sleeve/latest.json', null);
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);

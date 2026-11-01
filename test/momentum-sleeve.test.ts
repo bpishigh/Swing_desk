@@ -30,3 +30,10 @@ test('review sessions are the first session of June and December only', () => {
   const d = ['2026-11-30', '2026-12-01', '2026-12-02', '2027-05-31', '2027-06-01'];
   assert.deepEqual(d.map((_, i) => isReviewSession(d, i)), [false, true, false, false, true]);
 });
+import { eligibleUs, US_UNI } from '../src/engine/momentum-sleeve.ts';
+test('US eligibility keeps liquid, priced, long-history names and orders by dollar volume', () => {
+  const mk = (px: number, vol: number, n = 300) => ({ c: Array.from({ length: n }, (_, i) => (i < n - 280 ? NaN : px)), v: Array.from({ length: n }, () => vol) });
+  const s = new Map<string, any>([['BIG', mk(100, 1e6)], ['MID', mk(50, 8e5)], ['PENNY', mk(2, 1e8)], ['THIN', mk(100, 1e3)], ['SHORT', mk(100, 1e6, 100)]]);
+  assert.deepEqual(eligibleUs(s, 299).map((e) => e.sym), ['BIG', 'MID']);
+  assert.equal(US_UNI.minPrice, 5);
+});

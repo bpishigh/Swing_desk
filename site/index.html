@@ -295,7 +295,7 @@ const curStrat = (m) => { const l = (D.strategies || []).filter((x) => x.market 
 const mmm = (ym) => (ym ? new Date(ym + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '–');
 const dmy = (d) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '–');
 function stratSub(s, kind, m) {
-  if (s.view === 'ranked_list') { const z = D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
+  if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
   const sc = m === 'us' ? D.scan : D.scanIndia; return kind === 'scan' ? (sc ? `${sc.ready.length} ready, ${sc.watch.length} watching` : 'no scan yet') : 'paper book';
 }
 function topBar(kind) {
@@ -306,32 +306,32 @@ function topBar(kind) {
 }
 const pcs = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
 function momRows(z) { return z.rows.filter((r) => ['Held', 'In buffer', 'Would leave', 'Preview'].includes(r.status)).sort((a, b) => (b.weightNow ?? b.weightTarget ?? 0) - (a.weightNow ?? a.weightTarget ?? 0)); }
-function viewMomentumScan() {
-  const z = D.momentum;
+function viewMomentumScan(m = 'in') {
+  const us = m === 'us', z = us ? D.momentumUs : D.momentum;
   if (!z) return '<section class="card"><h2>Momentum sleeve</h2><div class="empty" style="margin-top:12px">The nightly momentum job has not written a list yet.</div></section>';
   const run = z.state === 'running', rows = momRows(z), shown = momAll ? rows : rows.slice(0, 10), mx = Math.max(...rows.map((r) => r.weightNow ?? r.weightTarget ?? 0), 0.05);
   const stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`;
   const whenStart = run ? '' : z.pending ? `<p class="note">The signal was made on ${esc(dmy(z.pending.signalDate))}. The simulated purchase happens at the next close.</p>` : `<p class="note">The book starts on the first session after ${esc(dmy(z.startAfter))}: the signal is taken at that close and filled at the next close. Below is tonight's ranking as a preview.</p>`;
   const stCol = (st) => (st === 'Would leave' ? 'var(--red)' : st === 'Would enter' ? 'var(--green)' : 'var(--muted)');
   return `<h2 class="big">Momentum sleeve</h2>
-  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded stocks. It changes only on review dates, the first session of June and December. Paper only: no orders and no alerts come from it.</p>
-  <dl class="kv">${stat(run ? z.heldCount : '30', run ? 'stocks held' : 'stocks planned')}${stat(esc(mmm(z.nextReview)), 'next review')}${stat(fmt(z.replication.correlation, 2), "match with NSE's index in the replay")}${stat(z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 1), 'since the paper book started')}</dl>
+  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded ${us ? 'US' : ''} stocks. It changes only on review dates, the first session of June and December. Paper only: no orders and no alerts come from it.${us ? ' Comparison only: the replay of this method on US stocks failed its registered test (C-131), so this book is kept to compare with the India sleeve and SPY, not to follow.' : ''}</p>
+  <dl class="kv">${stat(run ? z.heldCount : '30', run ? 'stocks held' : 'stocks planned')}${stat(esc(mmm(z.nextReview)), 'next review')}${us ? stat('Failed', 'replay test C-131, flattered data') : stat(fmt(z.replication.correlation, 2), "match with NSE's index in the replay")}${stat(z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 1), 'since the paper book started')}</dl>
   ${whenStart}
   <section style="margin-top:36px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3 class="ttl">${run ? 'Current holdings' : 'Preview of the first 30'}</h3><span class="note">${momAll ? 'all ' + rows.length : 'top ' + shown.length + ' of ' + rows.length}, by weight · data ${esc(z.asOf)}</span></div>
   <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Stock</th><th style="min-width:170px">Weight</th><th>Status</th><th class="num">6 months</th><th class="num">12 months</th></tr></thead><tbody>${shown.map((r) => { const w = r.weightNow ?? r.weightTarget ?? 0; return `<tr><td><b>${esc(r.sym)}</b>${r.name ? `<div class="note nm">${esc(r.name)}</div>` : ''}</td><td><div class="row" style="flex-wrap:nowrap;gap:12px"><div class="mbar"><i style="width:${Math.round(w / mx * 100)}%"></i></div><span class="num" style="min-width:48px">${fmt(w * 100, 1)}%</span></div></td><td style="color:${stCol(r.status)}">${esc(r.status)}</td><td class="num">${pcs(r.r6, 0)}</td><td class="num">${pcs(r.r12, 0)}</td></tr>`; }).join('')}</tbody></table></div>
   ${rows.length > 10 ? `<p style="margin:14px 0 0"><button class="lnk" data-momall="1">${momAll ? 'Show fewer' : 'Show all ' + rows.length}</button></p>` : ''}</section>
   <section class="card" style="margin-top:36px"><h2>${run ? 'At the ' + esc(mmm(z.nextReview)) + ' review' : 'Before the first build'}</h2>
   ${run ? `<p style="margin:10px 0 0">${z.wouldEnter.length} would come in${z.wouldEnter.length ? ' (' + z.wouldEnter.map(esc).join(', ') + ')' : ''} and ${z.wouldLeave.length} would leave${z.wouldLeave.length ? ' (' + z.wouldLeave.map(esc).join(', ') + ')' : ''}.</p>` : '<p style="margin:10px 0 0">Nothing is held yet.</p>'}
-  <p class="note" style="margin:6px 0 0">Ranks refresh every night, but the book only changes on a review date. Judged on whether it is built correctly, not on beating the market: see the Paper test page. Evidence for momentum is weak and mixed (Engine Rules C-130); for simply holding the factor, an index fund costs less and tracks the index more closely.</p></section>`;
+  <p class="note" style="margin:6px 0 0">Ranks refresh every night, but the book only changes on a review date. Judged on whether it is built correctly, not on beating the market: see the Paper test page. ${us ? 'The US replay used only companies listed today, which flatters it (Engine Rules C-131).' : 'Evidence for momentum is weak and mixed (Engine Rules C-130); for simply holding the factor, an index fund costs less and tracks the index more closely.'}</p></section>`;
 }
-function viewMomentumPaper() {
-  const z = D.momentum, s = curStrat('in');
+function viewMomentumPaper(m = 'in') {
+  const us = m === 'us', z = us ? D.momentumUs : D.momentum, s = curStrat(m);
   if (!z) return '<section class="card"><h2>Momentum sleeve, on paper</h2><div class="empty" style="margin-top:12px">The nightly momentum job has not written a book yet.</div></section>';
   const run = z.state === 'running', rv = z.reviews || [], last = rv.at(-1), chk = last?.check || z.pending?.check;
-  const b = z.board, names = { sleeve: 'Momentum sleeve (paper)', nse: 'NSE Nifty200 Momentum 30 index', n500: 'Nifty 500', n200: 'Nifty 200', fund: 'Momentum index fund (after expenses)' }, cols = { sleeve: 'var(--accent)', nse: 'var(--c2)', fund: 'var(--c3)', n200: 'var(--c4)', n500: 'var(--c5)' };
+  const b = z.board, names = { spy: 'SPY', qqq: 'QQQ', sleeve: 'Momentum sleeve (paper)', nse: 'NSE Nifty200 Momentum 30 index', n500: 'Nifty 500', n200: 'Nifty 200', fund: 'Momentum index fund (after expenses)' }, cols = { spy: 'var(--c2)', qqq: 'var(--c4)', sleeve: 'var(--accent)', nse: 'var(--c2)', fund: 'var(--c3)', n200: 'var(--c4)', n500: 'var(--c5)' };
   let board = `<p class="note">${run ? `The paper book started on ${esc(dmy(last?.fillDate || z.lastBuild))}. The first comparison with the index and the other lines is at the next month-end after that; until then only the book's own return is shown (${z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 2)}).` : `Not started. The book begins on the first session after ${esc(dmy(s.startAfter))}.`}</p>`;
   if (b) {
-    const keys = ['sleeve', 'nse', 'fund', 'n200', 'n500'].filter((k) => b.lines[k]), W = 640, H = 190, P = { l: 40, r: 8, t: 14, b: 26 };
+    const keys = ['sleeve', 'nse', 'spy', 'qqq', 'fund', 'n200', 'n500'].filter((k) => b.lines[k]), W = 640, H = 190, P = { l: 40, r: 8, t: 14, b: 26 };
     const all = keys.flatMap((k) => b.lines[k].map((p) => p.x)).filter((v) => v !== null), lo = Math.min(...all, 100) - 1, hi = Math.max(...all, 100) + 1, n = b.lines.sleeve.length;
     const X = (i) => P.l + (n < 2 ? 0 : i / (n - 1)) * (W - P.l - P.r), Y = (v) => P.t + (1 - (v - lo) / (hi - lo)) * (H - P.t - P.b);
     const path = (k) => b.lines[k].map((p, i) => (p.x === null ? '' : `${i && b.lines[k][i - 1].x !== null ? 'L' : 'M'}${X(i).toFixed(1)},${Y(p.x).toFixed(1)}`)).join('');
@@ -342,22 +342,20 @@ function viewMomentumPaper() {
   const item = (t, how, st) => `<div class="row" style="justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)"><div style="flex:1 1 320px"><div>${t}</div><div class="note">${how}</div></div><div class="note">${st}</div></div>`;
   const rtab = rv.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Review</th><th class="num">Stocks</th><th class="num">In</th><th class="num">Out</th><th class="num">Turnover</th><th class="num">Cost</th></tr></thead><tbody>${rv.map((r) => `<tr><td>${esc(dmy(r.fillDate))}</td><td class="num">${r.count}</td><td class="num">${r.entered.length}</td><td class="num">${r.left.length}</td><td class="num">${rv[0] === r ? 'first build' : fmt(r.turnoverPct, 1) + '%'}</td><td class="num">${fmt(r.costPct, 2)}%</td></tr>`).join('')}</tbody></table></div>` : '';
   return `<h2 class="big">Momentum sleeve, on paper</h2>
-  <p class="note" style="margin:8px 0 0;max-width:62ch">Simulated trades with trading costs included. Not for placing: no real orders. It is judged on whether it is built correctly, not on beating the market this year.</p>
-  <section style="margin-top:32px">${board}<p class="note" style="margin-top:12px;max-width:70ch">The sleeve pays trading costs (about 0.7% a year in the replay) and the index does not, so it starts behind. The fund line, when added, is after its expenses; the dividend adjustment is stated beside it.</p></section>
+  <p class="note" style="margin:8px 0 0;max-width:62ch">Simulated trades with trading costs included. Not for placing: no real orders. ${us ? 'Kept for comparison with the India sleeve and SPY; it has no pass rule.' : 'It is judged on whether it is built correctly, not on beating the market this year.'}</p>
+  <section style="margin-top:32px">${board}<p class="note" style="margin-top:12px;max-width:70ch">The sleeve pays trading costs (about ${us ? '0.3' : '0.7'}% a year in the replay) and the index does not, so it starts behind. ${us ? 'SPY and QQQ are price only, as the sleeve is.' : 'The fund line, when added, is after its expenses; the dividend adjustment is stated beside it.'}</p></section>
   <section style="margin-top:40px"><h3 class="ttl">Is it built right?</h3>
-  ${item('Live build matches the replay build', 'Checked on every review date: same names, weights within 0.1 point.', chk ? (chk.pass ? 'Matched on the last check' : `Different: ${chk.sameNames ? '' : 'names, '}max ${fmt(chk.maxWeightDiffPp, 2)} pt`) : 'First check at the first signal')}
-  ${item("Moves with NSE's index", 'Monthly correlation of 0.9 or better, cumulative then rolling 36 months.', `Replay ${fmt(z.replication.correlation, 2)}; live from month 12`)}
-  ${item('Monthly reference line added', "NSE's series (by hand) and an index-fund NAV, once a month.", b ? 'Running' : 'Starts at the first month-end')}
+  ${us ? item('Comparison only', 'The C-131 replay failed, so this book has no pass rule and no stop. It is read at 12 and 24 months beside the India sleeve and SPY.', 'No verdict set') + item('Why the data is weak', 'The US store holds only companies listed today, so a test on it cannot confirm the factor and is flattered, most of all in recent years.', 'Known limit') : item('Live build matches the replay build', 'Checked on every review date: same names, weights within 0.1 point.', chk ? (chk.pass ? 'Matched on the last check' : `Different: ${chk.sameNames ? '' : 'names, '}max ${fmt(chk.maxWeightDiffPp, 2)} pt`) : 'First check at the first signal') + item("Moves with NSE's index", 'Monthly correlation of 0.9 or better, cumulative then rolling 36 months.', `Replay ${fmt(z.replication.correlation, 2)}; live from month 12`) + item('Monthly reference line added', "NSE's series (by hand) and an index-fund NAV, once a month.", b ? 'Running' : 'Starts at the first month-end')}
   </section>
   <section style="margin-top:40px"><h3 class="ttl">More detail</h3>
   <details class="fold"><summary>When we read the result</summary><p class="note">12-month read ${esc(mo(12))}; full 24-month read ${esc(mo(24))}. Real money, if any, goes in through an index fund and only after three years that include a bad stretch (a proposal, Engine Rules C-130).</p></details>
-  <details class="fold"><summary>When we would stop</summary><p class="note">If the match with NSE's index falls below 0.85 over any 12 months, or live and replay builds differ on two review dates (proposals, awaiting your confirmation). Trailing the Nifty 200 alone is not a reason to stop. None triggered.</p></details>
+  <details class="fold"><summary>When we would stop</summary><p class="note">${us ? 'There is no stop: this book is a comparison and is read at 12 and 24 months.' : 'If the match with NSE\'s index falls below 0.85 over any 12 months, or live and replay builds differ on two review dates (confirmed by the owner, 1 Nov 2026). Trailing the Nifty 200 alone is not a reason to stop. None triggered.'}</p></details>
   <details class="fold"><summary>Reviews so far</summary>${rtab || '<p class="note">None yet.</p>'}</details>
-  <details class="fold"><summary>Difference from NSE's index</summary><p class="note">This version ranks by traded value in place of NSE's free-float market size, so it leans to mid-caps. Replay: about 4 points a year behind NSE's index over 2011 to 2019, and ahead over 2021 to Oct 2025.</p></details></section>`;
+  <details class="fold"><summary>${us ? 'The replay result' : "Difference from NSE's index"}</summary><p class="note">${us ? 'Dec 2017 to Dec 2023 on today\'s listed stocks: the sleeve made about +97% against +78% for SPY, but only 2 of 6 years beat SPY, 2020 carried it, and the edge could not be told apart from zero (C-131, failed).' : "This version ranks by traded value in place of NSE's free-float market size, so it leans to mid-caps. Replay: about 4 points a year behind NSE's index over 2011 to 2019, and ahead over 2021 to Oct 2025."}</p></details></section>`;
 }
 
 let PAPERT; // undefined = not asked yet, false = unavailable, 'none' = not written yet, object = the nightly paper-test file (Engine Rules C-113)
-function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'ranked_list' ? viewMomentumPaper() : viewPaperSwing()); }
+function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'ranked_list' ? viewMomentumPaper(paperMkt) : viewPaperSwing()); }
 function viewPaperSwing() {
   const mkChips0 = `<div class="chips" role="group" aria-label="Market" style="margin-bottom:14px">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-pm="${k}" aria-pressed="${paperMkt === k}">${l}</button>`).join('')}</div>`;
   const mkChips = '';
@@ -387,7 +385,7 @@ function paperBookCard(mkt) {
   <div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Pending</th><th class="num">Open</th><th class="num">Not filled</th><th class="num">Closed</th><th class="num">Mean R</th><th class="num">Win rate</th></tr></thead><tbody>${streams}</tbody></table></div>
   <h3>Live</h3>${ptbl(pb.live || [], 'No pending or open paper positions.')}<h3>Recently closed</h3>${ptbl(pb.recent || [], 'Nothing closed yet.')}</details></section>` : '';
 }
-function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan() : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
+function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
 function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
   const mk = '', mk0 = `<div class="chips" role="group" aria-label="Market">${[['us', 'US'], ['in', 'India']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${scanMkt === k}">${l}</button>`).join('')}</div>`;

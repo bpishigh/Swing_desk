@@ -56,3 +56,18 @@ export function sleeveWeights(sel: Selection): number[] {
 }
 /** First session of a calendar month in a review month (June, December). `dates` ascending, t the night index. */
 export const isReviewSession = (dates: string[], t: number): boolean => t > 0 && dates[t].slice(0, 7) !== dates[t - 1].slice(0, 7) && MOM30.reviewMonths.includes(dates[t].slice(5, 7));
+
+/** US universe on night t (as the C-131 replay): listed companies, price at least 5 dollars, 260 sessions of history, 20-session median dollar volume at least 20 million; most traded first. */
+export const US_UNI = { minPrice: 5, minValue: 20e6, minSessions: 260 };
+export function eligibleUs(series: Map<string, { c: ArrayLike<number>; v: ArrayLike<number> }>, t: number): Eligible[] {
+  const out: Eligible[] = [];
+  for (const [sym, s] of series) {
+    if (!(s.c[t] >= US_UNI.minPrice)) continue;
+    let n = 0; for (let i = 0; i <= t; i++) if (s.c[i] > 0) n++; if (n < US_UNI.minSessions) continue;
+    const vals: number[] = []; for (let i = t - 19; i <= t; i++) if (i >= 0 && s.c[i] > 0 && s.v[i] >= 0) vals.push(s.c[i] * s.v[i]);
+    if (vals.length < 15) continue;
+    vals.sort((a, b) => a - b); const m = vals.length >> 1, value = vals.length % 2 ? vals[m] : (vals[m - 1] + vals[m]) / 2;
+    if (value >= US_UNI.minValue) out.push({ sym, value });
+  }
+  return out.sort((a, b) => b.value - a.value || (a.sym < b.sym ? -1 : 1));
+}
