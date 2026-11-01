@@ -1169,6 +1169,119 @@
     "summary": "FAIL on the registered rule (2 of 4 conditions). US Dec 2017 to Dec 2023 (72 months, survivor-biased data): sleeve +97.1% vs SPY +78.1% (QQQ +162.9%); mean monthly excess +0.28% (90% -0.90% to +1.51%), below the 0.94% detectable; 2 of 6 years; 2020 carries it (+85.1% vs +16.2%). 2024 to Oct 2026 reported only: sleeve +235.8% vs SPY +57.9% (hindsight-flattered). Costs about 0.27% a year.",
     "file": "data/replay/c131-momentum30-us.json"
    }
+  },
+  {
+   "id": "C-133-r1",
+   "changeLog": "C-133",
+   "title": "Market light on its own: Green months against other months, next-month index return, India 2013-2019 and US 2018-2023 judged",
+   "hypothesis": "Months the desk's light calls Green precede better index returns than the other months.",
+   "script": "scripts/backtest-light.mjs",
+   "params": {
+    "light": "src/engine/regime.ts default rules, rebuilt every session; India Nifty 50 + Nifty 500, breadth on today's Nifty 500 list; US SPY + QQQ, breadth on stored US stocks",
+    "signal": "first session of month; outcome next close to next month's next close, price only",
+    "outcome": "India Nifty 500, US SPY",
+    "judged": "India Jan 2013-Dec 2019, US Jan 2018-Dec 2023",
+    "reported": "India Jan 2020-Oct 2025, US Jan 2024-Oct 2026",
+    "sweeps": "one setting, one run",
+    "bias": "breadth uses today's lists (survivorship)"
+   },
+   "passRule": "All four, both markets: Green mean above other months' mean; lower end of 90% block-bootstrap (6-month blocks) of the difference above zero; Green beats other months in at least two thirds of years with at least 2 months of each; at least 12 Green and 12 other months. Both judged markets must pass every condition. One run.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-11-01T06:18:03.697Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-134-r1",
+   "changeLog": "C-134",
+   "title": "Sector ranking on its own: desk top-four sectors against equal-weight all sectors, India 2013-2019 and US 2018-2023 judged",
+   "hypothesis": "The desk's top-four sectors beat the average sector over the next month.",
+   "script": "scripts/backtest-sectors.mjs",
+   "params": {
+    "sectors": "India 12 NSE sector indices; US nine SPDR sector ETFs",
+    "rule": "src/engine/sectors.ts normal mode, top four, fewer if fewer pass, cash 0% if none",
+    "signal": "first session of month; next close to next month's next close, price only, no costs",
+    "benchmark": "gate vs Nifty 500 / SPY; comparison equal-weight all sectors",
+    "judged": "India Jan 2013-Dec 2019, US Jan 2018-Dec 2023",
+    "reported": "India Jan 2020-Oct 2025, US Jan 2024-Oct 2026",
+    "sweeps": "one setting, one run"
+   },
+   "passRule": "All three, both markets: top-four compounded return beats equal-weight all-sector; mean monthly excess above zero with lower end of 90% block-bootstrap (6-month blocks) above zero; beats it in at least two thirds of years. Both judged markets must pass every condition. One run.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-11-01T06:18:20.061Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-135-r1",
+   "changeLog": "C-135",
+   "title": "Trend template on its own: pass group against fail group among the 500 most traded names, India 2011-2019 and US 2018-2023 judged",
+   "hypothesis": "Stocks passing the trend template do better next month than liquid stocks that fail it.",
+   "script": "scripts/backtest-template.mjs",
+   "params": {
+    "universe": "500 most traded names on the C-129 (India) / C-131 (US) eligible list each month",
+    "template": "close > 150 and 200 SMA; 150 > 200; 200 SMA above its level 21 sessions earlier; 50 > 150 and 200; close > 50; at least 30% above 252-session low; within 25% of 252-session high",
+    "portfolio": "equal weight, monthly, next close to next month's next close; C-54 / US tier round trip charged every month",
+    "judged": "India Jan 2011-Dec 2019, US Jan 2018-Dec 2023",
+    "reported": "India Jan 2020-Oct 2025, US Jan 2024-Oct 2026",
+    "sweeps": "one setting, one run",
+    "bias": "US survivor-biased"
+   },
+   "passRule": "All four, both markets: pass group compounded return beats fail group; mean monthly difference above zero with lower end of 90% block-bootstrap (6-month blocks) above zero; pass beats fail in at least two thirds of years; pass group beats the equal-weight 500-name universe. Both judged markets must pass every condition. One run.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-11-01T06:18:37.416Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-136-r1",
+   "changeLog": "C-136",
+   "title": "Market light before 2010: BSE 500 trend light (partial), India Jan 2006 to Dec 2009",
+   "hypothesis": "Green months precede better BSE 500 returns than other months, through the 2008 bear market.",
+   "script": "scripts/backtest-light.mjs",
+   "params": {
+    "light": "BSE 500 trend (50/200, 50 rising) with distribution-day cap if volume usable, follow-through lift; no breadth, no second benchmark",
+    "signal": "first session of month; BSE 500 price next close to next month's next close",
+    "judged": "Jan 2006-Dec 2009 (48 months)",
+    "sweeps": "one setting, one run"
+   },
+   "passRule": "All four: Green mean above other months'; lower end of 90% block-bootstrap (6-month blocks) of the difference above zero; Green beats other months in at least two thirds of years with at least 2 months of each; at least 12 Green and 12 other months. One run.",
+   "data": {
+    "sessions": 1695,
+    "first": "2020-01-01",
+    "last": "2026-10-30",
+    "symbols": 497,
+    "splits": 564,
+    "hash": "3c984989af36"
+   },
+   "registeredAt": "2026-11-01T06:18:53.617Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
