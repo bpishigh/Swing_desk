@@ -1,12 +1,14 @@
 {
  "latest": {
-  "date": "2026-10-30",
-  "name": "red",
-  "notes": [],
-  "breadth": 19.3,
-  "breadthDate": "2026-10-30",
-  "distribution": 8,
-  "followThrough": "none"
+  "date": "2026-11-02",
+  "name": "yellow",
+  "notes": [
+   "follow-through lifts Red to Yellow"
+  ],
+  "breadth": 24.1,
+  "breadthDate": "2026-11-02",
+  "distribution": 7,
+  "followThrough": "active"
  },
- "alertedFor": "2026-10-14"
+ "alertedFor": "2026-11-02"
 }
