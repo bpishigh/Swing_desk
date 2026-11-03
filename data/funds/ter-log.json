@@ -1,10 +1,10 @@
 {
- "start": "2026-11-02T01:00:55.522Z",
+ "start": "2026-11-03T03:03:49.561Z",
  "month": "11-2026",
  "pageSize": 5000,
  "firstPage": 100,
- "rows": 361,
- "schemes": 361,
- "lastPage": 7,
- "error": "too few schemes"
+ "rows": 1918,
+ "schemes": 1259,
+ "lastPage": 23,
+ "ok": true
 }
