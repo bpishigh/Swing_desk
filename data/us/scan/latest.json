@@ -3,14 +3,14 @@
  "asOf": "2026-11-02",
  "light": "yellow",
  "funnel": {
-  "tickers": 2307,
-  "passFloors": 2183,
+  "tickers": 2310,
+  "passFloors": 2186,
   "universe": 1500,
   "universeFloorDollarVolumeM": 40.4,
   "withRs": 1471,
   "rsGate": 299,
   "template": 151,
-  "qualified": 30,
+  "qualified": 20,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -367,40 +367,6 @@
  "ready": [],
  "watch": [
   {
-   "sym": "ECO",
-   "type": "CS",
-   "group": "Shipping",
-   "path": "main",
-   "rsPct": 98.64,
-   "close": 91.25,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 59.18,
-   "tightness": 1.24,
-   "distPivot": 11.03,
-   "setup": null,
-   "diag": {
-    "rs121": 155.2,
-    "rs6m2w": 68.71,
-    "atr14": 5.49,
-    "sma50": 82.94,
-    "sma200": 59.27,
-    "high52": 102.56,
-    "low52": 31.75,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 98.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 11% below its 52-week high (limit 25%) and 187.4% above its 52-week low (needs 30%).",
-    "Group: Shipping ranks 4 of 58 (median strength 80.8); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 11% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "CVI",
    "type": "CS",
    "group": "Petroleum refining",
@@ -531,105 +497,35 @@
    ]
   },
   {
-   "sym": "FRO",
-   "type": "CS",
-   "group": "Shipping",
-   "path": "main",
-   "rsPct": 96.67,
-   "close": 52.08,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 58,
-   "tightness": 1.17,
-   "distPivot": 12.84,
-   "setup": null,
-   "diag": {
-    "rs121": 116.41,
-    "rs6m2w": 37.19,
-    "atr14": 2.84,
-    "sma50": 50.48,
-    "sma200": 39.35,
-    "high52": 59.75,
-    "low52": 20.47,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 96.7th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.8% below its 52-week high (limit 25%) and 154.4% above its 52-week low (needs 30%).",
-    "Group: Shipping ranks 4 of 58 (median strength 80.8); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 12.8% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "VLO",
+   "sym": "PSX",
    "type": "CS",
    "group": "Petroleum refining",
    "path": "main",
-   "rsPct": 96.33,
-   "close": 381.46,
+   "rsPct": 95.92,
+   "close": 275.04,
    "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
+    "results date not checked"
    ],
    "clears50M": true,
-   "composite": 57.8,
-   "tightness": 1.18,
-   "distPivot": 17.35,
+   "composite": 57.55,
+   "tightness": 1.19,
+   "distPivot": 8.13,
    "setup": null,
    "diag": {
-    "rs121": 138.86,
-    "rs6m2w": 91.49,
-    "atr14": 18.69,
-    "sma50": 398.26,
-    "sma200": 286.7,
-    "high52": 461.52,
-    "low52": 159.9,
-    "failingNights": 1
+    "rs121": 93.03,
+    "rs6m2w": 86.55,
+    "atr14": 10.23,
+    "sma50": 266.89,
+    "sma200": 199.59,
+    "high52": 299.39,
+    "low52": 127.16,
+    "failingNights": 0
    },
    "why": [
-    "Strength: 96.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 17.3% below its 52-week high (limit 25%) and 138.6% above its 52-week low (needs 30%).",
+    "Strength: 95.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 8.1% below its 52-week high (limit 25%) and 116.3% above its 52-week low (needs 30%).",
     "Group: Petroleum refining ranks 1 of 58 (median strength 93.3); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 17.3% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "TRMD",
-   "type": "CS",
-   "group": "Shipping",
-   "path": "main",
-   "rsPct": 95.51,
-   "close": 39.82,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 57.31,
-   "tightness": 1.07,
-   "distPivot": 8.06,
-   "setup": null,
-   "diag": {
-    "rs121": 84.84,
-    "rs6m2w": 22.55,
-    "atr14": 1.73,
-    "sma50": 37.04,
-    "sma200": 30.76,
-    "high52": 43.31,
-    "low52": 19.3,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 95.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 8.1% below its 52-week high (limit 25%) and 106.3% above its 52-week low (needs 30%).",
-    "Group: Shipping ranks 4 of 58 (median strength 80.8); the 2 strongest groups are traded in the yellow light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 8.1% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 8.1% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
   },
   {
@@ -671,7 +567,7 @@
  "thinGroup": {
   "qualified": 2
  },
- "qualifiedTotal": 30,
+ "qualifiedTotal": 20,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",

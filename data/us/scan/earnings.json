@@ -2,15 +2,10 @@
  "asOf": "2026-11-02",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
-  "ECO": {
-   "date": "2026-11-11",
-   "sessions": 7,
-   "inWindow": true
-  },
   "CVI": {
-   "date": "2026-11-03",
-   "sessions": 1,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "APA": {
    "date": "2026-11-04",
@@ -18,30 +13,19 @@
    "inWindow": true
   },
   "MPC": {
-   "date": "2026-11-03",
-   "sessions": 1,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "RRC": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "FRO": {
-   "date": "2026-11-20",
-   "sessions": 14,
-   "inWindow": false,
-   "estimated": true
-  },
-  "VLO": {
+  "PSX": {
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "TRMD": {
-   "date": "2026-11-04",
-   "sessions": 2,
-   "inWindow": true
   },
   "PR": {
    "date": "2026-11-04",
