@@ -7,11 +7,6 @@
    "sessions": null,
    "inWindow": null
   },
-  "APA": {
-   "date": "2026-11-04",
-   "sessions": 1,
-   "inWindow": true
-  },
   "DINO": {
    "date": null,
    "sessions": null,
@@ -22,20 +17,10 @@
    "sessions": null,
    "inWindow": null
   },
-  "CVI": {
+  "PSX": {
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "SM": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "PR": {
-   "date": "2026-11-04",
-   "sessions": 1,
-   "inWindow": true
   },
   "PAA": {
    "date": "2026-11-06",
