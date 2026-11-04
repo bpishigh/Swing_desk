@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-02",
+ "asOf": "2026-11-03",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -12,39 +12,90 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 6,
-  "open": 1,
-  "pending": 0,
+  "orders": 10,
+  "open": 0,
+  "pending": 4,
   "notFilled": 1,
-  "closed": 4,
-  "meanR": -1.034270970802412,
-  "winRate": 0.25
+  "closed": 5,
+  "meanR": -1.0314627443739763,
+  "winRate": 0.2
  },
  "comparator": {
-  "orders": 5,
-  "open": 1,
-  "pending": 0,
+  "orders": 7,
+  "open": 0,
+  "pending": 2,
   "notFilled": 0,
-  "closed": 4,
-  "meanR": -0.44640492294950196,
-  "winRate": 0.5
+  "closed": 5,
+  "meanR": -0.5624407301982195,
+  "winRate": 0.4
  },
  "light": "yellow",
- "newOrdersTonight": [],
- "open": [
+ "newOrdersTonight": [
   {
    "stream": "capwaived",
-   "sym": "STNG",
+   "sym": "MPC",
    "setup": "4",
-   "entry": 95.45,
-   "stop": 86.01
+   "trigger": 435.87,
+   "stop": 407,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "stream": "capwaived",
+   "sym": "DINO",
+   "setup": "4",
+   "trigger": 117.08,
+   "stop": 108.7,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
   },
   {
    "stream": "comparator",
-   "sym": "STNG",
+   "sym": "DINO",
    "setup": "4",
-   "entry": 92.6,
-   "stop": 85.63
+   "trigger": 113.36,
+   "stop": 104.97,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "stream": "capwaived",
+   "sym": "PBF",
+   "setup": "4",
+   "trigger": 79.85,
+   "stop": 71.9,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "stream": "comparator",
+   "sym": "PBF",
+   "setup": "4",
+   "trigger": 77.81,
+   "stop": 70.4,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "stream": "capwaived",
+   "sym": "PAGP",
+   "setup": "4",
+   "trigger": 27.9,
+   "stop": 27.07,
+   "tags": [
+    "room fail"
+   ]
   }
- ]
+ ],
+ "open": []
 }
