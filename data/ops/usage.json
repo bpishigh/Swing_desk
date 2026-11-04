@@ -1,20 +1,23 @@
 {
- "date": "2026-11-03",
+ "date": "2026-11-04",
  "month": "2026-11",
- "usedMinutesEstimate": 81,
+ "usedMinutesEstimate": 134,
  "budget": null,
- "projectedMonthEnd": 810,
+ "projectedMonthEnd": 1005,
  "byWorkflow": {
   "ci": 45,
-  "fund-scores": 15,
-  "tick": 6,
+  "us-hist-nightly": 24,
+  "fund-scores": 21,
+  "tick": 20,
   "backfill-us-sic": 4,
+  "india-stocks": 4,
+  "us-breadth": 4,
   "fund-overall-test": 3,
   "backfill-india-bse500": 3,
-  "india-stocks": 2,
+  "us-nightly": 2,
+  "india-nightly": 2,
   "backfill-us-bench": 1,
-  "us-nightly": 1,
-  "india-nightly": 1
+  "us-grouped-nightly": 1
  },
  "alerted": [],
  "note": "Estimate from run durations (each run rounded up to a minute, calendar month); GitHub billing page is the authority. No monthly cap: the repository is public, so \"budget\" is null and nothing is alerted."
