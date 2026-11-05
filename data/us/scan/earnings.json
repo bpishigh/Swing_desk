@@ -3,9 +3,9 @@
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "CON": {
-   "date": "2026-11-05",
-   "sessions": 1,
-   "inWindow": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "SGRY": {
    "date": "2026-11-09",
@@ -18,35 +18,20 @@
    "sessions": null,
    "inWindow": null
   },
-  "MPC": {
+  "SU": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "PBF": {
+  "COP": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "DINO": {
+  "XOM": {
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "PSX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "PAGP": {
-   "date": "2026-11-06",
-   "sessions": 2,
-   "inWindow": true
-  },
-  "PAA": {
-   "date": "2026-11-06",
-   "sessions": 2,
-   "inWindow": true
   }
  }
 }
