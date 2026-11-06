@@ -18,11 +18,6 @@
    "sessions": null,
    "inWindow": null
   },
-  "SU": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "KSS": {
    "date": "2026-11-24",
    "sessions": 13,
@@ -32,16 +27,6 @@
    "date": "2026-11-18",
    "sessions": 9,
    "inWindow": true
-  },
-  "COP": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "XOM": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
   },
   "FIVE": {
    "date": "2026-12-02",
