@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-04",
+ "asOf": "2026-11-05",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -12,31 +12,31 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 11,
+  "orders": 12,
   "open": 0,
   "pending": 1,
-  "notFilled": 5,
+  "notFilled": 6,
   "closed": 5,
   "meanR": -1.0314627443739763,
   "winRate": 0.2
  },
  "comparator": {
-  "orders": 8,
-  "open": 0,
+  "orders": 9,
+  "open": 1,
   "pending": 1,
   "notFilled": 1,
   "closed": 6,
   "meanR": -0.6462692322910285,
   "winRate": 0.3333333333333333
  },
- "light": "yellow",
+ "light": "red",
  "newOrdersTonight": [
   {
    "stream": "capwaived",
-   "sym": "BTSG",
+   "sym": "TGT",
    "setup": "4",
-   "trigger": 70.98,
-   "stop": 64.13,
+   "trigger": 166.82,
+   "stop": 153.77,
    "tags": [
     "inside base",
     "over cap",
@@ -45,16 +45,22 @@
   },
   {
    "stream": "comparator",
-   "sym": "BTSG",
+   "sym": "TGT",
    "setup": "4",
-   "trigger": 69.8,
-   "stop": 62.95,
+   "trigger": 157.95,
+   "stop": 150.12,
    "tags": [
-    "inside base",
-    "over cap",
     "room fail"
    ]
   }
  ],
- "open": []
+ "open": [
+  {
+   "stream": "comparator",
+   "sym": "BTSG",
+   "setup": "4",
+   "entry": 65.86,
+   "stop": 65.67
+  }
+ ]
 }
