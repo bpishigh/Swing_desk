@@ -23,6 +23,7 @@ const ret = (sym, w) => { const s = series.get(sym); return s && s.c[t] > 0 && s
 
 // C-139: paper books fill at the next session's open. US opens come from data/us/open/<date>.json.gz (written by us-hist-update); a name with no stored open falls back to its close and is counted.
 const OPEN = (() => { const f = `data/us/open/${D}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } })();
+const openOn = (d) => { const f = `data/us/open/${d}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } };   // opens by date, for each holding's entry price (the open it was bought at)
 const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/us/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
@@ -40,8 +41,10 @@ if (st.pending && D > st.pending.signalDate) {
   for (const [sym, amt] of tgt) { const p = fp(sym); if (p > 0) shares[sym] = (amt / V) * V2 / p; else cash += (amt / V) * V2; }
   const before = first ? [] : Object.keys(st.book.shares), after = Object.keys(shares);
   st.reviews.push({ signalDate: st.pending.signalDate, fillDate: D, fillBasis: fbClose.size ? `open, ${fbClose.size} name(s) at the close (no open stored)` : 'open', closeFallbacks: [...fbClose], count: after.length, entered: after.filter((s) => !before.includes(s)), left: before.filter((s) => !after.includes(s)), turnoverPct: Math.round(traded / (2 * V) * 1000) / 10, costPct: Math.round(cost / V * 10000) / 100, check: st.pending.check });
-  st.book = { cash, shares, lastValue, startedFill: st.book?.startedFill ?? D }; st.pending = null;
+  const entry = Object.fromEntries(after.map((s) => [s, st.book?.entry?.[s] ?? (fp(s) > 0 ? fp(s) : null)]));   // price paid per share: kept for names held through a review, the fill open for new ones
+  st.book = { cash, shares, lastValue, entry, startedFill: st.book?.startedFill ?? D }; st.pending = null;
 }
+if (st.book && !st.book.entry) { const o = openOn(st.book.startedFill); st.book.entry = Object.fromEntries(Object.keys(st.book.shares).map((s) => [s, o[s] > 0 ? o[s] : null])); }   // books filled before entry prices were stored
 // 2) mark the book
 if (st.book && (!st.daily.length || st.daily.at(-1).d < D)) { const v = value(t); st.daily.push({ d: D, v: Math.round(v * 1e4) / 1e4 }); st.monthly[D.slice(0, 7)] = { d: D, v: Math.round(v * 1e4) / 1e4 }; }
 // 3) signal tonight?  First ever run after the start date, or the first session of a review month.
@@ -60,7 +63,7 @@ const wNow = (sym) => (st.book && book > 0 ? (st.book.shares[sym] ?? 0) * (px(sy
 const prevW = new Map(preview.picks.map((p, i) => [p.sym, wts[i]]));
 const top = preview.ranked.slice(0, 60);
 const heldNotTop = [...hs].filter((s) => !top.some((r) => r.sym === s)).map((s) => preview.ranked.find((r) => r.sym === s) ?? { sym: s, rank: null, s: null, mult: null, value: 0 });
-const rows = [...top, ...heldNotTop].map((r) => ({ rank: r.rank, sym: r.sym, name: names[r.sym] ?? null, score: r.s === null ? null : Math.round(r.s * 100) / 100, weightNow: wNow(r.sym) === null ? null : Math.round(wNow(r.sym) * 1e4) / 1e4, weightTarget: Math.round((prevW.get(r.sym) ?? 0) * 1e4) / 1e4, status: status(r), r6: ret(r.sym, 126), r12: ret(r.sym, 252) }));
+const rows = [...top, ...heldNotTop].map((r) => ({ rank: r.rank, sym: r.sym, name: names[r.sym] ?? null, score: r.s === null ? null : Math.round(r.s * 100) / 100, weightNow: wNow(r.sym) === null ? null : Math.round(wNow(r.sym) * 1e4) / 1e4, weightTarget: Math.round((prevW.get(r.sym) ?? 0) * 1e4) / 1e4, status: status(r), r6: ret(r.sym, 126), r12: ret(r.sym, 252), ...(st.book?.shares[r.sym] ? { entry: st.book.entry?.[r.sym] ?? null, last: px(r.sym, t) > 0 ? Math.round(px(r.sym, t) * 100) / 100 : null, sinceEntry: st.book.entry?.[r.sym] > 0 && px(r.sym, t) > 0 ? Math.round((px(r.sym, t) / st.book.entry[r.sym] - 1) * 1e4) / 1e4 : null } : {}) }));
 const nextRev = (() => { const [y, m] = D.split('-').map(Number); const c = [[y, 6], [y, 12], [y + 1, 6]].find(([yy, mm]) => yy * 12 + mm > y * 12 + m); return `${c[0]}-${String(c[1]).padStart(2, '0')}`; })();
 // monthly comparison lines: the sleeve, SPY and QQQ (price only), rebased to the first month-end after the first fill
 const bench = (sym) => { const bars = JSON.parse(gunzipSync(readFileSync(`data/us/hist-bench/${sym}.json.gz`)).toString()).bars; return new Map(bars.map((b) => [b[0], b[1]])); };
