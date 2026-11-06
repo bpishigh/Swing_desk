@@ -100,8 +100,10 @@ if (fs) { const o = { asOf: fs.asOf, prevMonth: fs.prevMonth ?? null, version: f
 // Strategy tabs (settings/strategies.json) and the momentum sleeve's nightly file (data/india/momentum-sleeve/latest.json): rules-testing data, nothing personal.
 const strategies = read('settings/strategies.json', { strategies: [] }).strategies.map(({ id, name, market, status, rule, view, startAfter, readAtMonths, stops, comparisonOnly }) => ({ id, name, market, status, rule, view, startAfter, readAtMonths, stops, comparisonOnly }));
 const momentum = read('data/india/momentum-sleeve/latest.json', null), momentumUs = read('data/us/momentum-sleeve/latest.json', null);
+const slim = (z) => (z ? { asOf: z.asOf, state: z.state, sinceFill: z.sinceFill, valueIndex: z.valueIndex, stopRule: z.stopRule ?? null, stops: z.stops ?? [], stopQueue: z.stopQueue ?? [], heldCount: z.heldCount } : null);   // stop twin (C-147): only what the page shows
+const momentumStop = slim(read('data/india/momentum-sleeve-stop/latest.json', null)), momentumUsStop = slim(read('data/us/momentum-sleeve-stop/latest.json', null));
 const evidence = read('settings/evidence.json', null);   // what the registered tests found for each rule behind the Ready list: information only
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, evidence };
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStop, momentumUsStop, evidence };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);

@@ -165,12 +165,13 @@ export function advance(book: PaperBook, hist: Hist, t: number, light: Light, pr
     // open: evaluate this session
     const E = p.entry as number, R = p.riskPerShare as number, e = p.entryIdx as number, i = t;
     const sell = (frac: number, price: number) => { p.pnlR += (frac * (price - E)) / R; p.left -= frac; };
+    // C-147: the stop is checked first, with the stop that stood at the start of the session (a real stop order fires intraday, before any exit queued for the close), and a session that traded wholly below the stop fills at that session's high, not at the stop price.
+    if (s.l[i] <= p.stop) { const fill = s.h[i] < p.stop ? s.h[i] : p.stop; p.pend = null; sell(p.left, fill); close(p, date, i, p.stop >= E ? 'stop at entry' : s.h[i] < p.stop ? 'stop (gapped through)' : 'stop'); continue; }
     if (p.pend && i > e) {
       const q = p.pend; p.pend = null;
       if (q.kind === 'all') { sell(p.left, s.c[i]); close(p, date, i, q.why); continue; }
       sell(Math.min(p.left, 1 / 3), s.c[i]); if (q.why === 'r5') { p.thirdSold = true; p.stop = Math.max(p.stop, E); } else p.extSold = true;
     }
-    if (s.l[i] <= p.stop) { sell(p.left, p.stop); close(p, date, i, p.stop >= E ? 'stop at entry' : 'stop'); continue; }
     const c = s.c[i], gain = (c - E) / R, sessions = i - e + 1; p.maxClose = Math.max(p.maxClose, c);
     const breakout = p.setup === '1' || p.setup === '1ipo';
     const ema20 = emaFrom(s.c, e - 60, i, 20);

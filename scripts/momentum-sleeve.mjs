@@ -33,6 +33,8 @@ const ret = (sym, w) => { const s = series.get(sym); return s && s.c[t] > 0 && s
 // C-139: paper books fill at the next session's open (bhav row index 2). A name with no open falls back to its close and is counted.
 const OPEN = Object.fromEntries(Object.entries(uniq.find((d) => d.date === D)?.rows ?? {}).filter(([, r]) => r[2] > 0).map(([s, r]) => [s, r[2]]));
 const openOn = (d) => Object.fromEntries(Object.entries(uniq.find((x) => x.date === d)?.rows ?? {}).filter(([, r]) => r[2] > 0).map(([s, r]) => [s, r[2]]));   // opens by date, for each holding's entry price (the open it was bought at)
+// Stop twin (C-147): MOM_STOP=0.25 runs the same book with a trailing stop on each name (sold at the next open once a close is that far below its highest close since bought; not replaced until the next review). Unset, the book has no stop and is unchanged.
+const STOP = Number(process.env.MOM_STOP) || 0;
 const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/india/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
@@ -41,6 +43,11 @@ const valueAt = (f) => { let v = st.book.cash; for (const [sym, sh] of Object.en
 const value = (i) => { let v = st.book.cash; for (const [sym, sh] of Object.entries(st.book.shares)) { const p = px(sym, i); v += sh * (p > 0 ? p : 0); } return v; };
 
 // 1) fill a pending rebalance at tonight's open (the session after the signal; C-139)
+if (STOP) st.stops ??= [];
+if (STOP && st.book && st.stopQueue?.length && !(st.pending && D > st.pending.signalDate)) {
+  for (const q of st.stopQueue) { const sh = st.book.shares[q.sym], p = fp(q.sym); if (!(sh > 0) || !(p > 0)) continue; const gross = sh * p, ent = st.book.entry?.[q.sym]; st.book.cash += gross - gross * tierCost(st.book.lastValue[q.sym] ?? 0) / 2; st.stops.push({ sym: q.sym, signalDate: q.on, fillDate: D, entry: ent ?? null, price: Math.round(p * 100) / 100, ret: ent > 0 ? Math.round((p / ent - 1) * 1e4) / 1e4 : null }); delete st.book.shares[q.sym]; delete st.book.entry?.[q.sym]; delete st.book.high?.[q.sym]; }
+  st.stopQueue = [];
+}
 if (st.pending && D > st.pending.signalDate) {
   const first = !st.book, V = first ? 100 : valueAt(fp), tgt = new Map(st.pending.target.map((x) => [x.sym, x.w * V]));
   const cur = first ? new Map() : new Map(Object.entries(st.book.shares).map(([s, n]) => [s, n * (fp(s) > 0 ? fp(s) : 0)]));
@@ -51,11 +58,16 @@ if (st.pending && D > st.pending.signalDate) {
   const before = first ? [] : Object.keys(st.book.shares), after = Object.keys(shares);
   st.reviews.push({ signalDate: st.pending.signalDate, fillDate: D, fillBasis: fbClose.size ? `open, ${fbClose.size} name(s) at the close (no open stored)` : 'open', closeFallbacks: [...fbClose], count: after.length, entered: after.filter((s) => !before.includes(s)), left: before.filter((s) => !after.includes(s)), turnoverPct: Math.round(traded / (2 * V) * 1000) / 10, costPct: Math.round(cost / V * 10000) / 100, check: st.pending.check });
   const entry = Object.fromEntries(after.map((s) => [s, st.book?.entry?.[s] ?? (fp(s) > 0 ? fp(s) : null)]));   // price paid per share: kept for names held through a review, the fill open for new ones
-  st.book = { cash, shares, lastValue, entry, startedFill: st.book?.startedFill ?? D }; st.pending = null;
+  const high = Object.fromEntries(after.map((s) => [s, st.book?.high?.[s] ?? (fp(s) > 0 ? fp(s) : null)]));
+  st.book = { cash, shares, lastValue, entry, ...(STOP ? { high } : {}), startedFill: st.book?.startedFill ?? D }; st.pending = null; st.stopQueue = [];
 }
 if (st.book && !st.book.entry) { const o = openOn(st.book.startedFill); st.book.entry = Object.fromEntries(Object.keys(st.book.shares).map((s) => [s, o[s] > 0 ? o[s] : null])); }   // books filled before entry prices were stored
 // 2) mark the book
 if (st.book && (!st.daily.length || st.daily.at(-1).d < D)) { const v = value(t); st.daily.push({ d: D, v: Math.round(v * 1e4) / 1e4 }); st.monthly[D.slice(0, 7)] = { d: D, v: Math.round(v * 1e4) / 1e4 }; }
+if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's close: queue a sale at the next open
+  st.stopChecked = D; st.stopQueue ??= []; st.book.high ??= {};
+  for (const sym of Object.keys(st.book.shares)) { const c = px(sym, t); if (!(c > 0)) continue; st.book.high[sym] = Math.max(st.book.high[sym] ?? st.book.entry?.[sym] ?? 0, c); if (c <= (1 - STOP) * st.book.high[sym] && !st.stopQueue.some((q) => q.sym === sym)) st.stopQueue.push({ sym, on: D }); }
+}
 // 3) signal tonight?  First ever run after the start date, or the first session of a review month.
 // Listed companies only: a symbol with an industry (index lists) or a company name. Liquid funds and gold/silver ETFs are not companies; the C-129 replay let GOLDBEES in at 2 to 5% on four review dates (see Engine Rules C-130).
 const isCo = (sym) => sym in industry || sym in names;
@@ -93,6 +105,7 @@ const out = {
   rows, reviews: st.reviews, daily: st.daily.slice(-400), board, replication: { correlation: rep.replication?.corr ?? rep.replication?.correlation ?? 0.915, source: 'C-129 replication check, 178 months' },
   wouldEnter: rows.filter((r) => r.status === 'Would enter').map((r) => r.sym), wouldLeave: rows.filter((r) => r.status === 'Would leave').map((r) => r.sym),
 };
+if (STOP) { out.stopRule = STOP; out.stops = st.stops ?? []; out.stopQueue = (st.stopQueue ?? []).map((q) => q.sym); }
 if (process.env.DBG) console.log(rows.slice(0, 45).map((r) => `${r.rank} ${r.sym} ${r.score} ${(names[r.sym] ?? "").slice(0, 28)}`).join("\n"));
 console.log(JSON.stringify({ asOf: D, state: out.state, universe: out.universe, held: out.heldCount, pending: out.pending, reviews: st.reviews.length, top3: rows.slice(0, 3).map((r) => r.sym) }));
 if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(out) + '\n'); }

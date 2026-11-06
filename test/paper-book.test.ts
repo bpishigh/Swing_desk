@@ -57,3 +57,16 @@ test('summarize counts by stream', () => {
   const s = summarize(b) as any;
   assert.equal(s.official.orders, 2); assert.equal(s.official.closed, 1); assert.equal(s.official.notFilled, 1); assert.equal(s.official.meanR, 1);
 });
+test('C-147: a stop breach is checked before an exit queued for the close', () => {
+  // entry 100 (stop 95, risk 5); session 3 closes at 98 and queues an exit; session 4 trades 90 to 97 (low through the stop), so the stop fires at 95, not the close of 97
+  const h = mk(5, [[99, 99, 98], [101, 102, 99.5], [100, 101, 99.6], [98, 99, 97.5], [97, 98.5, 90]]);
+  const p = run(h, pos({ signalIdx: 0, setup: '1', basis: 99.5 }), 1);
+  assert.equal(p.exitReason, 'stop'); assert.equal(p.exitDate, h.dates[4]);
+  assert.ok(Math.abs((p.resultR as number) - (-1 - (0.002 * 100) / 5)) < 1e-9);
+});
+test('C-147: a session that traded wholly below the stop fills at its high, not at the stop', () => {
+  const h = mk(4, [[99, 99, 98], [101, 102, 99.5], [100, 101, 99.6], [88, 92, 86]]);
+  const p = run(h, pos({ signalIdx: 0 }), 1);
+  assert.equal(p.exitReason, 'stop (gapped through)');
+  assert.ok(Math.abs((p.resultR as number) - ((92 - 100) / 5 - (0.002 * 100) / 5)) < 1e-9);
+});
