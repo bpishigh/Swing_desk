@@ -280,5 +280,11 @@
   "n": 492,
   "skipped": 10,
   "src": "S&P 500 list (StockAnalysis) and Nasdaq public daily closes"
+ },
+ "2026-11-05": {
+  "pct": 63,
+  "n": 489,
+  "skipped": 10,
+  "src": "S&P 500 list (StockAnalysis) and Nasdaq public daily closes"
  }
 }
