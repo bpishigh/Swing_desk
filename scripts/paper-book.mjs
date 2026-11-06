@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { gunzipSync } from 'node:zlib';
 import { buildHistories, runScan } from '../src/ingest/us-scan.ts';
 import { SCAN } from '../src/ingest/us-scan-settings.ts';
-import { advance, applySplits, newBook, newOrders, summarize } from '../src/ingest/paper-book.ts';
+import { markLast, advance, applySplits, newBook, newOrders, summarize } from '../src/ingest/paper-book.ts';
 import { loadDays } from './us-hist-lib.mjs';
 // Nightly bars come from the Nasdaq-sourced store (data/us/hist plus tails, split-adjusted by Nasdaq) so the book moves the same evening; the Massive files are used only by --replay.
 const NASDAQ = !process.argv.includes('--source=massive');
@@ -49,7 +49,7 @@ if (t < 0) { console.error('scan date not in the stored days: ' + asOf); process
 mkdirSync(dir, { recursive: true });
 const bookFile = `${dir}/book.json`;
 const book = existsSync(bookFile) ? JSON.parse(readFileSync(bookFile, 'utf8')) : newBook(asOf);
-if (book.asOf && book.asOf >= asOf) { console.log(`already processed ${asOf}`); process.exit(0); }
+if (book.asOf && book.asOf >= asOf) { markLast(book, buildHistories(days.slice(0, t + 1), NASDAQ ? [] : splits.filter((r) => r[1] <= days[t].date), allowed), t); writeFileSync(bookFile, JSON.stringify(book) + '\n'); console.log(`already processed ${asOf}; latest closes marked`); process.exit(0); }
 const regime = JSON.parse(readFileSync('data/us/regime.json', 'utf8')).latest;
 const light = ['green', 'yellow', 'red'].includes(regime?.name) ? regime.name : 'yellow';
 const from = book.asOf ? days.findIndex((d) => d.date > book.asOf) : t;
@@ -58,6 +58,7 @@ for (let i = from; i <= t; i++) {
   applySplits(book, splits, days[i].date);
   advance(book, hist, i, light, book.lastLight);
   if (i === t) newOrders(book, hist, t, light, top10(scan.ready, scan.watch));
+  if (i === t) markLast(book, hist, t);
   book.lastLight = light; book.asOf = days[i].date;
 }
 const summary = { ...summarize(book), light, newOrdersTonight: book.ledger.filter((p) => p.signalDate === asOf).map((p) => ({ stream: p.stream, sym: p.sym, setup: p.setup, trigger: +p.trigger.toFixed(2), stop: +p.stop.toFixed(2), tags: p.tags })), open: book.ledger.filter((p) => p.status === 'open').map((p) => ({ stream: p.stream, sym: p.sym, setup: p.setup, entry: +p.entry.toFixed(2), stop: +p.stop.toFixed(2) })) };

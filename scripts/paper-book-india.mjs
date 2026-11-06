@@ -7,7 +7,7 @@ import { INDIA_SCAN } from '../src/ingest/india-scan-settings.ts';
 import { runScan } from '../src/ingest/us-scan.ts';
 import { INDIA_SCAN_VERSION, INDIA_SETUPS } from '../src/ingest/india-scan-settings.ts';
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
-import { advance, applySplits, newBook, newOrders, summarize, useTiers } from '../src/ingest/paper-book.ts';
+import { markLast, advance, applySplits, newBook, newOrders, summarize, useTiers } from '../src/ingest/paper-book.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
 const REPLAY = process.argv.includes('--replay'), FORCE = process.argv.includes('--force');
@@ -50,7 +50,7 @@ if (t < 0) { console.error('scan date not in the stored days: ' + asOf); process
 mkdirSync(dir, { recursive: true });
 const bookFile = `${dir}/book.json`;
 const book = existsSync(bookFile) ? JSON.parse(readFileSync(bookFile, 'utf8')) : newBook(asOf);
-if (book.asOf && book.asOf >= asOf) { console.log(`already processed ${asOf}`); process.exit(0); }
+if (book.asOf && book.asOf >= asOf) { markLast(book, asOfHistories(days, t, res, allowed), t); writeFileSync(bookFile, JSON.stringify(book) + '\n'); console.log(`already processed ${asOf}; latest closes marked`); process.exit(0); }
 const reg = JSON.parse(readFileSync('data/india/regime.json', 'utf8')).latest;
 const light = ['green', 'yellow', 'red'].includes(reg?.name) ? reg.name : 'yellow';
 const from = book.asOf ? days.findIndex((d) => d.date > book.asOf) : t;
@@ -59,6 +59,7 @@ for (let i = from; i <= t; i++) {
   applySplits(book, res.splits, days[i].date);
   advance(book, hist, i, light, book.lastLight);
   if (i === t) newOrders(book, hist, t, light, top10(scan.ready, scan.watch));
+  if (i === t) markLast(book, hist, t);
   book.lastLight = light; book.asOf = days[i].date;
 }
 book.version = 'IND-PAPER-1';

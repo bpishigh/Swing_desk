@@ -31,7 +31,7 @@ export interface PaperPos {
   tags: string[]; dv20: number; costPct: number; maxStopPct: number;
   entry?: number; entryDate?: string; entryIdx?: number; riskPerShare?: number; stopPct?: number; stopAtrs?: number; roomR?: number | null;
   left: number; pnlR: number; maxClose: number; thirdSold: boolean; extSold: boolean; pend: null | { kind: 'all' | 'third'; why: string };
-  exitDate?: string; exitReason?: string; resultR?: number; heldSessions?: number; splitsApplied: string[]; note?: string;
+  last?: number; exitDate?: string; exitReason?: string; resultR?: number; heldSessions?: number; splitsApplied: string[]; note?: string;
 }
 export interface PaperBook { version: string; startDate: string; asOf: string | null; lastLight: Light | null; ledger: PaperPos[]; seq: number }
 export const newBook = (startDate: string): PaperBook => ({ version: PAPER.version, startDate, asOf: null, lastLight: null, ledger: [], seq: 0 });
@@ -134,6 +134,11 @@ const LV: Record<string, number> = { red: 0, yellow: 1, green: 2 };
 function close(p: PaperPos, date: string, idx: number, reason: string): void {
   p.status = 'closed'; p.exitDate = date; p.exitReason = reason; p.heldSessions = idx - (p.entryIdx as number) + 1;
   p.resultR = p.pnlR - (p.costPct * (p.entry as number)) / (p.riskPerShare as number);
+}
+
+/** Record each open position's latest close, so the page can show where it stands (display only; no rule reads it). */
+export function markLast(book: PaperBook, hist: Hist, t: number): void {
+  for (const p of book.ledger) { if (p.status !== 'open') continue; const s = hist.series.get(p.sym); if (s && s.c[t] > 0) p.last = s.c[t]; }
 }
 
 /** One session for every open or pending position. `t` is the session index, `light` the regime light of the night, `prevLight` that of the night before (rule 9). */
