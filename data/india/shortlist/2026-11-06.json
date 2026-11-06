@@ -1,0 +1,33 @@
+{
+ "signalDate": "2026-11-06",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "AUROPHARMA",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 1808.61,
+   "limit": 1826.7,
+   "stop": 1685.93,
+   "atrPct": 2.73,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  },
+  {
+   "sym": "CPPLUS",
+   "setup": "4",
+   "stream": "capwaived",
+   "trigger": 4427.44,
+   "limit": 4471.71,
+   "stop": 3946.92,
+   "atrPct": 4.65,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

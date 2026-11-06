@@ -416,6 +416,32 @@
    "basis": 3627.14,
    "width": 10.12,
    "room": 0.46
+  },
+  "VIJAYA|2|2026-11-06": {
+   "sym": "VIJAYA",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-06",
+   "trigger": 1480.96,
+   "stop": 1381.4,
+   "limit": 1495.77,
+   "basis": 1480.96,
+   "width": 6.72,
+   "room": 1.13
+  },
+  "VIJAYA|4|2026-11-06": {
+   "sym": "VIJAYA",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-06",
+   "trigger": 1480.96,
+   "stop": 1381.4,
+   "limit": 1495.77,
+   "basis": 1480.96,
+   "width": 6.72,
+   "room": 1.13
   }
  },
  "lastLogged": {
@@ -450,10 +476,12 @@
   "WELSPUNLIV|2": "2026-10-30",
   "LLOYDSME|2": "2026-10-30",
   "LLOYDSME|4": "2026-10-30",
-  "AJANTPHARM|2": "2026-10-30"
+  "AJANTPHARM|2": "2026-10-30",
+  "VIJAYA|2": "2026-11-06",
+  "VIJAYA|4": "2026-11-06"
  },
  "summary": {
-  "updated": "2026-10-30",
+  "updated": "2026-11-06",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -466,7 +494,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 6,
+     "open": 7,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -506,7 +534,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 6,
+     "open": 7,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -526,7 +554,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 14,
+     "open": 15,
      "meanNet": null,
      "win": null,
      "excess": null

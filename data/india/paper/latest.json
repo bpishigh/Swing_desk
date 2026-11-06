@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-30",
+ "asOf": "2026-11-06",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,10 +12,10 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 20,
-  "open": 6,
-  "pending": 4,
-  "notFilled": 6,
+  "orders": 22,
+  "open": 7,
+  "pending": 2,
+  "notFilled": 9,
   "closed": 4,
   "meanR": -0.46913650321487455,
   "winRate": 0.25
@@ -29,39 +29,40 @@
   "meanR": -0.9030247148288978,
   "winRate": 0
  },
- "light": "red",
+ "light": "yellow",
  "newOrdersTonight": [
   {
    "stream": "capwaived",
-   "sym": "ADANIPORTS",
+   "sym": "AUROPHARMA",
    "setup": "4",
-   "trigger": 1875.34,
-   "stop": 1752.83,
-   "status": "pending"
+   "trigger": 1808.61,
+   "stop": 1685.93,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap"
+   ],
+   "stopPct": 6.78,
+   "maxStopPct": 6,
+   "roomR": null
   },
   {
    "stream": "capwaived",
    "sym": "CPPLUS",
    "setup": "4",
-   "trigger": 3952.49,
-   "stop": 3636.92,
-   "status": "pending"
-  },
-  {
-   "stream": "capwaived",
-   "sym": "SYRMA",
-   "setup": "4",
-   "trigger": 1689.37,
-   "stop": 1491.64,
-   "status": "pending"
-  },
-  {
-   "stream": "capwaived",
-   "sym": "WELSPUNLIV",
-   "setup": "4",
-   "trigger": 227.45,
-   "stop": 204.8,
-   "status": "pending"
+   "trigger": 4427.44,
+   "stop": 3946.92,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 10.85,
+   "maxStopPct": 6,
+   "roomR": 0.4
   }
  ]
 }
