@@ -6,11 +6,6 @@
    "move": 0.04,
    "excess": 0.027
   },
-  "SHYAMMETL": {
-   "date": "2026-10-31",
-   "move": 0.0487,
-   "excess": 0.0241
-  },
   "AUROPHARMA": {
    "date": "2026-11-04",
    "move": 0.0534,
@@ -20,26 +15,6 @@
    "date": "2026-08-10",
    "move": 0.1243,
    "excess": 0.1237
-  },
-  "CPPLUS": {
-   "date": "2026-08-12",
-   "move": -0.0266,
-   "excess": -0.0271
-  },
-  "WELSPUNLIV": {
-   "date": "2026-10-30",
-   "move": 0.1422,
-   "excess": 0.14
-  },
-  "PTCIL": {
-   "date": "2026-08-14",
-   "move": 0.0739,
-   "excess": 0.0767
-  },
-  "LLOYDSME": {
-   "date": "2026-11-03",
-   "move": -0.014,
-   "excess": -0.04
   }
  }
 }
