@@ -13,9 +13,9 @@
    "inWindow": null
   },
   "GLAND": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+   "date": "2026-11-06",
+   "sessions": 0,
+   "inWindow": true
   }
  }
 }
