@@ -1389,7 +1389,12 @@
    "registeredAt": "2026-11-07T10:46:03.719Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-07T10:47:28.025Z",
+    "summary": "India 2011-2025: semi-annual 16.9%/yr, worst fall -37.6%; quarterly 17.4% (-38.6%), fails (+0.5 pt only); monthly 20.2% (-38.1%), halves 22.3/18.0 vs 16.1/17.6: qualifies. Costs/yr 0.65% / 0.96% / 1.66%.",
+    "file": "data/replay/c150-momentum-frequency-india.json"
+   }
   },
   {
    "id": "C-150-r2",
@@ -1415,7 +1420,12 @@
    "registeredAt": "2026-11-07T10:46:14.011Z",
    "attempt": 2,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-07T10:47:28.164Z",
+    "summary": "US 2017-2026: semi-annual 21.5%/yr, worst fall -49.9%; quarterly 23.0% (-38.8%); monthly 24.8% (-38.7%). Both faster schedules lose the second half (monthly 27.8% vs 33.6%) so neither qualifies. Costs/yr 0.27% / 0.38% / 0.65%.",
+    "file": "data/replay/c150-momentum-frequency-us.json"
+   }
   }
  ]
 }

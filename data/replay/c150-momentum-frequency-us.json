@@ -1,0 +1,113 @@
+{
+ "id": "C-150-us",
+ "run": "2026-11-07",
+ "rule": "faster schedule helps only if annual return beats semi-annual by 1+ point, worst fall no more than 3 points worse, and it wins both halves of the period; none qualifying means stay semi-annual; must qualify in both markets",
+ "rows": [
+  {
+   "freq": "semi-annual",
+   "reviews": 18,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 5.674,
+   "cagr": 0.2153,
+   "cagrFirstHalf": 0.1057,
+   "cagrSecondHalf": 0.3357,
+   "midpoint": "2022-05-18",
+   "worstFall": -0.4992,
+   "worstFrom": "2021-02-12",
+   "worstTo": "2022-09-26",
+   "turnoverPerReview": 0.668,
+   "costPerYear": 0.0027,
+   "yearly": {
+    "2017": 0.0241,
+    "2018": -0.0586,
+    "2019": 0.2794,
+    "2020": 0.8505,
+    "2021": -0.0004,
+    "2022": -0.2279,
+    "2023": 0.1457,
+    "2024": 0.5365,
+    "2025": 0.3874,
+    "2026": 0.3189
+   }
+  },
+  {
+   "freq": "quarterly",
+   "reviews": 36,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 6.335,
+   "cagr": 0.2304,
+   "cagrFirstHalf": 0.1818,
+   "cagrSecondHalf": 0.281,
+   "midpoint": "2022-05-18",
+   "worstFall": -0.3876,
+   "worstFrom": "2026-06-22",
+   "worstTo": "2026-07-29",
+   "turnoverPerReview": 0.466,
+   "costPerYear": 0.0038,
+   "yearly": {
+    "2017": 0.0241,
+    "2018": -0.0154,
+    "2019": 0.2772,
+    "2020": 0.8787,
+    "2021": 0.0577,
+    "2022": -0.116,
+    "2023": 0.1329,
+    "2024": 0.2681,
+    "2025": 0.4507,
+    "2026": 0.3435
+   }
+  },
+  {
+   "freq": "monthly",
+   "reviews": 107,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 7.21,
+   "cagr": 0.2484,
+   "cagrFirstHalf": 0.2192,
+   "cagrSecondHalf": 0.2783,
+   "midpoint": "2022-05-18",
+   "worstFall": -0.3866,
+   "worstFrom": "2026-06-22",
+   "worstTo": "2026-07-29",
+   "turnoverPerReview": 0.271,
+   "costPerYear": 0.0065,
+   "yearly": {
+    "2017": 0.0241,
+    "2018": -0.0394,
+    "2019": 0.221,
+    "2020": 0.7697,
+    "2021": 0.2721,
+    "2022": -0.0421,
+    "2023": 0.0683,
+    "2024": 0.3299,
+    "2025": 0.3389,
+    "2026": 0.4632
+   }
+  }
+ ],
+ "verdict": [
+  {
+   "freq": "quarterly",
+   "cagrGap": 0.0151,
+   "fallGap": 0.1116,
+   "firstHalfGap": 0.0761,
+   "secondHalfGap": -0.0547,
+   "qualifies": false
+  },
+  {
+   "freq": "monthly",
+   "cagrGap": 0.0331,
+   "fallGap": 0.1126,
+   "firstHalfGap": 0.1135,
+   "secondHalfGap": -0.0574,
+   "qualifies": false
+  }
+ ],
+ "chosen": null
+}
