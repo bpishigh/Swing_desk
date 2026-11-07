@@ -55,7 +55,8 @@ export function sleeveWeights(sel: Selection): number[] {
   return w;
 }
 /** First session of a calendar month in a review month (June, December). `dates` ascending, t the night index. */
-export const isReviewSession = (dates: string[], t: number): boolean => t > 0 && dates[t].slice(0, 7) !== dates[t - 1].slice(0, 7) && MOM30.reviewMonths.includes(dates[t].slice(5, 7));
+export const MONTHLY = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];   // C-151 monthly twin: MOM_REVIEW=monthly
+export const isReviewSession = (dates: string[], t: number, months: string[] = MOM30.reviewMonths): boolean => t > 0 && dates[t].slice(0, 7) !== dates[t - 1].slice(0, 7) && months.includes(dates[t].slice(5, 7));
 
 /** US universe on night t (as the C-131 replay): listed companies, price at least 5 dollars, 260 sessions of history, 20-session median dollar volume at least 20 million; most traded first. */
 export const US_UNI = { minPrice: 5, minValue: 20e6, minSessions: 260 };

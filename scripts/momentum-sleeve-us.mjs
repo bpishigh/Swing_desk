@@ -5,7 +5,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { buildHistories } from '../src/ingest/us-scan.ts';
 import { usCost } from '../src/backtest/us-loader.ts';
-import { MOM30, selectSleeve, sleeveWeights, isReviewSession, eligibleUs } from '../src/engine/momentum-sleeve.ts';
+import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY, eligibleUs } from '../src/engine/momentum-sleeve.ts';
 import { loadDays } from './us-hist-lib.mjs';
 import { gunzipSync } from 'node:zlib';
 
@@ -26,6 +26,7 @@ const OPEN = (() => { const f = `data/us/open/${D}.json.gz`; if (!existsSync(f))
 const openOn = (d) => { const f = `data/us/open/${d}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } };   // opens by date, for each holding's entry price (the open it was bought at)
 // Stop twin (C-147): MOM_STOP=0.25 runs the same book with a trailing stop on each name (sold at the next open once a close is that far below its highest close since bought; not replaced until the next review). Unset, the book has no stop and is unchanged.
 const STOP = Number(process.env.MOM_STOP) || 0;
+const MONTHLY_TWIN = process.env.MOM_REVIEW === 'monthly', RM = MONTHLY_TWIN ? MONTHLY : undefined;   // C-151: a twin re-ranked every month (same fills as the registered book at the start)
 const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/us/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
@@ -63,7 +64,7 @@ if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's clos
 const el = eligibleUs(series, t);
 const preview = selectSleeve(el, series, t, held()), wts = sleeveWeights(preview);
 const needFirst = !st.book && !st.pending && D > START_AFTER;
-if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t)))) {
+if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t, RM)))) {
   // the US store has one data path (prices already split-adjusted), so there is no second path to compare; the check is recorded as not applicable
   st.pending = { signalDate: D, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: null, maxWeightDiffPp: null, pass: null, note: 'one US data path; no second path to compare' } };
   st.lastSignal = D;
@@ -76,7 +77,7 @@ const prevW = new Map(preview.picks.map((p, i) => [p.sym, wts[i]]));
 const top = preview.ranked.slice(0, 60);
 const heldNotTop = [...hs].filter((s) => !top.some((r) => r.sym === s)).map((s) => preview.ranked.find((r) => r.sym === s) ?? { sym: s, rank: null, s: null, mult: null, value: 0 });
 const rows = [...top, ...heldNotTop].map((r) => ({ rank: r.rank, sym: r.sym, name: names[r.sym] ?? null, score: r.s === null ? null : Math.round(r.s * 100) / 100, weightNow: wNow(r.sym) === null ? null : Math.round(wNow(r.sym) * 1e4) / 1e4, weightTarget: Math.round((prevW.get(r.sym) ?? 0) * 1e4) / 1e4, status: status(r), r6: ret(r.sym, 126), r12: ret(r.sym, 252), ...(st.book?.shares[r.sym] ? { entry: st.book.entry?.[r.sym] ?? null, last: px(r.sym, t) > 0 ? Math.round(px(r.sym, t) * 100) / 100 : null, sinceEntry: st.book.entry?.[r.sym] > 0 && px(r.sym, t) > 0 ? Math.round((px(r.sym, t) / st.book.entry[r.sym] - 1) * 1e4) / 1e4 : null } : {}) }));
-const nextRev = (() => { const [y, m] = D.split('-').map(Number); const c = [[y, 6], [y, 12], [y + 1, 6]].find(([yy, mm]) => yy * 12 + mm > y * 12 + m); return `${c[0]}-${String(c[1]).padStart(2, '0')}`; })();
+const nextRev = MONTHLY_TWIN ? (() => { const [y, m] = D.split('-').map(Number); const n = m === 12 ? [y + 1, 1] : [y, m + 1]; return `${n[0]}-${String(n[1]).padStart(2, '0')}`; })() : (() => { const [y, m] = D.split('-').map(Number); const c = [[y, 6], [y, 12], [y + 1, 6]].find(([yy, mm]) => yy * 12 + mm > y * 12 + m); return `${c[0]}-${String(c[1]).padStart(2, '0')}`; })();
 // monthly comparison lines: the sleeve, SPY and QQQ (price only), rebased to the first month-end after the first fill
 const bench = (sym) => { const bars = JSON.parse(gunzipSync(readFileSync(`data/us/hist-bench/${sym}.json.gz`)).toString()).bars; return new Map(bars.map((b) => [b[0], b[1]])); };
 const spyM = bench('SPY'), qqqM = bench('QQQ'), months = Object.keys(st.monthly).sort();
@@ -91,6 +92,7 @@ const out = {
   rows, reviews: st.reviews, daily: st.daily.slice(-400), board, replication: null, replay: w0 ? { rule: 'C-131', verdict: w0.pass ? 'pass' : 'fail', sleeve: w0.vsSPY.sleeve, spy: w0.vsSPY.index, window: w0.label, note: 'survivor-biased data: delisted stocks missing' } : null, comparisonOnly: true,
   wouldEnter: rows.filter((r) => r.status === 'Would enter').map((r) => r.sym), wouldLeave: rows.filter((r) => r.status === 'Would leave').map((r) => r.sym),
 };
+if (MONTHLY_TWIN) out.reviewRule = 'monthly';
 if (STOP) { out.stopRule = STOP; out.stops = st.stops ?? []; out.stopQueue = (st.stopQueue ?? []).map((q) => q.sym); }
 if (process.env.DBG) console.log(rows.slice(0, 45).map((r) => `${r.rank} ${r.sym} ${r.score} ${(names[r.sym] ?? "").slice(0, 28)}`).join("\n"));
 console.log(JSON.stringify({ asOf: D, state: out.state, universe: out.universe, held: out.heldCount, pending: out.pending, reviews: st.reviews.length, top3: rows.slice(0, 3).map((r) => r.sym) }));
