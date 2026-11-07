@@ -1302,6 +1302,58 @@
     "summary": "Run 1 Nov 2026 (manifest C-136-r1): FAILS on two of four conditions, so nothing changes. BSE 500 trend light (volume field usable: zero on 0.0% of sessions, so the distribution cap was kept; no breadth), Jan 2006 to Dec 2009 (48 months, includes the 2008 bear market): Green months averaged +3.31% the next month against +0.21% for the others (difference +3.10%, 90% interval -2.22% to +7.17%); Green beat the others in 0 of the 3 years counted (2006, 2007 and 2009; 2008 had only one Green month and was not counted). Inside each year the other months did as well or better, so the large gap comes from Green months sitting in the rising years and the other months in the 2008 fall, not from a within-year edge. The point estimate is large and the right sign, but 48 months through one crash cannot confirm it (smallest detectable difference about 4.1% a month). The Red state had only 4 months. Sector ranking and trend template could not be tested before 2010: no sector index series or stock prices are stored. Files: data/replay/c133-light.json, docs/replay/C133-REPORT.md",
     "file": "data/replay/c133-light.json"
    }
+  },
+  {
+   "id": "C-149-r1",
+   "changeLog": "C-149",
+   "title": "Momentum sleeve with a trailing stop (none, 5%, 8%, 25%), India replay",
+   "hypothesis": "A trailing stop on each name lowers the sleeve's worst peak-to-trough fall without costing more than 2 points a year of return.",
+   "script": "scripts/backtest-momentum30-stops.mjs",
+   "params": {
+    "levels": "none, 5%, 8%, 25% below the highest close since bought (fixed; no others tried)",
+    "sleeve": "C-129 / C-131 code unchanged, tilt weighting, same eligibility lists and costs",
+    "fill": "queued on a close, sold at the next session's close with half the round-trip cost; cash waits for the next June or December signal",
+    "reported": "compound annual return, worst daily peak-to-trough fall with dates, stops fired, return by calendar year"
+   },
+   "passRule": "A level helps only if it lowers the worst fall of the no-stop sleeve and its compound annual return is within 2 points a year of the no-stop sleeve; several qualify: smaller fall, then wider stop; none: no stop. Must qualify in both markets.",
+   "data": {
+    "sessions": 1700,
+    "first": "2020-01-01",
+    "last": "2026-11-06",
+    "symbols": 497,
+    "splits": 567,
+    "hash": "43ccb4ead2ef"
+   },
+   "registeredAt": "2026-11-07T10:30:24.147Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-149-r2",
+   "changeLog": "C-149",
+   "title": "Momentum sleeve with a trailing stop (none, 5%, 8%, 25%), US replay",
+   "hypothesis": "A trailing stop on each name lowers the sleeve's worst peak-to-trough fall without costing more than 2 points a year of return.",
+   "script": "scripts/backtest-momentum30-stops-us.mjs",
+   "params": {
+    "levels": "none, 5%, 8%, 25% below the highest close since bought (fixed; no others tried)",
+    "sleeve": "C-129 / C-131 code unchanged, tilt weighting, same eligibility lists and costs",
+    "fill": "queued on a close, sold at the next session's close with half the round-trip cost; cash waits for the next June or December signal",
+    "reported": "compound annual return, worst daily peak-to-trough fall with dates, stops fired, return by calendar year"
+   },
+   "passRule": "A level helps only if it lowers the worst fall of the no-stop sleeve and its compound annual return is within 2 points a year of the no-stop sleeve; several qualify: smaller fall, then wider stop; none: no stop. Must qualify in both markets.",
+   "data": {
+    "sessions": 1700,
+    "first": "2020-01-01",
+    "last": "2026-11-06",
+    "symbols": 497,
+    "splits": 567,
+    "hash": "43ccb4ead2ef"
+   },
+   "registeredAt": "2026-11-07T10:30:33.626Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
