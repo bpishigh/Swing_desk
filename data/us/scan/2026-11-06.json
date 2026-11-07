@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 299,
   "template": 132,
-  "qualified": 41,
+  "qualified": 38,
   "baseQuality": 0,
   "withSetup": 1
  },
@@ -608,108 +608,6 @@
     "Group: Healthcare services ranks 2 of 59 (median strength 82.2); the 4 strongest groups are traded in the red light.",
     "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 1.3% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
-  },
-  {
-   "sym": "TGT",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 89.8,
-   "close": 158.41,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 54.32,
-   "tightness": 1.33,
-   "distPivot": 4.85,
-   "setup": null,
-   "diag": {
-    "rs121": 68.33,
-    "rs6m2w": 18.18,
-    "atr14": 5.37,
-    "sma50": 156.42,
-    "sma200": 135.26,
-    "high52": 170.75,
-    "low52": 83.44,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 89.8th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 7.2% below its 52-week high (limit 25%) and 89.8% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 6 of 59 (median strength 71.9); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: a pattern is forming but there is under 3R of room before the next overhead high."
-   ]
-  },
-  {
-   "sym": "KSS",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 87.49,
-   "close": 23.04,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 52.49,
-   "tightness": 1.2,
-   "distPivot": 10,
-   "setup": null,
-   "diag": {
-    "rs121": 14.65,
-    "rs6m2w": 67.32,
-    "atr14": 1.3,
-    "sma50": 20.13,
-    "sma200": 17.12,
-    "high52": 25.6,
-    "low52": 11.38,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 87.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 10% below its 52-week high (limit 25%) and 102.5% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 6 of 59 (median strength 71.9); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 10% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "FIVE",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 83.28,
-   "close": 240.3,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 49.97,
-   "tightness": 1.12,
-   "distPivot": 7.62,
-   "setup": null,
-   "diag": {
-    "rs121": 34.49,
-    "rs6m2w": -4.6,
-    "atr14": 8.88,
-    "sma50": 231.26,
-    "sma200": 219.06,
-    "high52": 263.88,
-    "low52": 143.02,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 83.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 8.9% below its 52-week high (limit 25%) and 68% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 6 of 59 (median strength 71.9); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 7.6% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -718,7 +616,7 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 41,
+ "qualifiedTotal": 38,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",

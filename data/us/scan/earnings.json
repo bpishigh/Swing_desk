@@ -38,22 +38,6 @@
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "TGT": {
-   "date": "2026-11-18",
-   "sessions": 8,
-   "inWindow": true
-  },
-  "KSS": {
-   "date": "2026-11-24",
-   "sessions": 12,
-   "inWindow": false
-  },
-  "FIVE": {
-   "date": "2026-12-02",
-   "sessions": 17,
-   "inWindow": false,
-   "estimated": true
   }
  }
 }
