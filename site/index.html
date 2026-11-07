@@ -285,6 +285,27 @@ let _rz; addEventListener('resize', () => { clearTimeout(_rz); _rz = setTimeout(
 function th(label, key, st, num) { const s = sortState[st]; const a = s.key === key ? (s.dir > 0 ? 'ascending' : 'descending') : 'none'; return `<th class="${num ? 'num' : ''}" aria-sort="${a}"><button data-sort="${st}:${key}">${label}</button></th>`; }
 function sortRows(rows, st) { const { key, dir } = sortState[st]; return rows.slice().sort((a, b) => { const x = a[key], y = b[key]; const nx = x === null || x === undefined || Number.isNaN(x), ny = y === null || y === undefined || Number.isNaN(y); if (nx && ny) return 0; if (nx) return 1; if (ny) return -1; return (typeof x === 'string' ? x.localeCompare(y) : x - y) * dir; }); }
 
+function whyLight(name, m) {
+  // Review item 2: show what each test says and what is missing for Green. Display only; no rule is changed here.
+  const r = m.regime, L = m.latest || {}, nm = [name === 'India' ? 'Nifty 50' : 'SPY', name === 'India' ? 'Nifty 500' : 'QQQ'];
+  const bm = [[L.close, L.sma50, L.sma200, r.risingA, r.trendLevels?.a], [L.b?.close, L.b?.sma50, L.b?.sma200, r.risingB, r.trendLevels?.b]];
+  const tick = (ok) => `<b class="${ok ? 'pos' : 'neg'}">${ok ? 'pass' : 'not yet'}</b>`;
+  const need = [];
+  const rows = bm.map(([c, a, b, rise, lv], i) => {
+    if (![c, a, b].every((x) => typeof x === 'number')) return '';
+    const o50 = c > a, o200 = c > b;
+    if (!o50) need.push(`${nm[i]} must close above its 50-day average (${fmt(a)}, ${sgn(pctVs(a, c), 1, '%')} from here)`);
+    if (!o200) need.push(`${nm[i]} must close above its 200-day average (${fmt(b)}, ${sgn(pctVs(b, c), 1, '%')} from here)`);
+    if (o50 && o200 && rise !== true) need.push(`the ${nm[i]} 50-day average must be rising`);
+    return `<tr><td>${nm[i]}</td><td>${tick(o50)}</td><td>${tick(o200)}</td><td>${tick(rise === true)}</td><td><span class="badge ${LV[lv] || ''}">${cap(LV[lv] || '–')}</span></td></tr>`;
+  }).join('');
+  const caps = [], dn = (r.distribution || []).length;
+  if (r.breadth !== null && r.breadth < 40) caps.push(`breadth is ${fmt(r.breadth, 1)}%, below 40`);
+  if (dn >= 5) caps.push(`${dn} distribution days, 5 or more`);
+  const tail = r.name === 'green' ? 'Both benchmarks pass every test and nothing caps it, so the light is Green.' : need.length || caps.length ? `For Green: ${[...need, ...caps.map((c) => 'this cap must clear: ' + c)].join('; ')}. The light is the weaker of the two benchmarks, so both must pass.` : 'The tests pass; a recent follow-through rule or the data date is what holds it back.';
+  return `<details class="fold" style="margin-top:16px" ${r.name === 'green' ? '' : 'open'}><summary>What decides the light</summary><div class="tablewrap"><table><thead><tr><th>Benchmark</th><th>Above 50-day</th><th>Above 200-day</th><th>50-day rising</th><th>Trend</th></tr></thead><tbody>${rows}</tbody></table></div><p class="note" style="margin:10px 0 0;max-width:75ch">${esc(tail)}</p></details>`;
+}
+const LV = ['red', 'yellow', 'green'];
 function marketCard(name, m, ccy) {
   const r = m.regime, L = m.latest || {};
   if (!r) return `<section class="card"><h2>${name}</h2><div class="empty">No regime yet: the tracker has no averages.</div></section>`;
@@ -303,6 +324,7 @@ function marketCard(name, m, ccy) {
       <div><dt>Follow-through</dt><dd>${esc(r.followThrough)}</dd></div>
       <div><dt>${name === 'India' ? 'India VIX' : 'VIX'}</dt><dd>${fmt(L.vix)}</dd></div>
     </dl>
+    ${whyLight(name, m)}
     <h3>Index</h3>${spark(m.index)}
     <h3>Regime, last ${m.timeline.length} sessions</h3>
     <div class="strip" role="img" aria-label="Regime colour per session, oldest first">${m.timeline.map((t) => `<i class="${t.regime}" title="${esc(t.date)}: ${t.regime}"></i>`).join('')}</div>
