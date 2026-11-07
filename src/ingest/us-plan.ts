@@ -20,6 +20,7 @@ export interface UsPlanInput {
   breadthDate: string;      // latest day in data/us/breadth.json
   scanDate?: string;        // latest day in data/us/scan/latest.json (the official scan); omit to leave the scan job to its own schedule
   inflight: { daily: boolean; screen: boolean; breadth: boolean; scan?: boolean };
+  screenRetired?: boolean;  // the weekly screen was retired on 17 Oct 2026 (owner); true stops the tick starting it or alerting about it
   state: UsPlanState;
 }
 export interface UsPlanState {
@@ -104,7 +105,7 @@ export function planUs(i: UsPlanInput): UsPlan {
   let sAtt = sFresh ? s0!.attempts : 0;
   let sAlerted = sFresh ? s0!.alertedFor : undefined;
   const dueDay = ist.dow === 0 || (ist.dow === 6 && ist.minutes >= SCREEN_START_MIN_IST);
-  const due = weekend && dueDay && i.screenDate < lastUs;
+  const due = !i.screenRetired && weekend && dueDay && i.screenDate < lastUs;
   if (due && i.feedDate >= lastUs && !i.inflight.screen && sAtt < US_MAX_ATTEMPTS) { sAtt++; dispatch.push({ workflow: 'us-screen.yml', inputs: {} }); }
   const sLate = ist.dow === 0 || (ist.dow === 6 && ist.minutes >= SCREEN_ALERT_MIN_IST);
   if (due && (sLate || sAtt >= US_MAX_ATTEMPTS) && sAlerted !== lastUs) {

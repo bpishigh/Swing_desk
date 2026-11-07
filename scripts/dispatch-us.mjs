@@ -32,7 +32,7 @@ async function running(workflow) {
 }
 
 const inflight = { daily: await running('us-nightly.yml'), screen: await running('us-screen.yml'), breadth: await running('us-breadth.yml'), scan: await running('us-hist-nightly.yml') };
-const plan = planUs({ nowMs: NOW ? Date.parse(NOW) : Date.now(), cal, feedDate, screenDate, breadthDate, scanDate, inflight, state });
+const plan = planUs({ screenRetired: true, nowMs: NOW ? Date.parse(NOW) : Date.now(), cal, feedDate, screenDate, breadthDate, scanDate, inflight, state });
 console.log(JSON.stringify({ feedDate, screenDate, breadthDate, scanDate, inflight, dispatch: plan.dispatch.map((d) => `${d.workflow} ${JSON.stringify(d.inputs)}`), alerts: plan.alerts }));
 if (DRY) process.exit(0);
 

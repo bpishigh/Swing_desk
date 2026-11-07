@@ -82,3 +82,12 @@ test('the 17:30 ET threshold follows the clock change on 1 Nov 2026', () => {
   assert.equal(usTarget(at('2026-11-02T22:30:00Z'), cal).target, '2026-11-02');   // Mon, 17:30 EST
   assert.equal(usTarget(at('2026-11-02T21:30:00Z'), cal).target, '2026-10-30');   // 16:30 EST: still before the threshold (it would have passed under EDT)
 });
+
+test('a retired screen is never started and never alerted about (retired 17 Oct 2026)', () => {
+  const sun = at('2026-10-11T07:07:00Z');   // Sunday, the screen would be due and late
+  const live = planUs({ ...base, feedDate: '2026-10-09', nowMs: sun });
+  assert.ok(live.dispatch.some((d) => d.workflow === 'us-screen.yml') || live.alerts.some((a) => a.startsWith('The weekly')), 'without the flag it still runs or alerts');
+  const off = planUs({ ...base, feedDate: '2026-10-09', screenRetired: true, nowMs: sun });
+  assert.equal(off.dispatch.some((d) => d.workflow === 'us-screen.yml'), false);
+  assert.equal(off.alerts.some((a) => a.startsWith('The weekly')), false);
+});

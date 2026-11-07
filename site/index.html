@@ -98,6 +98,7 @@ details.fold > summary { cursor: pointer; font-weight: 600; font-size: 14px; pad
 ul.flat { margin: 6px 0 0; padding-left: 18px; } ul.flat li { margin: 2px 0; }
 svg text { fill: var(--muted); font: 11.5px var(--font); } svg.mchart text { font-size: 8.5px; }
 .spark path.l { fill: none; stroke-linejoin: round; stroke-linecap: round; } .spark .c { stroke: var(--ink); stroke-width: 2.4; } .spark .s50 { stroke: var(--accent); stroke-width: 1.8; } .spark .s200 { stroke: var(--warn); stroke-width: 1.8; stroke-dasharray: 7 5; }
+.fresh { display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px 16px; } .fresh.bad { display:block; border-color: var(--yellow); background: var(--yellow-bg); }
 .spark { display: block; max-width: 100%; } .spark text { font-size: 12px; } .sparkwrap { position: relative; } .sptip { position: absolute; display: none; pointer-events: none; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 12.5px; line-height: 1.5; box-shadow: 0 4px 14px rgba(0,0,0,.14); white-space: nowrap; z-index: 2; }
 .legend2 { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 12px; font-size: 13px; color: var(--muted); } .legend2 i { display: inline-block; width: 22px; border-top: 3px solid; vertical-align: middle; margin-right: 8px; }
 .doc h2,.doc h3,.doc h4,.doc h5{margin:18px 0 6px}.doc pre{overflow:auto;background:var(--bg,#0001);padding:8px;border-radius:6px}.doc ul,.doc ol{padding-left:22px}.doc table{font-size:12.5px}.docgrid{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:18px;align-items:start}@media(max-width:700px){.docgrid{grid-template-columns:1fr}}
@@ -305,7 +306,7 @@ function holdingsCard() {
   const day = (d) => { const t = new Date(d + 'T00:00:00Z'); return t.getUTCDate() + ' ' + t.toLocaleString('en-GB', { month: 'short', timeZone: 'UTC' }); };
   const money = (v) => (v == null ? '' : '₹' + Math.round(v).toLocaleString('en-IN'));
   const chg = first ? '<div class="note">Changes show from tomorrow night, once there is an earlier night to compare with.</div>'
-    : (nNew || nBack) ? `<table><tbody>${m.newExits.map((r) => `<tr><td><span class="chip bad">Fails</span></td><td>${nm(r)}<div class="note">${esc(r.account)}${r.value ? ' · ' + money(r.value) : ''}</div></td></tr>`).join('')}${m.recovered.map((r) => `<tr><td><span class="chip ok">Back</span></td><td>${nm(r)}<div class="note">${esc(r.account)}</div></td></tr>`).join('')}</tbody></table>`
+    : (nNew || nBack) ? `<table><tbody>${m.newExits.map((r) => `<tr><td><span class="chip bad" data-tip="Newly fails the exit test tonight">Fails</span></td><td>${nm(r)}<div class="note">${esc(r.account)}${r.value ? ' · ' + money(r.value) : ''}</div></td></tr>`).join('')}${m.recovered.map((r) => `<tr><td><span class="chip ok" data-tip="Failed the exit test earlier and passes again tonight">Passes again</span></td><td>${nm(r)}<div class="note">${esc(r.account)}</div></td></tr>`).join('')}</tbody></table>`
     : `<div class="note">No verdict changed since ${esc(day(m.previousAsOf))}.</div>`;
   const shown = live.slice(0, 6), more = live.length - shown.length;
   const due = live.length ? `<div class="tablewrap"><table><thead><tr><th>Company</th><th>Account</th><th class="num">Results</th></tr></thead><tbody>${shown.map((r) => `<tr><td>${nm(r)}</td><td class="note">${esc(r.account)}</td><td class="num">${r.date === today ? 'today' : esc(day(r.date))}</td></tr>`).join('')}</tbody></table></div>${more > 0 ? `<div class="note" style="margin-top:6px">+${more} more within 10 sessions</div>` : ''}` : '<div class="note">None within 10 sessions.</div>';
@@ -335,10 +336,24 @@ function viewToday() {
   const since = `<span><span class="chip">Lights</span> ${changed.length ? changed.map((x) => `${x[0]} moved to ${cap(x[1].regime.name)}`).join(', ') : 'unchanged since the last scan'}</span><span><span class="chip">Paper</span> ${pend} order${pend === 1 ? '' : 's'} waiting to fill</span>${closed ? `<span><span class="chip">Closed</span> ${esc(closed.sym)}, ${esc(String(closed.exitReason || closed.status).replace('closed · ', ''))}, ${sgn(closed.resultR, 2, 'R')}</span>` : ''}`;
   const evK = (k) => { const ev = D.evidence; if (!ev) return ''; const edge = ev.rules.filter((r) => /^Edge found/.test(r[k].label)).map((r) => r.rule.toLowerCase()); return edge.length ? `${edge.join(' and ')} ${edge.length > 1 ? 'have' : 'has'} a measured edge in ${k === 'us' ? 'the US' : 'India'}` : `no rule has a measured edge in ${k === 'us' ? 'the US' : 'India'}`; };
   const readyBody = ready ? mk.filter((x) => x[2]?.ready.length).map((x) => `<div class="lbl" style="margin-top:12px">${x[0]}</div><div class="tablewrap"><table><thead><tr><th>Stock</th><th class="num">Trigger</th><th class="num">Stop</th><th>Setup</th></tr></thead><tbody>${x[2].ready.slice(0, 6).map((c) => `<tr><td><b>${esc(c.sym)}</b></td><td class="num">${c.setup ? fmt(c.setup.trigger) : '–'}</td><td class="num">${c.setup ? fmt(c.setup.stop) : '–'}</td><td>${c.setup ? esc(c.setup.id) : '–'}</td></tr>`).join('')}</tbody></table></div>`).join('') : `<div class="empty">Nothing passed every gate tonight.<div class="note" style="margin-top:6px">Closest names are on Watch: ${watch.map(([n, c]) => `${c} ${n}`).join(', ')}.</div></div>`;
-  const streamRows = (pb) => ['official', 'capwaived', 'comparator'].map((s) => { const x = pb?.[s] || {}, lbl = STREAM[s]; return `<div class="lrow"><span>${lbl}<div class="note nm">${STREAMSHORT[s]}</div></span><span class="note">${x.orders ? `${x.closed ?? 0} closed · ${x.open ?? 0} open · ${x.pending ?? 0} pending` : 'no orders yet'}</span><span>${typeof x.meanR === 'number' ? sgn(x.meanR, 2, 'R') : '<span class="note">–</span>'}</span></div>`; }).join('');
+  const streamRows = (pb) => ['official', 'capwaived', 'comparator'].map((s) => {   // item 3: live results first (return on what is open now); R only as a small note
+    const x = pb?.[s] || {}, lbl = STREAM[s], op = (pb?.live || []).filter((p) => p.stream === s && p.status === 'open' && p.entry > 0 && p.last > 0), rets = op.map((p) => p.last / p.entry - 1), avg = rets.length ? rets.reduce((a, b) => a + b, 0) / rets.length : null;
+    const live = avg === null ? '<span class="note">nothing open</span>' : `<b class="${avg >= 0 ? 'pos' : 'neg'}">${pcs(avg, 1)}</b><div class="note nm">avg of ${rets.length} open${rets.length > 1 ? ` · ${pcs(Math.min(...rets), 1)} to ${pcs(Math.max(...rets), 1)}` : ''}</div>`;
+    return `<div class="lrow"><span>${lbl}<div class="note nm">${STREAMSHORT[s]}</div></span><span class="note">${x.orders ? `${x.open ?? 0} open · ${x.pending ?? 0} waiting · ${x.closed ?? 0} closed${typeof x.meanR === 'number' ? ` (avg ${sgn(x.meanR, 2, 'R')})` : ''}` : 'no orders yet'}</span><span style="text-align:right">${live}</span></div>`; }).join('');
   const lead = (m) => (m.sectors || []).filter((s) => s.rank && s.rank <= 3).sort((a, b) => a.rank - b.rank).map((s) => `<div class="lrow"><span>${s.rank} · ${esc(s.name)}</span><span>${sgn(s.r1m, 1, '% 1M')}</span></div>`).join('');
   const sectEv = (k) => { const r = D.evidence?.rules.find((x) => /^Sector/.test(x.rule)); return r ? `${k === 'us' ? 'US' : 'India'}: ${esc(r[k].label.toLowerCase())}.` : ''; };
+  const freshStrip = (() => {   // item 1 (Nov 2026 review): any scan or store that is behind shows at the very top
+    const ex = D.expected || {}, dd = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 864e5);
+    const rows = [['India scan', D.india.date, ex.india], ['India stocks', D.india.stocks?.date, ex.india], ['US daily', D.us.date, ex.us], ['India paper book', D.paperIndia?.asOf, ex.india], ['US paper book', D.paper?.asOf, ex.us], ['India momentum sleeve', D.momentum?.asOf, ex.india], ['US momentum sleeve', D.momentumUs?.asOf, ex.us]]
+      .filter((r) => r[2]).map(([n, d, e]) => ({ n, d, behind: d ? Math.max(0, dd(d, e)) : null }));
+    const bad = rows.filter((r) => (r.weekly ? r.behind > 8 : r.behind === null || r.behind > 0));
+    const age = D.generatedAt ? Math.round((Date.now() - Date.parse(D.generatedAt)) / 36e5) : null;
+    const old = age !== null && age > 30;
+    if (!bad.length && !old) return `<section class="card fresh ok"><span class="chip ok">Data current</span><span class="note">India ${esc(dmy(ex.india))} · US ${esc(dmy(ex.us))} · every scan, book and sleeve is up to date.</span><button class="lnk" data-go="health">Data health</button></section>`;
+    return `<section class="card fresh bad"><div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span><span class="chip warn">Stale data</span> <b>${bad.length + (old ? 1 : 0)} source${bad.length + (old ? 1 : 0) === 1 ? '' : 's'} behind</b></span><button class="lnk" data-go="health">Data health</button></div><ul class="flat note" style="margin:8px 0 0">${bad.map((r) => `<li><b>${esc(r.n)}</b>: ${r.d ? `last data ${esc(dmy(r.d))}, ${r.behind} day${r.behind === 1 ? '' : 's'} behind` : 'no data'}${r.weekly && r.tries > 1 ? `. The job has failed ${r.tries} tries` : ''}</li>`).join('')}${old ? `<li><b>This page</b> was built ${age} hours ago; the nightly build may not have run.</li>` : ''}</ul></section>`;
+  })();
   return `<div class="stack">
+  ${freshStrip}
   <section class="card hero"><div><p class="eyebrow">Tonight · scan of the ${esc(dmy(D.india.date))} close</p><h2 class="big">${ready ? `${ready} Ready name${ready === 1 ? '' : 's'} tonight.` : 'No Ready names tonight.'}</h2><p>${esc(lights)}.${esc(runTxt)} ${watch.map(([n, c]) => `${c} ${n}`).join(' and ')} names on Watch. Paper only, nothing here places an order.</p><div class="ctas"><button class="cta main" data-mkt="in" data-to="scan">See Watch lists</button><button class="cta" data-go="paper">Paper test</button></div></div><div class="tiles">${mk.map(tile).join('')}</div></section>
   <section class="card since"><span class="eyebrow" style="margin:0">Since the last scan</span>${since}</section>
   <div class="grid2">
@@ -356,7 +371,7 @@ function viewMarket() {
 function viewHealth() {
   const H = D.health, u = H.usage;
   const jobRows = H.jobs.map((j) => { const bad = /fail|error/i.test(j.status); return `<tr><td>${esc(j.name)}</td><td>${ist(j.ts)}</td><td>${esc(j.date ?? '–')}</td><td><span class="chip ${bad ? 'bad' : /written|stored|done/i.test(j.status) ? 'ok' : ''}">${esc(j.status)}</span></td></tr>${j.flags.length ? `<tr class="notesrow"><td colspan="4" class="note">${j.flags.map(esc).join('<br>')}</td></tr>` : ''}`; }).join('');
-  const dataRows = [['India index and sectors', D.india.date, D.expected.india], ['India stocks', D.india.stocks?.date, D.expected.india], ['US daily', D.us.date, D.expected.us], ['US screen (weekly)', D.us.screen?.feedDate, null]].map(([n, d, e]) => `<tr><td>${n}</td><td>${esc(d ?? '–')}</td><td>${esc(e ?? 'Saturday')}</td><td>${e ? (d >= e ? '<span class="chip ok">current</span>' : '<span class="chip warn">behind</span>') : '<span class="chip">weekly</span>'}</td></tr>`).join('');
+  const dataRows = [['India index and sectors', D.india.date, D.expected.india], ['India stocks', D.india.stocks?.date, D.expected.india], ['US daily', D.us.date, D.expected.us], ['US weekly screen (retired 17 Oct 2026; the nightly US scan replaces it)', D.us.screen?.feedDate, null]].map(([n, d, e]) => { const wk = false; return `<tr><td>${n}</td><td>${esc(d ?? '–')}</td><td>${esc(e ?? 'Saturday')}</td><td>${e ? (d >= e ? '<span class="chip ok">current</span>' : '<span class="chip warn">behind</span>') : wk ? '<span class="chip warn">behind: missed weeks</span>' : '<span class="chip">weekly</span>'}</td></tr>`; }).join('');
   let use = '<div class="empty">No usage estimate yet.</div>';
   if (u) {
     const used = u.usedMinutesEstimate, capped = Number(u.budget) > 0;
@@ -383,7 +398,7 @@ function viewIndiaStore() {
   return `<section class="card" style="margin-top:16px"><h2>India whole-market store</h2>${st ? `<dl class="kv"><div><dt>Stocks stored</dt><dd>${fmt(st.count, 0)}</dd></div><div><dt>With a 200-day average</dt><dd>${fmt(st.with200, 0)}</dd></div><div><dt>Price breaks adjusted</dt><dd>${st.corporate.adjusted}</dd></div><div><dt>Breaks unresolved</dt><dd>${st.corporate.unresolved}</dd></div><div><dt>As of</dt><dd>${esc(st.date)}</dd></div></dl>` : '<div class="empty">Not stored yet.</div>'}<p class="note">India stock scans (trend template, relative strength, volume) are not on the dashboard yet; the store holds what they need.</p></section>`;
 }
 function viewStore() {
-  return viewStoreMain() + viewIndiaStore();
+  return viewStoreMain() + viewIndiaStore() + evidenceCard('in') + evidenceCard('us');
 }
 function viewStoreMain() {
   const S = D.store; if (!S) return '<div class="empty">No store summary yet.</div>';
@@ -447,7 +462,7 @@ function viewMomentumScan(m = 'in') {
   const whenStart = run ? '' : z.pending ? `<p class="note">The signal was made on ${esc(dmy(z.pending.signalDate))}. The simulated purchase happens at the next close.</p>` : `<p class="note">The book starts on the first session after ${esc(dmy(z.startAfter))}: the signal is taken at that close and filled at the next close. Below is tonight's ranking as a preview.</p>`;
   const stCol = (st) => (st === 'Would leave' ? 'var(--red)' : st === 'Would enter' ? 'var(--green)' : 'var(--muted)');
   return `<h2 class="big">Momentum sleeve</h2>
-  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded ${us ? 'US' : ''} stocks. It changes only on review dates, the first session of June and December. Paper only: no orders and no alerts come from it.${us ? ' Comparison only: the replay of this method on US stocks failed its registered test (C-131), so this book is kept to compare with the India sleeve and SPY, not to follow.' : ''}</p>
+  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded ${us ? 'US' : ''} stocks. The ranking updates every night, but the book itself changes only twice a year, on the first session of June and December${z.nextReview ? ` (next: ${esc(mmm(z.nextReview))}${(() => { const dd = Math.round((Date.parse(z.nextReview + '-01') - Date.parse(z.asOf)) / 864e5); return dd > 0 ? `, in about ${dd} days` : ''; })()})` : ''}. It is not re-ranked every 30 days: 30 is the number of stocks. A monthly version is being tested beside it (C-151). Paper only: no orders and no alerts come from it.${us ? ' Comparison only: the replay of this method on US stocks failed its registered test (C-131), so this book is kept to compare with the India sleeve and SPY, not to follow.' : ''}</p>
   <dl class="kv">${stat(run ? z.heldCount : '30', run ? 'stocks held' : 'stocks planned')}${stat(esc(mmm(z.nextReview)), 'next review')}${us ? stat('Failed', 'replay test C-131, flattered data') : stat(fmt(z.replication.correlation, 2), "match with NSE's index in the replay")}${stat(z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 1), 'since the paper book started')}</dl>
   ${whenStart}
   <section style="margin-top:36px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3 class="ttl">${run ? 'Current holdings' : 'Preview of the first 30'}</h3><span class="note">${momAll ? 'all ' + rows.length : 'top ' + shown.length + ' of ' + rows.length}, by weight · data ${esc(z.asOf)}</span></div>
@@ -545,13 +560,13 @@ function paperBookCard(mkt) {
   <h3 class="ttl" style="margin-top:32px;font-size:22px">Waiting to fill <span class="note">(${waiting.length})</span></h3>${ptbl(waiting, 'No orders waiting to fill.')}${(pb.skipped || []).length ? `<p class="note" style="margin:14px 0 0;max-width:70ch"><b>Not ordered because results are close</b> (rule C-148: results within 10 sessions): ${pb.skipped.map((x) => `${esc(x.sym)} (${esc(dmy(x.resultsDate))}, flagged ${esc(dmy(x.date))})`).join(', ')}.</p>` : ''}</details></section>` : '';
 }
 function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
-function evidenceCard() {
+function evidenceCard(mkt = scanMkt) {   // item 12: lives on the Data store page now, not at the foot of Scans
   const ev = D.evidence; if (!ev) return '';
-  const k = scanMkt === 'us' ? 'us' : 'india';
+  const k = mkt === 'us' ? 'us' : 'india';
   const cls = (l) => (/^Edge found/.test(l) ? 'ok' : /^(Worse|Not confirmed)/.test(l) ? 'bad' : '');
   const lines = ev.rules.map((r) => `<div class="lrow"><span>${esc(r.rule)}</span><span class="chip ${cls(r[k].label)}">${esc(r[k].label)}</span></div>`).join('');
   const rows = ev.rules.map((r) => { const x = r[k]; return `<tr><td>${esc(r.rule)}</td><td><b>${esc(x.label)}</b><div class="note nm">${esc(x.text)}</div></td><td class="note">${esc(x.ref)}</td></tr>`; }).join('');
-  return `<div style="margin-top:36px"><h3 style="margin:0 0 8px">What the tests say about these rules</h3>${lines}<p class="note" style="margin:16px 0 0">${esc(ev.footer)} Updated ${esc(ev.asOf)}.</p><details class="fold"><summary>Details and test IDs</summary><div class="tablewrap"><table><thead><tr><th>Rule</th><th>What was found</th><th>Test</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
+  return `<div style="margin-top:36px"><h3 style="margin:0 0 8px">What the tests say about these rules (${k === 'us' ? 'US' : 'India'})</h3>${lines}<p class="note" style="margin:16px 0 0">${esc(ev.footer)} Updated ${esc(ev.asOf)}.</p><details class="fold"><summary>Details and test IDs</summary><div class="tablewrap"><table><thead><tr><th>Rule</th><th>What was found</th><th>Test</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
 }
 function viewScanBody() {
   const sc = scanMkt === 'us' ? D.scan : D.scanIndia, pb = scanMkt === 'us' ? D.paper : D.paperIndia;
@@ -575,7 +590,7 @@ function viewScanBody() {
   return `<section class="card"><div class="row" style="justify-content:space-between;gap:10px">${mk}<span class="note">${esc(sc.version)} · ${esc(sc.asOf)} ${chipLight}</span></div>
   <div class="chips" style="margin:16px 0 10px" role="group" aria-label="List">${[['ready', 'Ready', sc.ready.length], ['watch', 'Watch', sc.watch.length]].map(([k, l, n]) => `<button class="chip-btn" data-st="${k}" aria-pressed="${scanTab === k}">${l} ${n}</button>`).join('')}</div>
   ${tbl}
-  ${evidenceCard()}
+  <p class="note" style="margin:36px 0 0">What the tests say about these rules is kept with the data store at the bottom of the site: <button class="lnk" data-foot="store">Data store and test results</button></p>
   <details class="fold"><summary>How the list was narrowed</summary><p class="note" style="margin:8px 0 0">${stages.map(([k, v]) => `${k} <b>${fmt(v, 0)}</b>`).join(' → ')}</p><p class="note">Frozen settings; the forward-test clock runs from ${scanMkt === 'us' ? '16' : '17'} Oct 2026${sc.source ? '; data source: ' + esc(sc.source) : ''}. Names are candidates for a trigger, not orders. Results dates are not checked.</p></details></section>`;
 }
 let FUNDS = null, fundCat = {}, fundGroup = 'mf';
