@@ -24,7 +24,7 @@ const massiveDays = () => files.map((f) => { const L = gunzipSync(readFileSync(`
 const days = REPLAY || !NASDAQ ? massiveDays() : loadDays().map((d) => ({ date: d.date, rows: d.rows.filter((r) => allowed.has(r[0])) }));
 const splits = JSON.parse(readFileSync('data/us/splits.json', 'utf8')).rows;
 const sic = new Map(JSON.parse(readFileSync('data/us/sic.json', 'utf8')).rows.filter((r) => r[1]).map((r) => [r[0], +r[1]]));
-const top10 = (ready, watch) => [...ready, ...watch].sort((a, b) => b.composite - a.composite).slice(0, SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
+const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
 
 if (REPLAY) {
   const OUT = arg('out'); if (!OUT) { console.error('--replay needs --out=PATH'); process.exit(2); }
@@ -57,6 +57,7 @@ for (let i = from; i <= t; i++) {
   const hist = buildHistories(days.slice(0, i + 1), NASDAQ ? [] : splits.filter((r) => r[1] <= days[i].date), allowed);   // Nasdaq history is already split-adjusted
   applySplits(book, splits, days[i].date);
   advance(book, hist, i, light, book.lastLight);
+  if (i === t) for (const c of [...scan.ready, ...scan.watch]) if (c.resultsBlock && !(book.skipped ?? []).some((x) => x.date === hist.dates[t] && x.sym === c.sym)) (book.skipped ??= []).push({ date: hist.dates[t], sym: c.sym, resultsDate: c.resultsBlock.date, sessions: c.resultsBlock.sessions });
   if (i === t) newOrders(book, hist, t, light, top10(scan.ready, scan.watch));
   if (i === t) markLast(book, hist, t);
   book.lastLight = light; book.asOf = days[i].date;

@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
-import { parseNasdaqEarnings, indiaResultDates, boardMeetingDate, earnNote } from '../src/ingest/earnings.ts';
+import { parseNasdaqEarnings, indiaResultDates, boardMeetingDate, earnNote, applyResultsRule } from '../src/ingest/earnings.ts';
 const market = process.argv[2]; if (!['us', 'india'].includes(market)) { console.error('usage: scan-earnings.mjs us|india'); process.exit(1); }
 const rd = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const scan = rd(`data/${market}/scan/latest.json`, null); if (!scan) { console.log('no scan'); process.exit(0); }
@@ -37,3 +37,8 @@ if (market === 'india') {
 console.log(JSON.stringify({ market, names: names.length, found, failed }));
 if (failed === names.length && names.length) process.exit(1);   // nothing read: keep yesterday's file
 writeFileSync(`data/${market}/scan/earnings.json`, JSON.stringify({ asOf: today, source: market === 'us' ? 'Nasdaq earnings-date (estimates)' : 'NSE event calendar', dates }, null, 1) + '\n');
+// C-148: results rule. A name whose results are within MIN_SESSIONS (10) sessions is not a Ready name: it moves to Watch with a wait note, and carries resultsBlock so the paper books do not open it. An unknown date changes nothing (the existing "results date not checked" tag stays).
+{
+  const f = `data/${market}/scan/latest.json`, r = applyResultsRule(JSON.parse(readFileSync(f, 'utf8')), dates);
+  writeFileSync(f, JSON.stringify(r.scan) + '\n'); console.log(JSON.stringify({ resultsRule: 'C-148', demoted: r.demoted, blockedWatch: r.blockedWatch }));
+}

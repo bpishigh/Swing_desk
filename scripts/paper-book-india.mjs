@@ -27,7 +27,7 @@ const res = resolveHistory(uniq, actions, ov);
 const days = toDays(uniq);
 const industry = JSON.parse(readFileSync('data/india/segments.json', 'utf8')).industry ?? {};
 const allowed = new Set(Object.keys(industry)), types = new Map([...allowed].map((s) => [s, 'CS']));
-const top10 = (ready, watch) => [...ready, ...watch].sort((a, b) => b.composite - a.composite).slice(0, INDIA_SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
+const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, INDIA_SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
 const scanOf = (hist, light, prev) => runScan({ hist, types, sic: new Map(), light, prev, settings: INDIA_SCAN, version: INDIA_SCAN_VERSION, groupOf: (s) => industry[s] ?? null, setupsByLight: INDIA_SETUPS });
 
 if (REPLAY) {
@@ -58,6 +58,7 @@ for (let i = from; i <= t; i++) {
   const hist = asOfHistories(days, i, res, allowed);
   applySplits(book, res.splits, days[i].date);
   advance(book, hist, i, light, book.lastLight);
+  if (i === t) for (const c of [...scan.ready, ...scan.watch]) if (c.resultsBlock && !(book.skipped ?? []).some((x) => x.date === hist.dates[t] && x.sym === c.sym)) (book.skipped ??= []).push({ date: hist.dates[t], sym: c.sym, resultsDate: c.resultsBlock.date, sessions: c.resultsBlock.sessions });
   if (i === t) newOrders(book, hist, t, light, top10(scan.ready, scan.watch));
   if (i === t) markLast(book, hist, t);
   book.lastLight = light; book.asOf = days[i].date;

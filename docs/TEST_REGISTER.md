@@ -71,6 +71,7 @@ One page that lists every test we have run on the Swing Desk and Portfolio Manag
 | C-144 | 1 Nov | Does the overall (across-category) fund score predict next-year risk-adjusted return? | India funds, 2016 to 2025 | Failed | Display only, not shown to predict (top fifth won 5 of 10 years, bar 6) |
 | C-145 | 1 Nov | Owner direction (not a test): pick funds for new money by cost first, Weak as the exit warning, overall score display only | Funds | Applied | Cost untested (C-108); no predictive claim |
 | C-147 | 6 Nov | Does a 25% trailing stop help the momentum books (twin of each), plus a swing paper stop-ordering fix | India and US forward paper | Running | First read Nov 2027: helps only if the worst fall is lower and the 12-month return is within 2 points. 25% picked by judgment after seeing early drops |
+| C-148 | 7 Nov | Owner risk rule, not a test: names with results inside 10 sessions move to Watch and the swing paper books skip them | India and US scans, swing paper books | Applied | Forward only; no tested edge (C-63 found no benefit from a results gate in India 2021-26). Momentum books unchanged |
 | C-53 | 17 Oct | Forward paper book on the US top-10 list | US, new data | Running | No result yet |
 
 ### 1c. Backtester tests (31 Oct to 1 Nov 2026)

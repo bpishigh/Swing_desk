@@ -85,9 +85,9 @@ jobs:
         run: |
           git pull --rebase origin main
           node --max-old-space-size=6000 scripts/india-scan.mjs
+          node scripts/scan-earnings.mjs india || true   # before the paper book and the shortlist: names with results inside 10 sessions are moved to Watch (C-148)
           node --max-old-space-size=6000 scripts/paper-book-india.mjs
           node scripts/save-shortlist.mjs || true
-          node scripts/scan-earnings.mjs india || true
           node --max-old-space-size=4000 scripts/scan-last-reaction.mjs india || true
           node scripts/momentum-forward.mjs india || true
           node --max-old-space-size=6000 scripts/momentum-sleeve.mjs || true

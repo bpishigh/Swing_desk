@@ -40,3 +40,13 @@ export function boardMeetingDate(rows: unknown, today: string): string | null {
   }
   return best;
 }
+
+/** C-148 results rule. A scan name whose results are within MIN_SESSIONS sessions is not Ready: it moves to Watch with a wait tag and carries resultsBlock, which the paper books read. An unknown date changes nothing. Mutates and returns the scan; reports who moved. */
+export function applyResultsRule<C extends { sym: string; tags?: string[]; resultsBlock?: { date: string | null; sessions: number | null } }>(scan: { ready: C[]; watch: C[] }, dates: Record<string, Earn | undefined>): { scan: { ready: C[]; watch: C[] }; demoted: string[]; blockedWatch: string[] } {
+  const blocked = (c: C) => dates[c.sym]?.inWindow === true;
+  const mark = (c: C): C => { const d = dates[c.sym] as Earn; c.resultsBlock = { date: d.date, sessions: d.sessions }; c.tags = [...(c.tags ?? []).filter((t) => !t.startsWith('results in ')), `results in ${d.sessions} session${d.sessions === 1 ? '' : 's'}: wait`]; return c; };
+  const demoted = scan.ready.filter(blocked).map(mark); scan.ready = scan.ready.filter((c) => !blocked(c));
+  for (const c of scan.watch) if (blocked(c)) mark(c);
+  scan.watch = [...scan.watch, ...demoted];
+  return { scan, demoted: demoted.map((c) => c.sym), blockedWatch: scan.watch.filter(blocked).map((c) => c.sym) };
+}
