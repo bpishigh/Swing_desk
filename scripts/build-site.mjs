@@ -106,8 +106,9 @@ for (const [z, dir] of [[momentum, 'data/india'], [momentumUs, 'data/us']]) if (
 const slim = (z) => (z ? { asOf: z.asOf, state: z.state, sinceFill: z.sinceFill, valueIndex: z.valueIndex, stopRule: z.stopRule ?? null, stops: z.stops ?? [], stopQueue: z.stopQueue ?? [], heldCount: z.heldCount } : null);   // stop twin (C-147): only what the page shows
 const stopTwins = (d) => ['-stop5', '-stop8', '-stop'].map((x) => slim(read(`${d}/momentum-sleeve${x}/latest.json`, null))).filter(Boolean);   // 5%, 8%, 25% (C-149)
 const momentumStops = stopTwins('data/india'), momentumUsStops = stopTwins('data/us');
+const momentumMonthly = slim(read('data/india/momentum-sleeve-monthly/latest.json', null)), momentumUsMonthly = slim(read('data/us/momentum-sleeve-monthly/latest.json', null));   // C-151
 const evidence = read('settings/evidence.json', null);   // what the registered tests found for each rule behind the Ready list: information only
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStops, momentumUsStops, evidence };
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStops, momentumUsStops, momentumMonthly, momentumUsMonthly, evidence };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);
