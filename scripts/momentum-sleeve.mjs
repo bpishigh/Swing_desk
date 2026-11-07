@@ -7,6 +7,9 @@ import { gunzipSync } from 'node:zlib';
 import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { eligible, BASE, tierCost } from '../src/backtest/ind-base.ts';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
+import { makeCalendar } from '../src/engine/calendar.ts';
+import { resultsAvoid } from '../src/ingest/earnings.ts';
 import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY } from '../src/engine/momentum-sleeve.ts';
 
 const ASOF = process.argv.find((a) => a.startsWith('--asof='))?.slice(7), DRY = process.argv.includes('--dry');
@@ -36,6 +39,12 @@ const openOn = (d) => Object.fromEntries(Object.entries(uniq.find((x) => x.date 
 // Stop twin (C-147): MOM_STOP=0.25 runs the same book with a trailing stop on each name (sold at the next open once a close is that far below its highest close since bought; not replaced until the next review). Unset, the book has no stop and is unchanged.
 const STOP = Number(process.env.MOM_STOP) || 0;
 const MONTHLY_TWIN = process.env.MOM_REVIEW === 'monthly', RM = MONTHLY_TWIN ? MONTHLY : undefined;   // C-151: a twin re-ranked every month (same fills as the registered book at the start)
+
+// C-155 results rule: a name with results within 10 sessions is not newly bought at a review (the next-ranked name takes its place); names already held are untouched.
+// Source: data/india/scan/results-calendar.json, written by scan-earnings earlier tonight. Missing or not from tonight: the rule cannot act and says so.
+const RES = (() => { const c = R('data/india/scan/results-calendar.json'), cj = loadCalendarFiles(), cal = makeCalendar([...(cj['india']?.holidays ?? []), ...(cj['india']?.priorHolidays ?? [])]);
+  if (!c || c.asOf !== D) return { avoid: new Set(), source: c ? `calendar from ${c.asOf}, not tonight: rule not applied` : 'no calendar: rule not applied', names: 0 };
+  const avoid = resultsAvoid(c.dates, D, cal.sessionsBetween.bind(cal)); return { avoid, source: `calendar ${c.asOf}`, names: Object.keys(c.dates).length }; })();
 const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/india/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
@@ -73,14 +82,14 @@ if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's clos
 // Listed companies only: a symbol with an industry (index lists) or a company name. Liquid funds and gold/silver ETFs are not companies; the C-129 replay let GOLDBEES in at 2 to 5% on four review dates (see Engine Rules C-130).
 const isCo = (sym) => sym in industry || sym in names;
 const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value }));
-const preview = selectSleeve(el, series, t, held()), wts = sleeveWeights(preview);
+const preview = selectSleeve(el, series, t, held(), RES.avoid), wts = sleeveWeights(preview);
 const needFirst = !st.book && !st.pending && D > START_AFTER;
 if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t, RM)))) {
   // live path (as-of histories for eligibility, adjusted closes for returns) against the replay path (every figure from the fully adjusted histories, as the C-129 script does)
-  const elR = eligible(FH, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })), selR = selectSleeve(elR, series, t, held()), wR = sleeveWeights(selR);
+  const elR = eligible(FH, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })), selR = selectSleeve(elR, series, t, held(), RES.avoid), wR = sleeveWeights(selR);
   const a = new Map(preview.picks.map((p, i) => [p.sym, wts[i]])), b = new Map(selR.picks.map((p, i) => [p.sym, wR[i]]));
   const same = a.size === b.size && [...a.keys()].every((s) => b.has(s)), maxDiff = Math.max(0, ...[...new Set([...a.keys(), ...b.keys()])].map((s) => Math.abs((a.get(s) ?? 0) - (b.get(s) ?? 0)))) * 100;
-  st.pending = { signalDate: D, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: same, maxWeightDiffPp: Math.round(maxDiff * 1000) / 1000, pass: same && maxDiff <= 0.1 } };
+  st.pending = { signalDate: D, resultsRule: { rule: 'C-155', source: RES.source, inWindow: RES.avoid.size, skipped: preview.ranked.filter((r) => RES.avoid.has(r.sym) && !held().has(r.sym) && r.rank <= MOM30.KEEP).map((r) => r.sym) }, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: same, maxWeightDiffPp: Math.round(maxDiff * 1000) / 1000, pass: same && maxDiff <= 0.1 } };
   st.lastSignal = D;
 }
 // 4) tonight's list for the page

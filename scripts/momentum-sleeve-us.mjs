@@ -5,6 +5,9 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { buildHistories } from '../src/ingest/us-scan.ts';
 import { usCost } from '../src/backtest/us-loader.ts';
+import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
+import { makeCalendar } from '../src/engine/calendar.ts';
+import { resultsAvoid } from '../src/ingest/earnings.ts';
 import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY, eligibleUs } from '../src/engine/momentum-sleeve.ts';
 import { loadDays } from './us-hist-lib.mjs';
 import { gunzipSync } from 'node:zlib';
@@ -27,6 +30,12 @@ const openOn = (d) => { const f = `data/us/open/${d}.json.gz`; if (!existsSync(f
 // Stop twin (C-147): MOM_STOP=0.25 runs the same book with a trailing stop on each name (sold at the next open once a close is that far below its highest close since bought; not replaced until the next review). Unset, the book has no stop and is unchanged.
 const STOP = Number(process.env.MOM_STOP) || 0;
 const MONTHLY_TWIN = process.env.MOM_REVIEW === 'monthly', RM = MONTHLY_TWIN ? MONTHLY : undefined;   // C-151: a twin re-ranked every month (same fills as the registered book at the start)
+
+// C-155 results rule: a name with results within 10 sessions is not newly bought at a review (the next-ranked name takes its place); names already held are untouched.
+// Source: data/us/scan/results-calendar.json, written by scan-earnings earlier tonight. Missing or not from tonight: the rule cannot act and says so.
+const RES = (() => { const c = R('data/us/scan/results-calendar.json'), cj = loadCalendarFiles(), cal = makeCalendar([...(cj['us']?.holidays ?? []), ...(cj['us']?.priorHolidays ?? [])]);
+  if (!c || c.asOf !== D) return { avoid: new Set(), source: c ? `calendar from ${c.asOf}, not tonight: rule not applied` : 'no calendar: rule not applied', names: 0 };
+  const avoid = resultsAvoid(c.dates, D, cal.sessionsBetween.bind(cal)); return { avoid, source: `calendar ${c.asOf}`, names: Object.keys(c.dates).length }; })();
 const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/us/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
@@ -62,11 +71,11 @@ if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's clos
 }
 // 3) signal tonight?  First ever run after the start date, or the first session of a review month.
 const el = eligibleUs(series, t);
-const preview = selectSleeve(el, series, t, held()), wts = sleeveWeights(preview);
+const preview = selectSleeve(el, series, t, held(), RES.avoid), wts = sleeveWeights(preview);
 const needFirst = !st.book && !st.pending && D > START_AFTER;
 if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t, RM)))) {
   // the US store has one data path (prices already split-adjusted), so there is no second path to compare; the check is recorded as not applicable
-  st.pending = { signalDate: D, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: null, maxWeightDiffPp: null, pass: null, note: 'one US data path; no second path to compare' } };
+  st.pending = { signalDate: D, resultsRule: { rule: 'C-155', source: RES.source, inWindow: RES.avoid.size, skipped: preview.ranked.filter((r) => RES.avoid.has(r.sym) && !held().has(r.sym) && r.rank <= MOM30.KEEP).map((r) => r.sym) }, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: null, maxWeightDiffPp: null, pass: null, note: 'one US data path; no second path to compare' } };
   st.lastSignal = D;
 }
 // 4) tonight's list for the page

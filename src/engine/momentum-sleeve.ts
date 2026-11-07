@@ -33,7 +33,8 @@ export function capped(raw: number[], cap: number[]): number[] {
   return w;
 }
 /** Rank the universe on night t and choose the 30: blend of the 6 and 12 month volatility-adjusted z-scores; names already held stay while ranked 45 or better. */
-export function selectSleeve(eligible: Eligible[], series: Map<string, Closes>, t: number, prev: Set<string>): Selection {
+/** `avoid` (C-155): names with results close are not newly bought; a name already held is unaffected and still follows the KEEP buffer. */
+export function selectSleeve(eligible: Eligible[], series: Map<string, Closes>, t: number, prev: Set<string>, avoid?: ReadonlySet<string>): Selection {
   const uni = eligible.slice(0, MOM30.UNI), rows: Ranked[] = [];
   for (const p of uni) {
     const s = series.get(p.sym); if (!s) continue;
@@ -44,7 +45,7 @@ export function selectSleeve(eligible: Eligible[], series: Map<string, Closes>, 
   rows.forEach((r, i) => { r.s = (z6[i] + z12[i]) / 2; r.mult = r.s >= 0 ? 1 + r.s : 1 / (1 - r.s); });
   rows.sort((a, b) => b.s - a.s || (a.sym < b.sym ? -1 : 1)); rows.forEach((r, i) => { r.rank = i + 1; });
   const keep = rows.filter((r) => prev.has(r.sym) && r.rank <= MOM30.KEEP), chosen = new Set(keep.map((r) => r.sym));
-  for (const r of rows) { if (chosen.size >= MOM30.HOLD) break; if (!chosen.has(r.sym)) chosen.add(r.sym); }
+  for (const r of rows) { if (chosen.size >= MOM30.HOLD) break; if (avoid?.has(r.sym) && !prev.has(r.sym)) continue; if (!chosen.has(r.sym)) chosen.add(r.sym); }
   return { picks: rows.filter((r) => chosen.has(r.sym)), ranked: rows, total: uni.reduce((a, b) => a + b.value, 0), universe: rows.length };
 }
 /** Target weights: traded value times the score multiplier, each name capped at the lower of 5% or 5 times its share of the universe's traded value. */

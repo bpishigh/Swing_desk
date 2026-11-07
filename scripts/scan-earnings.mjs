@@ -36,7 +36,7 @@ if (market === 'india') {
   // Second source: the per-name page often has no date. Nasdaq's day-by-day earnings calendar for the next 16 calendar days names every company reporting
   // that day, so a name found there gets that date (marked estimated). Any failure leaves the name as it was: no date, the existing 'results date not checked' tag.
   const missing = names.filter((s) => !dates[s]?.date);
-  if (missing.length) {
+  {   // always read: the whole-market map is kept for the momentum sleeve's results rule (C-155)
     const byName = new Map(), day0 = new Date(today + 'T00:00:00Z');
     for (let k = 0; k <= 16; k++) {
       const dt = new Date(day0.getTime() + k * 86400000), wd = dt.getUTCDay(); if (wd === 0 || wd === 6) continue;
@@ -44,6 +44,7 @@ if (market === 'india') {
       try { const r = await fetch(`https://api.nasdaq.com/api/calendar/earnings?date=${iso}`, { headers: { ...UA, origin: 'https://www.nasdaq.com', referer: 'https://www.nasdaq.com/' }, signal: AbortSignal.timeout(20000) }); if (r.ok) for (const sym of parseNasdaqCalendar(await r.json())) if (!byName.has(sym)) byName.set(sym, iso); } catch { /* leave as is */ }
       await new Promise((z) => setTimeout(z, 300));
     }
+    if (byName.size) writeFileSync('data/us/scan/results-calendar.json', JSON.stringify({ asOf: today, fetchedAt: new Date().toISOString(), dates: Object.fromEntries([...byName].sort(([a], [b]) => (a < b ? -1 : 1))) }) + '\n');
     let filled = 0;
     for (const s of missing) { const d = byName.get(s.replace('.', '-').toUpperCase()) ?? byName.get(s.toUpperCase()); if (d) { dates[s] = earnNote(d, today, cal.sessionsBetween.bind(cal), true); found++; failed--; filled++; } }
     console.log(JSON.stringify({ calendarFallback: 'nasdaq day calendar', missing: missing.length, filled, daysRead: byName.size }));

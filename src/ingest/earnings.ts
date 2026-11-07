@@ -33,6 +33,13 @@ export function earnNote(date: string | null, today: string, sessionsBetween: (a
   return { date, sessions: s, inWindow: s <= MIN_SESSIONS, ...(estimated ? { estimated } : {}) };
 }
 
+/** C-155: symbols whose next results date is today or within MIN_SESSIONS sessions. `dates` maps symbol -> YYYY-MM-DD. A symbol with no date is not in the set (the rule cannot act without one). */
+export function resultsAvoid(dates: Record<string, string | undefined>, today: string, sessionsBetween: (a: string, b: string) => number): Set<string> {
+  const out = new Set<string>();
+  for (const [sym, d] of Object.entries(dates)) if (d && d >= today && sessionsBetween(today, d) <= MIN_SESSIONS) out.add(sym);
+  return out;
+}
+
 /** NSE board-meeting rows for one symbol -> earliest meeting on or after `today` whose description mentions financial results. */
 export function boardMeetingDate(rows: unknown, today: string): string | null {
   let best: string | null = null;
