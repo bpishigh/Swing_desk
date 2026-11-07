@@ -1426,6 +1426,34 @@
     "summary": "US 2017-2026: semi-annual 21.5%/yr, worst fall -49.9%; quarterly 23.0% (-38.8%); monthly 24.8% (-38.7%). Both faster schedules lose the second half (monthly 27.8% vs 33.6%) so neither qualifies. Costs/yr 0.27% / 0.38% / 0.65%.",
     "file": "data/replay/c150-momentum-frequency-us.json"
    }
+  },
+  {
+   "id": "C-152-r1",
+   "changeLog": "C-152",
+   "title": "Sector breadth ranking on its own: top four industries by share of stocks above their 50-day vs equal-weight all industries, India 2013-2019 judged",
+   "hypothesis": "The four highest-breadth industries beat the average industry over the next month.",
+   "script": "scripts/backtest-sector-breadth.mjs",
+   "params": {
+    "universe": "20 industries in data/india/segments.json (current list; survivorship bias), industries with 8+ stocks having a 50-day average",
+    "rule": "breadth = share of industry stocks above own 50-day at first session of month; top four, ties by median 3-month return; equal weight",
+    "signal": "first session of month; next close to next month's next close, price only, no costs",
+    "judged": "India Jan 2013-Dec 2019",
+    "reported": "India Jan 2020-Oct 2025",
+    "sweeps": "one setting, one run"
+   },
+   "passRule": "All three: top-four compounded return beats equal-weight all-industry; mean monthly excess above zero with lower end of 90% block-bootstrap (6-month blocks) above zero; beats it in at least two thirds of years. One run.",
+   "data": {
+    "sessions": 1700,
+    "first": "2020-01-01",
+    "last": "2026-11-06",
+    "symbols": 497,
+    "splits": 567,
+    "hash": "8bc783510f69"
+   },
+   "registeredAt": "2026-11-07T13:00:59.558Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
