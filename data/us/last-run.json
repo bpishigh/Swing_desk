@@ -1,80 +1,77 @@
 {
- "ts": "2026-11-06T02:08:05.015Z",
- "date": "2026-11-05",
+ "ts": "2026-11-07T00:08:09.218Z",
+ "date": "2026-11-06",
  "status": "written",
  "fetched": {
   "SPY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "QQQ": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLK": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLF": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLI": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLP": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLU": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLB": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLRE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLC": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "SMH": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "IGV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "ITA": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   }
  },
  "conflicts": [],
  "flags": [
-  "XLE: Tiingo close 61.63 and StockAnalysis 61.7 differ by more than 0.1%; 2026-11-05 not written for it",
-  "SMH: Tiingo close 447.73 and StockAnalysis 446.48 differ by more than 0.1%; 2026-11-05 not written for it",
-  "VIX: Cboe has no row for 2026-11-05 yet",
-  "2 sector ETF(s) not updated for 2026-11-05 (XLE, SMH): previous values kept with their own dates",
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-05"
+  "VIX: Cboe has no row for 2026-11-06 yet",
+  "14 of 14 sectors, SPY and QQQ written for 2026-11-06"
  ],
  "backfilled": 0
 }
