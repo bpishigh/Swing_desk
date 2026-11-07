@@ -22,3 +22,10 @@ test('board meeting rows give the next results meeting', () => {
   assert.equal(boardMeetingDate([{ bm_date: '17-Jul-2026', bm_desc: 'financial results' }, { bm_date: '28-Oct-2026', bm_purpose: 'Financial Results' }, { bm_date: '30-Oct-2026', bm_desc: 'results' }], '2026-10-17'), '2026-10-28');
   assert.equal(boardMeetingDate([{ bm_date: '17-Jul-2026', bm_desc: 'financial results' }], '2026-10-17'), null);
 });
+
+import { parseNasdaqCalendar } from '../src/ingest/earnings.ts';
+test('Nasdaq day calendar: symbols read, junk rows ignored', () => {
+  assert.deepEqual(parseNasdaqCalendar({ data: { rows: [{ symbol: 'orka' }, { symbol: ' SGRY ' }, {}, { symbol: '' }] } }), ['ORKA', 'SGRY']);
+  assert.deepEqual(parseNasdaqCalendar(null), []);
+  assert.deepEqual(parseNasdaqCalendar({ data: { rows: null } }), []);
+});

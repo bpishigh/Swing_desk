@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
-import { parseNasdaqEarnings, indiaResultDates, boardMeetingDate, earnNote, applyResultsRule } from '../src/ingest/earnings.ts';
+import { parseNasdaqEarnings, parseNasdaqCalendar, indiaResultDates, boardMeetingDate, earnNote, applyResultsRule } from '../src/ingest/earnings.ts';
 const market = process.argv[2]; if (!['us', 'india'].includes(market)) { console.error('usage: scan-earnings.mjs us|india'); process.exit(1); }
 const rd = (p, d) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const scan = rd(`data/${market}/scan/latest.json`, null); if (!scan) { console.log('no scan'); process.exit(0); }
@@ -32,6 +32,21 @@ if (market === 'india') {
     }
     dates[s] = earnNote(d, today, cal.sessionsBetween.bind(cal), est); if (d) found++; else failed++;
     await new Promise((z) => setTimeout(z, 300));
+  }
+  // Second source: the per-name page often has no date. Nasdaq's day-by-day earnings calendar for the next 16 calendar days names every company reporting
+  // that day, so a name found there gets that date (marked estimated). Any failure leaves the name as it was: no date, the existing 'results date not checked' tag.
+  const missing = names.filter((s) => !dates[s]?.date);
+  if (missing.length) {
+    const byName = new Map(), day0 = new Date(today + 'T00:00:00Z');
+    for (let k = 0; k <= 16; k++) {
+      const dt = new Date(day0.getTime() + k * 86400000), wd = dt.getUTCDay(); if (wd === 0 || wd === 6) continue;
+      const iso = dt.toISOString().slice(0, 10);
+      try { const r = await fetch(`https://api.nasdaq.com/api/calendar/earnings?date=${iso}`, { headers: { ...UA, origin: 'https://www.nasdaq.com', referer: 'https://www.nasdaq.com/' }, signal: AbortSignal.timeout(20000) }); if (r.ok) for (const sym of parseNasdaqCalendar(await r.json())) if (!byName.has(sym)) byName.set(sym, iso); } catch { /* leave as is */ }
+      await new Promise((z) => setTimeout(z, 300));
+    }
+    let filled = 0;
+    for (const s of missing) { const d = byName.get(s.replace('.', '-').toUpperCase()) ?? byName.get(s.toUpperCase()); if (d) { dates[s] = earnNote(d, today, cal.sessionsBetween.bind(cal), true); found++; failed--; filled++; } }
+    console.log(JSON.stringify({ calendarFallback: 'nasdaq day calendar', missing: missing.length, filled, daysRead: byName.size }));
   }
 }
 console.log(JSON.stringify({ market, names: names.length, found, failed }));

@@ -8,6 +8,11 @@ export function parseNasdaqEarnings(json: unknown): { date: string | null; estim
   const m = /earnings on\s+(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(txt);
   return { date: m ? `${m[3]}-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}` : null, estimated: /estimated/i.test(txt) };
 }
+/** Nasdaq's earnings calendar for one day -> the symbols reporting that day. A second source for US names whose per-name page has no date (C-148 follow-up). */
+export function parseNasdaqCalendar(json: unknown): string[] {
+  const rows = (json as { data?: { rows?: unknown } })?.data?.rows;
+  return Array.isArray(rows) ? rows.map((r) => String((r as { symbol?: unknown })?.symbol ?? '').trim().toUpperCase()).filter(Boolean) : [];
+}
 /** NSE event calendar rows -> earliest announced "Financial Results" date on or after `today`, by symbol. */
 export function indiaResultDates(rows: unknown, today: string): Map<string, string> {
   const out = new Map<string, string>();
