@@ -218,3 +218,4 @@ This is the plain-words reading of every result above, part by part, for the des
 - The results-date rule: already tested as a gate in C-63 (India, Jan 2021 to Sep 2026, not supported as a return filter, no case to change it). It is not re-run: that data is spent, and the US has no history of past results dates.
 
 Note: earnings-driven stock picking is **not** an untested idea. It was tested in C-59 to C-63.
+| C-150 | 7 Nov | Does re-ranking the momentum sleeve monthly or quarterly beat June and December, after costs? | India 2011 onward and US replay | Registered, running | Faster schedule must beat semi-annual by 1+ point a year, not be more than 3 points worse in the worst fall, and win both halves, in both markets. Replay reuses sleeve history (not out-of-sample); US store survivor-biased |

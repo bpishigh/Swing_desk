@@ -1364,6 +1364,58 @@
     "summary": "US 2017-2026: no stop x5.67 (21.5%/yr, worst fall -49.9%); 5% x0.97 (-0.4%/yr, -20.6%); 8% x1.09 (1.0%/yr, -23.3%); 25% x2.47 (10.7%/yr, -41.5%). Every level lowers the fall; none within 2 pts of CAGR (25% gives up 10.8). No level qualifies.",
     "file": "data/replay/c149-momentum-stops-us.json"
    }
+  },
+  {
+   "id": "C-150-r1",
+   "changeLog": "C-150",
+   "title": "Momentum sleeve re-rank frequency (monthly, quarterly, semi-annual), India replay",
+   "hypothesis": "Re-ranking the sleeve more often than June and December beats the registered schedule after costs.",
+   "script": "scripts/backtest-momentum30-freq.mjs",
+   "params": {
+    "frequencies": "semi-annual (Jun, Dec), quarterly (Mar, Jun, Sep, Dec), monthly (fixed; no others tried)",
+    "sleeve": "C-129 / C-131 code unchanged, tilt weighting, same eligibility lists and costs, no stop",
+    "start": "same first review date for all three",
+    "reported": "compound annual return, return in each half, worst fall with dates, turnover per review, cost per year, return by calendar year"
+   },
+   "passRule": "Faster schedule helps only if annual return beats semi-annual by 1+ point, worst fall no more than 3 points worse, and it wins both halves of the period; both qualify: higher return; none: stay semi-annual. The same frequency must qualify in both markets.",
+   "data": {
+    "sessions": 1700,
+    "first": "2020-01-01",
+    "last": "2026-11-06",
+    "symbols": 497,
+    "splits": 567,
+    "hash": "43ccb4ead2ef"
+   },
+   "registeredAt": "2026-11-07T10:46:03.719Z",
+   "attempt": 1,
+   "exploration": false,
+   "status": "registered"
+  },
+  {
+   "id": "C-150-r2",
+   "changeLog": "C-150",
+   "title": "Momentum sleeve re-rank frequency (monthly, quarterly, semi-annual), US replay",
+   "hypothesis": "Re-ranking the sleeve more often than June and December beats the registered schedule after costs.",
+   "script": "scripts/backtest-momentum30-freq-us.mjs",
+   "params": {
+    "frequencies": "semi-annual (Jun, Dec), quarterly (Mar, Jun, Sep, Dec), monthly (fixed; no others tried)",
+    "sleeve": "C-129 / C-131 code unchanged, tilt weighting, same eligibility lists and costs, no stop",
+    "start": "same first review date for all three",
+    "reported": "compound annual return, return in each half, worst fall with dates, turnover per review, cost per year, return by calendar year"
+   },
+   "passRule": "Faster schedule helps only if annual return beats semi-annual by 1+ point, worst fall no more than 3 points worse, and it wins both halves of the period; both qualify: higher return; none: stay semi-annual. The same frequency must qualify in both markets.",
+   "data": {
+    "sessions": 1700,
+    "first": "2020-01-01",
+    "last": "2026-11-06",
+    "symbols": 497,
+    "splits": 567,
+    "hash": "43ccb4ead2ef"
+   },
+   "registeredAt": "2026-11-07T10:46:14.011Z",
+   "attempt": 2,
+   "exploration": false,
+   "status": "registered"
   }
  ]
 }
