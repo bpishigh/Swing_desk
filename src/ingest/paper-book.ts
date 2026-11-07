@@ -25,7 +25,7 @@ export const tierCost = (dv: number): number => { for (const [min, c] of tiers) 
 const ok = (x: number): boolean => x === x;
 
 export interface PaperPos {
-  id: string; stream: Stream; sym: string; group: string | null; setup: SetupId; regime: Light; signalDate: string; signalIdx: number;
+  id: string; stream: Stream; sym: string; group: string | null; gb?: number | null; setup: SetupId; regime: Light; signalDate: string; signalIdx: number;
   status: 'pending' | 'open' | 'closed'; kind: 'trigger' | 'close';
   trigger: number; limit: number; basis: number; stopInitial: number; stop: number; atr14: number; atrPct: number; roomRef: number; overhead: number | null;
   tags: string[]; dv20: number; costPct: number; maxStopPct: number;
@@ -36,7 +36,7 @@ export interface PaperPos {
 export interface PaperBook { version: string; startDate: string; asOf: string | null; lastLight: Light | null; ledger: PaperPos[]; seq: number }
 export const newBook = (startDate: string): PaperBook => ({ version: PAPER.version, startDate, asOf: null, lastLight: null, ledger: [], seq: 0 });
 
-export interface Cand { sym: string; group: string | null; path: 'main' | 'ipo' }
+export interface Cand { sym: string; group: string | null; path: 'main' | 'ipo'; gb?: number | null }
 export interface Shape {
   id: SetupId; basis: number; stopRaw: number; roomRef: number;
 }
@@ -109,7 +109,7 @@ export function newOrders(book: PaperBook, hist: Hist, t: number, light: Light, 
     const dv = dv20At(hist, cand.sym, t), cost = tierCost(dv);
     const mk = (shape: Shape, stream: Stream, kind: 'trigger' | 'close', b: Built, tags: string[]) => {
       if (busy.has(stream + ':' + cand.sym)) return; busy.add(stream + ':' + cand.sym);
-      made.push({ id: `${stream[0].toUpperCase()}${date.replace(/-/g, '')}-${cand.sym}`, stream, kind, sym: cand.sym, group: cand.group, setup: shape.id, regime: light, signalDate: date, signalIdx: t, status: 'pending',
+      made.push({ id: `${stream[0].toUpperCase()}${date.replace(/-/g, '')}-${cand.sym}`, stream, kind, sym: cand.sym, group: cand.group, gb: cand.gb ?? null, setup: shape.id, regime: light, signalDate: date, signalIdx: t, status: 'pending',
         trigger: b.trigger, limit: b.limit, basis: shape.basis, stopInitial: b.stop, stop: b.stop, atr14: x.atr14, atrPct: x.atrPct, roomRef: shape.roomRef, overhead: ok(x.overhead) ? x.overhead : null,
         tags, dv20: dv, costPct: cost, maxStopPct: b.maxStopPct, stopPct: b.widthPct, stopAtrs: b.atrs, roomR: b.roomR, left: 1, pnlR: 0, maxClose: 0, thirdSold: false, extSold: false, pend: null, splitsApplied: [] });
     };

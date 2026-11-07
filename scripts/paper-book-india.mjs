@@ -27,7 +27,7 @@ const res = resolveHistory(uniq, actions, ov);
 const days = toDays(uniq);
 const industry = JSON.parse(readFileSync('data/india/segments.json', 'utf8')).industry ?? {};
 const allowed = new Set(Object.keys(industry)), types = new Map([...allowed].map((s) => [s, 'CS']));
-const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, INDIA_SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
+const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, INDIA_SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path, gb: c.gb?.pct ?? null }));
 const scanOf = (hist, light, prev) => runScan({ hist, types, sic: new Map(), light, prev, settings: INDIA_SCAN, version: INDIA_SCAN_VERSION, groupOf: (s) => industry[s] ?? null, setupsByLight: INDIA_SETUPS });
 
 if (REPLAY) {

@@ -4,6 +4,7 @@
 // C-20a changes no rule: the output is a wider candidate list shown beside the weekly screen. Results dates are NOT checked here (every candidate says so).
 import { SCAN, SCAN_VERSION, sicGroup } from './us-scan-settings.ts';
 import { LIMITS, SETUPS, type Light, type SetupId } from '../engine/setups.ts';
+import { groupBreadth, isWeakSector, WEAK_BREADTH, type GroupBreadth } from '../engine/sector-breadth.ts';
 
 export interface Day { date: string; rows: Array<[string, number, number, number, number]> }   // [ticker, close, high, low, volume], unadjusted
 export interface Series { c: Float64Array; h: Float64Array; l: Float64Array; v: Float64Array }
@@ -58,6 +59,7 @@ export interface Candidate {
   sym: string; type: string; group: string | null; path: 'main' | 'ipo'; rsPct: number; close: number;
   tags: string[]; clears50M: boolean; composite: number; tightness: number; distPivot: number;
   why?: string[];   // plain-language reasons for the listing (output only; no rule)
+  gb?: GroupBreadth | null;   // C-153: share of the group's stocks above their 50-day; information only
   setup: null | { id: SetupId; short: string; basis: number; trigger: number; limit: number; stop: number; stopWidthPct: number; roomR: number | null };
   diag: { rs121: number | null; rs6m2w: number | null; atr14: number | null; sma50: number | null; sma200: number | null; high52: number | null; low52: number | null; failingNights: number };
 }
@@ -135,6 +137,7 @@ export function runScan(inp: ScanInput): ScanOutput {
   const byGroup = new Map<string, number[]>();
   for (const m of universe) { const g = grp(m.sym); const p = rsPct.get(m.sym); if (g && p !== undefined) (byGroup.get(g) ?? byGroup.set(g, []).get(g)!).push(p); }
   const ranked = [...byGroup].filter(([, a]) => a.length >= S.groupMinMembers).map(([group, a]) => ({ group, members: a.length, medianRs: r2(median(a)) })).sort((a, b) => b.medianRs - a.medianRs);
+  const breadthOf = groupBreadth(universe.map((m) => { const c = hist.series.get(m.sym)!.c, a = smaAt(c, t, 50); return { group: grp(m.sym), above: ok(a) && ok(c[t]) ? c[t] > a : null }; }));
   const nTop = S.groupsPerLight[light] ?? 4;
   const topGroups = new Set(ranked.slice(0, nTop).map((g) => g.group));
   const groups = ranked.map((g) => ({ ...g, passes: topGroups.has(g.group) }));
@@ -199,7 +202,7 @@ export function runScan(inp: ScanInput): ScanOutput {
     const composite = (S.weights.rs * r.rsp + S.weights.tightness * tightScore + S.weights.pivot * pivotScore) / (S.weights.rs + S.weights.tightness + S.weights.pivot);
     const cand: Candidate = {
       sym: r.m.sym, type: r.m.type, group: grp(r.m.sym), path: r.path, rsPct: r2(r.rsp), close: r2(close), tags, clears50M: r.m.dv20 >= S.clears50M,
-      composite: r2(composite), tightness: r2(ratio), distPivot: r2(dist * 100), setup,
+      composite: r2(composite), tightness: r2(ratio), distPivot: r2(dist * 100), setup, gb: (() => { const g = grp(r.m.sym); return g ? breadthOf.get(g) ?? null : null; })(),
       diag: { rs121: ok(rs121.get(r.m.sym) ?? NaN) ? r2((rs121.get(r.m.sym) as number) * 100) : null, rs6m2w: ok(rs6m2w.get(r.m.sym) ?? NaN) ? r2((rs6m2w.get(r.m.sym) as number) * 100) : null,
         atr14: ok(a14) ? r2(a14) : null, sma50: ok(r.sma50) ? r2(r.sma50) : null, sma200: ok(r.sma200) ? r2(r.sma200) : null, high52: ok(r.hi52) ? r2(r.hi52) : null, low52: ok(r.lo52) ? r2(r.lo52) : null, failingNights: fails },
     };
@@ -210,6 +213,7 @@ export function runScan(inp: ScanInput): ScanOutput {
       if (r.path === 'main') why.push(`Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; ${pc(((r.hi52 - close) / r.hi52) * 100)}% below its 52-week high (limit ${pc(S.tplHighPct * 100)}%) and ${pc((close / r.lo52 - 1) * 100)}% above its 52-week low (needs ${pc(S.tplLowPct * 100)}%).`);
       else why.push(`IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.`);
       if (gm) why.push(`Group: ${gm.group} ranks ${gi + 1} of ${ranked.length} (median strength ${pc(gm.medianRs)}); the ${nTop} strongest groups are traded in the ${light} light.`);
+      if (cand.gb) why.push(`Sector breadth: ${pc(cand.gb.pct)}% of the ${cand.gb.n} stocks in ${cand.group} are above their 50-day${isWeakSector(cand.gb) ? ` (under ${WEAK_BREADTH}%: a weak sector for finding rising stocks; information only, nothing is blocked)` : ''}.`);
       if (fails > 0) why.push(`Kept for now: it failed qualification ${fails} night(s) and leaves after ${S.failsToLeave}.`);
       if (setup) {
         const sp = SETUPS[setup.id];

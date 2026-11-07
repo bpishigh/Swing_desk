@@ -24,7 +24,7 @@ const massiveDays = () => files.map((f) => { const L = gunzipSync(readFileSync(`
 const days = REPLAY || !NASDAQ ? massiveDays() : loadDays().map((d) => ({ date: d.date, rows: d.rows.filter((r) => allowed.has(r[0])) }));
 const splits = JSON.parse(readFileSync('data/us/splits.json', 'utf8')).rows;
 const sic = new Map(JSON.parse(readFileSync('data/us/sic.json', 'utf8')).rows.filter((r) => r[1]).map((r) => [r[0], +r[1]]));
-const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path }));
+const top10 = (ready, watch) => [...ready, ...watch].filter((c) => !c.resultsBlock).sort((a, b) => b.composite - a.composite).slice(0, SCAN.top).map((c) => ({ sym: c.sym, group: c.group, path: c.path, gb: c.gb?.pct ?? null }));
 
 if (REPLAY) {
   const OUT = arg('out'); if (!OUT) { console.error('--replay needs --out=PATH'); process.exit(2); }
