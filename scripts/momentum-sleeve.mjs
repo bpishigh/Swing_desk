@@ -44,9 +44,9 @@ const value = (i) => { let v = st.book.cash; for (const [sym, sh] of Object.entr
 
 // 1) fill a pending rebalance at tonight's open (the session after the signal; C-139)
 if (STOP) st.stops ??= [];
-if (STOP && st.book && st.stopQueue?.length && !(st.pending && D > st.pending.signalDate)) {
-  for (const q of st.stopQueue) { const sh = st.book.shares[q.sym], p = fp(q.sym); if (!(sh > 0) || !(p > 0)) continue; const gross = sh * p, ent = st.book.entry?.[q.sym]; st.book.cash += gross - gross * tierCost(st.book.lastValue[q.sym] ?? 0) / 2; st.stops.push({ sym: q.sym, signalDate: q.on, fillDate: D, entry: ent ?? null, price: Math.round(p * 100) / 100, ret: ent > 0 ? Math.round((p / ent - 1) * 1e4) / 1e4 : null }); delete st.book.shares[q.sym]; delete st.book.entry?.[q.sym]; delete st.book.high?.[q.sym]; }
-  st.stopQueue = [];
+if (STOP && st.book && st.stopQueue?.some((q) => q.on < D) && !(st.pending && D > st.pending.signalDate)) {   // a stop queued on a close is sold at a LATER session's open, never the same day's
+  for (const q of st.stopQueue.filter((q) => q.on < D)) { const sh = st.book.shares[q.sym], p = fp(q.sym); if (!(sh > 0) || !(p > 0)) continue; const gross = sh * p, ent = st.book.entry?.[q.sym]; st.book.cash += gross - gross * tierCost(st.book.lastValue[q.sym] ?? 0) / 2; st.stops.push({ sym: q.sym, signalDate: q.on, fillDate: D, entry: ent ?? null, price: Math.round(p * 100) / 100, ret: ent > 0 ? Math.round((p / ent - 1) * 1e4) / 1e4 : null }); delete st.book.shares[q.sym]; delete st.book.entry?.[q.sym]; delete st.book.high?.[q.sym]; }
+  st.stopQueue = st.stopQueue.filter((q) => !(q.on < D));
 }
 if (st.pending && D > st.pending.signalDate) {
   const first = !st.book, V = first ? 100 : valueAt(fp), tgt = new Map(st.pending.target.map((x) => [x.sym, x.w * V]));
