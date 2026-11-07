@@ -176,6 +176,7 @@ import { promoteOf, sizePromote } from './pm/promote.js';
 import { scoreEntry, RULES as SCORE_RULES, SCORING_VERSION, SCORING_REGISTERED, HORIZONS } from './pm/scoring.js';
 import { readXlsxAsync } from './pm/xlsx.js';
 import { readRows, readSheets, firstSheetThatReads, detectBroker, clientKeyOf, routeByClientKey, mergeTrades } from './pm/reader.js';
+import { uploadChange, ageDays } from './pm/uploaddiff.js';
 import { readSnapshot, reconcile } from './pm/snapshot.js';
 import { readPnl, reconcilePnl } from './pm/plrecon.js';
 import { runPipeline } from './pm/pipeline.js';
@@ -577,6 +578,7 @@ function home(V) {
     <div class="sub" style="margin-top:6px">Index lines use direct-plan index funds as stand-ins for the indices (close to the index, less a small fee). Where the lines part is where you did better or worse than simply buying the index.</div></div>` : `<div class="card quiet"><div class="sub"><b>Chart and momentum not available yet.</b> ${A.ok ? 'They need a daily value for every holding.' : esc(A.why)}</div>${(() => { const g = historyGaps(V); return g.length ? `<ul class="sub" style="margin:6px 0 0 18px;padding:0">${g.slice(0, 6).map((x) => '<li>' + esc(x) + '</li>').join('')}</ul><button class="chip" id="retryNav" style="margin-top:8px">Try loading fund history again</button>` : '<div class="sub" style="margin-top:4px">Every holding has history, so the gap is in the stock prices before your first trade. Pick a shorter period above.</div>'; })()}</div>`;
   const needsCard = `<div class="card" style="border-left:4px solid var(--accent)"><h2 style="font-size:20px">Needs a look</h2>${attention.length ? attention.map((x) => `<div style="margin:6px 0">${x}</div>`).join('') : '<div class="sub">Nothing to check in the data.</div>'}<div class="sub" style="margin-top:8px">Funds and ETFs: Keep, Watch, Replace or Exit from the published fund scores (Engine Rules C-81); Replace shows only if the back-test passed.</div></div>`;
   return `${hero}
+  ${uploadCard()}
   <div class="grid2">${needsCard}${allocLine || ''}</div>
   ${verdictCard(V)}
   ${chartCard}
@@ -1462,11 +1464,21 @@ function correctionsCard(ms) {
   const body = ms.map(one).join(''); if (!body) return '';
   return `<div class="card"><h2>Correct how a holding is treated</h2><div class="sub">The tool guesses each holding's type from its name and category, and that decides its tax rules, its asset class and whether it counts as equity. If a guess is wrong, change it here: the correction is saved with the account and used every time. A stock can only be changed to another stock or ETF type, and a fund to another fund type. Missing buys and unexplained sells are answered under "Things to check" below.</div>${body}</div>`;
 }
+const chgText = (c) => (c.added === 0 ? 'Nothing new: every trade in these files was already in the account.' : `${c.added} new trade${c.added === 1 ? '' : 's'} (${c.buys} buy, ${c.sells} sell${c.firstDate ? `, ${c.firstDate === c.lastDate ? c.firstDate : c.firstDate + ' to ' + c.lastDate}` : ''}).${c.opened.length ? ' New holdings: ' + c.opened.slice(0, 6).join(', ') + (c.opened.length > 6 ? ` and ${c.opened.length - 6} more` : '') + '.' : ''}${c.closed.length ? ' Fully sold: ' + c.closed.slice(0, 6).join(', ') + (c.closed.length > 6 ? ` and ${c.closed.length - 6} more` : '') + '.' : ''} `);
+const lastChg = (a) => { try { const j = JSON.parse(store.get('chg.' + a.key, 'null')); return j && j.at ? j : null; } catch { return null; } };
+const agoTxt = (iso) => { const d = ageDays(iso, Date.now()); return d === null ? '' : d === 0 ? 'today' : d === 1 ? '1 day ago' : d + ' days ago'; };
+const dShort = (iso) => (iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' }) : '');
+function uploadCard() {   // when each account was last uploaded, how old that is, and what the last upload changed (the change detail is kept in the browser that did the upload)
+  const accts = [...S.accounts.values()]; if (!accts.length) return '';
+  const rows = accts.map((a) => { const at = a.uploadedAt || '', c = lastChg(a), old = ageDays(at, Date.now()), cov = coverage(a); const stale = old === null || old > 14;
+    return `<div style="margin:8px 0"><b>${esc(a.label)}</b> · ${at ? `uploaded ${dShort(at)} (${agoTxt(at)})` : 'no upload time on record'}${stale ? ' <span class="tag warn">getting old</span>' : ''}<div class="sub">Latest trade in it: ${esc(cov.last || '–')}.${c && at && c.at.slice(0, 10) === at.slice(0, 10) ? ' Last upload: ' + esc(chgText(c)) : c ? '' : ' Upload again to see what changed.'}</div></div>`; }).join('');
+  return `<div class="card"><h2 style="font-size:20px">Last upload</h2>${rows}<div class="sub" style="margin-top:6px">Uploading a file again is safe: trades already in the account are recognised and counted once, only new ones are added, and the holdings and gains recalculate. Anything you traded since the file's last date will not show until the next upload (you can add it by hand on the Trades tab).</div></div>`;
+}
 function dataTab() {
   const accts = [...S.accounts.values()];
   const ms = members();
   const items = ms.flatMap((a) => a.report.resolver.proposedItems.map((x) => [a, x])), decided = ms.flatMap((a) => a.report.resolver.decided.map((d) => [a, d])), unx = ms.flatMap((a) => a.report.resolver.unexplained.map((u) => [a.label, u])), nvs = ms.flatMap((a) => a.report.performance.notValued.map((x) => [a.label, x]));
-  return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
+  return `<div class="card"><h2>Accounts</h2><div class="tw"><table><thead><tr><th>Account</th><th>Owner</th><th>Broker</th><th>Transactions</th><th>First</th><th>Latest trade</th><th>Last uploaded</th><th>Repeated rows ignored</th><th></th></tr></thead><tbody>${accts.map((a) => { const c = coverage(a); return `<tr><td>${esc(a.label)}<small>${esc(c.years)}</small>${c.gap ? `<small>${esc(c.gap)}</small>` : ''}</td><td><input data-owner="${a.key}" list="ownerList" value="${esc(a.owner || '')}" placeholder="set owner" style="width:110px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--bg)"></td><td>${esc(a.broker)}</td><td>${a.trades.length}</td><td>${c.first}</td><td>${c.last}</td><td>${a.uploadedAt ? `${esc(dShort(a.uploadedAt))}<small>${esc(agoTxt(a.uploadedAt))}</small>` : '–'}</td><td>${a.report ? a.report.counts.duplicates : ''}</td><td><button class="chip" data-acc="rename" data-k="${a.key}">Rename</button> <button class="chip" data-acc="delete" data-k="${a.key}">Delete</button></td></tr>`; }).join('')}</tbody></table></div>
   <div class="sub" style="margin-top:8px">Repeated rows are the same trade appearing in more than one file you uploaded (for example overlapping date ranges). They are counted once. Owner decides whose tax the account belongs to; accounts with the same owner are taxed together.</div></div>
   ${reconCard(ms)}
   ${correctionsCard(ms)}
@@ -1678,9 +1690,10 @@ $('run').onclick = async () => {
     const a = ex ?? { key, label, broker, owner: '', trades: [], report: null };
     a.label = ex ? ex.label : label; a.broker = broker; if (owner) a.owner = owner;
     if (!a.owner) setStatus('Tip: set an owner for this account (Data tab) so tax is worked out for the right person.');
-    a.trades = mergeTrades([a.trades, ...batches]).trades; S.accounts.set(key, a);
+    const tradesBefore = a.trades; a.trades = mergeTrades([a.trades, ...batches]).trades; S.accounts.set(key, a);
+    const chg = uploadChange(tradesBefore, a.trades, new Date().toISOString()); store.set('chg.' + key, JSON.stringify(chg)); a.uploadedAt = chg.at;   // what this upload changed; kept in this browser
     compute(a); S.sel = 'a:' + key; store.set('sel', S.sel); render();
-    let msg = `Done: ${a.label} now has ${a.trades.length} transactions.${notes.length ? ' ' + notes.join(' ') : ''}`;
+    let msg = `Done: ${a.label} now has ${a.trades.length} transactions. ${chgText(chg)}${notes.length ? ' ' + notes.join(' ') : ''}`;
     if (S.canSave && $('save').checked) {
       try {
         const res = await fetch('/api/portfolio', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ label: a.label, broker, owner: a.owner || undefined, trades: batches.flat(), ...(route.action === 'learn' ? { settings: { clientKey: fileKey } } : {}) }) });

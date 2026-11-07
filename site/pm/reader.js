@@ -187,11 +187,15 @@ export function readRows(rows            , opts                        = {})    
 }
 
 // ---- merge, aggregate, alias
+/** The identity of a trade for merging: two rows with the same key are the same trade. */
+export function tradeKey(t       )         {
+  const k = t.tradeId ? `T|${t.tradeId}|${t.isin}|${t.side}` : `O|${t.orderId}|${t.isin}|${t.side}|${t.date}|${t.qty}|${t.value}`;
+  return t.tradeId || t.orderId ? k : `X|${t.isin || t.instrument}|${t.side}|${t.date}|${t.time}|${t.qty}|${t.value}`;
+}
 export function mergeTrades(batches           )                                          {
   const seen = new Set        (); const out          = []; let dup = 0;
   for (const t of batches.flat()) {
-    const k = t.tradeId ? `T|${t.tradeId}|${t.isin}|${t.side}` : `O|${t.orderId}|${t.isin}|${t.side}|${t.date}|${t.qty}|${t.value}`;
-    const k2 = t.tradeId || t.orderId ? k : `X|${t.isin || t.instrument}|${t.side}|${t.date}|${t.time}|${t.qty}|${t.value}`;
+    const k2 = tradeKey(t);
     if (seen.has(k2)) { dup++; continue; } seen.add(k2); out.push(t);
   }
   return { trades: out, duplicates: dup };
