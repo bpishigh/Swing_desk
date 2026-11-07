@@ -104,9 +104,10 @@ const strategies = read('settings/strategies.json', { strategies: [] }).strategi
 const momentum = read('data/india/momentum-sleeve/latest.json', null), momentumUs = read('data/us/momentum-sleeve/latest.json', null);
 for (const [z, dir] of [[momentum, 'data/india'], [momentumUs, 'data/us']]) if (z?.rows) { const resOf = resultsOf(dir, z.asOf ?? ''); for (const r of z.rows) if (r.weightNow > 0) r.res = resOf(r.sym); }   // next results date on each momentum holding (display only)
 const slim = (z) => (z ? { asOf: z.asOf, state: z.state, sinceFill: z.sinceFill, valueIndex: z.valueIndex, stopRule: z.stopRule ?? null, stops: z.stops ?? [], stopQueue: z.stopQueue ?? [], heldCount: z.heldCount } : null);   // stop twin (C-147): only what the page shows
-const momentumStop = slim(read('data/india/momentum-sleeve-stop/latest.json', null)), momentumUsStop = slim(read('data/us/momentum-sleeve-stop/latest.json', null));
+const stopTwins = (d) => ['-stop5', '-stop8', '-stop'].map((x) => slim(read(`${d}/momentum-sleeve${x}/latest.json`, null))).filter(Boolean);   // 5%, 8%, 25% (C-149)
+const momentumStops = stopTwins('data/india'), momentumUsStops = stopTwins('data/us');
 const evidence = read('settings/evidence.json', null);   // what the registered tests found for each rule behind the Ready list: information only
-const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStop, momentumUsStop, evidence };
+const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStops, momentumUsStops, evidence };
 mkdirSync('site/data', { recursive: true });
 // Keep the old file when only the build time changed, so the tick does not commit every half hour.
 const prev = read('site/data/dashboard.json', null);

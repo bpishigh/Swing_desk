@@ -1327,7 +1327,12 @@
    "registeredAt": "2026-11-07T10:30:24.147Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-07T10:32:19.492Z",
+    "summary": "India 2011-2025: no stop x10.2 (16.9%/yr, worst fall -37.6%); 5% x1.34 (2.0%/yr, -17.1%); 8% x1.96 (4.6%/yr, -18.4%); 25% x6.34 (13.2%/yr, -30.2%). Every level lowers the fall; none keeps CAGR within 2 pts (25% gives up 3.7). No level qualifies.",
+    "file": "data/replay/c149-momentum-stops-india.json"
+   }
   },
   {
    "id": "C-149-r2",
@@ -1353,7 +1358,12 @@
    "registeredAt": "2026-11-07T10:30:33.626Z",
    "attempt": 2,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-07T10:32:19.628Z",
+    "summary": "US 2017-2026: no stop x5.67 (21.5%/yr, worst fall -49.9%); 5% x0.97 (-0.4%/yr, -20.6%); 8% x1.09 (1.0%/yr, -23.3%); 25% x2.47 (10.7%/yr, -41.5%). Every level lowers the fall; none within 2 pts of CAGR (25% gives up 10.8). No level qualifies.",
+    "file": "data/replay/c149-momentum-stops-us.json"
+   }
   }
  ]
 }

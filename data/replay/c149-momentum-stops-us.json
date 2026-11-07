@@ -1,0 +1,125 @@
+{
+ "id": "C-149-us",
+ "run": "2026-11-07",
+ "rule": "a level helps only if it lowers the worst fall and keeps compound annual return within 2 points of no stop; pick the smaller fall, then the wider stop; none qualifying means no stop",
+ "weighting": "tilt",
+ "rows": [
+  {
+   "stop": 0,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 5.674,
+   "cagr": 0.2153,
+   "worstFall": -0.4992,
+   "worstFrom": "2021-02-12",
+   "worstTo": "2022-09-26",
+   "stopsFired": 0,
+   "yearly": {
+    "2017": 0.0241,
+    "2018": -0.0586,
+    "2019": 0.2794,
+    "2020": 0.8505,
+    "2021": -0.0004,
+    "2022": -0.2279,
+    "2023": 0.1457,
+    "2024": 0.5365,
+    "2025": 0.3874,
+    "2026": 0.3189
+   }
+  },
+  {
+   "stop": 0.05,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 0.969,
+   "cagr": -0.0035,
+   "worstFall": -0.2064,
+   "worstFrom": "2020-12-22",
+   "worstTo": "2026-06-05",
+   "stopsFired": 539,
+   "yearly": {
+    "2017": 0.0276,
+    "2018": -0.0338,
+    "2019": 0.0815,
+    "2020": 0.0817,
+    "2021": -0.0566,
+    "2022": -0.1164,
+    "2023": 0.0458,
+    "2024": -0.0012,
+    "2025": 0.0268,
+    "2026": -0.0667
+   }
+  },
+  {
+   "stop": 0.08,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 1.089,
+   "cagr": 0.0096,
+   "worstFall": -0.2325,
+   "worstFrom": "2021-01-25",
+   "worstTo": "2023-06-07",
+   "stopsFired": 525,
+   "yearly": {
+    "2017": 0.0247,
+    "2018": -0.067,
+    "2019": 0.0891,
+    "2020": 0.1692,
+    "2021": -0.0402,
+    "2022": -0.1385,
+    "2023": 0.0664,
+    "2024": 0.0416,
+    "2025": 0.0494,
+    "2026": -0.0719
+   }
+  },
+  {
+   "stop": 0.25,
+   "from": "2017-12-04",
+   "to": "2026-10-30",
+   "years": 8.9,
+   "multiple": 2.47,
+   "cagr": 0.1069,
+   "worstFall": -0.4153,
+   "worstFrom": "2021-02-12",
+   "worstTo": "2023-03-17",
+   "stopsFired": 267,
+   "yearly": {
+    "2017": 0.0241,
+    "2018": -0.0417,
+    "2019": 0.2321,
+    "2020": 0.2993,
+    "2021": 0.055,
+    "2022": -0.2311,
+    "2023": 0.1201,
+    "2024": 0.2503,
+    "2025": 0.2012,
+    "2026": 0.1519
+   }
+  }
+ ],
+ "verdict": [
+  {
+   "stop": 0.05,
+   "lowersFall": true,
+   "cagrGap": -0.2188,
+   "qualifies": false
+  },
+  {
+   "stop": 0.08,
+   "lowersFall": true,
+   "cagrGap": -0.2057,
+   "qualifies": false
+  },
+  {
+   "stop": 0.25,
+   "lowersFall": true,
+   "cagrGap": -0.1084,
+   "qualifies": false
+  }
+ ],
+ "chosen": null
+}
