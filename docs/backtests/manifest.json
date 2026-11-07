@@ -1453,7 +1453,12 @@
    "registeredAt": "2026-11-07T13:00:59.558Z",
    "attempt": 1,
    "exploration": false,
-   "status": "registered"
+   "status": "done",
+   "result": {
+    "at": "2026-11-07T13:02:07.546Z",
+    "summary": "Run 7 Nov 2026 (manifest C-152-r1): FAILS. India 2013-2019: top-four breadth industries 288% vs 182% all industries, but mean monthly excess +0.38% with 90% interval -0.03% to +0.84% (lower end not above zero) and ahead in 4 of 7 years (needs 5). Reported 2020-2025: 455% vs 442%, no edge. Survivorship bias applies. Gate unchanged.",
+    "file": "data/replay/c152-sector-breadth-india.json"
+   }
   }
  ]
 }

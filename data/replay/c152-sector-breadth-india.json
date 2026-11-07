@@ -1,0 +1,55 @@
+{
+ "run": "2026-11-07",
+ "results": [
+  {
+   "label": "Jan 2013 to Dec 2019 (judged)",
+   "judged": true,
+   "months": 84,
+   "first": "2013-01-01",
+   "last": "2019-12-02",
+   "avgIndustries": 14.238095238095237,
+   "sleeve": 2.87936339807343,
+   "allIndustries": 1.8180905360386643,
+   "meanExcess": 0.0038442339681343217,
+   "ci90": [
+    -0.00026237728658402143,
+    0.00837496917227701
+   ],
+   "years": {
+    "counted": 7,
+    "wins": 4
+   },
+   "conditions": {
+    "beatsAll": true,
+    "lowerAboveZero": false,
+    "yearsTwoThirds": false
+   },
+   "pass": false
+  },
+  {
+   "label": "Jan 2020 to Oct 2025 (reported)",
+   "judged": false,
+   "months": 70,
+   "first": "2020-01-01",
+   "last": "2025-10-01",
+   "avgIndustries": 16.82857142857143,
+   "sleeve": 4.553189551498155,
+   "allIndustries": 4.417033922550851,
+   "meanExcess": 0.00030230711517154887,
+   "ci90": [
+    -0.004901595032570706,
+    0.005720390027743573
+   ],
+   "years": {
+    "counted": 6,
+    "wins": 3
+   },
+   "conditions": {
+    "beatsAll": true,
+    "lowerAboveZero": false,
+    "yearsTwoThirds": false
+   },
+   "pass": false
+  }
+ ]
+}
