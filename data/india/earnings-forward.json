@@ -1989,16 +1989,1776 @@
    "rea": -0.1337,
    "top": true,
    "signal": false
+  },
+  "AIAENG|2026-11-03": {
+   "s": "AIAENG",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 3219.8,
+   "run": -0.0016,
+   "rea": -0.1334,
+   "top": false,
+   "signal": false
+  },
+  "AADHARHFC|2026-11-05": {
+   "s": "AADHARHFC",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 429.65,
+   "run": -0.0733,
+   "rea": -0.0134,
+   "top": false,
+   "signal": false
+  },
+  "AARTIIND|2026-10-30": {
+   "s": "AARTIIND",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 428.8,
+   "run": -0.0772,
+   "rea": -0.0322,
+   "top": false,
+   "signal": false
+  },
+  "ABCAPITAL|2026-10-30": {
+   "s": "ABCAPITAL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 378.3,
+   "run": -0.0193,
+   "rea": 0.0534,
+   "top": false,
+   "signal": false
+  },
+  "CPPLUS|2026-11-05": {
+   "s": "CPPLUS",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 4131.4,
+   "run": -0.0024,
+   "rea": 0.0231,
+   "top": false,
+   "signal": false
+  },
+  "AETHER|2026-10-30": {
+   "s": "AETHER",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1521.8,
+   "run": -0.0255,
+   "rea": -0.0397,
+   "top": false,
+   "signal": false
+  },
+  "AFCONS|2026-11-04": {
+   "s": "AFCONS",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 219.44,
+   "run": -0.1274,
+   "rea": 0.0046,
+   "top": false,
+   "signal": false
+  },
+  "AFFLE|2026-10-30": {
+   "s": "AFFLE",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1506.5,
+   "run": -0.0019,
+   "rea": 0.0884,
+   "top": false,
+   "signal": false
+  },
+  "AJANTPHARM|2026-10-30": {
+   "s": "AJANTPHARM",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 3396.3,
+   "run": 0.0836,
+   "rea": -0.0206,
+   "top": true,
+   "signal": false
+  },
+  "ARE&M|2026-11-02": {
+   "s": "ARE&M",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 696.6,
+   "run": -0.0232,
+   "rea": -0.0104,
+   "top": false,
+   "signal": false
+  },
+  "ANTHEM|2026-11-03": {
+   "s": "ANTHEM",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 888.3,
+   "run": 0.0448,
+   "rea": 0.0372,
+   "top": true,
+   "signal": true
+  },
+  "APOLLOHOSP|2026-11-04": {
+   "s": "APOLLOHOSP",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 8371,
+   "run": 0.1062,
+   "rea": -0.0416,
+   "top": true,
+   "signal": false
+  },
+  "APOLLOTYRE|2026-11-04": {
+   "s": "APOLLOTYRE",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 418.85,
+   "run": -0.039,
+   "rea": 0.0235,
+   "top": false,
+   "signal": false
+  },
+  "APTUS|2026-11-04": {
+   "s": "APTUS",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 179.93,
+   "run": -0.044,
+   "rea": -0.1414,
+   "top": false,
+   "signal": false
+  },
+  "ASAHIINDIA|2026-11-03": {
+   "s": "ASAHIINDIA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 983.45,
+   "run": 0.0472,
+   "rea": 0.0194,
+   "top": true,
+   "signal": false
+  },
+  "ASTRAL|2026-11-05": {
+   "s": "ASTRAL",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1253.6,
+   "run": -0.0069,
+   "rea": -0.1292,
+   "top": false,
+   "signal": false
+  },
+  "AUROPHARMA|2026-11-04": {
+   "s": "AUROPHARMA",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1785,
+   "run": 0.0552,
+   "rea": 0.02,
+   "top": true,
+   "signal": false
+  },
+  "AIIL|2026-11-03": {
+   "s": "AIIL",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 515.95,
+   "run": -0.068,
+   "rea": -0.0274,
+   "top": false,
+   "signal": false
+  },
+  "BEML|2026-11-05": {
+   "s": "BEML",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1953.2,
+   "run": 0.0974,
+   "rea": -0.0898,
+   "top": true,
+   "signal": false
+  },
+  "BLS|2026-11-03": {
+   "s": "BLS",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 216.73,
+   "run": -0.0054,
+   "rea": -0.04,
+   "top": false,
+   "signal": false
+  },
+  "BSE|2026-11-04": {
+   "s": "BSE",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 3790,
+   "run": 0.1089,
+   "rea": 0.0005,
+   "top": true,
+   "signal": false
+  },
+  "BAJAJFINSV|2026-11-03": {
+   "s": "BAJAJFINSV",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1756.5,
+   "run": 0.0069,
+   "rea": 0.0124,
+   "top": false,
+   "signal": false
+  },
+  "BAJAJHLDNG|2026-11-03": {
+   "s": "BAJAJHLDNG",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 10433,
+   "run": -0.0463,
+   "rea": -0.019,
+   "top": false,
+   "signal": false
+  },
+  "BALKRISIND|2026-11-04": {
+   "s": "BALKRISIND",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 2401.9,
+   "run": 0.0677,
+   "rea": 0.0631,
+   "top": true,
+   "signal": true
+  },
+  "BALRAMCHIN|2026-11-04": {
+   "s": "BALRAMCHIN",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 678.5,
+   "run": -0.057,
+   "rea": 0.0028,
+   "top": false,
+   "signal": false
+  },
+  "BANKBARODA|2026-10-30": {
+   "s": "BANKBARODA",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 245.16,
+   "run": 0.0887,
+   "rea": 0.0137,
+   "top": true,
+   "signal": false
+  },
+  "BATAINDIA|2026-11-03": {
+   "s": "BATAINDIA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 633.2,
+   "run": 0.0272,
+   "rea": -0.0331,
+   "top": true,
+   "signal": false
+  },
+  "BERGEPAINT|2026-11-05": {
+   "s": "BERGEPAINT",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 478.35,
+   "run": -0.006,
+   "rea": -0.0237,
+   "top": false,
+   "signal": false
+  },
+  "BEL|2026-10-30": {
+   "s": "BEL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 376.5,
+   "run": 0.0026,
+   "rea": 0.0153,
+   "top": false,
+   "signal": false
+  },
+  "BHARATFORG|2026-11-05": {
+   "s": "BHARATFORG",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1740,
+   "run": -0.005,
+   "rea": -0.0499,
+   "top": false,
+   "signal": false
+  },
+  "BHARTIARTL|2026-11-05": {
+   "s": "BHARTIARTL",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 2107.2,
+   "run": 0.0661,
+   "rea": 0.0094,
+   "top": true,
+   "signal": false
+  },
+  "BHARTIHEXA|2026-11-05": {
+   "s": "BHARTIHEXA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1664.4,
+   "run": 0.0281,
+   "rea": -0.0414,
+   "top": true,
+   "signal": false
+  },
+  "BIOCON|2026-11-04": {
+   "s": "BIOCON",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 362,
+   "run": 0.0189,
+   "rea": 0.022,
+   "top": false,
+   "signal": false
+  },
+  "BRITANNIA|2026-11-05": {
+   "s": "BRITANNIA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 4785,
+   "run": 0.0292,
+   "rea": -0.0424,
+   "top": true,
+   "signal": false
+  },
+  "CESC|2026-11-05": {
+   "s": "CESC",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 126.25,
+   "run": -0.032,
+   "rea": -0.0456,
+   "top": false,
+   "signal": false
+  },
+  "CARBORUNIV|2026-11-02": {
+   "s": "CARBORUNIV",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 1110.1,
+   "run": -0.0231,
+   "rea": 0.0528,
+   "top": false,
+   "signal": false
+  },
+  "CEMPRO|2026-11-05": {
+   "s": "CEMPRO",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1323.3,
+   "run": 0.0941,
+   "rea": 0.0003,
+   "top": true,
+   "signal": false
+  },
+  "CDSL|2026-10-31": {
+   "s": "CDSL",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 1320,
+   "run": 0.0208,
+   "rea": 0.0205,
+   "top": false,
+   "signal": false
+  },
+  "CHAMBLFERT|2026-11-03": {
+   "s": "CHAMBLFERT",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 394.15,
+   "run": -0.0226,
+   "rea": 0.0443,
+   "top": false,
+   "signal": false
+  },
+  "CHOICEIN|2026-11-02": {
+   "s": "CHOICEIN",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 745,
+   "run": 0.0241,
+   "rea": 0.0082,
+   "top": true,
+   "signal": false
+  },
+  "CLEANMAX|2026-11-03": {
+   "s": "CLEANMAX",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1249.1,
+   "run": 0.0102,
+   "rea": -0.0287,
+   "top": false,
+   "signal": false
+  },
+  "CLEAN|2026-10-31": {
+   "s": "CLEAN",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 658.8,
+   "run": -0.0553,
+   "rea": -0.104,
+   "top": false,
+   "signal": false
+  },
+  "CONCOR|2026-11-02": {
+   "s": "CONCOR",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 419.15,
+   "run": -0.0291,
+   "rea": -0.0118,
+   "top": false,
+   "signal": false
+  },
+  "CUMMINSIND|2026-11-04": {
+   "s": "CUMMINSIND",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 4058.9,
+   "run": 0.0183,
+   "rea": -0.1605,
+   "top": false,
+   "signal": false
+  },
+  "DOMS|2026-11-02": {
+   "s": "DOMS",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 1894.8,
+   "run": -0.0978,
+   "rea": 0.0145,
+   "top": false,
+   "signal": false
+  },
+  "DABUR|2026-11-04": {
+   "s": "DABUR",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 385,
+   "run": 0.0184,
+   "rea": -0.0246,
+   "top": false,
+   "signal": false
+  },
+  "DELHIVERY|2026-10-30": {
+   "s": "DELHIVERY",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 408.75,
+   "run": 0.006,
+   "rea": 0.0266,
+   "top": false,
+   "signal": false
+  },
+  "DEVYANI|2026-11-02": {
+   "s": "DEVYANI",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 117.75,
+   "run": 0.0344,
+   "rea": -0.0466,
+   "top": true,
+   "signal": false
+  },
+  "DIXON|2026-10-30": {
+   "s": "DIXON",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 12319,
+   "run": -0.069,
+   "rea": 0.0701,
+   "top": false,
+   "signal": false
+  },
+  "LALPATHLAB|2026-11-04": {
+   "s": "LALPATHLAB",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1966.8,
+   "run": 0.0546,
+   "rea": -0.0121,
+   "top": true,
+   "signal": false
+  },
+  "EMAMILTD|2026-11-05": {
+   "s": "EMAMILTD",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 387.2,
+   "run": -0.0158,
+   "rea": 0.0056,
+   "top": false,
+   "signal": false
+  },
+  "EMCURE|2026-11-03": {
+   "s": "EMCURE",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 2160.4,
+   "run": 0.0631,
+   "rea": 0.121,
+   "top": true,
+   "signal": true
+  },
+  "ENDURANCE|2026-11-03": {
+   "s": "ENDURANCE",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 2507.1,
+   "run": 0.005,
+   "rea": 0.041,
+   "top": false,
+   "signal": false
+  },
+  "ENGINERSIN|2026-10-30": {
+   "s": "ENGINERSIN",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 289.65,
+   "run": -0.0641,
+   "rea": 0.1069,
+   "top": false,
+   "signal": false
+  },
+  "ESCORTS|2026-11-02": {
+   "s": "ESCORTS",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 2439.7,
+   "run": -0.0111,
+   "rea": -0.0777,
+   "top": false,
+   "signal": false
+  },
+  "EXIDEIND|2026-11-04": {
+   "s": "EXIDEIND",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 362.5,
+   "run": -0.0285,
+   "rea": 0.0135,
+   "top": false,
+   "signal": false
+  },
+  "NYKAA|2026-11-04": {
+   "s": "NYKAA",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 350.3,
+   "run": 0.0613,
+   "rea": -0.0436,
+   "top": true,
+   "signal": false
+  },
+  "FORTIS|2026-11-05": {
+   "s": "FORTIS",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 766.9,
+   "run": 0.0577,
+   "rea": -0.0398,
+   "top": true,
+   "signal": false
+  },
+  "FRACTAL|2026-11-03": {
+   "s": "FRACTAL",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 835.65,
+   "run": 0.0356,
+   "rea": 0.1001,
+   "top": true,
+   "signal": true
+  },
+  "GAIL|2026-10-30": {
+   "s": "GAIL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 177,
+   "run": 0.0242,
+   "rea": 0.0694,
+   "top": true,
+   "signal": true
+  },
+  "GVT&D|2026-10-30": {
+   "s": "GVT&D",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 4175.5,
+   "run": 0.0113,
+   "rea": 0.0184,
+   "top": false,
+   "signal": false
+  },
+  "GABRIEL|2026-10-30": {
+   "s": "GABRIEL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1443.8,
+   "run": 0.0527,
+   "rea": -0.0035,
+   "top": true,
+   "signal": false
+  },
+  "GRSE|2026-11-04": {
+   "s": "GRSE",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 2137.2,
+   "run": 0.0318,
+   "rea": -0.0305,
+   "top": true,
+   "signal": false
+  },
+  "GICRE|2026-10-30": {
+   "s": "GICRE",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 317,
+   "run": 0.041,
+   "rea": -0.0187,
+   "top": true,
+   "signal": false
+  },
+  "GLAXO|2026-11-03": {
+   "s": "GLAXO",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 2531.8,
+   "run": 0.0151,
+   "rea": -0.0259,
+   "top": false,
+   "signal": false
+  },
+  "GLENMARK|2026-11-05": {
+   "s": "GLENMARK",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 2590,
+   "run": 0.1147,
+   "rea": 0.0243,
+   "top": true,
+   "signal": true
+  },
+  "MEDANTA|2026-11-03": {
+   "s": "MEDANTA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1402,
+   "run": 0.0757,
+   "rea": 0.0538,
+   "top": true,
+   "signal": true
+  },
+  "GODFRYPHLP|2026-11-05": {
+   "s": "GODFRYPHLP",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1790,
+   "run": -0.0201,
+   "rea": -0.0012,
+   "top": false,
+   "signal": false
+  },
+  "GRANULES|2026-11-02": {
+   "s": "GRANULES",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 797.6,
+   "run": 0.0782,
+   "rea": -0.0748,
+   "top": true,
+   "signal": false
+  },
+  "GRAPHITE|2026-11-03": {
+   "s": "GRAPHITE",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 741.45,
+   "run": 0.0095,
+   "rea": -0.0447,
+   "top": false,
+   "signal": false
+  },
+  "FLUOROCHEM|2026-11-03": {
+   "s": "FLUOROCHEM",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 4613.3,
+   "run": 0.0107,
+   "rea": 0.0409,
+   "top": false,
+   "signal": false
+  },
+  "GMDCLTD|2026-10-30": {
+   "s": "GMDCLTD",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 424.55,
+   "run": -0.0413,
+   "rea": -0.0346,
+   "top": false,
+   "signal": false
+  },
+  "HEGAM|2026-11-03": {
+   "s": "HEGAM",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 288.18,
+   "run": 0.1238,
+   "rea": 0.1449,
+   "top": true,
+   "signal": true
+  },
+  "HUDCO|2026-11-04": {
+   "s": "HUDCO",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 158.03,
+   "run": -0.0647,
+   "rea": 0.0593,
+   "top": false,
+   "signal": false
+  },
+  "INOXINDIA|2026-11-03": {
+   "s": "INOXINDIA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1936.7,
+   "run": -0.0438,
+   "rea": 0.0243,
+   "top": false,
+   "signal": false
+  },
+  "IRB|2026-11-05": {
+   "s": "IRB",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 17.02,
+   "run": -0.0334,
+   "rea": 0.0039,
+   "top": false,
+   "signal": false
+  },
+  "IRCON|2026-11-04": {
+   "s": "IRCON",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 106.75,
+   "run": -0.0312,
+   "rea": 0.0358,
+   "top": false,
+   "signal": false
+  },
+  "ITC|2026-11-02": {
+   "s": "ITC",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 273.9,
+   "run": 0.0504,
+   "rea": 0.0066,
+   "top": true,
+   "signal": false
+  },
+  "IOC|2026-10-30": {
+   "s": "IOC",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 134.59,
+   "run": 0.0553,
+   "rea": 0.0298,
+   "top": true,
+   "signal": true
+  },
+  "IGL|2026-10-30": {
+   "s": "IGL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 132.92,
+   "run": 0.0111,
+   "rea": -0.0638,
+   "top": false,
+   "signal": false
+  },
+  "INTELLECT|2026-10-30": {
+   "s": "INTELLECT",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 531.05,
+   "run": -0.0274,
+   "rea": -0.1213,
+   "top": false,
+   "signal": false
+  },
+  "IKS|2026-11-05": {
+   "s": "IKS",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1657.1,
+   "run": 0.0459,
+   "rea": -0.0631,
+   "top": true,
+   "signal": false
+  },
+  "IPCALAB|2026-11-05": {
+   "s": "IPCALAB",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1941.8,
+   "run": 0.0008,
+   "rea": -0.0251,
+   "top": false,
+   "signal": false
+  },
+  "JMFINANCIL|2026-11-04": {
+   "s": "JMFINANCIL",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 108.79,
+   "run": -0.035,
+   "rea": -0.0617,
+   "top": false,
+   "signal": false
+  },
+  "JAINREC|2026-11-03": {
+   "s": "JAINREC",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 280,
+   "run": -0.0203,
+   "rea": -0.0102,
+   "top": false,
+   "signal": false
+  },
+  "JYOTICNC|2026-11-03": {
+   "s": "JYOTICNC",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1034.95,
+   "run": -0.0273,
+   "rea": 0.0733,
+   "top": false,
+   "signal": false
+  },
+  "KSB|2026-11-03": {
+   "s": "KSB",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 659.2,
+   "run": -0.1202,
+   "rea": -0.0326,
+   "top": false,
+   "signal": false
+  },
+  "KPIL|2026-11-05": {
+   "s": "KPIL",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1370.8,
+   "run": 0.0231,
+   "rea": -0.0063,
+   "top": true,
+   "signal": false
+  },
+  "KEC|2026-11-02": {
+   "s": "KEC",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 316.35,
+   "run": -0.0303,
+   "rea": -0.065,
+   "top": false,
+   "signal": false
+  },
+  "KIRLOSENG|2026-11-04": {
+   "s": "KIRLOSENG",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1592.4,
+   "run": -0.1193,
+   "rea": -0.1065,
+   "top": false,
+   "signal": false
+  },
+  "KIMS|2026-11-04": {
+   "s": "KIMS",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 731.05,
+   "run": 0.0867,
+   "rea": -0.0327,
+   "top": true,
+   "signal": false
+  },
+  "LGEINDIA|2026-11-05": {
+   "s": "LGEINDIA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1754.1,
+   "run": -0.0091,
+   "rea": 0.0269,
+   "top": false,
+   "signal": false
+  },
+  "LICHSGFIN|2026-10-30": {
+   "s": "LICHSGFIN",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 495.3,
+   "run": -0.0043,
+   "rea": -0.0386,
+   "top": false,
+   "signal": false
+  },
+  "LEMONTREE|2026-11-05": {
+   "s": "LEMONTREE",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 117.39,
+   "run": 0.0255,
+   "rea": 0.006,
+   "top": true,
+   "signal": false
+  },
+  "LENSKART|2026-11-04": {
+   "s": "LENSKART",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 718.35,
+   "run": 0.0587,
+   "rea": 0.0371,
+   "top": true,
+   "signal": true
+  },
+  "LICI|2026-11-05": {
+   "s": "LICI",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 394,
+   "run": 0.0138,
+   "rea": -0.0441,
+   "top": false,
+   "signal": false
+  },
+  "LINDEINDIA|2026-11-03": {
+   "s": "LINDEINDIA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 6390.5,
+   "run": -0.0404,
+   "rea": 0.0838,
+   "top": false,
+   "signal": false
+  },
+  "LLOYDSME|2026-11-03": {
+   "s": "LLOYDSME",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1799.6,
+   "run": 0.0142,
+   "rea": -0.04,
+   "top": false,
+   "signal": false
+  },
+  "LODHA|2026-10-30": {
+   "s": "LODHA",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1002.8,
+   "run": 0.0219,
+   "rea": -0.0434,
+   "top": false,
+   "signal": false
+  },
+  "LUPIN|2026-11-03": {
+   "s": "LUPIN",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 2008.6,
+   "run": 0.0464,
+   "rea": -0.0199,
+   "top": true,
+   "signal": false
+  },
+  "MGL|2026-11-03": {
+   "s": "MGL",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1059.2,
+   "run": 0.0133,
+   "rea": -0.0055,
+   "top": false,
+   "signal": false
+  },
+  "M&M|2026-11-05": {
+   "s": "M&M",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 3287.2,
+   "run": -0.0016,
+   "rea": 0.1001,
+   "top": false,
+   "signal": false
+  },
+  "MARICO|2026-11-02": {
+   "s": "MARICO",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 878.4,
+   "run": 0.0589,
+   "rea": 0.0734,
+   "top": true,
+   "signal": true
+  },
+  "MAXHEALTH|2026-10-30": {
+   "s": "MAXHEALTH",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 884.75,
+   "run": 0.0333,
+   "rea": 0.0372,
+   "top": true,
+   "signal": true
+  },
+  "MINDACORP|2026-11-03": {
+   "s": "MINDACORP",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 678.55,
+   "run": 0.0425,
+   "rea": 0.0038,
+   "top": true,
+   "signal": false
+  },
+  "MSUMI|2026-10-30": {
+   "s": "MSUMI",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 38.78,
+   "run": 0.0889,
+   "rea": 0.0822,
+   "top": true,
+   "signal": true
+  },
+  "MPHASIS|2026-11-05": {
+   "s": "MPHASIS",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 2520,
+   "run": -0.0682,
+   "rea": 0.0111,
+   "top": false,
+   "signal": false
+  },
+  "MUTHOOTFIN|2026-10-31": {
+   "s": "MUTHOOTFIN",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 2528.2,
+   "run": -0.0296,
+   "rea": 0.025,
+   "top": false,
+   "signal": false
+  },
+  "NCC|2026-11-05": {
+   "s": "NCC",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 122.84,
+   "run": -0.0415,
+   "rea": 0.0022,
+   "top": false,
+   "signal": false
+  },
+  "NBCC|2026-11-05": {
+   "s": "NBCC",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 78,
+   "run": 0.0612,
+   "rea": -0.0064,
+   "top": true,
+   "signal": false
+  },
+  "NHPC|2026-11-04": {
+   "s": "NHPC",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 80.6,
+   "run": 0.1331,
+   "rea": -0.0183,
+   "top": true,
+   "signal": false
+  },
+  "NLCINDIA|2026-11-02": {
+   "s": "NLCINDIA",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 230.31,
+   "run": -0.0489,
+   "rea": -0.0143,
+   "top": false,
+   "signal": false
+  },
+  "NLCINDIA|2026-11-04": {
+   "s": "NLCINDIA",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 241.47,
+   "run": -0.0474,
+   "rea": 0.015,
+   "top": false,
+   "signal": false
+  },
+  "NTPCGREEN|2026-10-30": {
+   "s": "NTPCGREEN",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 83.42,
+   "run": -0.05,
+   "rea": -0.0083,
+   "top": false,
+   "signal": false
+  },
+  "NTPC|2026-10-31": {
+   "s": "NTPC",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 321.55,
+   "run": 0.0491,
+   "rea": -0.0079,
+   "top": true,
+   "signal": false
+  },
+  "NH|2026-10-30": {
+   "s": "NH",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1834.2,
+   "run": 0.0498,
+   "rea": 0.0676,
+   "top": true,
+   "signal": true
+  },
+  "NATIONALUM|2026-11-02": {
+   "s": "NATIONALUM",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 317.55,
+   "run": 0.0319,
+   "rea": -0.0151,
+   "top": true,
+   "signal": false
+  },
+  "NAVINFLUOR|2026-10-30": {
+   "s": "NAVINFLUOR",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 8406,
+   "run": 0.0117,
+   "rea": 0.0154,
+   "top": false,
+   "signal": false
+  },
+  "NEULANDLAB|2026-11-03": {
+   "s": "NEULANDLAB",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 19576,
+   "run": 0.0235,
+   "rea": -0.026,
+   "top": true,
+   "signal": false
+  },
+  "ONGC|2026-11-05": {
+   "s": "ONGC",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 231.76,
+   "run": 0.0147,
+   "rea": -0.0236,
+   "top": false,
+   "signal": false
+  },
+  "POLICYBZR|2026-10-30": {
+   "s": "POLICYBZR",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 931,
+   "run": -0.0045,
+   "rea": -0.0879,
+   "top": false,
+   "signal": false
+  },
+  "PCBL|2026-11-02": {
+   "s": "PCBL",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 276.05,
+   "run": -0.0594,
+   "rea": -0.0279,
+   "top": false,
+   "signal": false
+  },
+  "PIIND|2026-11-04": {
+   "s": "PIIND",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1770,
+   "run": 0.02,
+   "rea": -0.2234,
+   "top": false,
+   "signal": false
+  },
+  "PETRONET|2026-11-02": {
+   "s": "PETRONET",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 303,
+   "run": 0.0247,
+   "rea": 0.022,
+   "top": true,
+   "signal": true
+  },
+  "PHOENIXLTD|2026-10-30": {
+   "s": "PHOENIXLTD",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 2016.6,
+   "run": 0.0787,
+   "rea": 0.0215,
+   "top": true,
+   "signal": true
+  },
+  "PWL|2026-11-04": {
+   "s": "PWL",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 132.2,
+   "run": -0.0005,
+   "rea": -0.0058,
+   "top": false,
+   "signal": false
+  },
+  "POLYMED|2026-11-05": {
+   "s": "POLYMED",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1612.3,
+   "run": 0.0525,
+   "rea": 0.0063,
+   "top": true,
+   "signal": false
+  },
+  "PFC|2026-11-04": {
+   "s": "PFC",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 329.4,
+   "run": -0.0332,
+   "rea": 0.0024,
+   "top": false,
+   "signal": false
+  },
+  "PREMIERENE|2026-11-04": {
+   "s": "PREMIERENE",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 882.5,
+   "run": 0.0001,
+   "rea": -0.0419,
+   "top": false,
+   "signal": false
+  },
+  "POWERGRID|2026-11-01": {
+   "s": "POWERGRID",
+   "d": "2026-11-01",
+   "entry": "2026-11-03",
+   "px": 259.55,
+   "run": 0.1046,
+   "rea": -0.0452,
+   "top": true,
+   "signal": false
+  },
+  "PRESTIGE|2026-11-05": {
+   "s": "PRESTIGE",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1629,
+   "run": 0.0666,
+   "rea": 0.0212,
+   "top": true,
+   "signal": true
+  },
+  "RITES|2026-11-04": {
+   "s": "RITES",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 196.55,
+   "run": -0.0426,
+   "rea": -0.0158,
+   "top": false,
+   "signal": false
+  },
+  "RAINBOW|2026-10-31": {
+   "s": "RAINBOW",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 1246.4,
+   "run": 0.0216,
+   "rea": -0.0019,
+   "top": false,
+   "signal": false
+  },
+  "REDINGTON|2026-11-04": {
+   "s": "REDINGTON",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 356.4,
+   "run": -0.0864,
+   "rea": 0.0297,
+   "top": false,
+   "signal": false
+  },
+  "RKFORGE|2026-10-30": {
+   "s": "RKFORGE",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 696.1,
+   "run": -0.0003,
+   "rea": 0.0333,
+   "top": false,
+   "signal": false
+  },
+  "RELIANCE|2026-10-30": {
+   "s": "RELIANCE",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1300,
+   "run": 0.0288,
+   "rea": 0.1113,
+   "top": true,
+   "signal": true
+  },
+  "RUBICON|2026-11-05": {
+   "s": "RUBICON",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1659.3,
+   "run": 0.1584,
+   "rea": -0.0433,
+   "top": true,
+   "signal": false
+  },
+  "SJVN|2026-10-30": {
+   "s": "SJVN",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 56.5,
+   "run": -0.0421,
+   "rea": 0.076,
+   "top": false,
+   "signal": false
+  },
+  "SHRIPISTON|2026-10-30": {
+   "s": "SHRIPISTON",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 4241.4,
+   "run": 0.0679,
+   "rea": -0.0555,
+   "top": true,
+   "signal": false
+  },
+  "SAILIFE|2026-11-05": {
+   "s": "SAILIFE",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1785.1,
+   "run": 0.0826,
+   "rea": 0.1448,
+   "top": true,
+   "signal": true
+  },
+  "MOTHERSON|2026-11-05": {
+   "s": "MOTHERSON",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 158.55,
+   "run": -0.0127,
+   "rea": -0.0157,
+   "top": false,
+   "signal": false
+  },
+  "SANSERA|2026-11-05": {
+   "s": "SANSERA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 4322.7,
+   "run": 0.0963,
+   "rea": -0.0342,
+   "top": true,
+   "signal": false
+  },
+  "SARDAEN|2026-10-31": {
+   "s": "SARDAEN",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 429.35,
+   "run": -0.0458,
+   "rea": -0.0507,
+   "top": false,
+   "signal": false
+  },
+  "SCHNEIDER|2026-11-05": {
+   "s": "SCHNEIDER",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1063.4,
+   "run": -0.0208,
+   "rea": -0.0838,
+   "top": false,
+   "signal": false
+  },
+  "SCI|2026-11-04": {
+   "s": "SCI",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 263.45,
+   "run": -0.0507,
+   "rea": -0.0164,
+   "top": false,
+   "signal": false
+  },
+  "SHYAMMETL|2026-10-31": {
+   "s": "SHYAMMETL",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 1219.5,
+   "run": 0.0491,
+   "rea": 0.0241,
+   "top": true,
+   "signal": true
+  },
+  "SIGNATURE|2026-11-05": {
+   "s": "SIGNATURE",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 747.85,
+   "run": -0.0376,
+   "rea": 0.0479,
+   "top": false,
+   "signal": false
+  },
+  "SOLARINDS|2026-11-03": {
+   "s": "SOLARINDS",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 19393,
+   "run": -0.0001,
+   "rea": -0.0283,
+   "top": false,
+   "signal": false
+  },
+  "SBIN|2026-11-03": {
+   "s": "SBIN",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 979,
+   "run": 0.0539,
+   "rea": -0.0341,
+   "top": true,
+   "signal": false
+  },
+  "SUNPHARMA|2026-10-30": {
+   "s": "SUNPHARMA",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1770,
+   "run": 0.0433,
+   "rea": 0.0029,
+   "top": true,
+   "signal": false
+  },
+  "SUNTV|2026-10-30": {
+   "s": "SUNTV",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 591.4,
+   "run": -0.0159,
+   "rea": -0.0482,
+   "top": false,
+   "signal": false
+  },
+  "SUNDARMFIN|2026-11-04": {
+   "s": "SUNDARMFIN",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 4222.4,
+   "run": -0.0279,
+   "rea": 0.0073,
+   "top": false,
+   "signal": false
+  },
+  "SWANCORP|2026-11-04": {
+   "s": "SWANCORP",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 248.74,
+   "run": -0.0426,
+   "rea": -0.0087,
+   "top": false,
+   "signal": false
+  },
+  "SYRMA|2026-10-30": {
+   "s": "SYRMA",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 1512,
+   "run": 0.0212,
+   "rea": -0.0963,
+   "top": false,
+   "signal": false
+  },
+  "TBOTEK|2026-11-02": {
+   "s": "TBOTEK",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 1594.4,
+   "run": -0.0148,
+   "rea": 0.016,
+   "top": false,
+   "signal": false
+  },
+  "TATAINVEST|2026-11-02": {
+   "s": "TATAINVEST",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 552.9,
+   "run": -0.0348,
+   "rea": -0.0422,
+   "top": false,
+   "signal": false
+  },
+  "TEGA|2026-11-05": {
+   "s": "TEGA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1689.2,
+   "run": -0.0142,
+   "rea": -0.0789,
+   "top": false,
+   "signal": false
+  },
+  "TENNIND|2026-11-04": {
+   "s": "TENNIND",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 467.55,
+   "run": 0.0291,
+   "rea": -0.0137,
+   "top": true,
+   "signal": false
+  },
+  "THANGAMAYL|2026-11-04": {
+   "s": "THANGAMAYL",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 4335.5,
+   "run": -0.0865,
+   "rea": -0.077,
+   "top": false,
+   "signal": false
+  },
+  "NIACL|2026-10-30": {
+   "s": "NIACL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 154.85,
+   "run": -0.0663,
+   "rea": -0.073,
+   "top": false,
+   "signal": false
+  },
+  "RAMCOCEM|2026-11-05": {
+   "s": "RAMCOCEM",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 817.35,
+   "run": -0.0325,
+   "rea": 0.0503,
+   "top": false,
+   "signal": false
+  },
+  "THERMAX|2026-11-05": {
+   "s": "THERMAX",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 2746.3,
+   "run": 0.0168,
+   "rea": -0.1731,
+   "top": false,
+   "signal": false
+  },
+  "TITAN|2026-11-05": {
+   "s": "TITAN",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 5000,
+   "run": 0.0584,
+   "rea": 0.0419,
+   "top": true,
+   "signal": true
+  },
+  "TORNTPOWER|2026-11-04": {
+   "s": "TORNTPOWER",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1265.4,
+   "run": 0.0045,
+   "rea": 0.0182,
+   "top": false,
+   "signal": false
+  },
+  "TRIDENT|2026-11-02": {
+   "s": "TRIDENT",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 23.79,
+   "run": 0.0023,
+   "rea": 0.0991,
+   "top": false,
+   "signal": false
+  },
+  "TIINDIA|2026-11-05": {
+   "s": "TIINDIA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 2170,
+   "run": 0.0378,
+   "rea": -0.0455,
+   "top": true,
+   "signal": false
+  },
+  "UNOMINDA|2026-11-05": {
+   "s": "UNOMINDA",
+   "d": "2026-11-05",
+   "entry": "2026-11-06",
+   "px": 1326,
+   "run": 0.0971,
+   "rea": 0.0981,
+   "top": true,
+   "signal": true
+  },
+  "UPL|2026-11-02": {
+   "s": "UPL",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 517.85,
+   "run": -0.0072,
+   "rea": -0.0159,
+   "top": false,
+   "signal": false
+  },
+  "VBL|2026-10-30": {
+   "s": "VBL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 397.15,
+   "run": -0.028,
+   "rea": -0.0448,
+   "top": false,
+   "signal": false
+  },
+  "VIJAYA|2026-11-03": {
+   "s": "VIJAYA",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 1424.6,
+   "run": 0.0834,
+   "rea": -0.0485,
+   "top": true,
+   "signal": false
+  },
+  "WELSPUNLIV|2026-10-30": {
+   "s": "WELSPUNLIV",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 242.34,
+   "run": -0.0409,
+   "rea": 0.14,
+   "top": false,
+   "signal": false
+  },
+  "WOCKPHARMA|2026-11-02": {
+   "s": "WOCKPHARMA",
+   "d": "2026-11-02",
+   "entry": "2026-11-03",
+   "px": 1868,
+   "run": 0.0192,
+   "rea": -0.042,
+   "top": false,
+   "signal": false
+  },
+  "ZEEL|2026-10-30": {
+   "s": "ZEEL",
+   "d": "2026-10-30",
+   "entry": "2026-11-02",
+   "px": 61.58,
+   "run": -0.0098,
+   "rea": -0.1289,
+   "top": false,
+   "signal": false
+  },
+  "ZENTEC|2026-10-31": {
+   "s": "ZENTEC",
+   "d": "2026-10-31",
+   "entry": "2026-11-03",
+   "px": 1710.6,
+   "run": -0.0189,
+   "rea": 0.0523,
+   "top": false,
+   "signal": false
+  },
+  "ZYDUSLIFE|2026-11-04": {
+   "s": "ZYDUSLIFE",
+   "d": "2026-11-04",
+   "entry": "2026-11-05",
+   "px": 1193,
+   "run": 0.1238,
+   "rea": -0.0718,
+   "top": true,
+   "signal": false
+  },
+  "ZYDUSWELL|2026-11-03": {
+   "s": "ZYDUSWELL",
+   "d": "2026-11-03",
+   "entry": "2026-11-04",
+   "px": 488.8,
+   "run": -0.0289,
+   "rea": -0.0146,
+   "top": false,
+   "signal": false
   }
  },
  "summary": {
-  "updated": "2026-10-31",
+  "updated": "2026-11-07",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
     "matured": 0,
-    "open": 30,
+    "open": 52,
     "meanNet": null,
     "win": null,
     "market": null
@@ -2006,7 +3766,7 @@
    {
     "group": "ran up, any reaction",
     "matured": 0,
-    "open": 75,
+    "open": 141,
     "meanNet": null,
     "win": null,
     "market": null
@@ -2014,7 +3774,7 @@
    {
     "group": "all results stocks",
     "matured": 0,
-    "open": 199,
+    "open": 375,
     "meanNet": null,
     "win": null,
     "market": null
