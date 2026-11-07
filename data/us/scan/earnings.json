@@ -1,36 +1,57 @@
 {
- "asOf": "2026-11-05",
+ "asOf": "2026-11-06",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
-  "SGRY": {
-   "date": "2026-11-09",
-   "sessions": 2,
+  "LNTH": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SLN": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SYRE": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ORKA": {
+   "date": "2026-11-11",
+   "sessions": 3,
    "inWindow": true,
    "estimated": true
   },
-  "PACS": {
+  "SGRY": {
+   "date": "2026-11-09",
+   "sessions": 1,
+   "inWindow": true,
+   "estimated": true
+  },
+  "LH": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "CDNA": {
+  "DGX": {
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "KSS": {
-   "date": "2026-11-24",
-   "sessions": 13,
-   "inWindow": false
   },
   "TGT": {
    "date": "2026-11-18",
-   "sessions": 9,
+   "sessions": 8,
    "inWindow": true
+  },
+  "KSS": {
+   "date": "2026-11-24",
+   "sessions": 12,
+   "inWindow": false
   },
   "FIVE": {
    "date": "2026-12-02",
-   "sessions": 18,
+   "sessions": 17,
    "inWindow": false,
    "estimated": true
   }
