@@ -1468,11 +1468,12 @@ const chgText = (c) => (c.added === 0 ? 'Nothing new: every trade in these files
 const lastChg = (a) => { try { const j = JSON.parse(store.get('chg.' + a.key, 'null')); return j && j.at ? j : null; } catch { return null; } };
 const agoTxt = (iso) => { const d = ageDays(iso, Date.now()); return d === null ? '' : d === 0 ? 'today' : d === 1 ? '1 day ago' : d + ' days ago'; };
 const dShort = (iso) => (iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' }) : '');
-function uploadCard() {   // when each account was last uploaded, how old that is, and what the last upload changed (the change detail is kept in the browser that did the upload)
+function uploadCard() {   // a quiet one-line note under the summary: when each account was last uploaded; the detail is in the tooltip
   const accts = [...S.accounts.values()]; if (!accts.length) return '';
-  const rows = accts.map((a) => { const at = a.uploadedAt || '', c = lastChg(a), old = ageDays(at, Date.now()), cov = coverage(a); const stale = old === null || old > 14;
-    return `<div style="margin:8px 0"><b>${esc(a.label)}</b> · ${at ? `uploaded ${dShort(at)} (${agoTxt(at)})` : 'no upload time on record'}${stale ? ' <span class="tag warn">getting old</span>' : ''}<div class="sub">Latest trade in it: ${esc(cov.last || '–')}.${c && at && c.at.slice(0, 10) === at.slice(0, 10) ? ' Last upload: ' + esc(chgText(c)) : c ? '' : ' Upload again to see what changed.'}</div></div>`; }).join('');
-  return `<div class="card"><h2 style="font-size:20px">Last upload</h2>${rows}<div class="sub" style="margin-top:6px">Uploading a file again is safe: trades already in the account are recognised and counted once, only new ones are added, and the holdings and gains recalculate. Anything you traded since the file's last date will not show until the next upload (you can add it by hand on the Trades tab).</div></div>`;
+  const bits = accts.map((a) => { const at = a.uploadedAt || '', old = ageDays(at, Date.now()), c = lastChg(a), cov = coverage(a), stale = old === null || old > 14;
+    const tip = `Latest trade in it: ${cov.last || '–'}.${c && at && c.at.slice(0, 10) === at.slice(0, 10) ? ' Last upload: ' + chgText(c) : ''} Uploading a file again is safe: trades already there are counted once and only new ones are added. Trades after the file's last date show only after the next upload.`;
+    return `<span title="${esc(tip)}"${stale ? ' style="color:var(--warn,#a06a00)"' : ''}>${accts.length > 1 ? esc(a.label) + ' ' : ''}${at ? dShort(at) + ' (' + agoTxt(at) + ')' : 'no upload time'}</span>`; });
+  return `<div class="sub" style="margin:-4px 2px 14px;font-size:12px;opacity:.8">Last uploaded: ${bits.join(' · ')}</div>`;
 }
 function dataTab() {
   const accts = [...S.accounts.values()];
