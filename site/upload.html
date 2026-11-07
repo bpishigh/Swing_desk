@@ -12,7 +12,7 @@
 @media (prefers-color-scheme: dark) { :root { --bg:#0e1319; --panel:#171e27; --ink:#e8edf3; --muted:#9aa6b4; --line:#2a3441; --accent:#8da2ff; --accent-bg:#1f2a52; --green:#5fd49b; --green-bg:#12301f; --red:#ff9189; --red-bg:#3a1b19; --yellow:#e8c45c; --yellow-bg:#3b3210; --track:#252f3b; color-scheme: dark; } }
 * { box-sizing:border-box; }
 body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 var(--font); }
-.wrap { max-width:1080px; margin:0 auto; padding:0 16px 40px; }
+.wrap { max-width:1760px; margin:0 auto; padding:0 clamp(16px, 3vw, 56px) 40px; }
 .bar { padding:12px 0 0; border-bottom:1px solid var(--line); }
 .bar .r { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 .grow { flex:1; }
@@ -69,6 +69,8 @@ small.why { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-wid
 table { font-size:14px; } th, td { padding:8px 7px; }
 
 .mgrid { display:grid; grid-template-columns:repeat(6, minmax(52px, 1fr)); gap:6px; } .mcell { padding:7px 4px; border:1px solid var(--line); border-radius:8px; background:var(--panel); color:inherit; font:inherit; cursor:pointer; line-height:1.2; } .mcell small { display:block; font-size:11px; opacity:.65; } .mcell[aria-pressed="true"] { background:var(--accent); color:var(--panel); border-color:var(--accent); } .mcell[disabled] { opacity:.35; cursor:default; } @media (max-width:640px) { .mgrid { grid-template-columns:repeat(4, 1fr); } }
+
+.tl { position:relative; margin:4px 0 6px; } .tltip { position:absolute; display:none; pointer-events:none; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:6px 9px; font-size:12px; line-height:1.45; box-shadow:0 4px 14px rgba(0,0,0,.14); white-space:nowrap; z-index:2; }
 /* hero */
 .vsum { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:4px 0 6px; }
 .vs { border-radius:12px; padding:10px 14px; background:var(--accent-bg); } .vs b { display:block; font-size:28px; line-height:1.1; font-weight:700; } .vs span { font-size:12.5px; color:var(--muted); }
@@ -348,7 +350,7 @@ async function loadVol(months) {
   if (volBusy) { volWant = [...new Set([...volWant, ...months])]; return; }   // months asked for while busy are fetched next
   months = [...new Set([...months, ...volWant])].filter((m) => !S.vol.has(m)); volWant = []; if (!months.length) return; volBusy = true;
   await Promise.all(months.map(async (m) => { const j = await fetch(`pm-data/volume/${m}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null); if (j) S.vol.set(m, j); else S.volFail.set(m, (S.volFail.get(m) ?? 0) + 1); }));
-  volBusy = false; if (S.tab === 'trades') render();
+  volBusy = false; if (S.tab === 'trades' || S.tab === 'holdings') render();
 }
 function volFor(x) {
   if (x.kind === 'Fund' || !x.sym) return null;
@@ -737,6 +739,43 @@ function fundTilesFor(h) {
     { k: 'Single-stock limit', v: cap ? (over ? `<span class="fneg">over by ${pc((e ? e.pctCapital : tot / L.capital) - cap)}</span>` : `<span class="fpos">within</span> · ${Math.round(100 * lim)}% used`) : '–', s: cap ? `limit ${pc(cap)} of capital for your profile` : 'no limit set (profile not complete)' },
   ];
 }
+// Item 15: price against its averages as a trendline; hover shows the gap to the 50 and 200-day averages.
+const TL = new Map();
+function trendChart(h) {
+  const s = seriesFor({ kind: 'Stock', sym: h.symbol }); if (!s) return '';
+  const px = s.px, idx = []; for (let i = 0; i < px.length; i++) if (px[i] > 0) idx.push(i);
+  if (idx.length < 30) return '';
+  const sma = (k, j) => { if (j < k - 1) return null; let t = 0; for (let q = j - k + 1; q <= j; q++) t += px[idx[q]]; return t / k; };
+  const from = Math.max(0, idx.length - 126), pts = []; for (let j = from; j < idx.length; j++) pts.push({ d: s.dates[idx[j]], c: px[idx[j]], a: sma(50, j), b: sma(200, j) });
+  const mths = [...new Set(pts.map((p) => p.d.slice(0, 7)))].filter((m) => m >= '2021-01'), miss = mths.filter((m) => !S.vol.has(m) && (S.volFail.get(m) ?? 0) < 2);
+  if (miss.length) loadVol(miss);   // volume bars appear once the monthly files arrive
+  const vm = new Map(); let haveV = !miss.length && mths.length > 0; if (haveV) for (const m of mths) { const c = S.vol.get(m), arr = c?.v?.[h.symbol]; if (!c || !arr) { haveV = false; break; } c.dates.forEach((dd, i) => vm.set(dd, arr[i])); }
+  for (const p of pts) p.v = haveV ? (vm.get(p.d) ?? 0) : 0;
+  const VH = haveV && pts.some((p) => p.v > 0) ? 44 : 0, W = 560, H0 = 170, H = H0, L = 6, R = 52, T = 8, B = 20, n = pts.length;
+  const base = pts.flatMap((p) => [p.c, p.a]).filter((v) => v !== null), all = pts.flatMap((p) => [p.c, p.a, p.b]).filter((v) => v !== null);
+  let lo = Math.min(...base), hi = Math.max(...base); const lo2 = Math.min(...all), hi2 = Math.max(...all); if (hi2 - lo2 <= 1.8 * (hi - lo)) { lo = lo2; hi = hi2; }
+  const pad = (hi - lo || 1) * 0.08; lo -= pad; hi += pad;
+  const x = (i) => L + (i / (n - 1)) * (W - L - R), y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+  const path = (k) => { let d = '', pen = false; pts.forEach((p, i) => { const v = p[k]; if (v === null || y(v) < T - 1 || y(v) > H - B + 1) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true; }); return d; };
+  const last = pts[n - 1], id = 'tl' + TL.size; TL.set(id, { pts, W, L, R });
+  const gap = (v, a) => (a === null ? '' : `${v / a - 1 >= 0 ? '+' : ''}${((v / a - 1) * 100).toFixed(1)}%`);
+  const vmax = VH ? Math.max(...pts.map((p) => p.v)) : 0, bw = Math.max(1, ((W - L - R) / n) * 0.7), vb = VH ? pts.map((p, i) => { const hh = Math.max(1, (p.v / (vmax || 1)) * (VH - 10)), up = i === 0 || p.c >= pts[i - 1].c; return `<rect x="${(x(i) - bw / 2).toFixed(1)}" y="${(H + VH - 2 - hh).toFixed(1)}" width="${bw.toFixed(1)}" height="${hh.toFixed(1)}" fill="${up ? 'var(--green)' : 'var(--red)'}" opacity=".55"/>`; }).join('') + `<text x="${L}" y="${H + 10}" font-size="10.5" fill="var(--muted)">Volume</text>` : '';
+  return `<div class="tl" data-tl="${id}"><svg viewBox="0 0 ${W} ${H + VH}" style="width:100%;height:auto;display:block" role="img" aria-label="${esc(h.symbol)} price with 50 and 200 day averages, last ${n} sessions. Now ${gap(last.c, last.a) || 'n/a'} against the 50-day and ${gap(last.c, last.b) || 'n/a'} against the 200-day."><line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="var(--line)"/>
+  ${last.b !== null ? `<path d="${path('b')}" fill="none" stroke="var(--yellow)" stroke-width="1.6" stroke-dasharray="5 3"/>` : ''}<path d="${path('a')}" fill="none" stroke="var(--accent)" stroke-width="1.6"/><path d="${path('c')}" fill="none" stroke="var(--ink)" stroke-width="1.8"/>
+  <circle cx="${x(n - 1).toFixed(1)}" cy="${y(last.c).toFixed(1)}" r="3.5" fill="var(--ink)"/><text x="${W - R + 5}" y="${(y(last.c) + 4).toFixed(1)}" font-size="11" font-weight="700" fill="var(--ink)">${last.c >= 100 ? Math.round(last.c) : last.c.toFixed(1)}</text>
+  <text x="${L}" y="${H - 5}" font-size="10.5" fill="var(--muted)">${esc(pts[0].d.slice(0, 7))}</text><text x="${W - R}" y="${H - 5}" font-size="10.5" text-anchor="end" fill="var(--muted)">${esc(last.d.slice(0, 7))}</text>
+  ${vb}<line class="tlx" y1="${T}" y2="${H - B + VH}" stroke="var(--muted)" style="display:none"/></svg><div class="tltip"></div>
+  <div class="fs"><span style="color:var(--ink)">━</span> price <span style="color:var(--accent)">━</span> 50-day <span style="color:var(--yellow)">╍</span> 200-day${last.b === null ? ' (not enough history yet)' : ''} · now ${gap(last.c, last.a) || '–'} vs 50-day${last.b !== null ? `, ${gap(last.c, last.b)} vs 200-day` : ''}. Hover to see the gap on any day.</div></div>`;
+}
+document.addEventListener('mousemove', (e) => {
+  const box = e.target.closest && e.target.closest('.tl'); if (!box) return; const m = TL.get(box.dataset.tl); if (!m) return;
+  const svg = box.querySelector('svg'), r = svg.getBoundingClientRect(), px = (e.clientX - r.left) * (m.W / r.width), n = m.pts.length;
+  const i = Math.max(0, Math.min(n - 1, Math.round(((px - m.L) / (m.W - m.L - m.R)) * (n - 1)))), p = m.pts[i], xx = m.L + (i / (n - 1)) * (m.W - m.L - m.R), g = (a) => (a === null ? '–' : `${p.c / a - 1 >= 0 ? '+' : ''}${((p.c / a - 1) * 100).toFixed(1)}%`);
+  const ln = box.querySelector('.tlx'); ln.setAttribute('x1', xx); ln.setAttribute('x2', xx); ln.style.display = '';
+  const tip = box.querySelector('.tltip'); tip.style.display = 'block'; tip.innerHTML = `<b>${esc(p.d)}</b><br>Close ${p.c.toFixed(2)}<br>vs 50-day: <b>${g(p.a)}</b><br>vs 200-day: <b>${g(p.b)}</b>${p.v > 0 ? `<br>Volume ${p.v >= 1e7 ? (p.v / 1e7).toFixed(2) + ' cr' : p.v >= 1e5 ? (p.v / 1e5).toFixed(1) + ' lakh' : Math.round(p.v)}` : ''}`;
+  const tw = tip.offsetWidth, left = (xx / m.W) * r.width + 12; tip.style.left = Math.max(2, Math.min(r.width - tw - 2, left)) + 'px'; tip.style.top = '4px';
+});
+document.addEventListener('mouseout', (e) => { const box = e.target.closest && e.target.closest('.tl'); if (!box || (e.relatedTarget && box.contains(e.relatedTarget))) return; box.querySelector('.tltip').style.display = 'none'; box.querySelector('.tlx').style.display = 'none'; });
 function ctxPanel(h, tot) {
   const c = ctxOf(h), v = verdictOf(h); if (!c) return `<tr class="ctxrow"><td colspan="11">${stockCard({ tiles: fundTilesFor(h), blocks: [sellCostFor(h)], notes: ['No price context is stored for this holding yet; the sale estimate above still applies.'] })}</td></tr>`;
   const ind = S.segments?.industry?.[h.symbol];
@@ -747,7 +786,7 @@ function ctxPanel(h, tot) {
   const r = resultsOf(h), f = firmOf(h), spct = (x) => (x === null || x === undefined ? '–' : (x > 0 ? '+' : '') + x.toFixed(1) + '%');
   const bar = (label, val, max) => val === null || val === undefined ? '' : `<div class="fbar"><span>${label}</span><i style="width:${Math.max(2, Math.min(100, 100 * Math.abs(val) / max))}%" class="${val >= 0 ? 'g' : 'r'}"></i><b>${spct(val)}</b></div>`;
   const mx = Math.max(5, ...[c.vs50, c.vs200, c.ret63, c.vsIndex].filter((x) => x !== null && x !== undefined).map(Math.abs));
-  const trend = `<div class="fbox"><div class="fh">Price against its averages and the market</div>${bar('vs 50-day average', c.vs50, mx)}${bar('vs 200-day average', c.vs200, mx)}${bar('3-month return', c.ret63, mx)}${bar('vs Nifty 500 (points)', c.vsIndex, mx)}<div class="fs">${c.s50vs200 === null ? '' : 'The 50-day average is ' + (c.s50vs200 >= 0 ? 'above' : 'below') + ' the 200-day by ' + Math.abs(c.s50vs200).toFixed(1) + '%. '}Context only: the exit test is the 200-day average and the swing low.</div></div>`;
+  const trend = `<div class="fbox"><div class="fh">Price against its averages and the market</div>${trendChart(h) || (bar('vs 50-day average', c.vs50, mx) + bar('vs 200-day average', c.vs200, mx))}${bar('3-month return', c.ret63, mx)}${bar('vs Nifty 500 (points)', c.vsIndex, mx)}<div class="fs">${c.s50vs200 === null ? '' : 'The 50-day average is ' + (c.s50vs200 >= 0 ? 'above' : 'below') + ' the 200-day by ' + Math.abs(c.s50vs200).toFixed(1) + '%. '}Context only: the exit test is the 200-day average and the swing low.</div></div>`;
   const tiles = [
     ...fundTilesFor(h),
     ...factTiles(S.stockFacts?.stocks?.[h.symbol]),

@@ -41,7 +41,7 @@ function market(m) {
   const sectors = Object.entries(feed.sectors || {}).map(([name, s]) => ({ name, close: s.close, r1m: s.r1m, r3m: s.r3m, sma50: s.sma50, sma200: s.sma200, ...ranked.find((x) => x.name === name) && { pass: ranked.find((x) => x.name === name).pass, rank: ranked.find((x) => x.name === name).rank, score: ranked.find((x) => x.name === name).score } }));
   return {
     date: rows.at(-1)?.date ?? null, expected: expected[m], feedDate: feed.date ?? null, fetchedAt: feed.fetchedAt ?? null,
-    index: rows.slice(-60).map((r) => ({ date: r.date, close: r.close, sma50: r.sma50, sma200: r.sma200, volume: r.volume, vix: r.vix })),
+    index: rows.slice(-260).map((r) => ({ date: r.date, close: r.close, sma50: r.sma50, sma200: r.sma200, volume: r.volume, vix: r.vix })),
     latest: rows.at(-1) ? { ...rows.at(-1) } : null, regime, timeline, benchmarkR3m: feed.bench?.r3m ?? null, benchmarkR1m: feed.bench?.r1m ?? null,
     sectors, mode, breadthSeries: Object.entries(breadth).sort().slice(-30).map(([date, v]) => ({ date, pct: v.pct, n: v.n })), flags: feed.flags || [],
   };

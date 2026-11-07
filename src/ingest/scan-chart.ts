@@ -4,7 +4,7 @@ import type { Hist } from './us-scan.ts';
 export const BARS = 260, PIVOT_SIDE = 5, WARMUP = 200;
 export interface Line { i1: number; p1: number; i2: number; p2: number }
 export interface ChartData {
-  sym: string; dates: string[]; h: number[]; l: number[]; c: number[];
+  sym: string; dates: string[]; h: number[]; l: number[]; c: number[]; v?: number[];
   sma50: (number | null)[]; sma150: (number | null)[]; sma200: (number | null)[];
   resistance: Line | null; support: Line | null; high52: number | null; trigger: number | null; stop: number | null; base: { i1: number; i2: number; hi: number; lo: number } | null;
 }
@@ -31,8 +31,8 @@ export function trendlines(h: ArrayLike<number>, l: ArrayLike<number>): { resist
 export function chartFor(hist: Hist, sym: string, setup: { trigger: number; stop: number } | null, bars = BARS): ChartData | null {
   const s = hist.series.get(sym); if (!s) return null;
   const N = hist.dates.length, from = Math.max(0, N - bars);
-  const h: number[] = [], l: number[] = [], c: number[] = [], dates: string[] = [];
-  for (let t = from; t < N; t++) { if (!(s.c[t] === s.c[t])) continue; dates.push(hist.dates[t]); c.push(r2(s.c[t])); h.push(r2(s.h[t] === s.h[t] ? s.h[t] : s.c[t])); l.push(r2(s.l[t] === s.l[t] ? s.l[t] : s.c[t])); }
+  const h: number[] = [], l: number[] = [], c: number[] = [], v: number[] = [], dates: string[] = [];
+  for (let t = from; t < N; t++) { if (!(s.c[t] === s.c[t])) continue; dates.push(hist.dates[t]); c.push(r2(s.c[t])); h.push(r2(s.h[t] === s.h[t] ? s.h[t] : s.c[t])); l.push(r2(s.l[t] === s.l[t] ? s.l[t] : s.c[t])); v.push(s.v && s.v[t] === s.v[t] ? Math.round(s.v[t]) : 0); }
   if (c.length < 60) return null;
   // moving averages use the full history (aligned to the shown window)
   const sma = (n: number) => { const o: (number | null)[] = []; for (let t = from; t < N; t++) { if (!(s.c[t] === s.c[t])) continue; o.push(smaAt(s.c, t, n)); } return o; };
@@ -41,5 +41,5 @@ export function chartFor(hist: Hist, sym: string, setup: { trigger: number; stop
   const shift = (x: Line | null): Line | null => (x ? { ...x, i1: x.i1 + off, i2: x.i2 + off } : null);
   const base = (() => { const k = Math.min(c.length, 30), i1 = c.length - k; let hi = -Infinity, lo = Infinity; for (let i = i1; i < c.length; i++) { hi = Math.max(hi, h[i]); lo = Math.min(lo, l[i]); } return { i1, i2: c.length - 1, hi, lo }; })();
   const yr = Math.min(c.length, 252); let high52 = -Infinity; for (let i = c.length - yr; i < c.length; i++) high52 = Math.max(high52, h[i]);
-  return { sym, dates, h, l, c, sma50: sma(50), sma150: sma(150), sma200: sma(200), resistance: shift(tl.resistance), support: shift(tl.support), high52: r2(high52), trigger: setup ? r2(setup.trigger) : null, stop: setup ? r2(setup.stop) : null, base };
+  return { sym, dates, h, l, c, v, sma50: sma(50), sma150: sma(150), sma200: sma(200), resistance: shift(tl.resistance), support: shift(tl.support), high52: r2(high52), trigger: setup ? r2(setup.trigger) : null, stop: setup ? r2(setup.stop) : null, base };
 }
