@@ -59,6 +59,40 @@
    ],
    "alreadyStored": 1875,
    "at": "2026-11-08T14:59:58.847Z"
+  },
+  "2025-06-30": {
+   "listed": 4102,
+   "attempted": 4102,
+   "parsed": 4070,
+   "fetchFailed": 3,
+   "parseFailed": 25,
+   "unmapped": 4,
+   "families": {
+    "IFNBFC": 7,
+    "IFIndAs": 134,
+    "IFFIndAs": 3603,
+    "FRNBFC": 254,
+    "FRBanking": 65,
+    "IFLI": 7
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 7
+   },
+   "periodMismatch": 5,
+   "errors": {
+    "no tag map for family IFFNonBanking": 16,
+    "no format family in the header comment": 9
+   },
+   "unmappedSymbols": [
+    "KUNDANMM",
+    "KUNDANMM",
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-08T15:16:17.901Z"
   }
  }
 }
