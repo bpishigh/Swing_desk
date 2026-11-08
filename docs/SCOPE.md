@@ -1,6 +1,6 @@
 # Repo Desk: scope of work and checks
 
-Status as at 30 Oct 2026 (sections A to I were written on 11 to 14 Oct and carry later "built" notes; section J lists what the 21 Oct audit found not built, with each item's status updated to 30 Oct; section K lists the decision gaps). The Claude Desk (artifact and its three scheduled tasks) is untouched and its scheduled tasks have been paused since 17 Oct; the comparison tab was removed from the dashboard that day.
+Status as at 30 Oct 2026 (sections A to I were written on 11 to 14 Oct and carry later "built" notes; section J lists what the 21 Oct audit found not built, with each item's status updated to 30 Oct; section K lists the decision gaps; section L, added 8 Nov 2026, is the strategy build programme). The Claude Desk (artifact and its three scheduled tasks) is untouched and its scheduled tasks have been paused since 17 Oct; the comparison tab was removed from the dashboard that day.
 
 ## Done
 - India index, whole-market stock store, NSE circular reading, corporate-action resolver, scheduled through the tick.
@@ -183,3 +183,133 @@ Each item says what it is, whether it needs a source or a test first, and where 
 10. **Untested or unchecked items:** ELSS lock-in check, EPF decision, the 2027 holiday calendar (J-calendar note in STATUS; 31 Oct 2026: NYSE 2027 list staged in `data/calendar/pending/us-2027.json`, not loaded; India waits for NSE's December circular, then both go into `markets-2027.json`), the Allocation tab look-through check, the daily fund-data run (03:11 IST) and the first quarter-end checks.
 11. **Corrections (J11), first part built 25 Oct 2026:** "Move to another account" for one holding's transactions (Trades tab holding card, and the Holdings table when one account is selected), changing the account and so the owner; account rename, delete and owner edit already existed. Built 28 Oct 2026: "Correct how a holding is treated" on the Data tab: per holding, change its tax/asset type (stocks and ETFs among stock types, funds among fund types), saved with the account (`types` setting) and applied in the pipeline. The break resolver already had its own answers under "Things to check". Not built: changing the fund a name maps to, or a holding's name.
 12. **Built 25 Oct 2026 (for the record):** fund quality facts (C-108, information only), the shared fund card on the Funds tab for all five groups, the stock card in the same style, the 5-year return against same-segment index funds.
+
+
+### L. Strategy build programme (owner request, 8 Nov 2026: "save this to the scope of work doc")
+Owner decision, 8 Nov 2026: every strategy is built as a rule-based paper strategy, like the swing and momentum sleeves (registered rule, nightly signals, paper book with next-open fills and costs, benchmark, read date), then a composite scorer ranks stocks across strategy families and is paper-tested on fresh data. Where a fund already replaces a strategy (checked on expense ratio and track record) the desk keeps the fund and builds the rest. Nothing below changes a verdict or score until its test is registered in the Engine Rules and passes. Full spec, evidence and decisions: project doc `claude/factor-funds-spec-and-build-list.md` (sections 1 to 8); strategy evidence: `claude/strategy-universe-consolidated.md`. The tables below are copied from sections 9 and 10 of the first doc; if they differ, that doc is the later one.
+
+### L1. Scope of work, in order
+
+Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an Engine Rules row and a Test Register row are required before the first run. Every strategy package follows the contract in section 7.1.
+
+### Wave 0: foundation (start here; the forward logs are time-gated, so they go first)
+
+| # | Package | Category | Needs | Size |
+|---|---|---|---|---|
+| 1 | I-4 nightly forward facts log (growth, ROE, debt, holding, pledge) | Data | Existing stock-page reader | S |
+| 2 | M-1 own Indian base rate for 3x and 5x in 5 years (price only) | Study | Price data including delisted names. Reg. | M |
+| 3 | Strategy contract and shared paper-book runner, signal record, feature-store skeleton, collapsed Strategies view | Platform | Reuse the momentum-sleeve paper code | L |
+| 4 | Data additions: index total-return series, fund assets, missing TERs | Data | NSE index history, AMFI | S |
+| 5 | I-1 passive factor funds in the fund universe (section 2) | Fund layer | Package 4. Reg. as information | M |
+| 6 | P-3 verify harvest, promote, trim, fund shortlist and CG export against the 21 Oct pending list | Verify | Repo check | S |
+| 7 | I-2 filings reader: results, shareholding, pledge history, SEBI PIT, SAST, corporate actions, board meetings | Data | Owner decision: parser or paid feed | L |
+| 8 | I-3 point-in-time store and survivorship-free universe | Data | Package 7 | L |
+
+### Wave 1: price-only strategies (data exists; each is a paper strategy after package 3)
+
+| # | Package | Category | Family | Size |
+|---|---|---|---|---|
+| 9 | Industry momentum, 6-12 months with 1-month skip, sector ETF rotation | Strategy | Momentum | M |
+| 10 | 52-week-high proximity rank (new: ranking input and composite component) | Strategy | Momentum | S |
+| 11 | Low-turnover momentum filter, as a variant of the sleeve | Strategy | Momentum | M |
+| 12 | Channel breakouts (Donchian 20/55) and weekly 12-1 positional momentum | Strategy | Trend | M |
+| 13 | Multi-asset trend layer and risk-parity yardstick (P-1) | Strategy | Allocation | M |
+| 14 | Volatility targeting and exposure caps for the paper sleeve (P-2) | Overlay | Risk | M |
+| 15 | Trend template as an India candidate filter, forward test (S-6) | Strategy | Trend | S. Reg. |
+| 16 | M-2 price-only multibagger lift test (needs package 2) | Study | Multibagger | M |
+| 17 | MAX/lottery flag and turn-of-month | Flag and strategy | Risk, calendar | S |
+
+### Wave 2: exchange-data strategies (no full fundamentals needed)
+
+| # | Package | Category | Needs | Size |
+|---|---|---|---|---|
+| 18 | Flags: ASM/GSM/ESM lists and anchor lock-in calendar (30 and 90 day) | Flag | Exchange lists, listing dates | M |
+| 19 | Index inclusion and exclusion (S-4) | Strategy | NSE review announcements. Reg. | M |
+| 20 | Bulk and block deals, with the prop-firm and round-trip filter | Strategy | Exchange deal files; exit rule needed | M |
+| 21 | Delivery-percentage accumulation | Strategy | NSE delivery file; exit rule needed | S |
+| 22 | Corporate actions: demergers (S-5), buybacks (S-7), rights, open offers, delistings, splits, bonus | Strategy | Corporate-action feed; exit rules needed | L |
+| 23 | US: 13F best-ideas and short-interest exclusion (L-7) | Strategy | EDGAR, FINRA (independent of the India filings reader) | M |
+
+### Wave 3: filings-dependent strategies (after packages 7 and 8)
+
+| # | Package | Category | Family | Size |
+|---|---|---|---|---|
+| 24 | PEAD and results-day volume (S-1), reconciled with C-59 to C-62 | Strategy | Earnings | L |
+| 25 | Promoter and insider open-market buying (S-2) | Strategy | Ownership | M |
+| 26 | Forensic and dilution flags: pledge history, QIP and preferential, auditor events, Beneish, Altman, cash flow against profit (S-3, M-9) | Flag | Quality | M |
+| 27 | Quality (QMJ-lite) and value (cash-flow yield, EBIT/EV) scores, needed as composite inputs even where funds cover the exposure | Strategy | Quality, value | L |
+| 28 | Magic Formula, Graham defensive, Piotroski F-score | Strategy | Value, quality | M |
+| 29 | CAN SLIM composite (PEAD, momentum, 52-week high) | Strategy | Earnings, momentum | M |
+| 30 | Compounder Seed, Candidate B, consistent-compounder screen (M-3, M-4, M-8) | Strategy | Multibagger | L |
+| 31 | M-7 growth variants (a to h, including sector-relative proxies) and M-10 ownership and neglect variants, as nested tests | Study | Multibagger | L |
+| 32 | Superinvestor follower with the investor list fixed by rule first (L-6) | Strategy | Ownership | M |
+
+### Wave 4: composite
+
+| # | Package | Category | Needs | Size |
+|---|---|---|---|---|
+| 33 | Feature store populated with the point-in-time scores of the strategies above | Platform | Waves 1 to 3 | M |
+| 34 | Composite v1, price-only (momentum, 52-week high, industry momentum, low volatility) | Composite | Wave 1. Reg. | M |
+| 35 | Composite v2 by family, with the pre-registered combinations and nested tests | Composite | Waves 3 and 4. Reg. | L |
+
+### Housekeeping (any time)
+- Correct two rows in `claude/strategy-universe-consolidated.md` (momentum sleeve evidence, trend template wording).
+- Owner decision on the register's 0.20% Kotak wording.
+- Add C-157 onward rows to Engine Rules and the Test Register as each package is approved.
+
+Two additions beyond the 28 strategies: the 52-week-high rank and the quality and value scores, because the composite needs them as inputs.
+
+---
+
+### L2. Strategy definitions (plain language; numbers are set in each spec page, not here)
+
+Numbers refer to the packages in section 9. Wave and size are from section 9 (size is relative, my own estimate; packages that cover several strategies share one size). Type: S strategy, F flag or exclusion, T study or test, O overlay, C composite.
+
+| # | Strategy | Definition | Type | Wave | Size |
+|---|---|---|---|---|---|
+| 2 | Base-rate study (price only) | Count how often Indian stocks, including delisted ones, reach 3x or 5x within 5 years from any start date. This is the yardstick for every multibagger claim. | T | 0 | M |
+| 9 | Industry momentum | Hold stocks from the industries that rose most over the past 6-12 months, skipping the latest month. Rotate monthly. A sector-ETF version holds the strongest sector ETFs. | S | 1 | M |
+| 10 | 52-week-high rank | Rank stocks by how close their price is to the 52-week high. Hold the ones closest. | S | 1 | S |
+| 11 | Low-turnover momentum | Among the strongest momentum stocks, prefer those with lower trading turnover (volume against shares available). High-turnover winners tend to fade sooner. | S | 1 | M |
+| 12a | Channel breakout | Buy when the price closes above its highest high of the last 20 or 55 days. Exit on a close below the lowest low of a shorter window. | S | 1 | M |
+| 12b | Weekly 12-1 momentum | Rank stocks by the past 12 months' return excluding the latest month, on weekly data. Hold the winners with ATR-based stops. | S | 1 | M |
+| 13a | Multi-asset trend layer | Each month, hold Nifty 50, Midcap, gold, silver, gilt and US equity only while each one's own trend is up (positive 12-month return, or price above its 10-month average). Otherwise hold a liquid fund. | S | 1 | M |
+| 13b | Risk-parity yardstick | Hold equity, gold and government bonds with weights inversely proportional to each one's volatility. A benchmark for the allocation layer. | S | 1 | M |
+| 14 | Volatility targeting | Scale the momentum sleeve's exposure down when recent volatility is high, so its risk stays near a target. Reduces momentum crashes. | O | 1 | M |
+| 15 | Trend template, India filter | Only consider stocks that pass the trend template (price above rising long averages, near highs, strong relative strength). Tests whether passing stocks beat failing ones. | S | 1 | S |
+| 16 | Price-only multibagger lift test | Test whether nearness to the 52-week high, excluding lottery-type stocks, or a liquidity or size band raises the share of stocks that reach 5x in 5 years, against the base rate. | T | 1 | M |
+| 17a | Lottery (MAX) flag | Flag stocks whose best single-day return last month was among the highest. Avoid them, because investors overpay for lottery-like stocks. | F | 1 | S |
+| 17b | Turn-of-month | Be invested around the last and first trading days of each month and in a liquid fund otherwise. | S | 1 | S |
+| 18a | Surveillance flags | Mark stocks on the exchange surveillance lists (ASM, GSM, ESM). Exclude them from new entries. | F | 2 | M |
+| 18b | Anchor lock-in flag | Mark IPO stocks near the 30-day and 90-day anchor-investor unlock. Avoid new entries because selling pressure can follow. | F | 2 | M |
+| 19 | Index inclusion and exclusion | Buy stocks announced for inclusion in a major index before the effective date. Avoid or exit stocks announced for exclusion. | S | 2 | M |
+| 20 | Bulk and block deals | After a disclosed large purchase by a genuine buyer, buy the next day. Filter out same-day round trips and trading firms. | S | 2 | M |
+| 21 | Delivery-percentage accumulation | Buy when the share of volume taken into delivery jumps above its recent average while the price rises. | S | 2 | S |
+| 22a | Demergers | After a demerger, hold the parent and the child stock for a long period. | S | 2 | L |
+| 22b | Buybacks | Hold companies that buy back their own shares. A separate tender-offer arbitrage version is re-priced for the Oct 2024 tax change. | S | 2 | L |
+| 22c | Rights, open offers, delistings | Event trades around these corporate actions. Samples are small. | S | 2 | L |
+| 22d | Splits and bonus | Hold after a stock split or bonus issue and track the drift. | S | 2 | L |
+| 23a | US 13F best-ideas | After quarterly filings, copy the largest, most concentrated positions of long-horizon fund managers. The filing lags by up to 45 days. | S | 2 | M |
+| 23b | US short-interest exclusion | Avoid US stocks with the highest share of float sold short. | F | 2 | M |
+| 24 | PEAD (post-earnings drift) | Buy stocks that beat earnings expectations strongly. Hold for 2-3 months while the price drifts toward the news. High volume on the results day strengthens the signal. | S | 3 | L |
+| 25 | Insider buying | Buy stocks where promoters or insiders buy in the open market outside routine schedules. Hold from 6 months to 3 years. | S | 3 | M |
+| 26 | Forensic and dilution flags | Exclude stocks showing weak accounting or dilution: high promoter pledge, QIP or preferential issues, auditor exits, profit not backed by cash flow, Beneish and Altman red flags. | F | 3 | M |
+| 27a | Quality score | Rank by profitability and safety (high return on capital, gross profit over assets, low debt, cash earnings, stable earnings). Hold the top fifth, rebalanced yearly. | S | 3 | L |
+| 27b | Value score | Rank by cheapness (cash-flow yield, EBIT over enterprise value). Hold the cheapest fifth, rebalanced yearly. | S | 3 | L |
+| 28a | Magic Formula | Rank stocks on earnings yield and return on capital. Buy the best combined ranks, excluding financials. Yearly. | S | 3 | M |
+| 28b | Graham defensive screen | Buy large, financially sound companies with a low P/E and P/B and a long record of positive earnings and dividends. | S | 3 | M |
+| 28c | Piotroski F-score | Score nine yes-or-no tests of financial strength. Buy the high scorers among cheap stocks. | S | 3 | M |
+| 29 | CAN SLIM composite | Buy stocks with strong earnings growth, a new high, and strong relative strength. Coded here as PEAD plus momentum plus 52-week high. | S | 3 | M |
+| 30a | Compounder Seed | Each year pick 25 profitable, cash-generative, growing, not over-leveraged mid-sized companies near their highs. Hold 5 years, exit only if fundamentals break. | S | 3 | L |
+| 30b | Fallen-and-rebuilding | Stocks that fell 50% or more over 5 years but are now profitable, growing and near highs. Hold 5 years. | S | 3 | L |
+| 30c | Consistent compounder | Stocks whose profitability and growth held up in each of the past several years, with low debt. | S | 3 | L |
+| 31 | Growth and ownership tests | Test whether growth (level, acceleration, against its sector) or ownership features (promoter holding, institutional buying, low coverage) improve multibagger hit rates beyond quality. | T | 3 | L |
+| 32 | Superinvestor follower | After quarterly filings, buy stocks newly held by a fixed list of well-known investors, chosen by a written rule before looking. Hold about 3 years, exit when they exit. | S | 3 | M |
+| 34 | Composite v1 (price-only) | Combine the ranks for momentum, 52-week high, industry momentum and low volatility into one score. Hold the top N. | C | 4 | M |
+| 35 | Composite v2 (by family) | Combine momentum, value, quality, earnings and ownership families into one ranking with equal family weights. Hold the top N. | C | 4 | L |
+- Total-TER ceiling, assets floor and tracking-difference band for counting a fund as a replacement.
+- Whether to correct the register's 0.20% wording.
+- Filings: build a parser or buy a feed.
+- Whether S-5 (demergers) is worth building given the small sample.
+- Whether L-6 (Indian superinvestors) is worth logging without any rigorous evidence.
+
