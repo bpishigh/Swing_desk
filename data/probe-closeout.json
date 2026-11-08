@@ -1,0 +1,557 @@
+{
+ "at": "2026-11-08T08:50:02.672Z",
+ "oneD": [
+  {
+   "s": "RELIANCE",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "contexts": [
+    {
+     "id": "OneD",
+     "period": "2026-07-01<",
+     "dim": false
+    },
+    {
+     "id": "OneI",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "PY_I",
+     "period": "2026-03-31<",
+     "dim": false
+    },
+    {
+     "id": "FourD",
+     "period": "2026-04-01<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherNoncurrentFinancialAssets1",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherNoncurrentAssets1",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherCurrentFinancialAssets1",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherCurrentAssets1",
+     "period": "2026-09-30<",
+     "dim": false
+    }
+   ],
+   "contextsUsed": [
+    "OneD",
+    "FourD",
+    "OneExpenses1D",
+    "OneExpenses2D",
+    "FourExpenses1D",
+    "FourExpenses2D",
+    "OneI",
+    "I_OtherNoncurrentFinancialAssets1",
+    "I_OtherNoncurrentAssets1",
+    "I_OtherCurrentFinancialAssets1",
+    "I_OtherCurrentAssets1",
+    "I_OtherNoncurrentFinancialLiabilities1"
+   ],
+   "epsTags": [
+    "BasicEarningsLossPerShareFromContinuingOperations",
+    "DilutedEarningsLossPerShareFromContinuingOperations",
+    "BasicEarningsLossPerShareFromDiscontinuedOperations",
+    "DilutedEarningsLossPerShareFromDiscontinuedOperations",
+    "BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations",
+    "DilutedEarningsLossPerShareFromContinuingAndDiscontinuedOperations"
+   ],
+   "epsValues": [
+    {
+     "n": "BasicEarningsLossPerShareFromContinuingOperations",
+     "ctx": "OneD",
+     "v": "18.88"
+    },
+    {
+     "n": "DilutedEarningsLossPerShareFromContinuingOperations",
+     "ctx": "OneD",
+     "v": "18.88"
+    },
+    {
+     "n": "BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "ctx": "OneD",
+     "v": "0"
+    },
+    {
+     "n": "DilutedEarningsLossPerShareFromDiscontinuedOperations",
+     "ctx": "OneD",
+     "v": "0"
+    },
+    {
+     "n": "BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations",
+     "ctx": "OneD",
+     "v": "18.88"
+    },
+    {
+     "n": "DilutedEarningsLossPerShareFromContinuingAndDiscontinuedOperations",
+     "ctx": "OneD",
+     "v": "18.88"
+    }
+   ],
+   "revenueLike": [
+    "RevenueFromOperations",
+    "OtherIncome",
+    "Income",
+    "SegmentRevenue",
+    "InterSegmentRevenue",
+    "SegmentRevenueFromOperations",
+    "OtherUnallocableExpenditureNetOffUnAllocableIncome",
+    "AdjustmentsForDividendIncome"
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "contexts": [
+    {
+     "id": "OneD",
+     "period": "2026-07-01<",
+     "dim": false
+    },
+    {
+     "id": "OneI",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "PY_I",
+     "period": "2026-03-31<",
+     "dim": false
+    },
+    {
+     "id": "FourD",
+     "period": "2026-04-01<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherLiabilitiesAndProvisions1",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherLiabilitiesAndProvisions2",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherLiabilitiesAndProvisions3",
+     "period": "2026-09-30<",
+     "dim": false
+    },
+    {
+     "id": "I_OtherLiabilitiesAndProvisions4",
+     "period": "2026-09-30<",
+     "dim": false
+    }
+   ],
+   "contextsUsed": [
+    "OneD",
+    "FourD",
+    "OneExpenses1D",
+    "OneExpenses2D",
+    "FourExpenses1D",
+    "FourExpenses2D",
+    "OneI",
+    "I_OtherLiabilitiesAndProvisions1",
+    "I_OtherLiabilitiesAndProvisions2",
+    "I_OtherLiabilitiesAndProvisions3",
+    "I_OtherLiabilitiesAndProvisions4",
+    "I_OtherAssets1"
+   ],
+   "epsTags": [
+    "BasicEarningsPerShareBeforeExtraordinaryItems",
+    "DilutedEarningsPerShareBeforeExtraordinaryItems",
+    "BasicEarningsPerShareAfterExtraordinaryItems",
+    "DilutedEarningsPerShareAfterExtraordinaryItems"
+   ],
+   "epsValues": [
+    {
+     "n": "BasicEarningsPerShareBeforeExtraordinaryItems",
+     "ctx": "OneD",
+     "v": "13.43"
+    },
+    {
+     "n": "DilutedEarningsPerShareBeforeExtraordinaryItems",
+     "ctx": "OneD",
+     "v": "13.41"
+    },
+    {
+     "n": "BasicEarningsPerShareAfterExtraordinaryItems",
+     "ctx": "OneD",
+     "v": "13.43"
+    },
+    {
+     "n": "DilutedEarningsPerShareAfterExtraordinaryItems",
+     "ctx": "OneD",
+     "v": "13.41"
+    }
+   ],
+   "revenueLike": [
+    "RevenueOnInvestments",
+    "InterestEarned",
+    "OtherIncome",
+    "Income",
+    "SegmentRevenue",
+    "InterSegmentRevenue",
+    "SegmentRevenueFromOperations",
+    "OtherUnallocableExpenditureNetOffUnAllocableIncome"
+   ]
+  }
+ ],
+ "old": [
+  {
+   "s": "RELIANCE",
+   "y": 2010,
+   "toDate": "31-Dec-2010",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "RELIANCE",
+   "y": 2013,
+   "toDate": "31-Dec-2013",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "RELIANCE",
+   "y": 2016,
+   "toDate": "31-Dec-2016",
+   "consolidated": "Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "RELIANCE",
+   "y": 2019,
+   "toDate": "31-Dec-2019",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 52574,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2018-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod",
+    "in-bse-fin:SegmentRevenue"
+   ]
+  },
+  {
+   "s": "RELIANCE",
+   "y": 2021,
+   "toDate": "31-Dec-2021",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 58725,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2020-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod",
+    "in-bse-fin:SegmentRevenue"
+   ]
+  },
+  {
+   "s": "TCS",
+   "y": 2010,
+   "toDate": "31-Dec-2010",
+   "consolidated": "Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "TCS",
+   "y": 2013,
+   "toDate": "31-Dec-2013",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "TCS",
+   "y": 2016,
+   "toDate": "31-Mar-2016",
+   "consolidated": "Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "TCS",
+   "y": 2019,
+   "toDate": "31-Dec-2019",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 48771,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2018-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod",
+    "in-bse-fin:SegmentRevenue"
+   ]
+  },
+  {
+   "s": "TCS",
+   "y": 2021,
+   "toDate": "31-Dec-2021",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 58516,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2020-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod",
+    "in-bse-fin:SegmentRevenue"
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "y": 2010,
+   "toDate": "31-Dec-2010",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "HDFCBANK",
+   "y": 2013,
+   "toDate": "31-Dec-2013",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "HDFCBANK",
+   "y": 2016,
+   "toDate": "31-Dec-2016",
+   "consolidated": "Non-Consolidated",
+   "status": 404,
+   "bytes": 3540,
+   "head": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <me",
+   "prefixes": [],
+   "fin": []
+  },
+  {
+   "s": "HDFCBANK",
+   "y": 2019,
+   "toDate": "30-Sep-2019",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 44550,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2018-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueOnInvestments",
+    "in-bse-fin:InterestEarned",
+    "in-bse-fin:ProfitLossFromOrdinaryActivitiesBeforeTax",
+    "in-bse-fin:ProfitLossFromOrdinaryActivitiesAfterTax",
+    "in-bse-fin:ProfitLossForThePeriod",
+    "in-bse-fin:ShareOfProfitLossOfAssociates",
+    "in-bse-fin:ProfitLossOfMinorityInterest",
+    "in-bse-fin:ProfitLossAfterTaxesMinorityInterestAndShareOfProfitLossOfAssociates"
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "y": 2021,
+   "toDate": "31-Mar-2021",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "bytes": 58990,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2019-09-30/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueOnInvestments",
+    "in-bse-fin:InterestEarned",
+    "in-bse-fin:ProfitLossFromOrdinaryActivitiesBeforeTax",
+    "in-bse-fin:ProfitLossFromOrdinaryActivitiesAfterTax",
+    "in-bse-fin:ProfitLossForThePeriod",
+    "in-bse-fin:ShareOfProfitLossOfAssociates",
+    "in-bse-fin:ProfitLossOfMinorityInterest",
+    "in-bse-fin:ProfitLossAfterTaxesMinorityInterestAndShareOfProfitLossOfAssociates"
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "y": 2010,
+   "none": true
+  },
+  {
+   "s": "KPITTECH",
+   "y": 2013,
+   "none": true
+  },
+  {
+   "s": "KPITTECH",
+   "y": 2016,
+   "none": true
+  },
+  {
+   "s": "KPITTECH",
+   "y": 2019,
+   "toDate": "31-Dec-2019",
+   "consolidated": "Non-Consolidated",
+   "status": 200,
+   "bytes": 19039,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2018-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod"
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "y": 2021,
+   "toDate": "31-Dec-2021",
+   "consolidated": "Non-Consolidated",
+   "status": 200,
+   "bytes": 19026,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <xbrli:xbrl xmlns:in-bse-fin=\"http://www.bseindia.com/xbrl/fin/2020-03-31/in-bse-",
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-bse-fin"
+   ],
+   "fin": [
+    "in-bse-fin:RevenueFromOperations",
+    "in-bse-fin:ProfitBeforeTax",
+    "in-bse-fin:ProfitLossForPeriodFromContinuingOperations",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsBeforeTax",
+    "in-bse-fin:ProfitLossFromDiscontinuedOperationsAfterTax",
+    "in-bse-fin:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+    "in-bse-fin:ProfitLossForPeriod"
+   ]
+  }
+ ],
+ "finra": {
+  "20100630": 403,
+  "20141231": 403,
+  "20150630": 403,
+  "20161230": 403,
+  "20170331": 403,
+  "20170630": 403,
+  "20171229": 206,
+  "api_2015-12-31": {
+   "status": 204,
+   "head": ""
+  },
+  "api_2012-06-29": {
+   "status": 204,
+   "head": ""
+  }
+ },
+ "sec": {
+  "cikLookup": {
+   "status": 200,
+   "range": null,
+   "head": ":0001003197: :0001036125: :0001161343: :0001593547: !J INC:0001438823: #1 A LIFESAFER HOLDINGS, INC.:0001509607: #1 ARIZONA DISCOUNT PROPERTIES LLC:0001457512: "
+  },
+  "tickersExchange": {
+   "status": 200,
+   "bytes": 522530
+  }
+ }
+}
