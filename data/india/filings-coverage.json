@@ -180,6 +180,37 @@
     "RUSHABEAR"
    ],
    "at": "2026-11-08T16:26:43.153Z"
+  },
+  "2026-09-30": {
+   "listed": 3190,
+   "attempted": 3190,
+   "parsed": 3168,
+   "fetchFailed": 8,
+   "parseFailed": 13,
+   "unmapped": 1,
+   "families": {
+    "IFIndAs": 2869,
+    "IFNBFC": 221,
+    "IFLI": 7,
+    "IFBanking": 70,
+    "IFOTB": 1
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 7
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no tag map for family IFInsuranceIndAs": 6,
+    "no format family in the header comment": 1,
+    "no tag map for family IFGI": 6
+   },
+   "unmappedSymbols": [
+    "RUSHABEAR"
+   ],
+   "at": "2026-11-08T16:37:28.058Z"
   }
  }
 }
