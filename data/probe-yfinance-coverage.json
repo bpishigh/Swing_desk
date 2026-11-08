@@ -1,0 +1,822 @@
+{
+ "at": "2026-11-08T08:18:23.025755Z",
+ "version": "1.8.0",
+ "india": {
+  "HDFCBANK.NS": {
+   "n": 87,
+   "reported": 86,
+   "withEstimate": 86,
+   "first": "2004-10-21",
+   "last": "2026-10-17"
+  },
+  "TECHM.NS": {
+   "n": 82,
+   "reported": 81,
+   "withEstimate": 81,
+   "first": "2006-10-18",
+   "last": "2026-10-15"
+  },
+  "ATHERENERG.NS": {
+   "n": 4,
+   "reported": 4,
+   "withEstimate": 4,
+   "first": "2026-02-02",
+   "last": "2026-10-26"
+  },
+  "MAXHEALTH.NS": {
+   "n": 25,
+   "reported": 24,
+   "withEstimate": 24,
+   "first": "2021-02-06",
+   "last": "2026-10-30"
+  },
+  "TVSMOTOR.NS": {
+   "n": 78,
+   "reported": 77,
+   "withEstimate": 76,
+   "first": "2006-06-26",
+   "last": "2026-10-28"
+  },
+  "GALLANTT.NS": {
+   "n": 2,
+   "reported": 2,
+   "withEstimate": 2,
+   "first": "2013-05-24",
+   "last": "2018-05-21"
+  },
+  "JSWSTEEL.NS": {
+   "n": 79,
+   "reported": 78,
+   "withEstimate": 78,
+   "first": "2007-07-24",
+   "last": "2026-10-23"
+  },
+  "SONACOMS.NS": {
+   "n": 22,
+   "reported": 21,
+   "withEstimate": 21,
+   "first": "2021-10-27",
+   "last": "2026-10-26"
+  },
+  "HINDPETRO.NS": {
+   "n": 78,
+   "reported": 77,
+   "withEstimate": 77,
+   "first": "2006-10-27",
+   "last": "2026-10-22"
+  },
+  "ASIANPAINT.NS": {
+   "n": 76,
+   "reported": 75,
+   "withEstimate": 75,
+   "first": "2006-10-30",
+   "last": "2026-10-29"
+  },
+  "MANAPPURAM.NS": {
+   "n": 41,
+   "reported": 40,
+   "withEstimate": 40,
+   "first": "2011-07-27",
+   "last": "2026-08-11"
+  },
+  "UJJIVANSFB.NS": {
+   "n": 28,
+   "reported": 28,
+   "withEstimate": 28,
+   "first": "2020-02-20",
+   "last": "2026-10-15"
+  },
+  "MTARTECH.NS": {
+   "n": 8,
+   "reported": 8,
+   "withEstimate": 8,
+   "first": "2023-02-10",
+   "last": "2026-10-29"
+  },
+  "ANTELOPUS.NS": {
+   "n": 0
+  },
+  "CARTRADE.NS": {
+   "n": 17,
+   "reported": 17,
+   "withEstimate": 17,
+   "first": "2022-10-21",
+   "last": "2026-10-28"
+  },
+  "GRSE.NS": {
+   "n": 6,
+   "reported": 6,
+   "withEstimate": 6,
+   "first": "2020-02-01",
+   "last": "2026-07-29"
+  },
+  "PIRAMALFIN.NS": {
+   "n": 2,
+   "reported": 2,
+   "withEstimate": 2,
+   "first": "2026-04-27",
+   "last": "2026-07-16"
+  },
+  "IBULLSLTD.NS": {
+   "n": 1,
+   "reported": 1,
+   "withEstimate": 1,
+   "first": "2014-07-25",
+   "last": "2014-07-25"
+  },
+  "SBIFUNDS.NS": {
+   "n": 0
+  },
+  "PGEL.NS": {
+   "n": 16,
+   "reported": 16,
+   "withEstimate": 16,
+   "first": "2017-12-11",
+   "last": "2026-10-27"
+  },
+  "KFINTECH.NS": {
+   "n": 14,
+   "reported": 14,
+   "withEstimate": 14,
+   "first": "2023-07-28",
+   "last": "2026-10-26"
+  },
+  "SAMBHV.NS": {
+   "n": 0
+  },
+  "STLNETWORK.NS": {
+   "n": 0
+  },
+  "CAPLIPOINT.NS": {
+   "n": 16,
+   "reported": 16,
+   "withEstimate": 16,
+   "first": "2015-11-05",
+   "last": "2020-11-05"
+  },
+  "FLUOROCHEM.NS": {
+   "n": 24,
+   "reported": 23,
+   "withEstimate": 23,
+   "first": "2020-07-30",
+   "last": "2026-11-03"
+  },
+  "DYNAMATECH.NS": {
+   "n": 13,
+   "reported": 13,
+   "withEstimate": 13,
+   "first": "2015-05-28",
+   "last": "2019-02-11"
+  },
+  "UNIMECH.NS": {
+   "n": 0
+  },
+  "ECLERX.NS": {
+   "n": 60,
+   "reported": 60,
+   "withEstimate": 60,
+   "first": "2011-05-18",
+   "last": "2026-10-28"
+  },
+  "DCBBANK.NS": {
+   "n": 61,
+   "reported": 61,
+   "withEstimate": 61,
+   "first": "2007-07-31",
+   "last": "2026-10-23"
+  },
+  "GODIGIT.NS": {
+   "n": 9,
+   "reported": 9,
+   "withEstimate": 9,
+   "first": "2024-07-25",
+   "last": "2026-07-23"
+  },
+  "PARADEEP.NS": {
+   "n": 2,
+   "reported": 2,
+   "withEstimate": 2,
+   "first": "2025-02-04",
+   "last": "2026-10-29"
+  },
+  "GCSL.NS": {
+   "n": 0
+  },
+  "SOBHA.NS": {
+   "n": 62,
+   "reported": 62,
+   "withEstimate": 62,
+   "first": "2008-01-30",
+   "last": "2026-10-18"
+  },
+  "RBA.NS": {
+   "n": 22,
+   "reported": 22,
+   "withEstimate": 22,
+   "first": "2021-05-26",
+   "last": "2026-10-29"
+  },
+  "GPPL.NS": {
+   "n": 57,
+   "reported": 57,
+   "withEstimate": 56,
+   "first": "2012-06-20",
+   "last": "2026-11-04"
+  },
+  "ABSLAMC.NS": {
+   "n": 15,
+   "reported": 15,
+   "withEstimate": 15,
+   "first": "2023-01-27",
+   "last": "2026-10-21"
+  },
+  "AIAENG.NS": {
+   "n": 68,
+   "reported": 67,
+   "withEstimate": 67,
+   "first": "2007-06-07",
+   "last": "2026-11-03"
+  },
+  "IIFLCAPS.NS": {
+   "n": 0
+  },
+  "VOLTAMP.NS": {
+   "n": 44,
+   "reported": 44,
+   "withEstimate": 44,
+   "first": "2007-10-29",
+   "last": "2026-10-29"
+  },
+  "CRISIL.NS": {
+   "n": 19,
+   "reported": 19,
+   "withEstimate": 19,
+   "first": "2008-10-24",
+   "last": "2026-07-21"
+  },
+  "RIR.NS": {
+   "n": 0
+  },
+  "SAPPHIRE.NS": {
+   "n": 18,
+   "reported": 18,
+   "withEstimate": 18,
+   "first": "2022-08-11",
+   "last": "2026-10-22"
+  },
+  "FINEORG.NS": {
+   "n": 17,
+   "reported": 17,
+   "withEstimate": 17,
+   "first": "2019-11-13",
+   "last": "2026-11-01"
+  },
+  "SBFC.NS": {
+   "n": 10,
+   "reported": 10,
+   "withEstimate": 10,
+   "first": "2024-01-25",
+   "last": "2026-10-24"
+  },
+  "RAMCOCEM.NS": {
+   "n": 70,
+   "reported": 69,
+   "withEstimate": 69,
+   "first": "2007-10-23",
+   "last": "2026-11-05"
+  },
+  "ASIANENE.NS": {
+   "n": 0
+  },
+  "AGARWALEYE.NS": {
+   "n": 6,
+   "reported": 6,
+   "withEstimate": 6,
+   "first": "2025-08-12",
+   "last": "2026-11-05"
+  },
+  "LMW.NS": {
+   "n": 31,
+   "reported": 30,
+   "withEstimate": 30,
+   "first": "2007-10-29",
+   "last": "2026-10-21"
+  },
+  "MAHLIFE.NS": {
+   "n": 29,
+   "reported": 29,
+   "withEstimate": 29,
+   "first": "2008-07-28",
+   "last": "2026-10-21"
+  },
+  "AEROENTER.NS": {
+   "n": 0
+  },
+  "INDIAMART.NS": {
+   "n": 29,
+   "reported": 28,
+   "withEstimate": 28,
+   "first": "2020-01-21",
+   "last": "2026-10-27"
+  },
+  "SPORTKING.NS": {
+   "n": 0
+  },
+  "INDOTECH.NS": {
+   "n": 1,
+   "reported": 1,
+   "withEstimate": 1,
+   "first": "2011-05-13",
+   "last": "2011-05-13"
+  },
+  "AARTIDRUGS.NS": {
+   "n": 19,
+   "reported": 19,
+   "withEstimate": 19,
+   "first": "2013-05-16",
+   "last": "2026-07-31"
+  },
+  "AVL.NS": {
+   "n": 8,
+   "reported": 8,
+   "withEstimate": 8,
+   "first": "2025-01-30",
+   "last": "2026-10-30"
+  },
+  "VMART.NS": {
+   "n": 37,
+   "reported": 37,
+   "withEstimate": 37,
+   "first": "2016-05-27",
+   "last": "2026-11-03"
+  },
+  "GULFOILLUB.NS": {
+   "n": 47,
+   "reported": 47,
+   "withEstimate": 47,
+   "first": "2014-11-05",
+   "last": "2026-10-28"
+  },
+  "TATAMOTORS.NS": {
+   "n": 82,
+   "reported": 81,
+   "withEstimate": 81,
+   "first": "2005-01-31",
+   "last": "2025-08-08"
+  },
+  "UJJIVAN.NS": {
+   "n": 14,
+   "reported": 14,
+   "withEstimate": 14,
+   "first": "2016-07-29",
+   "last": "2019-10-21"
+  },
+  "AMARAJABAT.NS": {
+   "n": 0
+  },
+  "HEXAWARE.NS": {
+   "n": 0
+  },
+  "SELAN.NS": {
+   "n": 6,
+   "reported": 6,
+   "withEstimate": 6,
+   "first": "2013-02-09",
+   "last": "2018-08-08"
+  },
+  "FLFL.NS": {
+   "n": 12,
+   "reported": 12,
+   "withEstimate": 12,
+   "first": "2017-02-13",
+   "last": "2019-11-14"
+  },
+  "SETFNN50.NS": {
+   "n": 0
+  },
+  "NXTDIGITAL.NS": {
+   "n": 0
+  }
+ },
+ "us": {
+  "A": {
+   "n": 100,
+   "reported": 98,
+   "withEstimate": 98,
+   "first": "2002-02-19",
+   "last": "2026-08-26"
+  },
+  "ADM": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2001-10-23",
+   "last": "2026-11-03"
+  },
+  "AIT": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-16",
+   "last": "2026-10-27"
+  },
+  "AMKR": {
+   "n": 100,
+   "reported": 98,
+   "withEstimate": 97,
+   "first": "2001-04-26",
+   "last": "2026-10-26"
+  },
+  "APMD": {
+   "n": 2,
+   "reported": 1,
+   "withEstimate": 1,
+   "first": "2026-09-08",
+   "last": "2026-09-08"
+  },
+  "ASTS": {
+   "n": 19,
+   "reported": 18,
+   "withEstimate": 18,
+   "first": "2021-08-16",
+   "last": "2026-08-10"
+  },
+  "AXP": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-18",
+   "last": "2026-10-23"
+  },
+  "BCPC": {
+   "n": 83,
+   "reported": 82,
+   "withEstimate": 82,
+   "first": "2006-02-17",
+   "last": "2026-10-23"
+  },
+  "BKH": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-26",
+   "last": "2026-11-04"
+  },
+  "BRK.A": {
+   "n": 0
+  },
+  "CAE": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2001-11-07",
+   "last": "2026-08-12"
+  },
+  "CCXI": {
+   "n": 0
+  },
+  "CI": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-08-02",
+   "last": "2026-11-05"
+  },
+  "CNS": {
+   "n": 90,
+   "reported": 89,
+   "withEstimate": 89,
+   "first": "2004-10-26",
+   "last": "2026-10-15"
+  },
+  "CRGY": {
+   "n": 20,
+   "reported": 19,
+   "withEstimate": 19,
+   "first": "2022-05-10",
+   "last": "2026-11-02"
+  },
+  "CUZ": {
+   "n": 79,
+   "reported": 78,
+   "withEstimate": 77,
+   "first": "2000-05-02",
+   "last": "2026-10-29"
+  },
+  "DEC": {
+   "n": 5,
+   "reported": 3,
+   "withEstimate": 3,
+   "first": "2026-05-06",
+   "last": "2026-11-04"
+  },
+  "DOLE": {
+   "n": 23,
+   "reported": 22,
+   "withEstimate": 22,
+   "first": "2021-12-03",
+   "last": "2026-08-10"
+  },
+  "ED": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-18",
+   "last": "2026-11-05"
+  },
+  "EPAC": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2001-12-19",
+   "last": "2026-10-28"
+  },
+  "EWTX": {
+   "n": 24,
+   "reported": 23,
+   "withEstimate": 23,
+   "first": "2021-05-13",
+   "last": "2026-11-04"
+  },
+  "FET": {
+   "n": 51,
+   "reported": 50,
+   "withEstimate": 50,
+   "first": "2012-07-26",
+   "last": "2026-10-29"
+  },
+  "FOX": {
+   "n": 25,
+   "reported": 24,
+   "withEstimate": 24,
+   "first": "2019-08-07",
+   "last": "2026-11-02"
+  },
+  "GATX": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-22",
+   "last": "2026-10-29"
+  },
+  "GLXY": {
+   "n": 16,
+   "reported": 15,
+   "withEstimate": 14,
+   "first": "2021-11-15",
+   "last": "2026-10-27"
+  },
+  "GTY": {
+   "n": 75,
+   "reported": 74,
+   "withEstimate": 74,
+   "first": "2002-02-13",
+   "last": "2026-10-21"
+  },
+  "HL": {
+   "n": 100,
+   "reported": 96,
+   "withEstimate": 85,
+   "first": "2001-03-06",
+   "last": "2026-11-03"
+  },
+  "HTHT": {
+   "n": 66,
+   "reported": 65,
+   "withEstimate": 65,
+   "first": "2010-07-30",
+   "last": "2026-08-17"
+  },
+  "IIPR": {
+   "n": 40,
+   "reported": 39,
+   "withEstimate": 38,
+   "first": "2017-05-10",
+   "last": "2026-11-02"
+  },
+  "IREN": {
+   "n": 17,
+   "reported": 15,
+   "withEstimate": 15,
+   "first": "2022-02-09",
+   "last": "2026-08-27"
+  },
+  "JXN": {
+   "n": 23,
+   "reported": 22,
+   "withEstimate": 21,
+   "first": "2021-09-17",
+   "last": "2026-11-03"
+  },
+  "KOF": {
+   "n": 91,
+   "reported": 90,
+   "withEstimate": 90,
+   "first": "2004-07-28",
+   "last": "2026-10-26"
+  },
+  "LFUS": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-17",
+   "last": "2026-10-28"
+  },
+  "LPX": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 98,
+   "first": "2002-04-25",
+   "last": "2026-11-03"
+  },
+  "MBX": {
+   "n": 9,
+   "reported": 8,
+   "withEstimate": 8,
+   "first": "2024-11-07",
+   "last": "2026-08-06"
+  },
+  "MIR": {
+   "n": 20,
+   "reported": 19,
+   "withEstimate": 19,
+   "first": "2022-05-04",
+   "last": "2026-10-27"
+  },
+  "MRSH": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-23",
+   "last": "2026-10-15"
+  },
+  "NAVN": {
+   "n": 5,
+   "reported": 4,
+   "withEstimate": 4,
+   "first": "2025-12-15",
+   "last": "2026-09-09"
+  },
+  "NN": {
+   "n": 21,
+   "reported": 20,
+   "withEstimate": 20,
+   "first": "2021-11-23",
+   "last": "2026-08-11"
+  },
+  "NVO": {
+   "n": 63,
+   "reported": 62,
+   "withEstimate": 62,
+   "first": "2000-02-17",
+   "last": "2026-11-04"
+  },
+  "OLN": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 98,
+   "first": "2002-04-25",
+   "last": "2026-10-29"
+  },
+  "OZK": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-07-11",
+   "last": "2026-10-19"
+  },
+  "PDS": {
+   "n": 85,
+   "reported": 82,
+   "withEstimate": 82,
+   "first": "2006-02-15",
+   "last": "2026-10-27"
+  },
+  "PLNT": {
+   "n": 47,
+   "reported": 46,
+   "withEstimate": 46,
+   "first": "2015-09-02",
+   "last": "2026-11-05"
+  },
+  "PRMB": {
+   "n": 8,
+   "reported": 7,
+   "withEstimate": 7,
+   "first": "2025-05-08",
+   "last": "2026-11-05"
+  },
+  "QURE": {
+   "n": 53,
+   "reported": 52,
+   "withEstimate": 52,
+   "first": "2014-03-26",
+   "last": "2026-11-04"
+  },
+  "RGTI": {
+   "n": 18,
+   "reported": 17,
+   "withEstimate": 17,
+   "first": "2022-08-12",
+   "last": "2026-08-06"
+  },
+  "RSG": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-29",
+   "last": "2026-10-29"
+  },
+  "SCL": {
+   "n": 82,
+   "reported": 81,
+   "withEstimate": 81,
+   "first": "2000-07-27",
+   "last": "2026-10-28"
+  },
+  "SIGI": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-08-07",
+   "last": "2026-10-21"
+  },
+  "SNEX": {
+   "n": 49,
+   "reported": 48,
+   "withEstimate": 47,
+   "first": "2011-02-09",
+   "last": "2026-08-05"
+  },
+  "STAG": {
+   "n": 63,
+   "reported": 62,
+   "withEstimate": 61,
+   "first": "2011-08-15",
+   "last": "2026-10-27"
+  },
+  "SYY": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-24",
+   "last": "2026-11-03"
+  },
+  "THC": {
+   "n": 100,
+   "reported": 96,
+   "withEstimate": 94,
+   "first": "2002-04-02",
+   "last": "2026-10-29"
+  },
+  "TRMB": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 98,
+   "first": "2002-04-24",
+   "last": "2026-11-04"
+  },
+  "TYRA": {
+   "n": 21,
+   "reported": 20,
+   "withEstimate": 20,
+   "first": "2021-11-03",
+   "last": "2026-08-04"
+  },
+  "UTHR": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2000-11-01",
+   "last": "2026-11-04"
+  },
+  "VMC": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 98,
+   "first": "2002-04-22",
+   "last": "2026-10-29"
+  },
+  "WAT": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-04-23",
+   "last": "2026-11-03"
+  },
+  "WMT": {
+   "n": 100,
+   "reported": 99,
+   "withEstimate": 99,
+   "first": "2002-05-14",
+   "last": "2026-08-20"
+  },
+  "XP": {
+   "n": 28,
+   "reported": 27,
+   "withEstimate": 27,
+   "first": "2020-05-12",
+   "last": "2026-08-16"
+  }
+ }
+}
