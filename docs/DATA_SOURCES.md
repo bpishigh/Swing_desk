@@ -1,0 +1,63 @@
+# Data points, sources and fallbacks (filings and fundamentals)
+
+Created 8 Nov 2026 (owner request). Paper only; public data only. This register tracks each data point the strategy build programme (SCOPE.md section L) needs, where it comes from, what to fall back to, how far back it goes, and which date a test may use. Prices, indices and funds keep their own source table in `docs/ARCHITECTURE.md` ("Data sources, checks and known quirks"); this doc covers filings, fundamentals, holdings, insider and event data, and links back to that table where the two meet.
+
+**Status words** follow ARCHITECTURE: Used, Interim, Parked, Rejected. One word is added here: **Probed** = reachable from the GitHub runner and measured, not yet feeding anything. As in ARCHITECTURE, a source may only feed a decision while its status is Used; a Probed source becomes Used only after its loader is built, its row in the Engine Rules and Test Register is made, and its completeness check passes.
+
+**Rules for every loader (proposed, not yet registered):**
+- Store each fact with its source name, the filing's broadcast or filed timestamp (the as-of key below) and the fetch date. A test may use a fact only from the as-of timestamp onward, never from the period end.
+- Keep revisions as new rows with their own as-of date; never overwrite the original.
+- A 429 means stop and move on; a 403 is the source's own answer (ARCHITECTURE hard rule 4). The workspace shell cannot reach NSE or Yahoo; probes and loaders run on the GitHub runner. SEC needs the `SEC_UA` secret (a real contact).
+- Missing is stored as missing, not zero.
+
+## A. India
+
+| # | Data point | Primary source | Fallback | History measured | As-of key | Caveats | Status |
+|---|---|---|---|---|---|---|---|
+| I1 | Quarterly results: revenue, profit before tax, profit, EPS (filings from Q4 FY25, period ends from 31 Mar 2025) | NSE `/api/integrated-filing-results?index=equities&type=Integrated Filing- Financials` (+ `symbol`, `period_ended`, `page`, `size`); XBRL link per record | yfinance quarterly statements (5 to 7 quarters, no filing date); Groww page (5 quarters) | 3,190 to 4,996 filings per quarter end, 2,172 to 2,366 symbols, Mar 2025 to Sep 2026 | `broadcast_Date` | Standalone and Consolidated are separate records; revisions carry `revised_Date`. Tags are `in-capmkt`; Ind AS and banking differ (banks: `RevenueOnInvestments`, `InterestEarned`, `ProfitLossForThePeriod`, EPS `...AfterExtraordinaryItems`). Context `OneD` is the quarter, `FourD` is the year to date. Values rounded to a crore or less. | Probed (`data/probe-integrated.json`, `probe-integrated-xbrl.json`, `probe-closeout.json`) |
+| I2 | Quarterly results, filings up to the March 2025 filing window | NSE `/api/corporates-financial-results?index=equities&period=Quarterly` (+ `symbol`, `from_date`, `to_date`); XBRL link | as I1 | List from 2007 (large names) or 2019; about 3,000 to 3,900 filings per quarter market-wide, 2019 to Q1 2025; quarters 99% complete per stock | `broadCastDate` | XBRL files exist only from about 2019 (`in-bse-fin` tags); 2010 to 2016 links return 404, so figures before 2019 are not available from NSE in structured form. Per-stock list stops at Dec 2024 period end. 14 of 49 sampled stocks miss at least one quarter. | Probed (`probe-filings-coverage.json`, `probe-closeout.json`) |
+| I3 | Results dates, upcoming and past | NSE `/api/event-calendar` (about 626 upcoming rows); `corporate-board-meetings` (about 20 per stock incl. upcoming); `corporate-announcements` (results-like subjects, timestamps to Nov 2026, 9 to 28 per stock since Feb 2025) | yfinance `get_earnings_dates` and `calendar` | Announcements back to 2004 (large) or 2019; `exchdisstime` from 2020 | `an_dt` or `exchdisstime` | Subject text varies; filter by description. The desk already flags a results date inside 10 sessions (C-63). | Probed |
+| I4 | Earnings surprise (reported against estimate) | yfinance `get_earnings_dates` | Surprise against the same quarter a year earlier, computed from I1 and I2 | 41 of 65 sampled Indian stocks have 8 or more reported quarters (median first date Nov 2015); 15 empty | Report date in the index | Unofficial source; coverage thin for small caps and absent names. | Probed (`probe-yfinance-coverage.json`) |
+| I5 | Shareholding pattern: promoter, FII, DII, public | NSE `/api/corporate-share-holdings-master?index=equities&symbol=` + XBRL | Groww `shareHoldingPattern` (5 quarters; already in the monthly stock-facts job, Used) | 21 to 26 filings per stock; all quarters present Sep 2021 to Sep 2026 for listed stocks; some stocks to 2015 | `broadcastDate` (revisions: `revisedDate`) | 133 revised filings in the sample. BSE refuses automated reads (403). | Used for the monthly facts (Groww); NSE series Probed |
+| I6 | Promoter pledge | Same NSE shareholding XBRL: `NumberOfSharesEncumbered`, `EncumberedShareUnderPledgedAsPercentageOfTotalNumberOfShares` in the promoter-and-group context | none found (Groww and Screener do not carry it) | Tags found in 166 of 170 files checked | as I5 | The `corporate-pledgedata` endpoint returns empty. The stock-facts job already reads the flag. | Used for the monthly flag; history Probed |
+| I7 | Insider trades (SEBI PIT) | NSE `/api/corporates-pit?index=equities&from_date=&to_date=` (with or without `symbol`) | none (yfinance India insider data is mostly empty) | Market-wide yearly calls: 3,729 (2015, partial), 58,542 (2018), 13,545 (2025); usable from 2016 | `date` (disclosure time), not `acqfromDt` | Dates inside a record are transaction dates and precede the disclosure. No cap seen at year size. | Probed |
+| I8 | Takeover-threshold filings (SAST) | NSE `/api/corporate-sast-reg29?index=equities&symbol=&from_date=&to_date=` | none | 4 to 20 filings per stock, from 2021 | `sysTime` | `corporates-sast` returns 404. Coverage before 2021 unknown. | Probed |
+| I9 | Corporate actions (splits, bonuses, demergers, dividends) | Desk store `data/india/corp-actions-history.json` (2019 on) and `corp-actions-history-pre2019.json` | NSE `corporates-corporateActions` | NSE per-stock call returns only the oldest 14 to 20 records, so it is not a source | ex-date | Demergers need typed records (C-50). | Used (existing; see SCOPE.md) |
+| I10 | Delisted and renamed names | NSE results and announcements lists still hold some | none | 3 of 8 sampled absent names had a results list; 2 of 8 had shareholding | n/a | India filings history is not survivorship-free. | Probed |
+
+## B. US
+
+| # | Data point | Primary source | Fallback | History measured | As-of key | Caveats | Status |
+|---|---|---|---|---|---|---|---|
+| U1 | Fundamentals: revenue, net income, diluted EPS, assets, equity, operating cash flow | SEC EDGAR `data.sec.gov/api/xbrl/companyfacts/CIK##########.json` | yfinance quarterly statements (5 to 7 quarters) | 59 of 61 sampled had facts; median 15 years of filings (from about 2011) | `filed` (take the earliest `filed` for each period) | Concept tags change over time (revenue and equity needed more than one tag in 36 of 49 and 33 of 53 stocks): use a fallback chain. Every fact repeats in each filing that reported it. Needs `SEC_UA`. | Probed (`data/probe-us-filings.json`, `probe-filings-coverage.json`) |
+| U2 | Filing list and acceptance time | EDGAR `submissions/CIK##########.json` | none | recent list about 1,000 filings plus older pages | `acceptanceDateTime` | | Probed |
+| U3 | Insider trades (Form 4) | EDGAR submissions list plus the Form 4 XML (transaction codes present) | yfinance `insider_transactions` (about 2 years) | Recent list reaches a median of Feb 2020; older pages for 34 of 60 stocks | filing date | Older pages need extra fetches. | Probed |
+| U4 | Large holders: 13D/G and 13F | EDGAR submissions per filer (Berkshire: 39 13F filings to 2017) | yfinance top-10 holders (snapshot) | 13G forms in the stock lists; 13F per filer | filing date (13F can lag 45 days) | The 13F bulk-set URL I guessed returned 404; use per-filer lists or look up the real bulk path. | Probed |
+| U5 | Short interest | FINRA biweekly pipe-delimited files `cdn.finra.org/equity/otcmarket/biweekly/shrtYYYYMMDD.csv` | yfinance `info` (current snapshot only) | Earliest file found 29 Dec 2017; dates in 2010 to 2017 H1 refused (403); the FINRA API returned nothing for 2012 and 2015 | settlement date plus publication lag | The `.txt` variant is 403. Publication lag is not yet measured. | Probed |
+| U6 | Earnings dates and surprise | yfinance `get_earnings_dates` | Nasdaq earnings calendar (`api.nasdaq.com/api/calendar/earnings?date=`, EPS forecast, fiscal quarter; surprise not supplied) | 55 of 61 sampled stocks have 8 or more reported quarters with estimates (median first date Aug 2002) | report timestamp | Unofficial; delisted names return nothing. | Probed |
+| U7 | Analyst rating changes | yfinance `upgrades_downgrades` | none | 229 to 984 rows, from 2012 to 2017 | row date | Not needed by any strategy yet. | Probed |
+| U8 | Delisted filers | EDGAR filings persist (SVB, Bed Bath and Beyond, CIT have facts; First Republic and Signature have filings but no facts) | none | n/a | n/a | Name-to-CIK file `Archives/edgar/cik-lookup-data.txt` covers every filer ever; `company_tickers_exchange.json` is current filers only. A ticker-to-CIK history does not exist in either, so it must be built (design item). The desk's US price history is also survivor-only (2,279 symbols, all still trading, 31 Oct note). | Probed |
+
+## C. Sources tried and set aside
+
+| Source | Result (8 Nov 2026) | Status |
+|---|---|---|
+| BSE API (corporate actions, shareholding) | 403 Access Denied from the runner | Rejected |
+| Yahoo raw chart and quote-summary HTTP | 429 from the runner; the yfinance library does answer | Rejected as raw HTTP; yfinance Probed |
+| Workspace shell (Claude session) to NSE and Yahoo | Blocked by the proxy; run probes on the runner | n/a |
+| NSE wrapper libraries (nsefin, nse, financeindia, nsepython) | Alpha-stage; none cover everything; endpoint names above came from them and were tested directly | Reference only |
+| Free-tier APIs (Tapetide 50 calls a day, IndianAPI 500 a month, EODHD 20 a day) | Too few calls for a 1,200-stock universe; no filing dates stated | Rejected for loading; usable for spot checks |
+| Paid feeds (TrueData, NSE licensed data) | Not needed given the above | Not pursued (owner: free route) |
+
+## D. Open items
+
+1. Decide the standalone-versus-consolidated rule (a written rule before looking; both stored).
+2. Decide how revisions are handled in a test (use the original as-of date; flag a later revision).
+3. Build the tag maps: `in-bse-fin` (before about 2025) and `in-capmkt` (from Mar 2025), each in Ind AS and banking forms; confirm the two namespaces map to the same concepts.
+4. Build a ticker-to-CIK history for delisted US filers (derive from Form 4 issuer symbols, the cik-lookup file and the desk's price history).
+5. Measure FINRA publication lag and whether files before Dec 2017 exist under another path.
+6. Pre-2019 India fundamentals have no structured free source (I2). Decide whether any strategy needs them; if so, the fallback is annual figures from Groww (5 years) or accept a shorter test window.
+7. Sample was 65 India and 61 US stocks; run the completeness check on the full universe when the loader is built.
+
+## E. Change log
+- 8 Nov 2026: created from probe rounds 1 to 4 (`data/probe-filings.json`, `probe-yfinance.json`, `probe-us-filings.json`, `probe-us-yfinance.json`, `probe-filings-coverage.json`, `probe-yfinance-coverage.json`, `probe-integrated.json`, `probe-integrated-xbrl.json`, `probe-closeout.json`; scripts of the same names in `scripts/`).
