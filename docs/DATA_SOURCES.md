@@ -24,6 +24,7 @@ Created 8 Nov 2026 (owner request). Paper only; public data only. This register 
 | I8 | Takeover-threshold filings (SAST) | NSE `/api/corporate-sast-reg29?index=equities&symbol=&from_date=&to_date=` | none | 4 to 20 filings per stock, from 2021 | `sysTime` | `corporates-sast` returns 404. Coverage before 2021 unknown. | Probed |
 | I9 | Corporate actions (splits, bonuses, demergers, dividends) | Desk store `data/india/corp-actions-history.json` (2019 on) and `corp-actions-history-pre2019.json` | NSE `corporates-corporateActions` | NSE per-stock call returns only the oldest 14 to 20 records, so it is not a source | ex-date | Demergers need typed records (C-50). | Used (existing; see SCOPE.md) |
 | I10 | Delisted and renamed names | NSE results and announcements lists still hold some | none | 3 of 8 sampled absent names had a results list; 2 of 8 had shareholding | n/a | India filings history is not survivorship-free. | Probed |
+| I11 | Corporate-structure events: demergers, mergers, amalgamations, symbol and name changes | Desk store `corp-actions-history.json` (18,205 records since 2019; 91 'Demerger' plus about 14 scheme records; the repo holds typed demerger cost splits only in the private repo) | Symbol vanishing from the daily bhav files and ISIN change; NSE symbol-change and name-change lists (not yet probed) | Demergers recorded well (for example TMPV 14 Oct 2025); mergers poorly (one 'scheme of amalgamation' in six years; the Ujjivan reverse merger is absent) | ex-date or effective date | Symbols change: TATAMOTORS returns no filings in the integrated endpoint and has no action history, because the listed company now trades as TMPV (with TMCV listed separately). Filings must be keyed to a stable entity, not a symbol. | Used for price adjustment (C-44, C-50); fundamentals use Probed |
 
 ## B. US
 
@@ -59,5 +60,8 @@ Created 8 Nov 2026 (owner request). Paper only; public data only. This register 
 6. Pre-2019 India fundamentals have no structured free source (I2). Decide whether any strategy needs them; if so, the fallback is annual figures from Groww (5 years) or accept a shorter test window.
 7. Sample was 65 India and 61 US stocks; run the completeness check on the full universe when the loader is built.
 
+8. Sync the results rules with structure events (owner, 8 Nov 2026): key every filing to a stable entity (symbol and ISIN history with predecessor and successor links); flag a basis break at each demerger, merger, amalgamation or first consolidated filing; suppress growth features across a break; give a new or successor entity no synthetic history. Merger detection needs a source beyond the action list (probe NSE symbol-change and name-change files, and symbols disappearing from the bhav files). Check whether the integrated XBRL carries comparative-period columns, which would give like-for-like growth from a single filing.
+
 ## E. Change log
 - 8 Nov 2026: created from probe rounds 1 to 4 (`data/probe-filings.json`, `probe-yfinance.json`, `probe-us-filings.json`, `probe-us-yfinance.json`, `probe-filings-coverage.json`, `probe-yfinance-coverage.json`, `probe-integrated.json`, `probe-integrated-xbrl.json`, `probe-closeout.json`; scripts of the same names in `scripts/`).
+- 8 Nov 2026: added row I11 and open item 8 (structure events must sync with the standalone and consolidated rule).
