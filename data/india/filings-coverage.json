@@ -29,34 +29,36 @@
   "2025-03-31": {
    "listed": 4426,
    "attempted": 4426,
-   "parsed": 1875,
-   "fetchFailed": 2514,
-   "parseFailed": 36,
-   "unmapped": 1,
+   "parsed": 4334,
+   "fetchFailed": 14,
+   "parseFailed": 73,
+   "unmapped": 5,
    "families": {
-    "IFNBFC": 5,
-    "IFIndAs": 88,
-    "IFOTB": 2,
-    "IFFIndAs": 1619,
-    "FRNBFC": 125,
-    "FRBanking": 34,
-    "IFLI": 2
+    "IFFIndAs": 2252,
+    "FRNBFC": 160,
+    "FRBanking": 40,
+    "IFLI": 7
    },
    "missingField": {
     "revenue": 0,
     "pbt": 0,
     "pat": 0,
-    "eps": 2
+    "eps": 7
    },
-   "periodMismatch": 1,
+   "periodMismatch": 4,
    "errors": {
-    "no tag map for family IFFNonBanking": 30,
-    "no format family in the header comment": 6
+    "no tag map for family IFFNonBanking": 64,
+    "no format family in the header comment": 9
    },
    "unmappedSymbols": [
-    "RUSHABEAR"
+    "KUNDANMM",
+    "KUNDANMM",
+    "RUSHABEAR",
+    "ATCOM",
+    "ATCOM"
    ],
-   "at": "2026-11-08T14:03:43.010Z"
+   "alreadyStored": 1875,
+   "at": "2026-11-08T14:59:58.847Z"
   }
  }
 }
