@@ -1,0 +1,1182 @@
+{
+ "at": "2026-11-08T07:55:35.182689Z",
+ "version": "1.8.0",
+ "rows": {
+  "RELIANCE.NS": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-06-30"
+    ],
+    "rows": 37,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Cost Of Revenue",
+     "EBITDA"
+    ]
+   },
+   "income_stmt": {
+    "cols": [
+     "2026-03-31",
+     "2025-03-31",
+     "2024-03-31",
+     "2023-03-31",
+     "2022-03-31"
+    ],
+    "rows": 50,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "quarterly_balance_sheet": {
+    "cols": [
+     "2026-09-30",
+     "2026-03-31",
+     "2025-09-30",
+     "2025-03-31"
+    ],
+    "rows": 77,
+    "sample_rows": [
+     "Ordinary Shares Number",
+     "Share Issued",
+     "Net Debt",
+     "Total Debt",
+     "Tangible Book Value",
+     "Invested Capital",
+     "Working Capital",
+     "Net Tangible Assets"
+    ]
+   },
+   "earnings_dates": {
+    "n": 80,
+    "range": [
+     "2007-04-26",
+     "2027-01-15"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ],
+    "head": {
+     "EPS Estimate": {
+      "2027-01-15T10:00:00.000Z": 19.58,
+      "2026-10-30T14:00:00.000Z": 12.3,
+      "2026-07-17T13:00:00.000Z": 7.1
+     },
+     "Reported EPS": {
+      "2027-01-15T10:00:00.000Z": null,
+      "2026-10-30T14:00:00.000Z": 11.34,
+      "2026-07-17T13:00:00.000Z": 9.81
+     },
+     "Surprise(%)": {
+      "2027-01-15T10:00:00.000Z": null,
+      "2026-10-30T14:00:00.000Z": -7.8,
+      "2026-07-17T13:00:00.000Z": 38.17
+     }
+    }
+   },
+   "insider_transactions": {
+    "n": 6,
+    "range": [
+     "0",
+     "5"
+    ],
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "head": {
+     "Shares": {
+      "0": 481924,
+      "1": 835479,
+      "2": 19920
+     },
+     "Value": {
+      "0": 6768188,
+      "1": 13104571,
+      "2": 312447
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Text": {
+      "0": "Other at price 14.04 per share.",
+      "1": "Sale at price 15.69 per share.",
+      "2": "Acquisition at price 15.69 per share."
+     },
+     "Insider": {
+      "0": "Shah (Anish)",
+      "1": "Narayan (B)",
+      "2": "Narayanan (S R)"
+     },
+     "Position": {
+      "0": "UNREPORTED",
+      "1": "Promoter",
+      "2": "Promoter"
+     },
+     "Transaction": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Start Date": {
+      "0": "2026-05-20T00:00:00.000",
+      "1": "2026-02-13T00:00:00.000",
+      "2": "2026-02-13T00:00:00.000"
+     },
+     "Ownership": {
+      "0": "D",
+      "1": "D",
+      "2": "D"
+     }
+    }
+   },
+   "insider_roster": {
+    "n": 5,
+    "range": [
+     "0",
+     "4"
+    ],
+    "cols": [
+     "Name",
+     "Position",
+     "URL",
+     "Most Recent Transaction",
+     "Latest Transaction Date",
+     "Shares Owned Directly",
+     "Position Direct Date"
+    ],
+    "head": {
+     "Name": {
+      "0": "Agarwal (Shobha)",
+      "1": "Naphade (Ashwini Darshan)",
+      "2": "Narayan (B)"
+     },
+     "Position": {
+      "0": "UNREPORTED",
+      "1": "UNREPORTED",
+      "2": "Promoter"
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Most Recent Transaction": {
+      "0": "Sale",
+      "1": "Other",
+      "2": "Sale"
+     },
+     "Latest Transaction Date": {
+      "0": "2025-09-12T00:00:00.000",
+      "1": "2026-02-02T00:00:00.000",
+      "2": "2026-02-13T00:00:00.000"
+     },
+     "Shares Owned Directly": {
+      "0": 1038810,
+      "1": 1104,
+      "2": 1600
+     },
+     "Position Direct Date": {
+      "0": "2025-09-12T00:00:00.000",
+      "1": "2026-02-02T00:00:00.000",
+      "2": "2026-02-13T00:00:00.000"
+     }
+    }
+   },
+   "major_holders": {
+    "n": 4,
+    "range": [
+     "insidersPe",
+     "institutio"
+    ],
+    "cols": [
+     "Value"
+    ],
+    "head": {
+     "Value": {
+      "insidersPercentHeld": 0.51798,
+      "institutionsPercentHeld": 0.28165,
+      "institutionsFloatPercentHeld": 0.5843
+     }
+    }
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "mutualfund_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "actions": {
+    "n": 35,
+    "range": [
+     "1996-05-24",
+     "2026-06-05"
+    ],
+    "cols": [
+     "Dividends",
+     "Stock Splits"
+    ],
+    "head": {
+     "Dividends": {
+      "1996-05-23T18:30:00.000Z": 0.371479,
+      "1997-05-15T18:30:00.000Z": 0.402435,
+      "1997-10-26T18:30:00.000Z": 0.0
+     },
+     "Stock Splits": {
+      "1996-05-23T18:30:00.000Z": 0.0,
+      "1997-05-15T18:30:00.000Z": 0.0,
+      "1997-10-26T18:30:00.000Z": 2.0
+     }
+    }
+   },
+   "calendar": {
+    "dict_keys": [
+     "Ex-Dividend Date",
+     "Earnings Date",
+     "Earnings High",
+     "Earnings Low",
+     "Earnings Average",
+     "Revenue High",
+     "Revenue Low",
+     "Revenue Average"
+    ],
+    "sample": {
+     "Ex-Dividend Date": "2026-06-05",
+     "Earnings Date": "[datetime.date(2027, 1, 15)]",
+     "Earnings High": "19.58",
+     "Earnings Low": "19.58",
+     "Earnings Average": "19.58",
+     "Revenue High": "3392000000000"
+    }
+   }
+  },
+  "ADANIENT.NS": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 40,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Cost Of Revenue",
+     "EBITDA"
+    ]
+   },
+   "income_stmt": {
+    "cols": [
+     "2026-03-31",
+     "2025-03-31",
+     "2024-03-31",
+     "2023-03-31"
+    ],
+    "rows": 51,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "quarterly_balance_sheet": {
+    "cols": [
+     "2026-09-30",
+     "2026-03-31",
+     "2025-09-30",
+     "2025-03-31"
+    ],
+    "rows": 83,
+    "sample_rows": [
+     "Ordinary Shares Number",
+     "Share Issued",
+     "Net Debt",
+     "Total Debt",
+     "Tangible Book Value",
+     "Invested Capital",
+     "Working Capital",
+     "Net Tangible Assets"
+    ]
+   },
+   "earnings_dates": {
+    "n": 38,
+    "range": [
+     "2008-05-28",
+     "2027-01-28"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ],
+    "head": {
+     "EPS Estimate": {
+      "2027-01-28T10:00:00.000Z": 88.15,
+      "2026-10-28T08:00:00.000Z": 12.13,
+      "2026-07-29T09:00:00.000Z": 14.17
+     },
+     "Reported EPS": {
+      "2027-01-28T10:00:00.000Z": null,
+      "2026-10-28T08:00:00.000Z": 11.05,
+      "2026-07-29T09:00:00.000Z": 11.39
+     },
+     "Surprise(%)": {
+      "2027-01-28T10:00:00.000Z": null,
+      "2026-10-28T08:00:00.000Z": -8.9,
+      "2026-07-29T09:00:00.000Z": -19.59
+     }
+    }
+   },
+   "insider_transactions": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "insider_roster": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "major_holders": {
+    "n": 4,
+    "range": [
+     "insidersPe",
+     "institutio"
+    ],
+    "cols": [
+     "Value"
+    ],
+    "head": {
+     "Value": {
+      "insidersPercentHeld": 0.74971,
+      "institutionsPercentHeld": 0.18620001,
+      "institutionsFloatPercentHeld": 0.74394
+     }
+    }
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "mutualfund_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "actions": {
+    "n": 26,
+    "range": [
+     "2002-09-04",
+     "2026-06-12"
+    ],
+    "cols": [
+     "Dividends",
+     "Stock Splits"
+    ],
+    "head": {
+     "Dividends": {
+      "2002-09-03T18:30:00.000Z": 1.454228,
+      "2003-09-03T18:30:00.000Z": 1.454228,
+      "2004-06-27T18:30:00.000Z": 1.93897
+     },
+     "Stock Splits": {
+      "2002-09-03T18:30:00.000Z": 0.0,
+      "2003-09-03T18:30:00.000Z": 0.0,
+      "2004-06-27T18:30:00.000Z": 0.0
+     }
+    }
+   },
+   "calendar": {
+    "dict_keys": [
+     "Ex-Dividend Date",
+     "Earnings Date",
+     "Earnings High",
+     "Earnings Low",
+     "Earnings Average",
+     "Revenue High",
+     "Revenue Low",
+     "Revenue Average"
+    ],
+    "sample": {
+     "Ex-Dividend Date": "2026-06-12",
+     "Earnings Date": "[datetime.date(2027, 1, 28)]",
+     "Earnings High": "None",
+     "Earnings Low": "None",
+     "Earnings Average": "None",
+     "Revenue High": "385460000000"
+    }
+   }
+  },
+  "KPITTECH.NS": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 43,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "income_stmt": {
+    "cols": [
+     "2026-03-31",
+     "2025-03-31",
+     "2024-03-31",
+     "2023-03-31",
+     "2022-03-31"
+    ],
+    "rows": 53,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "quarterly_balance_sheet": {
+    "cols": [
+     "2026-09-30",
+     "2026-03-31",
+     "2025-09-30",
+     "2025-03-31"
+    ],
+    "rows": 79,
+    "sample_rows": [
+     "Treasury Shares Number",
+     "Ordinary Shares Number",
+     "Share Issued",
+     "Total Debt",
+     "Tangible Book Value",
+     "Invested Capital",
+     "Working Capital",
+     "Net Tangible Assets"
+    ]
+   },
+   "earnings_dates": {
+    "n": 32,
+    "range": [
+     "2019-05-15",
+     "2027-01-28"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ],
+    "head": {
+     "EPS Estimate": {
+      "2027-01-28T10:00:00.000Z": 5.71,
+      "2026-10-28T07:00:00.000Z": 5.12,
+      "2026-07-29T07:00:00.000Z": 5.93
+     },
+     "Reported EPS": {
+      "2027-01-28T10:00:00.000Z": null,
+      "2026-10-28T07:00:00.000Z": 4.4,
+      "2026-07-29T07:00:00.000Z": 4.28
+     },
+     "Surprise(%)": {
+      "2027-01-28T10:00:00.000Z": null,
+      "2026-10-28T07:00:00.000Z": -14.08,
+      "2026-07-29T07:00:00.000Z": -27.8
+     }
+    }
+   },
+   "insider_transactions": {
+    "n": 113,
+    "range": [
+     "0",
+     "112"
+    ],
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "head": {
+     "Shares": {
+      "0": 10402,
+      "1": 292,
+      "2": 682
+     },
+     "Value": {
+      "0": 1084.0,
+      "1": 30.0,
+      "2": 71.0
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Text": {
+      "0": "Other at price 0.10 per share.",
+      "1": "Other at price 0.10 per share.",
+      "2": "Other at price 0.10 per share."
+     },
+     "Insider": {
+      "0": "KPIT Systems Ltd Employees Welfare Trust",
+      "1": "KPIT Systems Ltd Employees Welfare Trust",
+      "2": "KPIT Systems Ltd Employees Welfare Trust"
+     },
+     "Position": {
+      "0": "UNREPORTED",
+      "1": "UNREPORTED",
+      "2": "UNREPORTED"
+     },
+     "Transaction": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Start Date": {
+      "0": "2026-09-25T00:00:00.000",
+      "1": "2026-09-24T00:00:00.000",
+      "2": "2026-09-24T00:00:00.000"
+     },
+     "Ownership": {
+      "0": "D",
+      "1": "D",
+      "2": "D"
+     }
+    }
+   },
+   "insider_roster": {
+    "n": 10,
+    "range": [
+     "0",
+     "9"
+    ],
+    "cols": [
+     "Name",
+     "Position",
+     "URL",
+     "Most Recent Transaction",
+     "Latest Transaction Date",
+     "Shares Owned Directly",
+     "Position Direct Date"
+    ],
+    "head": {
+     "Name": {
+      "0": "Bhagwat (Ajay Shridhar)",
+      "1": "Hardikar (Priyamvada)",
+      "2": "Janwadkar (Rajesh)"
+     },
+     "Position": {
+      "0": "Promoter",
+      "1": "UNREPORTED",
+      "2": "UNREPORTED"
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Most Recent Transaction": {
+      "0": "Sale",
+      "1": "Other",
+      "2": "Sale"
+     },
+     "Latest Transaction Date": {
+      "0": "2025-12-12T00:00:00.000",
+      "1": "2025-12-17T00:00:00.000",
+      "2": "2026-09-21T00:00:00.000"
+     },
+     "Shares Owned Directly": {
+      "0": 2203539,
+      "1": 78947,
+      "2": 50237
+     },
+     "Position Direct Date": {
+      "0": "2025-12-12T00:00:00.000",
+      "1": "2025-12-17T00:00:00.000",
+      "2": "2026-09-21T00:00:00.000"
+     }
+    }
+   },
+   "major_holders": {
+    "n": 4,
+    "range": [
+     "insidersPe",
+     "institutio"
+    ],
+    "cols": [
+     "Value"
+    ],
+    "head": {
+     "Value": {
+      "insidersPercentHeld": 0.44659,
+      "institutionsPercentHeld": 0.29044,
+      "institutionsFloatPercentHeld": 0.52481
+     }
+    }
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "mutualfund_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "actions": {
+    "n": 14,
+    "range": [
+     "2019-08-20",
+     "2026-08-12"
+    ],
+    "cols": [
+     "Dividends"
+    ],
+    "head": {
+     "Dividends": {
+      "2019-08-19T18:30:00.000Z": 0.75,
+      "2020-02-16T18:30:00.000Z": 0.55,
+      "2020-03-18T18:30:00.000Z": 0.45
+     }
+    }
+   },
+   "calendar": {
+    "dict_keys": [
+     "Ex-Dividend Date",
+     "Earnings Date",
+     "Earnings High",
+     "Earnings Low",
+     "Earnings Average",
+     "Revenue High",
+     "Revenue Low",
+     "Revenue Average"
+    ],
+    "sample": {
+     "Ex-Dividend Date": "2026-08-12",
+     "Earnings Date": "[datetime.date(2027, 1, 28)]",
+     "Earnings High": "7.0",
+     "Earnings Low": "5.0",
+     "Earnings Average": "5.712",
+     "Revenue High": "17394785000"
+    }
+   }
+  },
+  "JPPOWER.NS": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 42,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "income_stmt": {
+    "cols": [
+     "2026-03-31",
+     "2025-03-31",
+     "2024-03-31",
+     "2023-03-31",
+     "2022-03-31"
+    ],
+    "rows": 56,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "quarterly_balance_sheet": {
+    "cols": [
+     "2026-09-30",
+     "2026-03-31",
+     "2025-09-30",
+     "2025-03-31"
+    ],
+    "rows": 82,
+    "sample_rows": [
+     "Ordinary Shares Number",
+     "Share Issued",
+     "Net Debt",
+     "Total Debt",
+     "Tangible Book Value",
+     "Invested Capital",
+     "Working Capital",
+     "Net Tangible Assets"
+    ]
+   },
+   "earnings_dates": {
+    "n": 10,
+    "range": [
+     "2011-08-11",
+     "2015-11-03"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ],
+    "head": {
+     "EPS Estimate": {
+      "2015-11-03T12:00:00.000Z": 0.2,
+      "2015-08-06T14:00:00.000Z": -0.3,
+      "2015-05-30T16:00:00.000Z": -0.8
+     },
+     "Reported EPS": {
+      "2015-11-03T12:00:00.000Z": 0.95,
+      "2015-08-06T14:00:00.000Z": 0.21,
+      "2015-05-30T16:00:00.000Z": -0.49
+     },
+     "Surprise(%)": {
+      "2015-11-03T12:00:00.000Z": 375.0,
+      "2015-08-06T14:00:00.000Z": 169.67,
+      "2015-05-30T16:00:00.000Z": 39.01
+     }
+    }
+   },
+   "insider_transactions": {
+    "n": 5,
+    "range": [
+     "0",
+     "4"
+    ],
+    "cols": [
+     "Shares",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "head": {
+     "Shares": {
+      "0": 349912143,
+      "1": 1082729409,
+      "2": 349912143
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Text": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Insider": {
+      "0": "Adani Power Ltd",
+      "1": "Adani Power Ltd",
+      "2": "Jaiprakash Associates Ltd"
+     },
+     "Position": {
+      "0": "Promoter",
+      "1": "Promoter",
+      "2": "Promoter"
+     },
+     "Transaction": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Start Date": {
+      "0": "2026-05-21T00:00:00.000",
+      "1": "2026-05-21T00:00:00.000",
+      "2": "2026-05-21T00:00:00.000"
+     },
+     "Ownership": {
+      "0": "D",
+      "1": "D",
+      "2": "D"
+     }
+    }
+   },
+   "insider_roster": {
+    "n": 3,
+    "range": [
+     "0",
+     "2"
+    ],
+    "cols": [
+     "Name",
+     "Position",
+     "URL",
+     "Most Recent Transaction",
+     "Latest Transaction Date",
+     "Shares Owned Directly",
+     "Position Direct Date"
+    ],
+    "head": {
+     "Name": {
+      "0": "Adani Power Ltd",
+      "1": "ICICI Bank, Ltd.",
+      "2": "Jaiprakash Associates Ltd"
+     },
+     "Position": {
+      "0": "Promoter",
+      "1": "Institution- Corporation",
+      "2": "Promoter"
+     },
+     "URL": {
+      "0": "",
+      "1": "",
+      "2": ""
+     },
+     "Most Recent Transaction": {
+      "0": "Acquisition",
+      "1": "Sale",
+      "2": "Sale"
+     },
+     "Latest Transaction Date": {
+      "0": "2026-05-21T00:00:00.000",
+      "1": "2026-05-15T00:00:00.000",
+      "2": "2026-05-21T00:00:00.000"
+     },
+     "Shares Owned Directly": {
+      "0": 349912143,
+      "1": 439861064,
+      "2": 1294917975
+     },
+     "Position Direct Date": {
+      "0": "2026-05-21T00:00:00.000",
+      "1": "2026-05-15T00:00:00.000",
+      "2": "2026-05-21T00:00:00.000"
+     }
+    }
+   },
+   "major_holders": {
+    "n": 4,
+    "range": [
+     "insidersPe",
+     "institutio"
+    ],
+    "cols": [
+     "Value"
+    ],
+    "head": {
+     "Value": {
+      "insidersPercentHeld": 0.32986,
+      "institutionsPercentHeld": 0.113409996,
+      "institutionsFloatPercentHeld": 0.16923
+     }
+    }
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "mutualfund_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "actions": {
+    "n": 5,
+    "range": [
+     "2005-08-31",
+     "2009-08-10"
+    ],
+    "cols": [
+     "Dividends"
+    ],
+    "head": {
+     "Dividends": {
+      "2005-08-30T18:30:00.000Z": 0.75,
+      "2007-09-10T18:30:00.000Z": 0.75,
+      "2008-07-30T18:30:00.000Z": 0.75
+     }
+    }
+   },
+   "calendar": {
+    "dict_keys": [
+     "Ex-Dividend Date",
+     "Earnings Date",
+     "Earnings High",
+     "Earnings Low",
+     "Earnings Average",
+     "Revenue High",
+     "Revenue Low",
+     "Revenue Average"
+    ],
+    "sample": {
+     "Ex-Dividend Date": "2009-08-10",
+     "Earnings Date": "[]",
+     "Earnings High": "None",
+     "Earnings Low": "None",
+     "Earnings Average": "None",
+     "Revenue High": "None"
+    }
+   }
+  },
+  "TCS.NS": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-06-30"
+    ],
+    "rows": 48,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "income_stmt": {
+    "cols": [
+     "2026-03-31",
+     "2025-03-31",
+     "2024-03-31",
+     "2023-03-31"
+    ],
+    "rows": 48,
+    "sample_rows": [
+     "Tax Effect Of Unusual Items",
+     "Tax Rate For Calcs",
+     "Normalized EBITDA",
+     "Total Unusual Items",
+     "Total Unusual Items Excluding Goodwill",
+     "Net Income From Continuing Operation Net Minority Interest",
+     "Reconciled Depreciation",
+     "Reconciled Cost Of Revenue"
+    ]
+   },
+   "quarterly_balance_sheet": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 80,
+    "sample_rows": [
+     "Treasury Shares Number",
+     "Ordinary Shares Number",
+     "Share Issued",
+     "Total Debt",
+     "Tangible Book Value",
+     "Invested Capital",
+     "Working Capital",
+     "Net Tangible Assets"
+    ]
+   },
+   "earnings_dates": {
+    "n": 89,
+    "range": [
+     "2005-01-13",
+     "2027-01-11"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ],
+    "head": {
+     "EPS Estimate": {
+      "2027-01-11T10:00:00.000Z": 38.31,
+      "2026-10-08T10:00:00.000Z": 38.07,
+      "2026-07-09T00:00:00.000Z": 37.33
+     },
+     "Reported EPS": {
+      "2027-01-11T10:00:00.000Z": null,
+      "2026-10-08T10:00:00.000Z": 38.37,
+      "2026-07-09T00:00:00.000Z": 38.28
+     },
+     "Surprise(%)": {
+      "2027-01-11T10:00:00.000Z": null,
+      "2026-10-08T10:00:00.000Z": 0.79,
+      "2026-07-09T00:00:00.000Z": 2.54
+     }
+    }
+   },
+   "insider_transactions": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "insider_roster": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "major_holders": {
+    "n": 4,
+    "range": [
+     "insidersPe",
+     "institutio"
+    ],
+    "cols": [
+     "Value"
+    ],
+    "head": {
+     "Value": {
+      "insidersPercentHeld": 0.71794,
+      "institutionsPercentHeld": 0.17581,
+      "institutionsFloatPercentHeld": 0.62333
+     }
+    }
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "mutualfund_holders": {
+    "n": 0,
+    "range": null,
+    "cols": [],
+    "head": null
+   },
+   "actions": {
+    "n": 90,
+    "range": [
+     "2004-10-28",
+     "2026-10-14"
+    ],
+    "cols": [
+     "Dividends",
+     "Stock Splits"
+    ],
+    "head": {
+     "Dividends": {
+      "2004-10-27T18:30:00.000Z": 0.375,
+      "2005-02-02T18:30:00.000Z": 0.4375,
+      "2005-07-05T18:30:00.000Z": 0.625
+     },
+     "Stock Splits": {
+      "2004-10-27T18:30:00.000Z": 0.0,
+      "2005-02-02T18:30:00.000Z": 0.0,
+      "2005-07-05T18:30:00.000Z": 0.0
+     }
+    }
+   },
+   "calendar": {
+    "dict_keys": [
+     "Ex-Dividend Date",
+     "Earnings Date",
+     "Earnings High",
+     "Earnings Low",
+     "Earnings Average",
+     "Revenue High",
+     "Revenue Low",
+     "Revenue Average"
+    ],
+    "sample": {
+     "Ex-Dividend Date": "2026-10-14",
+     "Earnings Date": "[datetime.date(2026, 10, 8)]",
+     "Earnings High": "39.15",
+     "Earnings Low": "36.62246",
+     "Earnings Average": "38.31464",
+     "Revenue High": "739921158000"
+    }
+   }
+  }
+ }
+}

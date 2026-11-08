@@ -1,0 +1,2007 @@
+{
+ "at": "2026-11-08T07:54:37.683Z",
+ "cookieWarm": false,
+ "nse": {
+  "RELIANCE": {
+   "shareholding": {
+    "status": 200,
+    "bytes": 42977,
+    "shape": "array",
+    "n": 23,
+    "keys": [
+     "broadcastDate",
+     "cgTimeStamp",
+     "countString",
+     "date",
+     "desc",
+     "employeeTrusts",
+     "format",
+     "index",
+     "industry",
+     "isin",
+     "name",
+     "newColumn",
+     "pr_and_prgrp",
+     "promoterDematNotes",
+     "publicShareholdingNotes",
+     "public_val",
+     "recordId",
+     "remarksWeb",
+     "revisedData",
+     "revisedDate",
+     "revisedRemark",
+     "revisedStatus",
+     "revisionDate",
+     "revisionRemark",
+     "shareholdingPatternNotes",
+     "submissionDate",
+     "symbol",
+     "systemDate",
+     "timeDifference",
+     "typeOfSubmission",
+     "underlyingDrs",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "broadcastDate": [
+      "2022-01-07",
+      "2026-10-21"
+     ],
+     "date": [
+      "2021-09-30",
+      "2026-09-30"
+     ],
+     "submissionDate": [
+      "2021-10-21",
+      "2026-10-21"
+     ],
+     "systemDate": [
+      "2023-04-20",
+      "2026-10-21"
+     ]
+    },
+    "sample": "{\"broadcastDate\":\"21-OCT-2026 16:25:15\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":null,\"name\":\"Reliance Industries Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"50.44\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"49.56\",\"recordId\":\"216074\",\"remarksWeb\":\"In accordance with the Secu"
+   },
+   "results_quarterly": {
+    "status": 200,
+    "bytes": 101760,
+    "shape": "array",
+    "n": 130,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2007-07-28",
+      "2025-01-16"
+     ],
+     "exchdisstime": [
+      "2013-04-17",
+      "2025-01-16"
+     ],
+     "filingDate": [
+      "2007-04-26",
+      "2025-01-16"
+     ],
+     "financialYear": [
+      "2010-04-01",
+      "2024-04-01"
+     ],
+     "fromDate": [
+      "2005-01-01",
+      "2024-10-01"
+     ],
+     "params": [
+      "2005-01-01",
+      "2024-10-01"
+     ],
+     "toDate": [
+      "2005-03-31",
+      "2024-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"16-Jan-2025 20:20:21\",\"companyName\":\"Reliance Industries Limited\",\"consolidated\":\"Non-Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:00:33\",\"exchdisstime\":\"16-Jan-2025 20:20:54\",\"filingDate\":\"16-Jan-2025 20:20\",\"financialYear\":\"01-Apr-2024 To 31-Mar-2025\",\"format\":\"New\",\"fromDate\":\"01-Oct-2024\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\",\"i"
+   },
+   "results_comparison": {
+    "status": 200,
+    "bytes": 14525,
+    "shape": "object:resCmpData,bankNonBnking"
+   },
+   "pit_symbol_5y": {
+    "status": 200,
+    "bytes": 14829,
+    "shape": "object:acqNameList,data",
+    "n": 18,
+    "keys": [
+     "acqMode",
+     "acqName",
+     "acqfromDt",
+     "acqtoDt",
+     "afterAcqSharesNo",
+     "afterAcqSharesPer",
+     "anex",
+     "befAcqSharesNo",
+     "befAcqSharesPer",
+     "buyQuantity",
+     "buyValue",
+     "company",
+     "date",
+     "derivativeType",
+     "did",
+     "exchange",
+     "intimDt",
+     "personCategory",
+     "pid",
+     "remarks",
+     "secAcq",
+     "secType",
+     "secVal",
+     "securitiesTypePost",
+     "sellValue",
+     "sellquantity",
+     "symbol",
+     "tdpDerivativeContractType",
+     "tdpTransactionType",
+     "tkdAcqm",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "acqfromDt": [
+      "2022-02-16",
+      "2026-02-13"
+     ],
+     "acqtoDt": [
+      "2022-02-16",
+      "2026-02-13"
+     ],
+     "date": [
+      "2022-02-18",
+      "2026-02-18"
+     ],
+     "intimDt": [
+      "2022-02-17",
+      "2026-02-16"
+     ]
+    },
+    "sample": "{\"acqMode\":\"Off Market\",\"acqName\":\"Shaila Narayan\",\"acqfromDt\":\"13-Feb-2026\",\"acqtoDt\":\"13-Feb-2026\",\"afterAcqSharesNo\":\"29620\",\"afterAcqSharesPer\":\"0\",\"anex\":\"7(2)\",\"befAcqSharesNo\":\"26500\",\"befAcqSharesPer\":\"0\",\"buyQuantity\":\"0\",\"buyValue\":\"0\",\"company\":\"Reliance Industries Limited\",\"date\":\"18-Feb-2026 19:06\",\"derivativeType\":\"-\",\"did\":\"563849\",\"exchange\":\"NA\",\"intimDt\":\"16-Feb-2026\",\"personCate"
+   },
+   "sast_pledge_a": {
+    "status": 200,
+    "bytes": 2975,
+    "shape": "object:acqNameList,data",
+    "n": 4,
+    "keys": [
+     "acqSaleType",
+     "acqType",
+     "acquirerDate",
+     "acquirerName",
+     "acquisitionMode",
+     "application_no",
+     "attachement",
+     "company",
+     "noOfShareAcq",
+     "noOfShareAft",
+     "noOfShareSale",
+     "promoterType",
+     "regType",
+     "remarks",
+     "symbol",
+     "sysTime",
+     "time",
+     "timeDifference",
+     "timestamp",
+     "totAcqDiluted",
+     "totAcqShare",
+     "totAftDiluted",
+     "totAftShare",
+     "totSaleDiluted",
+     "totSaleShare"
+    ],
+    "dates": {
+     "acquirerDate": [
+      "2023-05-18",
+      "2024-03-27"
+     ],
+     "sysTime": [
+      "2023-06-15",
+      "2024-04-01"
+     ],
+     "time": [
+      "2023-06-15",
+      "2024-04-01"
+     ],
+     "timestamp": [
+      "2023-06-15",
+      "2024-04-01"
+     ]
+    },
+    "sample": "{\"acqSaleType\":\"Sale\",\"acqType\":\"Equity shares\",\"acquirerDate\":\"27-MAR-2024 to 27-MAR-2024\",\"acquirerName\":\"SBICAP Trustee Company Limited\",\"acquisitionMode\":\"Others\",\"application_no\":\"131294\",\"attachement\":\"https://nsearchives.nseindia.com/corporate/RELIANCE_04012024122431_39887.zip\",\"company\":\"Reliance Industries Limited\",\"noOfShareAcq\":null,\"noOfShareAft\":\"0\",\"noOfShareSale\":\"5500\",\"promoterTyp"
+   },
+   "sast_pledge_b": {
+    "status": 404,
+    "bytes": 384,
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Resource not found</title>\n</head>\n<body style"
+   },
+   "pledged_data": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:comNameList,data",
+    "n": 0
+   },
+   "board_meetings": {
+    "status": 200,
+    "bytes": 16638,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bm_symbol",
+     "bm_date",
+     "bm_purpose",
+     "bm_desc",
+     "sm_indusrty",
+     "bm_timestamp",
+     "sm_name",
+     "sm_isin",
+     "diff",
+     "sysTime",
+     "attFileSize",
+     "attachment",
+     "intimationType",
+     "ixbrl",
+     "ixbrlFileSize",
+     "meetingType",
+     "oriiginalMeetingDate",
+     "proposedMeetingDate"
+    ],
+    "dates": {
+     "bm_date": [
+      "2024-09-05",
+      "2026-10-30"
+     ],
+     "bm_timestamp": [
+      "2024-08-29",
+      "2026-10-27"
+     ],
+     "sysTime": [
+      "2024-08-29",
+      "2026-10-27"
+     ]
+    },
+    "sample": "{\"bm_symbol\":\"RELIANCE\",\"bm_date\":\"30-Oct-2026\",\"bm_purpose\":\"Board Meeting Intimation\",\"bm_desc\":\"RELIANCE INDUSTRIES LIMITED has informed the Exchange about Board Meeting to be held on 30-Oct-2026 to consider and approve the Half Yearly Unaudited Financial results of the Company for the period ended September 2026 and Fund raising.\",\"sm_indusrty\":\"Refineries\",\"bm_timestamp\":\"27-Oct-2026 19:20:14"
+   },
+   "announcements": {
+    "status": 200,
+    "bytes": 3028603,
+    "shape": "array",
+    "n": 3375,
+    "keys": [
+     "an_dt",
+     "attFileSize",
+     "attchmntFile",
+     "attchmntText",
+     "bflag",
+     "csvName",
+     "desc",
+     "difference",
+     "dt",
+     "exchdisstime",
+     "fileSize",
+     "hasXbrl",
+     "old_new",
+     "orgid",
+     "seq_id",
+     "smIndustry",
+     "sm_isin",
+     "sm_name",
+     "sort_date",
+     "symbol",
+     "voiceSummary",
+     "voiceUrl"
+    ],
+    "dates": {
+     "an_dt": [
+      "2004-12-13",
+      "2026-11-06"
+     ],
+     "exchdisstime": [
+      "2020-08-05",
+      "2026-11-06"
+     ],
+     "sort_date": [
+      "2004-12-13",
+      "2026-11-06"
+     ]
+    },
+    "sample": "{\"an_dt\":\"06-Nov-2026 19:10:58\",\"attFileSize\":\"228.94 KB\",\"attchmntFile\":\"https://nsearchives.nseindia.com/corporate/kavinavora_06112026191022_Pre_CLSA_SE_06112026.pdf\",\"attchmntText\":\"Please note that the Company executives will be participating in the Institutional Investors' Meeting - CLSA India Forum, scheduled to be held on November 16, 2026 at Mumbai. It is expected that the meeting with the"
+   },
+   "corp_actions": {
+    "status": 200,
+    "bytes": 6072,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bcEndDate",
+     "bcStartDate",
+     "caBroadcastDate",
+     "comp",
+     "exDate",
+     "faceVal",
+     "ind",
+     "isin",
+     "ndEndDate",
+     "ndStartDate",
+     "recDate",
+     "series",
+     "subject",
+     "symbol"
+    ],
+    "dates": {
+     "bcEndDate": [
+      "2011-05-14",
+      "2015-05-15"
+     ],
+     "bcStartDate": [
+      "2011-05-09",
+      "2015-05-12"
+     ],
+     "exDate": [
+      "2011-05-05",
+      "2026-06-05"
+     ],
+     "recDate": [
+      "2016-03-18",
+      "2026-06-05"
+     ]
+    },
+    "sample": "{\"bcEndDate\":\"-\",\"bcStartDate\":\"-\",\"caBroadcastDate\":null,\"comp\":\"Reliance Industries Limited\",\"exDate\":\"05-Jun-2026\",\"faceVal\":\"10\",\"ind\":\"-\",\"isin\":\"INE002A01018\",\"ndEndDate\":\"-\",\"ndStartDate\":\"-\",\"recDate\":\"05-Jun-2026\",\"series\":\"EQ\",\"subject\":\"Dividend - Rs 6 Per Share\",\"symbol\":\"RELIANCE\"}"
+   }
+  },
+  "ADANIENT": {
+   "shareholding": {
+    "status": 200,
+    "bytes": 24530,
+    "shape": "array",
+    "n": 26,
+    "keys": [
+     "broadcastDate",
+     "cgTimeStamp",
+     "countString",
+     "date",
+     "desc",
+     "employeeTrusts",
+     "format",
+     "index",
+     "industry",
+     "isin",
+     "name",
+     "newColumn",
+     "pr_and_prgrp",
+     "promoterDematNotes",
+     "publicShareholdingNotes",
+     "public_val",
+     "recordId",
+     "remarksWeb",
+     "revisedData",
+     "revisedDate",
+     "revisedRemark",
+     "revisedStatus",
+     "revisionDate",
+     "revisionRemark",
+     "shareholdingPatternNotes",
+     "submissionDate",
+     "symbol",
+     "systemDate",
+     "timeDifference",
+     "typeOfSubmission",
+     "underlyingDrs",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "broadcastDate": [
+      "2022-01-06",
+      "2026-10-12"
+     ],
+     "date": [
+      "2015-12-31",
+      "2026-09-30"
+     ],
+     "revisionDate": [
+      "2017-01-06",
+      "2026-06-30"
+     ],
+     "submissionDate": [
+      "2016-01-20",
+      "2026-10-12"
+     ],
+     "systemDate": [
+      "2023-04-10",
+      "2026-10-12"
+     ]
+    },
+    "sample": "{\"broadcastDate\":\"12-OCT-2026 18:48:24\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"IN9423A01014\",\"name\":\"Adani Enterprises Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"71.97\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"28.03\",\"recordId\":\"213915\",\"remarksWeb\":\"In SBO for national"
+   },
+   "results_quarterly": {
+    "status": 200,
+    "bytes": 123492,
+    "shape": "array",
+    "n": 158,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2007-07-27",
+      "2025-01-31"
+     ],
+     "exchdisstime": [
+      "2013-05-23",
+      "2025-01-31"
+     ],
+     "filingDate": [
+      "2007-05-21",
+      "2025-01-31"
+     ],
+     "financialYear": [
+      "2009-04-01",
+      "2024-04-01"
+     ],
+     "fromDate": [
+      "2005-01-01",
+      "2024-10-01"
+     ],
+     "params": [
+      "2005-01-01",
+      "2024-10-01"
+     ],
+     "toDate": [
+      "2005-03-31",
+      "2024-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"31-Jan-2025 12:40:40\",\"companyName\":\"Adani Enterprises Limited\",\"consolidated\":\"Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:00:28\",\"exchdisstime\":\"31-Jan-2025 12:41:08\",\"filingDate\":\"31-Jan-2025 12:40\",\"financialYear\":\"01-Apr-2024 To 31-Mar-2025\",\"format\":\"New\",\"fromDate\":\"01-Oct-2024\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\",\"isin\":\""
+   },
+   "results_comparison": {
+    "status": 200,
+    "bytes": 9215,
+    "shape": "object:resCmpData,bankNonBnking"
+   },
+   "pit_symbol_5y": {
+    "status": 200,
+    "bytes": 15128,
+    "shape": "object:acqNameList,data",
+    "n": 18,
+    "keys": [
+     "acqMode",
+     "acqName",
+     "acqfromDt",
+     "acqtoDt",
+     "afterAcqSharesNo",
+     "afterAcqSharesPer",
+     "anex",
+     "befAcqSharesNo",
+     "befAcqSharesPer",
+     "buyQuantity",
+     "buyValue",
+     "company",
+     "date",
+     "derivativeType",
+     "did",
+     "exchange",
+     "intimDt",
+     "personCategory",
+     "pid",
+     "remarks",
+     "secAcq",
+     "secType",
+     "secVal",
+     "securitiesTypePost",
+     "sellValue",
+     "sellquantity",
+     "symbol",
+     "tdpDerivativeContractType",
+     "tdpTransactionType",
+     "tkdAcqm",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "acqfromDt": [
+      "2022-03-15",
+      "2022-09-28"
+     ],
+     "acqtoDt": [
+      "2022-03-15",
+      "2022-09-28"
+     ],
+     "date": [
+      "2022-03-17",
+      "2022-10-03"
+     ],
+     "intimDt": [
+      "2022-03-16",
+      "2022-09-29"
+     ]
+    },
+    "sample": "{\"acqMode\":\"Market Purchase\",\"acqName\":\"Spitze Trade and Investment Ltd\",\"acqfromDt\":\"28-Sep-2022\",\"acqtoDt\":\"28-Sep-2022\",\"afterAcqSharesNo\":\"3986000\",\"afterAcqSharesPer\":\"0.35\",\"anex\":\"7(2)\",\"befAcqSharesNo\":\"3650000\",\"befAcqSharesPer\":\"0.32\",\"buyQuantity\":\"0\",\"buyValue\":\"0\",\"company\":\"Adani Enterprises Limited\",\"date\":\"03-Oct-2022 18:53\",\"derivativeType\":\"-\",\"did\":\"443293\",\"exchange\":\"NSE\",\"int"
+   },
+   "sast_pledge_a": {
+    "status": 200,
+    "bytes": 10445,
+    "shape": "object:acqNameList,data",
+    "n": 13,
+    "keys": [
+     "acqSaleType",
+     "acqType",
+     "acquirerDate",
+     "acquirerName",
+     "acquisitionMode",
+     "application_no",
+     "attachement",
+     "company",
+     "noOfShareAcq",
+     "noOfShareAft",
+     "noOfShareSale",
+     "promoterType",
+     "regType",
+     "remarks",
+     "symbol",
+     "sysTime",
+     "time",
+     "timeDifference",
+     "timestamp",
+     "totAcqDiluted",
+     "totAcqShare",
+     "totAftDiluted",
+     "totAftShare",
+     "totSaleDiluted",
+     "totSaleShare"
+    ],
+    "dates": {
+     "acquirerDate": [
+      "2021-12-28",
+      "2024-12-05"
+     ],
+     "sysTime": [
+      "2023-03-06",
+      "2026-10-06"
+     ],
+     "time": [
+      "2021-12-29",
+      "2026-10-06"
+     ],
+     "timestamp": [
+      "2021-12-29",
+      "2026-10-06"
+     ]
+    },
+    "sample": "{\"acqSaleType\":\"Acquisition\",\"acqType\":\"Equity shares\",\"acquirerDate\":\"13-JUN-2024 to 25-SEP-2026\",\"acquirerName\":\"Emerging Market Investment FZCO\",\"acquisitionMode\":\"Open Market\",\"application_no\":\"178901\",\"attachement\":\"https://nsearchives.nseindia.com/corporate/ADANIENT_10062026120722_53790.zip\",\"company\":\"Adani Enterprises Limited\",\"noOfShareAcq\":\"19700040\",\"noOfShareAft\":\"974234554\",\"noOfShare"
+   },
+   "sast_pledge_b": {
+    "status": 404,
+    "bytes": 384,
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Resource not found</title>\n</head>\n<body style"
+   },
+   "pledged_data": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:comNameList,data",
+    "n": 0
+   },
+   "board_meetings": {
+    "status": 200,
+    "bytes": 15396,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bm_symbol",
+     "bm_date",
+     "bm_purpose",
+     "bm_desc",
+     "sm_indusrty",
+     "bm_timestamp",
+     "sm_name",
+     "sm_isin",
+     "diff",
+     "sysTime",
+     "attFileSize",
+     "attachment",
+     "intimationType",
+     "ixbrl",
+     "ixbrlFileSize",
+     "meetingType",
+     "oriiginalMeetingDate",
+     "proposedMeetingDate"
+    ],
+    "dates": {
+     "bm_date": [
+      "2025-07-31",
+      "2026-10-28"
+     ],
+     "bm_timestamp": [
+      "2025-07-26",
+      "2026-10-13"
+     ],
+     "sysTime": [
+      "2025-07-26",
+      "2026-10-13"
+     ]
+    },
+    "sample": "{\"bm_symbol\":\"ADANIENT\",\"bm_date\":\"28-Oct-2026\",\"bm_purpose\":\"Board Meeting Intimation\",\"bm_desc\":\"Adani Enterprises Limited has informed the Exchange about Board Meeting to be held on 28-Oct-2026 to inter-alia consider and approve the Unaudited Financial results of the Company for the Half Yearly ended September 2026 .\",\"sm_indusrty\":\"Trading\",\"bm_timestamp\":\"13-Oct-2026 17:11:42\",\"sm_name\":\"Adan"
+   },
+   "announcements": {
+    "status": 200,
+    "bytes": 1195869,
+    "shape": "array",
+    "n": 1548,
+    "keys": [
+     "an_dt",
+     "attFileSize",
+     "attchmntFile",
+     "attchmntText",
+     "bflag",
+     "csvName",
+     "desc",
+     "difference",
+     "dt",
+     "exchdisstime",
+     "fileSize",
+     "hasXbrl",
+     "old_new",
+     "orgid",
+     "seq_id",
+     "smIndustry",
+     "sm_isin",
+     "sm_name",
+     "sort_date",
+     "symbol",
+     "voiceSummary",
+     "voiceUrl"
+    ],
+    "dates": {
+     "an_dt": [
+      "2004-09-30",
+      "2026-11-06"
+     ],
+     "exchdisstime": [
+      "2020-08-06",
+      "2026-11-06"
+     ],
+     "sort_date": [
+      "2004-09-30",
+      "2026-11-06"
+     ]
+    },
+    "sample": "{\"an_dt\":\"06-Nov-2026 12:17:22\",\"attFileSize\":\"386.86 KB\",\"attchmntFile\":\"https://nsearchives.nseindia.com/corporate/nishant_joshi_adani_com_06112026121716_AELIntimationVizagMegaDataCenterParkLimited06112026.pdf\",\"attchmntText\":\"Adani Enterprises Limited has informed the Exchange about signing of Share Purchase Agreement between AdaniConneX Private Limited, a joint venture of the Company with Adan"
+   },
+   "corp_actions": {
+    "status": 200,
+    "bytes": 6149,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bcEndDate",
+     "bcStartDate",
+     "caBroadcastDate",
+     "comp",
+     "exDate",
+     "faceVal",
+     "ind",
+     "isin",
+     "ndEndDate",
+     "ndStartDate",
+     "recDate",
+     "series",
+     "subject",
+     "symbol"
+    ],
+    "dates": {
+     "bcEndDate": [
+      "2013-08-08",
+      "2020-06-26"
+     ],
+     "bcStartDate": [
+      "2013-08-01",
+      "2020-06-19"
+     ],
+     "exDate": [
+      "2013-07-30",
+      "2026-06-12"
+     ],
+     "recDate": [
+      "2015-06-04",
+      "2026-06-12"
+     ]
+    },
+    "sample": "{\"bcEndDate\":\"-\",\"bcStartDate\":\"-\",\"caBroadcastDate\":null,\"comp\":\"Adani Enterprises Limited\",\"exDate\":\"12-Jun-2026\",\"faceVal\":\"1\",\"ind\":\"-\",\"isin\":\"INE423A01024\",\"ndEndDate\":\"-\",\"ndStartDate\":\"-\",\"recDate\":\"12-Jun-2026\",\"series\":\"EQ\",\"subject\":\"Dividend - Rs 1.30 Per Share\",\"symbol\":\"ADANIENT\"}"
+   }
+  },
+  "KPITTECH": {
+   "shareholding": {
+    "status": 200,
+    "bytes": 18049,
+    "shape": "array",
+    "n": 21,
+    "keys": [
+     "broadcastDate",
+     "cgTimeStamp",
+     "countString",
+     "date",
+     "desc",
+     "employeeTrusts",
+     "format",
+     "index",
+     "industry",
+     "isin",
+     "name",
+     "newColumn",
+     "pr_and_prgrp",
+     "promoterDematNotes",
+     "publicShareholdingNotes",
+     "public_val",
+     "recordId",
+     "remarksWeb",
+     "revisedData",
+     "revisedDate",
+     "revisedRemark",
+     "revisedStatus",
+     "revisionDate",
+     "revisionRemark",
+     "shareholdingPatternNotes",
+     "submissionDate",
+     "symbol",
+     "systemDate",
+     "timeDifference",
+     "typeOfSubmission",
+     "underlyingDrs",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "broadcastDate": [
+      "2022-01-06",
+      "2026-10-15"
+     ],
+     "date": [
+      "2021-09-30",
+      "2026-09-30"
+     ],
+     "revisionDate": [
+      "2023-01-30",
+      "2026-09-17"
+     ],
+     "submissionDate": [
+      "2021-10-13",
+      "2026-10-15"
+     ],
+     "systemDate": [
+      "2023-04-10",
+      "2026-10-15"
+     ]
+    },
+    "sample": "{\"broadcastDate\":\"15-OCT-2026 18:07:16\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0.58\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE04I401011\",\"name\":\"KPIT Technologies Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"38.6\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"60.82\",\"recordId\":\"214717\",\"remarksWeb\":\"Following the dem"
+   },
+   "results_quarterly": {
+    "status": 200,
+    "bytes": 35885,
+    "shape": "array",
+    "n": 47,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2019-05-16",
+      "2025-01-29"
+     ],
+     "exchdisstime": [
+      "2019-05-16",
+      "2025-01-29"
+     ],
+     "filingDate": [
+      "2019-05-16",
+      "2025-01-29"
+     ],
+     "financialYear": [
+      "2018-04-01",
+      "2024-04-01"
+     ],
+     "fromDate": [
+      "2019-01-01",
+      "2024-10-01"
+     ],
+     "params": [
+      "2019-01-01",
+      "2024-10-01"
+     ],
+     "toDate": [
+      "2019-03-31",
+      "2024-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"29-Jan-2025 16:36:47\",\"companyName\":\"KPIT Technologies Limited\",\"consolidated\":\"Non-Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:00:18\",\"exchdisstime\":\"29-Jan-2025 16:37:05\",\"filingDate\":\"29-Jan-2025 16:36\",\"financialYear\":\"01-Apr-2024 To 31-Mar-2025\",\"format\":\"New\",\"fromDate\":\"01-Oct-2024\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\",\"isi"
+   },
+   "results_comparison": {
+    "status": 200,
+    "bytes": 9107,
+    "shape": "object:resCmpData,bankNonBnking"
+   },
+   "pit_symbol_5y": {
+    "status": 200,
+    "bytes": 439320,
+    "shape": "object:acqNameList,data",
+    "n": 532,
+    "keys": [
+     "acqMode",
+     "acqName",
+     "acqfromDt",
+     "acqtoDt",
+     "afterAcqSharesNo",
+     "afterAcqSharesPer",
+     "anex",
+     "befAcqSharesNo",
+     "befAcqSharesPer",
+     "buyQuantity",
+     "buyValue",
+     "company",
+     "date",
+     "derivativeType",
+     "did",
+     "exchange",
+     "intimDt",
+     "personCategory",
+     "pid",
+     "remarks",
+     "secAcq",
+     "secType",
+     "secVal",
+     "securitiesTypePost",
+     "sellValue",
+     "sellquantity",
+     "symbol",
+     "tdpDerivativeContractType",
+     "tdpTransactionType",
+     "tkdAcqm",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "acqfromDt": [
+      "2021-11-09",
+      "2026-03-30"
+     ],
+     "acqtoDt": [
+      "2021-11-10",
+      "2026-03-30"
+     ],
+     "date": [
+      "2021-11-12",
+      "2026-04-02"
+     ],
+     "intimDt": [
+      "2021-11-10",
+      "2026-03-31"
+     ]
+    },
+    "sample": "{\"acqMode\":\"ESOP\",\"acqName\":\"KPIT TECHNOLOGIES LIMITED EMPLOYEES WELFARE TRUST\",\"acqfromDt\":\"30-Mar-2026\",\"acqtoDt\":\"30-Mar-2026\",\"afterAcqSharesNo\":\"1916589\",\"afterAcqSharesPer\":\"0.7\",\"anex\":\"7(2)\",\"befAcqSharesNo\":\"1916889\",\"befAcqSharesPer\":\"0.7\",\"buyQuantity\":\"0\",\"buyValue\":\"0\",\"company\":\"KPIT Technologies Limited\",\"date\":\"02-Apr-2026 16:44\",\"derivativeType\":\"-\",\"did\":\"569962\",\"exchange\":\"NA\","
+   },
+   "sast_pledge_a": {
+    "status": 200,
+    "bytes": 14337,
+    "shape": "object:acqNameList,data",
+    "n": 20,
+    "keys": [
+     "acqSaleType",
+     "acqType",
+     "acquirerDate",
+     "acquirerName",
+     "acquisitionMode",
+     "application_no",
+     "attachement",
+     "company",
+     "noOfShareAcq",
+     "noOfShareAft",
+     "noOfShareSale",
+     "promoterType",
+     "regType",
+     "remarks",
+     "symbol",
+     "sysTime",
+     "time",
+     "timeDifference",
+     "timestamp",
+     "totAcqDiluted",
+     "totAcqShare",
+     "totAftDiluted",
+     "totAftShare",
+     "totSaleDiluted",
+     "totSaleShare"
+    ],
+    "dates": {
+     "acquirerDate": [
+      "2021-12-13",
+      "2026-03-11"
+     ],
+     "sysTime": [
+      "2023-02-09",
+      "2026-03-17"
+     ],
+     "time": [
+      "2021-12-15",
+      "2026-03-17"
+     ],
+     "timestamp": [
+      "2021-12-15",
+      "2026-03-17"
+     ]
+    },
+    "sample": "{\"acqSaleType\":\"Sale\",\"acqType\":\"Equity shares\",\"acquirerDate\":\"11-MAR-2026 to 11-MAR-2026\",\"acquirerName\":\"Ms. Hemlata Shende\",\"acquisitionMode\":\"Open Market\",\"application_no\":\"166597\",\"attachement\":\"https://nsearchives.nseindia.com/corporate/KPIT_SAST_03172026175553_50318.zip\",\"company\":\"KPIT Technologies Limited\",\"noOfShareAcq\":null,\"noOfShareAft\":\"8000\",\"noOfShareSale\":\"2000\",\"promoterType\":\"Y"
+   },
+   "sast_pledge_b": {
+    "status": 404,
+    "bytes": 384,
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Resource not found</title>\n</head>\n<body style"
+   },
+   "pledged_data": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:comNameList,data",
+    "n": 0
+   },
+   "board_meetings": {
+    "status": 200,
+    "bytes": 15430,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bm_symbol",
+     "bm_date",
+     "bm_purpose",
+     "bm_desc",
+     "sm_indusrty",
+     "bm_timestamp",
+     "sm_name",
+     "sm_isin",
+     "diff",
+     "sysTime",
+     "attFileSize",
+     "attachment",
+     "intimationType",
+     "ixbrl",
+     "ixbrlFileSize",
+     "meetingType",
+     "oriiginalMeetingDate",
+     "proposedMeetingDate"
+    ],
+    "dates": {
+     "bm_date": [
+      "2025-01-29",
+      "2026-10-28"
+     ],
+     "bm_timestamp": [
+      "2025-01-22",
+      "2026-10-15"
+     ],
+     "sysTime": [
+      "2025-01-22",
+      "2026-10-15"
+     ]
+    },
+    "sample": "{\"bm_symbol\":\"KPITTECH\",\"bm_date\":\"28-Oct-2026\",\"bm_purpose\":\"Board Meeting Intimation\",\"bm_desc\":\"KPIT TECHNOLOGIES LIMITED has informed the Exchange about Board Meeting to be held on 28-Oct-2026 to inter-alia consider and approve the Unaudited Financial results of the Company for the Half Yearly ended September 2026 .\",\"sm_indusrty\":\"-\",\"bm_timestamp\":\"15-Oct-2026 16:55:25\",\"sm_name\":\"KPIT Techn"
+   },
+   "announcements": {
+    "status": 200,
+    "bytes": 553085,
+    "shape": "array",
+    "n": 723,
+    "keys": [
+     "an_dt",
+     "attFileSize",
+     "attchmntFile",
+     "attchmntText",
+     "bflag",
+     "csvName",
+     "desc",
+     "difference",
+     "dt",
+     "exchdisstime",
+     "fileSize",
+     "hasXbrl",
+     "old_new",
+     "orgid",
+     "seq_id",
+     "smIndustry",
+     "sm_isin",
+     "sm_name",
+     "sort_date",
+     "symbol",
+     "voiceSummary",
+     "voiceUrl"
+    ],
+    "dates": {
+     "an_dt": [
+      "2019-04-22",
+      "2026-11-03"
+     ],
+     "exchdisstime": [
+      "2020-08-03",
+      "2026-11-03"
+     ],
+     "sort_date": [
+      "2019-04-22",
+      "2026-11-03"
+     ]
+    },
+    "sample": "{\"an_dt\":\"03-Nov-2026 22:39:48\",\"attFileSize\":\"221.48 KB\",\"attchmntFile\":\"https://nsearchives.nseindia.com/corporate/KPITTECH_03112026223157_KPIT_RTA_change_in_Corporate_office_S.pdf\",\"attchmntText\":\"KPIT Technologies Limited has informed the Exchange regarding 'change in the address of the Corporate Office of the KFin Technologies Limited, Registrar and Share Transfer Agent with effect from Decem"
+   },
+   "corp_actions": {
+    "status": 200,
+    "bytes": 4258,
+    "shape": "array",
+    "n": 14,
+    "keys": [
+     "bcEndDate",
+     "bcStartDate",
+     "caBroadcastDate",
+     "comp",
+     "exDate",
+     "faceVal",
+     "ind",
+     "isin",
+     "ndEndDate",
+     "ndStartDate",
+     "recDate",
+     "series",
+     "subject",
+     "symbol"
+    ],
+    "dates": {
+     "exDate": [
+      "2019-08-20",
+      "2026-08-12"
+     ],
+     "recDate": [
+      "2019-08-21",
+      "2026-08-12"
+     ]
+    },
+    "sample": "{\"bcEndDate\":\"-\",\"bcStartDate\":\"-\",\"caBroadcastDate\":null,\"comp\":\"KPIT Technologies Limited\",\"exDate\":\"12-Aug-2026\",\"faceVal\":\"10\",\"ind\":\"-\",\"isin\":\"INE04I401011\",\"ndEndDate\":\"-\",\"ndStartDate\":\"-\",\"recDate\":\"12-Aug-2026\",\"series\":\"EQ\",\"subject\":\"Dividend - Rs 5.25 Per Share\",\"symbol\":\"KPITTECH\"}"
+   }
+  },
+  "JPPOWER": {
+   "shareholding": {
+    "status": 200,
+    "bytes": 49720,
+    "shape": "array",
+    "n": 21,
+    "keys": [
+     "broadcastDate",
+     "cgTimeStamp",
+     "countString",
+     "date",
+     "desc",
+     "employeeTrusts",
+     "format",
+     "index",
+     "industry",
+     "isin",
+     "name",
+     "newColumn",
+     "pr_and_prgrp",
+     "promoterDematNotes",
+     "publicShareholdingNotes",
+     "public_val",
+     "recordId",
+     "remarksWeb",
+     "revisedData",
+     "revisedDate",
+     "revisedRemark",
+     "revisedStatus",
+     "revisionDate",
+     "revisionRemark",
+     "shareholdingPatternNotes",
+     "submissionDate",
+     "symbol",
+     "systemDate",
+     "timeDifference",
+     "typeOfSubmission",
+     "underlyingDrs",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "broadcastDate": [
+      "2022-01-06",
+      "2026-10-21"
+     ],
+     "date": [
+      "2021-09-30",
+      "2026-09-30"
+     ],
+     "revisionDate": [
+      "2024-05-17",
+      "2024-05-17"
+     ],
+     "submissionDate": [
+      "2021-10-13",
+      "2026-10-21"
+     ],
+     "systemDate": [
+      "2023-04-10",
+      "2026-10-21"
+     ]
+    },
+    "sample": "{\"broadcastDate\":\"21-OCT-2026 15:08:01\",\"cgTimeStamp\":null,\"countString\":null,\"date\":\"30-SEP-2026\",\"desc\":\"NEW_1\",\"employeeTrusts\":\"0\",\"format\":null,\"index\":\"-\",\"industry\":\"-\",\"isin\":\"INE351F01018\",\"name\":\"Jaiprakash Power Ventures Limited\",\"newColumn\":true,\"pr_and_prgrp\":\"24\",\"promoterDematNotes\":\"\",\"publicShareholdingNotes\":\"\",\"public_val\":\"76\",\"recordId\":\"216011\",\"remarksWeb\":\"N\",\"revisedData\":"
+   },
+   "results_quarterly": {
+    "status": 200,
+    "bytes": 82151,
+    "shape": "array",
+    "n": 105,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2007-07-27",
+      "2025-02-01"
+     ],
+     "exchdisstime": [
+      "2013-04-30",
+      "2025-02-01"
+     ],
+     "filingDate": [
+      "2007-04-23",
+      "2025-02-01"
+     ],
+     "financialYear": [
+      "2010-04-01",
+      "2024-04-01"
+     ],
+     "fromDate": [
+      "2005-04-01",
+      "2024-10-01"
+     ],
+     "params": [
+      "2005-04-01",
+      "2024-10-01"
+     ],
+     "toDate": [
+      "2005-06-30",
+      "2024-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"01-Feb-2025 16:00:44\",\"companyName\":\"Jaiprakash Power Ventures Limited\",\"consolidated\":\"Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:00:36\",\"exchdisstime\":\"01-Feb-2025 16:01:20\",\"filingDate\":\"01-Feb-2025 16:00\",\"financialYear\":\"01-Apr-2024 To 31-Mar-2025\",\"format\":\"New\",\"fromDate\":\"01-Oct-2024\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\","
+   },
+   "results_comparison": {
+    "status": 200,
+    "bytes": 9048,
+    "shape": "object:resCmpData,bankNonBnking"
+   },
+   "pit_symbol_5y": {
+    "status": 200,
+    "bytes": 2499,
+    "shape": "object:acqNameList,data",
+    "n": 3,
+    "keys": [
+     "acqMode",
+     "acqName",
+     "acqfromDt",
+     "acqtoDt",
+     "afterAcqSharesNo",
+     "afterAcqSharesPer",
+     "anex",
+     "befAcqSharesNo",
+     "befAcqSharesPer",
+     "buyQuantity",
+     "buyValue",
+     "company",
+     "date",
+     "derivativeType",
+     "did",
+     "exchange",
+     "intimDt",
+     "personCategory",
+     "pid",
+     "remarks",
+     "secAcq",
+     "secType",
+     "secVal",
+     "securitiesTypePost",
+     "sellValue",
+     "sellquantity",
+     "symbol",
+     "tdpDerivativeContractType",
+     "tdpTransactionType",
+     "tkdAcqm",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "acqfromDt": [
+      "2022-03-31",
+      "2023-12-04"
+     ],
+     "acqtoDt": [
+      "2022-03-31",
+      "2023-12-05"
+     ],
+     "date": [
+      "2022-04-04",
+      "2023-12-06"
+     ],
+     "intimDt": [
+      "2022-04-04",
+      "2023-12-06"
+     ]
+    },
+    "sample": "{\"acqMode\":\"Market Sale\",\"acqName\":\"Urvashi Gaur\",\"acqfromDt\":\"04-Dec-2023\",\"acqtoDt\":\"05-Dec-2023\",\"afterAcqSharesNo\":\"112000\",\"afterAcqSharesPer\":\"0\",\"anex\":\"7(3)\",\"befAcqSharesNo\":\"312000\",\"befAcqSharesPer\":\"0\",\"buyQuantity\":\"0\",\"buyValue\":\"0\",\"company\":\"Jaiprakash Power Ventures Limited\",\"date\":\"06-Dec-2023 16:55\",\"derivativeType\":\"-\",\"did\":\"488073\",\"exchange\":\"NSE\",\"intimDt\":\"06-Dec-2023\",\"pe"
+   },
+   "sast_pledge_a": {
+    "status": 200,
+    "bytes": 5629,
+    "shape": "object:acqNameList,data",
+    "n": 7,
+    "keys": [
+     "acqSaleType",
+     "acqType",
+     "acquirerDate",
+     "acquirerName",
+     "acquisitionMode",
+     "application_no",
+     "attachement",
+     "company",
+     "noOfShareAcq",
+     "noOfShareAft",
+     "noOfShareSale",
+     "promoterType",
+     "regType",
+     "remarks",
+     "symbol",
+     "sysTime",
+     "time",
+     "timeDifference",
+     "timestamp",
+     "totAcqDiluted",
+     "totAcqShare",
+     "totAftDiluted",
+     "totAftShare",
+     "totSaleDiluted",
+     "totSaleShare"
+    ],
+    "dates": {
+     "acquirerDate": [
+      "2022-02-15",
+      "2026-07-03"
+     ],
+     "sysTime": [
+      "2026-05-20",
+      "2026-07-08"
+     ],
+     "time": [
+      "2022-03-29",
+      "2026-07-08"
+     ],
+     "timestamp": [
+      "2022-03-29",
+      "2026-07-08"
+     ]
+    },
+    "sample": "{\"acqSaleType\":\"Sale\",\"acqType\":\"Equity shares\",\"acquirerDate\":\"03-JUL-2026 to 03-JUL-2026\",\"acquirerName\":\"ICICI Bank Ltd\",\"acquisitionMode\":\"Open Market\",\"application_no\":\"173523\",\"attachement\":\"https://nsearchives.nseindia.com/corporate/JPPOWER_07082026153438_52245.zip\",\"company\":\"Jaiprakash Power Ventures Limited\",\"noOfShareAcq\":null,\"noOfShareAft\":\"301861064\",\"noOfShareSale\":\"138000000\",\"prom"
+   },
+   "sast_pledge_b": {
+    "status": 404,
+    "bytes": 384,
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Resource not found</title>\n</head>\n<body style"
+   },
+   "pledged_data": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:comNameList,data",
+    "n": 0
+   },
+   "board_meetings": {
+    "status": 200,
+    "bytes": 15460,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bm_symbol",
+     "bm_date",
+     "bm_purpose",
+     "bm_desc",
+     "sm_indusrty",
+     "bm_timestamp",
+     "sm_name",
+     "sm_isin",
+     "diff",
+     "sysTime",
+     "attFileSize",
+     "attachment",
+     "intimationType",
+     "ixbrl",
+     "ixbrlFileSize",
+     "meetingType",
+     "oriiginalMeetingDate",
+     "proposedMeetingDate"
+    ],
+    "dates": {
+     "bm_date": [
+      "2024-07-27",
+      "2026-10-19"
+     ],
+     "bm_timestamp": [
+      "2024-07-20",
+      "2026-10-05"
+     ],
+     "sysTime": [
+      "2024-07-20",
+      "2026-10-05"
+     ]
+    },
+    "sample": "{\"bm_symbol\":\"JPPOWER\",\"bm_date\":\"19-Oct-2026\",\"bm_purpose\":\"Board Meeting Intimation\",\"bm_desc\":\"JAIPRAKASH POWER VENTURES LIMITED has informed the Exchange about Board Meeting to be held on 19-Oct-2026 to inter-alia consider and approve the Unaudited Financial results of the Company for the Quarterly ended September 2026 .\",\"sm_indusrty\":\"Power\",\"bm_timestamp\":\"05-Oct-2026 19:00:57\",\"sm_name\":\"J"
+   },
+   "announcements": {
+    "status": 200,
+    "bytes": 526010,
+    "shape": "array",
+    "n": 640,
+    "keys": [
+     "an_dt",
+     "attFileSize",
+     "attchmntFile",
+     "attchmntText",
+     "bflag",
+     "csvName",
+     "desc",
+     "difference",
+     "dt",
+     "exchdisstime",
+     "fileSize",
+     "hasXbrl",
+     "old_new",
+     "orgid",
+     "seq_id",
+     "smIndustry",
+     "sm_isin",
+     "sm_name",
+     "sort_date",
+     "symbol",
+     "voiceSummary",
+     "voiceUrl"
+    ],
+    "dates": {
+     "an_dt": [
+      "2005-06-28",
+      "2026-11-06"
+     ],
+     "exchdisstime": [
+      "2020-08-08",
+      "2026-11-06"
+     ],
+     "sort_date": [
+      "2005-06-28",
+      "2026-11-06"
+     ]
+    },
+    "sample": "{\"an_dt\":\"06-Nov-2026 18:24:53\",\"attFileSize\":\"413.11 KB\",\"attchmntFile\":\"https://nsearchives.nseindia.com/corporate/JPPOWER_06112026182433_Intimation.pdf\",\"attchmntText\":\"Jaiprakash Power Ventures Limited has informed the Exchange regarding Cessation of Mr Sudhir Mital  as Non- Executive Independent Director of the company w.e.f. November 06, 2026.\",\"bflag\":null,\"csvName\":null,\"desc\":\"Cessation\","
+   },
+   "corp_actions": {
+    "status": 200,
+    "bytes": 6149,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bcEndDate",
+     "bcStartDate",
+     "caBroadcastDate",
+     "comp",
+     "exDate",
+     "faceVal",
+     "ind",
+     "isin",
+     "ndEndDate",
+     "ndStartDate",
+     "recDate",
+     "series",
+     "subject",
+     "symbol"
+    ],
+    "dates": {
+     "bcEndDate": [
+      "2007-08-11",
+      "2024-09-02"
+     ],
+     "bcStartDate": [
+      "2007-08-07",
+      "2024-08-27"
+     ],
+     "exDate": [
+      "2007-08-03",
+      "2024-08-26"
+     ],
+     "recDate": [
+      "2007-09-12",
+      "2008-10-31"
+     ]
+    },
+    "sample": "{\"bcEndDate\":\"02-Sep-2024\",\"bcStartDate\":\"27-Aug-2024\",\"caBroadcastDate\":null,\"comp\":\"Jaiprakash Power Ventures Limited\",\"exDate\":\"26-Aug-2024\",\"faceVal\":\"10\",\"ind\":\"-\",\"isin\":\"INE351F01018\",\"ndEndDate\":\"-\",\"ndStartDate\":\"-\",\"recDate\":\"-\",\"series\":\"EQ\",\"subject\":\"Annual General Meeting\",\"symbol\":\"JPPOWER\"}"
+   }
+  },
+  "DHFL": {
+   "shareholding": {
+    "status": 200,
+    "bytes": 2,
+    "shape": "array",
+    "n": 0
+   },
+   "results_quarterly": {
+    "status": 200,
+    "bytes": 57337,
+    "shape": "array",
+    "n": 73,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2007-07-23",
+      "2021-06-07"
+     ],
+     "exchdisstime": [
+      "2013-05-10",
+      "2021-06-16"
+     ],
+     "filingDate": [
+      "2007-05-15",
+      "2021-06-07"
+     ],
+     "financialYear": [
+      "2009-04-01",
+      "2020-04-01"
+     ],
+     "fromDate": [
+      "2005-01-01",
+      "2021-01-01"
+     ],
+     "params": [
+      "2005-01-01",
+      "2021-01-01"
+     ],
+     "toDate": [
+      "2005-03-31",
+      "2021-03-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Audited\",\"bank\":\"N\",\"broadCastDate\":\"07-Jun-2021 00:06:49\",\"companyName\":\"Dewan Housing Finance Corporation Limited\",\"consolidated\":\"Non-Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"233:26:52\",\"exchdisstime\":\"16-Jun-2021 17:33:41\",\"filingDate\":\"07-Jun-2021 00:06\",\"financialYear\":\"01-Apr-2020 To 31-Mar-2021\",\"format\":\"New\",\"fromDate\":\"01-Jan-2021\",\"indAs\":\"Ind-AS New\",\"indu"
+   },
+   "results_comparison": {
+    "status": 200,
+    "bytes": 10269,
+    "shape": "object:resCmpData,bankNonBnking"
+   },
+   "pit_symbol_5y": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:acqNameList,data",
+    "n": 0
+   },
+   "sast_pledge_a": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:acqNameList,data",
+    "n": 0
+   },
+   "sast_pledge_b": {
+    "status": 404,
+    "bytes": 384,
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Resource not found</title>\n</head>\n<body style"
+   },
+   "pledged_data": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:comNameList,data",
+    "n": 0
+   },
+   "board_meetings": {
+    "status": 200,
+    "bytes": 13014,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bm_symbol",
+     "bm_date",
+     "bm_purpose",
+     "bm_desc",
+     "sm_indusrty",
+     "bm_timestamp",
+     "sm_name",
+     "sm_isin",
+     "diff",
+     "sysTime",
+     "attFileSize",
+     "attachment",
+     "intimationType",
+     "ixbrl",
+     "ixbrlFileSize",
+     "meetingType",
+     "oriiginalMeetingDate",
+     "proposedMeetingDate"
+    ],
+    "dates": {
+     "bm_date": [
+      "2020-06-20",
+      "2021-08-13"
+     ],
+     "bm_timestamp": [
+      "2020-06-16",
+      "2021-08-07"
+     ],
+     "sysTime": [
+      "2020-06-16",
+      "2021-08-07"
+     ]
+    },
+    "sample": "{\"bm_symbol\":\"DHFL\",\"bm_date\":\"13-Aug-2021\",\"bm_purpose\":\"Financial Results\",\"bm_desc\":\"To consider and approve the financial results for the period ended Jun 30, 2021\",\"sm_indusrty\":\"Finance - Housing\",\"bm_timestamp\":\"07-Aug-2021 21:31:00\",\"sm_name\":\"Dewan Housing Finance Corporation Limited\",\"sm_isin\":\"INE202B01012\",\"diff\":\"00:02:01\",\"sysTime\":\"07-Aug-2021 21:33:01\",\"attFileSize\":null,\"attachmen"
+   },
+   "announcements": {
+    "status": 200,
+    "bytes": 1102194,
+    "shape": "array",
+    "n": 1276,
+    "keys": [
+     "an_dt",
+     "attFileSize",
+     "attchmntFile",
+     "attchmntText",
+     "bflag",
+     "csvName",
+     "desc",
+     "difference",
+     "dt",
+     "exchdisstime",
+     "fileSize",
+     "hasXbrl",
+     "old_new",
+     "orgid",
+     "seq_id",
+     "smIndustry",
+     "sm_isin",
+     "sm_name",
+     "sort_date",
+     "symbol",
+     "voiceSummary",
+     "voiceUrl"
+    ],
+    "dates": {
+     "an_dt": [
+      "2004-09-20",
+      "2021-09-29"
+     ],
+     "exchdisstime": [
+      "2020-08-03",
+      "2021-09-29"
+     ],
+     "sort_date": [
+      "2004-09-20",
+      "2021-09-29"
+     ]
+    },
+    "sample": "{\"an_dt\":\"29-Sep-2021 22:08:00\",\"attFileSize\":null,\"attchmntFile\":\"-\",\"attchmntText\":\"Members of the Exchange are hereby informed that the admission to dealings in securities of Dewan Housing Finance Corporation Limited is withdrawn (delisted) Pursuant to Resolution plan Approved by Hon'ble National Company Law Tribunal (NCLT) Under Section 31 of the Insolvency and Bankruptcy Code (IBC), 2016.\",\"b"
+   },
+   "corp_actions": {
+    "status": 200,
+    "bytes": 6540,
+    "shape": "array",
+    "n": 20,
+    "keys": [
+     "bcEndDate",
+     "bcStartDate",
+     "caBroadcastDate",
+     "comp",
+     "exDate",
+     "faceVal",
+     "ind",
+     "isin",
+     "ndEndDate",
+     "ndStartDate",
+     "recDate",
+     "series",
+     "subject",
+     "symbol"
+    ],
+    "dates": {
+     "bcEndDate": [
+      "2009-07-28",
+      "2020-09-30"
+     ],
+     "bcStartDate": [
+      "2009-07-20",
+      "2020-09-23"
+     ],
+     "exDate": [
+      "2009-07-16",
+      "2020-09-21"
+     ],
+     "recDate": [
+      "2012-11-03",
+      "2017-10-28"
+     ]
+    },
+    "sample": "{\"bcEndDate\":\"30-Sep-2020\",\"bcStartDate\":\"23-Sep-2020\",\"caBroadcastDate\":null,\"comp\":\"Dewan Housing Finance Corporation Limited\",\"exDate\":\"21-Sep-2020\",\"faceVal\":\"10\",\"ind\":\"-\",\"isin\":\"INE202B01012\",\"ndEndDate\":\"-\",\"ndStartDate\":\"-\",\"recDate\":\"-\",\"series\":\"EQ\",\"subject\":\" Annual General Meeting\",\"symbol\":\"DHFL\"}"
+   }
+  },
+  "wide": {
+   "pit_all_30d": {
+    "status": 200,
+    "bytes": 28,
+    "shape": "object:acqNameList,data",
+    "n": 0
+   },
+   "pit_all_2019": {
+    "status": 200,
+    "bytes": 11369002,
+    "shape": "object:acqNameList,data",
+    "n": 13802,
+    "keys": [
+     "acqMode",
+     "acqName",
+     "acqfromDt",
+     "acqtoDt",
+     "afterAcqSharesNo",
+     "afterAcqSharesPer",
+     "anex",
+     "befAcqSharesNo",
+     "befAcqSharesPer",
+     "buyQuantity",
+     "buyValue",
+     "company",
+     "date",
+     "derivativeType",
+     "did",
+     "exchange",
+     "intimDt",
+     "personCategory",
+     "pid",
+     "remarks",
+     "secAcq",
+     "secType",
+     "secVal",
+     "securitiesTypePost",
+     "sellValue",
+     "sellquantity",
+     "symbol",
+     "tdpDerivativeContractType",
+     "tdpTransactionType",
+     "tkdAcqm",
+     "xbrl",
+     "xbrlFileSize"
+    ],
+    "dates": {
+     "acqfromDt": [
+      "2016-10-03",
+      "2019-03-30"
+     ],
+     "acqtoDt": [
+      "2016-10-05",
+      "2019-03-30"
+     ],
+     "date": [
+      "2019-01-01",
+      "2019-03-30"
+     ],
+     "intimDt": [
+      "2018-01-04",
+      "2019-03-30"
+     ]
+    },
+    "sample": "{\"acqMode\":\"Others\",\"acqName\":\"CLEAR WEALTH CONSULTANCY SERVICES LLP\",\"acqfromDt\":\"28-Mar-2019\",\"acqtoDt\":\"28-Mar-2019\",\"afterAcqSharesNo\":\"13955957\",\"afterAcqSharesPer\":\"32.60\",\"anex\":\"7(2)\",\"befAcqSharesNo\":\"13955957\",\"befAcqSharesPer\":\"32.6\",\"buyQuantity\":\"0\",\"buyValue\":\"0\",\"company\":\"Gokaldas Exports Limited\",\"date\":\"30-Mar-2019 21:09\",\"derivativeType\":\"-\",\"did\":\"233983\",\"exchange\":\"NA\",\"intim"
+   },
+   "results_all_quarterly": {
+    "status": 200,
+    "bytes": 2910904,
+    "shape": "array",
+    "n": 3816,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2025-01-07",
+      "2026-07-30"
+     ],
+     "exchdisstime": [
+      "2025-01-07",
+      "2026-07-30"
+     ],
+     "filingDate": [
+      "2025-01-07",
+      "2026-07-30"
+     ],
+     "financialYear": [
+      "2024-01-01",
+      "2024-10-01"
+     ],
+     "fromDate": [
+      "2024-10-01",
+      "2024-10-01"
+     ],
+     "params": [
+      "2024-10-01",
+      "2024-10-01"
+     ],
+     "toDate": [
+      "2024-12-31",
+      "2024-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"30-Jul-2026 17:17:53\",\"companyName\":\"V.S.T Tillers Tractors Limited\",\"consolidated\":\"Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:00:49\",\"exchdisstime\":\"30-Jul-2026 17:18:42\",\"filingDate\":\"30-Jul-2026 17:17\",\"financialYear\":\"01-Apr-2024 To 31-Mar-2025\",\"format\":\"New\",\"fromDate\":\"01-Oct-2024\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\",\"is"
+   },
+   "results_all_2021q": {
+    "status": 200,
+    "bytes": 2223704,
+    "shape": "array",
+    "n": 2906,
+    "keys": [
+     "audited",
+     "bank",
+     "broadCastDate",
+     "companyName",
+     "consolidated",
+     "cumulative",
+     "difference",
+     "exchdisstime",
+     "filingDate",
+     "financialYear",
+     "format",
+     "fromDate",
+     "indAs",
+     "industry",
+     "isin",
+     "oldNewFlag",
+     "params",
+     "period",
+     "reInd",
+     "relatingTo",
+     "resultDescription",
+     "resultDetailedDataLink",
+     "seqNumber",
+     "symbol",
+     "toDate",
+     "xbrl"
+    ],
+    "dates": {
+     "broadCastDate": [
+      "2021-01-07",
+      "2021-03-31"
+     ],
+     "exchdisstime": [
+      "2021-01-07",
+      "2021-03-31"
+     ],
+     "filingDate": [
+      "2021-01-07",
+      "2021-03-31"
+     ],
+     "financialYear": [
+      "2019-04-01",
+      "2020-10-01"
+     ],
+     "fromDate": [
+      "2019-04-01",
+      "2020-10-01"
+     ],
+     "params": [
+      "2019-04-01",
+      "2020-10-01"
+     ],
+     "toDate": [
+      "2019-06-30",
+      "2020-12-31"
+     ]
+    },
+    "sample": "{\"audited\":\"Un-Audited\",\"bank\":\"N\",\"broadCastDate\":\"31-Mar-2021 18:07:42\",\"companyName\":\"Bil Energy Systems Limited\",\"consolidated\":\"Non-Consolidated\",\"cumulative\":\"Non-cumulative\",\"difference\":\"00:02:29\",\"exchdisstime\":\"31-Mar-2021 18:10:11\",\"filingDate\":\"31-Mar-2021 18:07\",\"financialYear\":\"01-Apr-2020 To 31-Mar-2021\",\"format\":\"New\",\"fromDate\":\"01-Oct-2020\",\"indAs\":\"Ind-AS New\",\"industry\":\"-\",\"is"
+   },
+   "event_calendar": {
+    "status": 200,
+    "bytes": 156756,
+    "shape": "array",
+    "n": 626,
+    "keys": [
+     "symbol",
+     "company",
+     "purpose",
+     "bm_desc",
+     "date"
+    ],
+    "dates": {
+     "date": [
+      "2026-11-09",
+      "2026-12-05"
+     ]
+    },
+    "sample": "{\"symbol\":\"MEDICO\",\"company\":\"Medico Remedies Limited\",\"purpose\":\"Financial Results\",\"bm_desc\":\"To consider and approve the financial results for the period ended September 30, 2026\",\"date\":\"09-Nov-2026\"}"
+   }
+  }
+ },
+ "other": {
+  "bse_corpactions": {
+   "status": 403,
+   "bytes": 418,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"ht"
+  },
+  "bse_shp": {
+   "status": 403,
+   "bytes": 416,
+   "head": "<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"ht"
+  },
+  "bse_pledge_page": {
+   "status": 200
+  },
+  "sebi_pit_page": {
+   "status": 200
+  },
+  "yahoo_chart": {
+   "status": 429,
+   "bytes": 19,
+   "head": "Too Many Requests\r\n"
+  },
+  "yahoo_quote_summary": {
+   "status": 429,
+   "bytes": 19,
+   "head": "Too Many Requests\r\n"
+  }
+ }
+}
