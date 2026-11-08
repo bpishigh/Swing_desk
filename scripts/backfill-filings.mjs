@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { parseResultsXbrl } from '../src/ingest/filings-parse.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
-const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg('conc', '3'));
+const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "6"));
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const NSEH = { ...UA, referer: 'https://www.nseindia.com/', accept: 'application/json' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -23,6 +23,7 @@ const covPath = 'data/india/filings-coverage.json', cov = existsSync(covPath) ? 
 const TYPE = encodeURIComponent('Integrated Filing- Financials'), fetched = new Date().toISOString().slice(0, 10);
 const store = new Map();   // entity -> { entity, results: [] }
 const load = (id) => { if (store.has(id)) return store.get(id); const p = `data/india/filings/${id}.json.gz`; const o = existsSync(p) ? JSON.parse(gunzipSync(readFileSync(p))) : { entity: id, results: [] }; store.set(id, o); return o; };
+const flush = () => { for (const [id, o] of store) { for (const k of [...new Set(o.results.map((y) => `${y.period}|${y.basis}`))]) { const g = o.results.filter((y) => `${y.period}|${y.basis}` === k).sort((a, b) => (a.asOf < b.asOf ? -1 : 1)); g.forEach((y, n) => { y.revision = n; }); } o.results.sort((a, b) => (a.period < b.period ? -1 : a.period > b.period ? 1 : a.asOf < b.asOf ? -1 : 1)); writeFileSync(`data/india/filings/${id}.json.gz`, gzipSync(JSON.stringify(o))); }  writeFileSync(covPath, JSON.stringify(cov, null, 1) + '\n'); };
 for (const period of periods) {
   const pe = isoDate(period); let all = [];
   for (let p = 1; p <= 30; p++) { const a = arr((await get(`https://www.nseindia.com/api/integrated-filing-results?index=equities&type=${TYPE}&period_ended=${period}&page=${p}&size=500`, NSEH)).t); if (!a.length) break; all = all.concat(a); await sleep(300); }
@@ -39,7 +40,6 @@ for (const period of periods) {
     await sleep(60); } };
   await Promise.all(Array.from({ length: CONC }, worker));
   cov.periods[isoDate(period)] = { ...c, at: new Date().toISOString() };
+  flush();
   console.log(period, JSON.stringify({ listed: c.listed, parsed: c.parsed, fetchFailed: c.fetchFailed, parseFailed: c.parseFailed, unmapped: c.unmapped, families: c.families }));
 }
-for (const [id, o] of store) { for (const k of [...new Set(o.results.map((y) => `${y.period}|${y.basis}`))]) { const g = o.results.filter((y) => `${y.period}|${y.basis}` === k).sort((a, b) => (a.asOf < b.asOf ? -1 : 1)); g.forEach((y, n) => { y.revision = n; }); } o.results.sort((a, b) => (a.period < b.period ? -1 : a.period > b.period ? 1 : a.asOf < b.asOf ? -1 : 1)); writeFileSync(`data/india/filings/${id}.json.gz`, gzipSync(JSON.stringify(o))); }
-writeFileSync(covPath, JSON.stringify(cov, null, 1) + '\n');
