@@ -3,9 +3,10 @@
 // Writes data/india/filings/<entity-id>.json.gz (merged by source URL) and data/india/filings-coverage.json (one block per period). Missing is missing: a file that does not parse is counted, never stored as zero.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
+import { execSync } from 'node:child_process';
 import { parseResultsXbrl } from '../src/ingest/filings-parse.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
-const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "3"));
+const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "2"));
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const NSEH = { ...UA, referer: 'https://www.nseindia.com/', accept: 'application/json' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -38,9 +39,10 @@ for (const period of periods) {
     c.parsed++; c.families[x.family] = (c.families[x.family] || 0) + 1; for (const k of x.missing) c.missingField[k]++;
     const o = load(id), src = rec.xbrl; if (o.results.some((y) => y.source === src)) continue;
     o.results.push({ period: x.periodEnd || pe, basis: x.basis || (/^Consolidated/i.test(rec.consolidated) ? 'consolidated' : 'standalone'), asOf: isoTime(rec.broadcast_Date), original: /^Original/i.test(rec.type_Sub || 'Original'), format: x.family, fields: x.quarter, ytd: x.ytd, audited: x.audited, rounding: x.rounding, boardMeeting: x.boardMeeting, source: src, fetched });
-    await sleep(60); } };
+    await sleep(150); } };
   await Promise.all(Array.from({ length: CONC }, worker));
   cov.periods[isoDate(period)] = { ...c, at: new Date().toISOString() };
   flush();
+  if (process.env.COMMIT_EACH === '1') { try { execSync('git add data/india/filings data/india/filings-coverage.json && git commit -q -m "backfill-filings: ' + period + '" && (git pull -q --rebase origin main; git push -q origin HEAD:main)', { stdio: 'inherit' }); } catch (e) { console.log('commit step failed, continuing: ' + String(e).slice(0, 100)); } }
   console.log(period, JSON.stringify({ listed: c.listed, parsed: c.parsed, fetchFailed: c.fetchFailed, parseFailed: c.parseFailed, unmapped: c.unmapped, families: c.families }));
 }
