@@ -1,0 +1,972 @@
+{
+ "at": "2026-11-08T09:44:58.910Z",
+ "rows": [
+  {
+   "s": "HDFC",
+   "last": "2023-07-12",
+   "liquid": true,
+   "status": 200,
+   "n": 2230,
+   "hits": {
+    "amalgamation": 56,
+    "delisting": 0,
+    "liquidation": 6,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | HDFC: Members of the Exchange are hereby informed that the trading in Warrants (ISIN: INE001A13049) of Housing Development Finance",
+   "lastAnn": "04-Jul-2023 20:07:24"
+  },
+  {
+   "s": "TATAMTRDVR",
+   "last": "2024-08-29",
+   "liquid": true,
+   "status": 200,
+   "n": 1698,
+   "hits": {
+    "amalgamation": 24,
+    "delisting": 4,
+    "liquidation": 2,
+    "symbolChange": 1
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in  A  Ordinary shares of Tata Motors Limited shall be suspended w.e.",
+   "lastAnn": "28-Aug-2024 18:33:34"
+  },
+  {
+   "s": "MINDTREE",
+   "last": "2022-11-22",
+   "liquid": true,
+   "status": 200,
+   "n": 1330,
+   "hits": {
+    "amalgamation": 24,
+    "delisting": 0,
+    "liquidation": 5,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Mindtree Limited shall be suspended w.e.f. Novemb",
+   "lastAnn": "16-Nov-2022 21:11:51"
+  },
+  {
+   "s": "CAIRN",
+   "last": "2017-04-25",
+   "liquid": true,
+   "status": 200,
+   "n": 477,
+   "hits": {
+    "amalgamation": 24,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Cairn India Limited shall be suspended w.e.f. Apr",
+   "lastAnn": "13-Apr-2017 17:14:00"
+  },
+  {
+   "s": "BHARATFIN",
+   "last": "2019-07-02",
+   "liquid": true,
+   "status": 200,
+   "n": 717,
+   "hits": {
+    "amalgamation": 20,
+    "delisting": 0,
+    "liquidation": 2,
+    "symbolChange": 1
+   },
+   "sample": "Updates | Bharat Financial Inclusion Limited has informed the Exchange regarding 'Rationale on Composite Scheme of Amalgamation with IndusIn",
+   "lastAnn": "27-Jun-2019 14:26:00"
+  },
+  {
+   "s": "JBCHEPHARM",
+   "last": "2026-07-16",
+   "liquid": true,
+   "status": 200,
+   "n": 1137,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 0,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of JB Chemicals & Pharmaceuticals Limited shall be s",
+   "lastAnn": "13-Jul-2026 18:25:30"
+  },
+  {
+   "s": "IDFC",
+   "last": "2024-10-09",
+   "liquid": true,
+   "status": 200,
+   "n": 948,
+   "hits": {
+    "amalgamation": 37,
+    "delisting": 0,
+    "liquidation": 5,
+    "symbolChange": 3
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of IDFC Limited shall be suspended w.e.f. October 10",
+   "lastAnn": "03-Oct-2024 20:26:08"
+  },
+  {
+   "s": "RANBAXY",
+   "last": "2015-04-01",
+   "liquid": true,
+   "status": 200,
+   "n": 678,
+   "hits": {
+    "amalgamation": 8,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of Ranbaxy Laboratories Limited shall be suspended w",
+   "lastAnn": "31-Mar-2015 08:20:00"
+  },
+  {
+   "s": "GRUH",
+   "last": "2019-10-15",
+   "liquid": true,
+   "status": 200,
+   "n": 375,
+   "hits": {
+    "amalgamation": 13,
+    "delisting": 1,
+    "liquidation": 2,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | ��Members of the Exchange are hereby informed that the trading in Equity Shares of Gruh Finance Limited shall be suspended w.e.f. ",
+   "lastAnn": "12-Oct-2019 13:33:00"
+  },
+  {
+   "s": "ABIRLANUVO",
+   "last": "2017-07-04",
+   "liquid": true,
+   "status": 200,
+   "n": 598,
+   "hits": {
+    "amalgamation": 54,
+    "delisting": 1,
+    "liquidation": 2,
+    "symbolChange": 1
+   },
+   "sample": "Suspension of Trading | ABIRLANUVO: Members of the Exchange are hereby informed that the trading in Equity Shares of Aditya Birla Nuvo Limited shall be su",
+   "lastAnn": "29-Jun-2017 19:22:00"
+  },
+  {
+   "s": "STER",
+   "last": "2013-08-26",
+   "liquid": true,
+   "status": 200,
+   "n": 287,
+   "hits": {
+    "amalgamation": 11,
+    "delisting": 1,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Sterlite Industries ( India ) Limited (ISIN: INE2",
+   "lastAnn": "19-Aug-2013 18:32:00"
+  },
+  {
+   "s": "SATYAMCOMP",
+   "last": "2013-07-03",
+   "liquid": true,
+   "status": 200,
+   "n": 1391,
+   "hits": {
+    "amalgamation": 8,
+    "delisting": 3,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of Satyam Computer Services Limited shall be suspend",
+   "lastAnn": "01-Jul-2013 12:28:00"
+  },
+  {
+   "s": "GUJRATGAS",
+   "last": "2015-05-26",
+   "liquid": true,
+   "status": 200,
+   "n": 323,
+   "hits": {
+    "amalgamation": 8,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of Gujarat Gas Company Limited shall be suspended w.",
+   "lastAnn": "21-May-2015 19:41:00"
+  },
+  {
+   "s": "CAPF",
+   "last": "2018-12-27",
+   "liquid": true,
+   "status": 200,
+   "n": 812,
+   "hits": {
+    "amalgamation": 32,
+    "delisting": 0,
+    "liquidation": 4,
+    "symbolChange": 2
+   },
+   "sample": "Suspension of Trading | CAPF: Members of the Exchange are hereby informed that the trading in Equity Shares of Capital First Limited shall be suspended w.",
+   "lastAnn": "20-Dec-2018 15:20:00"
+  },
+  {
+   "s": "GSPL",
+   "last": "2026-05-11",
+   "liquid": true,
+   "status": 200,
+   "n": 670,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Gujarat State Petronet Limited shall be suspended",
+   "lastAnn": "06-May-2026 19:22:44"
+  },
+  {
+   "s": "ISEC",
+   "last": "2025-03-21",
+   "liquid": true,
+   "status": 200,
+   "n": 834,
+   "hits": {
+    "amalgamation": 7,
+    "delisting": 5,
+    "liquidation": 6,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of ICICI Securities Limited shall be suspended w.e.f",
+   "lastAnn": "17-Mar-2025 14:50:08"
+  },
+  {
+   "s": "UJJIVAN",
+   "last": "2024-05-02",
+   "liquid": true,
+   "status": 200,
+   "n": 365,
+   "hits": {
+    "amalgamation": 16,
+    "delisting": 0,
+    "liquidation": 4,
+    "symbolChange": 2
+   },
+   "sample": "Suspension of Trading | UJJIVAN: Members of the Exchange are hereby informed that the trading in Equity Shares of Ujjivan Financial Services Limited shall",
+   "lastAnn": "30-Apr-2024 20:45:50"
+  },
+  {
+   "s": "RAJESHEXPO",
+   "last": "2025-12-24",
+   "liquid": true,
+   "status": 200,
+   "n": 825,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": "30-Oct-2026 16:54:58"
+  },
+  {
+   "s": "GSKCONS",
+   "last": "2020-04-15",
+   "liquid": true,
+   "status": 200,
+   "n": 337,
+   "hits": {
+    "amalgamation": 11,
+    "delisting": 2,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | GSKCONS: Members of the Exchange are hereby informed that the trading in Equity Shares of GlaxoSmithKline Consumer Healthcare Limi",
+   "lastAnn": "08-Apr-2020 14:33:00"
+  },
+  {
+   "s": "TCNSBRANDS",
+   "last": "2024-09-02",
+   "liquid": true,
+   "status": 200,
+   "n": 425,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 0,
+    "liquidation": 2,
+    "symbolChange": 1
+   },
+   "sample": "Updates | TCNS Clothing Co. Limited has informed the Exchange regarding 'Effective date of Scheme of Amalgamation (by way of Merger by Absor",
+   "lastAnn": "01-Sep-2024 09:25:39"
+  },
+  {
+   "s": "INDIABULLS",
+   "last": "2013-03-18",
+   "liquid": true,
+   "status": 200,
+   "n": 410,
+   "hits": {
+    "amalgamation": 28,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares and warrants of Indiabulls Financial Services Limite",
+   "lastAnn": "11-Mar-2013 19:20:00"
+  },
+  {
+   "s": "TV18BRDCST",
+   "last": "2024-10-15",
+   "liquid": true,
+   "status": 200,
+   "n": 583,
+   "hits": {
+    "amalgamation": 23,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 1
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of TV18 Broadcast Limited shall be suspended w.e.f. ",
+   "lastAnn": "09-Oct-2024 18:49:50"
+  },
+  {
+   "s": "TATACOFFEE",
+   "last": "2024-01-12",
+   "liquid": true,
+   "status": 200,
+   "n": 547,
+   "hits": {
+    "amalgamation": 13,
+    "delisting": 0,
+    "liquidation": 4,
+    "symbolChange": 1
+   },
+   "sample": "Suspension of Trading | TATACOFFEE: Members of the Exchange are hereby informed that the trading in Equity Shares of Tata Coffee Limited shall be suspende",
+   "lastAnn": "09-Jan-2024 18:52:09"
+  },
+  {
+   "s": "DALMIABHA",
+   "last": "2018-11-28",
+   "liquid": true,
+   "status": 200,
+   "n": 229,
+   "hits": {
+    "amalgamation": 7,
+    "delisting": 2,
+    "liquidation": 7,
+    "symbolChange": 1
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Dalmia Bharat Limited shall be suspended w.e.f. N",
+   "lastAnn": "21-Nov-2018 18:26:00"
+  },
+  {
+   "s": "PHILIPCARB",
+   "last": "2022-01-12",
+   "liquid": true,
+   "status": 200,
+   "n": 0,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": null
+  },
+  {
+   "s": "RUCHI",
+   "last": "2022-07-12",
+   "liquid": true,
+   "status": 200,
+   "n": 0,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": null
+  },
+  {
+   "s": "IWEL",
+   "last": "2025-06-19",
+   "liquid": true,
+   "status": 200,
+   "n": 215,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 0,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Inox Wind Energy Limited shall be suspended w.e.f",
+   "lastAnn": "04-Jul-2025 00:58:38"
+  },
+  {
+   "s": "SUPPETRO",
+   "last": "2022-04-06",
+   "liquid": true,
+   "status": 200,
+   "n": 590,
+   "hits": {
+    "amalgamation": 4,
+    "delisting": 0,
+    "liquidation": 1,
+    "symbolChange": 1
+   },
+   "sample": "Scheme of Amalgamation | Supreme Petrochem Ltd had informed the Exchange that August 05; 2008 has been fixed as the record date for allotment of equity sha",
+   "lastAnn": "08-Jul-2022 17:14:45"
+  },
+  {
+   "s": "SHRIRAMCIT",
+   "last": "2022-11-28",
+   "liquid": true,
+   "status": 200,
+   "n": 1400,
+   "hits": {
+    "amalgamation": 12,
+    "delisting": 4,
+    "liquidation": 13,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Shriram City Union Finance Limited shall be suspe",
+   "lastAnn": "28-Nov-2022 17:43:42"
+  },
+  {
+   "s": "BANKRAJAS",
+   "last": "2010-08-23",
+   "liquid": true,
+   "status": 200,
+   "n": 111,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of The Bank of Rajasthan Limited shall be suspended ",
+   "lastAnn": "16-Aug-2010 20:03:00"
+  },
+  {
+   "s": "DISHMAN",
+   "last": "2017-05-29",
+   "liquid": true,
+   "status": 200,
+   "n": 361,
+   "hits": {
+    "amalgamation": 7,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | DISHMAN: Members of the Exchange are hereby informed that the trading in Equity Shares of Dishman Pharmaceuticals and Chemicals Li",
+   "lastAnn": "22-May-2017 19:19:00"
+  },
+  {
+   "s": "INGVYSYABK",
+   "last": "2015-04-15",
+   "liquid": true,
+   "status": 200,
+   "n": 227,
+   "hits": {
+    "amalgamation": 10,
+    "delisting": 3,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of ING Vysya Bank Limited shall be suspended w.e.f. ",
+   "lastAnn": "19-Apr-2017 15:41:00"
+  },
+  {
+   "s": "DHANI",
+   "last": "2025-10-27",
+   "liquid": true,
+   "status": 200,
+   "n": 848,
+   "hits": {
+    "amalgamation": 12,
+    "delisting": 2,
+    "liquidation": 2,
+    "symbolChange": 4
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Dhani Services Limited shall be suspended w.e.f. ",
+   "lastAnn": "24-Oct-2025 18:37:29"
+  },
+  {
+   "s": "ISMTLTD",
+   "last": "2024-08-05",
+   "liquid": true,
+   "status": 200,
+   "n": 567,
+   "hits": {
+    "amalgamation": 14,
+    "delisting": 1,
+    "liquidation": 2,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of ISMT Limited shall be suspended w.e.f. August 06;",
+   "lastAnn": "02-Aug-2024 19:42:57"
+  },
+  {
+   "s": "TATASTLBSL",
+   "last": "2021-11-12",
+   "liquid": true,
+   "status": 200,
+   "n": 708,
+   "hits": {
+    "amalgamation": 11,
+    "delisting": 1,
+    "liquidation": 7,
+    "symbolChange": 2
+   },
+   "sample": "Updates | Tata Steel Bsl Limited has informed the Exchange regarding 'Effective Date  of the Composite Scheme of Amalgamation of Bamnipal St",
+   "lastAnn": "11-Nov-2021 22:58:13"
+  },
+  {
+   "s": "TINPLATE",
+   "last": "2024-01-18",
+   "liquid": true,
+   "status": 200,
+   "n": 603,
+   "hits": {
+    "amalgamation": 9,
+    "delisting": 0,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Updates | The Tinplate Company of India Limited has informed the Exchange regarding ''Effective Date'' of the Scheme of Amalgamation amongst",
+   "lastAnn": "15-Jan-2024 02:06:24"
+  },
+  {
+   "s": "MAKE",
+   "last": "2015-05-25",
+   "liquid": true,
+   "status": 200,
+   "n": 39,
+   "hits": {
+    "amalgamation": 4,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Scheme of Arrangement | Marico Kaya Enterprises Limited has informed the Exchange that the Hon'ble High Court of Judicature at Bombay has vide an order pa",
+   "lastAnn": "18-May-2015 17:29:00"
+  },
+  {
+   "s": "CIGNITITEC",
+   "last": "2026-05-14",
+   "liquid": true,
+   "status": 200,
+   "n": 606,
+   "hits": {
+    "amalgamation": 11,
+    "delisting": 0,
+    "liquidation": 5,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Cigniti Technologies Limited shall be suspended w",
+   "lastAnn": "09-Jun-2026 17:43:21"
+  },
+  {
+   "s": "BURGERKING",
+   "last": "2022-02-16",
+   "liquid": true,
+   "status": 200,
+   "n": 0,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": null
+  },
+  {
+   "s": "RNRL",
+   "last": "2010-11-09",
+   "liquid": true,
+   "status": 200,
+   "n": 77,
+   "hits": {
+    "amalgamation": 7,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of Reliance Natural Resources Limited shall be suspe",
+   "lastAnn": "01-Nov-2010 18:46:00"
+  },
+  {
+   "s": "VICEROY",
+   "last": "2021-06-25",
+   "liquid": false,
+   "status": 200,
+   "n": 483,
+   "hits": {
+    "amalgamation": 2,
+    "delisting": 0,
+    "liquidation": 35,
+    "symbolChange": 0
+   },
+   "sample": "Outcome of Board Meeting | Viceroy Hotels Limited has informed the Exchange that at a meeting of the Board of Directors of the Company held on January 12; 20",
+   "lastAnn": "30-Mar-2024 15:22:36"
+  },
+  {
+   "s": "AUTOLITIND",
+   "last": "2021-01-22",
+   "liquid": false,
+   "status": 200,
+   "n": 275,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 1,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Delisting | Members of the Exchange are hereby notified that in terms of Regulation 32(1) of Securities and Exchange Board of India (Delisting",
+   "lastAnn": "28-Aug-2023 17:01:53"
+  },
+  {
+   "s": "DALMIAREF",
+   "last": "2015-01-29",
+   "liquid": false,
+   "status": 200,
+   "n": 40,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 1
+   },
+   "sample": "Name Change | Shri Nataraj Ceramic And Chemical Industries Limited has informed the Exchange that the name of the Company has been changed from ",
+   "lastAnn": "12-Dec-2014 17:48:00"
+  },
+  {
+   "s": "LAKSHVILAS",
+   "last": "2020-11-25",
+   "liquid": false,
+   "status": 200,
+   "n": 768,
+   "hits": {
+    "amalgamation": 7,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 1
+   },
+   "sample": "Updates | Lakshmi Vilas Bank Limited has informed the Exchange regarding 'The Lakshmi Vilas Bank Limited (Amalgamation with DBS Bank India L",
+   "lastAnn": "16-Dec-2020 19:34:23"
+  },
+  {
+   "s": "CHEMFALKAL",
+   "last": "2017-05-24",
+   "liquid": false,
+   "status": 200,
+   "n": 153,
+   "hits": {
+    "amalgamation": 12,
+    "delisting": 0,
+    "liquidation": 2,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | CHEMFALKAL: Members of the Exchange are hereby informed that the trading in Equity Shares of Chemfab Alkalis Limited shall be susp",
+   "lastAnn": "18-May-2017 18:57:00"
+  },
+  {
+   "s": "PANCHSHEEL",
+   "last": "2015-01-29",
+   "liquid": false,
+   "status": 200,
+   "n": 37,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": "17-Nov-2014 09:54:00"
+  },
+  {
+   "s": "GALLISPAT",
+   "last": "2022-06-03",
+   "liquid": false,
+   "status": 200,
+   "n": 496,
+   "hits": {
+    "amalgamation": 16,
+    "delisting": 0,
+    "liquidation": 5,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Gallantt Ispat Limited shall be suspended w.e.f. ",
+   "lastAnn": "30-May-2022 19:46:23"
+  },
+  {
+   "s": "AIFL",
+   "last": "2019-05-31",
+   "liquid": false,
+   "status": 200,
+   "n": 345,
+   "hits": {
+    "amalgamation": 16,
+    "delisting": 1,
+    "liquidation": 43,
+    "symbolChange": 0
+   },
+   "sample": "Scheme of Arrangement | Ashapura Intimates Fashion Limited has informed the Exchange about Scheme of Arrangement- Revised Scrutinizer report with clarific",
+   "lastAnn": "04-Nov-2026 18:14:13"
+  },
+  {
+   "s": "VTXIND",
+   "last": "2015-01-28",
+   "liquid": false,
+   "status": 200,
+   "n": 40,
+   "hits": {
+    "amalgamation": 1,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 2
+   },
+   "sample": "Demerger | Vijayeswari Textiles Limited has informed the Exchange that the Board of Directors at their meeting held on 5th August 2010 have p",
+   "lastAnn": "05-Jan-2015 15:48:00"
+  },
+  {
+   "s": "MYSOREBANK",
+   "last": "2017-03-15",
+   "liquid": false,
+   "status": 200,
+   "n": 215,
+   "hits": {
+    "amalgamation": 3,
+    "delisting": 3,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | MYSOREBANK: Members of the Exchange are hereby informed that the trading in Securities of State Bank of Mysore shall be suspended ",
+   "lastAnn": "06-Mar-2017 20:48:00"
+  },
+  {
+   "s": "SHPRE",
+   "last": "2012-05-02",
+   "liquid": false,
+   "status": 200,
+   "n": 27,
+   "hits": {
+    "amalgamation": 1,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Updates | Shree Precoated Steels Limited has informed the Exchange that: \"The 2647 fully paid up Equity shares of Rs.10/- each; representing",
+   "lastAnn": "30-Apr-2012 20:24:48"
+  },
+  {
+   "s": "WARDINMOBI",
+   "last": "2026-10-01",
+   "liquid": false,
+   "status": 200,
+   "n": 0,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": null
+  },
+  {
+   "s": "PRABHAT",
+   "last": "2021-04-22",
+   "liquid": false,
+   "status": 200,
+   "n": 263,
+   "hits": {
+    "amalgamation": 4,
+    "delisting": 9,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Amalgamation/Merger | Prabhat Dairy Limited has informed the Exchange about Amalgamation/Merger",
+   "lastAnn": "29-Apr-2021 12:04:15"
+  },
+  {
+   "s": "OCL",
+   "last": "2018-10-24",
+   "liquid": false,
+   "status": 200,
+   "n": 247,
+   "hits": {
+    "amalgamation": 14,
+    "delisting": 1,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | OCL: Members of the Exchange are hereby informed that the trading in Equity Shares of OCL India Limited shall be suspended w.e.f. ",
+   "lastAnn": "19-Oct-2018 19:16:00"
+  },
+  {
+   "s": "NIFTYEES",
+   "last": "2021-09-29",
+   "liquid": false,
+   "status": 200,
+   "n": 0,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": null
+  },
+  {
+   "s": "JIKIND",
+   "last": "2022-06-20",
+   "liquid": false,
+   "status": 200,
+   "n": 436,
+   "hits": {
+    "amalgamation": 1,
+    "delisting": 1,
+    "liquidation": 0,
+    "symbolChange": 1
+   },
+   "sample": "Updates | JIK Industries Limited has informed the Exchange regarding 'Intimation of Merger of Sharex Dynamic (India) Pvt. Ltd. (RTA) with Li",
+   "lastAnn": "16-Oct-2024 18:55:24"
+  },
+  {
+   "s": "RELCAPITAL",
+   "last": "2024-02-26",
+   "liquid": false,
+   "status": 200,
+   "n": 1348,
+   "hits": {
+    "amalgamation": 17,
+    "delisting": 4,
+    "liquidation": 133,
+    "symbolChange": 0
+   },
+   "sample": "Press Release | Reliance Capital Limited has informed the Exchange regarding a press release dated August 11; 2017; titled \"National Company Law T",
+   "lastAnn": "12-Feb-2025 20:21:46"
+  },
+  {
+   "s": "BIRLATYRE",
+   "last": "2023-10-23",
+   "liquid": false,
+   "status": 200,
+   "n": 186,
+   "hits": {
+    "amalgamation": 1,
+    "delisting": 3,
+    "liquidation": 14,
+    "symbolChange": 0
+   },
+   "sample": "Scheme of Arrangement | Birla Tyres Limited has informed the Exchange about Scheme of Arrangement",
+   "lastAnn": "01-Aug-2024 18:43:51"
+  },
+  {
+   "s": "CRANESSOFT",
+   "last": "2010-09-02",
+   "liquid": false,
+   "status": 200,
+   "n": 262,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 4,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Voluntary Delisting | Cranes Software International Limited has informed the Exchange regarding Intimation of Voluntary Delisting of Equity Shares of th",
+   "lastAnn": "06-Aug-2018 20:55:00"
+  },
+  {
+   "s": "NUCHEM",
+   "last": "2012-03-09",
+   "liquid": false,
+   "status": 200,
+   "n": 62,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Delisting | : Members of the Exchange are hereby notified that in terms of Regulation 22(6) of the Securities and Exchange Board of India (Del",
+   "lastAnn": "24-Apr-2017 20:18:00"
+  },
+  {
+   "s": "GLODYNE",
+   "last": "2015-03-16",
+   "liquid": false,
+   "status": 200,
+   "n": 278,
+   "hits": {
+    "amalgamation": 13,
+    "delisting": 2,
+    "liquidation": 0,
+    "symbolChange": 2
+   },
+   "sample": "Allotment of Securities | Glodyne Technoserve Limited has informed the Exchange that pursuant to the approval of relevant Authorities; the Merger Committee ",
+   "lastAnn": "18-May-2018 21:53:00"
+  },
+  {
+   "s": "UDAICEMENT",
+   "last": "2025-08-22",
+   "liquid": false,
+   "status": 200,
+   "n": 55,
+   "hits": {
+    "amalgamation": 6,
+    "delisting": 0,
+    "liquidation": 1,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in equity shares of Udaipur Cement Works Limited shall be suspended w",
+   "lastAnn": "18-Aug-2025 18:32:22"
+  },
+  {
+   "s": "TULSYAN",
+   "last": "2014-10-22",
+   "liquid": false,
+   "status": 200,
+   "n": 48,
+   "hits": {
+    "amalgamation": 0,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "lastAnn": "20-Oct-2014 15:08:00"
+  },
+  {
+   "s": "UMANGDAIRY",
+   "last": "2025-06-26",
+   "liquid": false,
+   "status": 200,
+   "n": 437,
+   "hits": {
+    "amalgamation": 11,
+    "delisting": 0,
+    "liquidation": 3,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of Trading | Members of the Exchange are hereby informed that the trading in Equity Shares of Umang Dairies Limited shall be suspended w.e.f. J",
+   "lastAnn": "26-Jun-2025 21:30:19"
+  },
+  {
+   "s": "KBIL",
+   "last": "2015-07-08",
+   "liquid": false,
+   "status": 200,
+   "n": 193,
+   "hits": {
+    "amalgamation": 14,
+    "delisting": 0,
+    "liquidation": 0,
+    "symbolChange": 0
+   },
+   "sample": "Suspension of trading in equity shares | Members of the Exchange are hereby informed that the trading in equity shares of Kirloskar Brothers Investments Limited shall be s",
+   "lastAnn": "03-Jul-2015 18:16:00"
+  }
+ ]
+}
