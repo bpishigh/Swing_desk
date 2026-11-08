@@ -349,3 +349,5 @@ Owner decision: free route only. Probes ran on the GitHub runner on 8 Nov 2026 (
 **Still open:** the standalone-versus-consolidated and revision rules (design decisions), the tag maps, a ticker-to-CIK history, FINRA publication lag, and a full-universe completeness check once a loader exists. All data points, sources, fallbacks and open items are tracked in the separate register `docs/DATA_SOURCES.md` (project copy `claude/data-sources-register.md`).
 
 **Build standard (8 Nov 2026, C-158):** every strategy above is built to `docs/STRATEGY_BUILD_STANDARD.md` (file shape, build order, documents, UI, definition of done).
+
+**Filings loader (8 Nov 2026):** specified in `docs/FILINGS_LOADER_SPEC.md` (implements C-157). Risk, kill-line and fund rules for all new strategies: C-159.
