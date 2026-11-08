@@ -1,0 +1,664 @@
+{
+ "at": "2026-11-08T09:38:59.591Z",
+ "comparatives": [
+  {
+   "s": "RELIANCE",
+   "format": "integrated",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 65,
+   "nonDimDurations": [
+    "OneD:2026-07-01..2026-09-30",
+    "FourD:2026-04-01..2026-09-30"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "3328610000000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "6447110000000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "292500000000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "522510000000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "18.88",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "34.36",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "RELIANCE",
+   "format": "integrated",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 54,
+   "nonDimDurations": [
+    "OneD:2025-01-01..2025-03-31",
+    "FourD:2024-04-01..2025-03-31"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "2645730000000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "9801360000000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "224340000000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "807870000000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "14.34",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "51.47",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "RELIANCE",
+   "format": "older",
+   "qe": "31-Dec-2022",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "nContexts": 50,
+   "nonDimDurations": [],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "2205920000000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "6765680000000.00"
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "177400000000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "528350000000.00"
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "23.34"
+    },
+    {
+     "ctx": "FourD",
+     "v": "70.07"
+    }
+   ]
+  },
+  {
+   "s": "TCS",
+   "format": "integrated",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 84,
+   "nonDimDurations": [
+    "OneD:2026-07-01..2026-09-30",
+    "FourD:2026-04-01..2026-09-30"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "731880000000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "1454630000000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "139340000000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "273540000000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "38.37",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "75.27",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "TCS",
+   "format": "integrated",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 69,
+   "nonDimDurations": [
+    "OneD:2025-01-01..2025-03-31",
+    "FourD:2024-04-01..2025-03-31"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "644790000000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "2553240000000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "122930000000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "487970000000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "33.79",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "134.19",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "TCS",
+   "format": "older",
+   "qe": "31-Dec-2022",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "nContexts": 56,
+   "nonDimDurations": [],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "582290000000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "1662960000000.00"
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "108830000000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "308670000000.00"
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "29.64"
+    },
+    {
+     "ctx": "FourD",
+     "v": "84.05"
+    }
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "format": "integrated",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 71,
+   "nonDimDurations": [
+    "OneD:2026-07-01..2026-09-30",
+    "FourD:2026-04-01..2026-09-30"
+   ],
+   "revenueFacts": [],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "207000300000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "399447400000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "13.43",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "25.93",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "format": "integrated",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 66,
+   "nonDimDurations": [
+    "OneD:2025-01-01..2025-03-31",
+    "FourD:2024-04-01..2025-03-31"
+   ],
+   "revenueFacts": [],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "188348800000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "707922500000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "24.62",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "92.81",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "format": "older",
+   "qe": "31-Dec-2022",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "nContexts": 37,
+   "nonDimDurations": [],
+   "revenueFacts": [],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "127354300000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "335146900000.00"
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "22.78"
+    },
+    {
+     "ctx": "FourD",
+     "v": "60.06"
+    }
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "format": "integrated",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 45,
+   "nonDimDurations": [
+    "OneD:2026-07-01..2026-09-30",
+    "FourD:2026-04-01..2026-09-30"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "16909660000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "33659600000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "1362240000",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "2666830000",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "4.43",
+     "p": "2026-07-01..2026-09-30",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "8.73",
+     "p": "2026-04-01..2026-09-30",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "format": "integrated",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "status": 200,
+   "nContexts": 35,
+   "nonDimDurations": [
+    "OneD:2025-01-01..2025-03-31",
+    "FourD:2024-04-01..2025-03-31"
+   ],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "15283440000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "58423450000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "2305890000",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "8367980000",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "9.01",
+     "p": "2025-01-01..2025-03-31",
+     "dim": false
+    },
+    {
+     "ctx": "FourD",
+     "v": "30.93",
+     "p": "2024-04-01..2025-03-31",
+     "dim": false
+    }
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "format": "older",
+   "qe": "31-Dec-2022",
+   "consolidated": "Consolidated",
+   "status": 200,
+   "nContexts": 31,
+   "nonDimDurations": [],
+   "revenueFacts": [
+    {
+     "ctx": "OneD",
+     "v": "9171150000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "23476710000.00"
+    }
+   ],
+   "profitFacts": [
+    {
+     "ctx": "OneD",
+     "v": "1039830000.00"
+    },
+    {
+     "ctx": "FourD",
+     "v": "2733940000.00"
+    }
+   ],
+   "epsFacts": [
+    {
+     "ctx": "OneD",
+     "v": "3.72"
+    },
+    {
+     "ctx": "FourD",
+     "v": "9.97"
+    }
+   ]
+  }
+ ],
+ "lists": {
+  "symbolchange_nsearchives": {
+   "status": 200,
+   "bytes": 70023,
+   "lines": 1081,
+   "head": [
+    "NAME OF THE COMPANY,OLD SYMBOL,NEW SYMBOL,EFFECTIVE DATE",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO,RDAXEDG,NDAXEDG,30-OCT-2019",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO,RDAXEDD,NDAXEDD,30-OCT-2019"
+   ],
+   "tail": [
+    "e-Serve International Limited,CITICORSEC,E-SERVEINT,09-JUL-2003",
+    "iGate Global Solutions Limited,MASCOT,IGS,07-AUG-2003",
+    ",780LTFL30,799LTFL30,19-FEB-2025"
+   ],
+   "isHtml": false
+  },
+  "symbolchange_archives": {
+   "status": 200,
+   "bytes": 70023,
+   "lines": 1081,
+   "head": [
+    "NAME OF THE COMPANY,OLD SYMBOL,NEW SYMBOL,EFFECTIVE DATE",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO,RDAXEDG,NDAXEDG,30-OCT-2019",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO,RDAXEDD,NDAXEDD,30-OCT-2019"
+   ],
+   "tail": [
+    "e-Serve International Limited,CITICORSEC,E-SERVEINT,09-JUL-2003",
+    "iGate Global Solutions Limited,MASCOT,IGS,07-AUG-2003",
+    ",780LTFL30,799LTFL30,19-FEB-2025"
+   ],
+   "isHtml": false
+  },
+  "namechange_nsearchives": {
+   "status": 200,
+   "bytes": 241505,
+   "lines": 2345,
+   "head": [
+    "SYMBOL,OLD NAME OF THE COMPANY,NEW NAME OF THE COMPANY,EFFECTIVE DATE",
+    "1IADD,Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO,DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO,08-MAR-2016",
+    "1ID1G,Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO,DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO,08-MAR-2016"
+   ],
+   "tail": [
+    "ZUARIIND,Zuari Global Limited,ZUARI INDUSTRIES LIMITED,04-JUL-2022",
+    "ZUARIIND,Zuari Industries Limited,ZUARI GLOBAL LIMITED,25-SEP-2012",
+    "ZYDUSLIFE,Cadila Healthcare Limited,Zydus Lifesciences Limited,07-MAR-2022"
+   ],
+   "isHtml": false
+  },
+  "namechange_archives": {
+   "status": 200,
+   "bytes": 241505,
+   "lines": 2345,
+   "head": [
+    "SYMBOL,OLD NAME OF THE COMPANY,NEW NAME OF THE COMPANY,EFFECTIVE DATE",
+    "1IADD,Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO,DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO,08-MAR-2016",
+    "1ID1G,Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO,DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO,08-MAR-2016"
+   ],
+   "tail": [
+    "ZUARIIND,Zuari Global Limited,ZUARI INDUSTRIES LIMITED,04-JUL-2022",
+    "ZUARIIND,Zuari Industries Limited,ZUARI GLOBAL LIMITED,25-SEP-2012",
+    "ZYDUSLIFE,Cadila Healthcare Limited,Zydus Lifesciences Limited,07-MAR-2022"
+   ],
+   "isHtml": false
+  },
+  "eq_changes_api": {
+   "status": 404,
+   "bytes": 384,
+   "lines": 12,
+   "head": [
+    "<!DOCTYPE html>",
+    "<html lang=\"en\">",
+    "<head>"
+   ],
+   "tail": [
+    "  </div>",
+    "<script type=\"text/javascript\"  src=\"/j8tJavHSjW3wMn5D1bcoHeTVypc/Ob5G6h4whL0zb6/Ay9OAQ/MmQQUVJ/UVwQB\"></script></body>",
+    "</html>"
+   ],
+   "isHtml": true
+  },
+  "name_changes_api": {
+   "status": 404,
+   "bytes": 384,
+   "lines": 12,
+   "head": [
+    "<!DOCTYPE html>",
+    "<html lang=\"en\">",
+    "<head>"
+   ],
+   "tail": [
+    "  </div>",
+    "<script type=\"text/javascript\"  src=\"/j8tJavHSjW3wMn5D1bcoHeTVypc/Ob5G6h4whL0zb6/Ay9OAQ/MmQQUVJ/UVwQB\"></script></body>",
+    "</html>"
+   ],
+   "isHtml": true
+  }
+ }
+}
