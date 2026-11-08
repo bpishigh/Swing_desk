@@ -1,0 +1,388 @@
+{
+ "at": "2026-11-08T08:02:30.867616Z",
+ "version": "1.8.0",
+ "rows": {
+  "AAPL": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30"
+    ],
+    "rows": 33
+   },
+   "earnings_dates": {
+    "n": 100,
+    "range": [
+     "2002-07-16",
+     "2027-01-28"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ]
+   },
+   "insider_transactions": {
+    "n": 86,
+    "range": null,
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "date_range": [
+     "2024-11-18",
+     "2026-11-03"
+    ]
+   },
+   "institutional_holders": {
+    "n": 10,
+    "range": null,
+    "cols": [
+     "Date Reported",
+     "Holder",
+     "pctHeld",
+     "Shares",
+     "Value",
+     "pctChange"
+    ]
+   },
+   "major_holders": {
+    "n": 4,
+    "range": null,
+    "cols": [
+     "Value"
+    ]
+   },
+   "upgrades_downgrades": {
+    "n": 980,
+    "range": [
+     "2012-09-12",
+     "2026-11-04"
+    ],
+    "cols": [
+     "Firm",
+     "ToGrade",
+     "FromGrade",
+     "Action",
+     "priceTargetAction",
+     "currentPriceTarget",
+     "priorPriceTarget"
+    ]
+   },
+   "short_info": {
+    "dict": {
+     "sharesShort": "131591865",
+     "sharesShortPriorMonth": "128753092",
+     "dateShortInterest": "1792022400",
+     "shortRatio": "3.48",
+     "shortPercentOfFloat": "0.0091"
+    }
+   }
+  },
+  "NVDA": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-07-31",
+     "2026-04-30",
+     "2026-01-31",
+     "2025-10-31",
+     "2025-07-31"
+    ],
+    "rows": 42
+   },
+   "earnings_dates": {
+    "n": 100,
+    "range": [
+     "2002-05-22",
+     "2026-11-17"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ]
+   },
+   "insider_transactions": {
+    "n": 150,
+    "range": null,
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "date_range": [
+     "2025-03-03",
+     "2026-09-21"
+    ]
+   },
+   "institutional_holders": {
+    "n": 10,
+    "range": null,
+    "cols": [
+     "Date Reported",
+     "Holder",
+     "pctHeld",
+     "Shares",
+     "Value",
+     "pctChange"
+    ]
+   },
+   "major_holders": {
+    "n": 4,
+    "range": null,
+    "cols": [
+     "Value"
+    ]
+   },
+   "upgrades_downgrades": {
+    "n": 984,
+    "range": [
+     "2017-08-14",
+     "2026-11-02"
+    ],
+    "cols": [
+     "Firm",
+     "ToGrade",
+     "FromGrade",
+     "Action",
+     "priceTargetAction",
+     "currentPriceTarget",
+     "priorPriceTarget"
+    ]
+   },
+   "short_info": {
+    "dict": {
+     "sharesShort": "301622687",
+     "sharesShortPriorMonth": "294225803",
+     "dateShortInterest": "1792022400",
+     "shortRatio": "2.84",
+     "shortPercentOfFloat": "0.012999999"
+    }
+   }
+  },
+  "CELH": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-09-30",
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 45
+   },
+   "earnings_dates": {
+    "n": 43,
+    "range": [
+     "2010-03-04",
+     "2027-02-25"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ]
+   },
+   "insider_transactions": {
+    "n": 63,
+    "range": null,
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "date_range": [
+     "2024-12-12",
+     "2026-09-15"
+    ]
+   },
+   "institutional_holders": {
+    "n": 10,
+    "range": null,
+    "cols": [
+     "Date Reported",
+     "Holder",
+     "pctHeld",
+     "Shares",
+     "Value",
+     "pctChange"
+    ]
+   },
+   "major_holders": {
+    "n": 4,
+    "range": null,
+    "cols": [
+     "Value"
+    ]
+   },
+   "upgrades_downgrades": {
+    "n": 229,
+    "range": [
+     "2017-08-16",
+     "2026-11-06"
+    ],
+    "cols": [
+     "Firm",
+     "ToGrade",
+     "FromGrade",
+     "Action",
+     "priceTargetAction",
+     "currentPriceTarget",
+     "priorPriceTarget"
+    ]
+   },
+   "short_info": {
+    "dict": {
+     "sharesShort": "30105445",
+     "sharesShortPriorMonth": "30669027",
+     "dateShortInterest": "1792022400",
+     "shortRatio": "4.84",
+     "shortPercentOfFloat": "0.121700004"
+    }
+   }
+  },
+  "PLUG": {
+   "quarterly_income_stmt": {
+    "cols": [
+     "2026-06-30",
+     "2026-03-31",
+     "2025-12-31",
+     "2025-09-30",
+     "2025-06-30",
+     "2025-03-31"
+    ],
+    "rows": 49
+   },
+   "earnings_dates": {
+    "n": 100,
+    "range": [
+     "2002-02-26",
+     "2026-11-09"
+    ],
+    "cols": [
+     "EPS Estimate",
+     "Reported EPS",
+     "Surprise(%)"
+    ]
+   },
+   "insider_transactions": {
+    "n": 85,
+    "range": null,
+    "cols": [
+     "Shares",
+     "Value",
+     "URL",
+     "Text",
+     "Insider",
+     "Position",
+     "Transaction",
+     "Start Date",
+     "Ownership"
+    ],
+    "date_range": [
+     "2024-11-19",
+     "2026-10-15"
+    ]
+   },
+   "institutional_holders": {
+    "n": 10,
+    "range": null,
+    "cols": [
+     "Date Reported",
+     "Holder",
+     "pctHeld",
+     "Shares",
+     "Value",
+     "pctChange"
+    ]
+   },
+   "major_holders": {
+    "n": 4,
+    "range": null,
+    "cols": [
+     "Value"
+    ]
+   },
+   "upgrades_downgrades": {
+    "n": 261,
+    "range": [
+     "2014-01-21",
+     "2026-10-14"
+    ],
+    "cols": [
+     "Firm",
+     "ToGrade",
+     "FromGrade",
+     "Action",
+     "priceTargetAction",
+     "currentPriceTarget",
+     "priorPriceTarget"
+    ]
+   },
+   "short_info": {
+    "dict": {
+     "sharesShort": "291955349",
+     "sharesShortPriorMonth": "287260138",
+     "dateShortInterest": "1792022400",
+     "shortRatio": "5.86",
+     "shortPercentOfFloat": "0.2354"
+    }
+   }
+  },
+  "SIVB": {
+   "quarterly_income_stmt": {
+    "cols": [],
+    "rows": 0
+   },
+   "earnings_dates": null,
+   "insider_transactions": {
+    "n": 0,
+    "range": null,
+    "cols": []
+   },
+   "institutional_holders": {
+    "n": 0,
+    "range": null,
+    "cols": []
+   },
+   "major_holders": {
+    "n": 0,
+    "range": null,
+    "cols": []
+   },
+   "upgrades_downgrades": {
+    "n": 0,
+    "range": null,
+    "cols": []
+   },
+   "short_info": {
+    "dict": {}
+   }
+  }
+ }
+}

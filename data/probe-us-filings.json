@@ -1,0 +1,860 @@
+{
+ "at": "2026-11-08T08:02:07.052Z",
+ "secUaIsCustom": true,
+ "sec": {
+  "company_tickers": {
+   "status": 200,
+   "bytes": 796507
+  },
+  "AAPL": {
+   "cik": "0000320193",
+   "submissions_status": 200,
+   "recent_n": 1006,
+   "older_files": [
+    "CIK0000320193-submissions-001.json"
+   ],
+   "forms": {
+    "4": {
+     "n": 602,
+     "range": [
+      "2015-10-05",
+      "2026-11-05"
+     ]
+    },
+    "10-K": {
+     "n": 12,
+     "range": [
+      "2015-10-28",
+      "2026-11-03"
+     ]
+    },
+    "10-Q": {
+     "n": 33,
+     "range": [
+      "2016-01-27",
+      "2026-07-31"
+     ]
+    },
+    "8-K": {
+     "n": 101,
+     "range": [
+      "2015-10-27",
+      "2026-11-02"
+     ]
+    },
+    "SC 13G": {
+     "n": 1,
+     "range": [
+      "2019-02-14",
+      "2019-02-14"
+     ]
+    },
+    "SC 13G/A": {
+     "n": 22,
+     "range": [
+      "2016-01-25",
+      "2024-02-14"
+     ]
+    },
+    "SCHEDULE 13G": {
+     "n": 1,
+     "range": [
+      "2026-04-29",
+      "2026-04-29"
+     ]
+    }
+   },
+   "has_acceptance_time": true,
+   "sample_acceptance": "2026-11-06T21:30:47.000Z",
+   "form4_xml": {
+    "status": 200,
+    "hasTransactions": true,
+    "hasCode": true,
+    "sample": ""
+   },
+   "companyfacts_status": 200,
+   "companyfacts_bytes": 3859564,
+   "n_concepts": 512,
+   "Revenues": {
+    "n": 11,
+    "end": [
+     "2016-09-24",
+     "2018-09-29"
+    ],
+    "filed": [
+     "2018-11-05",
+     "2018-11-05"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K"
+    ]
+   },
+   "RevenueFromContractWithCustomerExcludingAssessedTax": {
+    "n": 120,
+    "end": [
+     "2017-09-30",
+     "2026-09-26"
+    ],
+    "filed": [
+     "2019-01-30",
+     "2026-11-03"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q"
+    ]
+   },
+   "NetIncomeLoss": {
+    "n": 341,
+    "end": [
+     "2007-09-29",
+     "2026-09-26"
+    ],
+    "filed": [
+     "2009-07-22",
+     "2026-11-03"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-K",
+     "10-K/A",
+     "10-Q",
+     "8-K"
+    ]
+   },
+   "EarningsPerShareDiluted": {
+    "n": 341,
+    "end": [
+     "2007-09-29",
+     "2026-09-26"
+    ],
+    "filed": [
+     "2009-07-22",
+     "2026-11-03"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-K",
+     "10-K/A",
+     "10-Q",
+     "8-K"
+    ]
+   },
+   "Assets": {
+    "n": 148,
+    "end": [
+     "2008-09-27",
+     "2026-09-26"
+    ],
+    "filed": [
+     "2009-07-22",
+     "2026-11-03"
+    ],
+    "keys": [
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A",
+     "8-K"
+    ]
+   }
+  },
+  "NVDA": {
+   "cik": "0001045810",
+   "submissions_status": 200,
+   "recent_n": 1001,
+   "older_files": [
+    "CIK0001045810-submissions-001.json"
+   ],
+   "forms": {
+    "4": {
+     "n": 558,
+     "range": [
+      "2020-09-17",
+      "2026-11-06"
+     ]
+    },
+    "10-K": {
+     "n": 6,
+     "range": [
+      "2021-02-26",
+      "2026-02-25"
+     ]
+    },
+    "10-Q": {
+     "n": 18,
+     "range": [
+      "2020-11-18",
+      "2026-08-26"
+     ]
+    },
+    "8-K": {
+     "n": 60,
+     "range": [
+      "2020-11-09",
+      "2026-09-03"
+     ]
+    },
+    "SC 13G": {
+     "n": 1,
+     "range": [
+      "2024-07-18",
+      "2024-07-18"
+     ]
+    },
+    "SC 13G/A": {
+     "n": 13,
+     "range": [
+      "2021-01-29",
+      "2024-11-12"
+     ]
+    },
+    "SCHEDULE 13G": {
+     "n": 3,
+     "range": [
+      "2025-05-15",
+      "2026-07-20"
+     ]
+    },
+    "13F-HR": {
+     "n": 11,
+     "range": [
+      "2024-02-14",
+      "2026-08-14"
+     ]
+    }
+   },
+   "has_acceptance_time": true,
+   "sample_acceptance": "2026-11-06T21:12:02.000Z",
+   "form4_xml": {
+    "status": 200,
+    "hasTransactions": true,
+    "hasCode": true,
+    "sample": ""
+   },
+   "companyfacts_status": 200,
+   "companyfacts_bytes": 4092966,
+   "n_concepts": 627,
+   "Revenues": {
+    "n": 280,
+    "end": [
+     "2008-01-27",
+     "2026-07-26"
+    ],
+    "filed": [
+     "2009-08-20",
+     "2026-08-26"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q"
+    ]
+   },
+   "RevenueFromContractWithCustomerExcludingAssessedTax": {
+    "n": 28,
+    "end": [
+     "2017-01-29",
+     "2022-01-30"
+    ],
+    "filed": [
+     "2019-02-21",
+     "2022-03-18"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K"
+    ]
+   },
+   "NetIncomeLoss": {
+    "n": 314,
+    "end": [
+     "2008-01-27",
+     "2026-07-26"
+    ],
+    "filed": [
+     "2009-08-20",
+     "2026-08-26"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q",
+     "DEF 14A"
+    ]
+   },
+   "EarningsPerShareDiluted": {
+    "n": 309,
+    "end": [
+     "2008-01-27",
+     "2026-07-26"
+    ],
+    "filed": [
+     "2009-08-20",
+     "2026-08-26"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q"
+    ]
+   },
+   "Assets": {
+    "n": 138,
+    "end": [
+     "2009-01-25",
+     "2026-07-26"
+    ],
+    "filed": [
+     "2009-08-20",
+     "2026-08-26"
+    ],
+    "keys": [
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K"
+    ]
+   }
+  },
+  "CELH": {
+   "cik": "0001341766",
+   "submissions_status": 200,
+   "recent_n": 1000,
+   "older_files": [
+    "CIK0001341766-submissions-001.json"
+   ],
+   "forms": {
+    "4": {
+     "n": 474,
+     "range": [
+      "2017-01-04",
+      "2026-11-03"
+     ]
+    },
+    "10-K": {
+     "n": 11,
+     "range": [
+      "2011-03-31",
+      "2026-03-02"
+     ]
+    },
+    "10-Q": {
+     "n": 32,
+     "range": [
+      "2011-05-10",
+      "2026-11-05"
+     ]
+    },
+    "8-K": {
+     "n": 191,
+     "range": [
+      "2011-04-18",
+      "2026-11-05"
+     ]
+    },
+    "SC 13G": {
+     "n": 10,
+     "range": [
+      "2017-02-16",
+      "2024-02-14"
+     ]
+    },
+    "SC 13G/A": {
+     "n": 30,
+     "range": [
+      "2018-02-14",
+      "2024-09-10"
+     ]
+    },
+    "SCHEDULE 13G": {
+     "n": 2,
+     "range": [
+      "2024-11-15",
+      "2025-04-08"
+     ]
+    }
+   },
+   "has_acceptance_time": true,
+   "sample_acceptance": "2026-11-05T21:18:16.000Z",
+   "form4_xml": {
+    "status": 200,
+    "hasTransactions": true,
+    "hasCode": true,
+    "sample": ""
+   },
+   "companyfacts_status": 200,
+   "companyfacts_bytes": 1984490,
+   "n_concepts": 513,
+   "Revenues": {
+    "n": 79,
+    "end": [
+     "2017-03-31",
+     "2023-12-31"
+    ],
+    "filed": [
+     "2018-05-10",
+     "2024-02-29"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A"
+    ]
+   },
+   "RevenueFromContractWithCustomerExcludingAssessedTax": {
+    "n": 36,
+    "end": [
+     "2022-12-31",
+     "2026-09-30"
+    ],
+    "filed": [
+     "2024-05-07",
+     "2026-11-05"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q"
+    ]
+   },
+   "NetIncomeLoss": {
+    "n": 162,
+    "end": [
+     "2015-09-30",
+     "2026-09-30"
+    ],
+    "filed": [
+     "2016-11-10",
+     "2026-11-05"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A",
+     "DEF 14A"
+    ]
+   },
+   "EarningsPerShareDiluted": {
+    "n": 127,
+    "end": [
+     "2015-09-30",
+     "2026-09-30"
+    ],
+    "filed": [
+     "2016-11-10",
+     "2026-11-05"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A"
+    ]
+   },
+   "Assets": {
+    "n": 86,
+    "end": [
+     "2015-12-31",
+     "2026-09-30"
+    ],
+    "filed": [
+     "2016-11-10",
+     "2026-11-05"
+    ],
+    "keys": [
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A"
+    ]
+   }
+  },
+  "PLUG": {
+   "cik": "0001093691",
+   "submissions_status": 200,
+   "recent_n": 1000,
+   "older_files": [
+    "CIK0001093691-submissions-001.json"
+   ],
+   "forms": {
+    "4": {
+     "n": 579,
+     "range": [
+      "2017-05-15",
+      "2026-10-19"
+     ]
+    },
+    "10-K": {
+     "n": 9,
+     "range": [
+      "2018-03-12",
+      "2026-03-02"
+     ]
+    },
+    "10-Q": {
+     "n": 28,
+     "range": [
+      "2017-08-08",
+      "2026-08-10"
+     ]
+    },
+    "8-K": {
+     "n": 176,
+     "range": [
+      "2017-05-12",
+      "2026-10-15"
+     ]
+    },
+    "SC 13G": {
+     "n": 5,
+     "range": [
+      "2020-09-03",
+      "2024-10-10"
+     ]
+    },
+    "SC 13D": {
+     "n": 1,
+     "range": [
+      "2021-03-08",
+      "2021-03-08"
+     ]
+    },
+    "SC 13G/A": {
+     "n": 14,
+     "range": [
+      "2018-01-29",
+      "2024-02-13"
+     ]
+    },
+    "SCHEDULE 13G": {
+     "n": 1,
+     "range": [
+      "2026-04-30",
+      "2026-04-30"
+     ]
+    }
+   },
+   "has_acceptance_time": true,
+   "sample_acceptance": "2026-10-19T20:29:05.000Z",
+   "form4_xml": {
+    "status": 200,
+    "hasTransactions": true,
+    "hasCode": true,
+    "sample": ""
+   },
+   "companyfacts_status": 200,
+   "companyfacts_bytes": 3207738,
+   "n_concepts": 673,
+   "Revenues": {
+    "n": 231,
+    "end": [
+     "2009-12-31",
+     "2026-06-30"
+    ],
+    "filed": [
+     "2011-08-11",
+     "2026-08-10"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q",
+     "10-K/A"
+    ]
+   },
+   "NetIncomeLoss": {
+    "n": 264,
+    "end": [
+     "2009-12-31",
+     "2026-06-30"
+    ],
+    "filed": [
+     "2011-11-09",
+     "2026-08-10"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed",
+     "frame"
+    ],
+    "forms": [
+     "10-K",
+     "10-Q",
+     "10-K/A",
+     "DEF 14A"
+    ]
+   },
+   "EarningsPerShareDiluted": {
+    "n": 84,
+    "end": [
+     "2013-06-30",
+     "2026-06-30"
+    ],
+    "filed": [
+     "2014-08-14",
+     "2026-08-10"
+    ],
+    "keys": [
+     "start",
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K/A",
+     "10-K"
+    ]
+   },
+   "Assets": {
+    "n": 138,
+    "end": [
+     "2010-12-31",
+     "2026-06-30"
+    ],
+    "filed": [
+     "2011-08-11",
+     "2026-08-10"
+    ],
+    "keys": [
+     "end",
+     "val",
+     "accn",
+     "fy",
+     "fp",
+     "form",
+     "filed"
+    ],
+    "forms": [
+     "10-Q",
+     "10-K",
+     "10-K/A"
+    ]
+   }
+  },
+  "berkshire": {
+   "status": 200,
+   "thirteenf": {
+    "n": 39,
+    "range": [
+     "2017-02-14",
+     "2026-08-14"
+    ]
+   },
+   "index_status": 200
+  }
+ },
+ "bulk": {
+  "fin_stmt_2019q1": {
+   "status": 206,
+   "bytes": 1024
+  },
+  "insider_2019q1": {
+   "status": 206,
+   "bytes": 1024
+  },
+  "thirteenf_2019q1": {
+   "status": 404,
+   "bytes": 53435,
+   "head": "<!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" class=\"no-js\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta n"
+  },
+  "full_index_2010q1": {
+   "status": 206,
+   "bytes": 4787
+  }
+ },
+ "other": {
+  "finra_shrt_20250930_csv": {
+   "status": 206,
+   "head": "accountingYearMonthNumber|symbolCode|issueName|issuerServicesGroupExchangeCode|marketClassCode|currentShortPositionQuantity|previousShortPositionQuantity|stockSplitFlag|averageDailyVolumeQuantity|days"
+  },
+  "finra_shrt_20190628_csv": {
+   "status": 206,
+   "head": "accountingYearMonthNumber|symbolCode|issueName|issuerServicesGroupExchangeCode|marketClassCode|currentShortPositionQuantity|previousShortPositionQuantity|stockSplitFlag|averageDailyVolumeQuantity|days"
+  },
+  "finra_shrt_20190628_txt": {
+   "status": 403,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <Error><Code>AccessDenied</Code><Message>Access Denied</Message></Error>"
+  },
+  "nasdaq_earnings": {
+   "status": 200,
+   "n": 621,
+   "keys": [
+    "eps",
+    "surprise",
+    "time",
+    "symbol",
+    "name",
+    "marketCap",
+    "fiscalQuarterEnding",
+    "epsForecast",
+    "noOfEsts"
+   ],
+   "sample": "{\"eps\":\"$4.10\",\"surprise\":\"N/A\",\"time\":\"time-not-supplied\",\"symbol\":\"TM\",\"name\":\"Toyota Motor Corp Ltd Ord\",\"marketCap\":\"$284,283,077,000\",\"fiscalQuarterEnding\":\"Sep/2026\",\"epsForecast\":\"\",\"noOfEsts\":\"N/A\"}"
+  }
+ }
+}
