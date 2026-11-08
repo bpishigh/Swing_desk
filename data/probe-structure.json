@@ -569,14 +569,14 @@
    "bytes": 70023,
    "lines": 1081,
    "head": [
-    "NAME OF THE COMPANY,OLD SYMBOL,NEW SYMBOL,EFFECTIVE DATE",
-    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO,RDAXEDG,NDAXEDG,30-OCT-2019",
-    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO,RDAXEDD,NDAXEDD,30-OCT-2019"
+    "NAME OF THE COMPANY | OLD SYMBOL | NEW SYMBOL | EFFECTIVE DATE",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO | RDAXEDG | NDAXEDG | 30-OCT-2019",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO | RDAXEDD | NDAXEDD | 30-OCT-2019"
    ],
    "tail": [
-    "e-Serve International Limited,CITICORSEC,E-SERVEINT,09-JUL-2003",
-    "iGate Global Solutions Limited,MASCOT,IGS,07-AUG-2003",
-    ",780LTFL30,799LTFL30,19-FEB-2025"
+    "e-Serve International Limited | CITICORSEC | E-SERVEINT | 09-JUL-2003",
+    "iGate Global Solutions Limited | MASCOT | IGS | 07-AUG-2003",
+    " | 780LTFL30 | 799LTFL30 | 19-FEB-2025"
    ],
    "isHtml": false
   },
@@ -585,14 +585,14 @@
    "bytes": 70023,
    "lines": 1081,
    "head": [
-    "NAME OF THE COMPANY,OLD SYMBOL,NEW SYMBOL,EFFECTIVE DATE",
-    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO,RDAXEDG,NDAXEDG,30-OCT-2019",
-    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO,RDAXEDD,NDAXEDD,30-OCT-2019"
+    "NAME OF THE COMPANY | OLD SYMBOL | NEW SYMBOL | EFFECTIVE DATE",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E -  GO | RDAXEDG | NDAXEDG | 30-OCT-2019",
+    " NIPPON INDIA MF - NIPPON INDIA Dual Advantage FTF  Sr. x Plan E - DPO | RDAXEDD | NDAXEDD | 30-OCT-2019"
    ],
    "tail": [
-    "e-Serve International Limited,CITICORSEC,E-SERVEINT,09-JUL-2003",
-    "iGate Global Solutions Limited,MASCOT,IGS,07-AUG-2003",
-    ",780LTFL30,799LTFL30,19-FEB-2025"
+    "e-Serve International Limited | CITICORSEC | E-SERVEINT | 09-JUL-2003",
+    "iGate Global Solutions Limited | MASCOT | IGS | 07-AUG-2003",
+    " | 780LTFL30 | 799LTFL30 | 19-FEB-2025"
    ],
    "isHtml": false
   },
@@ -601,14 +601,14 @@
    "bytes": 241505,
    "lines": 2345,
    "head": [
-    "SYMBOL,OLD NAME OF THE COMPANY,NEW NAME OF THE COMPANY,EFFECTIVE DATE",
-    "1IADD,Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO,DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO,08-MAR-2016",
-    "1ID1G,Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO,DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO,08-MAR-2016"
+    "SYMBOL | OLD NAME OF THE COMPANY | NEW NAME OF THE COMPANY | EFFECTIVE DATE",
+    "1IADD | Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO | DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO | 08-MAR-2016",
+    "1ID1G | Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO | DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO | 08-MAR-2016"
    ],
    "tail": [
-    "ZUARIIND,Zuari Global Limited,ZUARI INDUSTRIES LIMITED,04-JUL-2022",
-    "ZUARIIND,Zuari Industries Limited,ZUARI GLOBAL LIMITED,25-SEP-2012",
-    "ZYDUSLIFE,Cadila Healthcare Limited,Zydus Lifesciences Limited,07-MAR-2022"
+    "ZUARIIND | Zuari Global Limited | ZUARI INDUSTRIES LIMITED | 04-JUL-2022",
+    "ZUARIIND | Zuari Industries Limited | ZUARI GLOBAL LIMITED | 25-SEP-2012",
+    "ZYDUSLIFE | Cadila Healthcare Limited | Zydus Lifesciences Limited | 07-MAR-2022"
    ],
    "isHtml": false
   },
@@ -617,14 +617,14 @@
    "bytes": 241505,
    "lines": 2345,
    "head": [
-    "SYMBOL,OLD NAME OF THE COMPANY,NEW NAME OF THE COMPANY,EFFECTIVE DATE",
-    "1IADD,Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO,DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO,08-MAR-2016",
-    "1ID1G,Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO,DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO,08-MAR-2016"
+    "SYMBOL | OLD NAME OF THE COMPANY | NEW NAME OF THE COMPANY | EFFECTIVE DATE",
+    "1IADD | Deutsche MF - DWS Hybrid FTF Series 40 - RP-ADPO | DHFL Pramerica MF - Hybrid FTF Series 40 - RP-ADPO | 08-MAR-2016",
+    "1ID1G | Deutsche MF - DWS Hybrid FTF Series 40 - DP-GO | DHFL Pramerica MF - Hybrid FTF Series 40 - DP-GO | 08-MAR-2016"
    ],
    "tail": [
-    "ZUARIIND,Zuari Global Limited,ZUARI INDUSTRIES LIMITED,04-JUL-2022",
-    "ZUARIIND,Zuari Industries Limited,ZUARI GLOBAL LIMITED,25-SEP-2012",
-    "ZYDUSLIFE,Cadila Healthcare Limited,Zydus Lifesciences Limited,07-MAR-2022"
+    "ZUARIIND | Zuari Global Limited | ZUARI INDUSTRIES LIMITED | 04-JUL-2022",
+    "ZUARIIND | Zuari Industries Limited | ZUARI GLOBAL LIMITED | 25-SEP-2012",
+    "ZYDUSLIFE | Cadila Healthcare Limited | Zydus Lifesciences Limited | 07-MAR-2022"
    ],
    "isHtml": false
   },

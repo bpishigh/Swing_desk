@@ -23,7 +23,7 @@ for (const s of ['RELIANCE', 'TCS', 'HDFCBANK', 'KPITTECH']) {
 // Symbol and name change lists (several candidate locations).
 for (const [k, u] of [['symbolchange_nsearchives', 'https://nsearchives.nseindia.com/content/equities/symbolchange.csv'], ['symbolchange_archives', 'https://archives.nseindia.com/content/equities/symbolchange.csv'], ['namechange_nsearchives', 'https://nsearchives.nseindia.com/content/equities/namechange.csv'], ['namechange_archives', 'https://archives.nseindia.com/content/equities/namechange.csv'], ['eq_changes_api', 'https://www.nseindia.com/api/corporates-symbol-change?index=equities'], ['name_changes_api', 'https://www.nseindia.com/api/corporates-name-change?index=equities']]) {
   const h = k.endsWith('api') ? { ...UA, ...NSEH } : UA; const r = await get(u, h); const lines = r.t.split(/\r?\n/).filter(Boolean);
-  out.lists[k] = { status: r.status, bytes: r.t.length, lines: lines.length, head: lines.slice(0, 3), tail: lines.slice(-3), isHtml: /<html/i.test(r.t.slice(0, 200)) }; await sleep(300);
+  out.lists[k] = { status: r.status, bytes: r.t.length, lines: lines.length, head: lines.slice(0, 3).map((l) => l.replace(/,/g, ' | ')), tail: lines.slice(-3).map((l) => l.replace(/,/g, ' | ')), isHtml: /<html/i.test(r.t.slice(0, 200)) }; await sleep(300);
 }
 writeFileSync('data/probe-structure.json', JSON.stringify(out, null, 1) + '\n');
 console.log(Object.entries(out.lists).map(([k, v]) => `${k}:${v.status}/${v.lines}${v.isHtml ? ' html' : ''}`).join(' '));
