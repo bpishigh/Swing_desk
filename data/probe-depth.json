@@ -1,0 +1,511 @@
+{
+ "at": "2026-11-08T10:05:23.373Z",
+ "nse": {
+  "RELIANCE": {
+   "sast": {
+    "n": 49,
+    "range": [
+     "2015-02-28",
+     "2024-03-27"
+    ],
+    "sys": [
+     "2023-06-15",
+     "2024-04-01"
+    ]
+   },
+   "pit": {
+    "n": 2397,
+    "range": [
+     "2015-10-06",
+     "2026-02-13"
+    ]
+   },
+   "shp_dated": {
+    "n": 2,
+    "range": [
+     "2021-09-30",
+     "2021-12-08"
+    ]
+   },
+   "shp_plain": {
+    "n": 23,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "ADANIENT": {
+   "sast": {
+    "n": 51,
+    "range": [
+     "2017-02-22",
+     "2024-12-05"
+    ],
+    "sys": [
+     "2023-03-06",
+     "2026-10-06"
+    ]
+   },
+   "pit": {
+    "n": 365,
+    "range": [
+     "2015-12-08",
+     "2022-09-28"
+    ]
+   },
+   "shp_dated": {
+    "n": 3,
+    "range": [
+     "2015-12-31",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 26,
+    "range": [
+     "2015-12-31",
+     "2026-09-30"
+    ]
+   }
+  },
+  "KPITTECH": {
+   "sast": {
+    "n": 37,
+    "range": [
+     "2019-04-22",
+     "2026-03-11"
+    ],
+    "sys": [
+     "2023-02-09",
+     "2026-03-17"
+    ]
+   },
+   "pit": {
+    "n": 629,
+    "range": [
+     "2019-08-30",
+     "2026-03-30"
+    ]
+   },
+   "shp_dated": {
+    "n": 1,
+    "range": [
+     "2021-09-30",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 21,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "JPPOWER": {
+   "sast": {
+    "n": 21,
+    "range": [
+     "2016-07-25",
+     "2026-07-03"
+    ],
+    "sys": [
+     "2026-05-20",
+     "2026-07-08"
+    ]
+   },
+   "pit": {
+    "n": 9,
+    "range": [
+     "2017-03-01",
+     "2023-12-04"
+    ]
+   },
+   "shp_dated": {
+    "n": 1,
+    "range": [
+     "2021-09-30",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 21,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "TCS": {
+   "sast": {
+    "n": 11,
+    "range": [
+     "2018-03-13",
+     "2025-08-29"
+    ],
+    "sys": [
+     "2023-12-14",
+     "2025-09-08"
+    ]
+   },
+   "pit": {
+    "n": 153,
+    "range": [
+     "2016-01-15",
+     "2022-05-23"
+    ]
+   },
+   "shp_dated": {
+    "n": 1,
+    "range": [
+     "2021-09-30",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 21,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "HDFCBANK": {
+   "sast": {
+    "n": 5,
+    "range": [
+     "2024-03-13",
+     "2026-03-27"
+    ],
+    "sys": [
+     "2024-03-20",
+     "2026-04-02"
+    ]
+   },
+   "pit": {
+    "n": 36094,
+    "range": [
+     "2015-07-14",
+     "2025-03-24"
+    ]
+   },
+   "shp_dated": {
+    "n": 1,
+    "range": [
+     "2021-09-30",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 23,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "TATASTEEL": {
+   "sast": {
+    "n": 17,
+    "range": [
+     "2016-11-22",
+     "2023-06-05"
+    ],
+    "sys": [
+     "2023-06-15",
+     "2025-05-05"
+    ]
+   },
+   "pit": {
+    "n": 32,
+    "range": [
+     "2016-05-31",
+     "2023-08-17"
+    ]
+   },
+   "shp_dated": {
+    "n": 2,
+    "range": [
+     "2021-09-30",
+     "2021-10-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 29,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  },
+  "INFY": {
+   "sast": {
+    "n": 83,
+    "range": [
+     "2013-09-26",
+     "2026-05-27"
+    ],
+    "sys": [
+     "2023-06-15",
+     "2026-05-29"
+    ]
+   },
+   "pit": {
+    "n": 3327,
+    "range": [
+     "2015-10-28",
+     "2026-04-02"
+    ]
+   },
+   "shp_dated": {
+    "n": 1,
+    "range": [
+     "2021-09-30",
+     "2021-09-30"
+    ]
+   },
+   "shp_plain": {
+    "n": 22,
+    "range": [
+     "2021-09-30",
+     "2026-09-30"
+    ]
+   }
+  }
+ },
+ "finra": {
+  "20180629": {
+   "status": 200,
+   "rows": 15573,
+   "marketClass": {
+    "OTC": 7197,
+    "NYSE": 3126,
+    "NNM": 2348,
+    "ARCA": 1429,
+    "SC": 894,
+    "AMEX": 329,
+    "BZX": 243,
+    "OTCBB": 7
+   },
+   "exchangeCode": {
+    "S": 7204,
+    "R": 3242,
+    "A": 3126,
+    "E": 1429,
+    "B": 329,
+    "H": 243
+   },
+   "hasAAPL": true,
+   "hasMSFT": true,
+   "hasPLUG": true,
+   "header": "accountingYearMonthNumber symbolCode issueName issuerServicesGroupExchangeCode marketClassCode currentShortPositionQuantity previousShortPositionQuantity stockSplitFlag averageDailyVolumeQuantity daysToCoverQuantity revi"
+  },
+  "20190628": {
+   "status": 200,
+   "rows": 16147,
+   "marketClass": {
+    "OTC": 7603,
+    "NYSE": 3077,
+    "NNM": 2380,
+    "ARCA": 1500,
+    "SC": 983,
+    "BZX": 303,
+    "AMEX": 300,
+    "IEX": 1
+   },
+   "exchangeCode": {
+    "S": 7603,
+    "R": 3363,
+    "A": 3077,
+    "E": 1500,
+    "H": 303,
+    "B": 300,
+    "V": 1
+   },
+   "hasAAPL": true,
+   "hasMSFT": true,
+   "hasPLUG": true,
+   "header": "accountingYearMonthNumber symbolCode issueName issuerServicesGroupExchangeCode marketClassCode currentShortPositionQuantity previousShortPositionQuantity stockSplitFlag averageDailyVolumeQuantity daysToCoverQuantity revi"
+  },
+  "20210528": {
+   "status": 200,
+   "rows": 20132,
+   "marketClass": {
+    "OTC": 9696,
+    "NYSE": 3509,
+    "NNM": 2654,
+    "SC": 1938,
+    "ARCA": 1573,
+    "BZX": 466,
+    "AMEX": 296
+   },
+   "exchangeCode": {
+    "S": 9696,
+    "R": 4592,
+    "A": 3509,
+    "E": 1573,
+    "H": 466,
+    "B": 296
+   },
+   "hasAAPL": true,
+   "hasMSFT": true,
+   "hasPLUG": true,
+   "header": "accountingYearMonthNumber symbolCode issueName issuerServicesGroupExchangeCode marketClassCode currentShortPositionQuantity previousShortPositionQuantity stockSplitFlag averageDailyVolumeQuantity daysToCoverQuantity revi"
+  },
+  "20210630": {
+   "status": 200,
+   "rows": 20134,
+   "marketClass": {
+    "OTC": 9586,
+    "NYSE": 3502,
+    "NNM": 2706,
+    "SC": 1978,
+    "ARCA": 1590,
+    "BZX": 475,
+    "AMEX": 297
+   },
+   "exchangeCode": {
+    "S": 9586,
+    "R": 4684,
+    "A": 3502,
+    "E": 1590,
+    "H": 475,
+    "B": 297
+   },
+   "hasAAPL": true,
+   "hasMSFT": true,
+   "hasPLUG": true,
+   "header": "accountingYearMonthNumber symbolCode issueName issuerServicesGroupExchangeCode marketClassCode currentShortPositionQuantity previousShortPositionQuantity stockSplitFlag averageDailyVolumeQuantity daysToCoverQuantity revi"
+  },
+  "20250930": {
+   "status": 200,
+   "rows": 20835,
+   "marketClass": {
+    "OTC": 9187,
+    "NNM": 3366,
+    "NYSE": 2868,
+    "ARCA": 2434,
+    "SC": 1675,
+    "BZX": 1008,
+    "AMEX": 297
+   },
+   "exchangeCode": {
+    "S": 9187,
+    "R": 5041,
+    "A": 2868,
+    "E": 2434,
+    "H": 1008,
+    "B": 297
+   },
+   "hasAAPL": true,
+   "hasMSFT": true,
+   "hasPLUG": true,
+   "header": "accountingYearMonthNumber symbolCode issueName issuerServicesGroupExchangeCode marketClassCode currentShortPositionQuantity previousShortPositionQuantity stockSplitFlag averageDailyVolumeQuantity daysToCoverQuantity revi"
+  }
+ },
+ "nasdaq": {
+  "status": 200,
+  "n": 23,
+  "first": {
+   "settlementDate": "10/15/2026",
+   "interest": "131,591,865",
+   "avgDailyShareVolume": "35,498,663",
+   "daysToCover": 3.706953
+  },
+  "last": {
+   "settlementDate": "11/14/2025",
+   "interest": "114,913,396",
+   "avgDailyShareVolume": "47,053,455",
+   "daysToCover": 2.442188
+  }
+ },
+ "formats": {
+  "30-Sep-2025": {
+   "totalRecords": 4630,
+   "consolidated": 1933,
+   "standalone": 2697,
+   "sampled": 211,
+   "fetchFails": {
+    "n": 0,
+    "statuses": {}
+   },
+   "tally": {
+    "IFNBFC | in-capmkt": {
+     "n": 9,
+     "rev": 9,
+     "pat": 9,
+     "eps": 9
+    },
+    "IFIndAs | in-capmkt": {
+     "n": 196,
+     "rev": 196,
+     "pat": 196,
+     "eps": 196
+    },
+    "IFBanking | in-capmkt": {
+     "n": 4,
+     "rev": 4,
+     "pat": 4,
+     "eps": 4
+    },
+    "IFFIndAs | in-capmkt": {
+     "n": 1,
+     "rev": 1,
+     "pat": 1,
+     "eps": 1
+    },
+    "FRNBFC | in-capmkt": {
+     "n": 1,
+     "rev": 1,
+     "pat": 1,
+     "eps": 1
+    }
+   },
+   "example": {
+    "IFNBFC | in-capmkt": "Monarch Networth Capital Limited",
+    "IFIndAs | in-capmkt": "Saraswati Saree Depot Limited",
+    "IFBanking | in-capmkt": "Suryoday Small Finance Bank Limited",
+    "IFFIndAs | in-capmkt": "Aurum PropTech Limited",
+    "FRNBFC | in-capmkt": "Angel One Limited"
+   }
+  },
+  "31-Mar-2026": {
+   "totalRecords": 4996,
+   "consolidated": 2102,
+   "standalone": 2894,
+   "sampled": 218,
+   "fetchFails": {
+    "n": 1,
+    "statuses": {
+     "404": 1
+    }
+   },
+   "tally": {
+    "IFNBFC | in-capmkt": {
+     "n": 12,
+     "rev": 12,
+     "pat": 12,
+     "eps": 12
+    },
+    "IFIndAs | in-capmkt": {
+     "n": 200,
+     "rev": 200,
+     "pat": 200,
+     "eps": 200
+    },
+    "IFBanking | in-capmkt": {
+     "n": 5,
+     "rev": 5,
+     "pat": 5,
+     "eps": 5
+    }
+   },
+   "example": {
+    "IFNBFC | in-capmkt": "Monarch Networth Capital Limited",
+    "IFIndAs | in-capmkt": "Dharani Sugars & Chemicals Limited",
+    "IFBanking | in-capmkt": "The Jammu & Kashmir Bank Limited"
+   }
+  }
+ }
+}
