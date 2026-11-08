@@ -49,12 +49,17 @@ test('an event that has not happened yet at t changes nothing', () => {
   const ev = [{ date: '2026-10-01', kind: 'demerger' as const, symbol: E, subject: 'Demerger', isin: null }];
   const v = asOfResults(base, E, '2026-03-31', { events: ev }); assert.equal(v.quarters[0].yoyReason, 'ok'); assert.equal(v.flags.length, 0);
 });
-test('a missing field stays null; a non-positive base gives no growth, not a made-up number', () => {
+test('a missing field stays null; a non-positive base gives no growth figure for that field, not a made-up number', () => {
+  const facts = base.map((x, i) => (i === 3 ? { ...x, fields: { revenue: 140, pbt: -5, pat: null, eps: null } } : x));
+  const q = asOfResults(facts, E, '2026-06-30').quarters.find((x) => x.period === '2025-12-31')!;     // its year-ago quarter is the doctored one
+  assert.equal(q.yoyReason, 'ok'); assert.ok(Math.abs((q.yoy!.revenue as number) - (170 / 140 - 1)) < 1e-12);
+  assert.equal(q.yoy!.pbt, null);        // year-ago profit before tax negative
+  assert.equal(q.yoy!.pat, null); assert.equal(q.yoy!.eps, null);   // year-ago values missing
+});
+test('when no field has a usable base the quarter says why and carries no growth', () => {
   const facts = base.map((x, i) => (i === 3 ? { ...x, fields: { revenue: null, pbt: -5, pat: null, eps: null } } : x));
-  const v = asOfResults(facts, E, '2026-06-30'); const q = v.quarters.find((x) => x.period === '2025-12-31')!;           // its year-ago quarter is the doctored one
-  assert.equal(q.yoy!.revenue, null); assert.equal(q.yoy!.pat, null);       // year-ago revenue and profit missing
-  assert.equal(q.yoy!.pbt, null);                                            // year-ago profit before tax negative: no growth figure
-  assert.equal(q.yoyReason, 'base not positive');
+  const q = asOfResults(facts, E, '2026-06-30').quarters.find((x) => x.period === '2025-12-31')!;
+  assert.equal(q.yoy, null); assert.equal(q.yoyReason, 'base not positive');
 });
 test('facts of other companies are ignored', () => { assert.equal(asOfResults([...base, { ...f('2025-12-31', 5), entity: 'OTHER' }], E, '2026-06-30').quarters[0].values.revenue, 170); });
 test('quarter end helper', () => { assert.equal(quarterEndOnOrAfter('2025-10-14'), '2025-12-31'); assert.equal(quarterEndOnOrAfter('2025-03-31'), '2025-03-31'); assert.equal(quarterEndOnOrAfter('2025-04-01'), '2025-06-30'); });
