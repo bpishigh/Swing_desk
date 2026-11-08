@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { parseResultsXbrl } from '../src/ingest/filings-parse.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
-const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "6"));
+const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "3"));
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const NSEH = { ...UA, referer: 'https://www.nseindia.com/', accept: 'application/json' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -30,7 +30,8 @@ for (const period of periods) {
   const recs = all.slice(0, LIMIT), c = { listed: all.length, attempted: recs.length, parsed: 0, fetchFailed: 0, parseFailed: 0, unmapped: 0, families: {}, missingField: { revenue: 0, pbt: 0, pat: 0, eps: 0 }, periodMismatch: 0, errors: {}, unmappedSymbols: [] };
   let i = 0;
   const worker = async () => { while (i < recs.length) {
-    const rec = recs[i++]; const r = await get(rec.xbrl); if (r.status !== 200) { c.fetchFailed++; continue; }
+    const rec = recs[i++]; const pre = entityOf(rec.symbol, pe); if (pre && load(pre).results.some((y) => y.source === rec.xbrl)) { c.alreadyStored = (c.alreadyStored || 0) + 1; c.parsed++; continue; }   // resume: a filing already stored is not fetched again
+    const r = await get(rec.xbrl); if (r.status !== 200) { c.fetchFailed++; continue; }
     const x = parseResultsXbrl(r.t, maps); if (!x.ok) { c.parseFailed++; c.errors[x.error] = (c.errors[x.error] || 0) + 1; continue; }
     if (x.periodEnd && x.periodEnd !== pe) c.periodMismatch++;
     const id = entityOf(rec.symbol || x.symbol, pe); if (!id) { c.unmapped++; if (c.unmappedSymbols.length < 40) c.unmappedSymbols.push(rec.symbol || x.symbol); continue; }
