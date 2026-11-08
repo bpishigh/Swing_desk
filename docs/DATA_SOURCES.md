@@ -52,6 +52,8 @@ Created 8 Nov 2026 (owner request). Paper only; public data only. This register 
 
 ## D. Open items
 
+**Decided (owner, 8 Nov 2026; Engine Rules C-157):** consolidated-first with both stored; originals as-of with revisions kept as new rows; year-on-year growth suppressed for five quarters after a structure event. Items 1 and 2 below are therefore closed and item 8's suppression rule is adopted.
+
 1. Decide the standalone-versus-consolidated rule (a written rule before looking; both stored).
 2. Decide how revisions are handled in a test (use the original as-of date; flag a later revision).
 3. Build the tag maps: `in-bse-fin` (before about 2025) and `in-capmkt` (from Mar 2025), each in Ind AS and banking forms; confirm the two namespaces map to the same concepts.
