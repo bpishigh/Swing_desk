@@ -1,0 +1,33 @@
+name: backfill-filings
+# Filings loader step 4: India results backfill; input periods and limit. Manual only.
+on:
+  workflow_dispatch:
+    inputs:
+      periods: { description: "Comma list of quarter ends, e.g. 31-Mar-2026,31-Dec-2025", default: "31-Mar-2026" }
+      limit: { description: "Max filings per period (0 = all)", default: "0" }
+concurrency: backfill-filings
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/backfill-filings.mjs --periods="${{ inputs.periods }}" --limit="${{ inputs.limit }}"
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india/filings data/india/filings-coverage.json
+          git commit -m "backfill-filings: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
