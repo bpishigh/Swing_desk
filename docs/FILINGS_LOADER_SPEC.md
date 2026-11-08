@@ -49,15 +49,18 @@ Numbers are stored as filed (rupees, rounded as filed). Units and rounding (the 
 
 ## 6. Tag maps and formats
 
-Five format families appear in the current NSE integrated filings (round 7, 429 sampled filings): `IFIndAs` (most companies), `IFNBFC`, `IFBanking`, `IFFIndAs`, and `FRNBFC` (the last two are rarer); the banking family is also seen as `FRBanking`. All use the `in-capmkt` taxonomy. Older filings (before the integrated filing) use the `in-bse-fin` taxonomy, and round 3 found revenue and profit tags in only 21 of 49 of the oldest files.
+The current NSE integrated filings (31 Mar 2026, about 5,000 filings) fall into a few format families, named in each file's header comment. Real files for five of them are saved in `fixtures/filings/` (`IFIndAs`, `IFNBFC`, `IFOTB`, `IFBanking`, `IFLI`; consolidated and standalone where available), and a tag census of 631 sampled filings is in `data/filings-tag-census.json`. All use the `in-capmkt` taxonomy. `IFIndAs` is about 92% of the sample. `IFFIndAs`, `FRNBFC` and `FRBanking` appeared in earlier probes but not in this sample: they borrow the map of the family they mirror and are flagged unverified until a fixture exists. Older filings (before the integrated filing) use the `in-bse-fin` taxonomy, and round 3 found revenue and profit tags in only 21 of 49 of the oldest files.
+
+Tag maps (confirmed against the fixtures; in `settings/filings-tags.json`):
 
 | Family | Revenue | Profit before tax | Profit | EPS |
 | --- | --- | --- | --- | --- |
-| IFIndAs, IFFIndAs | `RevenueFromOperations` | `ProfitBeforeTax` | `ProfitLossForPeriod` | `BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations` (name to confirm in the first build) |
-| IFNBFC, FRNBFC | to confirm | to confirm | to confirm | to confirm |
-| IFBanking, FRBanking | interest earned and `RevenueOnInvestments` (to confirm) | to confirm | to confirm | `BasicEarningsPerShareAfterExtraordinaryItems`, `DilutedEarningsPerShareBeforeExtraordinaryItems` |
+| IFIndAs, IFNBFC | `RevenueFromOperations` | `ProfitBeforeTax` | `ProfitLossForPeriod` | `BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations` |
+| IFOTB | `RevenueFromOperations` | `ProfitBeforeTax` | `ProfitLossForThePeriod` | same as Ind AS |
+| IFBanking | `Income` (total income) | `ProfitLossFromOrdinaryActivitiesBeforeTax` | `ProfitLossForThePeriod` | `BasicEarningsPerShareAfterExtraordinaryItems` |
+| IFLI (insurers) | `Income` (total income) | `ProfitLossBeforeTax` | `ProfitLossAfterTaxAndExtraordinaryItems` | none in the file (absent, not zero) |
 
-The first build step confirms the "to confirm" cells against real files, writes them into `settings/filings-tags.json`, and the parser test fails if a family appears that has no map. Two contexts appear in each file: the quarter (`OneD`) and the year to date (`FourD`); the parser stores both and labels them.
+Two contexts matter in each file: `OneD` (the quarter) and `FourD` (the year to date). The parser stores both and reads the basis (consolidated or standalone) from the file itself. Values are full rupees as filed, rounded to the file's own rounding (lakh or ten million). The parser test fails if a family has no map.
 
 Older filings: the backfill parses back to the oldest taxonomy version that yields all four fields and reports parse coverage per quarter. Tests start at the first quarter where coverage is at least 90% of the liquid universe. Before the Ind AS switch (financial year 2016-17) figures are not comparable, so nothing is read before it (`docs/DATA_SOURCES.md`, the pre-2019 evaluation).
 
@@ -85,7 +88,7 @@ One line on the Reference tab: latest filing broadcast time, latest quarter with
 
 ## 10. Open items
 
-- Tag maps for NBFC and banking families (first build step).
+- Fixtures for the alias families `IFFIndAs`, `FRNBFC`, `FRBanking` (not in the 31 Mar 2026 sample); revenue for banks and insurers is total income, which is not comparable with revenue from operations at other companies (strategies must not mix them).
 - How far back each taxonomy version parses (backfill).
 - Cause classification of vanished symbols from their final announcement (a classifier is not built; the review list handles it).
 - Ticker to CIK history for delisted US names (low priority; US prices are survivor-only).
@@ -93,3 +96,4 @@ One line on the Reference tab: latest filing broadcast time, latest quarter with
 ## 11. Change log
 
 - 8 Nov 2026: specification written after probe rounds 1 to 7 and C-157 to C-159.
+- 8 Nov 2026: build step 1 done: parser (`src/ingest/filings-parse.ts`), tag maps (`settings/filings-tags.json`), fixtures and tests; section 6 now holds confirmed maps.

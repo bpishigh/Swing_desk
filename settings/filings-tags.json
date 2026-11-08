@@ -1,0 +1,12 @@
+{
+  "version": "FILINGS-TAGS-1",
+  "note": "Which XBRL tag means revenue, profit before tax, profit and EPS, per format family of the NSE integrated filing (header comment of the file). Tags are tried in the order listed. A family with no tag for a field leaves the field absent. Built from real files (fixtures/filings, data/filings-tag-census.json, 31 Mar 2026). Revenue for banks and insurers is total income (the files carry no 'revenue from operations'). Aliases are families seen in earlier probes and not yet in a fixture: they borrow the map of the family they mirror and are flagged unverified until a fixture is added. See docs/FILINGS_LOADER_SPEC.md section 6.",
+  "families": {
+    "IFIndAs": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForPeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
+    "IFNBFC": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForPeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
+    "IFOTB": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForThePeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
+    "IFBanking": { "revenue": ["Income"], "pbt": ["ProfitLossFromOrdinaryActivitiesBeforeTax"], "pat": ["ProfitLossForThePeriod"], "eps": ["BasicEarningsPerShareAfterExtraordinaryItems"] },
+    "IFLI": { "revenue": ["Income"], "pbt": ["ProfitLossBeforeTax"], "pat": ["ProfitLossAfterTaxAndExtraordinaryItems"], "eps": [] }
+  },
+  "aliases": { "IFFIndAs": "IFIndAs", "FRNBFC": "IFNBFC", "FRBanking": "IFBanking" }
+}
