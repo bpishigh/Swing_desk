@@ -1,0 +1,34 @@
+name: probe-filings-coverage
+# One-off, round 2: completeness of free filing histories across a wider sample (NSE, SEC EDGAR, FINRA) and yfinance earnings-surprise coverage. Manual only.
+on:
+  workflow_dispatch:
+concurrency: probe-filings-coverage
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-filings-coverage.mjs
+        continue-on-error: true
+        env: { SEC_UA: "${{ secrets.SEC_UA }}" }
+      - run: pip install -q yfinance && python3 -B scripts/probe-yfinance-coverage.py
+        continue-on-error: true
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/probe-filings-coverage.json data/probe-yfinance-coverage.json
+          git commit -m "probe-filings-coverage: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
