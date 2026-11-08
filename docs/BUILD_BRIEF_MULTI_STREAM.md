@@ -14,7 +14,7 @@
 | 6 | Brief lists "resolved owner decisions" | Keep live desk rules | Those items are proposals only. The owner's recorded decisions are the ones in the Test Register. |
 | 7 | Brief makes the results date a flag, not a gate | OK with the suggestion | Approved as a proposed change, see C-137. Applied 1 Nov 2026 as C-138. |
 | 8 | Brief benchmarks the desk against the momentum index fund | Keep the plain index | Nifty 500 (India) and SPY (US) stay the main benchmark. The momentum fund is shown beside it. |
-| 9 | Fund expense 0.3 to 0.4% | Go with suggestion | Use 0.20% base expense plus 0.20% tracking error (Kotak direct plan, Sep 2026 factsheet). |
+| 9 | Fund expense 0.3 to 0.4% | Go with suggestion | Use 0.20% base expense plus 0.20% tracking error (Kotak direct plan, Sep 2026 factsheet). | (Corrected 8 Nov 2026: 0.20% was the base ratio only; total cost is about 0.77 to 0.98%, see Test Register.)
 | 10 | Stream 1 "partly built" | Go with suggestion | Stream 1 is built: the India and US momentum paper books start with the 2 Nov signal. |
 | 11 | Sleeve "tracks the published index" | Go with suggestion | Say it correlates (0.915) with a named mid-cap tilt: it trailed NSE by about 4 points a year in 2011 to 2019 and led it in 2021 to 2025. |
 | 12 | "Streams never read each other" but stream 5 starts from the momentum quintile, stream 11 restricts stream 1, and the combined list reads all | Go with suggestion | Define stream 5 from its own signal, or count it in the momentum family. |

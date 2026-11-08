@@ -254,7 +254,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 
 ### Housekeeping (any time)
 - Correct two rows in `claude/strategy-universe-consolidated.md` (momentum sleeve evidence, trend template wording).
-- Owner decision on the register's 0.20% Kotak wording.
+- (Decided and done 8 Nov 2026: 0.20% wording corrected.)
 - Add C-157 onward rows to Engine Rules and the Test Register as each package is approved.
 
 Two additions beyond the 28 strategies: the 52-week-high rank and the quality and value scores, because the composite needs them as inputs.
@@ -308,7 +308,7 @@ Numbers refer to the packages in section 9. Wave and size are from section 9 (si
 | 34 | Composite v1 (price-only) | Combine the ranks for momentum, 52-week high, industry momentum and low volatility into one score. Hold the top N. | C | 4 | M |
 | 35 | Composite v2 (by family) | Combine momentum, value, quality, earnings and ownership families into one ranking with equal family weights. Hold the top N. | C | 4 | L |
 - Total-TER ceiling, assets floor and tracking-difference band for counting a fund as a replacement.
-- Whether to correct the register's 0.20% wording.
+- (Decided 8 Nov 2026: correct the 0.20% wording; done.)
 - Filings: decided 8 Nov 2026, free route (section 8b). Still open: how complete the history is over time, and the as-of loader design.
 - Whether S-5 (demergers) is worth building given the small sample.
 - Whether L-6 (Indian superinvestors) is worth logging without any rigorous evidence.
