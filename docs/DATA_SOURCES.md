@@ -64,8 +64,18 @@ Created 8 Nov 2026 (owner request). Paper only; public data only. This register 
 
 8. Sync the results rules with structure events (owner, 8 Nov 2026). Findings: the integrated XBRL carries only the current quarter (`OneD`) and the year to date (`FourD`) for revenue, profit and EPS; no prior-year quarter column appeared in the non-dimensional facts of Reliance, TCS, HDFC Bank and KPIT Tech, so like-for-like growth cannot be taken from one filing and year-on-year growth compares two filings. Consequence: after a structure event in quarter q0, suppress year-on-year growth until the quarter whose year-ago quarter is also after the event (q0 plus 4; five quarters counting q0). Rules still to write: entity key from the symbol-change list, name-change list and action history; basis-break flag at each demerger, merger, delisting-by-scheme or first consolidated filing; no synthetic history for successors; restated comparatives (if any appear in notes, not found in these tags) stored as separate rows. Still to test: classifying the cause of each vanished symbol from its final announcement (the sample of 65 shows the notice exists; the reading is manual so far), and checking the year-to-date minus prior-year-to-date check as a validation of each quarter.
 
+### Do we need data older than 2019? (evaluation, 8 Nov 2026, owner question)
+
+Decision: no new back-fill before 2019 for the first waves. Reasons, by family:
+- Price-only strategies (momentum, trend, volume, breakout, relative strength): prices already reach 2010 or earlier, so nothing to add.
+- Filing-event strategies (insider buying, promoter changes, takeover filings): per-symbol history reaches 2013 to 2019 already (row I7, I8), enough for a first read.
+- Shareholding changes (I5): the list mostly starts Sep 2021, so tests start there; the forward paper book covers the rest.
+- Fundamental growth, quality and multibagger variants (long horizons): the free sources hold about 5 to 10 years. Because the Ind AS switch (FY2016-17) breaks comparability before it, no test is run on pre-FY2017 fundamentals. Evidence comes from the forward paper book plus what the register already holds. If the owner later wants a 2010 to 2019 read, that needs a paid or scraped source and is a separate decision.
+- US fundamentals: EDGAR already gives about 15 years.
+
 ## E. Change log
 - 8 Nov 2026: created from probe rounds 1 to 4 (`data/probe-filings.json`, `probe-yfinance.json`, `probe-us-filings.json`, `probe-us-yfinance.json`, `probe-filings-coverage.json`, `probe-yfinance-coverage.json`, `probe-integrated.json`, `probe-integrated-xbrl.json`, `probe-closeout.json`; scripts of the same names in `scripts/`).
 - 8 Nov 2026: added row I11 and open item 8 (structure events must sync with the standalone and consolidated rule).
 - 8 Nov 2026: rows and item 8 updated after probe rounds 5 and 6 (XBRL comparatives, NSE symbol and name change lists, vanished-symbol announcements).
 - 8 Nov 2026: round 7 (`data/probe-depth.json`): per-symbol depth re-tested with early start dates (SAST and PIT reach 2013 to 2019; shareholding plain list mostly from Sep 2021), FINRA 2018 and 2019 files do hold exchange-listed names, Nasdaq short interest API holds 23 dates only, and results formats across 429 sampled integrated filings (30 Sep 2025 and 31 Mar 2026) are five families, all with revenue, profit and EPS tags: IFIndAs (about 93%), IFNBFC, IFBanking, IFFIndAs, FRNBFC; all under the `in-capmkt` taxonomy.
+- 8 Nov 2026: added the pre-2019 evaluation to section D (no back-fill needed for waves 1 to 2).

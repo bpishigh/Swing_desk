@@ -236,3 +236,5 @@ Added after the first review on 3 Oct 2026. Each one changes the design if it go
 | 14 | Archive constituent lists | Without past membership, backtests carry survivorship bias | Save the index and ETF constituent lists nightly from phase 1; it is a few kilobytes a day | Recommended |
 
 The build phases and what each delivers are in the scope of work document. Each phase there has a deliverable and a definition of done.
+
+**New strategies:** built to `docs/STRATEGY_BUILD_STANDARD.md`; data inputs are tracked in `docs/DATA_SOURCES.md`.
