@@ -93,6 +93,45 @@
     "ATCOM"
    ],
    "at": "2026-11-08T15:16:17.901Z"
+  },
+  "2025-09-30": {
+   "listed": 4630,
+   "attempted": 4630,
+   "parsed": 4611,
+   "fetchFailed": 2,
+   "parseFailed": 9,
+   "unmapped": 8,
+   "families": {
+    "IFNBFC": 285,
+    "IFIndAs": 4173,
+    "IFOTB": 39,
+    "IFBanking": 74,
+    "IFLI": 9,
+    "IFFIndAs": 24,
+    "FRNBFC": 7
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 9
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no tag map for family IFGI": 8,
+    "no quarter context (OneD) facts": 1
+   },
+   "unmappedSymbols": [
+    "KUNDANMM",
+    "RUSHABEAR",
+    "ATCOM",
+    "KUNDANMM",
+    "KUNDANMM",
+    "ATCOM",
+    "ATCOM",
+    "RUSHABEAR"
+   ],
+   "at": "2026-11-08T15:35:06.957Z"
   }
  }
 }
