@@ -1,0 +1,715 @@
+{
+ "at": "2026-11-08T08:44:12.479Z",
+ "rows": [
+  {
+   "s": "RELIANCE",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "30-Oct-2026 21:32:55",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1750537_30102026093254_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 103242,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFIndAs V2.1 (26-06-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmk",
+   "nElements": 284,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "3328610000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "386130000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "292500000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "3000000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "295500000000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "18.88"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "18.88"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "RELIANCE",
+   "qe": "31-MAR-2025",
+   "consolidated": "Standalone",
+   "sub": "Original",
+   "broadcast": "25-Apr-2025 21:56:50",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1425444_25042025095641_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 7037270,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFFIndAs--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmkt=\"http://www.seb",
+   "nElements": 296,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "1361470000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "141710000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "112170000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "112170000000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "8.29"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "8.29"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "TCS",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "08-Oct-2026 22:07:33",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1734607_08102026100810_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 107357,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFIndAs V2.1 (26-06-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmk",
+   "nElements": 269,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "731880000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "186380000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "139340000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "139340000000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "38.37"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "38.37"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "TCS",
+   "qe": "31-MAR-2025",
+   "consolidated": "Standalone",
+   "sub": "Original",
+   "broadcast": "11-Apr-2025 00:10:07",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1412100_11042025121002_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 5872004,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFFIndAs--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmkt=\"http://www.seb",
+   "nElements": 266,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "541360000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "146720000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "111160000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "111160000000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "30.72"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "30.72"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "28-Oct-2026 22:16:17",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1748348_28102026101807_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 78472,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFIndAs V2.1 (26-06-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmk",
+   "nElements": 272,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "16909660000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "1836040000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "1362240000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-6\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-6\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "-155670000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "1206570000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "4.43"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "4.4"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "KPITTECH",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "28-Apr-2025 23:21:31",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1427035_28042025112131_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 69813,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFFIndAs--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmkt=\"http://www.seb",
+   "nElements": 263,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "15283440000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "3020390000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "2305890000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-6\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-6\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "141360000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-4\" unitRef=\"INR\"",
+     "v": "2447250000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "9.01"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "8.94"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "17-Oct-2026 17:47:13",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_BANKING_1740913_17102026054812_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 80749,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFBanking V2.1 (26-06-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-cap",
+   "nElements": 192,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueOnInvestments",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "221014200000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromOrdinaryActivitiesBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "278254800000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromOrdinaryActivitiesAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "207000300000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForThePeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "207000300000"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociates",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossOfMinorityInterest",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossAfterTaxesMinorityInterestAndShareOfProfitLossOfAssociates",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "207000300000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsPerShareBeforeExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "13.43"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsPerShareBeforeExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "13.41"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsPerShareAfterExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "13.43"
+    }
+   ]
+  },
+  {
+   "s": "HDFCBANK",
+   "qe": "31-MAR-2025",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "19-Apr-2025 22:42:15",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_BANKING_1420333_19042025104215_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 77373,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--FRBanking--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmkt=\"http://www.se",
+   "nElements": 190,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueOnInvestments",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "197330200000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromOrdinaryActivitiesBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-6\" unitRef=\"INR\"",
+     "v": "251237000000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromOrdinaryActivitiesAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "188348800000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForThePeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "188348800000"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociates",
+     "attrs": "contextRef=\"OneD\" decimals=\"-7\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossOfMinorityInterest",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "4496900000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossAfterTaxesMinorityInterestAndShareOfProfitLossOfAssociates",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "183851900000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsPerShareBeforeExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "24.62"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsPerShareBeforeExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "24.52"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsPerShareAfterExtraordinaryItems",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "24.62"
+    }
+   ]
+  },
+  {
+   "s": "GALLANTT",
+   "qe": "30-SEP-2026",
+   "consolidated": "Consolidated",
+   "sub": "Original",
+   "broadcast": "20-Oct-2026 00:49:00",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1742152_20102026124900_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 55033,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFIndAs V2.1 (26-06-2026)--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmk",
+   "nElements": 253,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "11458915000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "831737000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "605107000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "605107000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "2.51"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  },
+  {
+   "s": "GALLANTT",
+   "qe": "31-MAR-2025",
+   "consolidated": "Standalone",
+   "sub": "Original",
+   "broadcast": "21-May-2025 21:09:11",
+   "url": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1446320_21052025090910_WEB.xml",
+   "status": 200,
+   "ct": "application/xml",
+   "bytes": 139302,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--IFFIndAs--><xbrli:xbrl xmlns:xbrli=\"http://www.xbrl.org/2003/instance\" xmlns:in-capmkt=\"http://www.seb",
+   "nElements": 280,
+   "prefixes": [
+    "xbrli",
+    "link",
+    "xbrldi",
+    "in-capmkt"
+   ],
+   "facts": [
+    {
+     "tag": "in-capmkt:RevenueFromOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "10721455000"
+    },
+    {
+     "tag": "in-capmkt:ProfitBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "1585119000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriodFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "1163074000"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsBeforeTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossFromDiscontinuedOperationsAfterTax",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-5\" unitRef=\"INR\"",
+     "v": "0"
+    },
+    {
+     "tag": "in-capmkt:ProfitLossForPeriod",
+     "attrs": "contextRef=\"OneD\" decimals=\"-3\" unitRef=\"INR\"",
+     "v": "1163074000"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "4.82"
+    },
+    {
+     "tag": "in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "4.82"
+    },
+    {
+     "tag": "in-capmkt:BasicEarningsLossPerShareFromDiscontinuedOperations",
+     "attrs": "contextRef=\"OneD\" decimals=\"INF\" unitRef=\"INRPerShare\"",
+     "v": "0"
+    }
+   ]
+  }
+ ]
+}
