@@ -1,0 +1,33 @@
+name: probe-filings
+# One-off: free filing sources (NSE endpoints, BSE, Yahoo) and what yfinance returns for NSE stocks, with history depth. Manual only.
+on:
+  workflow_dispatch:
+concurrency: probe-filings
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-filings.mjs
+        continue-on-error: true
+      - run: pip install -q yfinance && python3 scripts/probe-yfinance.py
+        continue-on-error: true
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/probe-filings.json data/probe-yfinance.json
+          git commit -m "probe-filings: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
