@@ -25,6 +25,38 @@
     "KUNDANMM"
    ],
    "at": "2026-11-08T12:56:07.367Z"
+  },
+  "2025-03-31": {
+   "listed": 4426,
+   "attempted": 4426,
+   "parsed": 1875,
+   "fetchFailed": 2514,
+   "parseFailed": 36,
+   "unmapped": 1,
+   "families": {
+    "IFNBFC": 5,
+    "IFIndAs": 88,
+    "IFOTB": 2,
+    "IFFIndAs": 1619,
+    "FRNBFC": 125,
+    "FRBanking": 34,
+    "IFLI": 2
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 2
+   },
+   "periodMismatch": 1,
+   "errors": {
+    "no tag map for family IFFNonBanking": 30,
+    "no format family in the header comment": 6
+   },
+   "unmappedSymbols": [
+    "RUSHABEAR"
+   ],
+   "at": "2026-11-08T14:03:43.010Z"
   }
  }
 }
