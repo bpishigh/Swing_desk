@@ -64,6 +64,14 @@ C-numbers are unique and appear in two places: the Test Register summary row and
 - The privacy check `scripts/check-no-personal-data.mjs` passes.
 - `npm test` passes in CI before anything is pushed.
 
+## 4b. Risk and judging rules every strategy follows (C-159)
+
+- **Stops, no exception.** Short-hold books (60 sessions or less): the tighter of 3 x ATR(20) and 8% below entry, trailing on closes, filled at the next open; a signal needing a wider stop goes on a stop-too-wide list and is traded only if the owner approves the case. Long-hold books: a 25% trailing stop with each name capped at 5% of the book. Re-entry on the next valid signal. Gaps past the stop are logged. The reasons are in `data/stop-feasibility.json` and C-149.
+- **Event-driven books:** equal weight, up to 20 names, at most 5% each, one fixed holding period written before the first run (20, 60 or about 250 sessions).
+- **Kill line:** drawdown 20% from peak; trailing 6-month net excess below -5 points at two consecutive reads; zero or negative average net return after 40 trades. One line is Watch; the drawdown line or any two lines is Kill.
+- **Self-improvement loop:** monthly scorecard; one champion and at most two pre-written variants as shadow books; a swap only on fresh data under a rule written in advance, at most once a year per strategy; the number of variants tested is recorded.
+- **Fund replacement test:** total TER no higher than the self-run cost, assets at least Rs 500 crore, record at least 3 years, tracking difference no worse than -1.0% a year over 3 years.
+
 ## 5. Writing a rule so it can be understood later
 
 Each C-row answers, in this order: question asked; universe; signal; entry; exit; sizing; costs; benchmark and comparison lines; data used (with register row ids); evidence status (what is proven, what is borrowed from outside research, what is unknown); what was run and what was not; read date; what rejects it. Say what was **not** tested and why. Avoid undefined words: every term used is defined in the glossary of ARCHITECTURE.md or in the row itself.
@@ -87,10 +95,12 @@ A strategy is done only when all of these are true:
 4. Replay run once (or the row says why not) and its report is in `docs/replay/`.
 5. Registry entry present; the strategy shows in Scans and Paper test in the quiet style above; "not started" works.
 6. SCOPE, STATUS and HOW_TO_USE updated; project copies re-synced.
-7. A person can find the rule, the code, the data and the result by following the stem name, starting from the registry entry.
+7. The book has its stop, kill line and monthly scorecard from C-159 written into its C-row.
+8. A person can find the rule, the code, the data and the result by following the stem name, starting from the registry entry.
 
 ## 8. Maintaining this page
 
 Change it only with a log line below. A change to the standard that alters how a strategy is judged is registered as a C-row.
 
 - 8 Nov 2026: created from the momentum sleeve build (C-130 to C-132), the Engine Rules, Test Register, ARCHITECTURE and DATA_SOURCES conventions.
+- 8 Nov 2026: added section 4b and a definition-of-done line for the C-159 risk and judging rules.
