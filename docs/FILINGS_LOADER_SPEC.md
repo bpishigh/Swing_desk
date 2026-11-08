@@ -49,7 +49,7 @@ Numbers are stored as filed (rupees, rounded as filed). Units and rounding (the 
 
 ## 6. Tag maps and formats
 
-The current NSE integrated filings (31 Mar 2026, about 5,000 filings) fall into a few format families, named in each file's header comment. Real files for five of them are saved in `fixtures/filings/` (`IFIndAs`, `IFNBFC`, `IFOTB`, `IFBanking`, `IFLI`; consolidated and standalone where available), and a tag census of 631 sampled filings is in `data/filings-tag-census.json`. All use the `in-capmkt` taxonomy. `IFIndAs` is about 92% of the sample. `IFFIndAs`, `FRNBFC` and `FRBanking` appeared in earlier probes but not in this sample: they borrow the map of the family they mirror and are flagged unverified until a fixture exists. Older filings (before the integrated filing) use the `in-bse-fin` taxonomy, and round 3 found revenue and profit tags in only 21 of 49 of the oldest files.
+The current NSE integrated filings (31 Mar 2026, about 5,000 filings) fall into a few format families, named in each file's header comment. Real files for five of them are saved in `fixtures/filings/` (`IFIndAs`, `IFNBFC`, `IFOTB`, `IFBanking`, `IFLI`; consolidated and standalone where available), and a tag census of 633 sampled filings is in `data/filings-tag-census.json`. All use the `in-capmkt` taxonomy. `IFIndAs` is about 92% of the sample. `IFFIndAs`, `FRNBFC` and `FRBanking` appeared in earlier probes but not in this sample: they borrow the map of the family they mirror and are flagged unverified until a fixture exists. Older filings (before the integrated filing) use the `in-bse-fin` taxonomy, and round 3 found revenue and profit tags in only 21 of 49 of the oldest files.
 
 Tag maps (confirmed against the fixtures; in `settings/filings-tags.json`):
 
