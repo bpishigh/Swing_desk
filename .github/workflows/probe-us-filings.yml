@@ -1,0 +1,34 @@
+name: probe-us-filings
+# One-off: free US filing sources (SEC EDGAR, bulk datasets, FINRA short interest, Nasdaq calendar) and what yfinance returns for US stocks, with history depth. Manual only.
+on:
+  workflow_dispatch:
+concurrency: probe-us-filings
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-us-filings.mjs
+        continue-on-error: true
+        env: { SEC_UA: "${{ secrets.SEC_UA }}" }
+      - run: pip install -q yfinance && python3 scripts/probe-us-yfinance.py
+        continue-on-error: true
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/probe-us-filings.json data/probe-us-yfinance.json
+          git commit -m "probe-us-filings: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
