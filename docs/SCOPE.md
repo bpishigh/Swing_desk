@@ -202,7 +202,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | 4 | Data additions: index total-return series, fund assets, missing TERs | Data | NSE index history, AMFI | S |
 | 5 | I-1 passive factor funds in the fund universe (section 2) | Fund layer | Package 4. Reg. as information | M |
 | 6 | P-3 verify harvest, promote, trim, fund shortlist and CG export against the 21 Oct pending list | Verify | Repo check | S |
-| 7 | I-2 filings reader: results, shareholding, pledge history, SEBI PIT, SAST, corporate actions, board meetings | Data | Owner decision: parser or paid feed | L |
+| 7 | I-2 filings reader: results, shareholding, pledge history, SEBI PIT, SAST, corporate actions, board meetings | Data | Decided 8 Nov: free route (NSE, EDGAR, yfinance for surprise); see section 8b | L |
 | 8 | I-3 point-in-time store and survivorship-free universe | Data | Package 7 | L |
 
 ### Wave 1: price-only strategies (data exists; each is a paper strategy after package 3)
@@ -309,7 +309,27 @@ Numbers refer to the packages in section 9. Wave and size are from section 9 (si
 | 35 | Composite v2 (by family) | Combine momentum, value, quality, earnings and ownership families into one ranking with equal family weights. Hold the top N. | C | 4 | L |
 - Total-TER ceiling, assets floor and tracking-difference band for counting a fund as a replacement.
 - Whether to correct the register's 0.20% wording.
-- Filings: build a parser or buy a feed.
+- Filings: decided 8 Nov 2026, free route (section 8b). Still open: how complete the history is over time, and the as-of loader design.
 - Whether S-5 (demergers) is worth building given the small sample.
 - Whether L-6 (Indian superinvestors) is worth logging without any rigorous evidence.
 
+### L3. Filings sources: decision and probe findings (8 Nov 2026)
+Owner decision: free route only. Probes ran on the GitHub runner on 8 Nov 2026 (five stocks per market, so completeness across the universe is not yet checked).
+
+**India (NSE endpoints answer from the runner with no cookie warm-up)**
+- Shareholding and pledge: 21 to 26 quarterly filings per stock, back to 2015 to 2021, with broadcast dates; pledge is in the linked XBRL file.
+- Quarterly results: 47 to 158 filings per stock, back to 2007 (large names) or 2019 (KPIT), with filing dates; one market-wide call returned 2,906 filings for Jan to Mar 2021. The per-stock list stops about Jan 2025, so recent quarters come from the market-wide call.
+- Insider trades (PIT): date-range queries work; 13,802 trades for Jan to Mar 2019 in one call.
+- SAST: `corporate-sast-reg29` answers (4 to 20 filings per stock back to 2021); the other name tried gave 404.
+- Announcements (results dates, buybacks): 640 to 3,375 per stock, Reliance back to 2004. Board meetings: about 20 per stock including upcoming. Corporate actions: returns oldest records only; the desk's own 2019 history stays the source. The pledge-only endpoint returns empty; BSE API refuses (403).
+
+**US**
+- SEC EDGAR (needs the SEC_UA contact): company facts carry `filed`, `form`, `fy`, `fp` per value, back to 2007 to 2009 (2015 for CELH); Form 4 lists back to 2015 to 2020 with transaction XML; 13D/G and 13F (Berkshire 39 filings to 2017) in the same lists; filing times present.
+- Cautions: concept tags change over time (revenue moves between tags), and each fact repeats for every filing that reported it, so an as-of view takes the earliest `filed` per period.
+- FINRA short interest: pipe-delimited files download, including 2019. Nasdaq earnings calendar answers (EPS forecast, fiscal quarter; surprise not supplied).
+
+**yfinance (version 1.8.0)**
+- `get_earnings_dates`: estimate, reported EPS, surprise %; back to 2002 to 2008 for large names, 2010 to 2019 for others; uneven (JPPOWER stops at 2015). Used for the earnings-surprise number only.
+- Quarterly statements only 5 to 7 quarters; insider transactions about two years (US) and mostly empty for India; holders are snapshots; nothing for delisted names (SIVB empty).
+
+**Open checks:** completeness of XBRL history for results and shareholding over time (especially before 2020), yfinance surprise coverage across a wider list, FINRA short-interest history in full, EDGAR coverage of delisted filers (company_tickers.json lists current filers only).
