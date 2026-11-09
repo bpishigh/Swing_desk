@@ -1,0 +1,332 @@
+{
+ "run": "2026-11-09",
+ "rule": "C-159 kill line, lines 1 and 2 only",
+ "books": {
+  "semi-annual vs Nifty 200": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 8,
+    "watchMonths": 10,
+    "killEpisodes": 5,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 13.1,
+      "next12MonthsBook": 44.1
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 13.8,
+      "next12MonthsBook": 86.8
+     },
+     {
+      "firstKillMonth": "2022-06",
+      "next12MonthsBookMinusBenchmark": 7.6,
+      "next12MonthsBook": 29.5
+     },
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 51.3,
+      "next12MonthsBook": 86.9
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2022-06 2023-02 2023-03 2025-01 2025-02 2025-03"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 1,
+    "watchMonths": 14,
+    "killEpisodes": 1,
+    "episodes": [
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 51.3,
+      "next12MonthsBook": 86.9
+     }
+    ],
+    "killMonthList": "2023-02"
+   },
+   "worstDrawdown": -28.6
+  },
+  "quarterly vs Nifty 200": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 11,
+    "watchMonths": 15,
+    "killEpisodes": 6,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 7,
+      "next12MonthsBook": 37.9
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 21.8,
+      "next12MonthsBook": 94.8
+     },
+     {
+      "firstKillMonth": "2022-06",
+      "next12MonthsBookMinusBenchmark": 3.8,
+      "next12MonthsBook": 25.7
+     },
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 77.7,
+      "next12MonthsBook": 113.4
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-08",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2022-06 2023-02 2023-03 2025-01 2025-02 2025-03 2025-04 2025-08 2025-09"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 1,
+    "watchMonths": 19,
+    "killEpisodes": 1,
+    "episodes": [
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 77.7,
+      "next12MonthsBook": 113.4
+     }
+    ],
+    "killMonthList": "2023-02"
+   },
+   "worstDrawdown": -29.7
+  },
+  "monthly vs Nifty 200": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 12,
+    "watchMonths": 18,
+    "killEpisodes": 5,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 8.4,
+      "next12MonthsBook": 39.3
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 19,
+      "next12MonthsBook": 92
+     },
+     {
+      "firstKillMonth": "2020-05",
+      "next12MonthsBookMinusBenchmark": 34.5,
+      "next12MonthsBook": 99.8
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-07",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2020-05 2025-01 2025-02 2025-03 2025-04 2025-07 2025-08 2025-09 2025-10 2025-11"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 4,
+    "watchMonths": 21,
+    "killEpisodes": 2,
+    "episodes": [
+     {
+      "firstKillMonth": "2025-07",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-09",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2025-07 2025-09 2025-10 2025-11"
+   },
+   "worstDrawdown": -30.7
+  },
+  "semi-annual vs Nifty 500": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 8,
+    "watchMonths": 9,
+    "killEpisodes": 5,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 11.8,
+      "next12MonthsBook": 44.1
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 10.8,
+      "next12MonthsBook": 86.8
+     },
+     {
+      "firstKillMonth": "2022-06",
+      "next12MonthsBookMinusBenchmark": 6.8,
+      "next12MonthsBook": 29.5
+     },
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 48.5,
+      "next12MonthsBook": 86.9
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2022-06 2023-02 2023-03 2025-01 2025-02 2025-03"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 1,
+    "watchMonths": 11,
+    "killEpisodes": 1,
+    "episodes": [
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 48.5,
+      "next12MonthsBook": 86.9
+     }
+    ],
+    "killMonthList": "2023-02"
+   },
+   "worstDrawdown": -28.6
+  },
+  "quarterly vs Nifty 500": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 11,
+    "watchMonths": 12,
+    "killEpisodes": 6,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 5.7,
+      "next12MonthsBook": 37.9
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 18.8,
+      "next12MonthsBook": 94.8
+     },
+     {
+      "firstKillMonth": "2022-06",
+      "next12MonthsBookMinusBenchmark": 2.9,
+      "next12MonthsBook": 25.7
+     },
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 75,
+      "next12MonthsBook": 113.4
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-08",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2022-06 2023-02 2023-03 2025-01 2025-02 2025-03 2025-04 2025-08 2025-09"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 1,
+    "watchMonths": 16,
+    "killEpisodes": 1,
+    "episodes": [
+     {
+      "firstKillMonth": "2023-02",
+      "next12MonthsBookMinusBenchmark": 75,
+      "next12MonthsBook": 113.4
+     }
+    ],
+    "killMonthList": "2023-02"
+   },
+   "worstDrawdown": -29.7
+  },
+  "monthly vs Nifty 500": {
+   "absoluteDrawdownLine": {
+    "months": 179,
+    "killMonths": 12,
+    "watchMonths": 15,
+    "killEpisodes": 5,
+    "episodes": [
+     {
+      "firstKillMonth": "2016-02",
+      "next12MonthsBookMinusBenchmark": 7.1,
+      "next12MonthsBook": 39.3
+     },
+     {
+      "firstKillMonth": "2020-03",
+      "next12MonthsBookMinusBenchmark": 16,
+      "next12MonthsBook": 92
+     },
+     {
+      "firstKillMonth": "2020-05",
+      "next12MonthsBookMinusBenchmark": 30.7,
+      "next12MonthsBook": 99.8
+     },
+     {
+      "firstKillMonth": "2025-01",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-07",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2016-02 2020-03 2020-05 2025-01 2025-02 2025-03 2025-04 2025-07 2025-08 2025-09 2025-10 2025-11"
+   },
+   "relativeDrawdownLine": {
+    "months": 179,
+    "killMonths": 4,
+    "watchMonths": 18,
+    "killEpisodes": 2,
+    "episodes": [
+     {
+      "firstKillMonth": "2025-07",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     },
+     {
+      "firstKillMonth": "2025-09",
+      "next12MonthsBookMinusBenchmark": null,
+      "next12MonthsBook": null
+     }
+    ],
+    "killMonthList": "2025-07 2025-09 2025-10 2025-11"
+   },
+   "worstDrawdown": -30.7
+  }
+ }
+}
