@@ -1,21 +1,26 @@
 {
- "asOf": "2026-11-06",
+ "asOf": "2026-11-09",
  "source": "NSE event calendar",
  "dates": {
-  "DIVISLAB": {
-   "date": "2026-11-07",
-   "sessions": 0,
-   "inWindow": true
-  },
   "AUROPHARMA": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "GLAND": {
-   "date": "2026-11-06",
-   "sessions": 0,
-   "inWindow": true
+  "LAURUSLABS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "DIVISLAB": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "WELSPUNLIV": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   }
  }
 }

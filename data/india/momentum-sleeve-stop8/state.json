@@ -2,16 +2,14 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 7.767826549618879,
+  "cash": 19.570743009045078,
   "shares": {
    "CUPID": 0.014470092222587525,
-   "STLTECH": 0.006590603905672416,
    "SHREEJISPG": 0.00435736712574472,
    "LAURUSLABS": 0.0021236265723034923,
    "SBC": 0.05234361714960319,
    "TFCILTD": 0.03155497475702097,
    "RATNAVEER": 0.00944989505249814,
-   "WELCORP": 0.0021057952774558805,
    "CPPLUS": 0.0006428472032722831,
    "ATHERENERG": 0.002812315342933865,
    "HFCL": 0.01816365353957872,
@@ -19,7 +17,6 @@
    "SKYGOLD": 0.005021838951417264,
    "DIVISLAB": 0.0005008263730627634,
    "SONACOMS": 0.003796569315438701,
-   "AEROFLEX": 0.005071163627136492,
    "ACUTAAS": 0.0005291159883448523,
    "SYRMA": 0.0019081402755631851,
    "FCL": 0.034452131349241195,
@@ -513,13 +510,11 @@
   },
   "entry": {
    "CUPID": 344.9,
-   "STLTECH": 757.25,
    "SHREEJISPG": 868,
    "LAURUSLABS": 2350.1,
    "SBC": 65.3,
    "TFCILTD": 158.16,
    "RATNAVEER": 382,
-   "WELCORP": 2370,
    "CPPLUS": 3913.7,
    "ATHERENERG": 1774.6,
    "HFCL": 212.55,
@@ -527,7 +522,6 @@
    "SKYGOLD": 880,
    "DIVISLAB": 9965,
    "SONACOMS": 909.7,
-   "AEROFLEX": 514.95,
    "ACUTAAS": 3892,
    "SYRMA": 1519.4,
    "FCL": 49,
@@ -542,32 +536,29 @@
   },
   "high": {
    "CUPID": 344.9,
-   "STLTECH": 797.6,
    "SHREEJISPG": 884.55,
-   "LAURUSLABS": 2350.1,
-   "SBC": 68.7,
-   "TFCILTD": 161.89,
+   "LAURUSLABS": 2454,
+   "SBC": 68.73,
+   "TFCILTD": 168.42,
    "RATNAVEER": 382,
-   "WELCORP": 2400,
-   "CPPLUS": 4170.5,
-   "ATHERENERG": 1840,
+   "CPPLUS": 4224.9,
+   "ATHERENERG": 1859.8,
    "HFCL": 228.16,
    "RAYMOND": 1172.3,
    "SKYGOLD": 951.95,
-   "DIVISLAB": 10320.5,
-   "SONACOMS": 915.25,
-   "AEROFLEX": 567.2,
+   "DIVISLAB": 11565.5,
+   "SONACOMS": 924,
    "ACUTAAS": 3904,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2104.9,
-   "NYKAA": 355.5,
+   "NYKAA": 359.7,
    "ZYDUSLIFE": 1244.7,
-   "AUROPHARMA": 1800,
-   "FEDERALBNK": 340.1,
+   "AUROPHARMA": 1855.3,
+   "FEDERALBNK": 344.1,
    "MOTHERSON": 168,
    "BOSCHLTD": 52475,
-   "PVRINOX": 1581.4
+   "PVRINOX": 1589.8
   },
   "startedFill": "2026-11-03"
  },
@@ -638,12 +629,16 @@
   {
    "d": "2026-11-06",
    "v": 98.83
+  },
+  {
+   "d": "2026-11-09",
+   "v": 100.3368
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-06",
-   "v": 98.83
+   "d": "2026-11-09",
+   "v": 100.3368
   }
  },
  "stops": [
@@ -670,21 +665,37 @@
    "entry": 720,
    "price": 620,
    "ret": -0.1389
+  },
+  {
+   "sym": "STLTECH",
+   "signalDate": "2026-11-06",
+   "fillDate": "2026-11-09",
+   "entry": 757.25,
+   "price": 687.1,
+   "ret": -0.0926
+  },
+  {
+   "sym": "WELCORP",
+   "signalDate": "2026-11-06",
+   "fillDate": "2026-11-09",
+   "entry": 2370,
+   "price": 2245.8,
+   "ret": -0.0524
+  },
+  {
+   "sym": "AEROFLEX",
+   "signalDate": "2026-11-06",
+   "fillDate": "2026-11-09",
+   "entry": 514.95,
+   "price": 506,
+   "ret": -0.0174
   }
  ],
  "stopQueue": [
   {
-   "sym": "STLTECH",
-   "on": "2026-11-06"
-  },
-  {
-   "sym": "WELCORP",
-   "on": "2026-11-06"
-  },
-  {
-   "sym": "AEROFLEX",
-   "on": "2026-11-06"
+   "sym": "HFCL",
+   "on": "2026-11-09"
   }
  ],
- "stopChecked": "2026-11-06"
+ "stopChecked": "2026-11-09"
 }

@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-06",
+ "asOf": "2026-11-09",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -14,55 +14,21 @@
  "capwaived": {
   "orders": 22,
   "open": 7,
-  "pending": 2,
-  "notFilled": 9,
-  "closed": 4,
-  "meanR": -0.46913650321487455,
-  "winRate": 0.25
+  "pending": 0,
+  "notFilled": 10,
+  "closed": 5,
+  "meanR": -0.415511828559645,
+  "winRate": 0.2
  },
  "comparator": {
   "orders": 7,
-  "open": 5,
+  "open": 4,
   "pending": 0,
   "notFilled": 1,
-  "closed": 1,
-  "meanR": -0.9030247148288978,
-  "winRate": 0
+  "closed": 2,
+  "meanR": -0.4112334026121885,
+  "winRate": 0.5
  },
  "light": "yellow",
- "newOrdersTonight": [
-  {
-   "stream": "capwaived",
-   "sym": "AUROPHARMA",
-   "setup": "4",
-   "trigger": 1808.61,
-   "stop": 1685.93,
-   "status": "pending",
-   "kind": "trigger",
-   "tags": [
-    "inside base",
-    "over cap"
-   ],
-   "stopPct": 6.78,
-   "maxStopPct": 6,
-   "roomR": null
-  },
-  {
-   "stream": "capwaived",
-   "sym": "CPPLUS",
-   "setup": "4",
-   "trigger": 4427.44,
-   "stop": 3946.92,
-   "status": "pending",
-   "kind": "trigger",
-   "tags": [
-    "inside base",
-    "over cap",
-    "room fail"
-   ],
-   "stopPct": 10.85,
-   "maxStopPct": 6,
-   "roomR": 0.4
-  }
- ]
+ "newOrdersTonight": []
 }

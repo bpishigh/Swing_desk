@@ -1,20 +1,25 @@
 {
- "asOf": "2026-11-06",
+ "asOf": "2026-11-09",
  "rows": {
-  "DIVISLAB": {
-   "date": "2026-08-01",
-   "move": 0.04,
-   "excess": 0.027
-  },
   "AUROPHARMA": {
    "date": "2026-11-04",
    "move": 0.0534,
    "excess": 0.02
   },
-  "GLAND": {
-   "date": "2026-08-10",
-   "move": 0.1243,
-   "excess": 0.1237
+  "LAURUSLABS": {
+   "date": "2026-10-29",
+   "move": 0.1025,
+   "excess": 0.1101
+  },
+  "DIVISLAB": {
+   "date": "2026-08-01",
+   "move": 0.04,
+   "excess": 0.027
+  },
+  "WELSPUNLIV": {
+   "date": "2026-10-30",
+   "move": 0.1422,
+   "excess": 0.14
   }
  }
 }

@@ -442,6 +442,32 @@
    "basis": 1480.96,
    "width": 6.72,
    "room": 1.13
+  },
+  "IPCALAB|4|2026-11-09": {
+   "sym": "IPCALAB",
+   "id": "4",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-11-09",
+   "trigger": 1995.68,
+   "stop": 1883.73,
+   "limit": 2015.64,
+   "basis": 1995.68,
+   "width": 5.61,
+   "room": 0.38
+  },
+  "RUBICON|2|2026-11-09": {
+   "sym": "RUBICON",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-09",
+   "trigger": 1781.46,
+   "stop": 1606,
+   "limit": 1799.27,
+   "basis": 1781.46,
+   "width": 9.85,
+   "room": 0.67
   }
  },
  "lastLogged": {
@@ -478,16 +504,18 @@
   "LLOYDSME|4": "2026-10-30",
   "AJANTPHARM|2": "2026-10-30",
   "VIJAYA|2": "2026-11-06",
-  "VIJAYA|4": "2026-11-06"
+  "VIJAYA|4": "2026-11-06",
+  "IPCALAB|4": "2026-11-09",
+  "RUBICON|2": "2026-11-09"
  },
  "summary": {
-  "updated": "2026-11-07",
+  "updated": "2026-11-09",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
      "matured": 0,
-     "open": 3,
+     "open": 4,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -527,7 +555,7 @@
     "group": "room under 3R",
     "momentum": {
      "matured": 0,
-     "open": 3,
+     "open": 4,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -547,7 +575,7 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 9,
+     "open": 10,
      "meanNet": null,
      "win": null,
      "excess": null
