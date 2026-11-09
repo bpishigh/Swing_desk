@@ -211,6 +211,42 @@
     "RUSHABEAR"
    ],
    "at": "2026-11-08T16:37:28.058Z"
+  },
+  "2025-12-31": {
+   "listed": 4425,
+   "attempted": 4425,
+   "parsed": 4410,
+   "fetchFailed": 0,
+   "parseFailed": 8,
+   "unmapped": 7,
+   "families": {
+    "IFNBFC": 282,
+    "IFIndAs": 4010,
+    "IFBanking": 72,
+    "IFOTB": 10,
+    "IFLI": 9
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 9
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no tag map for family IFGI": 8
+   },
+   "unmappedSymbols": [
+    "RUSHABEAR",
+    "KUNDANMM",
+    "KUNDANMM",
+    "ATCOM",
+    "ATCOM",
+    "RUSHABEAR",
+    "RUSHABEAR"
+   ],
+   "alreadyStored": 27,
+   "at": "2026-11-09T15:28:08.582Z"
   }
  }
 }
