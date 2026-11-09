@@ -1,0 +1,69 @@
+# First-wave rules: draft for the owner to freeze
+
+9 Nov 2026. Status: DRAFT. Nothing here is registered, built or running. When the owner marks these Adopted, each block becomes a C-row in `docs/ENGINE_RULES.md` (ids C-160 to C-171, proposed) and the Test Register, and the books start. Paper only. Not a financial adviser. Written to `docs/STRATEGY_BUILD_STANDARD.md` and the C-159 rules.
+
+Owner decisions applied (9 Nov 2026): every new strategy has its own paper book (C-158); books start when the rules are frozen, not on a calendar date; every book is read every month.
+
+## Shared terms (apply to every book unless the block says otherwise)
+
+- **Universe.** The India eligible list used by the momentum sleeve (C-129): the 200 most traded stocks by 20-session median traded value, as-of the signal date, delisted names included in history.
+- **Signal and fill.** Signal on a session's close; simulated fill at the next session's open (C-139); the existing tiered costs (`tierCost`).
+- **Start.** First signal on the first session close after the owner freezes the row. Until then the desk shows "not started".
+- **Sizing.** Equal weight, at most 20 names, at most 5% each; the rest is cash earning nothing. (Long-hold: 5% per name keeps a 25% stop-out within 1.25% of the book, C-159.)
+- **Stops (C-159).** Long-hold books: 25% trailing on closing prices, sold at the next open, per-name cap 5%, re-entry on the next valid signal, gaps past the stop logged. Short-hold books (60 sessions or less): the tighter of 3 x ATR(20) and 8% below entry, trailing on closes, filled at the next open.
+- **Benchmarks on every book.** Nifty 200, Nifty 500, and the monthly momentum twin of the sleeve (C-151).
+- **Monthly read.** On the first session of each month the book writes a scorecard: net return since start, excess against each benchmark over the month, since start and trailing 6 months, drawdown, closed trades, average net return per closed trade, turnover and cost paid, stop-outs, and the C-159 kill-line status. The scorecard is information. The owner decides Adopted, Rejected or Parked. Until a book has 12 months and 60 closed trades its figures are marked "thin"; the kill line works from month 1 as C-159 states.
+- **Kill line (C-159).** Drawdown 20% from peak; trailing 6-month net return more than 5 points below the benchmark at two consecutive monthly reads; zero or negative average net return after 40 closed trades. One line is Watch; the drawdown line alone or any two is Kill.
+- **Self-improvement.** One champion; at most two pre-written shadow variants; a swap only on fresh data under a rule written in advance, at most once a year; the number of variants tried is recorded. The variants named in each block are the only ones.
+- **Evidence status.** Each block says what is borrowed from outside research and what is unknown. None of the blocks has been run on this repo's data.
+- **Not tested.** No block has been tested on India data. The owner has chosen forward paper testing as the evidence. The two studies (S1, S2) are the only history tests in this wave.
+
+## Books
+
+### C-160: Industry momentum (India)
+Question: does holding the strongest industries beat holding the strongest single stocks (the sleeve)? Signal: for each industry in `data/india/segments.json` with at least 5 eligible names, the median 12-1 return of its eligible names (close 21 sessions ago over close 252 sessions ago, less 1), as-of. Hold the 5 strongest names (by own 12-1 return) of each of the top 4 industries: 20 names at 5%. Review: first session of each month. A held name stays while its industry is in the top 6 and it ranks in the top 8 of that industry. Hold: long. Stop: 25% trailing. Borrowed evidence: industry momentum is documented in US data (Moskowitz and Grinblatt, 1999); India is unknown. Variants (pre-written): median of the 6-1 return; top 3 industries by 6 names. Rejects it: kill line, or it does not beat the monthly momentum twin on net return over 24 months once marked thick.
+
+### C-161: 52-week-high proximity (India)
+Question: do stocks closest to their 52-week high keep outperforming? Signal: close divided by the highest close of the last 252 sessions; hold the 20 highest, 5% each. Review monthly; a held name stays while in the top 40. Long. Stop 25% trailing. Borrowed evidence: George and Hwang (2004), US. Variants: 126-session high; exclude names flagged by C-168 (MAX). Rejects it: kill line, or no better than the monthly twin after 24 months.
+
+### C-162: Low-turnover momentum (India), variant of the sleeve
+Question: does removing the most heavily traded names from the sleeve's pool improve it? Signal: the C-129 volatility-adjusted score on the eligible list after dropping the top fifth of names by 60-session average traded value (the price-only stand-in; true turnover needs shares outstanding, which the loader does not yet carry). Sleeve rules otherwise (monthly review, as the C-151 twin). Long. Stop 25% trailing. Borrowed evidence: low-turnover momentum in US studies; the stand-in is not the same measure. Variants: drop the top third; drop the top tenth. Rejects it: kill line, or no better than the monthly twin after 24 months.
+
+### C-163: Donchian 55-session breakout (India)
+Question: does a plain channel breakout work after Indian costs? Entry: close above the highest close of the previous 55 sessions. Exit: close below the lowest close of the previous 20 sessions, or the stop. If more than 20 names signal, take those with the highest 12-1 return. Up to 20 names at 5%. Short-hold stop (3 x ATR(20) or 8%, tighter). A name held past 60 sessions keeps that tight stop. Borrowed evidence: Turtle-type rules, mostly futures; stock evidence is mixed. Variants: 20/10 channel; entry 55 with exit 10. Rejects it: kill line.
+
+### C-164: Weekly 12-1 positional momentum (India)
+Question: does re-ranking weekly (Friday close) help or only add cost? Signal: 12-1 return as in C-160; hold the top 20, 5% each; a held name stays while in the top 40. Review each Friday (the last session of the week). Long. Stop 25% trailing. Borrowed evidence: momentum is documented at monthly horizons; weekly is unknown. Variants: fortnightly review; top-10 names at 5%. Rejects it: kill line, or turnover cost above the extra return.
+
+### C-165: Trend template filter (India), forward test
+Question: do names that pass the desk's trend template do better than the rest of the eligible list, forward? Template as in C-135 (close above the 150 and 200-day averages; 150 above 200; 200-day average above its level 21 sessions earlier; 50-day above 150 and 200; close above the 50-day; at least 30% above the 52-week low and within 25% of the 52-week high). Signal: names passing; if more than 20 pass, the 20 with the highest 12-1 return; 5% each. Review monthly; a name leaving the template is sold at the next open. Long (reviewed monthly, so most holds exceed 60 sessions). Stop 25% trailing. Not run: C-135 is the history test; its result must be read before this block is frozen, and the owner may reject this block if C-135 failed. Variants: the template without the 52-week-low condition. Rejects it: kill line.
+
+### C-166: Turn-of-month (India)
+Question: does the calendar effect around the month turn survive Indian costs? Entry: close of the fifth-to-last session of the month, buying the 20 most traded eligible names at 5%. Exit: close of the third session of the next month. Short-hold stop. The book is in cash the rest of the month, so cash share is reported. Borrowed evidence: turn-of-month effects in index returns, several markets; single-stock version unknown. Variants: fourth-to-last entry; exit on the second session. Rejects it: kill line, or average net return per round trip below the cost of a round trip.
+
+### C-167: Volatility-targeted sleeve (India)
+Question: does scaling the monthly sleeve's exposure to a volatility target improve return per unit of risk? Signal: the C-151 monthly twin's holdings, with exposure each review set to 15% divided by the book's own annualised volatility over the last 60 sessions (daily net return), capped at 100%; the rest is cash earning nothing. Long. Same stops as the sleeve. Borrowed evidence: volatility-managed portfolios (Moreira and Muir, 2017), US; India unknown. Variants: 12% target; 20% target. Rejects it: kill line, or risk-adjusted return not better than the monthly twin after 24 months.
+
+### C-168: MAX exclusion book (India)
+Question: does excluding lottery-type stocks improve the monthly sleeve? Flag: a name is a MAX name if its largest one-day return over the last 21 sessions is in the top tenth of the eligible list. Signal: the monthly twin's rule with MAX names removed before ranking. Long. Stop 25% trailing. The flag is also written to the nightly file for every name as information. Borrowed evidence: Bali, Cakici and Whitelaw (2011), US. Variants: top fifth; 63-session window. Rejects it: kill line, or no better than the monthly twin after 24 months.
+
+### C-169: Multi-asset trend layer and risk-parity yardstick (India) (blocked on data)
+Question: does a simple trend filter over broad asset classes beat holding them in fixed risk shares? Assets: Nifty 50, a gold ETF, a liquid or short-bond fund. Trend book: at each month end, hold each asset equally only while it closes above its 10-month average, else cash. Yardstick: the same assets weighted by inverse 60-session volatility, no filter. Long. Stop 25% trailing per asset. Blocked: the index store has no gold or bond series. Gold and liquid ETFs may be in the daily price files; I have not checked. Frozen only once the series are confirmed. Borrowed evidence: Faber (2007), US and global. Variants: 12-month average; add a Nifty Midcap 100 asset. Rejects it: kill line.
+
+### C-170: Base-rate study (S1, price only)
+Question: how often do Indian stocks, delisted ones included, reach 3x or 5x within 5 years from any start date? Method: every stock-start date from 2011 on with 5 years of price afterwards; fully adjusted prices; delisted names count at their last price; counted by start year and by price and liquidity band. Run once, no tuning. Judged: reported only; it is the yardstick for every multibagger claim. Not tested: anything involving fundamentals.
+
+### C-171: Price-only multibagger lift test (S2)
+Question: does nearness to the 52-week high, with MAX names excluded, or a liquidity or size band, raise the share of stocks reaching 5x in 5 years above C-170's base rate? Method: as C-170, grouped by the three features, set before the run; lift reported with bootstrap intervals; years are blocks. Run once, no tuning. Judged: lift is reported as a ratio to the base rate with its interval; a result is called an effect only if the lower bound exceeds 1 in at least 60% of start years.
+
+## Build and review plan
+
+1. Owner reviews this page and marks each block Adopted, Rejected, Parked or Changed. Pasted reviewer text is not approval.
+2. Each Adopted block becomes a C-row in the live Engine Rules doc, then the repo export, then the Test Register; `settings/strategies.json` gets its entry (status `planned`).
+3. Package 3: the shared paper-book runner, built once, so a book is one small signal module plus its settings entry.
+4. Books start in batches as each passes its tests; "start" is the first signal close after freeze and test pass. C-169 starts when its data is confirmed.
+5. The studies run first and are written up in `docs/replay/`.
+
+## Log
+
+- 9 Nov 2026: drafted for the owner.
