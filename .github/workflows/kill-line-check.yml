@@ -1,0 +1,32 @@
+name: kill-line-check
+# One-off (9 Nov 2026): writes month-end curves from the C-150 replay and counts how often the C-159 kill line would have fired. Manual only.
+on:
+  workflow_dispatch:
+concurrency: kill-line-check
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: KILLCURVES=1 node --max-old-space-size=7000 scripts/backtest-momentum30-freq.mjs
+      - run: node scripts/kill-line-check.mjs
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git checkout data/replay/c150-momentum-frequency-india.json || true
+          git add data/replay/kill-line-curves-india.json data/replay/kill-line-check-india.json
+          git commit -m "kill-line-check: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

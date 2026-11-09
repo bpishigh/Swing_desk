@@ -67,5 +67,11 @@ const base = rows[0], verdict = rows.slice(1).map((r) => ({ freq: r.freq, cagrGa
 const q = verdict.filter((v) => v.qualifies).sort((a, b) => b.cagrGap - a.cagrGap);
 const result = { id: 'C-150-india', run: new Date().toISOString().slice(0, 10), rule: 'faster schedule helps only if annual return beats semi-annual by 1+ point, worst fall no more than 3 points worse, and it wins both halves of the period; none qualifying means stay semi-annual; must qualify in both markets', rows, verdict, chosen: q[0]?.freq ?? null };
 writeFileSync('data/replay/c150-momentum-frequency-india.json', JSON.stringify(result, null, 1) + '\n');
+// Kill-line check (9 Nov 2026, owner "yes"): with KILLCURVES=1 also write month-end equity curves per schedule and the two benchmarks, for scripts/kill-line-check.mjs. Output only; the run and its results above are unchanged.
+if (process.env.KILLCURVES) {
+  const monthEnd = (arr) => { const o = {}; for (let i = 0; i < N; i++) { if (dates[i] > '2025-12-31') break; if (arr[i] > 0) o[dates[i].slice(0, 7)] = arr[i]; } return o; };
+  const curves = {}; for (const [name, months] of FREQ) { SETFREQ(months); curves[name] = monthEnd(run(T, 0).eq); }
+  writeFileSync('data/replay/kill-line-curves-india.json', JSON.stringify({ note: 'Month-end equity of the C-129 sleeve replay at each re-rank schedule (semi-annual = the sleeve, monthly = the C-151 twin), no stop, and Nifty 200 / Nifty 500 (spliced as in C-129). Written for the kill-line check only.', curves, benchmarks: { 'Nifty 200': monthEnd(n200), 'Nifty 500': monthEnd(n500) } }) + '\n');
+}
 for (const r of rows) console.log(`${r.freq}: ${r.from} to ${r.to} x${r.multiple} annual ${(r.cagr * 100).toFixed(1)}% (halves ${(r.cagrFirstHalf * 100).toFixed(1)}% / ${(r.cagrSecondHalf * 100).toFixed(1)}%) worst fall ${(r.worstFall * 100).toFixed(1)}% costs/yr ${(r.costPerYear * 100).toFixed(2)}% reviews ${r.reviews}`);
 console.log(JSON.stringify(verdict), 'chosen', result.chosen);
