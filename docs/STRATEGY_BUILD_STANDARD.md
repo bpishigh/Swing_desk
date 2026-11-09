@@ -72,6 +72,8 @@ C-numbers are unique and appear in two places: the Test Register summary row and
 - **Self-improvement loop:** monthly scorecard; one champion and at most two pre-written variants as shadow books; a swap only on fresh data under a rule written in advance, at most once a year per strategy; the number of variants tested is recorded.
 - **Fund replacement test:** total TER no higher than the self-run cost, assets at least Rs 500 crore, record at least 3 years, tracking difference no worse than -1.0% a year over 3 years.
 
+- **Pass standard and stopped parent (C-173, 9 Nov 2026):** monthly reads give Continue, Watch or Kill only. Adopted needs a thick read (12 months, 60 closed trades) and all of: bootstrap 90% interval on the mean monthly net excess above zero, point estimate above the cost difference, power stated, and the count of rules and variants tried reported beside the result. The comparison parent of the sleeve variants is the monthly-review sleeve with the C-159 long-hold stop; variants inherit it.
+
 ## 5. Writing a rule so it can be understood later
 
 Each C-row answers, in this order: question asked; universe; signal; entry; exit; sizing; costs; benchmark and comparison lines; data used (with register row ids); evidence status (what is proven, what is borrowed from outside research, what is unknown); what was run and what was not; read date; what rejects it. Say what was **not** tested and why. Avoid undefined words: every term used is defined in the glossary of ARCHITECTURE.md or in the row itself.
@@ -104,3 +106,4 @@ Change it only with a log line below. A change to the standard that alters how a
 
 - 8 Nov 2026: created from the momentum sleeve build (C-130 to C-132), the Engine Rules, Test Register, ARCHITECTURE and DATA_SOURCES conventions.
 - 8 Nov 2026: added section 4b and a definition-of-done line for the C-159 risk and judging rules.
+- 9 Nov 2026: added the C-173 pass standard and stopped-parent line to section 4b.
