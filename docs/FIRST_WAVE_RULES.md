@@ -14,6 +14,16 @@ Owner decisions applied (9 Nov 2026): every new strategy has its own paper book 
 - **Benchmarks on every book (owner, 10 Nov 2026).** Four lines: Nifty 200, Nifty 500, the monthly momentum twin of the sleeve (C-151), and the Nifty200 Momentum 30 index fund NAV net of its dividend yield (the instrument the desk would hold instead; the C-173 cost-difference condition is read against it). The AMFI NAV file already feeds the fund line for the sleeve.
 - **Monthly read.** On the first session of each month the book writes a scorecard: net return since start, excess against each benchmark over the month, since start and trailing 6 months, drawdown, closed trades, average net return per closed trade, turnover and cost paid, stop-outs, and the kill-line status. A monthly read gives Continue, Watch or Kill only (C-173). Adopted is decided only at a thick read (12 months and 60 closed trades) under the C-173 pass standard; until then figures are marked "thin". Only the owner marks Adopted, Rejected or Parked.
 - **Kill line (C-159, amended by C-174).** Relative drawdown: the book's fall from its own peak measured against the benchmark's move over the same window, 20%; trailing 6-month net return more than 5 points below the benchmark at two consecutive monthly reads; zero or negative average net return after 40 closed trades. One line is Watch; the drawdown line alone or any two is Kill.
+- **Comparator per book (C-176).** The pass standard and the kill line are read against the one comparator named for the book in this table, not against "the benchmark". Nifty 200, Nifty 500, the monthly twin and the fund are shown on every scorecard as reported lines.
+
+| Book | Comparator for pass and kill | Metric |
+|---|---|---|
+| C-160, C-161, C-162, C-164, C-165 filter, C-168 | The stopped parent (C-173) | Paired monthly excess return |
+| C-167 | The stopped parent | Return per unit of volatility; drawdown reported |
+| C-163, C-172 | The Momentum 30 fund | Excess return, with average exposure reported |
+| C-166 | The liquid-fund rate | Net return above cash per round trip |
+| C-169 | Equal-weight hold of the two assets | Drawdown cut, with the return cost stated |
+
 - **Pass standard (C-173).** Monthly reads give Continue, Watch or Kill only. Adopted needs a thick read (12 months, 60 closed trades) and all of: the block-bootstrap 90% interval on the mean monthly net excess over the benchmark or parent twin has a lower bound above zero; the point estimate exceeds the cost difference; the read states its power; and the read reports how many rules and variants have been tried in total.
 - **Stopped parent (C-173).** The comparison parent of C-162, C-167 and C-168 is a new book: the monthly-review sleeve with the C-159 long-hold stop (25% trailing, 5% per name). The variants inherit that stop. The unstopped C-151 twin stays as a reference line.
 - **Known limit: slippage.** The cost model is the sleeve's `tierCost` (round-trip cost by traded-value tier) with no separate slippage tier. The owner has not decided whether to add one. Until then C-163, C-166 and C-172, which trade more often, carry the limit and their costs may be understated.
@@ -74,6 +84,7 @@ Question: does nearness to the 52-week high, with MAX names excluded, or a liqui
 ## Log
 
 - 9 Nov 2026: drafted for the owner.
+- 10 Nov 2026: C-176 comparator table adopted by the owner. C-169 thick read and a Live status pending.
 - 10 Nov 2026: owner decisions: Momentum 30 fund added as the fourth benchmark; C-165 folded into a filter-and-twin on the stopped sleeve parent; C-169 equity and gold now. Cash credited at the liquid-fund rate (owner yes, 10 Nov; C-175).
 - 9 Nov 2026: owner said yes to the stopped parent, the pass standard (C-173) and the kill-line check; shared terms and the Donchian, turn-of-month and multi-asset rows updated.
 - 9 Nov 2026: kill line amended to the relative drawdown (C-174) after the replay check: on the 2011 to 2025 month-end replay curves the absolute 20% line would have killed the semi-annual sleeve in Feb 2016, Mar 2020, Jun 2022, Feb 2023 and Jan 2025 (each before 2025 followed by +30% to +87% over 12 months) and the monthly twin 5 times; the relative line fires once on the sleeve (Feb 2023) and twice on the twin (Jul and Sep 2025, outcome not yet known).
