@@ -10,6 +10,7 @@ import { eligible, BASE, tierCost } from '../src/backtest/ind-base.ts';
 import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { resultsAvoid } from '../src/ingest/earnings.ts';
+import { applyFilter } from '../src/engine/sleeve-filters.ts';
 import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY } from '../src/engine/momentum-sleeve.ts';
 
 const ASOF = process.argv.find((a) => a.startsWith('--asof='))?.slice(7), DRY = process.argv.includes('--dry');
@@ -81,12 +82,14 @@ if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's clos
 // 3) signal tonight?  First ever run after the start date, or the first session of a review month.
 // Listed companies only: a symbol with an industry (index lists) or a company name. Liquid funds and gold/silver ETFs are not companies; the C-129 replay let GOLDBEES in at 2 to 5% on four review dates (see Engine Rules C-130).
 const isCo = (sym) => sym in industry || sym in names;
-const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value }));
+// Pool filter for the stopped-parent variants (MOM_FILTER=lowturn|max|template; C-162, C-168, C-165): applied to the eligible top 200, the sleeve rule then runs unchanged.
+const FILTER = process.env.MOM_FILTER || '', filt = (l) => (FILTER ? applyFilter(FILTER, l.slice(0, MOM30.UNI), series, t) : l);
+const el = filt(eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })));
 const preview = selectSleeve(el, series, t, held(), RES.avoid), wts = sleeveWeights(preview);
 const needFirst = !st.book && !st.pending && D > START_AFTER;
 if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t, RM)))) {
   // live path (as-of histories for eligibility, adjusted closes for returns) against the replay path (every figure from the fully adjusted histories, as the C-129 script does)
-  const elR = eligible(FH, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })), selR = selectSleeve(elR, series, t, held(), RES.avoid), wR = sleeveWeights(selR);
+  const elR = filt(eligible(FH, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value }))), selR = selectSleeve(elR, series, t, held(), RES.avoid), wR = sleeveWeights(selR);
   const a = new Map(preview.picks.map((p, i) => [p.sym, wts[i]])), b = new Map(selR.picks.map((p, i) => [p.sym, wR[i]]));
   const same = a.size === b.size && [...a.keys()].every((s) => b.has(s)), maxDiff = Math.max(0, ...[...new Set([...a.keys(), ...b.keys()])].map((s) => Math.abs((a.get(s) ?? 0) - (b.get(s) ?? 0)))) * 100;
   st.pending = { signalDate: D, resultsRule: { rule: 'C-155', source: RES.source, inWindow: RES.avoid.size, skipped: preview.ranked.filter((r) => RES.avoid.has(r.sym) && !held().has(r.sym) && r.rank <= MOM30.KEEP).map((r) => r.sym) }, target: preview.picks.map((p, i) => ({ sym: p.sym, w: wts[i] })), values: Object.fromEntries(el.map((e) => [e.sym, e.value])), check: { sameNames: same, maxWeightDiffPp: Math.round(maxDiff * 1000) / 1000, pass: same && maxDiff <= 0.1 } };

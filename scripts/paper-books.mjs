@@ -51,7 +51,7 @@ const idxStore = R('data/india/idx_closes.json', { closes: {} }).closes, idxAt =
 const n500At = (d) => R(`data/india/tracker/${d}.json`)?.b?.close ?? null;
 const parentCost = (() => { const rv = parent?.reviews ?? [], ms = Object.keys(parent?.monthly ?? {}).length; return rv.length && ms ? rv.reduce((a, r) => a + (r.costPct ?? 0), 0) / 100 / ms : 0; })();
 
-const out = [];
+const out = [], twinM0 = monthsOf(twin);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
   const ctxOf = (held) => ({ el, series, t, dates, held });
@@ -83,5 +83,25 @@ for (const b of books) {
   if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(lat) + '\n'); }
 }
 if (!DRY) writeFileSync(navFile, JSON.stringify(navs) + '\n');
+
+// Sleeve-family books (C-162, C-165 filter, C-168): the momentum sleeve code with a pool filter, monthly review and the 25% stop; their state is the sleeve's own (scripts/momentum-sleeve.mjs, MOM_FILTER).
+// Here they get the same scorecard as the other books, read against the stopped parent (C-173, C-176). Per-trade statistics are not kept for them, so that kill line is not applied.
+for (const b of cfg.sleeveBooks ?? []) {
+  const st = R(b.dir + '/state.json'), lt = R(b.dir + '/latest.json'), started = st?.book?.startedFill ?? null, bm = monthsOf(st);
+  const rev = st?.reviews ?? [], parentMonths = Math.max(1, Object.keys(parent?.monthly ?? {}).length), ownMonths = Math.max(1, bm.length);
+  const hurdle = Math.max(0, (rev.reduce((a, r) => a + (r.costPct ?? 0), 0) / 100 / ownMonths) - parentCost);
+  const sc = bm.length > 1 ? scorecard(bm, parM, { n: 0, avg: null }, hurdle) : null;
+  const base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => st.monthly[m]?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
+  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM0, m)), fund: rb((m) => at(monthEndNav('148703'), m)), comparator: rb((m) => at(parM, m)) };
+  const rows = (lt?.rows ?? []).filter((r) => ['Held', 'In buffer', 'Would leave', 'Would enter', 'Preview'].includes(r.status) || r.rank <= 40);
+  const hold = rows.filter((r) => r.weightNow > 0).map((r) => ({ sym: r.sym, name: r.name, entry: r.entry, last: r.last, sinceEntry: r.sinceEntry, stop: 0.25 }));
+  const watch = rows.slice(0, 60).map((r) => ({ rank: r.rank, sym: r.sym, name: r.name, score: r.score, status: r.status === 'Preview' ? '' : r.status === 'Would enter' ? 'Would enter' : r.status }));
+  const value = lt?.valueIndex ?? null, stops = st?.stops ?? [];
+  const lat = { id: b.id, rule: b.rule, name: b.name, asOf: lt?.asOf ?? D, startAfter: b.startAfter, state: started ? 'running' : st?.pending ? 'pending fill' : 'waiting', started, value, valueSens: null, held: lt?.heldCount ?? 0, cashShare: st?.book && value ? Math.round(st.book.cash / value * 1e4) / 1e4 : null,
+    holdings: hold, pending: st?.pending ? { signalDate: st.pending.signalDate } : null, closedTrades: stops.length, stopOuts: stops.length, skippedWide: 0, cashDays: null, watch, scoreKind: 'zscore', nextEntry: null,
+    comparator: { id: 'parent', name: 'Stopped parent (monthly review, 25% stop)' }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines: bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) })), sens: null, perTradeNote: 'Per-trade statistics are not kept for sleeve-family books; that kill line is not applied.' };
+  out.push({ id: b.id, rule: b.rule, name: b.name, state: lat.state, started, held: lat.held, value, cashShare: lat.cashShare, comparator: lat.comparator.name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, excessLastMonth: sc?.excessLastMonth ?? null, confidence: sc ? Math.round(sc.confidence.confidence * 1000) / 1000 : null, kill: sc?.kill.status ?? null, closedTrades: lat.closedTrades, stopOuts: lat.stopOuts, skippedWide: 0 });
+  if (!DRY) { mkdirSync(`${BDIR}/${b.id}`, { recursive: true }); writeFileSync(`${BDIR}/${b.id}/latest.json`, JSON.stringify(lat) + '\n'); }
+}
 if (!DRY) { mkdirSync(BDIR, { recursive: true }); writeFileSync(BDIR + '/summary.json', JSON.stringify({ asOf: D, books: out }) + '\n'); }
 console.log(JSON.stringify({ asOf: D, universe: el.length, books: out.map((o) => ({ id: o.id, state: o.state, held: o.held, conf: o.confidence, kill: o.kill })) }));

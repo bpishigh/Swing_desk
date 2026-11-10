@@ -139,6 +139,60 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "fw-c162-lowturn",
+      "name": "Low-turnover momentum",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-162",
+      "view": "book_list",
+      "startAfter": "2026-11-01",
+      "dataFile": "data/india/books/fw-c162-lowturn/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c168-max",
+      "name": "MAX exclusion momentum",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-168",
+      "view": "book_list",
+      "startAfter": "2026-11-01",
+      "dataFile": "data/india/books/fw-c168-max/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c165-template",
+      "name": "Trend-template filter momentum",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-165",
+      "view": "book_list",
+      "startAfter": "2026-11-01",
+      "dataFile": "data/india/books/fw-c165-template/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

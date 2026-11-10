@@ -51,5 +51,31 @@
       "name": "UTI Nifty 200 Momentum 30 Index Fund - Direct Plan - Growth",
       "use": "fourth benchmark line and the C-163 comparator"
     }
+  ],
+  "sleeveBooks": [
+    {
+      "id": "fw-c162-lowturn",
+      "rule": "C-162",
+      "name": "Low-turnover momentum",
+      "dir": "data/india/momentum-sleeve-lowturn",
+      "comparator": "parent",
+      "startAfter": "2026-11-01"
+    },
+    {
+      "id": "fw-c168-max",
+      "rule": "C-168",
+      "name": "MAX exclusion momentum",
+      "dir": "data/india/momentum-sleeve-max",
+      "comparator": "parent",
+      "startAfter": "2026-11-01"
+    },
+    {
+      "id": "fw-c165-template",
+      "rule": "C-165",
+      "name": "Trend-template filter momentum",
+      "dir": "data/india/momentum-sleeve-template",
+      "comparator": "parent",
+      "startAfter": "2026-11-01"
+    }
   ]
 }
