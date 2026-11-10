@@ -8,6 +8,7 @@ import { returnOver } from '../engine/indicators.ts';
 export const INDIA_INDICES: Record<string, string[]> = {
   'Nifty 50': ['Nifty 50'],
   'Nifty 500': ['Nifty 500'],
+  'Nifty 200': ['Nifty 200'],   // reference line for the first-wave scorecards (11 Nov 2026); not a sector
   'Nifty IT': ['Nifty IT'],
   'Nifty Bank': ['Nifty Bank'],
   'Nifty Financial Services': ['Nifty Financial Services', 'Nifty Fin Service'],
@@ -28,7 +29,7 @@ export const INDIA_INDICES: Record<string, string[]> = {
   'Nifty Chemicals': ['Nifty Chemicals'],
   'Nifty Capital Markets': ['Nifty Capital Markets', 'Nifty Capital Mkt'],
 };
-export const SECTORS = Object.keys(INDIA_INDICES).filter((k) => k !== 'Nifty 50' && k !== 'Nifty 500');
+export const SECTORS = Object.keys(INDIA_INDICES).filter((k) => k !== 'Nifty 50' && k !== 'Nifty 500' && k !== 'Nifty 200');
 export const VIX_NAMES = ['India VIX'];
 
 export const normalise = (s: string): string =>

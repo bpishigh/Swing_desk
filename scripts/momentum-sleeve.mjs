@@ -105,8 +105,9 @@ const nextRev = MONTHLY_TWIN ? (() => { const [y, m] = D.split('-').map(Number);
 const nse = new Map((existsSync('data/replay/nse-momentum30-price.csv') ? readFileSync('data/replay/nse-momentum30-price.csv', 'utf8').trim().split('\n').slice(1) : []).map((l) => { const [d, c] = l.split(','); return [d.slice(0, 7), { d, c: Number(c) }]; }));
 const refm = R(dir + '/reference.json', {}), months = Object.keys(st.monthly).sort(), n500 = (d) => R(`data/india/tracker/${d}.json`)?.b?.close ?? null;
 const origin = months.find((m) => st.book && st.monthly[m].d >= st.book.startedFill && st.monthly[m].d.slice(0, 7) !== st.book.startedFill.slice(0, 7)) ?? null;
+const idxStore = R('data/india/idx_closes.json', { closes: {} }).closes, idxClose = (key, d) => { const h = idxStore[key]; if (!h || !d) return null; const ds = Object.keys(h).filter((x) => x <= d).sort(); return ds.length ? h[ds.at(-1)] : null; };   // Nifty 200 now comes from the nightly NSE index file (11 Nov 2026); the hand-added reference.json stays as a fallback
 const line = (key, f) => { if (!origin) return null; const base = f(origin); if (!(base > 0)) return null; return months.filter((m) => m >= origin).map((m) => { const v = f(m); return v > 0 ? { m, x: Math.round(v / base * 1e4) / 100 } : { m, x: null }; }); };
-const board = origin ? { origin, lines: { sleeve: line('sleeve', (m) => st.monthly[m]?.v), nse: line('nse', (m) => nse.get(m)?.c), n500: line('n500', (m) => n500(st.monthly[m]?.d)), n200: line('n200', (m) => refm[m]?.nifty200), fund: line('fund', (m) => refm[m]?.fundNav) } } : null;
+const board = origin ? { origin, lines: { sleeve: line('sleeve', (m) => st.monthly[m]?.v), nse: line('nse', (m) => nse.get(m)?.c), n500: line('n500', (m) => n500(st.monthly[m]?.d)), n200: line('n200', (m) => idxClose('Nifty 200', st.monthly[m]?.d) ?? refm[m]?.nifty200), fund: line('fund', (m) => refm[m]?.fundNav) } } : null;
 const rep = R('data/replay/c129-momentum30.json', {});
 const out = {
   version: MOM30.version, asOf: D, startAfter: START_AFTER, universe: preview.universe, nextReview: nextRev, lastBuild: st.reviews.at(-1)?.fillDate ?? null,

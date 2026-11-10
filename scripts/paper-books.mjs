@@ -47,6 +47,7 @@ const cashRetFor = (st) => { const ds = navDates.filter((d) => d <= D && d > (st
 const monthEndNav = (code) => { const s = navs[code]?.series ?? {}, o = new Map(); for (const d of Object.keys(s).sort()) o.set(d.slice(0, 7), s[d]); return [...o].map(([m, v]) => ({ m, v })); };
 const monthsOf = (st) => Object.entries(st?.monthly ?? {}).sort().map(([m, x]) => ({ m, v: x.v }));
 const parent = R('data/india/momentum-sleeve-monthly-stop/state.json'), twin = R('data/india/momentum-sleeve-monthly/state.json'), refm = R('data/india/momentum-sleeve/reference.json', {});
+const idxStore = R('data/india/idx_closes.json', { closes: {} }).closes, idxAt = (key, d) => { const h = idxStore[key]; if (!h || !d) return null; const ds = Object.keys(h).filter((x) => x <= d).sort(); return ds.length ? h[ds.at(-1)] : null; };
 const n500At = (d) => R(`data/india/tracker/${d}.json`)?.b?.close ?? null;
 const parentCost = (() => { const rv = parent?.reviews ?? [], ms = Object.keys(parent?.monthly ?? {}).length; return rv.length && ms ? rv.reduce((a, r) => a + (r.costPct ?? 0), 0) / 100 / ms : 0; })();
 
@@ -71,7 +72,7 @@ for (const b of books) {
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;
   const base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => bm.find((x) => x.m === m)?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
-  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), comparator: rb((m) => at(comp, m)) };
+  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), comparator: rb((m) => at(comp, m)) };
   const lines = bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) }));
   const nextEntry = b.signal === 'turnOfMonth' ? (() => { for (let k = 0; k < 45; k++) { const d = cal.addSessions(D, k); if (sessionsLeftInMonth(d, cal.sessionsBetween.bind(cal)) === 4) return d; } return null; })() : null;
   const lat = { id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,

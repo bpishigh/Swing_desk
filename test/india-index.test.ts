@@ -9,7 +9,7 @@ const csv = (d: string, c = 100) => [HEAD, ...Object.values(INDIA_INDICES).map((
 test('parse reads the date from inside the file and every row', () => {
   const day = parseIndexCloseCsv(csv('09-10-2026'));
   assert.equal(day.date, '2026-10-09');
-  assert.equal(day.rows.length, 22);
+  assert.equal(day.rows.length, 23);
   assert.equal(findIndex(day, INDIA_INDICES['Nifty Healthcare'])?.close, 100);
 });
 
@@ -45,10 +45,10 @@ test('merge never overwrites a stored date, reports conflicts and missing names'
   const r = mergeDay(store, parseIndexCloseCsv(csv('09-10-2026', 100)));
   assert.equal(r.store.closes['Nifty 50']['2026-10-09'], 99);
   assert.equal(r.conflicts.length, 1);
-  assert.equal(r.added.length, 20);
+  assert.equal(r.added.length, 21);
   assert.equal(r.store.asOf, '2026-10-09');
   const r2 = mergeDay(store, parseIndexCloseCsv([HEAD, line('Nifty 50', '09-10-2026', 99)].join('\n')));
-  assert.equal(r2.missing.length, 20);
+  assert.equal(r2.missing.length, 21);
 });
 
 test('feed and tracker for D carry source, flags, and omit what cannot be computed', () => {
