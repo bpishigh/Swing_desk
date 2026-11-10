@@ -72,7 +72,8 @@ C-numbers are unique and appear in two places: the Test Register summary row and
 - **Self-improvement loop:** monthly scorecard; one champion and at most two pre-written variants as shadow books; a swap only on fresh data under a rule written in advance, at most once a year per strategy; the number of variants tested is recorded.
 - **Fund replacement test:** total TER no higher than the self-run cost, assets at least Rs 500 crore, record at least 3 years, tracking difference no worse than -1.0% a year over 3 years.
 
-- **Pass standard and stopped parent (C-173, 9 Nov 2026):** monthly reads give Continue, Watch or Kill only. Adopted needs a thick read (12 months, 60 closed trades) and all of: bootstrap 90% interval on the mean monthly net excess above zero, point estimate above the cost difference, power stated, and the count of rules and variants tried reported beside the result. The comparison parent of the sleeve variants is the monthly-review sleeve with the C-159 long-hold stop; variants inherit it.
+- **Confidence (C-177, 10 Nov 2026):** every book and forward test shows a monthly confidence figure (the chance its true edge over its named comparator exceeds its extra cost), from `src/engine/confidence.ts`; no month or trade minimum; the owner decides Live, Adopted, Rejected or Parked at any monthly read. It replaces the thick-read gate below, whose reported lines remain.
+- **Pass standard and stopped parent (C-173, 9 Nov 2026), thick-read gate superseded by C-177:** monthly reads give Continue, Watch or Kill only. Adopted needs a thick read (12 months, 60 closed trades) and all of: bootstrap 90% interval on the mean monthly net excess above zero, point estimate above the cost difference, power stated, and the count of rules and variants tried reported beside the result. The comparison parent of the sleeve variants is the monthly-review sleeve with the C-159 long-hold stop; variants inherit it.
 
 ## 5. Writing a rule so it can be understood later
 
@@ -108,3 +109,4 @@ Change it only with a log line below. A change to the standard that alters how a
 - 8 Nov 2026: added section 4b and a definition-of-done line for the C-159 risk and judging rules.
 - 9 Nov 2026: added the C-173 pass standard and stopped-parent line to section 4b.
 - 9 Nov 2026: kill-line drawdown now measured relative to the benchmark (C-174).
+- 10 Nov 2026: added the C-177 confidence figure to section 4b.
