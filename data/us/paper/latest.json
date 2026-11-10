@@ -1,21 +1,21 @@
 {
- "asOf": "2026-11-06",
+ "asOf": "2026-11-09",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
-  "orders": 1,
+  "orders": 2,
   "open": 0,
   "pending": 1,
-  "notFilled": 0,
+  "notFilled": 1,
   "closed": 0,
   "meanR": null,
   "winRate": null
  },
  "capwaived": {
-  "orders": 14,
-  "open": 0,
-  "pending": 2,
-  "notFilled": 7,
+  "orders": 15,
+  "open": 1,
+  "pending": 1,
+  "notFilled": 8,
   "closed": 5,
   "meanR": -1.0314627443739763,
   "winRate": 0.2
@@ -35,7 +35,7 @@
    "stream": "official",
    "sym": "LNTH",
    "setup": "4",
-   "trigger": 101.22,
+   "trigger": 101.31,
    "stop": 100.26,
    "tags": []
   },
@@ -43,19 +43,9 @@
    "stream": "capwaived",
    "sym": "LNTH",
    "setup": "4",
-   "trigger": 101.22,
+   "trigger": 101.31,
    "stop": 100.26,
    "tags": []
-  },
-  {
-   "stream": "capwaived",
-   "sym": "TGT",
-   "setup": "4",
-   "trigger": 160.05,
-   "stop": 151.99,
-   "tags": [
-    "room fail"
-   ]
   }
  ],
  "open": [
@@ -65,6 +55,13 @@
    "setup": "4",
    "entry": 158.41,
    "stop": 150.12
+  },
+  {
+   "stream": "capwaived",
+   "sym": "TGT",
+   "setup": "4",
+   "entry": 160.05,
+   "stop": 151.99
   }
  ]
 }

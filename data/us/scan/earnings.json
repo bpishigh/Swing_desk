@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-06",
+ "asOf": "2026-11-09",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "LNTH": {
@@ -12,32 +12,43 @@
    "sessions": null,
    "inWindow": null
   },
-  "SYRE": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "ORKA": {
-   "date": "2026-11-11",
+  "KOD": {
+   "date": "2026-11-12",
    "sessions": 3,
    "inWindow": true,
    "estimated": true
   },
+  "EWTX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "VSXY": {
+   "date": "2026-12-04",
+   "sessions": 18,
+   "inWindow": false,
+   "estimated": true
+  },
   "SGRY": {
    "date": "2026-11-09",
-   "sessions": 1,
+   "sessions": 0,
    "inWindow": true,
    "estimated": true
+  },
+  "ACHC": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "LH": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "DGX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+  "ANF": {
+   "date": "2026-11-24",
+   "sessions": 11,
+   "inWindow": false
   }
  }
 }
