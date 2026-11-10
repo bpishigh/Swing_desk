@@ -492,6 +492,7 @@ const curStrat = (m) => { const l = (D.strategies || []).filter((x) => x.market 
 const mmm = (ym) => (ym ? new Date(ym + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '–');
 const dmy = (d) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '–');
 function stratSub(s, kind, m) {
+  if (s.view === 'book_list') { const b = D.books?.by?.[s.id]; if (!b) return 'not started'; return kind === 'paper' ? (b.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter)) : b.state === 'running' ? `${b.held} held` : 'preview list'; }
   if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
   const sc = m === 'us' ? D.scan : D.scanIndia; return kind === 'scan' ? (sc ? `${sc.ready.length} ready, ${sc.watch.length} watching` : 'no scan yet') : 'paper book';
 }
@@ -562,8 +563,62 @@ function viewMomentumPaper(m = 'in') {
   <details class="fold"><summary>${us ? 'The replay result' : "Difference from NSE's index"}</summary><p class="note">${us ? 'Dec 2017 to Dec 2023 on today\'s listed stocks: the sleeve made about +97% against +78% for SPY, but only 2 of 6 years beat SPY, 2020 carried it, and the edge could not be told apart from zero (C-131, failed).' : "This version ranks by traded value in place of NSE's free-float market size, so it leans to mid-caps. Replay: about 4 points a year behind NSE's index over 2011 to 2019, and ahead over 2021 to Oct 2025."}</p></details></section>`;
 }
 
+// First-wave paper books (C-161, C-163, C-164, C-166): one tab each in Scans (stock list) and Paper test (scorecard), both folded; one comparison table of all books.
+const BOOKTXT = {
+  'fw-c161-high52': 'Holds the 20 stocks closest to their 52-week high among the 200 most traded. Reviewed on the first session of each month; a held stock stays while it is in the top 40. 25% trailing stop.',
+  'fw-c163-donchian': 'Buys a stock that closes above its highest close of the last 55 sessions, sells it when it closes below its lowest close of the last 20 or when its stop is hit. Up to 20 stocks. Stop: the tighter of 3 x ATR and 8%; a stock whose stop would be wider than 8% is passed over.',
+  'fw-c164-weekly121': 'Holds the 20 strongest 12-month-minus-1-month trends among the 200 most traded, re-ranked every Friday; a held stock stays while it is in the top 40. 25% trailing stop.',
+  'fw-c166-turnmonth': 'Buys the 20 most traded stocks at the close of the 5th-to-last session of each month and sells at the close of the 3rd session of the next month; in cash the rest of the month. Stop: the tighter of 3 x ATR and 8%.',
+};
+const bk = (id) => D.books?.by?.[id] || null, pc = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
+const confTxt = (r) => (r.confidence === null || r.confidence === undefined ? '–' : Math.round(r.confidence * 100) + '%');
+function bookCompare(cur) {
+  const rows = D.books?.rows || []; if (!rows.length) return '';
+  const kc = (k) => (k === 'Kill' ? 'var(--red)' : k === 'Watch' ? 'var(--amber, #b7791f)' : 'var(--muted)');
+  return `<section style="margin-top:28px"><h3 class="ttl">All first-wave books</h3>
+  <p class="note" style="margin:6px 0 0;max-width:70ch">Each book is read against its own comparator, shown in the second column. Confidence is the chance the book's true edge over that comparator is larger than its extra trading cost; it starts at 50%, moves with profit and not with time, and is only a reading aid: you decide Live, Adopted, Rejected or Parked. Paper only.</p>
+  <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Book</th><th>Against</th><th class="num">Months</th><th class="num">Since start</th><th class="num">Ahead of it</th><th class="num">Confidence</th><th>Line</th></tr></thead><tbody>${rows.map((r) => `<tr${r.id === cur ? ' style="background:var(--soft, rgba(127,127,127,.08))"' : ''}><td><button class="lnk" data-bg="paper:${esc(r.id)}">${esc(r.name)}</button><div class="note nm">${esc(r.rule)}</div></td><td class="note">${esc(r.comparator || '')}</td><td class="num">${r.months || 0}</td><td class="num">${r.started ? pc(r.sinceStart?.book) : '–'}</td><td class="num">${pc(r.sinceStart?.excess)}</td><td class="num">${r.started ? confTxt(r) : '–'}</td><td style="color:${kc(r.kill)}">${r.started ? esc(r.kill || 'Continue') : 'Not started'}</td></tr>`).join('')}</tbody></table></div></section>`;
+}
+function viewBookPaper(s) {
+  const b = bk(s.id), sc = b?.scorecard;
+  const head = `<h2 class="big">${esc(s.name)}, on paper</h2><p class="note" style="margin:8px 0 0;max-width:62ch">${esc(s.rule)}. ${esc(BOOKTXT[s.id] || '')} Simulated trades with trading costs included; no orders, no alerts.</p>`;
+  if (!b) return head + `<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written this book yet.</div></section>` + bookCompare(s.id);
+  const run = b.state === 'running', stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`, since = run && b.value ? b.value / 100 - 1 : null;
+  const state = run ? '' : b.state === 'pending fill' ? `<p class="note">The first signal was taken on ${esc(dmy(b.pending?.signalDate))}; the simulated purchase happens at the next open.</p>` : `<p class="note">Not started. The first signal is taken at the first session close after ${esc(dmy(b.startAfter))} and filled at the next open.</p>`;
+  const lastL = (b.lines || []).at(-1) || {}, ln = (k, l) => `<tr><td>${l}</td><td class="num">${typeof lastL[k] === 'number' ? sgn(lastL[k] - 100, 1, '%') : '–'}</td></tr>`;
+  const kill = sc ? sc.kill.lines.map((l) => `<li style="color:${l.hit ? 'var(--red)' : 'inherit'}"><b>${esc(l.name)}</b>: ${esc(l.detail)}${l.hit ? ' (hit)' : ''}</li>`).join('') : '';
+  const card = !sc ? '<p class="note">No monthly read yet. The first read is at the first month-end after the book starts.</p>' : `<dl class="kv">${stat(sc.months < 3 ? '50%' : Math.round(sc.confidence.confidence * 100) + '%', sc.months < 3 ? 'confidence (needs 3 reads of evidence)' : 'confidence')}${stat(esc(sc.kill.status), 'kill line')}${stat(pc(sc.sinceStart.book), 'book since start')}${stat(pc(sc.sinceStart.comp), esc(b.comparator.name))}${stat(pc(sc.sinceStart.excess), 'ahead of comparator')}${stat(pc(sc.excessLastMonth), 'last month')}</dl>
+    <p class="note" style="margin:10px 0 0">Confidence trend over the last reads: ${sc.trend.map((x) => Math.round(x * 100) + '%').join(' → ') || '–'}. Edge the record points to: ${pc(sc.confidence.postMeanAnnual, 1)} a year (90% range ${pc(sc.confidence.lowAnnual, 1)} to ${pc(sc.confidence.highAnnual, 1)}) against an extra trading cost of ${pc(sc.confidence.hurdleAnnual, 1)} a year.</p>
+    <ul style="margin:10px 0 0;padding-left:18px;font-size:13px;line-height:1.5">${kill}</ul>
+    <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Reported lines since the first month-end</th><th class="num">Return</th></tr></thead><tbody>${ln('book', 'This book')}${ln('n200', 'Nifty 200 (added by hand each month-end)')}${ln('n500', 'Nifty 500')}${ln('twin', 'Monthly momentum twin (C-151)')}${ln('fund', 'Momentum 30 index fund')}</tbody></table></div>
+    <p class="note" style="margin:10px 0 0">Own drawdown ${pc(sc.drawdown)}; drawdown against the comparator ${pc(sc.relDrawdown)}; trailing 6 months ${pc(sc.trailing6)} against the comparator.</p>`;
+  return head + `<section style="margin-top:20px">${state}<dl class="kv">${stat(run ? pc(since, 2) : '–', 'since the book started')}${stat(b.held, 'stocks held')}${stat(typeof b.cashShare === 'number' ? Math.round(b.cashShare * 100) + '%' : '–', 'in cash')}${stat(b.closedTrades + ' / ' + b.stopOuts, 'closed trades / stop-outs')}</dl>
+  <p style="margin:14px 0 0"><button class="lnk" data-bg="scan:${esc(s.id)}">Open the stock list for this rule</button></p></section>
+  ${bookCompare(s.id)}
+  <section style="margin-top:28px"><details class="fold"><summary>Scorecard: ${esc(s.name)} (${esc(s.rule)})</summary>${card}
+  <details class="fold"><summary>Costs, cash and the slippage sensitivity</summary><p class="note">Costs are the registered tier costs. Cash earns the HDFC Liquid Fund rate; ${b.cashDays?.missing || 0} night(s) had no NAV and earned zero (${b.cashDays?.credited || 0} credited). ${b.valueSens ? `With a further 0.2% a round trip the book would stand at ${fmt(b.valueSens, 2)} against ${fmt(b.value, 2)}: a sensitivity, not a result, and it never changes the kill line.` : ''} ${b.skippedWide ? `${b.skippedWide} signal(s) were passed over because the stop would be wider than 8%.` : ''}</p></details>
+  ${(b.holdings || []).length ? `<details class="fold"><summary>What it holds (${b.holdings.length})</summary><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Stock</th><th class="num">Bought</th><th class="num">Now</th><th class="num">Since bought</th><th class="num">Stop</th></tr></thead><tbody>${b.holdings.map((h) => `<tr><td><b>${esc(h.sym)}</b>${h.name ? `<div class="note nm">${esc(h.name)}</div>` : ''}</td><td class="num">${fmt(h.entry, 2)}</td><td class="num">${fmt(h.last, 2)}</td><td class="num">${pc(h.sinceEntry)}</td><td class="num">${fmt(h.stop * 100, 1)}%</td></tr>`).join('')}</tbody></table></div></details>` : ''}
+  <p class="note" style="margin:12px 0 0">Data ${esc(b.asOf)}. Paper only; not a financial adviser.</p></details></section>`;
+}
+function viewBookScan(s) {
+  const b = bk(s.id), head = `<h2 class="big">${esc(s.name)}</h2><p class="note" style="margin:8px 0 0;max-width:62ch">${esc(s.rule)}. ${esc(BOOKTXT[s.id] || '')} Paper only: no orders and no alerts come from it.</p>`;
+  if (!b) return head + '<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written a list yet.</div></section>';
+  const w = b.watch || [], cnt = (st) => w.filter((r) => r.status === st).length, stCol = (st) => (/Exit|leave|too wide/.test(st) ? 'var(--red)' : /enter|buy|Breakout$/.test(st) ? 'var(--green)' : 'var(--muted)');
+  const kind = w.some((r) => 'high55' in r) ? 'don' : w.some((r) => 'value' in r) ? 'tom' : 'rank', hi = /high52/.test(s.id);
+  const cols = kind === 'don' ? ['Stock', 'Status', 'Close', '55-day high', 'To high', '20-day low', 'Stop width'] : kind === 'tom' ? ['Stock', 'Status', 'Stop width'] : ['Rank', 'Stock', 'Status', hi ? 'Of 52-week high' : '12-1 return'];
+  const cell = (r) => { const nm = `<td><b>${esc(r.sym)}</b>${r.name ? `<div class="note nm">${esc(r.name)}</div>` : ''}</td>`, st = `<td style="color:${stCol(r.status)}">${esc(r.status || '')}</td>`;
+    if (kind === 'don') return nm + st + `<td class="num">${fmt(r.close, 2)}</td><td class="num">${fmt(r.high55, 2)}</td><td class="num">${pc(r.toHigh)}</td><td class="num">${fmt(r.low20, 2)}</td><td class="num">${pc(r.stopWidth)}</td>`;
+    if (kind === 'tom') return nm + st + `<td class="num">${pc(r.stopWidth)}</td>`;
+    return `<td class="num">${r.rank ?? '–'}</td>` + nm + st + `<td class="num">${hi ? (typeof r.score === 'number' ? fmt(r.score * 100, 1) + '%' : '–') : pc(r.score, 0)}</td>`; };
+  const sum = kind === 'don' ? `${cnt('Breakout')} breaking out tonight, ${cnt('Exit tonight')} to exit, ${cnt('Held')} held, ${cnt('Near high')} within 2% of the high` : kind === 'tom' ? (b.nextEntry ? `Next entry: close of ${esc(dmy(b.nextEntry))}. ` : '') + `${cnt('Held')} held` : `${cnt('Held') + cnt('In buffer')} held, ${cnt('Would enter')} would enter, ${cnt('Would leave')} would leave`;
+  return head + `<section style="margin-top:20px"><p class="note" style="margin:0">${sum} · data ${esc(b.asOf)}${b.state === 'running' ? '' : ' · book not started: this is a preview of tonight\'s list'}.</p>
+  <p style="margin:12px 0 0"><button class="lnk" data-bg="paper:${esc(s.id)}">Open the scorecard for this rule</button></p></section>
+  <section style="margin-top:20px"><details class="fold"><summary>Stock list (${w.length} names)</summary><div class="tablewrap" style="margin-top:12px"><table><thead><tr>${cols.map((c) => `<th${/Rank|high|To high|low|width|Close/.test(c) ? ' class="num"' : ''}>${c}</th>`).join('')}</tr></thead><tbody>${w.map((r) => `<tr>${cell(r)}</tr>`).join('')}</tbody></table></div>
+  <p class="note" style="margin:10px 0 0">Prices are price only. The list refreshes every night; the book only changes when the rule says so.</p></details></section>`;
+}
+
 let PAPERT; // undefined = not asked yet, false = unavailable, 'none' = not written yet, object = the nightly paper-test file (Engine Rules C-113)
-function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'ranked_list' ? viewMomentumPaper(paperMkt) : viewPaperSwing()); }
+function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'book_list' ? viewBookPaper(s) : s.view === 'ranked_list' ? viewMomentumPaper(paperMkt) : viewPaperSwing()); }
 function viewPaperSwing() {
   const mkChips0 = `<div class="chips" role="group" aria-label="Market" style="margin-bottom:14px">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-pm="${k}" aria-pressed="${paperMkt === k}">${l}</button>`).join('')}</div>`;
   const mkChips = '';
@@ -628,7 +683,7 @@ function paperBookCard(mkt) {
   <h3 class="ttl" style="margin-top:32px;font-size:22px">Waiting to fill <span class="note">(${waiting.length})</span></h3>${ptbl(waiting, 'No orders waiting to fill.')}${(pb.skipped || []).length ? `<p class="note" style="margin:14px 0 0;max-width:70ch"><b>Not ordered because results are close</b> (rule C-148: results within 10 sessions): ${pb.skipped.map((x) => `${esc(x.sym)} (${esc(dmy(x.resultsDate))}, flagged ${esc(dmy(x.date))})`).join(', ')}.</p>` : ''}
   <details class="fold" style="margin-top:32px"><summary>How the three streams compare</summary><p class="note" style="margin:8px 0 10px;max-width:70ch">Orders placed, how many are running, waiting, never bought, or closed, with the share of closed trades that made money and the average result in R (a multiple of the risk taken on each trade).</p><div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Running</th><th class="num">Waiting</th><th class="num">Not bought</th><th class="num">Closed</th><th class="num">Win rate</th><th class="num">Avg R</th></tr></thead><tbody>${cmp}</tbody></table></div></details></section>` : '';
 }
-function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
+function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'book_list' ? viewBookScan(s) : s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
 function evidenceCard(mkt = scanMkt) {   // item 12: lives on the Data store page now, not at the foot of Scans
   const ev = D.evidence; if (!ev) return '';
   const k = mkt === 'us' ? 'us' : 'india';
@@ -904,6 +959,7 @@ document.addEventListener('click', (e) => {
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : (['name', 'rank', 'rk', 'n'].includes(key) ? 1 : -1); s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; return render(); }
   if (t.dataset.momall) { momAll = !momAll; return render(); }
   if (t.dataset.sm) { scanMkt = paperMkt = t.dataset.sm; return render(); }

@@ -1,11 +1,55 @@
 {
   "version": "FW-1",
   "note": "First-wave paper books (Engine Rules C-161, C-163, C-164, C-166), all India, paper only. Each book has its own state under data/india/books/<id>/. startAfter is the date after which the first signal may be taken (books start once rules and runner are frozen). Add a book here only after its C-row is Adopted.",
-  "cashFund": { "code": "119091", "name": "HDFC Liquid Fund - Direct Plan - Growth", "rule": "C-178" },
+  "cashFund": {
+    "code": "119091",
+    "name": "HDFC Liquid Fund - Direct Plan - Growth",
+    "rule": "C-178"
+  },
   "books": [
-    { "id": "fw-c161-high52", "rule": "C-161", "name": "52-week-high proximity", "signal": "high52", "startAfter": "2026-11-10" },
-    { "id": "fw-c163-donchian", "rule": "C-163", "name": "Donchian 55 breakout", "signal": "donchian", "startAfter": "2026-11-10" },
-    { "id": "fw-c164-weekly121", "rule": "C-164", "name": "Weekly 12-1 momentum", "signal": "weekly121", "startAfter": "2026-11-10" },
-    { "id": "fw-c166-turnmonth", "rule": "C-166", "name": "Turn-of-month", "signal": "turnOfMonth", "startAfter": "2026-11-10" }
+    {
+      "id": "fw-c161-high52",
+      "rule": "C-161",
+      "name": "52-week-high proximity",
+      "signal": "high52",
+      "startAfter": "2026-11-10",
+      "comparator": "parent"
+    },
+    {
+      "id": "fw-c163-donchian",
+      "rule": "C-163",
+      "name": "Donchian 55 breakout",
+      "signal": "donchian",
+      "startAfter": "2026-11-10",
+      "comparator": "fund"
+    },
+    {
+      "id": "fw-c164-weekly121",
+      "rule": "C-164",
+      "name": "Weekly 12-1 momentum",
+      "signal": "weekly121",
+      "startAfter": "2026-11-10",
+      "comparator": "parent"
+    },
+    {
+      "id": "fw-c166-turnmonth",
+      "rule": "C-166",
+      "name": "Turn-of-month",
+      "signal": "turnOfMonth",
+      "startAfter": "2026-11-10",
+      "comparator": "liquid"
+    }
+  ],
+  "navFunds": [
+    {
+      "code": "119091",
+      "name": "HDFC Liquid Fund - Direct Plan - Growth",
+      "use": "cash credit and the C-166 comparator"
+    },
+    {
+      "code": "148703",
+      "name": "UTI Nifty 200 Momentum 30 Index Fund - Direct Plan - Growth",
+      "use": "fourth benchmark line and the C-163 comparator"
+    }
   ]
 }

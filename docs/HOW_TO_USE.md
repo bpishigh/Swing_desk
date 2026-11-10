@@ -54,3 +54,5 @@ A Swing trade starts from a shortlist line. Buy only inside the trigger and limi
 
 ## What this is not
 It is decision support, not tax or investment advice, and it never trades for you. Estimates are before surcharge and cess. Where a rule is a first guess rather than tested, the page says so.
+
+**First-wave paper books (Scans and Paper test, India).** Four stock books (C-161 52-week-high, C-163 Donchian 55, C-164 weekly 12-1, C-166 turn-of-month) each have a tab in Scans (the stock list, folded) and in Paper test (the scorecard, folded, with one table comparing all books above it). Each scorecard links to its stock list and back. Read the confidence figure and the kill line each month; only you mark a book Live, Adopted, Rejected or Parked. Paper only; nothing here places an order.

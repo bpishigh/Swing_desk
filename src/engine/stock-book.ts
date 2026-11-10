@@ -12,7 +12,7 @@ export interface BookState {
   id: string; startAfter: string; cash: number; pos: Record<string, Pos>; lastValue: Record<string, number>;
   pending: Pending | null; stopQueue: Array<{ sym: string; on: string }>; closed: Closed[];
   daily: Array<{ d: string; v: number; vs: number }>; skipped: Array<{ date: string; sym: string; width: number }>;
-  slipCum: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
+  slipCum: number; costs?: Record<string, number>; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
 }
 export const newBook = (id: string, startAfter: string): BookState => ({ id, startAfter, cash: BOOK.startValue, pos: {}, lastValue: {}, pending: null, stopQueue: [], closed: [], daily: [], skipped: [], slipCum: 0, cashDays: { credited: 0, missing: 0 }, started: null, lastSignal: null, lastStep: null });
 
@@ -43,7 +43,7 @@ export function stepBook(st: BookState, e: Env): BookState {
     let traded = 0;
     for (const [sym, why] of sells) {
       const p = st.pos[sym], x = px(sym); if (!p || !(x > 0)) continue;
-      const gross = p.sh * x; st.cash += gross - gross * e.tier(st.lastValue[sym] ?? 0) / 2; traded += gross; st.slipCum += gross * BOOK.slipEachWay;
+      const gross = p.sh * x; const c = gross * e.tier(st.lastValue[sym] ?? 0) / 2; st.cash += gross - c; (st.costs ??= {})[D.slice(0, 7)] = ((st.costs ??= {})[D.slice(0, 7)] ?? 0) + c; traded += gross; st.slipCum += gross * BOOK.slipEachWay;
       st.closed.push({ sym, entryDate: p.entryDate, exitDate: D, entry: p.entry, exit: r4(x), ret: r4(x / p.entry - 1), why }); delete st.pos[sym];
     }
     st.stopQueue = st.stopQueue.filter((q) => q.on >= D);
@@ -52,7 +52,7 @@ export function stepBook(st: BookState, e: Env): BookState {
       for (const b of pend.buys) {
         const x = px(b.sym); if (!(x > 0) || st.pos[b.sym]) continue;
         const amt = Math.min(BOOK.weight * V, st.cash / (1 - e.tier(b.value) / 2)); if (!(amt > 0)) continue;
-        const cost = amt * e.tier(b.value) / 2; st.cash -= amt; traded += amt; st.slipCum += amt * BOOK.slipEachWay; st.lastValue[b.sym] = b.value;
+        const cost = amt * e.tier(b.value) / 2; (st.costs ??= {})[D.slice(0, 7)] = ((st.costs ??= {})[D.slice(0, 7)] ?? 0) + cost; st.cash -= amt; traded += amt; st.slipCum += amt * BOOK.slipEachWay; st.lastValue[b.sym] = b.value;
         st.pos[b.sym] = { sh: (amt - cost) / x, entry: x, entryDate: D, high: x, stop: b.stop };
       }
       st.started ??= D; st.pending = null;

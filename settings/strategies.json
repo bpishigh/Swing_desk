@@ -67,6 +67,78 @@
         12,
         24
       ]
+    },
+    {
+      "id": "fw-c161-high52",
+      "name": "52-week-high proximity",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-161",
+      "view": "book_list",
+      "startAfter": "2026-11-10",
+      "dataFile": "data/india/books/fw-c161-high52/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c163-donchian",
+      "name": "Donchian 55 breakout",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-163",
+      "view": "book_list",
+      "startAfter": "2026-11-10",
+      "dataFile": "data/india/books/fw-c163-donchian/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c164-weekly121",
+      "name": "Weekly 12-1 momentum",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-164",
+      "view": "book_list",
+      "startAfter": "2026-11-10",
+      "dataFile": "data/india/books/fw-c164-weekly121/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c166-turnmonth",
+      "name": "Turn-of-month",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-166",
+      "view": "book_list",
+      "startAfter": "2026-11-10",
+      "dataFile": "data/india/books/fw-c166-turnmonth/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

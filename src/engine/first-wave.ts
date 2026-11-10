@@ -92,3 +92,39 @@ export function turnOfMonth(x: Ctx, left: number, skippedWide?: Array<{ sym: str
   }
   return { buys, sells: [] };
 }
+
+// ---- Tonight's list for each book (display only: what the rule would hold, enter or leave on tonight's close) ----
+export interface WatchRow { rank?: number; sym: string; score?: number | null; status: string; [k: string]: unknown }
+const r3 = (x: number | null): number | null => (x === null || x !== x ? null : Math.round(x * 1000) / 1000);
+/** Ranked books (C-161, C-164): the top 40 by the rule's score plus any held name outside it. status: Held, In buffer (held, rank 21 to 40), Would leave (held, beyond 40), Would enter (not held, top 20). */
+export function watchRanked(x: Ctx, kind: 'high52' | 'weekly121'): WatchRow[] {
+  const f = (c: ArrayLike<number>): number | null => (kind === 'high52' ? highProximity(c, x.t) : ret121(c, x.t));
+  const rows = uni(x).map((n) => ({ sym: n.sym, s: f(x.series.get(n.sym)?.c ?? []) })).filter((r): r is { sym: string; s: number } => r.s !== null);
+  rows.sort((a, b) => b.s - a.s || (a.sym < b.sym ? -1 : 1));
+  const st = (sym: string, rank: number | null): string => (x.held.has(sym) ? (rank !== null && rank <= FW.names ? 'Held' : rank !== null && rank <= FW.keep ? 'In buffer' : 'Would leave') : rank !== null && rank <= FW.names ? 'Would enter' : '');
+  const out: WatchRow[] = rows.slice(0, FW.keep).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: st(r.sym, i + 1) }));
+  for (const s of x.held) if (!out.some((r) => r.sym === s)) { const i = rows.findIndex((r) => r.sym === s); out.push({ rank: i < 0 ? undefined : i + 1, sym: s, score: i < 0 ? null : r3(rows[i].s), status: st(s, i < 0 ? null : i + 1) }); }
+  return out;
+}
+/** Donchian book (C-163): held names with their exit level, names closing above their 55-session high tonight, and names within 2% of it. */
+export function watchDonchian(x: Ctx): WatchRow[] {
+  const { t } = x, out: WatchRow[] = [];
+  for (const n of uni(x)) {
+    const s = x.series.get(n.sym); const c = s?.c; if (!c || !(c[t] > 0) || t - FW.donEntry < 0) continue;
+    let hi = 0, lo = Infinity; for (let i = t - FW.donEntry; i < t; i++) if (c[i] > hi) hi = c[i]; for (let i = t - FW.donExit; i < t; i++) if (c[i] > 0 && c[i] < lo) lo = c[i];
+    const held = x.held.has(n.sym), dist = c[t] / hi - 1, w = s ? 3 * atrN(s, t) / c[t] : NaN;
+    const status = held ? (c[t] < lo ? 'Exit tonight' : 'Held') : c[t] > hi ? (w > BOOK.shortStopCap ? 'Breakout, stop too wide' : 'Breakout') : dist >= -0.02 ? 'Near high' : '';
+    if (status) out.push({ sym: n.sym, status, close: r3(c[t]), high55: r3(hi), low20: r3(lo), toHigh: r3(dist), stopWidth: r3(w), score: r3(ret121(c, t)) });
+  }
+  const order: Record<string, number> = { 'Exit tonight': 0, Breakout: 1, 'Breakout, stop too wide': 2, Held: 3, 'Near high': 4 };
+  return out.sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9) || (Number(b.score ?? -9) - Number(a.score ?? -9))).slice(0, 60);
+}
+/** Turn-of-month book (C-166): the 20 names it would buy at the next entry, with each stop width; a name whose 3 x ATR is over 8% is marked and passed over. */
+export function watchTom(x: Ctx): WatchRow[] {
+  const out: WatchRow[] = []; let n = 0;
+  for (const m of uni(x)) {
+    if (n >= FW.names + 10) break; const s = x.series.get(m.sym); if (!s || !(s.c[x.t] > 0)) continue; const w = 3 * atrN(s, x.t) / s.c[x.t];
+    const wide = !(w <= BOOK.shortStopCap); out.push({ sym: m.sym, status: wide ? 'Stop too wide' : x.held.has(m.sym) ? 'Held' : 'Would buy', stopWidth: r3(w), value: Math.round(m.value) }); if (!wide) n++;
+  }
+  return out;
+}
