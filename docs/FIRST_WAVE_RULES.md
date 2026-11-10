@@ -61,7 +61,10 @@ Question: does scaling the monthly sleeve's exposure to a volatility target impr
 ### C-168: MAX exclusion book (India)
 Question: does excluding lottery-type stocks improve the monthly sleeve? Flag: a name is a MAX name if its largest one-day return over the last 21 sessions is in the top tenth of the eligible list. Signal: the stopped parent's rule (C-173) with MAX names removed before ranking. Long. Stop 25% trailing. The flag is also written to the nightly file for every name as information. Borrowed evidence: Bali, Cakici and Whitelaw (2011), US. Variants: top fifth; 63-session window. Rejects it: the kill line, or a decision by the owner at a monthly read, with the C-177 confidence figure and the kill line in view.
 
-### C-169: Multi-asset trend layer and risk-parity yardstick (India), equity and gold
+### C-169: Multi-asset trend layer and risk-parity yardstick (India), equity and gold: PARKED
+
+**Parked by the owner, 10 Nov 2026.** Swing Desk is for stock screening, not for funds, index funds, gold or silver. No book is built and no data is fetched for this rule. The text below is kept as written so the decision can be reversed only by an explicit owner decision.
+
 Question: does a simple trend filter across Nifty 50 and gold cut drawdown, and at what return cost? Owner decision 10 Nov 2026: equity and gold now; a bond leg is added when a source is found. Assets: Nifty 50 (NIFTYBEES in the daily price files, price only, no dividends) and gold (GOLDBEES), both from 4 Jan 2010. Trend book: at each month end, hold each asset equally only while it closes above its 10-month average, else cash. Yardstick: the two assets weighted by inverse 60-session volatility, no filter. Cash is credited at the liquid-fund rate (C-175). Long. The 10-month average is the mean of the last ten month-end closes. After a stop-out the asset is bought again at the next month end if it is still above that average (C-159: re-entry on the next valid signal). The 10-month filter is the exit being tested; the 25% trailing stop (C-159, no exception) is a second exit on each asset and is expected to fire rarely. Judged on drawdown with the return cost stated, against the equal-weight hold of the same two assets. Borrowed evidence: Faber (2007), US and global. Variants: 12-month average; add the Nifty Midcap 100 index. Rejects it: the kill line, or a decision by the owner at a monthly read, with the C-177 confidence figure and the kill line in view.
 
 ### C-172: Pullback in an uptrend (India)
@@ -78,7 +81,7 @@ Question: does nearness to the 52-week high, with MAX names excluded, or a liqui
 1. Owner reviews this page and marks each block Adopted, Rejected, Parked or Changed. Pasted reviewer text is not approval.
 2. Each Adopted block becomes a C-row in the live Engine Rules doc, then the repo export, then the Test Register; `settings/strategies.json` gets its entry (status `planned`).
 3. Package 3: the shared paper-book runner, built once, so a book is one small signal module plus its settings entry.
-4. Books start in batches as each passes its tests; "start" is the first signal close after freeze and test pass. C-169 starts when its data is confirmed.
+4. Books start in batches as each passes its tests; "start" is the first signal close after freeze and test pass. C-169 is parked (owner, 10 Nov 2026) and does not start.
 5. The studies run first and are written up in `docs/replay/`.
 
 ## Log
@@ -90,3 +93,4 @@ Question: does nearness to the 52-week high, with MAX names excluded, or a liqui
 - 9 Nov 2026: kill line amended to the relative drawdown (C-174) after the replay check: on the 2011 to 2025 month-end replay curves the absolute 20% line would have killed the semi-annual sleeve in Feb 2016, Mar 2020, Jun 2022, Feb 2023 and Jan 2025 (each before 2025 followed by +30% to +87% over 12 months) and the monthly twin 5 times; the relative line fires once on the sleeve (Feb 2023) and twice on the twin (Jul and Sep 2025, outcome not yet known).
 - 9 Nov 2026: C-165 evidence line corrected to the C-135 result (India passed, US did not confirm); C-172 (pullback in an uptrend, from the build brief) added. Reviewer text received the same evening is not adopted; its proposals are listed for the owner's decision in the conversation.
 - 10 Nov 2026: owner said the first-wave books were already adopted; C-160 to C-172 registered as Adopted in the Engine Rules and Test Register.
+- 10 Nov 2026: owner decision: C-169 (equity and gold trend) parked; no strategy book holds funds, index funds, gold or silver. Funds and the liquid fund appear only as benchmarks and the cash credit (C-175, C-178).
