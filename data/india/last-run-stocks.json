@@ -1,35 +1,11 @@
 {
- "ts": "2026-11-11T14:08:00.272Z",
- "date": "2026-11-11",
- "status": "written",
- "fetched": [
-  "2026-11-11"
- ],
+ "ts": "2026-11-11T19:10:38.749Z",
+ "date": "2026-11-12",
+ "status": "file for 2026-11-12 not published yet",
+ "fetched": [],
  "skipped": [],
- "notPublished": false,
+ "notPublished": true,
  "sessionsStored": 263,
- "stocks": 2944,
- "flags": [
-  "2441 of 2944 stocks have a 200 SMA; 2653 have a warm EMA",
-  "corporate actions: 103 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 2 unresolved (averages omitted), 2 older than the averages now reach",
-  "NSE circulars: 52 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
- ],
- "circulars": {
-  "checked": 223,
-  "newlyRead": 0,
-  "unreadable": [],
-  "errors": 0,
-  "problem": null
- },
- "derivation": {
-  "tried": 2,
-  "derived": [],
-  "failed": [
-   "ALLCARGO 2025-11-12: break is outside the 200-close window",
-   "DCMSRIND 2025-12-26: Dhan page not found",
-   "SHIVAM-RE1 2026-10-29,2026-10-30: more than one unresolved break"
-  ]
- },
- "circularProblems": [],
- "newUnresolved": []
+ "stocks": 0,
+ "flags": []
 }
