@@ -44,3 +44,32 @@ test('an alias family borrows the map and says so', () => {
   const r = parseResultsXbrl(xml, maps); assert.equal(r.ok, true); if (r.ok) { assert.equal(r.viaAlias, 'IFIndAs'); assert.equal(r.quarter.revenue, 33730300000); }
 });
 test('a file with no quarter facts is an error', () => { assert.equal(parseResultsXbrl('<!--IFIndAs V2--><x/>', maps).ok, false); });
+
+// Older files (in-bse-fin taxonomy, no header comment): family read from the tags. Expected values read from the real files with grep (fixtures/filings-old).
+const old = (pre: string) => readdirSync(new URL('../fixtures/filings-old', import.meta.url)).filter((x) => x.startsWith(pre) && x.endsWith('.xml'));
+const parseOld = (f: string) => parseResultsXbrl(readFileSync(new URL(`../fixtures/filings-old/${f}`, import.meta.url), 'utf8'), maps);
+test('older files: every real fixture parses with the family inferred, revenue, pbt and pat present', () => {
+  const all = old('');
+  assert.ok(all.length >= 19);
+  for (const f of all) {
+    const r = parseOld(f); assert.equal(r.ok, true, f); if (!r.ok) continue;
+    assert.equal(r.inferred, true, f);
+    for (const k of ['revenue', 'pbt', 'pat'] as const) assert.notEqual(r.quarter[k], null, `${f} ${k}`);
+  }
+});
+test('older files: bank, NBFC, Ind AS and other-than-Ind-AS families inferred', () => {
+  const fam = (sym: string) => { for (const f of old('')) { const r = parseOld(f); if (r.ok && r.symbol === sym) return r; } throw new Error(sym); };
+  assert.equal(fam('PNB').family, 'IFBanking'); assert.equal(fam('PNB').quarter.revenue, 352864300000); assert.equal(fam('PNB').basis, 'consolidated');
+  assert.equal(fam('IIFL').family, 'IFIndAs');
+  assert.equal(fam('SADBHAV').quarter.pbt, -66077000);
+  assert.equal(fam('VINCOFE').family, 'IFOTB'); assert.equal(fam('VINCOFE').quarter.pat, 124556000);
+});
+test('older file with nothing to infer a family from is an error', () => {
+  const r = parseResultsXbrl('<x><in-bse-fin:Symbol contextRef="OneD">A</in-bse-fin:Symbol></x>', maps); assert.equal(r.ok, false);
+});
+test('a stated family with no map falls back to the tags; still an error when the tags do not say', () => {
+  const body = (extra: string) => `<!--IFFNonBanking V1--><x><in-bse-fin:Symbol contextRef="OneD">A</in-bse-fin:Symbol>${extra}</x>`;
+  const ok = parseResultsXbrl(body('<in-bse-fin:RevenueFromOperations contextRef="OneD">5</in-bse-fin:RevenueFromOperations><in-bse-fin:ProfitBeforeTax contextRef="OneD">2</in-bse-fin:ProfitBeforeTax><in-bse-fin:ProfitLossForPeriod contextRef="OneD">1</in-bse-fin:ProfitLossForPeriod>'), maps);
+  assert.equal(ok.ok, true); if (ok.ok) { assert.equal(ok.family, 'IFIndAs'); assert.equal(ok.inferred, true); }
+  assert.equal(parseResultsXbrl(body(''), maps).ok, false);
+});
