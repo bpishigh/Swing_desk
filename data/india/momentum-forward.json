@@ -468,6 +468,19 @@
    "basis": 1781.46,
    "width": 9.85,
    "room": 0.67
+  },
+  "WOCKPHARMA|2|2026-11-11": {
+   "sym": "WOCKPHARMA",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-11",
+   "trigger": 2074.64,
+   "stop": 1858.2,
+   "limit": 2095.39,
+   "basis": 2074.64,
+   "width": 10.43,
+   "room": 1.61
   }
  },
  "lastLogged": {
@@ -506,10 +519,11 @@
   "VIJAYA|2": "2026-11-06",
   "VIJAYA|4": "2026-11-06",
   "IPCALAB|4": "2026-11-09",
-  "RUBICON|2": "2026-11-09"
+  "RUBICON|2": "2026-11-09",
+  "WOCKPHARMA|2": "2026-11-11"
  },
  "summary": {
-  "updated": "2026-11-09",
+  "updated": "2026-11-11",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -575,7 +589,7 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 10,
+     "open": 11,
      "meanNet": null,
      "win": null,
      "excess": null

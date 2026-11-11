@@ -2,7 +2,7 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 27.702629166526805,
+  "cash": 29.080861941123317,
   "shares": {
    "CUPID": 0.014470092222587525,
    "SHREEJISPG": 0.00435736712574472,
@@ -23,7 +23,6 @@
    "ZYDUSLIFE": 0.0018518578346763525,
    "AUROPHARMA": 0.001217357095093983,
    "FEDERALBNK": 0.009607105482467425,
-   "BOSCHLTD": 0.000027884702160982928,
    "PVRINOX": 0.0009108578435075526
   },
   "lastValue": {
@@ -525,30 +524,28 @@
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1689,
    "FEDERALBNK": 337,
-   "BOSCHLTD": 48995,
    "PVRINOX": 1520
   },
   "high": {
-   "CUPID": 344.9,
+   "CUPID": 354,
    "SHREEJISPG": 884.55,
    "LAURUSLABS": 2454,
    "SBC": 68.73,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
-   "ATHERENERG": 1859.8,
-   "SKYGOLD": 951.95,
+   "ATHERENERG": 1868.2,
+   "SKYGOLD": 983.4,
    "DIVISLAB": 11565.5,
-   "SONACOMS": 924,
-   "ACUTAAS": 3904,
+   "SONACOMS": 925,
+   "ACUTAAS": 3916.9,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2104.9,
    "NYKAA": 359.7,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 344.1,
-   "BOSCHLTD": 52475,
+   "FEDERALBNK": 361.6,
    "PVRINOX": 1589.8
   },
   "startedFill": "2026-11-03"
@@ -624,12 +621,16 @@
   {
    "d": "2026-11-09",
    "v": 100.4378
+  },
+  {
+   "d": "2026-11-11",
+   "v": 100.7386
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-09",
-   "v": 100.4378
+   "d": "2026-11-11",
+   "v": 100.7386
   }
  },
  "stops": [
@@ -704,13 +705,16 @@
    "entry": 159.18,
    "price": 160,
    "ret": 0.0052
-  }
- ],
- "stopQueue": [
+  },
   {
    "sym": "BOSCHLTD",
-   "on": "2026-11-09"
+   "signalDate": "2026-11-09",
+   "fillDate": "2026-11-11",
+   "entry": 48995,
+   "price": 49550,
+   "ret": 0.0113
   }
  ],
- "stopChecked": "2026-11-09"
+ "stopQueue": [],
+ "stopChecked": "2026-11-11"
 }

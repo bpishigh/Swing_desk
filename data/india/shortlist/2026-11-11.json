@@ -1,0 +1,33 @@
+{
+ "signalDate": "2026-11-11",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "GLENMARK",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 2694.58,
+   "limit": 2721.52,
+   "stop": 2451.69,
+   "atrPct": 3.63,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "SAILIFE",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 1945.68,
+   "limit": 1965.14,
+   "stop": 1748.04,
+   "atrPct": 4.12,
+   "tags": [
+    "inside base",
+    "over cap"
+   ]
+  }
+ ]
+}

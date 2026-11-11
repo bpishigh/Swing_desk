@@ -1,0 +1,324 @@
+{
+ "version": "IND-SCAN-1",
+ "asOf": "2026-11-11",
+ "light": "green",
+ "funnel": {
+  "tickers": 497,
+  "passFloors": 490,
+  "universe": 490,
+  "universeFloorDollarVolumeM": 83.7,
+  "withRs": 471,
+  "rsGate": 98,
+  "template": 54,
+  "qualified": 18,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Healthcare",
+   "members": 44,
+   "medianRs": 73.62,
+   "passes": true
+  },
+  {
+   "group": "Services",
+   "members": 13,
+   "medianRs": 62.77,
+   "passes": true
+  },
+  {
+   "group": "Textiles",
+   "members": 5,
+   "medianRs": 60,
+   "passes": true
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 18,
+   "medianRs": 59.47,
+   "passes": true
+  },
+  {
+   "group": "Capital Goods",
+   "members": 66,
+   "medianRs": 55.85,
+   "passes": false
+  },
+  {
+   "group": "Oil Gas & Consumable Fuels",
+   "members": 17,
+   "medianRs": 53.19,
+   "passes": false
+  },
+  {
+   "group": "Automobile and Auto Components",
+   "members": 39,
+   "medianRs": 52.98,
+   "passes": false
+  },
+  {
+   "group": "Financial Services",
+   "members": 92,
+   "medianRs": 50.53,
+   "passes": false
+  },
+  {
+   "group": "Telecommunication",
+   "members": 10,
+   "medianRs": 50.32,
+   "passes": false
+  },
+  {
+   "group": "Power",
+   "members": 15,
+   "medianRs": 45.74,
+   "passes": false
+  },
+  {
+   "group": "Information Technology",
+   "members": 23,
+   "medianRs": 44.68,
+   "passes": false
+  },
+  {
+   "group": "Fast Moving Consumer Goods",
+   "members": 28,
+   "medianRs": 43.51,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 11,
+   "medianRs": 38.72,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 26,
+   "medianRs": 37.23,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 16,
+   "medianRs": 35.32,
+   "passes": false
+  },
+  {
+   "group": "Consumer Services",
+   "members": 20,
+   "medianRs": 33.72,
+   "passes": false
+  },
+  {
+   "group": "Realty",
+   "members": 11,
+   "medianRs": 19.15,
+   "passes": false
+  },
+  {
+   "group": "Construction",
+   "members": 12,
+   "medianRs": 13.51,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "SAILIFE",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 97.87,
+   "close": 1918.6,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 70.14,
+   "tightness": 1.47,
+   "distPivot": 1.19,
+   "setup": null,
+   "gb": {
+    "pct": 63.6,
+    "n": 44
+   },
+   "diag": {
+    "rs121": 61.26,
+    "rs6m2w": 45,
+    "atr14": 79.06,
+    "sma50": 1546.72,
+    "sma200": 1222.95,
+    "high52": 1941.8,
+    "low52": 783.85,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 97.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.2% below its 52-week high (limit 25%) and 144.8% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 73.6); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 63.6% of the 44 stocks in Healthcare are above their 50-day.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "LAURUSLABS",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 98.72,
+   "close": 2429,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 67.12,
+   "tightness": 1.45,
+   "distPivot": 2.37,
+   "setup": null,
+   "gb": {
+    "pct": 63.6,
+    "n": 44
+   },
+   "diag": {
+    "rs121": 108.8,
+    "rs6m2w": 92.38,
+    "atr14": 88.34,
+    "sma50": 2054.89,
+    "sma200": 1494.23,
+    "high52": 2488,
+    "low52": 917.95,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 98.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.4% below its 52-week high (limit 25%) and 164.6% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 73.6); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 63.6% of the 44 stocks in Healthcare are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.4, needs under 0.7); price is 2.4% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "GLENMARK",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 91.91,
+   "close": 2677.2,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 66.08,
+   "tightness": 1.42,
+   "distPivot": 1.36,
+   "setup": null,
+   "gb": {
+    "pct": 63.6,
+    "n": 44
+   },
+   "diag": {
+    "rs121": 20.79,
+    "rs6m2w": -1.47,
+    "atr14": 97.16,
+    "sma50": 2377.01,
+    "sma200": 2241.21,
+    "high52": 2714,
+    "low52": 1801.4,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 91.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.4% below its 52-week high (limit 25%) and 48.6% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 1 of 18 (median strength 73.6); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 63.6% of the 44 stocks in Healthcare are above their 50-day.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "WELSPUNLIV",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 98.51,
+   "close": 255.73,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 60.99,
+   "tightness": 1.45,
+   "distPivot": 4.37,
+   "setup": null,
+   "gb": null,
+   "diag": {
+    "rs121": 70.4,
+    "rs6m2w": 65.2,
+    "atr14": 13.67,
+    "sma50": 221.19,
+    "sma200": 162.23,
+    "high52": 267.42,
+    "low52": 107.1,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 98.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 4.4% below its 52-week high (limit 25%) and 138.8% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 3 of 18 (median strength 60); the 4 strongest groups are traded in the green light.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.5, needs under 0.7); price is 4.4% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "ADANIPORTS",
+   "type": "CS",
+   "group": "Services",
+   "path": "main",
+   "rsPct": 86.81,
+   "close": 1907,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 56.17,
+   "tightness": 1.23,
+   "distPivot": 3.64,
+   "setup": null,
+   "gb": {
+    "pct": 50,
+    "n": 14
+   },
+   "diag": {
+    "rs121": 21.89,
+    "rs6m2w": 10.69,
+    "atr14": 56.69,
+    "sma50": 1772.13,
+    "sma200": 1669.9,
+    "high52": 1979,
+    "low52": 1292,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 86.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 3.6% below its 52-week high (limit 25%) and 47.6% above its 52-week low (needs 30%).",
+    "Group: Services ranks 2 of 18 (median strength 62.8); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 50% of the 14 stocks in Services are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 3.6% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 1
+ },
+ "qualifiedTotal": 18,
+ "notes": [
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
+ ],
+ "regimeDate": "2026-11-11",
+ "industryCovered": 501
+}

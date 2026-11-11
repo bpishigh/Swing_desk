@@ -1,0 +1,126 @@
+{
+ "id": "fw-c164-weekly121",
+ "startAfter": "2026-11-10",
+ "cash": 100,
+ "pos": {},
+ "lastValue": {},
+ "pending": {
+  "signalDate": "2026-11-11",
+  "buys": [
+   {
+    "sym": "STLTECH",
+    "value": 1628051367.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "CUPID",
+    "value": 4076767031.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "HFCL",
+    "value": 1702003564.375,
+    "stop": 0.25
+   },
+   {
+    "sym": "MTARTECH",
+    "value": 1547200181.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "CPPLUS",
+    "value": 1079222038.8000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "WELCORP",
+    "value": 2848699292.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "AEROFLEX",
+    "value": 1666597566.9,
+    "stop": 0.25
+   },
+   {
+    "sym": "SKYGOLD",
+    "value": 1662621821.9250002,
+    "stop": 0.25
+   },
+   {
+    "sym": "RATNAVEER",
+    "value": 1292619909.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "SYRMA",
+    "value": 1847392167.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "APARINDS",
+    "value": 2666698311,
+    "stop": 0.25
+   },
+   {
+    "sym": "TFCILTD",
+    "value": 2115025156.6399999,
+    "stop": 0.25
+   },
+   {
+    "sym": "LAURUSLABS",
+    "value": 3778363064.6000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "ATHERENERG",
+    "value": 3650696112.1000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "RRKABEL",
+    "value": 1022171684.1000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "TDPOWERSYS",
+    "value": 2484820136.35,
+    "stop": 0.25
+   },
+   {
+    "sym": "AEGISLOG",
+    "value": 1220368518.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "AZAD",
+    "value": 1546398193.65,
+    "stop": 0.25
+   },
+   {
+    "sym": "ACUTAAS",
+    "value": 1660490655.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "MCX",
+    "value": 5167036368.6,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
+ "stopQueue": [],
+ "closed": [],
+ "daily": [],
+ "skipped": [],
+ "slipCum": 0,
+ "cashDays": {
+  "credited": 0,
+  "missing": 0
+ },
+ "started": null,
+ "lastSignal": "2026-11-11",
+ "lastStep": "2026-11-11",
+ "lastNavDate": "2026-11-10"
+}

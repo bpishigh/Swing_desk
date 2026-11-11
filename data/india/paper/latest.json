@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-09",
+ "asOf": "2026-11-11",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,13 +12,13 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 22,
-  "open": 7,
-  "pending": 0,
+  "orders": 24,
+  "open": 6,
+  "pending": 2,
   "notFilled": 10,
-  "closed": 5,
-  "meanR": -0.415511828559645,
-  "winRate": 0.2
+  "closed": 6,
+  "meanR": -0.3377653432447168,
+  "winRate": 0.3333333333333333
  },
  "comparator": {
   "orders": 7,
@@ -29,6 +29,40 @@
   "meanR": -0.4112334026121885,
   "winRate": 0.5
  },
- "light": "yellow",
- "newOrdersTonight": []
+ "light": "green",
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "SAILIFE",
+   "setup": "2",
+   "trigger": 1945.68,
+   "stop": 1748.04,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap"
+   ],
+   "stopPct": 10.16,
+   "maxStopPct": 7,
+   "roomR": null
+  },
+  {
+   "stream": "capwaived",
+   "sym": "GLENMARK",
+   "setup": "2",
+   "trigger": 2694.58,
+   "stop": 2451.69,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 9.01,
+   "maxStopPct": 7,
+   "roomR": 0.08
+  }
+ ]
 }

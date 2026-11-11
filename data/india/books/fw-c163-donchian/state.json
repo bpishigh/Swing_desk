@@ -1,0 +1,217 @@
+{
+ "id": "fw-c163-donchian",
+ "startAfter": "2026-11-10",
+ "cash": 100,
+ "pos": {},
+ "lastValue": {},
+ "pending": {
+  "signalDate": "2026-11-11",
+  "buys": [
+   {
+    "sym": "UNIONBANK",
+    "value": 3082157169.48,
+    "stop": 0.07722191997625996
+   },
+   {
+    "sym": "TVSMOTOR",
+    "value": 2453784953,
+    "stop": 0.0793388157894737
+   },
+   {
+    "sym": "MARICO",
+    "value": 1878241971.6,
+    "stop": 0.06641351351351346
+   },
+   {
+    "sym": "KOTAKBANK",
+    "value": 9914954242.2,
+    "stop": 0.06421980725856058
+   },
+   {
+    "sym": "AXISBANK",
+    "value": 9543488420,
+    "stop": 0.06824304100568697
+   },
+   {
+    "sym": "SBIN",
+    "value": 10100490195.05,
+    "stop": 0.06341641537881634
+   },
+   {
+    "sym": "INDUSTOWER",
+    "value": 1752993648.975,
+    "stop": 0.07494339622641501
+   },
+   {
+    "sym": "PNB",
+    "value": 2620457139.2349997,
+    "stop": 0.07798960138648181
+   },
+   {
+    "sym": "INDIANB",
+    "value": 1276147699.275,
+    "stop": 0.07963438101347019
+   },
+   {
+    "sym": "LT",
+    "value": 8393566997.1,
+    "stop": 0.06152065527065527
+   },
+   {
+    "sym": "GAIL",
+    "value": 1476119865.8049998,
+    "stop": 0.0691785150078989
+   },
+   {
+    "sym": "BHARTIARTL",
+    "value": 18797148423.15,
+    "stop": 0.07154338549075391
+   },
+   {
+    "sym": "INDIGO",
+    "value": 2731753521.6499996,
+    "stop": 0.07900353045013239
+   },
+   {
+    "sym": "BANKBARODA",
+    "value": 2031052222.07,
+    "stop": 0.07394727272727276
+   },
+   {
+    "sym": "TATACONSUM",
+    "value": 1588690980.35,
+    "stop": 0.07327767612076853
+   },
+   {
+    "sym": "RELIANCE",
+    "value": 22364941790.5,
+    "stop": 0.07396660176726073
+   },
+   {
+    "sym": "M&M",
+    "value": 7220036325.1,
+    "stop": 0.07099567099567101
+   },
+   {
+    "sym": "HDFCLIFE",
+    "value": 1200472107.8249998,
+    "stop": 0.07573881963211578
+   },
+   {
+    "sym": "IOC",
+    "value": 1505432984.26,
+    "stop": 0.06634654266073593
+   },
+   {
+    "sym": "HDFCBANK",
+    "value": 22670187551.5,
+    "stop": 0.06319117282420027
+   }
+  ],
+  "sells": []
+ },
+ "stopQueue": [],
+ "closed": [],
+ "daily": [],
+ "skipped": [
+  {
+   "date": "2026-11-11",
+   "sym": "ATHERENERG",
+   "width": 0.1194
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "MCX",
+   "width": 0.1023
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "SONACOMS",
+   "width": 0.0944
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "NAVINFLUOR",
+   "width": 0.0968
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "APOLLO",
+   "width": 0.1638
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "MAHABANK",
+   "width": 0.0928
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "FEDERALBNK",
+   "width": 0.0844
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "KARURVYSYA",
+   "width": 0.125
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "BSE",
+   "width": 0.0852
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "GLENMARK",
+   "width": 0.0946
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "ANGELONE",
+   "width": 0.1059
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "KALYANKJIL",
+   "width": 0.1047
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "GMRAIRPORT",
+   "width": 0.0816
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "BANKINDIA",
+   "width": 0.0908
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "TRENT",
+   "width": 0.0801
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "FORCEMOT",
+   "width": 0.101
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "CANBK",
+   "width": 0.0836
+  },
+  {
+   "date": "2026-11-11",
+   "sym": "HDFCAMC",
+   "width": 0.0846
+  }
+ ],
+ "slipCum": 0,
+ "cashDays": {
+  "credited": 0,
+  "missing": 0
+ },
+ "started": null,
+ "lastSignal": "2026-11-11",
+ "lastStep": "2026-11-11",
+ "lastNavDate": "2026-11-10"
+}

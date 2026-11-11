@@ -2,7 +2,7 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 19.570743009045078,
+  "cash": 23.36030324253493,
   "shares": {
    "CUPID": 0.014470092222587525,
    "SHREEJISPG": 0.00435736712574472,
@@ -12,7 +12,6 @@
    "RATNAVEER": 0.00944989505249814,
    "CPPLUS": 0.0006428472032722831,
    "ATHERENERG": 0.002812315342933865,
-   "HFCL": 0.01816365353957872,
    "RAYMOND": 0.0018254596239026212,
    "SKYGOLD": 0.005021838951417264,
    "DIVISLAB": 0.0005008263730627634,
@@ -517,7 +516,6 @@
    "RATNAVEER": 382,
    "CPPLUS": 3913.7,
    "ATHERENERG": 1774.6,
-   "HFCL": 212.55,
    "RAYMOND": 1136.1,
    "SKYGOLD": 880,
    "DIVISLAB": 9965,
@@ -535,28 +533,27 @@
    "PVRINOX": 1520
   },
   "high": {
-   "CUPID": 344.9,
+   "CUPID": 354,
    "SHREEJISPG": 884.55,
    "LAURUSLABS": 2454,
    "SBC": 68.73,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
-   "ATHERENERG": 1859.8,
-   "HFCL": 228.16,
+   "ATHERENERG": 1868.2,
    "RAYMOND": 1172.3,
-   "SKYGOLD": 951.95,
+   "SKYGOLD": 983.4,
    "DIVISLAB": 11565.5,
-   "SONACOMS": 924,
-   "ACUTAAS": 3904,
+   "SONACOMS": 925,
+   "ACUTAAS": 3916.9,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2104.9,
    "NYKAA": 359.7,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 344.1,
-   "MOTHERSON": 168,
+   "FEDERALBNK": 361.6,
+   "MOTHERSON": 169.69,
    "BOSCHLTD": 52475,
    "PVRINOX": 1589.8
   },
@@ -633,12 +630,16 @@
   {
    "d": "2026-11-09",
    "v": 100.3368
+  },
+  {
+   "d": "2026-11-11",
+   "v": 100.8223
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-09",
-   "v": 100.3368
+   "d": "2026-11-11",
+   "v": 100.8223
   }
  },
  "stops": [
@@ -689,13 +690,16 @@
    "entry": 514.95,
    "price": 506,
    "ret": -0.0174
-  }
- ],
- "stopQueue": [
+  },
   {
    "sym": "HFCL",
-   "on": "2026-11-09"
+   "signalDate": "2026-11-09",
+   "fillDate": "2026-11-11",
+   "entry": 212.55,
+   "price": 209,
+   "ret": -0.0167
   }
  ],
- "stopChecked": "2026-11-09"
+ "stopQueue": [],
+ "stopChecked": "2026-11-11"
 }

@@ -1,0 +1,191 @@
+{
+ "version": "MOM-30 v1",
+ "startAfter": "2026-11-01",
+ "book": null,
+ "pending": {
+  "signalDate": "2026-11-11",
+  "resultsRule": {
+   "rule": "C-155",
+   "source": "calendar 2026-11-11",
+   "inWindow": 423,
+   "skipped": []
+  },
+  "target": [
+   {
+    "sym": "CUPID",
+    "w": 0.05
+   },
+   {
+    "sym": "LAURUSLABS",
+    "w": 0.05
+   },
+   {
+    "sym": "TFCILTD",
+    "w": 0.05
+   },
+   {
+    "sym": "CPPLUS",
+    "w": 0.03005725578198968
+   },
+   {
+    "sym": "DIVISLAB",
+    "w": 0.05
+   },
+   {
+    "sym": "SKYGOLD",
+    "w": 0.04300411490162823
+   },
+   {
+    "sym": "ATHERENERG",
+    "w": 0.05
+   },
+   {
+    "sym": "RATNAVEER",
+    "w": 0.031915936404541254
+   },
+   {
+    "sym": "SONACOMS",
+    "w": 0.04504518893493662
+   },
+   {
+    "sym": "GLAND",
+    "w": 0.02244714420018691
+   },
+   {
+    "sym": "PVRINOX",
+    "w": 0.018000087723202333
+   },
+   {
+    "sym": "ACUTAAS",
+    "w": 0.0215032056061387
+   },
+   {
+    "sym": "FEDERALBNK",
+    "w": 0.027328640868300075
+   },
+   {
+    "sym": "BOSCHLTD",
+    "w": 0.015204327199949876
+   },
+   {
+    "sym": "NYKAA",
+    "w": 0.020648216736472314
+   },
+   {
+    "sym": "AUROPHARMA",
+    "w": 0.019764669363529535
+   },
+   {
+    "sym": "ETERNAL",
+    "w": 0.05
+   },
+   {
+    "sym": "NAVINFLUOR",
+    "w": 0.01733812490987758
+   },
+   {
+    "sym": "PAYTM",
+    "w": 0.04903974614647027
+   },
+   {
+    "sym": "INDHOTEL",
+    "w": 0.05
+   },
+   {
+    "sym": "MOTHERSON",
+    "w": 0.018498489533424773
+   },
+   {
+    "sym": "KALYANKJIL",
+    "w": 0.02418473519025319
+   },
+   {
+    "sym": "KOTAKBANK",
+    "w": 0.05
+   },
+   {
+    "sym": "ICICIBANK",
+    "w": 0.05
+   },
+   {
+    "sym": "RADICO",
+    "w": 0.0181748474396605
+   },
+   {
+    "sym": "TVSMOTOR",
+    "w": 0.025199687057236388
+   },
+   {
+    "sym": "KARURVYSYA",
+    "w": 0.011694718443128662
+   },
+   {
+    "sym": "TITAN",
+    "w": 0.02799302804018373
+   },
+   {
+    "sym": "COFORGE",
+    "w": 0.04620664005421937
+   },
+   {
+    "sym": "ZYDUSLIFE",
+    "w": 0.016751195464670136
+   }
+  ],
+  "values": {
+   "ICICIBANK": 21648347265.95,
+   "KOTAKBANK": 9914954242.2,
+   "ETERNAL": 8535180003.375,
+   "DIVISLAB": 7120371405.75,
+   "TECHM": 5324620325,
+   "MCX": 5167036368.6,
+   "INDHOTEL": 4691204118.125,
+   "COFORGE": 4685672826,
+   "BHEL": 4607087482.45,
+   "ADANIPORTS": 4424675144.35,
+   "PAYTM": 4246499067.65,
+   "CUPID": 4076767031.7,
+   "HAL": 3890970217.1000004,
+   "LAURUSLABS": 3778363064.6000004,
+   "ATHERENERG": 3650696112.1000004,
+   "APOLLO": 3320819622.7,
+   "TITAN": 2802524439.6,
+   "CHENNPETRO": 2577061170.3,
+   "TVSMOTOR": 2453784953,
+   "KALYANKJIL": 2174510545,
+   "FEDERALBNK": 2166486588,
+   "TFCILTD": 2115025156.6399999,
+   "SONACOMS": 1917963450.6,
+   "RADICO": 1766822850.25,
+   "ZYDUSLIFE": 1746884450.6,
+   "DLF": 1692039659.025,
+   "MANKIND": 1681113069.8000002,
+   "NYKAA": 1664765126.15,
+   "SKYGOLD": 1662621821.9250002,
+   "ACUTAAS": 1660490655.2,
+   "MOTHERSON": 1627800653.6999998,
+   "AUROPHARMA": 1603744576.8,
+   "GAIL": 1476119865.8049998,
+   "NAVINFLUOR": 1449080392.5,
+   "GLENMARK": 1408102086.1999998,
+   "RATNAVEER": 1292619909.75,
+   "PVRINOX": 1240307308.25,
+   "BOSCHLTD": 1205370750,
+   "KARURVYSYA": 1156351227.05,
+   "GLAND": 1145931719.8000002,
+   "MAHABANK": 1135544235.56,
+   "CPPLUS": 1079222038.8000002,
+   "WOCKPHARMA": 962149965.4499999
+  },
+  "check": {
+   "sameNames": true,
+   "maxWeightDiffPp": 0,
+   "pass": true
+  }
+ },
+ "lastSignal": "2026-11-11",
+ "reviews": [],
+ "daily": [],
+ "monthly": {},
+ "stops": []
+}

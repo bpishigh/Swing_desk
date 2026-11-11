@@ -1,8 +1,8 @@
 {
- "asOf": "2026-11-09",
+ "asOf": "2026-11-11",
  "source": "NSE event calendar",
  "dates": {
-  "AUROPHARMA": {
+  "SAILIFE": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -12,12 +12,17 @@
    "sessions": null,
    "inWindow": null
   },
-  "DIVISLAB": {
+  "GLENMARK": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "WELSPUNLIV": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ADANIPORTS": {
    "date": null,
    "sessions": null,
    "inWindow": null
