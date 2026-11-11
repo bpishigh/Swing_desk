@@ -278,13 +278,17 @@
    "at": "2026-11-11T19:52:27.846Z"
   },
   "2024-03-31": {
-   "listed": 0,
-   "attempted": 0,
-   "parsed": 0,
-   "fetchFailed": 0,
+   "listed": 3452,
+   "attempted": 3452,
+   "parsed": 3448,
+   "fetchFailed": 1,
    "parseFailed": 0,
-   "unmapped": 0,
-   "families": {},
+   "unmapped": 3,
+   "families": {
+    "IFIndAs": 3381,
+    "IFBanking": 65,
+    "IFOTB": 2
+   },
    "missingField": {
     "revenue": 0,
     "pbt": 0,
@@ -293,8 +297,12 @@
    },
    "periodMismatch": 0,
    "errors": {},
-   "unmappedSymbols": [],
-   "at": "2026-11-11T19:34:47.608Z"
+   "unmappedSymbols": [
+    "KUNDANMM",
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-11T20:30:55.379Z"
   },
   "2022-03-31": {
    "listed": 3072,
