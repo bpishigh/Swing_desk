@@ -56,3 +56,22 @@ test('turnOfMonth: entry with 4 sessions left in the month, exit on the 3rd sess
   const feb3 = dates.indexOf(dates.filter((d) => d.startsWith('2026-02'))[2]);
   const x = turnOfMonth({ ...ctxFor(names, 120, ['A'], dates), t: feb3 }, 17)!; assert.deepEqual(x.sells, ['A']);
 });
+
+import { industryTable, pickIndustry, industryMomentum, dipDay, pullback, IND } from '../src/engine/first-wave.ts';
+const flat = (n: number, v = 100): number[] => Array.from({ length: n }, () => v);
+test('C-160 industry table: groups under 5 names are skipped, groups ranked by median 12-1, names by their own figure', () => {
+  const T = 300, series = new Map<string, any>(), el: any[] = [], grp = new Map<string, string>();
+  const add = (sym: string, g: string, r: number) => { const c = flat(T); c[T - 1 - 21] = 100 * (1 + r); series.set(sym, { c }); el.push({ sym, value: 1e9 }); grp.set(sym, g); };
+  for (let i = 0; i < 5; i++) add('A' + i, 'GA', 0.5 + i * 0.01); for (let i = 0; i < 5; i++) add('B' + i, 'GB', 0.1 + i * 0.01); for (let i = 0; i < 4; i++) add('C' + i, 'GC', 0.9);
+  const x = { el, series, t: T - 1, dates: Array.from({ length: T }, (_, i) => '2025-01-' + String(i % 28 + 1).padStart(2, '0')), held: new Set<string>(), group: (s: string) => grp.get(s) ?? null };
+  const tab = industryTable(x as any); assert.deepEqual(tab.map((g) => g.group), ['GA', 'GB']); assert.equal(tab[0].names[0].sym, 'A4');
+  const keep = pickIndustry(tab, new Set(['B0'])); assert.ok(keep.has('B0')); assert.ok(keep.has('A4')); assert.ok(keep.size <= 20 && IND.perGroup === 5);
+  assert.equal(industryMomentum({ ...x, dates: x.dates.map((d, i) => (i === T - 1 ? '2026-02-02' : '2026-01-15')) } as any)!.buys.length, 10);
+});
+test('C-172 dipDay: three to five lower closes or a close at the 20-day mean; the signal is the first up close and logs volume and tightness', () => {
+  const up = Array.from({ length: 60 }, (_, i) => 100 + i); const c = [...up, 158, 157, 156, 157.5]; assert.equal(dipDay(c, 62), 'run'); assert.equal(dipDay(c, 60), null);
+  const n = c.length, v = Array.from({ length: n }, () => 1000), s = new Map<string, any>([['A', { c, h: c.map((x) => x + 1), l: c.map((x) => x - 1), v }]]);
+  const log: any[] = [], x = { el: [{ sym: 'A', value: 1e9 }], series: s, t: n - 1, dates: c.map((_, i) => '2026-01-' + String(i % 27 + 1).padStart(2, '0')), held: new Set<string>(), quintile: new Set(['A']), template: new Set(['A']), order: ['A'] };
+  const o = pullback(x as any, [], log); assert.equal(o?.buys.length, 1); assert.equal(log.length, 1); assert.equal(log[0].dip, 'run'); assert.ok(log[0].tight > 0);
+  assert.equal(pullback({ ...x, template: new Set() } as any), null);
+});

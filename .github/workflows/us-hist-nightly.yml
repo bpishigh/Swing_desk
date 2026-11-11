@@ -64,6 +64,30 @@ jobs:
           MOM_STOP: '0.25'
           MOM_DIR: data/us/momentum-sleeve-monthly-stop
         run: node --max-old-space-size=6000 scripts/momentum-sleeve-us.mjs
+      - name: Momentum sleeve, US, stopped, pool filter lowturn (C-182 low-turnover stand-in; paper only)
+        continue-on-error: true
+        env:
+          MOM_REVIEW: monthly
+          MOM_STOP: '0.25'
+          MOM_FILTER: lowturn
+          MOM_DIR: data/us/momentum-sleeve-lowturn
+        run: node --max-old-space-size=6000 scripts/momentum-sleeve-us.mjs
+      - name: Momentum sleeve, US, stopped, pool filter max (C-188 MAX exclusion; paper only)
+        continue-on-error: true
+        env:
+          MOM_REVIEW: monthly
+          MOM_STOP: '0.25'
+          MOM_FILTER: max
+          MOM_DIR: data/us/momentum-sleeve-max
+        run: node --max-old-space-size=6000 scripts/momentum-sleeve-us.mjs
+      - name: Momentum sleeve, US, stopped, pool filter template (C-185 trend-template filter; paper only)
+        continue-on-error: true
+        env:
+          MOM_REVIEW: monthly
+          MOM_STOP: '0.25'
+          MOM_FILTER: template
+          MOM_DIR: data/us/momentum-sleeve-template
+        run: node --max-old-space-size=6000 scripts/momentum-sleeve-us.mjs
       - name: US cash rate and SPY, QQQ, MTUM bars (first-wave US books, C-179 items 6 and 7)
         continue-on-error: true
         run: node scripts/us-aux-update.mjs
@@ -76,7 +100,7 @@ jobs:
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           mkdir -p data/us/hist-tail data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop
-          git add data/us/hist-tail data/us/open data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop data/us/books data/us/cash-rate.json data/us/hist-bench
+          git add data/us/hist-tail data/us/open data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop data/us/books data/us/momentum-sleeve-lowturn data/us/momentum-sleeve-max data/us/momentum-sleeve-template data/us/cash-rate.json data/us/hist-bench
           git commit -m "us-hist-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0

@@ -4,8 +4,8 @@ import { BOOK, shortStop, type Buy } from './stock-book.ts';
 export const FW = { uni: 200, names: 20, keep: 40, w12: 252, skip: 21, high: 252, donEntry: 55, donExit: 20, atrN: 20, tomEntryLeft: 4, tomExitSession: 3 };
 
 export interface Name { sym: string; value: number }
-export interface Ser { c: ArrayLike<number>; h?: ArrayLike<number>; l?: ArrayLike<number> }
-export interface Ctx { el: Name[]; series: Map<string, Ser>; t: number; dates: string[]; held: Set<string> }
+export interface Ser { c: ArrayLike<number>; h?: ArrayLike<number>; l?: ArrayLike<number>; v?: ArrayLike<number> }
+export interface Ctx { el: Name[]; series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; group?: (sym: string) => string | null }
 export interface Orders { buys: Buy[]; sells: string[] }
 const ok = (x: number): boolean => x > 0;
 
@@ -127,4 +127,78 @@ export function watchTom(x: Ctx): WatchRow[] {
     const wide = !(w <= BOOK.shortStopCap); out.push({ sym: m.sym, status: wide ? 'Stop too wide' : x.held.has(m.sym) ? 'Held' : 'Would buy', stopWidth: r3(w), value: Math.round(m.value) }); if (!wide) n++;
   }
   return out;
+}
+
+// ---- C-160 industry momentum and C-172 pullback (added 12 Nov 2026) ----
+export const IND = { topGroups: 4, perGroup: 5, stayGroups: 6, stayRank: 8, minNames: 5 };
+export interface GroupRow { group: string; score: number; n: number; names: Array<{ sym: string; r: number; value: number }> }
+const median = (a: number[]): number => { const b = [...a].sort((x, y) => x - y), m = b.length >> 1; return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; };
+/** Industry table: each group with at least 5 eligible names that have a 12-1 figure, scored by the median 12-1 return; names ranked inside the group by their own figure. Strongest group first. */
+export function industryTable(x: Ctx): GroupRow[] {
+  if (!x.group) return []; const by = new Map<string, Array<{ sym: string; r: number; value: number }>>();
+  for (const n of uni(x)) { const g = x.group(n.sym), r = ret121(x.series.get(n.sym)?.c ?? [], x.t); if (!g || r === null) continue; (by.get(g) ?? by.set(g, []).get(g)!).push({ sym: n.sym, r, value: n.value }); }
+  const rows: GroupRow[] = [];
+  for (const [group, names] of by) { if (names.length < IND.minNames) continue; names.sort((a, b) => b.r - a.r || (a.sym < b.sym ? -1 : 1)); rows.push({ group, score: median(names.map((q) => q.r)), n: names.length, names }); }
+  return rows.sort((a, b) => b.score - a.score || (a.group < b.group ? -1 : 1));
+}
+/** C-160: the 5 strongest names of each of the top 4 industries (20 names, 5% each), reviewed on the first session of each month. A held name stays while its industry is in the top 6 and it is in the top 8 of that industry; stays come first, the top picks fill the rest. Long-hold stop. */
+export function industryMomentum(x: Ctx): Orders | null {
+  if (!isMonthStart(x.dates, x.t) && x.held.size > 0) return null;
+  const tab = industryTable(x), chosen = pickIndustry(tab, x.held);
+  const buys: Buy[] = []; const val = new Map(tab.flatMap((g) => g.names.map((q) => [q.sym, q.value] as const)));
+  for (const s of chosen) if (!x.held.has(s)) buys.push({ sym: s, value: val.get(s) ?? 0, stop: longStop() });
+  return { buys, sells: [...x.held].filter((s) => !chosen.has(s)) };
+}
+export function pickIndustry(tab: GroupRow[], held: Set<string>): Set<string> {
+  const stay: string[] = [], core: string[] = [];
+  tab.forEach((g, gi) => g.names.forEach((q, ni) => { if (held.has(q.sym) && gi < IND.stayGroups && ni < IND.stayRank) stay.push(q.sym); if (gi < IND.topGroups && ni < IND.perGroup) core.push(q.sym); }));
+  const chosen = new Set<string>(); for (const s of stay) if (chosen.size < FW.names) chosen.add(s); for (const s of core) if (chosen.size < FW.names) chosen.add(s);
+  return chosen;
+}
+export function watchIndustry(x: Ctx): WatchRow[] {
+  const tab = industryTable(x), chosen = pickIndustry(tab, x.held), out: WatchRow[] = []; let rank = 0;
+  tab.forEach((g, gi) => g.names.forEach((q, ni) => { if (!(chosen.has(q.sym) || x.held.has(q.sym) || (gi < IND.topGroups && ni < IND.perGroup))) return; rank++;
+    const status = x.held.has(q.sym) ? (chosen.has(q.sym) ? 'Held' : 'Would leave') : chosen.has(q.sym) ? 'Would enter' : '';
+    out.push({ rank, sym: q.sym, score: r3(q.r), status, group: g.group, groupRank: gi + 1 }); }));
+  for (const s of x.held) if (!out.some((r) => r.sym === s)) out.push({ sym: s, score: null, status: 'Would leave' });
+  return out.slice(0, 60);
+}
+
+/** C-172 pullback. Dip day j: a run of 3 to 5 consecutive lower closes ending on j, or a close at or within 1% above the 20-session mean. Signal: the first up close after a dip day (c[t] > c[t-1], t-1 a dip day), on a name in the top momentum fifth (selected by the caller) that passes the template (caller). */
+export function dipDay(c: ArrayLike<number>, j: number): 'run' | 'average' | null {
+  if (j < 21 || !ok(c[j])) return null;
+  let run = 0; for (let k = j; k > j - 6 && k > 0 && ok(c[k]) && ok(c[k - 1]) && c[k] < c[k - 1]; k--) run++;
+  if (run >= 3 && run <= 5) return 'run';
+  let s = 0; for (let i = j - 19; i <= j; i++) { if (!ok(c[i])) return null; s += c[i]; }
+  return c[j] <= 1.01 * (s / 20) ? 'average' : null;
+}
+/** Volume ratio (tonight over the 20-session mean) and tightness (10-session range of closes over tonight's close), logged on every signal. */
+export function pullbackLog(s: Ser, t: number): { volRatio: number | null; tight: number | null } {
+  let vr: number | null = null; if (s.v && t >= 20 && s.v[t] >= 0) { let m = 0; for (let i = t - 20; i < t; i++) m += s.v[i]; vr = m > 0 ? r4(s.v[t] / (m / 20)) : null; }
+  let lo = Infinity, hi = 0; for (let i = t - 9; i <= t; i++) { if (!ok(s.c[i])) return { volRatio: vr, tight: null }; lo = Math.min(lo, s.c[i]); hi = Math.max(hi, s.c[i]); }
+  return { volRatio: vr, tight: r4((hi - lo) / s.c[t]) };
+}
+export interface PullCtx extends Ctx { quintile: Set<string>; template: Set<string>; order: string[] }   // quintile: top fifth by the C-129 score tonight; template: names passing C-135; order: the C-129 rank order, best first
+export function pullback(x: PullCtx, skippedWide?: Array<{ sym: string; width: number }>, log?: Array<Record<string, unknown>>): Orders | null {
+  const { t } = x, sells: string[] = [];
+  if (isMonthStart(x.dates, t)) for (const s of x.held) if (!x.quintile.has(s)) sells.push(s);   // exit: leaving the top momentum fifth at a monthly review
+  const room = FW.names - (x.held.size - sells.length), buys: Buy[] = [], val = new Map(x.el.map((n) => [n.sym, n.value]));
+  for (const sym of x.order) {
+    if (buys.length >= room) break; if (x.held.has(sym) || !x.quintile.has(sym) || !x.template.has(sym)) continue;
+    const s = x.series.get(sym); if (!s || !(s.c[t] > s.c[t - 1]) || !dipDay(s.c, t - 1)) continue;
+    log?.push({ date: x.dates[t], sym, dip: dipDay(s.c, t - 1), ...pullbackLog(s, t) });
+    const st = shortStop(atrN(s, t), s.c[t]); if (st === null) { skippedWide?.push({ sym, width: r4(3 * atrN(s, t) / s.c[t]) }); continue; }
+    buys.push({ sym, value: val.get(sym) ?? 0, stop: st });
+  }
+  return buys.length || sells.length ? { buys, sells } : null;
+}
+export function watchPullback(x: PullCtx): WatchRow[] {
+  const { t } = x, out: WatchRow[] = [];
+  for (const sym of x.order) {
+    if (!x.quintile.has(sym) || !x.template.has(sym)) { if (x.held.has(sym)) out.push({ sym, status: 'Held, left the fifth or template', stopWidth: null, value: 0 }); continue; }
+    const s = x.series.get(sym); if (!s || !(s.c[t] > 0)) continue; const w = 3 * atrN(s, t) / s.c[t], dip = dipDay(s.c, t - 1), up = s.c[t] > s.c[t - 1], dipNow = dipDay(s.c, t);
+    const status = x.held.has(sym) ? 'Held' : dip && up ? (w <= BOOK.shortStopCap ? 'Would buy' : 'Stop too wide') : dipNow ? 'In a dip' : '';
+    if (status) out.push({ sym, status, stopWidth: r3(w), value: Math.round(x.el.find((n) => n.sym === sym)?.value ?? 0) });
+  }
+  const order: Record<string, number> = { 'Would buy': 0, 'Stop too wide': 1, Held: 2, 'In a dip': 3 }; return out.sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9)).slice(0, 60);
 }

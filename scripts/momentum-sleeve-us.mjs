@@ -9,6 +9,7 @@ import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { resultsAvoid } from '../src/ingest/earnings.ts';
 import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY, eligibleUs } from '../src/engine/momentum-sleeve.ts';
+import { applyFilter } from '../src/engine/sleeve-filters.ts';
 import { loadDays } from './us-hist-lib.mjs';
 import { gunzipSync } from 'node:zlib';
 
@@ -70,7 +71,8 @@ if (STOP && st.book && st.stopChecked !== D) {   // stop check on tonight's clos
   for (const sym of Object.keys(st.book.shares)) { const c = px(sym, t); if (!(c > 0)) continue; st.book.high[sym] = Math.max(st.book.high[sym] ?? st.book.entry?.[sym] ?? 0, c); if (c <= (1 - STOP) * st.book.high[sym] && !st.stopQueue.some((q) => q.sym === sym)) st.stopQueue.push({ sym, on: D }); }
 }
 // 3) signal tonight?  First ever run after the start date, or the first session of a review month.
-const el = eligibleUs(series, t);
+// Pool filter for the stopped-parent variants (MOM_FILTER=lowturn|max|template; C-182, C-188, C-185): applied to the eligible top 200, the sleeve rule then runs unchanged.
+const FILTER = process.env.MOM_FILTER || '', el = FILTER ? applyFilter(FILTER, eligibleUs(series, t).slice(0, MOM30.UNI), series, t) : eligibleUs(series, t);
 const preview = selectSleeve(el, series, t, held(), RES.avoid), wts = sleeveWeights(preview);
 const needFirst = !st.book && !st.pending && D > START_AFTER;
 if (!st.pending && st.lastSignal !== D && D > START_AFTER && (needFirst || (st.book && isReviewSession(dates, t, RM)))) {

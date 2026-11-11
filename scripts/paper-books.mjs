@@ -9,7 +9,10 @@ import { eligible, BASE, tierCost } from '../src/backtest/ind-base.ts';
 import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
-import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom } from '../src/engine/first-wave.ts';
+import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
+import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
+import { trendTemplate } from '../src/engine/sleeve-filters.ts';
+import { newVt, stepVt } from '../src/engine/vol-target.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3), ASOF = arg('asof'), ONLY = arg('only'), DRY = process.argv.includes('--dry');
@@ -55,17 +58,20 @@ const parentCost = (() => { const rv = parent?.reviews ?? [], ms = Object.keys(p
 const out = [], twinM0 = monthsOf(twin);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
-  const ctxOf = (held) => ({ el, series, t, dates, held });
-  const signal = (held) => { const x = ctxOf(held);
+  const ctxOf = (held) => ({ el, series, t, dates, held, group: (sym) => industry[sym] ?? null });
+  let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
+  const plog = [];
+  const signal = (held) => { const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
   stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
+  if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
   // tonight's list for the stock-list view
-  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : watchTom(wx);
-  const nm = (r) => ({ ...r, name: names[r.sym] ?? null }), watchRows = watch.map(nm);
+  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchTom(wx);
+  const nm = (r) => ({ ...r, name: (names[r.sym] ?? null) && r.group ? `${names[r.sym]} (${r.group})` : names[r.sym] ?? null }), watchRows = watch.map(nm);
   // scorecard against the one comparator (C-176); the four reported lines are shown whatever the comparator is
   const bm = monthlyValues(st), fundM = monthEndNav('148703'), liqM = monthEndNav(cfg.cashFund.code), parM = monthsOf(parent), twinM = monthsOf(twin);
   const comp = b.comparator === 'parent' ? parM : b.comparator === 'fund' ? fundM : liqM, compName = b.comparator === 'parent' ? 'Stopped parent (monthly review, 25% stop)' : b.comparator === 'fund' ? 'Momentum 30 index fund' : 'Liquid fund rate';
@@ -103,6 +109,20 @@ for (const b of cfg.sleeveBooks ?? []) {
     comparator: { id: 'parent', name: 'Stopped parent (monthly review, 25% stop)' }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines: bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) })), sens: null, perTradeNote: 'Per-trade statistics are not kept for sleeve-family books; that kill line is not applied.' };
   out.push({ id: b.id, rule: b.rule, name: b.name, state: lat.state, started, held: lat.held, value, cashShare: lat.cashShare, comparator: lat.comparator.name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, excessLastMonth: sc?.excessLastMonth ?? null, confidence: sc ? Math.round(sc.confidence.confidence * 1000) / 1000 : null, kill: sc?.kill.status ?? null, closedTrades: lat.closedTrades, stopOuts: lat.stopOuts, skippedWide: 0 });
   if (!DRY) { mkdirSync(`${BDIR}/${b.id}`, { recursive: true }); writeFileSync(`${BDIR}/${b.id}/latest.json`, JSON.stringify(lat) + '\n'); }
+}
+// Volatility-targeted sleeve (C-167): an overlay on the stopped parent's daily series, see src/engine/vol-target.ts.
+for (const b of cfg.volBooks ?? []) {
+  const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newVt(b.id, b.startAfter), pd = (R(b.parentDir + '/state.json')?.daily ?? []).map((x) => ({ d: x.d, v: x.v }));
+  stepVt(st, pd, (d) => { const i = navDates.indexOf(d); return i > 0 ? cash[d] / cash[navDates[i - 1]] - 1 : null; }, b.oneWay);
+  const bm = Object.entries(st.monthly).sort().map(([m, x]) => ({ m, v: x.v, d: x.d })), parM2 = monthsOf(parent), costM = Object.entries(st.costs), hurdle = costM.length ? costM.reduce((a, [m, c]) => a + c / 100, 0) / costM.length : 0;
+  const sc = bm.length > 1 ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), parM2, { n: 0, avg: null }, hurdle) : null, base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => bm.find((x) => x.m === m)?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
+  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null)), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM0, m)), fund: rb((m) => at(monthEndNav('148703'), m)), comparator: rb((m) => at(parM2, m)) };
+  const v = st.daily.at(-1)?.v ?? null, rets = st.rets.slice(-60), sd = (a) => { if (a.length < 2) return null; const m = a.reduce((x, y) => x + y, 0) / a.length; return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / (a.length - 1)) * Math.sqrt(252); };
+  const lat = { id: b.id, rule: b.rule, name: b.name, market: b.market ?? 'India', asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : 'waiting', started: st.started, value: v, valueSens: null, held: 0, cashShare: st.exposure === null ? null : Math.round((1 - st.exposure) * 1e4) / 1e4, holdings: [], pending: null, closedTrades: 0, stopOuts: 0, skippedWide: 0,
+    cashDays: st.cashDays, watch: [], scoreKind: 'zscore', nextEntry: null, comparator: { id: 'parent', name: b.parentName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines: bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) })), sens: null,
+    perTradeNote: 'This book is an overlay on the stopped parent: it holds the parent\'s stocks scaled to a volatility target, so it has no trades of its own; that kill line is not applied.', exposure: st.exposure, exposures: st.reviews.slice(-12), parentVol: sd(rets), costNote: b.costNote };
+  out.push({ id: b.id, rule: b.rule, name: b.name, market: lat.market, state: lat.state, started: st.started, held: 0, value: v, cashShare: lat.cashShare, comparator: lat.comparator.name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, excessLastMonth: sc?.excessLastMonth ?? null, confidence: sc ? Math.round(sc.confidence.confidence * 1000) / 1000 : null, kill: sc?.kill.status ?? null, closedTrades: 0, stopOuts: 0, skippedWide: 0 });
+  if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(lat) + '\n'); }
 }
 if (!DRY) { mkdirSync(BDIR, { recursive: true }); writeFileSync(BDIR + '/summary.json', JSON.stringify({ asOf: D, books: out }) + '\n'); }
 console.log(JSON.stringify({ asOf: D, universe: el.length, books: out.map((o) => ({ id: o.id, state: o.state, held: o.held, conf: o.confidence, kill: o.kill })) }));

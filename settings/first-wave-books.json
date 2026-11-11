@@ -38,6 +38,22 @@
       "signal": "turnOfMonth",
       "startAfter": "2026-11-10",
       "comparator": "liquid"
+    },
+    {
+      "id": "fw-c160-industry",
+      "rule": "C-160",
+      "name": "Industry momentum",
+      "signal": "industry",
+      "startAfter": "2026-11-12",
+      "comparator": "parent"
+    },
+    {
+      "id": "fw-c172-pullback",
+      "rule": "C-172",
+      "name": "Pullback in an uptrend",
+      "signal": "pullback",
+      "startAfter": "2026-11-12",
+      "comparator": "fund"
     }
   ],
   "navFunds": [
@@ -76,6 +92,18 @@
       "dir": "data/india/momentum-sleeve-template",
       "comparator": "parent",
       "startAfter": "2026-11-01"
+    }
+  ],
+  "volBooks": [
+    {
+      "id": "fw-c167-voltarget",
+      "rule": "C-167",
+      "name": "Volatility-targeted sleeve",
+      "parentDir": "data/india/momentum-sleeve-monthly-stop",
+      "parentName": "Stopped parent (monthly review, 25% stop)",
+      "startAfter": "2026-11-12",
+      "oneWay": 0.0025,
+      "costNote": "Scaling trades are charged 0.25% each way on the change in exposure (the middle cost tier)."
     }
   ]
 }

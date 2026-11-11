@@ -247,6 +247,168 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "fw-c160-industry",
+      "name": "Industry momentum",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-160",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/india/books/fw-c160-industry/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c172-pullback",
+      "name": "Pullback in an uptrend",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-172",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/india/books/fw-c172-pullback/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c167-voltarget",
+      "name": "Volatility-targeted sleeve",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C-167",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/india/books/fw-c167-voltarget/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c180-industry-us",
+      "name": "Industry momentum (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-180",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c180-industry-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c189-pullback-us",
+      "name": "Pullback in an uptrend (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-189",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c189-pullback-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c187-voltarget-us",
+      "name": "Volatility-targeted sleeve (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-187",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c187-voltarget-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c182-lowturn-us",
+      "name": "Low-turnover momentum, stand-in (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-182",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c182-lowturn-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c188-max-us",
+      "name": "MAX exclusion (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-188",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c188-max-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c185-template-us",
+      "name": "Trend-template filter on the stopped US parent (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-185",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c185-template-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
