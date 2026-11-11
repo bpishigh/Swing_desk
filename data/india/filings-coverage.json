@@ -332,13 +332,16 @@
    "at": "2026-11-11T19:34:50.871Z"
   },
   "2018-03-31": {
-   "listed": 0,
-   "attempted": 0,
-   "parsed": 0,
-   "fetchFailed": 0,
+   "listed": 1749,
+   "attempted": 150,
+   "parsed": 149,
+   "fetchFailed": 1,
    "parseFailed": 0,
    "unmapped": 0,
-   "families": {},
+   "families": {
+    "IFIndAs": 142,
+    "IFOTB": 7
+   },
    "missingField": {
     "revenue": 0,
     "pbt": 0,
@@ -348,7 +351,7 @@
    "periodMismatch": 0,
    "errors": {},
    "unmappedSymbols": [],
-   "at": "2026-11-11T19:34:52.358Z"
+   "at": "2026-11-11T19:38:29.486Z"
   }
  }
 }
