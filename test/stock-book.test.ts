@@ -48,3 +48,19 @@ test('a name with no close for five sessions is closed at its last close and its
   let st = newBook('t', 'd0'); st = step(step(st, 'd1'), 'd2'); assert.ok(st.pos.A);
   age.v = 5; st = step(st, 'd3'); assert.equal(st.pos.A, undefined); assert.equal(st.closed[0].why, 'gone'); assert.equal(st.closed[0].exit, 100);
 });
+
+test('a confirmed distribution is credited and taken off the trailing high before the stop is tested (C-179 item 9a)', () => {
+  const px = { d1: { A: [100, 100] }, d2: { A: [100, 100] }, d3: { A: [78, 78] } } as any;
+  const sig = (held: Set<string>) => (held.size ? null : { buys: [{ sym: 'A', value: 1e9, stop: 0.2 }], sells: [] });
+  const run = (dist: number) => { let st = newBook('t', 'd0'); for (const d of ['d1', 'd2', 'd3']) st = stepBook(st, { D: d, open: (s) => px[d]?.[s]?.[0] ?? NaN, close: (s) => px[d]?.[s]?.[1] ?? NaN, cashRet: 0, tier, signal: sig, dist: (s) => (d === 'd3' && s === 'A' ? dist : 0) }); return st; };
+  assert.equal(run(0).stopQueue.length, 1);                      // a 22% fall with no confirmed distribution trips a 20% stop
+  const ok = run(10); assert.equal(ok.stopQueue.length, 0);       // 10 a share confirmed: high 90, close 78 is 13% below it
+  assert.ok(Math.abs(ok.pos.A.high - 90) < 1e-9); assert.ok(ok.cash > 95 && Math.abs(ok.distCredit! - ok.pos.A.sh * 10) < 1e-9);
+});
+test('a blocked name is not bought, not stop-tested and not sold at the doubtful price (C-179 item 9c)', () => {
+  const px = { d1: { A: [100, 100], B: [50, 50] }, d2: { A: [100, 100], B: [50, 50] }, d3: { A: [50, 50], B: [50, 50] }, d4: { A: [50, 50], B: [50, 50] } } as any;
+  const sig = (held: Set<string>) => (held.has('A') ? null : { buys: [{ sym: 'A', value: 1e9, stop: 0.2 }], sells: [] });
+  let st = newBook('t', 'd0'); const blockedFrom = (d: string) => d >= 'd3';
+  for (const d of ['d1', 'd2', 'd3', 'd4']) st = stepBook(st, { D: d, open: (s) => px[d][s][0], close: (s) => (blockedFrom(d) && s === 'A' ? 100 : px[d][s][1]), cashRet: 0, tier, signal: sig, blocked: (s) => s === 'A' && blockedFrom(d) });
+  assert.ok(st.pos.A); assert.equal(st.stopQueue.length, 0); assert.equal(st.closed.length, 0);
+});

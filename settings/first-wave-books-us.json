@@ -1,0 +1,10 @@
+{
+  "version": "FW-US-1",
+  "note": "First-wave paper books, US versions (Engine Rules C-179 shared terms; C-181, C-183, C-184 here). Confirmation market: a US result alone adopts nothing. Paper only. Books under data/us/books/<id>/. startAfter is the date after which the first signal may be taken. Add a book here only after it is registered. Corporate events (confirmed distributions, owner-confirmed moves) are listed in settings/us-gap-events.json.",
+  "cash": { "source": "data/us/cash-rate.json", "rule": "C-179 item 7" },
+  "books": [
+    { "id": "fw-c181-high52-us", "rule": "C-181", "name": "52-week-high proximity (US)", "signal": "high52", "startAfter": "2026-11-12", "comparator": "parent" },
+    { "id": "fw-c184-weekly121-us", "rule": "C-184", "name": "Weekly 12-1 momentum (US)", "signal": "weekly121", "startAfter": "2026-11-12", "comparator": "parent" },
+    { "id": "fw-c183-donchian-us", "rule": "C-183", "name": "Donchian 55 breakout (US)", "signal": "donchian", "startAfter": "2026-11-12", "comparator": "mtum" }
+  ]
+}

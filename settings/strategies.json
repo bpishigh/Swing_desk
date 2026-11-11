@@ -193,6 +193,60 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "fw-c181-high52-us",
+      "name": "52-week-high proximity (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-181",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c181-high52-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c184-weekly121-us",
+      "name": "Weekly 12-1 momentum (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-184",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c184-weekly121-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "fw-c183-donchian-us",
+      "name": "Donchian 55 breakout (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-183",
+      "view": "book_list",
+      "startAfter": "2026-11-12",
+      "dataFile": "data/us/books/fw-c183-donchian-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
