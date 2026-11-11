@@ -1,0 +1,23 @@
+{
+ "id": "fw-c180-industry-us",
+ "startAfter": "2026-11-12",
+ "cash": 100,
+ "pos": {},
+ "lastValue": {},
+ "pending": null,
+ "stopQueue": [],
+ "closed": [],
+ "daily": [],
+ "skipped": [],
+ "slipCum": 0,
+ "cashDays": {
+  "credited": 0,
+  "missing": 0
+ },
+ "started": null,
+ "lastSignal": null,
+ "lastStep": "2026-11-10",
+ "blocks": {},
+ "gaps": [],
+ "cashCarried": 0
+}
