@@ -33,17 +33,6 @@
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "VSXY": {
-   "date": "2026-12-04",
-   "sessions": 17,
-   "inWindow": false,
-   "estimated": true
-  },
-  "ANF": {
-   "date": "2026-11-24",
-   "sessions": 10,
-   "inWindow": true
   }
  }
 }

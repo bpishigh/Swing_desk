@@ -10,7 +10,7 @@
   "withRs": 1473,
   "rsGate": 298,
   "template": 141,
-  "qualified": 40,
+  "qualified": 35,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -598,77 +598,6 @@
     "Sector breadth: 70.4% of the 27 stocks in Healthcare services are above their 50-day.",
     "Watch: extended, 29.5% above its 50-day (limit 25%). Wait for a pullback."
    ]
-  },
-  {
-   "sym": "VSXY",
-   "type": "CS",
-   "group": "Apparel retail",
-   "path": "main",
-   "rsPct": 98.85,
-   "close": 110.75,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)",
-    "extended: more than 25% above the 50-day"
-   ],
-   "clears50M": true,
-   "composite": 59.94,
-   "tightness": 1.21,
-   "distPivot": 4.79,
-   "setup": null,
-   "gb": null,
-   "diag": {
-    "rs121": 152.61,
-    "rs6m2w": 78.37,
-    "atr14": 5.35,
-    "sma50": 88.09,
-    "sma200": 71.29,
-    "high52": 116.32,
-    "low52": 33.61,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 98.8th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 4.8% below its 52-week high (limit 25%) and 229.5% above its 52-week low (needs 30%).",
-    "Group: Apparel retail ranks 5 of 59 (median strength 73.9); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: extended, 25.7% above its 50-day (limit 25%). Wait for a pullback."
-   ]
-  },
-  {
-   "sym": "ANF",
-   "type": "CS",
-   "group": "Apparel retail",
-   "path": "main",
-   "rsPct": 97.55,
-   "close": 154,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 58.53,
-   "tightness": 1.32,
-   "distPivot": 10.46,
-   "setup": null,
-   "gb": null,
-   "diag": {
-    "rs121": 103.87,
-    "rs6m2w": 94.04,
-    "atr14": 7.87,
-    "sma50": 147.78,
-    "sma200": 106.72,
-    "high52": 172,
-    "low52": 65.45,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 97.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 10.5% below its 52-week high (limit 25%) and 135.3% above its 52-week low (needs 30%).",
-    "Group: Apparel retail ranks 5 of 59 (median strength 73.9); the 4 strongest groups are traded in the red light.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 10.5% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -677,7 +606,7 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 40,
+ "qualifiedTotal": 35,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
