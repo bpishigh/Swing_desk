@@ -2,10 +2,10 @@
 // One night = stepBook(): (1) fill what was decided on an earlier close at tonight's open, (2) credit cash and mark at tonight's close,
 // check stops on tonight's close (the sale is filled at a LATER session's open), (3) ask the strategy for tomorrow's orders.
 // Costs are the registered tier costs (half each way); a second running total carries the C-178 slippage sensitivity (0.1% each way, never a decision input).
-export const BOOK = { startValue: 100, weight: 0.05, maxNames: 20, shortStopCap: 0.08, atrMult: 3, longStop: 0.25, slipEachWay: 0.001 };
+export const BOOK = { goneSessions: 5, startValue: 100, weight: 0.05, maxNames: 20, shortStopCap: 0.08, atrMult: 3, longStop: 0.25, slipEachWay: 0.001 };
 
 export interface Pos { sh: number; entry: number; entryDate: string; high: number; stop: number }
-export interface Closed { sym: string; entryDate: string; exitDate: string; entry: number; exit: number; ret: number; why: 'stop' | 'rule' }
+export interface Closed { sym: string; entryDate: string; exitDate: string; entry: number; exit: number; ret: number; why: 'stop' | 'rule' | 'gone' }
 export interface Buy { sym: string; value: number; stop: number }
 export interface Pending { signalDate: string; buys: Buy[]; sells: string[] }
 export interface BookState {
@@ -28,6 +28,7 @@ export interface Env {
   open: (sym: string) => number;            // tonight's open, NaN when none stored
   close: (sym: string) => number;           // latest close at or before tonight, NaN when none
   cashRet: number | null;                   // liquid-fund daily return for tonight, null when the NAV series has no figure
+  age?: (sym: string) => number;            // sessions since the name last had a close; a name with none for goneSessions is closed at its last close (delisted, acquired, suspended)
   tier: (value: number) => number;          // round-trip cost fraction by traded-value tier (registered costs)
   signal: (held: Set<string>, st: BookState) => { buys: Buy[]; sells: string[] } | null;
 }
@@ -37,9 +38,9 @@ export function stepBook(st: BookState, e: Env): BookState {
   const D = e.D; if (st.lastStep === D) return st;
   const px = (s: string): number => { const o = e.open(s); return o > 0 ? o : e.close(s); };
   // 1) fills at tonight's open: stop sales queued on an earlier close, rule sales and buys decided on an earlier close
-  const dueStops = st.stopQueue.filter((q) => q.on < D).map((q) => q.sym), pend = st.pending && st.pending.signalDate < D ? st.pending : null;
-  if (dueStops.length || pend) {
-    const sells = new Map<string, 'stop' | 'rule'>(); for (const s of dueStops) sells.set(s, 'stop'); for (const s of pend?.sells ?? []) if (!sells.has(s)) sells.set(s, 'rule');
+  const gone = Object.keys(st.pos).filter((s) => (e.age?.(s) ?? 0) >= BOOK.goneSessions), dueStops = st.stopQueue.filter((q) => q.on < D).map((q) => q.sym), pend = st.pending && st.pending.signalDate < D ? st.pending : null;
+  if (gone.length || dueStops.length || pend) {
+    const sells = new Map<string, 'stop' | 'rule' | 'gone'>(); for (const s of gone) sells.set(s, 'gone'); for (const s of dueStops) if (!sells.has(s)) sells.set(s, 'stop'); for (const s of pend?.sells ?? []) if (!sells.has(s)) sells.set(s, 'rule');
     let traded = 0;
     for (const [sym, why] of sells) {
       const p = st.pos[sym], x = px(sym); if (!p || !(x > 0)) continue;

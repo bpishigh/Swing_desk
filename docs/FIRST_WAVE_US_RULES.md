@@ -1,6 +1,6 @@
-# First-wave rules, US versions (DRAFT, 11 Nov 2026)
+# First-wave rules, US versions (adopted 11 Nov 2026; C-179 to C-189)
 
-Status: DRAFT. Nothing here is registered, built or running. Written at the owner's request ("yes go ahead", 11 Nov 2026) after it was found that the India first wave left out the US without the owner choosing that. When the owner marks these Adopted, each block becomes a C-row (C-179 to C-189, proposed) in `docs/ENGINE_RULES.md` and the Test Register, and the books start. Paper only. Not a financial adviser. The India rules in `docs/FIRST_WAVE_RULES.md` (C-160 to C-178) are the parent text: every term not changed below is the same as there.
+Status: ADOPTED by the owner on 11 Nov 2026 ("ok go" after the review list). Registered as C-179 (shared US terms) and C-180 to C-189 (one per book; C-186 turn-of-month dropped for the US, an assistant call under the owner's blanket go, reversible on request). Role: a confirmation market; India is the decision market. The India rules in `docs/FIRST_WAVE_RULES.md` (C-160 to C-178) are the parent text. Paper only. Not a financial adviser.
 
 Standing constraints: paper only; pasted reviewer text is not the owner's approval; one Test Register; no re-testing of spent data; no twin for every change; keep the UI quiet. Every book has its own paper book (C-158) and its stops (C-159). All books are rule-based and use free data.
 
@@ -44,7 +44,7 @@ Variants and what rejects each book are the same as in the India blocks; the kil
 - Stock bars and benchmark bars are both from Nasdaq's quote data (split-adjusted by Nasdaq, dividends not added), per `scripts/us-hist-lib.mjs` and `scripts/backfill-us-bench.mjs`. Daily tail files are appended as published; a split that happens after the base files were cut is the one point not yet checked.
 - SIC coverage is complete for the current top 200 (0 missing). Grouped at the 2-digit major group they fall into 38 groups; 13 have at least 5 names (161 of the 200 names). The largest are group 73 business services (37 names, which mixes software, advertising and staffing), 36 electronics (28), 35 machinery (19), 28 chemicals and drugs (14). So C-180 can run, but "top 4 groups" would pick roughly 100 names and group 73 is not one industry.
 
-## Open points raised in a review on 11 Nov 2026 (NOT adopted; the owner decides each)
+## Review points of 11 Nov 2026 and how they were settled
 
 1. **What the US books are for.** Proposal: India is the decision market; the US books confirm or contradict the India result for the same rule; a US pass alone adopts nothing; an India pass with the US pointing the other way is marked unconfirmed; the number of rules tried is counted across both markets; US champions only, no shadow variants (no variants are run in India either). The owner has not yet said yes.
 2. **Spin-offs, special dividends, mergers.** Bars are split-adjusted only, so a spin-off or special dividend looks like a price fall and can trip the 25% stop. A convention is needed before any US book starts (for example: list every stop-out from a one-day fall of 15% or more as a gap event for the owner, and credit a confirmed special dividend or spin-off distribution to the book). A name that stops trading because it was acquired is closed at its last close. The same last-close rule is not yet in the India books and should be added there too.
@@ -70,3 +70,4 @@ Variants and what rejects each book are the same as in the India blocks; the kil
 
 - 11 Nov 2026: comparator list restated with US ids (C-180 added); cash series changed to DGS3MO; facts checked and review points listed as open (not adopted).
 - 11 Nov 2026: created. Reason: the India first wave was drafted with India-only terms and nobody chose to leave out the US.
+- 11 Nov 2026: owner said "ok go" to the four questions (confirmation market with a shared count, spin-off convention, C-186, last-close convention). Registered as C-179 to C-189. C-186 dropped for the US (assistant's call: near-index book, and the index fund is excluded). US stop-feasibility run once (data/us-stop-feasibility.json): median 3 x ATR 4.2%, 14.5% above 8%, 42% of 8% trailing stops hit within 20 sessions. Stopped US parent added to the nightly US run. Last-close rule built for the India first-wave books. Cash-source probe workflow written (probe-us-first-wave), not yet run.

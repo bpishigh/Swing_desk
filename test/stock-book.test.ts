@@ -40,3 +40,11 @@ test('the slippage sensitivity line is below the registered line and never chang
 test('a step for a date already done changes nothing', () => {
   const px = { d1: { A: [100, 100] } } as any; const step = mk(px, () => null); let st = newBook('t', 'd0'); st = step(st, 'd1'); const j = JSON.stringify(st); assert.equal(JSON.stringify(step(st, 'd1')), j);
 });
+test('a name with no close for five sessions is closed at its last close and its slot is freed', () => {
+  const px = { d1: { A: [100, 100] }, d2: { A: [100, 100] }, d3: { A: [NaN, NaN] } } as any;
+  const age = { v: 0 };
+  const sig = (held: Set<string>) => (held.size ? null : { buys: [{ sym: 'A', value: 1e9, stop: 0.25 }], sells: [] });
+  const step = (st: BookState, D: string) => stepBook(st, { D, open: (s) => px[D]?.[s]?.[0] ?? NaN, close: () => 100, age: () => age.v, cashRet: 0, tier, signal: sig });
+  let st = newBook('t', 'd0'); st = step(step(st, 'd1'), 'd2'); assert.ok(st.pos.A);
+  age.v = 5; st = step(st, 'd3'); assert.equal(st.pos.A, undefined); assert.equal(st.closed[0].why, 'gone'); assert.equal(st.closed[0].exit, 100);
+});

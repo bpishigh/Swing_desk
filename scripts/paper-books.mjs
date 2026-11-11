@@ -32,6 +32,7 @@ const isCo = (sym) => sym in industry || sym in names;   // listed companies onl
 const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value }));
 const todayRows = uniq.find((d) => d.date === D)?.rows ?? {};
 const open = (s) => { const r = todayRows[s]; return r && r[2] > 0 ? r[2] : NaN; };
+const age = (sym) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };   // sessions since the name last had a close
 const px = (sym, i = t) => { const s = series.get(sym); if (!s) return NaN; for (let k = i; k >= Math.max(0, i - 400); k--) if (s.c[k] > 0) return s.c[k]; return NaN; };
 const cj = loadCalendarFiles(), cal = makeCalendar([...(cj['india']?.holidays ?? []), ...(cj['india']?.priorHolidays ?? [])]);
 
@@ -59,7 +60,7 @@ for (const b of books) {
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
-  stepBook(st, { D, open, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
+  stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
   // tonight's list for the stock-list view

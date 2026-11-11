@@ -1,0 +1,80 @@
+{
+ "generated": "2026-11-11T16:04:47.913Z",
+ "data": {
+  "sessions": 2531,
+  "first": "2016-10-17",
+  "last": "2026-11-10"
+ },
+ "note": "Descriptive, no edge claim. Close-to-close ATR proxy (as the India run); US store holds companies listed today only (survivor bias, not corrected); prices split-adjusted by Nasdaq, no dividends.",
+ "atrFeasibility": {
+  "top100": {
+   "observations": 11100,
+   "share3xATRabove8pct": 15.3,
+   "share3xATRabove5pct": 38.2,
+   "median3xATRpct": 4.2,
+   "p75": 6.3,
+   "p90": 9.6,
+   "share8pctTrailingStopHitWithin20Sessions": 41.9
+  },
+  "rank101-200": {
+   "observations": 11100,
+   "share3xATRabove8pct": 13.6,
+   "share3xATRabove5pct": 36.3,
+   "median3xATRpct": 4.2,
+   "p75": 6,
+   "p90": 9.1,
+   "share8pctTrailingStopHitWithin20Sessions": 42.5
+  },
+  "all": {
+   "observations": 22200,
+   "share3xATRabove8pct": 14.5,
+   "share3xATRabove5pct": 37.2,
+   "median3xATRpct": 4.2,
+   "p75": 6.2,
+   "p90": 9.4,
+   "share8pctTrailingStopHitWithin20Sessions": 42.2
+  }
+ },
+ "byYear": {
+  "2017": {
+   "n": 200,
+   "share3xATRabove8pct": 1
+  },
+  "2018": {
+   "n": 2400,
+   "share3xATRabove8pct": 3.4
+  },
+  "2019": {
+   "n": 2600,
+   "share3xATRabove8pct": 2.6
+  },
+  "2020": {
+   "n": 2400,
+   "share3xATRabove8pct": 27.8
+  },
+  "2021": {
+   "n": 2600,
+   "share3xATRabove8pct": 13.5
+  },
+  "2022": {
+   "n": 2600,
+   "share3xATRabove8pct": 26.8
+  },
+  "2023": {
+   "n": 2400,
+   "share3xATRabove8pct": 8
+  },
+  "2024": {
+   "n": 2600,
+   "share3xATRabove8pct": 8
+  },
+  "2025": {
+   "n": 2400,
+   "share3xATRabove8pct": 17.3
+  },
+  "2026": {
+   "n": 2000,
+   "share3xATRabove8pct": 26.6
+  }
+ }
+}
