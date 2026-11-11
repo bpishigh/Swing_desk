@@ -1,54 +1,49 @@
 {
- "asOf": "2026-11-09",
+ "asOf": "2026-11-10",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
-  "LNTH": {
+  "SLN": {
+   "date": "2026-11-12",
+   "sessions": 2,
+   "inWindow": true,
+   "estimated": true
+  },
+  "VTRS": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "SLN": {
+  "BTSG": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "KOD": {
    "date": "2026-11-12",
-   "sessions": 3,
+   "sessions": 2,
    "inWindow": true,
-   "estimated": true
-  },
-  "EWTX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "VSXY": {
-   "date": "2026-12-04",
-   "sessions": 18,
-   "inWindow": false,
    "estimated": true
   },
   "SGRY": {
-   "date": "2026-11-09",
-   "sessions": 0,
-   "inWindow": true,
-   "estimated": true
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "ACHC": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "LH": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
+  "VSXY": {
+   "date": "2026-12-04",
+   "sessions": 17,
+   "inWindow": false,
+   "estimated": true
   },
   "ANF": {
    "date": "2026-11-24",
-   "sessions": 11,
-   "inWindow": false
+   "sessions": 10,
+   "inWindow": true
   }
  }
 }

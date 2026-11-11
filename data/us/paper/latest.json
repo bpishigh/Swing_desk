@@ -1,11 +1,11 @@
 {
- "asOf": "2026-11-09",
+ "asOf": "2026-11-10",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
   "orders": 2,
-  "open": 0,
-  "pending": 1,
+  "open": 1,
+  "pending": 0,
   "notFilled": 1,
   "closed": 0,
   "meanR": null,
@@ -13,8 +13,8 @@
  },
  "capwaived": {
   "orders": 15,
-  "open": 1,
-  "pending": 1,
+  "open": 2,
+  "pending": 0,
   "notFilled": 8,
   "closed": 5,
   "meanR": -1.0314627443739763,
@@ -30,24 +30,7 @@
   "winRate": 0.2857142857142857
  },
  "light": "red",
- "newOrdersTonight": [
-  {
-   "stream": "official",
-   "sym": "LNTH",
-   "setup": "4",
-   "trigger": 101.31,
-   "stop": 100.26,
-   "tags": []
-  },
-  {
-   "stream": "capwaived",
-   "sym": "LNTH",
-   "setup": "4",
-   "trigger": 101.31,
-   "stop": 100.26,
-   "tags": []
-  }
- ],
+ "newOrdersTonight": [],
  "open": [
   {
    "stream": "comparator",
@@ -62,6 +45,20 @@
    "setup": "4",
    "entry": 160.05,
    "stop": 151.99
+  },
+  {
+   "stream": "official",
+   "sym": "LNTH",
+   "setup": "4",
+   "entry": 101.31,
+   "stop": 100.26
+  },
+  {
+   "stream": "capwaived",
+   "sym": "LNTH",
+   "setup": "4",
+   "entry": 101.31,
+   "stop": 100.26
   }
  ]
 }
