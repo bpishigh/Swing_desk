@@ -28,6 +28,15 @@ const flush = () => { for (const [id, o] of store) { for (const k of [...new Set
 for (const period of periods) {
   const pe = isoDate(period); let all = [];
   for (let p = 1; p <= 30; p++) { const a = arr((await get(`https://www.nseindia.com/api/integrated-filing-results?index=equities&type=${TYPE}&period_ended=${period}&page=${p}&size=500`, NSEH)).t); if (!a.length) break; all = all.concat(a); await sleep(300); }
+  // Quarters before the integrated filing (before Mar 2025): the older market-wide list, queried by filing window (quarter end + 1 day to +125 days, in 30-day steps), rows kept when they are the quarter asked for and carry an XBRL link.
+  if (all.length === 0 && pe < '2025-03-31') {
+    const seen = new Set(), d0 = new Date(pe + 'T00:00:00Z'), fmt = (d) => `${String(d.getUTCDate()).padStart(2, '0')}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
+    for (let off = 1; off < 125; off += 30) {
+      const a = new Date(d0.getTime() + off * 864e5), b = new Date(d0.getTime() + Math.min(off + 29, 125) * 864e5);
+      const rows = arr((await get(`https://www.nseindia.com/api/corporates-financial-results?index=equities&period=Quarterly&from_date=${fmt(a)}&to_date=${fmt(b)}`, NSEH)).t); await sleep(500);
+      for (const r of rows) { if (!/^https?:/.test(r.xbrl || '') || isoDate(r.toDate) !== pe || seen.has(r.xbrl)) continue; if (/^cumulative$/i.test(r.cumulative || '')) continue; seen.add(r.xbrl); all.push({ symbol: r.symbol, xbrl: r.xbrl, broadcast_Date: r.broadCastDate || r.filingDate, consolidated: r.consolidated, type_Sub: 'Original' }); }
+    }
+  }
   const recs = all.slice(0, LIMIT), c = { listed: all.length, attempted: recs.length, parsed: 0, fetchFailed: 0, parseFailed: 0, unmapped: 0, families: {}, missingField: { revenue: 0, pbt: 0, pat: 0, eps: 0 }, periodMismatch: 0, errors: {}, unmappedSymbols: [] };
   let i = 0;
   const worker = async () => { while (i < recs.length) {
