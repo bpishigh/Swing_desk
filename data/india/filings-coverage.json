@@ -249,13 +249,17 @@
    "at": "2026-11-09T15:28:08.582Z"
   },
   "2024-12-31": {
-   "listed": 0,
-   "attempted": 0,
-   "parsed": 0,
+   "listed": 3797,
+   "attempted": 150,
+   "parsed": 150,
    "fetchFailed": 0,
    "parseFailed": 0,
    "unmapped": 0,
-   "families": {},
+   "families": {
+    "IFIndAs": 145,
+    "IFOTB": 2,
+    "IFBanking": 3
+   },
    "missingField": {
     "revenue": 0,
     "pbt": 0,
@@ -265,7 +269,7 @@
    "periodMismatch": 0,
    "errors": {},
    "unmappedSymbols": [],
-   "at": "2026-11-11T19:34:45.228Z"
+   "at": "2026-11-11T19:37:07.751Z"
   },
   "2024-03-31": {
    "listed": 0,
