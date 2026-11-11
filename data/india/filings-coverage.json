@@ -304,6 +304,25 @@
    "errors": {},
    "unmappedSymbols": [],
    "at": "2026-11-11T19:34:49.318Z"
+  },
+  "2020-03-31": {
+   "listed": 0,
+   "attempted": 0,
+   "parsed": 0,
+   "fetchFailed": 0,
+   "parseFailed": 0,
+   "unmapped": 0,
+   "families": {},
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [],
+   "at": "2026-11-11T19:34:50.871Z"
   }
  }
 }
