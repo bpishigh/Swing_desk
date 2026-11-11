@@ -358,6 +358,33 @@
    "errors": {},
    "unmappedSymbols": [],
    "at": "2026-11-11T19:38:29.486Z"
+  },
+  "2024-09-30": {
+   "listed": 3645,
+   "attempted": 3645,
+   "parsed": 3642,
+   "fetchFailed": 0,
+   "parseFailed": 0,
+   "unmapped": 3,
+   "families": {
+    "IFIndAs": 3570,
+    "IFBanking": 65,
+    "IFOTB": 7
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [
+    "ATCOM",
+    "ATCOM",
+    "KUNDANMM"
+   ],
+   "at": "2026-11-11T20:05:39.716Z"
   }
  }
 }
