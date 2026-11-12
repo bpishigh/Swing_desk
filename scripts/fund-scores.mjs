@@ -35,19 +35,23 @@ const usSchemes = Object.entries(US).flatMap(([cat, syms]) => syms.map((s) => ({
 const US_NAME = { SPY: 'SPDR S&P 500', VOO: 'Vanguard S&P 500', IVV: 'iShares Core S&P 500', SPLG: 'SPDR Portfolio S&P 500', VTI: 'Vanguard Total US Stock Market', ITOT: 'iShares Core S&P Total US', SCHB: 'Schwab US Broad Market', DIA: 'SPDR Dow Jones Industrial Average', QQQ: 'Invesco QQQ (Nasdaq-100)', QQQM: 'Invesco Nasdaq 100', IJH: 'iShares Core S&P Mid-Cap', VO: 'Vanguard Mid-Cap', MDY: 'SPDR S&P MidCap 400', SCHM: 'Schwab US Mid-Cap', IJR: 'iShares Core S&P Small-Cap', VB: 'Vanguard Small-Cap', IWM: 'iShares Russell 2000', SCHA: 'Schwab US Small-Cap', VUG: 'Vanguard Growth', IWF: 'iShares Russell 1000 Growth', SCHG: 'Schwab US Large-Cap Growth', MGK: 'Vanguard Mega Cap Growth', VTV: 'Vanguard Value', IWD: 'iShares Russell 1000 Value', SCHV: 'Schwab US Large-Cap Value', SCHD: 'Schwab US Dividend Equity', VIG: 'Vanguard Dividend Appreciation', VYM: 'Vanguard High Dividend Yield', DGRO: 'iShares Core Dividend Growth', HDV: 'iShares Core High Dividend', NOBL: 'ProShares S&P 500 Dividend Aristocrats', SMH: 'VanEck Semiconductor', SOXX: 'iShares Semiconductor', XLK: 'Technology Select Sector SPDR', VGT: 'Vanguard Information Technology', IGV: 'iShares Expanded Tech-Software', VEA: 'Vanguard FTSE Developed Markets', IEFA: 'iShares Core MSCI EAFE', EFA: 'iShares MSCI EAFE', SCHF: 'Schwab International Equity', VXUS: 'Vanguard Total International Stock', VWO: 'Vanguard FTSE Emerging Markets', IEMG: 'iShares Core MSCI Emerging Markets', EEM: 'iShares MSCI Emerging Markets', SCHE: 'Schwab Emerging Markets Equity', INDA: 'iShares MSCI India', EPI: 'WisdomTree India Earnings', SMIN: 'iShares MSCI India Small-Cap', INDY: 'iShares India 50', AGG: 'iShares Core US Aggregate Bond', BND: 'Vanguard Total Bond Market', TLT: 'iShares 20+ Year Treasury Bond', IEF: 'iShares 7-10 Year Treasury Bond', LQD: 'iShares Investment Grade Corporate Bond', GLD: 'SPDR Gold Shares', IAU: 'iShares Gold Trust', GLDM: 'SPDR Gold MiniShares', SLV: 'iShares Silver Trust', VNQ: 'Vanguard Real Estate', XLRE: 'Real Estate Select Sector SPDR', SCHH: 'Schwab US REIT' };
 
 console.log('schemes to fetch: mf', mf.length, 'index/etf', idx.length, 'debt', debt.length, 'intl', intl.length, 'us etf', usSchemes.length);
-const series = new Map(); let failed = 0;
+const series = new Map(); let failed = 0; const why = new Map();   // why: reason -> count, so a bad night says what went wrong
 async function pool(items, fn, n = 8) { let i = 0; await Promise.all(Array.from({ length: n }, async () => { while (i < items.length) await fn(items[i++]); })); }
-const fetchMf = async (s) => {
-  if (series.has(s.code)) return;
-  for (let a = 0; a < 3; a++) {
+// One scheme, up to `tries` attempts; a 429 or 5xx waits longer. Returns true when a series was stored.
+const getMf = async (s, tries, wait) => {
+  let last = '';
+  for (let a = 0; a < tries; a++) {
     try {
-      const r = await fetch('https://api.mfapi.in/mf/' + s.code); if (!r.ok) throw new Error('status ' + r.status);
+      const r = await fetch('https://api.mfapi.in/mf/' + s.code); if (!r.ok) { last = 'status ' + r.status; throw new Error(last); }
       const j = await r.json(); const m = {};
       for (const x of j.data || []) { const [dd, mm, yy] = x.date.split('-'); const v = Number(x.nav); if (v > 0) m[`${yy}-${mm}-${dd}`] = v; }
-      if (Object.keys(m).length) series.set(s.code, m); return;
-    } catch { if (a === 2) failed++; else await new Promise((r) => setTimeout(r, 800 * (a + 1))); }
+      if (!Object.keys(m).length) { last = 'empty history'; throw new Error(last); }
+      series.set(s.code, m); return true;
+    } catch (e) { last = last || String(e?.cause?.code ?? e?.message ?? e).slice(0, 40); if (a < tries - 1) await new Promise((r) => setTimeout(r, wait * (a + 1))); }
   }
+  why.set(last, (why.get(last) ?? 0) + 1); return false;
 };
+const fetchMf = async (s) => { if (series.has(s.code)) return; if (!(await getMf(s, 3, 800))) s.retry = true; };
 const usSeries = new Map(); let usFailed = 0;
 const fetchUs = async (s) => {
   for (let a = 0; a < 3; a++) {
@@ -56,6 +60,11 @@ const fetchUs = async (s) => {
   }
 };
 await pool([...mf, ...idx, ...debt, ...intl], fetchMf, 8);
+// Second pass for what failed, slowly (two at a time, longer waits): a burst of requests is the usual reason a source refuses some of them.
+{ const again = [...new Map([...mf, ...idx, ...debt, ...intl].filter((x) => x.retry && !series.has(x.code)).map((x) => [x.code, x])).values()]; why.clear();
+  if (again.length) { console.log('second pass for', again.length, 'schemes'); await pool(again, async (x) => { await getMf(x, 4, 2500); }, 2); }
+  failed = again.filter((x) => !series.has(x.code)).length; if (why.size) console.log('fetch failures by reason:', JSON.stringify([...why])); }
+const fetchedBeforeDrops = series.size;
 await pool(usSchemes, fetchUs, 3);
 // A one-day move over 40% in a fund's NAV is a data break (unit split or consolidation, bad print), not performance: leave that scheme out rather than score it on a false return.
 const broken = (m) => { const d = Object.keys(m).sort(); for (let i = 1; i < d.length; i++) { const r = m[d[i]] / m[d[i - 1]]; if (r > 1.4 || r < 0.6) return d[i]; } return null; };
@@ -65,7 +74,8 @@ for (const [nm, ls] of [['mf', () => mf], ['idx', () => idx], ['debt', () => deb
 const need = [...new Set([...mf, ...idx, ...debt, ...intl].map((x) => x.code))].length;
 console.log('india fetched', series.size, 'of', need, 'failed', failed, '| us fetched', usSeries.size, 'of', usSchemes.length, 'failed', usFailed);
 { const prev = existsSync('data/funds/scores.json') ? JSON.parse(readFileSync('data/funds/scores.json', 'utf8')).funds?.length ?? 0 : 0; if (prev && need < prev * 0.8) { console.error(`the universe shrank from ${prev} funds to ${need}: keeping the previous scores`); process.exit(1); } }
-if (series.size < need * 0.8) { console.error('too many India fetch failures; keeping the previous scores'); process.exit(1); }
+// Judged on what was fetched, not on what is left after dropping data-break schemes: those drops are exclusions, not failed fetches.
+if (fetchedBeforeDrops < need * 0.8) { console.error('too many India fetch failures; keeping the previous scores'); process.exit(1); }
 const prev = J('data/funds/scores.json', null);
 const hist = J('data/funds/history.json', {}), month = asOf.slice(0, 7);
 // C-105: sectoral and thematic funds are ranked only against funds of their own theme (5 funds needed); a fund whose name gives no theme is not scored. Everything else is ranked in its category as before.
