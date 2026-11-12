@@ -619,6 +619,38 @@
     "ATCOM"
    ],
    "at": "2026-11-12T03:52:01.165Z"
+  },
+  "2021-12-31": {
+   "listed": 2906,
+   "attempted": 2906,
+   "parsed": 2873,
+   "fetchFailed": 20,
+   "parseFailed": 7,
+   "unmapped": 6,
+   "families": {
+    "IFIndAs": 2827,
+    "IFBanking": 37,
+    "IFOTB": 9
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 7
+   },
+   "unmappedSymbols": [
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "ATCOM",
+    "ATCOM",
+    "RUSHABEAR",
+    "KUNDANMM"
+   ],
+   "at": "2026-11-12T15:46:53.743Z"
   }
  }
 }
