@@ -306,14 +306,16 @@
   },
   "2022-03-31": {
    "listed": 3072,
-   "attempted": 150,
-   "parsed": 150,
-   "fetchFailed": 0,
-   "parseFailed": 0,
-   "unmapped": 0,
+   "attempted": 3072,
+   "parsed": 3060,
+   "fetchFailed": 2,
+   "parseFailed": 5,
+   "unmapped": 5,
    "families": {
-    "IFIndAs": 140,
-    "IFBanking": 10
+    "IFIndAs": 2857,
+    "IFBanking": 47,
+    "IFOTB": 4,
+    "FRBanking": 2
    },
    "missingField": {
     "revenue": 0,
@@ -322,9 +324,18 @@
     "eps": 0
    },
    "periodMismatch": 0,
-   "errors": {},
-   "unmappedSymbols": [],
-   "at": "2026-11-11T19:37:50.421Z"
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 5
+   },
+   "unmappedSymbols": [
+    "ATCOM",
+    "ATCOM",
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "KUNDANMM"
+   ],
+   "alreadyStored": 150,
+   "at": "2026-11-12T04:03:04.455Z"
   },
   "2020-03-31": {
    "listed": 0,
