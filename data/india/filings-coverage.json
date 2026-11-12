@@ -888,6 +888,40 @@
     "PRASGLOFIN"
    ],
    "at": "2026-11-12T17:14:06.075Z"
+  },
+  "2019-09-30": {
+   "listed": 2528,
+   "attempted": 2528,
+   "parsed": 2511,
+   "fetchFailed": 1,
+   "parseFailed": 8,
+   "unmapped": 8,
+   "families": {
+    "IFIndAs": 2471,
+    "IFOTB": 7,
+    "IFBanking": 33
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 8
+   },
+   "unmappedSymbols": [
+    "KUNDANMM",
+    "NARMADASUG",
+    "AUTORIDFIN",
+    "ATCOM",
+    "ATCOM",
+    "RAJASPETRO",
+    "MAFATLAFIN",
+    "MAFATLAFIN"
+   ],
+   "at": "2026-11-12T17:24:20.490Z"
   }
  }
 }
