@@ -5,9 +5,11 @@ on:
     inputs:
       periods: { description: "Comma list of quarter ends, e.g. 31-Mar-2026,31-Dec-2025", default: "31-Mar-2026" }
       limit: { description: "Max filings per period (0 = all)", default: "0" }
+      then: { description: "Later batches, separated by semicolons; after this run commits, the next one is dispatched with the rest", default: "" }
 concurrency: backfill-filings
 permissions:
   contents: write
+  actions: write
 jobs:
   run:
     runs-on: ubuntu-24.04
@@ -37,3 +39,12 @@ jobs:
             sleep $((i * 3))
           done
           exit 1
+
+      - name: Dispatch the next batch
+        if: success() && inputs.then != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          THEN: ${{ inputs.then }}
+        run: |
+          next="${THEN%%;*}"; rest=""; case "$THEN" in *";"*) rest="${THEN#*;}";; esac
+          gh workflow run backfill-filings.yml --ref main -f periods="$next" -f limit="${{ inputs.limit }}" -f then="$rest"
