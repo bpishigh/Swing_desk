@@ -1050,6 +1050,36 @@
    ],
    "alreadyStored": 2,
    "at": "2026-11-12T17:57:06.110Z"
+  },
+  "2018-06-30": {
+   "listed": 1474,
+   "attempted": 1474,
+   "parsed": 1467,
+   "fetchFailed": 1,
+   "parseFailed": 0,
+   "unmapped": 6,
+   "families": {
+    "IFBanking": 36,
+    "IFIndAs": 1383,
+    "IFOTB": 48
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [
+    "AUTORIDFIN",
+    "GRANDFONRY",
+    "MAFATLAFIN",
+    "PRASGLOFIN",
+    "NARMADASUG",
+    "VITALCOMM"
+   ],
+   "at": "2026-11-12T18:02:57.523Z"
   }
  }
 }
