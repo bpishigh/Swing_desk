@@ -338,13 +338,17 @@
    "at": "2026-11-12T04:03:04.455Z"
   },
   "2020-03-31": {
-   "listed": 0,
-   "attempted": 0,
-   "parsed": 0,
+   "listed": 2575,
+   "attempted": 2575,
+   "parsed": 2552,
    "fetchFailed": 0,
-   "parseFailed": 0,
-   "unmapped": 0,
-   "families": {},
+   "parseFailed": 18,
+   "unmapped": 5,
+   "families": {
+    "IFIndAs": 2497,
+    "IFBanking": 46,
+    "IFOTB": 9
+   },
    "missingField": {
     "revenue": 0,
     "pbt": 0,
@@ -352,9 +356,17 @@
     "eps": 0
    },
    "periodMismatch": 0,
-   "errors": {},
-   "unmappedSymbols": [],
-   "at": "2026-11-11T19:34:50.871Z"
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 18
+   },
+   "unmappedSymbols": [
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "KUNDANMM",
+    "AUTORIDFIN",
+    "NARMADASUG"
+   ],
+   "at": "2026-11-12T17:03:07.823Z"
   },
   "2018-03-31": {
    "listed": 1749,
