@@ -683,6 +683,37 @@
     "RUSHABEAR"
    ],
    "at": "2026-11-12T15:58:06.847Z"
+  },
+  "2021-06-30": {
+   "listed": 2899,
+   "attempted": 2899,
+   "parsed": 2863,
+   "fetchFailed": 25,
+   "parseFailed": 6,
+   "unmapped": 5,
+   "families": {
+    "IFIndAs": 2828,
+    "IFBanking": 33,
+    "IFOTB": 2
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 6
+   },
+   "unmappedSymbols": [
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "KUNDANMM",
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-12T16:09:36.563Z"
   }
  }
 }
