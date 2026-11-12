@@ -497,6 +497,32 @@
     "ATCOM"
    ],
    "at": "2026-11-12T03:07:26.534Z"
+  },
+  "2023-03-31": {
+   "listed": 3252,
+   "attempted": 3252,
+   "parsed": 3227,
+   "fetchFailed": 23,
+   "parseFailed": 0,
+   "unmapped": 2,
+   "families": {
+    "IFIndAs": 3178,
+    "IFBanking": 48,
+    "IFOTB": 1
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-12T03:19:30.698Z"
   }
  }
 }
