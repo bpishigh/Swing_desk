@@ -922,6 +922,36 @@
     "MAFATLAFIN"
    ],
    "at": "2026-11-12T17:24:20.490Z"
+  },
+  "2019-06-30": {
+   "listed": 2005,
+   "attempted": 2005,
+   "parsed": 1982,
+   "fetchFailed": 19,
+   "parseFailed": 1,
+   "unmapped": 3,
+   "families": {
+    "IFIndAs": 1894,
+    "IFOTB": 23,
+    "IFBanking": 61
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 1
+   },
+   "unmappedSymbols": [
+    "NARMADASUG",
+    "AUTORIDFIN",
+    "RAJASPETRO"
+   ],
+   "alreadyStored": 4,
+   "at": "2026-11-12T17:32:37.884Z"
   }
  }
 }
