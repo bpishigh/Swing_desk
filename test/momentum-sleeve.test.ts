@@ -37,3 +37,11 @@ test('US eligibility keeps liquid, priced, long-history names and orders by doll
   assert.deepEqual(eligibleUs(s, 299).map((e) => e.sym), ['BIG', 'MID']);
   assert.equal(US_UNI.minPrice, 5);
 });
+
+import { sessionsSinceClose, goneNames, GONE_SESSIONS } from '../src/engine/momentum-sleeve.ts';
+test('C-190: a name with no close for 5 sessions is gone; 4 is not; a name with no history is gone', () => {
+  const live = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], d4 = [1, 1, 1, 1, 1, 1, 0, 0, 0, 0], d5 = [1, 1, 1, 1, 1, 0, 0, 0, 0, 0];
+  const series = new Map([['LIVE', { c: live }], ['D4', { c: d4 }], ['D5', { c: d5 }]]);
+  assert.equal(GONE_SESSIONS, 5); assert.equal(sessionsSinceClose(d4, 9), 4); assert.equal(sessionsSinceClose(d5, 9), 5);
+  assert.deepEqual(goneNames(['LIVE', 'D4', 'D5', 'NOPE'], series, 9), ['D5', 'NOPE']);
+});

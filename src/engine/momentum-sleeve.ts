@@ -73,3 +73,15 @@ export function eligibleUs(series: Map<string, { c: ArrayLike<number>; v: ArrayL
   }
   return out.sort((a, b) => b.value - a.value || (a.sym < b.sym ? -1 : 1));
 }
+
+/** Engine Rules C-190: a held name with no close for this many sessions (delisted, acquired, suspended) is sold at its last close, as the stock books do (C-139 family, `goneSessions`). */
+export const GONE_SESSIONS = 5;
+/** Sessions since the name last had a close, looking back up to 400 sessions; null when it has none in that span. */
+export function sessionsSinceClose(c: ArrayLike<number>, t: number): number | null {
+  for (let k = t; k >= Math.max(0, t - 400); k--) if (c[k] > 0) return t - k;
+  return null;
+}
+/** The held names that are gone tonight. */
+export function goneNames(held: string[], series: Map<string, Closes>, t: number): string[] {
+  return held.filter((s) => { const x = series.get(s); const a = x ? sessionsSinceClose(x.c, t) : null; return a === null || a >= GONE_SESSIONS; });
+}

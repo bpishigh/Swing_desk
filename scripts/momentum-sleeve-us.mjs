@@ -8,7 +8,7 @@ import { usCost } from '../src/backtest/us-loader.ts';
 import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { resultsAvoid } from '../src/ingest/earnings.ts';
-import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY, eligibleUs } from '../src/engine/momentum-sleeve.ts';
+import { MOM30, selectSleeve, sleeveWeights, isReviewSession, MONTHLY, eligibleUs, goneNames } from '../src/engine/momentum-sleeve.ts';
 import { applyFilter } from '../src/engine/sleeve-filters.ts';
 import { loadDays } from './us-hist-lib.mjs';
 import { gunzipSync } from 'node:zlib';
@@ -37,13 +37,22 @@ const MONTHLY_TWIN = process.env.MOM_REVIEW === 'monthly', RM = MONTHLY_TWIN ? M
 const RES = (() => { const c = R('data/us/scan/results-calendar.json'), cj = loadCalendarFiles(), cal = makeCalendar([...(cj['us']?.holidays ?? []), ...(cj['us']?.priorHolidays ?? [])]);
   if (!c || c.asOf !== D) return { avoid: new Set(), source: c ? `calendar from ${c.asOf}, not tonight: rule not applied` : 'no calendar: rule not applied', names: 0 };
   const avoid = resultsAvoid(c.dates, D, cal.sessionsBetween.bind(cal)); return { avoid, source: `calendar ${c.asOf}`, names: Object.keys(c.dates).length }; })();
-const fbClose = new Set(); const fp = (sym) => { const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
+let goneSet = new Set();   // names with no close for GONE_SESSIONS sessions tonight (C-190): no price, so never bought and sold only at the last close, below
+const fbClose = new Set(); const fp = (sym) => { if (goneSet.has(sym)) return NaN; const o = OPEN[sym]; if (o > 0) return o; fbClose.add(sym); return px(sym, t); };
 const dir = process.env.MOM_DIR || 'data/us/momentum-sleeve', stFile = dir + '/state.json';
 const st = R(stFile, { version: MOM30.version, startAfter: START_AFTER, book: null, pending: null, lastSignal: null, reviews: [], daily: [], monthly: {} });
 const held = () => new Set(Object.keys(st.book?.shares ?? {}));
 const valueAt = (f) => { let v = st.book.cash; for (const [sym, sh] of Object.entries(st.book.shares)) { const p = f(sym); v += sh * (p > 0 ? p : 0); } return v; };
 const value = (i) => { let v = st.book.cash; for (const [sym, sh] of Object.entries(st.book.shares)) { const p = px(sym, i); v += sh * (p > 0 ? p : 0); } return v; };
 
+// 0) C-190: a held name with no close for 5 sessions is sold at its last close (delisted, acquired, suspended), before any fill; the same rule as the stock books.
+if (st.book) {
+  const gone = goneNames(Object.keys(st.book.shares), series, t); goneSet = new Set(gone); st.gone ??= [];
+  for (const sym of gone) { const sh = st.book.shares[sym], p = px(sym, t); if (!(sh > 0)) continue; const gross = sh > 0 && p > 0 ? sh * p : 0, ent = st.book.entry?.[sym];
+    st.book.cash += gross - gross * usCost(st.book.lastValue?.[sym] ?? 0) / 2; st.gone.push({ sym, date: D, price: p > 0 ? Math.round(p * 100) / 100 : null, entry: ent ?? null, ret: ent > 0 && p > 0 ? Math.round((p / ent - 1) * 1e4) / 1e4 : null });
+    delete st.book.shares[sym]; delete st.book.entry?.[sym]; delete st.book.high?.[sym]; }
+  if (gone.length && st.stopQueue) st.stopQueue = st.stopQueue.filter((q) => !gone.includes(q.sym));
+}
 // 1) fill a pending rebalance at tonight's open (the session after the signal; C-139)
 if (STOP) st.stops ??= [];
 if (STOP && st.book && st.stopQueue?.some((q) => q.on < D) && !(st.pending && D > st.pending.signalDate)) {   // a stop queued on a close is sold at a LATER session's open, never the same day's
@@ -103,6 +112,7 @@ const out = {
   rows, reviews: st.reviews, daily: st.daily.slice(-400), board, replication: null, replay: w0 ? { rule: 'C-131', verdict: w0.pass ? 'pass' : 'fail', sleeve: w0.vsSPY.sleeve, spy: w0.vsSPY.index, window: w0.label, note: 'survivor-biased data: delisted stocks missing' } : null, comparisonOnly: true,
   wouldEnter: rows.filter((r) => r.status === 'Would enter').map((r) => r.sym), wouldLeave: rows.filter((r) => r.status === 'Would leave').map((r) => r.sym),
 };
+out.gone = st.gone ?? [];
 if (MONTHLY_TWIN) out.reviewRule = 'monthly';
 if (STOP) { out.stopRule = STOP; out.stops = st.stops ?? []; out.stopQueue = (st.stopQueue ?? []).map((q) => q.sym); }
 if (process.env.DBG) console.log(rows.slice(0, 45).map((r) => `${r.rank} ${r.sym} ${r.score} ${(names[r.sym] ?? "").slice(0, 28)}`).join("\n"));
