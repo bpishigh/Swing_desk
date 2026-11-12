@@ -580,6 +580,34 @@
     "MAFATLAFIN"
    ],
    "at": "2026-11-12T03:42:33.325Z"
+  },
+  "2022-06-30": {
+   "listed": 2540,
+   "attempted": 2540,
+   "parsed": 2528,
+   "fetchFailed": 8,
+   "parseFailed": 0,
+   "unmapped": 4,
+   "families": {
+    "IFIndAs": 2392,
+    "FRBanking": 25,
+    "FRNBFC": 111
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-12T03:52:01.165Z"
   }
  }
 }
