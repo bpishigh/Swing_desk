@@ -190,6 +190,24 @@ details.fold > summary { padding: 8px 0; }
   .hero .big { font-size: 30px; } .tiles { gap: 14px; } .tile { padding: 18px; }
   .grid2 { gap: 20px; }
 }
+
+/* Strategies: one place for every scan and paper test, grouped, each with a plain-language definition */
+.stratbar { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin:0 0 24px; }
+.stratbar .pick { display:none; margin-left:auto; }
+.stratgrid { display:grid; grid-template-columns:minmax(0,1fr); gap:28px; align-items:start; }
+@media (min-width: 900px) { .stratgrid { grid-template-columns:300px minmax(0,1fr); gap:44px; } .stratlist { position:sticky; top:16px; max-height:calc(100vh - 32px); overflow:auto; padding-right:6px; } }
+@media (max-width: 899px) { .stratbar .pick { display:inline-block; } .stratlist { display:none; } .stratlist.open { display:block; } }
+.sfam { margin:0 0 22px; } .sfam h3 { font:650 12px/1.3 var(--sans, inherit); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 2px; } .sfam .fd { font-size:13px; color:var(--muted); margin:0 0 6px; }
+.sitem { display:flex; justify-content:space-between; align-items:baseline; gap:10px; width:100%; text-align:left; font:inherit; background:none; border:0; border-left:2px solid transparent; padding:8px 0 8px 12px; color:var(--ink); cursor:pointer; }
+.sitem:hover { background:var(--neutral-bg); } .sitem.on { border-left-color:var(--accent); background:var(--neutral-bg); }
+.sitem .n { font-size:15px; font-weight:560; } .sitem .d { display:block; font-size:13px; color:var(--muted); line-height:1.4; margin-top:1px; } .sitem .st { font-size:12px; color:var(--muted); white-space:nowrap; }
+.about { border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:0 0 22px; }
+.about details.abt > summary { cursor:pointer; margin:0 0 10px; font-size:14px; } @media (min-width: 700px) { .about details.abt > summary { display:none; } }
+.about .lbl2 { font:650 12px/1.3 var(--sans, inherit); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+.about .lead { font-size:17px; line-height:1.5; margin:6px 0 14px; max-width:62ch; }
+.about dl.wd { display:grid; grid-template-columns:minmax(0,1fr); gap:10px 18px; margin:0; } @media (min-width: 700px) { .about dl.wd { grid-template-columns:150px minmax(0,1fr); } }
+.about dt { font-size:13px; color:var(--muted); font-weight:600; } .about dd { margin:0; font-size:14.5px; line-height:1.55; max-width:68ch; } .about .us { margin:14px 0 0; font-size:13px; color:var(--muted); }
+.seg { margin:0 0 22px; }
 </style>
 </head>
 <body>
@@ -200,8 +218,7 @@ details.fold > summary { padding: 8px 0; }
   </header>
   <nav role="tablist" aria-label="Sections">
     <button role="tab" id="t-today" aria-selected="true">Today</button>
-    <button role="tab" id="t-scan" aria-selected="false">Scans</button>
-    <button role="tab" id="t-paper" aria-selected="false">Paper test</button>
+    <button role="tab" id="t-strat" aria-selected="false">Strategies</button>
     <button role="tab" id="t-portfolio" aria-selected="false">Portfolio</button>
     <button role="tab" id="t-funds" aria-selected="false">Funds</button>
     <button role="tab" id="t-ref" aria-selected="false">Reference</button>
@@ -219,9 +236,9 @@ const pctVs = (c, s) => (typeof c === 'number' && typeof s === 'number' && s ? (
 const ist = (iso) => (iso ? new Date(iso).toLocaleString('en-GB', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false }) + ' IST' : '–');
 const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : '–');
 let D = null; let tab = 'today';
-const GROUPS = { today: ['today', 'market'], scan: ['scan'], paper: ['paper'], portfolio: ['portfolio'], funds: ['funds', 'fundsall'], ref: ['rules', 'howto', 'docs'] };
+const GROUPS = { today: ['today', 'market'], strat: ['scan', 'paper'], portfolio: ['portfolio'], funds: ['funds', 'fundsall'], ref: ['rules', 'howto', 'docs'] };
 const SUBS = { today: [['today', 'Overview'], ['market', 'Market detail']], funds: [['funds', 'By category'], ['fundsall', 'All funds vs index']], ref: [['rules', 'Engine Rules'], ['howto', 'How to use'], ['docs', 'Docs']] };
-const lastIn = { ref: 'rules', today: 'today', funds: 'funds' };
+const lastIn = { ref: 'rules', today: 'today', funds: 'funds', strat: 'scan' };
 const groupOf = (t) => Object.keys(GROUPS).find((g) => GROUPS[g].includes(t));
 const subNav = (t) => { const g = groupOf(t); if (!SUBS[g]) return ''; return `<div class="subnav chips" role="group" aria-label="Section pages">${SUBS[g].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${t === k}">${l}</button>`).join('')}</div>`; };
 const sortState = { screen: { key: 'sector', dir: 1 }, sectIndia: { key: 'rank', dir: 1 }, sectUS: { key: 'rank', dir: 1 } };
@@ -496,11 +513,50 @@ function stratSub(s, kind, m) {
   if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
   const sc = m === 'us' ? D.scan : D.scanIndia; return kind === 'scan' ? (sc ? `${sc.ready.length} ready, ${sc.watch.length} watching` : 'no scan yet') : 'paper book';
 }
-function topBar(kind) {
-  const m = kind === 'scan' ? scanMkt : paperMkt, cur = curStrat(m), key = kind === 'scan' ? 'sm' : 'pm';
-  const mk = `<div class="chips" role="group" aria-label="Market">${(kind === 'scan' ? [['us', 'US'], ['in', 'India']] : [['in', 'India'], ['us', 'US']]).map(([k, l]) => `<button class="chip-btn" data-${key}="${k}" aria-pressed="${m === k}">${l}</button>`).join('')}</div>`;
-  const rail = (D.strategies || []).filter((x) => x.market === m).map((x) => `<button class="strat${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name)}</span><span class="s">${esc(stratSub(x, kind, m))}${x.status === 'paper_only' ? ' · paper only' : ''}</span></button>`).join('');
-  return mk + `<div class="rail" role="group" aria-label="Strategy">${rail}</div>`;
+let stratOpen = false;
+const BASE_OF = { 'swing-in': 'swing', 'swing-us': 'swing', 'mom30-india': 'mom30', 'mom30-us': 'mom30', 'fw-c161-high52': 'high52', 'fw-c181-high52-us': 'high52', 'fw-c163-donchian': 'donchian', 'fw-c183-donchian-us': 'donchian', 'fw-c164-weekly121': 'weekly121', 'fw-c184-weekly121-us': 'weekly121', 'fw-c166-turnmonth': 'turnmonth', 'fw-c162-lowturn': 'lowturn', 'fw-c182-lowturn-us': 'lowturn', 'fw-c168-max': 'max', 'fw-c188-max-us': 'max', 'fw-c165-template': 'template', 'fw-c185-template-us': 'template', 'fw-c160-industry': 'industry', 'fw-c180-industry-us': 'industry', 'fw-c172-pullback': 'pullback', 'fw-c189-pullback-us': 'pullback', 'fw-c167-voltarget': 'voltarget', 'fw-c187-voltarget-us': 'voltarget' };
+const FAMS = [['Daily ideas', 'Trade ideas sent each evening'], ['Momentum portfolios', 'Hold the strongest-trending stocks and change the list on a fixed calendar'], ['Variations on the momentum portfolio', 'The same portfolio with one change, to see whether the change helps'], ['Entry and timing rules', 'Rules about when to buy and sell']];
+// Plain-language definitions, one per rule (US versions share them). Words a newcomer may not know are explained where they appear.
+const STOP25 = 'Sold if it closes 25% below its highest close since it was bought (a "trailing stop").';
+const STOPSHORT = 'Each stock gets a stop: the closer of 8% below its price and three times its usual few-days swing. If that stop would be wider than 8%, the stock is passed over.';
+const PLAIN = {
+  swing: { fam: 0, short: 'An evening list of stocks that have set up to break out, with the price to buy above, the stop and the size.', what: 'Looks for stocks in an uptrend that are setting up to break out upward. Each evening it lists the ones that are ready: the price to buy above, the stop below which the idea is wrong, and how many shares each account can take. Stocks that are close but not ready go on a watch list.', when: 'Every evening after the market closes. A market light (green or red) says whether new buying is allowed.', stop: 'Every idea comes with its own stop. The distance to the stop is what limits how large the position can be.', why: 'This is the desk\'s main strategy and the only one that sends real alerts. The paper test shows what following its rules would have earned, costs included.' },
+  mom30: { fam: 1, short: 'The 30 strongest-trending stocks among the 200 most traded, with the list changed twice a year.', what: 'Ranks the 200 most traded stocks by how strongly they have trended over the past year and holds the 30 strongest, none more than about 5% of the portfolio.', when: 'The ranking updates every night, but the portfolio itself changes only on the first trading session of June and December.', stop: 'The original has no stop; it is read against an index. The monthly version that other tests use as their yardstick sells a stock that closes 25% below its highest close since bought.', why: 'Strong trends tend to carry on for months. This is the base portfolio that most other tests here are variations of.' },
+  high52: { fam: 1, short: 'The 20 stocks closest to their 52-week high, checked monthly.', what: 'Holds the 20 stocks trading closest to their highest price of the past year, chosen from the 200 most traded stocks.', when: 'First trading session of each month. A stock already held stays as long as it is still among the closest 40.', stop: STOP25, why: 'Tests whether stocks near their yearly high tend to keep rising.' },
+  weekly121: { fam: 1, short: 'The 20 strongest 12-month trends (leaving out the latest month), re-ranked every Friday.', what: 'Ranks the 200 most traded stocks by their return over the past 12 months, leaving out the most recent month (a standard way to measure momentum), and holds the 20 strongest.', when: 'Every Friday. A stock already held stays as long as it ranks in the top 40.', stop: STOP25, why: 'Tests whether the usual momentum measure works with weekly rather than monthly checks.' },
+  industry: { fam: 1, short: 'Back the strongest industries first: the 5 best stocks in each of the 4 strongest industries.', what: 'Ranks industries by how strongly their stocks have trended (only industries with at least 5 of the 200 most traded stocks), then holds the 5 strongest stocks of each of the top 4 industries.', when: 'First trading session of each month. A stock stays while its industry is still in the top 6 and the stock is in the top 8 of that industry.', stop: STOP25, why: 'Tests whether picking the strongest industry first adds something over picking stocks alone.' },
+  lowturn: { fam: 2, short: 'The momentum portfolio without the most heavily traded fifth of its stocks.', what: 'The monthly momentum portfolio with the most heavily traded fifth of its pool removed, using recent traded value as a stand-in for turnover. It still holds 30 stocks.', when: 'First trading session of each month.', stop: STOP25, why: 'Research suggests crowded, heavily traded stocks do worse. This tests whether removing them helps. Its yardstick is the same portfolio without the removal.' },
+  max: { fam: 2, short: 'The momentum portfolio without the lottery-type stocks.', what: 'The monthly momentum portfolio with the tenth of its pool that had the biggest one-day jump in the last 21 sessions removed. These are the lottery-type stocks. It still holds 30 stocks.', when: 'First trading session of each month.', stop: STOP25, why: 'Stocks that spike are often poor holdings afterwards. This tests whether leaving them out helps. Its yardstick is the same portfolio without the removal.' },
+  template: { fam: 2, short: 'The momentum portfolio limited to stocks in a clean uptrend.', what: 'The monthly momentum portfolio restricted to stocks that pass a trend checklist: above rising 150-day and 200-day average prices and near their 52-week high.', when: 'First trading session of each month.', stop: STOP25, why: 'Tests whether insisting on a clean uptrend improves the portfolio. Its yardstick is the same portfolio without the checklist.' },
+  voltarget: { fam: 2, short: 'The momentum portfolio, scaled down when it gets volatile and the rest held in cash.', what: 'Holds the same stocks as the monthly momentum portfolio, but scales how much is invested each month so that its swings stay near a set level (15% a year). The part not invested sits in cash. It makes no trades of its own.', when: 'Scaled on the first trading session of each month, using the last 60 days of the portfolio\'s own swings (fully invested until 20 days of data exist).', stop: 'No stops of its own. It inherits the stops of the portfolio it scales.', why: 'The aim is more return for the amount of risk taken, not simply more return. The page shows return per unit of volatility once there is enough history.' },
+  donchian: { fam: 3, short: 'Buy a stock that breaks above its 55-day high; sell when it falls below its 20-day low.', what: 'Buys a stock the day after it closes above its highest close of the last 55 sessions, and sells it when it closes below its lowest close of the last 20. Holds up to 20 stocks.', when: 'Checked every evening; trades at the next day\'s open.', stop: STOPSHORT, why: 'A classic breakout rule. Tests whether it earns more than the momentum portfolio after costs.' },
+  pullback: { fam: 3, short: 'Buy the first up day after a short dip in a strong, trending stock.', what: 'Among the strongest fifth of stocks that also pass the trend checklist, buys the first up close after a short dip (3 to 5 lower closes in a row, or a close at its 20-day average). Holds up to 20 stocks.', when: 'Checked every evening. Sells on its stop, or when the stock leaves the strongest fifth at the monthly check.', stop: STOPSHORT, why: 'Tests whether buying a dip in a leader beats buying leaders at any time.' },
+  turnmonth: { fam: 3, short: 'Hold the 20 most traded stocks only around the turn of each month.', what: 'Buys the 20 most traded stocks at the close of the 5th-to-last session of each month and sells at the close of the 3rd session of the next month. In cash the rest of the month.', when: 'Twice a month: buy near month end, sell early in the next month.', stop: STOPSHORT, why: 'Month-end buying by funds is said to lift prices. This tests whether the effect is real and survives costs.' },
+};
+const US_NOTE = 'This is the US version. India is the decision market: a US result alone adopts nothing, it only confirms or contradicts the India result.';
+const plainOf = (s) => PLAIN[BASE_OF[s.id]] || null;
+function stratState(s) {
+  if (s.view === 'book_list') { const b = D.books?.by?.[s.id]; if (!b) return 'Not started'; return b.state === 'running' ? 'Running' : b.state === 'pending fill' ? 'Starting' : 'Starts after ' + dmy(s.startAfter); }
+  if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'Not started'; return z.state === 'running' ? 'Running' : z.state === 'pending fill' ? 'Starting' : 'Starts after ' + dmy(s.startAfter); }
+  const sc = s.market === 'us' ? D.scan : D.scanIndia; return sc ? `${sc.ready.length} ready tonight` : 'No scan yet';
+}
+function aboutPanel(s) {
+  const p = plainOf(s); if (!p) return '';
+  return `<section class="about"><div class="lbl2">About this strategy</div><p class="lead">${esc(p.short)}</p><details class="abt"${window.innerWidth < 700 ? '' : ' open'}><summary class="lnk">Full definition</summary><dl class="wd"><dt>What it does</dt><dd>${esc(p.what)}</dd><dt>When it trades</dt><dd>${esc(p.when)}</dd><dt>Protection</dt><dd>${esc(p.stop)}</dd><dt>Why we test it</dt><dd>${esc(p.why)}</dd><dt>Status</dt><dd>${s.status === 'live' ? 'Live: sends real alerts.' : 'Paper only: simulated, no orders and no alerts.'} ${esc(stratState(s))}.</dd></dl></details>${s.market === 'us' && s.status !== 'live' ? `<p class="us">${US_NOTE}</p>` : ''}</section>`;
+}
+function stratList(m, cur) {
+  const list = (D.strategies || []).filter((x) => x.market === m);
+  return FAMS.map(([fn, fd], fi) => { const items = list.filter((x) => plainOf(x)?.fam === fi); if (!items.length) return '';
+    return `<div class="sfam"><h3>${esc(fn)}</h3><p class="fd">${esc(fd)}</p>${items.map((x) => `<button class="sitem${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name.replace(/ \(US\)$/, ''))}</span><span class="st">${esc(stratState(x))}</span></button>`).join('')}</div>`; }).join('')
+    + `<details class="fold"><summary>How paper tests are judged</summary><p class="note">Every paper test is a simulated book that starts at 100. Signals are taken at a close and filled at the next day\'s open, with trading costs deducted. Each book is compared with one named yardstick, usually the same momentum portfolio without the idea being tested. A confidence figure says how likely the idea\'s edge beats its extra cost; it starts at 50% and moves only with results. No paper test trades real money, and nothing is adopted until you mark it Live, Adopted, Rejected or Parked.</p></details>`;
+}
+// One page for every scan and paper test: market, a grouped list, what the chosen rule is in plain words, then its stock list or paper test.
+function shell(kind, body) {
+  const m = kind === 'scan' ? scanMkt : paperMkt, cur = curStrat(m);
+  const mk = `<div class="chips" role="group" aria-label="Market">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${m === k}">${l}</button>`).join('')}</div>`;
+  const seg = `<div class="chips seg" role="group" aria-label="View">${[['scan', 'Stock list'], ['paper', 'Paper test']].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${kind === k}">${l}</button>`).join('')}</div>`;
+  return `<div class="stratbar">${mk}<button class="chip-btn pick" data-stratopen="1" aria-expanded="${stratOpen}">${stratOpen ? 'Hide list' : 'All strategies: ' + esc(cur.name.replace(/ \(US\)$/, ''))}</button></div>
+  <div class="stratgrid"><aside class="stratlist${stratOpen ? ' open' : ''}" aria-label="Strategies">${stratList(m, cur)}</aside><div class="stratmain" style="min-width:0">${aboutPanel(cur)}${seg}${body}</div></div>`;
 }
 const pcs = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
 function momRows(z) { return z.rows.filter((r) => ['Held', 'In buffer', 'Would leave', 'Preview'].includes(r.status)).sort((a, b) => (b.weightNow ?? b.weightTarget ?? 0) - (a.weightNow ?? a.weightTarget ?? 0)); }
@@ -520,7 +576,7 @@ function viewMomentumScan(m = 'in') {
   ${rows.length > 10 ? `<p style="margin:14px 0 0"><button class="lnk" data-momall="1">${momAll ? 'Show fewer' : 'Show all ' + rows.length}</button></p>` : ''}</section>
   <section class="card" style="margin-top:36px"><h2>${run ? 'At the ' + esc(mmm(z.nextReview)) + ' review' : 'Before the first build'}</h2>
   ${run ? `<p style="margin:10px 0 0">${z.wouldEnter.length} would come in${z.wouldEnter.length ? ' (' + z.wouldEnter.map(esc).join(', ') + ')' : ''} and ${z.wouldLeave.length} would leave${z.wouldLeave.length ? ' (' + z.wouldLeave.map(esc).join(', ') + ')' : ''}.</p>` : '<p style="margin:10px 0 0">Nothing is held yet.</p>'}
-  <p class="note" style="margin:6px 0 0">Ranks refresh every night, but the book only changes on a review date. Judged on whether it is built correctly, not on beating the market: see the Paper test page. ${us ? 'The US replay used only companies listed today, which flatters it (Engine Rules C-131).' : 'Evidence for momentum is weak and mixed (Engine Rules C-130); for simply holding the factor, an index fund costs less and tracks the index more closely.'}</p></section>`;
+  <p class="note" style="margin:6px 0 0">Ranks refresh every night, but the book only changes on a review date. Judged on whether it is built correctly, not on beating the market: see the Paper test view of this strategy. ${us ? 'The US replay used only companies listed today, which flatters it (Engine Rules C-131).' : 'Evidence for momentum is weak and mixed (Engine Rules C-130); for simply holding the factor, an index fund costs less and tracks the index more closely.'}</p></section>`;
 }
 function viewMomentumPaper(m = 'in') {
   const us = m === 'us', z = us ? D.momentumUs : D.momentum, s = curStrat(m);
@@ -596,7 +652,7 @@ function bookCompare(cur) {
 }
 function viewBookPaper(s) {
   const b = bk(s.id), sc = b?.scorecard;
-  const head = `<h2 class="big">${esc(s.name)}, on paper</h2><p class="note" style="margin:8px 0 0;max-width:62ch">${esc(s.rule)}. ${esc(BOOKTXT[s.id] || '')} Simulated trades with trading costs included; no orders, no alerts.</p>`;
+  const head = `<h2 class="big">${esc(s.name)}, on paper</h2><p class="note" style="margin:8px 0 0;max-width:62ch">Rule ${esc(s.rule)}. Simulated trades with trading costs included; no orders, no alerts.</p>`;
   if (!b) return head + `<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written this book yet.</div></section>` + bookCompare(s.id);
   const run = b.state === 'running', stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`, since = run && b.value ? b.value / 100 - 1 : null;
   const state = run ? '' : b.state === 'pending fill' ? `<p class="note">The first signal was taken on ${esc(dmy(b.pending?.signalDate))}; the simulated purchase happens at the next open.</p>` : `<p class="note">Not started. The first signal is taken at the first session close after ${esc(dmy(b.startAfter))} and filled at the next open.</p>`;
@@ -617,7 +673,7 @@ function viewBookPaper(s) {
   <p class="note" style="margin:12px 0 0">Data ${esc(b.asOf)}. Paper only; not a financial adviser.</p></details></section>`;
 }
 function viewBookScan(s) {
-  const b = bk(s.id), head = `<h2 class="big">${esc(s.name)}</h2><p class="note" style="margin:8px 0 0;max-width:62ch">${esc(s.rule)}. ${esc(BOOKTXT[s.id] || '')} Paper only: no orders and no alerts come from it.</p>`;
+  const b = bk(s.id), head = `<h2 class="big">${esc(s.name)}</h2><p class="note" style="margin:8px 0 0;max-width:62ch">Rule ${esc(s.rule)}. Paper only: no orders and no alerts come from it.</p>`;
   if (!b) return head + '<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written a list yet.</div></section>';
   const w = b.watch || [], cnt = (st) => w.filter((r) => r.status === st).length, stCol = (st) => (/Exit|leave|too wide/.test(st) ? 'var(--red)' : /enter|buy|Breakout$/.test(st) ? 'var(--green)' : 'var(--muted)');
   const kind = w.some((r) => 'high55' in r) ? 'don' : w.some((r) => 'value' in r) ? 'tom' : 'rank', hi = /high52/.test(s.id), zs = b.scoreKind === 'zscore';
@@ -634,7 +690,7 @@ function viewBookScan(s) {
 }
 
 let PAPERT; // undefined = not asked yet, false = unavailable, 'none' = not written yet, object = the nightly paper-test file (Engine Rules C-113)
-function viewPaper() { const s = curStrat(paperMkt); return topBar('paper') + (s.view === 'book_list' ? viewBookPaper(s) : s.view === 'ranked_list' ? viewMomentumPaper(paperMkt) : viewPaperSwing()); }
+function viewPaper() { const s = curStrat(paperMkt); return shell('paper', s.view === 'book_list' ? viewBookPaper(s) : s.view === 'ranked_list' ? viewMomentumPaper(paperMkt) : viewPaperSwing()); }
 function viewPaperSwing() {
   const mkChips0 = `<div class="chips" role="group" aria-label="Market" style="margin-bottom:14px">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-pm="${k}" aria-pressed="${paperMkt === k}">${l}</button>`).join('')}</div>`;
   const mkChips = '';
@@ -699,7 +755,7 @@ function paperBookCard(mkt) {
   <h3 class="ttl" style="margin-top:32px;font-size:22px">Waiting to fill <span class="note">(${waiting.length})</span></h3>${ptbl(waiting, 'No orders waiting to fill.')}${(pb.skipped || []).length ? `<p class="note" style="margin:14px 0 0;max-width:70ch"><b>Not ordered because results are close</b> (rule C-148: results within 10 sessions): ${pb.skipped.map((x) => `${esc(x.sym)} (${esc(dmy(x.resultsDate))}, flagged ${esc(dmy(x.date))})`).join(', ')}.</p>` : ''}
   <details class="fold" style="margin-top:32px"><summary>How the three streams compare</summary><p class="note" style="margin:8px 0 10px;max-width:70ch">Orders placed, how many are running, waiting, never bought, or closed, with the share of closed trades that made money and the average result in R (a multiple of the risk taken on each trade).</p><div class="tablewrap"><table><thead><tr><th>Stream</th><th class="num">Orders</th><th class="num">Running</th><th class="num">Waiting</th><th class="num">Not bought</th><th class="num">Closed</th><th class="num">Win rate</th><th class="num">Avg R</th></tr></thead><tbody>${cmp}</tbody></table></div></details></section>` : '';
 }
-function viewScan() { const s = curStrat(scanMkt); return topBar('scan') + (s.view === 'book_list' ? viewBookScan(s) : s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
+function viewScan() { const s = curStrat(scanMkt); return shell('scan', s.view === 'book_list' ? viewBookScan(s) : s.view === 'ranked_list' ? viewMomentumScan(scanMkt) : (scanMkt === 'us' ? '' : sizedCard()) + viewScanBody()); }
 function evidenceCard(mkt = scanMkt) {   // item 12: lives on the Data store page now, not at the foot of Scans
   const ev = D.evidence; if (!ev) return '';
   const k = mkt === 'us' ? 'us' : 'india';
@@ -976,7 +1032,8 @@ document.addEventListener('click', (e) => {
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
-  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; return render(); }
+  if (t.dataset.stratopen) { stratOpen = !stratOpen; return render(); }
+  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; stratOpen = false; window.scrollTo(0, 0); return render(); }
   if (t.dataset.momall) { momAll = !momAll; return render(); }
   if (t.dataset.sm) { scanMkt = paperMkt = t.dataset.sm; return render(); }
   if (t.dataset.pm) { scanMkt = paperMkt = t.dataset.pm; return render(); }
