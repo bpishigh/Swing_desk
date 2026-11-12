@@ -17,3 +17,12 @@ test('a night with no cash figure is counted and earns zero; a second call with 
   const p = series(30, () => 0.001); const st = stepVt(newVt('t', '2025-12-31'), p, () => null, 0); assert.equal(st.cashDays.missing, 29);
   const v = st.value; stepVt(st, p, () => null, 0); assert.equal(st.value, v);
 });
+
+import { riskReturn } from '../src/engine/vol-target.ts';
+test('riskReturn: waits for 60 daily returns; a calmer book with the same drift has the higher ratio', () => {
+  const dates = Array.from({ length: 90 }, (_, i) => `2026-${String(1 + Math.floor(i / 28)).padStart(2, '0')}-${String(1 + (i % 28)).padStart(2, '0')}`);
+  const mk = (amp: number) => { let v = 100; return dates.map((d, i) => ({ d, v: (v *= 1 + 0.001 + (i % 2 ? amp : -amp)) })); };
+  assert.equal(riskReturn(mk(0.01).slice(0, 30), mk(0.02).slice(0, 30)), null);
+  const r = riskReturn(mk(0.005), mk(0.02))!;
+  assert.ok(r.book.ratio! > r.parent.ratio! && r.book.vol < r.parent.vol && r.book.n === 89);
+});

@@ -25,3 +25,11 @@ export function stepVt(st: VtState, parent: Array<{ d: string; v: number }>, cas
   }
   return st;
 }
+
+/** Return per unit of volatility, book against its parent, on the dates both have a value. Arithmetic mean daily return times 252, over daily standard deviation times the square root of 252. null until `min` daily returns exist: a ratio on a few weeks is noise. Shown only; no rule uses it. */
+export function riskReturn(book: Array<{ d: string; v: number }>, parent: Array<{ d: string; v: number }>, min = 60) {
+  const pv = new Map(parent.map((x) => [x.d, x.v])), rows = book.filter((x) => pv.has(x.d));
+  const one = (v: number[]) => { const r: number[] = []; for (let i = 1; i < v.length; i++) if (v[i - 1] > 0) r.push(v[i] / v[i - 1] - 1); if (r.length < min) return null; const m = r.reduce((a, b) => a + b, 0) / r.length, sd = Math.sqrt(r.reduce((a, b) => a + (b - m) ** 2, 0) / (r.length - 1)); return { ret: m * VT.days, vol: sd * Math.sqrt(VT.days), ratio: sd > 0 ? (m * VT.days) / (sd * Math.sqrt(VT.days)) : null, n: r.length }; };
+  const b = one(rows.map((x) => x.v)), p = one(rows.map((x) => pv.get(x.d)!));
+  return b && p ? { book: b, parent: p } : null;
+}

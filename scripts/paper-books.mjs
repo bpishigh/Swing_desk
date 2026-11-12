@@ -12,7 +12,7 @@ import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
-import { newVt, stepVt } from '../src/engine/vol-target.ts';
+import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3), ASOF = arg('asof'), ONLY = arg('only'), DRY = process.argv.includes('--dry');
@@ -93,6 +93,7 @@ if (!DRY) writeFileSync(navFile, JSON.stringify(navs) + '\n');
 
 // Sleeve-family books (C-162, C-165 filter, C-168): the momentum sleeve code with a pool filter, monthly review and the 25% stop; their state is the sleeve's own (scripts/momentum-sleeve.mjs, MOM_FILTER).
 // Here they get the same scorecard as the other books, read against the stopped parent (C-173, C-176). Per-trade statistics are not kept for them, so that kill line is not applied.
+const parM = monthsOf(parent);
 for (const b of cfg.sleeveBooks ?? []) {
   const st = R(b.dir + '/state.json'), lt = R(b.dir + '/latest.json'), started = st?.book?.startedFill ?? null, bm = monthsOf(st);
   const rev = st?.reviews ?? [], parentMonths = Math.max(1, Object.keys(parent?.monthly ?? {}).length), ownMonths = Math.max(1, bm.length);
@@ -120,7 +121,7 @@ for (const b of cfg.volBooks ?? []) {
   const v = st.daily.at(-1)?.v ?? null, rets = st.rets.slice(-60), sd = (a) => { if (a.length < 2) return null; const m = a.reduce((x, y) => x + y, 0) / a.length; return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / (a.length - 1)) * Math.sqrt(252); };
   const lat = { id: b.id, rule: b.rule, name: b.name, market: b.market ?? 'India', asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : 'waiting', started: st.started, value: v, valueSens: null, held: 0, cashShare: st.exposure === null ? null : Math.round((1 - st.exposure) * 1e4) / 1e4, positions: [], pending: null, closedTrades: 0, stopOuts: 0, skippedWide: 0,
     cashDays: st.cashDays, watch: [], scoreKind: 'zscore', nextEntry: null, comparator: { id: 'parent', name: b.parentName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines: bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) })), sens: null,
-    perTradeNote: 'This book is an overlay on the stopped parent: it holds the parent\'s stocks scaled to a volatility target, so it has no trades of its own; that kill line is not applied.', exposure: st.exposure, exposures: st.reviews.slice(-12), parentVol: sd(rets), costNote: b.costNote };
+    perTradeNote: 'This book is an overlay on the stopped parent: it holds the parent\'s stocks scaled to a volatility target, so it has no trades of its own; that kill line is not applied.', exposure: st.exposure, exposures: st.reviews.slice(-12), riskReturn: riskReturn(st.daily.map((x) => ({ d: x.d, v: x.v })), pd), parentVol: sd(rets), costNote: b.costNote };
   out.push({ id: b.id, rule: b.rule, name: b.name, market: lat.market, state: lat.state, started: st.started, held: 0, value: v, cashShare: lat.cashShare, comparator: lat.comparator.name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, excessLastMonth: sc?.excessLastMonth ?? null, confidence: sc ? Math.round(sc.confidence.confidence * 1000) / 1000 : null, kill: sc?.kill.status ?? null, closedTrades: 0, stopOuts: 0, skippedWide: 0 });
   if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(lat) + '\n'); }
 }

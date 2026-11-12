@@ -14,7 +14,7 @@ import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, watchRanked, watchDonchian, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
-import { newVt, stepVt } from '../src/engine/vol-target.ts';
+import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 import { splitLike, dayMove, bigFall } from '../src/engine/gap-events.ts';
 import { loadDays } from './us-hist-lib.mjs';
@@ -123,7 +123,7 @@ for (const b of cfg.volBooks ?? []) {
   const sd = (a) => { if (a.length < 2) return null; const m = a.reduce((x, y) => x + y, 0) / a.length; return Math.sqrt(a.reduce((x, y) => x + (y - m) ** 2, 0) / (a.length - 1)) * Math.sqrt(252); };
   const lat = { id: b.id, rule: b.rule, name: b.name, market: 'US', asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : 'waiting', started: st.started, value: v, valueSens: null, held: 0, cashShare: st.exposure === null ? null : Math.round((1 - st.exposure) * 1e4) / 1e4, positions: [], pending: null, closedTrades: 0, stopOuts: 0, skippedWide: 0,
     cashDays: st.cashDays, cashSource: cashSrc.source ?? 'none: cash earns zero', watch: [], scoreKind: 'zscore', nextEntry: null, comparator: { id: 'parent', name: b.parentName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines: lineSet(bm, (m) => bm.find((x) => x.m === m)?.d, parM2), lineKeys: ['book', 'spy', 'qqq', 'twin', 'mtum', 'comparator'], sens: null,
-    perTradeNote: 'This book is an overlay on the stopped US parent: it holds the parent\'s stocks scaled to a volatility target, so it has no trades of its own; that kill line is not applied.', exposure: st.exposure, exposures: st.reviews.slice(-12), parentVol: sd(rets), costNote: b.costNote };
+    perTradeNote: 'This book is an overlay on the stopped US parent: it holds the parent\'s stocks scaled to a volatility target, so it has no trades of its own; that kill line is not applied.', exposure: st.exposure, exposures: st.reviews.slice(-12), riskReturn: riskReturn(st.daily.map((x) => ({ d: x.d, v: x.v })), pd), parentVol: sd(rets), costNote: b.costNote };
   out.push({ id: b.id, rule: b.rule, name: b.name, market: 'US', state: lat.state, started: st.started, held: 0, value: v, cashShare: lat.cashShare, comparator: lat.comparator.name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, excessLastMonth: sc?.excessLastMonth ?? null, confidence: sc ? Math.round(sc.confidence.confidence * 1000) / 1000 : null, kill: sc?.kill.status ?? null, closedTrades: 0, stopOuts: 0, skippedWide: 0 });
   if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(lat) + '\n'); }
 }
