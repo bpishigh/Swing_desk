@@ -1,0 +1,661 @@
+{
+ "version": "US-SCAN-1",
+ "asOf": "2026-11-11",
+ "light": "yellow",
+ "funnel": {
+  "tickers": 2310,
+  "passFloors": 2195,
+  "universe": 1500,
+  "universeFloorDollarVolumeM": 45.4,
+  "withRs": 1472,
+  "rsGate": 297,
+  "template": 148,
+  "qualified": 37,
+  "baseQuality": 0,
+  "withSetup": 0
+ },
+ "groups": [
+  {
+   "group": "Petroleum refining",
+   "members": 16,
+   "medianRs": 83.41,
+   "passes": true
+  },
+  {
+   "group": "Healthcare services",
+   "members": 29,
+   "medianRs": 80.01,
+   "passes": true
+  },
+  {
+   "group": "Apparel retail",
+   "members": 8,
+   "medianRs": 75.25,
+   "passes": false
+  },
+  {
+   "group": "Pharma and biotech",
+   "members": 104,
+   "medianRs": 74.75,
+   "passes": false
+  },
+  {
+   "group": "Semiconductors and components",
+   "members": 67,
+   "medianRs": 74.03,
+   "passes": false
+  },
+  {
+   "group": "Pipelines",
+   "members": 5,
+   "medianRs": 73.42,
+   "passes": false
+  },
+  {
+   "group": "Computer hardware",
+   "members": 17,
+   "medianRs": 72.33,
+   "passes": false
+  },
+  {
+   "group": "Instruments and test equipment",
+   "members": 35,
+   "medianRs": 70.97,
+   "passes": false
+  },
+  {
+   "group": "General merchandise retail",
+   "members": 11,
+   "medianRs": 70.77,
+   "passes": false
+  },
+  {
+   "group": "Oilfield services",
+   "members": 9,
+   "medianRs": 69.14,
+   "passes": false
+  },
+  {
+   "group": "Shipping",
+   "members": 14,
+   "medianRs": 68.97,
+   "passes": false
+  },
+  {
+   "group": "Oil and gas production",
+   "members": 31,
+   "medianRs": 65.4,
+   "passes": false
+  },
+  {
+   "group": "Railroads",
+   "members": 5,
+   "medianRs": 63.7,
+   "passes": false
+  },
+  {
+   "group": "Specialty chemicals",
+   "members": 22,
+   "medianRs": 61.39,
+   "passes": false
+  },
+  {
+   "group": "Hotels and lodging",
+   "members": 16,
+   "medianRs": 60.91,
+   "passes": false
+  },
+  {
+   "group": "Restaurants",
+   "members": 17,
+   "medianRs": 60.64,
+   "passes": false
+  },
+  {
+   "group": "Insurance",
+   "members": 53,
+   "medianRs": 59.55,
+   "passes": false
+  },
+  {
+   "group": "Textiles and apparel",
+   "members": 12,
+   "medianRs": 59.52,
+   "passes": false
+  },
+  {
+   "group": "Medical devices",
+   "members": 39,
+   "medianRs": 59.35,
+   "passes": false
+  },
+  {
+   "group": "Waste and environmental",
+   "members": 7,
+   "medianRs": 58.8,
+   "passes": false
+  },
+  {
+   "group": "Communications equipment",
+   "members": 9,
+   "medianRs": 57.92,
+   "passes": false
+  },
+  {
+   "group": "Engineering and research services",
+   "members": 15,
+   "medianRs": 56.02,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 11,
+   "medianRs": 55.61,
+   "passes": false
+  },
+  {
+   "group": "Fabricated metal",
+   "members": 13,
+   "medianRs": 55.4,
+   "passes": false
+  },
+  {
+   "group": "Metal mining",
+   "members": 27,
+   "medianRs": 54.38,
+   "passes": false
+  },
+  {
+   "group": "Instruments, other",
+   "members": 7,
+   "medianRs": 54.11,
+   "passes": false
+  },
+  {
+   "group": "Wood and furniture",
+   "members": 6,
+   "medianRs": 53.6,
+   "passes": false
+  },
+  {
+   "group": "Airlines",
+   "members": 9,
+   "medianRs": 53.23,
+   "passes": false
+  },
+  {
+   "group": "Electrical equipment",
+   "members": 15,
+   "medianRs": 53.03,
+   "passes": false
+  },
+  {
+   "group": "Wholesale",
+   "members": 29,
+   "medianRs": 51.87,
+   "passes": false
+  },
+  {
+   "group": "Business services",
+   "members": 54,
+   "medianRs": 50.48,
+   "passes": false
+  },
+  {
+   "group": "Media and cable",
+   "members": 13,
+   "medianRs": 50.31,
+   "passes": false
+  },
+  {
+   "group": "Food and beverages",
+   "members": 34,
+   "medianRs": 49.76,
+   "passes": false
+  },
+  {
+   "group": "Trucking and transit",
+   "members": 7,
+   "medianRs": 49.01,
+   "passes": false
+  },
+  {
+   "group": "Rubber, plastics and leather",
+   "members": 14,
+   "medianRs": 48.61,
+   "passes": false
+  },
+  {
+   "group": "Specialty retail",
+   "members": 15,
+   "medianRs": 47.25,
+   "passes": false
+  },
+  {
+   "group": "Leisure and gaming",
+   "members": 11,
+   "medianRs": 46.57,
+   "passes": false
+  },
+  {
+   "group": "Telecom",
+   "members": 9,
+   "medianRs": 45.89,
+   "passes": false
+  },
+  {
+   "group": "Industrial machinery",
+   "members": 52,
+   "medianRs": 45.72,
+   "passes": false
+  },
+  {
+   "group": "Banks",
+   "members": 62,
+   "medianRs": 45.11,
+   "passes": false
+  },
+  {
+   "group": "Paper and packaging",
+   "members": 6,
+   "medianRs": 44.22,
+   "passes": false
+  },
+  {
+   "group": "Steel and metals",
+   "members": 14,
+   "medianRs": 43.58,
+   "passes": false
+  },
+  {
+   "group": "Software and IT services",
+   "members": 131,
+   "medianRs": 43.44,
+   "passes": false
+  },
+  {
+   "group": "Insurance brokers",
+   "members": 8,
+   "medianRs": 41.57,
+   "passes": false
+  },
+  {
+   "group": "Logistics services",
+   "members": 9,
+   "medianRs": 38.75,
+   "passes": false
+  },
+  {
+   "group": "Aerospace and defense",
+   "members": 21,
+   "medianRs": 36.98,
+   "passes": false
+  },
+  {
+   "group": "REITs and trusts",
+   "members": 74,
+   "medianRs": 36.23,
+   "passes": false
+  },
+  {
+   "group": "Electric and gas utilities",
+   "members": 64,
+   "medianRs": 34.98,
+   "passes": false
+  },
+  {
+   "group": "Education",
+   "members": 6,
+   "medianRs": 34.77,
+   "passes": false
+  },
+  {
+   "group": "Home improvement retail",
+   "members": 7,
+   "medianRs": 31.2,
+   "passes": false
+  },
+  {
+   "group": "Autos and parts",
+   "members": 24,
+   "medianRs": 29.37,
+   "passes": false
+  },
+  {
+   "group": "Capital markets",
+   "members": 49,
+   "medianRs": 25.08,
+   "passes": false
+  },
+  {
+   "group": "Auto retail",
+   "members": 13,
+   "medianRs": 25.02,
+   "passes": false
+  },
+  {
+   "group": "Glass and building materials",
+   "members": 6,
+   "medianRs": 24.88,
+   "passes": false
+  },
+  {
+   "group": "Nonmetallic mining",
+   "members": 6,
+   "medianRs": 24.58,
+   "passes": false
+  },
+  {
+   "group": "Homebuilding",
+   "members": 12,
+   "medianRs": 23.18,
+   "passes": false
+  },
+  {
+   "group": "Construction and engineering",
+   "members": 17,
+   "medianRs": 22.23,
+   "passes": false
+  },
+  {
+   "group": "Real estate services",
+   "members": 9,
+   "medianRs": 18.01,
+   "passes": false
+  },
+  {
+   "group": "Consumer and specialty finance",
+   "members": 26,
+   "medianRs": 16.79,
+   "passes": false
+  }
+ ],
+ "ready": [],
+ "watch": [
+  {
+   "sym": "SLN",
+   "type": "ADRC",
+   "group": "Pharma and biotech",
+   "path": "main",
+   "rsPct": 99.18,
+   "close": 19.77,
+   "tags": [
+    "results date not checked",
+    "ADR: delisting risk not in the price; results dates less reliable",
+    "failed qualification 1 night(s)",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": true,
+   "composite": 94.75,
+   "tightness": 0.09,
+   "distPivot": 0.48,
+   "setup": null,
+   "gb": {
+    "pct": 71.8,
+    "n": 103
+   },
+   "diag": {
+    "rs121": 39.69,
+    "rs6m2w": 177.22,
+    "atr14": 0.07,
+    "sma50": 14.46,
+    "sma200": 9.63,
+    "high52": 19.86,
+    "low52": 4.19,
+    "failingNights": 1
+   },
+   "why": [
+    "Strength: 99.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.5% below its 52-week high (limit 25%) and 371.8% above its 52-week low (needs 30%).",
+    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: extended, 36.7% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "MANE",
+   "type": "CS",
+   "group": "Pharma and biotech",
+   "path": "ipo",
+   "rsPct": 98.53,
+   "close": 156.56,
+   "tags": [
+    "results date not checked",
+    "failed qualification 1 night(s)",
+    "IPO path: 3-month return rank, shorter template",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": true,
+   "composite": 73.99,
+   "tightness": 1.25,
+   "distPivot": 0.04,
+   "setup": null,
+   "gb": {
+    "pct": 71.8,
+    "n": 103
+   },
+   "diag": {
+    "rs121": null,
+    "rs6m2w": 34.99,
+    "atr14": 8.6,
+    "sma50": 120.86,
+    "sma200": null,
+    "high52": 156.63,
+    "low52": 32,
+    "failingNights": 1
+   },
+   "why": [
+    "Strength: 98.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.",
+    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: extended, 29.5% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "VTRS",
+   "type": "CS",
+   "group": "Pharma and biotech",
+   "path": "main",
+   "rsPct": 96.06,
+   "close": 21.06,
+   "tags": [
+    "results date not checked",
+    "failed qualification 1 night(s)"
+   ],
+   "clears50M": true,
+   "composite": 72.07,
+   "tightness": 1.29,
+   "distPivot": 0.19,
+   "setup": null,
+   "gb": {
+    "pct": 71.8,
+    "n": 103
+   },
+   "diag": {
+    "rs121": 69.62,
+    "rs6m2w": 25.38,
+    "atr14": 0.61,
+    "sma50": 17.96,
+    "sma200": 16.16,
+    "high52": 21.1,
+    "low52": 10.15,
+    "failingNights": 1
+   },
+   "why": [
+    "Strength: 96.1th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.2% below its 52-week high (limit 25%) and 107.5% above its 52-week low (needs 30%).",
+    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 0.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "BTSG",
+   "type": "CS",
+   "group": "Healthcare services",
+   "path": "main",
+   "rsPct": 95.38,
+   "close": 72.62,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 68.53,
+   "tightness": 1.68,
+   "distPivot": 1.23,
+   "setup": null,
+   "gb": {
+    "pct": 67.9,
+    "n": 28
+   },
+   "diag": {
+    "rs121": 86.62,
+    "rs6m2w": 23.49,
+    "atr14": 3.28,
+    "sma50": 61.51,
+    "sma200": 55.87,
+    "high52": 73.75,
+    "low52": 30.64,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 95.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.5% below its 52-week high (limit 25%) and 137% above its 52-week low (needs 30%).",
+    "Group: Healthcare services ranks 2 of 59 (median strength 80); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 67.9% of the 28 stocks in Healthcare services are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.7, needs under 0.7); price is 1.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "SGRY",
+   "type": "CS",
+   "group": "Healthcare services",
+   "path": "main",
+   "rsPct": 97.89,
+   "close": 26.66,
+   "tags": [
+    "results date not checked",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": true,
+   "composite": 67.51,
+   "tightness": 0.73,
+   "distPivot": 2.08,
+   "setup": null,
+   "gb": {
+    "pct": 67.9,
+    "n": 28
+   },
+   "diag": {
+    "rs121": -9.26,
+    "rs6m2w": 67.56,
+    "atr14": 1,
+    "sma50": 16.79,
+    "sma200": 14.97,
+    "high52": 27.23,
+    "low52": 11.41,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 97.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.1% below its 52-week high (limit 25%) and 133.7% above its 52-week low (needs 30%).",
+    "Group: Healthcare services ranks 2 of 59 (median strength 80); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 67.9% of the 28 stocks in Healthcare services are above their 50-day.",
+    "Watch: extended, 58.8% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "CON",
+   "type": "CS",
+   "group": "Healthcare services",
+   "path": "main",
+   "rsPct": 95.79,
+   "close": 43.45,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 67.25,
+   "tightness": 1.49,
+   "distPivot": 1.74,
+   "setup": null,
+   "gb": {
+    "pct": 67.9,
+    "n": 28
+   },
+   "diag": {
+    "rs121": 94.91,
+    "rs6m2w": 81.29,
+    "atr14": 1.35,
+    "sma50": 37.53,
+    "sma200": 29.31,
+    "high52": 44.22,
+    "low52": 18.96,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 95.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.7% below its 52-week high (limit 25%) and 129.2% above its 52-week low (needs 30%).",
+    "Group: Healthcare services ranks 2 of 59 (median strength 80); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 67.9% of the 28 stocks in Healthcare services are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.5, needs under 0.7); price is 1.7% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "COP",
+   "type": "CS",
+   "group": "Petroleum refining",
+   "path": "main",
+   "rsPct": 83.96,
+   "close": 137.86,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 50.37,
+   "tightness": 1.29,
+   "distPivot": 10.64,
+   "setup": null,
+   "gb": {
+    "pct": 12.5,
+    "n": 16
+   },
+   "diag": {
+    "rs121": 59.7,
+    "rs6m2w": 16.23,
+    "atr14": 4.57,
+    "sma50": 137.1,
+    "sma200": 122.93,
+    "high52": 154.28,
+    "low52": 85.7,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 84th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 10.6% below its 52-week high (limit 25%) and 60.9% above its 52-week low (needs 30%).",
+    "Group: Petroleum refining ranks 1 of 59 (median strength 83.4); the 2 strongest groups are traded in the yellow light.",
+    "Sector breadth: 12.5% of the 16 stocks in Petroleum refining are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
+    "Watch: a pattern is forming but there is under 3R of room before the next overhead high."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 2
+ },
+ "qualifiedTotal": 37,
+ "notes": [
+  "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
+ ],
+ "source": "nasdaq",
+ "regimeDate": "2026-11-11",
+ "sicCovered": 2323
+}
