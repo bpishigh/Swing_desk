@@ -714,6 +714,36 @@
     "ATCOM"
    ],
    "at": "2026-11-12T16:09:36.563Z"
+  },
+  "2021-03-31": {
+   "listed": 2730,
+   "attempted": 2730,
+   "parsed": 2712,
+   "fetchFailed": 3,
+   "parseFailed": 11,
+   "unmapped": 4,
+   "families": {
+    "IFIndAs": 2658,
+    "IFBanking": 51,
+    "IFOTB": 3
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 11
+   },
+   "unmappedSymbols": [
+    "KUNDANMM",
+    "MAFATLAFIN",
+    "ATCOM",
+    "ATCOM"
+   ],
+   "at": "2026-11-12T16:20:04.925Z"
   }
  }
 }
