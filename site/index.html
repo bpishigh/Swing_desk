@@ -202,16 +202,25 @@ details.fold > summary { padding: 8px 0; }
 .sitem:hover { background:var(--neutral-bg); } .sitem.on { background:var(--accent-soft); box-shadow:inset 3px 0 0 var(--accent); }
 .sitem .n { font-size:14.5px; font-weight:560; line-height:1.3; } .sitem .st { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); white-space:nowrap; }
 .sitem .st::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--muted); opacity:.45; } .sitem .st.run::before { background:var(--ok); opacity:1; } .sitem .st.rdy::before { background:var(--accent); opacity:1; }
-.about { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:24px 26px; margin:0 0 20px; }
-.about .eyebrow { font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
-.about .ttl { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:6px 0 0; } .about h2 { font-size:24px; line-height:1.25; margin:0; letter-spacing:-.01em; }
-.pill { font-family:var(--font); font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--neutral-bg); color:var(--muted); } .pill.live { background:var(--accent-soft); color:var(--accent); } .pill.run { background:var(--neutral-bg); color:var(--ok); }
-.about .lead { font-size:16px; line-height:1.55; margin:10px 0 0; max-width:64ch; color:var(--ink); }
-.about details.abt { margin-top:16px; } .about details.abt > summary { cursor:pointer; font-size:13px; font-weight:600; color:var(--accent); } @media (min-width: 700px) { .about details.abt > summary { display:none; } }
-.about .what { font-size:14.5px; line-height:1.6; max-width:68ch; margin:0 0 16px; color:var(--ink); }
-.about .facts { display:grid; grid-template-columns:minmax(0,1fr); gap:12px; } @media (min-width: 760px) { .about .facts { grid-template-columns:repeat(3,minmax(0,1fr)); } }
-.about .fact { background:var(--bg); border:1px solid var(--line-soft); border-radius:12px; padding:14px 16px; } .about .fact b { display:block; font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; } .about .fact span { display:block; font-size:13.5px; line-height:1.55; }
-.about .us { margin:14px 0 0; font-size:13px; color:var(--muted); }
+.shead { margin:0 0 22px; }
+.shead .eyebrow { font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.shead .stitle { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:8px 0 0; } .shead h2 { font-size:28px; line-height:1.2; margin:0; letter-spacing:-.015em; }
+.pill { font-family:var(--font); font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--neutral-bg); color:var(--muted); white-space:nowrap; } .pill.live { background:var(--accent-soft); color:var(--accent); } .pill.run { color:var(--ok); }
+.shead .lead { font-size:16px; line-height:1.55; margin:12px 0 0; max-width:66ch; }
+.defbtn { margin:10px 0 0; font:inherit; font-size:13px; font-weight:600; color:var(--accent); background:none; border:0; padding:4px 0; cursor:pointer; } .defbtn:hover { text-decoration:underline; }
+.defbox { margin:12px 0 0; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+.defbox .what { font-size:14.5px; line-height:1.6; max-width:70ch; margin:0 0 14px; }
+.defbox .facts { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; } @media (min-width: 760px) { .defbox .facts { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+.defbox .fact { background:var(--bg); border:1px solid var(--line-soft); border-radius:10px; padding:12px 14px; } .defbox .fact b { display:block; font-weight:650; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; } .defbox .fact span { display:block; font-size:13.5px; line-height:1.55; }
+.defbox .us { margin:12px 0 0; font-size:13px; color:var(--muted); }
+.kpis { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0 0 24px; } @media (min-width: 760px) { .kpis { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+.kpi { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 18px; min-height:84px; } .kpi .v { font-size:24px; font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; letter-spacing:-.01em; } .kpi .l { font-size:12.5px; color:var(--muted); margin-top:6px; line-height:1.35; }
+.viewrow { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin:0 0 24px; } .viewrow .lnk { font-size:13px; }
+.sbody > section, .sbody > .card, .sbody > details { margin-top:0 !important; margin-bottom:28px; } .sbody section[style*="margin-top"] { margin-top:0 !important; } .sbody > :last-child { margin-bottom:0; }
+.sbody h3.ttl { margin:0 0 6px; }
+.sbody details.fold { margin-top:12px; }
+.tablewrap .lnk { text-align:left; font-family:inherit; }
+.scoreslist details.fold { margin-top:10px; }
 .seg { margin:0 0 20px; display:inline-flex; gap:2px; padding:3px; background:var(--neutral-bg); border-radius:999px; } .seg .chip-btn { border:0; background:none; } .seg .chip-btn[aria-pressed="true"] { color:var(--ink); background:var(--bg); box-shadow:0 1px 2px rgba(0,0,0,.18); }
 </style>
 </head>
@@ -518,7 +527,7 @@ function stratSub(s, kind, m) {
   if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'not started'; if (kind === 'paper') return z.state === 'running' ? 'paper book running' : 'starts after ' + dmy(s.startAfter); return z.state === 'running' ? `${z.heldCount} held` : 'preview list'; }
   const sc = m === 'us' ? D.scan : D.scanIndia; return kind === 'scan' ? (sc ? `${sc.ready.length} ready, ${sc.watch.length} watching` : 'no scan yet') : 'paper book';
 }
-let stratOpen = false;
+let stratOpen = false, scoresView = false, defOpen = false;
 const BASE_OF = { 'swing-in': 'swing', 'swing-us': 'swing', 'mom30-india': 'mom30', 'mom30-us': 'mom30', 'fw-c161-high52': 'high52', 'fw-c181-high52-us': 'high52', 'fw-c163-donchian': 'donchian', 'fw-c183-donchian-us': 'donchian', 'fw-c164-weekly121': 'weekly121', 'fw-c184-weekly121-us': 'weekly121', 'fw-c166-turnmonth': 'turnmonth', 'fw-c162-lowturn': 'lowturn', 'fw-c182-lowturn-us': 'lowturn', 'fw-c168-max': 'max', 'fw-c188-max-us': 'max', 'fw-c165-template': 'template', 'fw-c185-template-us': 'template', 'fw-c160-industry': 'industry', 'fw-c180-industry-us': 'industry', 'fw-c172-pullback': 'pullback', 'fw-c189-pullback-us': 'pullback', 'fw-c167-voltarget': 'voltarget', 'fw-c187-voltarget-us': 'voltarget' };
 const FAMS = [['Daily ideas', 'Trade ideas sent each evening'], ['Momentum portfolios', 'Hold the strongest-trending stocks and change the list on a fixed calendar'], ['Variations on the momentum portfolio', 'The same portfolio with one change, to see whether the change helps'], ['Entry and timing rules', 'Rules about when to buy and sell']];
 // Plain-language definitions, one per rule (US versions share them). Words a newcomer may not know are explained where they appear.
@@ -540,29 +549,47 @@ const PLAIN = {
 };
 const US_NOTE = 'This is the US version. India is the decision market: a US result alone adopts nothing, it only confirms or contradicts the India result.';
 const plainOf = (s) => PLAIN[BASE_OF[s.id]] || null;
+const CAD = { swing: 'Every evening', mom30: 'June and December', high52: 'Monthly', weekly121: 'Every Friday', industry: 'Monthly', lowturn: 'Monthly', max: 'Monthly', template: 'Monthly', voltarget: 'Monthly', donchian: 'Every evening', pullback: 'Every evening', turnmonth: 'Twice a month' };
 function stratState(s) {
-  if (s.view === 'book_list') { const b = D.books?.by?.[s.id]; if (!b) return 'Not started'; return b.state === 'running' ? 'Running' : b.state === 'pending fill' ? 'Starting' : 'Starts after ' + dmy(s.startAfter); }
-  if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; if (!z) return 'Not started'; return z.state === 'running' ? 'Running' : z.state === 'pending fill' ? 'Starting' : 'Starts after ' + dmy(s.startAfter); }
+  const wait = (b, asOf) => (b.state === 'running' ? 'Running' : b.state === 'pending fill' ? 'First buy at next open' : b.nextEntry ? 'First buy ' + dmy(b.nextEntry) : (s.startAfter && asOf && s.startAfter <= asOf) ? 'Waiting for first signal' : 'Starts after ' + dmy(s.startAfter));
+  if (s.view === 'book_list') { const b = D.books?.by?.[s.id]; return b ? wait(b, b.asOf) : 'Not started'; }
+  if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum; return z ? wait(z, z.asOf) : 'Not started'; }
   const sc = s.market === 'us' ? D.scan : D.scanIndia; return sc ? `${sc.ready.length} ready tonight` : 'No scan yet';
 }
-function aboutPanel(s) {
+const stateCls = (t) => (/^Running/.test(t) ? 'run' : /ready/.test(t) ? 'rdy' : '');
+function kpis(s) {
+  const base = BASE_OF[s.id], cad = CAD[base] || '–';
+  if (s.view === 'book_list') { const b = D.books?.by?.[s.id], run = b && b.state === 'running', sc = b?.scorecard;
+    return [[run && b.value ? pc(b.value / 100 - 1, 2) : '–', 'Since the book started'], [b ? b.held : '–', 'Stocks held'], [b?.nextEntry ? dmy(b.nextEntry) : cad, b?.nextEntry ? 'Next purchase' : 'Changes'], [sc ? pc(sc.sinceStart.excess) : '–', 'Ahead of its yardstick']]; }
+  if (s.view === 'ranked_list') { const z = s.market === 'us' ? D.momentumUs : D.momentum, run = z && z.state === 'running';
+    return [[z && z.sinceFill != null ? pcs(z.sinceFill / 100, 2) : '–', 'Since the book started'], [z ? (run ? z.heldCount : 30) : '–', run ? 'Stocks held' : 'Stocks planned'], [z?.nextReview ? mmm(z.nextReview) : cad, 'Next review'], s.market === 'us' ? ['Failed', 'Replay test (C-131)'] : [z?.replication ? fmt(z.replication.correlation, 2) : '–', "Match with NSE's index"]]; }
+  const sc = s.market === 'us' ? D.scan : D.scanIndia;
+  return [[sc ? sc.ready.length : '–', 'Ready tonight'], [sc ? sc.watch.length : '–', 'On the watch list'], [sc ? cap(sc.light) : '–', 'Market light'], ['Live', 'Sends real alerts']];
+}
+function stratHead(s) {
   const p = plainOf(s); if (!p) return '';
   const stt = stratState(s), live = s.status === 'live';
-  return `<section class="about"><div class="eyebrow">${esc(FAMS[p.fam][0])}</div><div class="ttl"><h2>${esc(s.name.replace(/ \(US\)$/, ''))}</h2><span class="pill ${live ? 'live' : 'run'}">${live ? 'Live: sends real alerts' : 'Paper only'}</span><span class="pill">${esc(stt)}</span></div><p class="lead">${esc(p.short)}</p><details class="abt"${window.innerWidth < 700 ? '' : ' open'}><summary>Full definition</summary><p class="what" style="margin-top:14px">${esc(p.what)}</p><div class="facts"><div class="fact"><b>When it trades</b><span>${esc(p.when)}</span></div><div class="fact"><b>Protection</b><span>${esc(p.stop)}</span></div><div class="fact"><b>Why we test it</b><span>${esc(p.why)}</span></div></div></details>${s.market === 'us' && !live ? `<p class="us">${US_NOTE}</p>` : ''}</section>`;
+  return `<div class="shead"><div class="eyebrow">${esc(FAMS[p.fam][0])}${s.rule ? ' · ' + esc(s.rule) : ''}</div><div class="stitle"><h2>${esc(s.name.replace(/ \(US\)$/, ''))}</h2><span class="pill ${live ? 'live' : ''}">${live ? 'Live: sends real alerts' : 'Paper only'}</span><span class="pill ${stateCls(stt)}">${esc(stt)}</span></div><p class="lead">${esc(p.short)}</p><button class="defbtn" data-def="1" aria-expanded="${defOpen}">${defOpen ? 'Hide definition' : 'Show full definition'}</button>${defOpen ? `<div class="defbox"><p class="what">${esc(p.what)}</p><div class="facts"><div class="fact"><b>When it trades</b><span>${esc(p.when)}</span></div><div class="fact"><b>Protection</b><span>${esc(p.stop)}</span></div><div class="fact"><b>Why we test it</b><span>${esc(p.why)}</span></div></div>${s.market === 'us' && !live ? `<p class="us">${US_NOTE}</p>` : ''}</div>` : ''}</div>`;
+}
+function scoresPage(m) {
+  const bs = (D.strategies || []).filter((x) => x.market === m && x.view === 'book_list' && bk(x.id)?.scorecard);
+  return `<div class="shead"><div class="eyebrow">Compare</div><div class="stitle"><h2>Scores: all strategies</h2></div><p class="lead">Every paper book side by side, each read against its own yardstick. Paper only; a US result alone adopts nothing.</p></div>
+  <div class="sbody">${bookCompare('', m)}${bs.length ? `<section class="scoreslist"><h3 class="ttl">Detail by strategy</h3><p class="note" style="margin:0 0 6px">Open one for confidence, the stop line, drawdown and the reported comparison lines.</p>${bs.map((x) => `<details class="fold"><summary>${esc(x.name)} · ${esc(x.rule)} · ${x.market === 'us' ? 'US' : 'India'}</summary>${bookScoreCard(x, bk(x.id))}</details>`).join('')}</section>` : ''}</div>`;
 }
 function stratList(m, cur) {
   const list = (D.strategies || []).filter((x) => x.market === m);
-  return FAMS.map(([fn, fd], fi) => { const items = list.filter((x) => plainOf(x)?.fam === fi); if (!items.length) return '';
-    return `<div class="sfam"><h3 title="${esc(fd)}">${esc(fn)}</h3>${items.map((x) => `<button class="sitem${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name.replace(/ \(US\)$/, ''))}</span><span class="st ${/^Running/.test(stratState(x)) ? 'run' : /ready/.test(stratState(x)) ? 'rdy' : ''}">${esc(stratState(x))}</span></button>`).join('')}</div>`; }).join('')
+  return `<div class="sfam"><h3>Compare</h3><button class="sitem${scoresView ? ' on' : ''}" data-scores="1" aria-pressed="${scoresView}"><span class="n">Scores: all strategies</span></button></div>` + FAMS.map(([fn, fd], fi) => { const items = list.filter((x) => plainOf(x)?.fam === fi); if (!items.length) return '';
+    return `<div class="sfam"><h3 title="${esc(fd)}">${esc(fn)}</h3>${items.map((x) => `<button class="sitem${!scoresView && x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${!scoresView && x.id === cur.id}"><span class="n">${esc(x.name.replace(/ \(US\)$/, ''))}</span><span class="st ${stateCls(stratState(x))}">${esc(stratState(x))}</span></button>`).join('')}</div>`; }).join('')
     + `<details class="fold"><summary>How paper tests are judged</summary><p class="note">Every paper test is a simulated book that starts at 100. Signals are taken at a close and filled at the next day\'s open, with trading costs deducted. Each book is compared with one named yardstick, usually the same momentum portfolio without the idea being tested. A confidence figure says how likely the idea\'s edge beats its extra cost; it starts at 50% and moves only with results. No paper test trades real money, and nothing is adopted until you mark it Live, Adopted, Rejected or Parked.</p></details>`;
 }
 // One page for every scan and paper test: market, a grouped list, what the chosen rule is in plain words, then its stock list or paper test.
 function shell(kind, body) {
   const m = kind === 'scan' ? scanMkt : paperMkt, cur = curStrat(m);
   const mk = `<div class="chips" role="group" aria-label="Market">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${m === k}">${l}</button>`).join('')}</div>`;
-  const seg = `<div class="chips seg" role="group" aria-label="View">${[['scan', 'Stock list'], ['paper', 'Paper test']].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${kind === k}">${l}</button>`).join('')}</div>`;
-  return `<div class="stratbar">${mk}<button class="chip-btn pick" data-stratopen="1" aria-expanded="${stratOpen}">${stratOpen ? 'Hide list' : 'All strategies: ' + esc(cur.name.replace(/ \(US\)$/, ''))}</button></div>
-  <div class="stratgrid"><aside class="stratlist${stratOpen ? ' open' : ''}" aria-label="Strategies">${stratList(m, cur)}</aside><div class="stratmain" style="min-width:0">${aboutPanel(cur)}${seg}${body}</div></div>`;
+  const seg = `<div class="viewrow"><div class="chips seg" role="group" aria-label="View">${[['scan', 'Stock list'], ['paper', 'Paper test']].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${kind === k}">${l}</button>`).join('')}</div><button class="lnk" data-scores="1">Compare scores of all strategies</button></div>`;
+  const main = scoresView ? scoresPage() : `${stratHead(cur)}<div class="kpis">${kpis(cur).map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join('')}</div>${seg}<div class="sbody">${body}</div>`;
+  return `<div class="stratbar">${mk}<button class="chip-btn pick" data-stratopen="1" aria-expanded="${stratOpen}">${stratOpen ? 'Hide list' : scoresView ? 'All strategies: Scores' : 'All strategies: ' + esc(cur.name.replace(/ \(US\)$/, ''))}</button></div>
+  <div class="stratgrid"><aside class="stratlist${stratOpen ? ' open' : ''}" aria-label="Strategies">${stratList(m, cur)}</aside><div class="stratmain" style="min-width:0">${main}</div></div>`;
 }
 const pcs = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
 function momRows(z) { return z.rows.filter((r) => ['Held', 'In buffer', 'Would leave', 'Preview'].includes(r.status)).sort((a, b) => (b.weightNow ?? b.weightTarget ?? 0) - (a.weightNow ?? a.weightTarget ?? 0)); }
@@ -573,9 +600,7 @@ function viewMomentumScan(m = 'in') {
   const stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`;
   const whenStart = run ? '' : z.pending ? `<p class="note">The signal was made on ${esc(dmy(z.pending.signalDate))}. The simulated purchase happens at the next close.</p>` : `<p class="note">The book starts on the first session after ${esc(dmy(z.startAfter))}: the signal is taken at that close and filled at the next close. Below is tonight's ranking as a preview.</p>`;
   const stCol = (st) => (st === 'Would leave' ? 'var(--red)' : st === 'Would enter' ? 'var(--green)' : 'var(--muted)');
-  return `<h2 class="big">Momentum sleeve</h2>
-  <p class="note" style="margin:8px 0 0;max-width:62ch">The 30 strongest trends among the 200 most traded ${us ? 'US' : ''} stocks. The ranking updates every night, but the book itself changes only twice a year, on the first session of June and December${z.nextReview ? ` (next: ${esc(mmm(z.nextReview))}${(() => { const dd = Math.round((Date.parse(z.nextReview + '-01') - Date.parse(z.asOf)) / 864e5); return dd > 0 ? `, in about ${dd} days` : ''; })()})` : ''}. It is not re-ranked every 30 days: 30 is the number of stocks. A monthly version is being tested beside it (C-151). Paper only: no orders and no alerts come from it.${us ? ' Comparison only: the replay of this method on US stocks failed its registered test (C-131), so this book is kept to compare with the India sleeve and SPY, not to follow.' : ''}</p>
-  <dl class="kv">${stat(run ? z.heldCount : '30', run ? 'stocks held' : 'stocks planned')}${stat(esc(mmm(z.nextReview)), 'next review')}${us ? stat('Failed', 'replay test C-131, flattered data') : stat(fmt(z.replication.correlation, 2), "match with NSE's index in the replay")}${stat(z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 1), 'since the paper book started')}</dl>
+  return `${us ? '<p class="note" style="max-width:70ch">Comparison only: the replay of this method on US stocks failed its registered test (C-131), so this book is kept to compare with the India sleeve and SPY, not to follow.</p>' : ''}
   ${whenStart}
   <section style="margin-top:36px"><div class="row" style="justify-content:space-between;align-items:baseline"><h3 class="ttl">${run ? 'Current holdings' : 'Preview of the first 30'}</h3><span class="note">${momAll ? 'all ' + rows.length : 'top ' + shown.length + ' of ' + rows.length}, by weight · data ${esc(z.asOf)}</span></div>
   <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Stock</th><th style="min-width:170px">Weight</th><th>Status</th><th class="num">6 months</th><th class="num">12 months</th></tr></thead><tbody>${shown.map((r) => { const w = r.weightNow ?? r.weightTarget ?? 0; return `<tr><td><b>${esc(r.sym)}</b>${r.name ? `<div class="note nm">${esc(r.name)}</div>` : ''}</td><td><div class="row" style="flex-wrap:nowrap;gap:12px"><div class="mbar"><i style="width:${Math.round(w / mx * 100)}%"></i></div><span class="num" style="min-width:48px">${fmt(w * 100, 1)}%</span></div></td><td style="color:${stCol(r.status)}">${esc(r.status)}</td><td class="num">${pcs(r.r6, 0)}</td><td class="num">${pcs(r.r12, 0)}</td></tr>`; }).join('')}</tbody></table></div>
@@ -601,8 +626,7 @@ function viewMomentumPaper(m = 'in') {
   const mo = (m) => { const d = new Date((last?.fillDate || z.lastBuild || s.startAfter) + 'T00:00:00Z'); d.setUTCMonth(d.getUTCMonth() + m); return d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }); };
   const item = (t, how, st) => `<div class="row" style="justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)"><div style="flex:1 1 320px"><div>${t}</div><div class="note">${how}</div></div><div class="note">${st}</div></div>`;
   const rtab = rv.length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Review</th><th class="num">Stocks</th><th class="num">In</th><th class="num">Out</th><th class="num">Turnover</th><th class="num">Cost</th></tr></thead><tbody>${rv.map((r) => `<tr><td>${esc(dmy(r.fillDate))}</td><td class="num">${r.count}</td><td class="num">${r.entered.length}</td><td class="num">${r.left.length}</td><td class="num">${rv[0] === r ? 'first build' : fmt(r.turnoverPct, 1) + '%'}</td><td class="num">${fmt(r.costPct, 2)}%</td></tr>`).join('')}</tbody></table></div>` : '';
-  return `<h2 class="big">Momentum sleeve, on paper</h2>
-  <p class="note" style="margin:8px 0 0;max-width:62ch">Simulated trades with trading costs included. Not for placing: no real orders. ${us ? 'Kept for comparison with the India sleeve and SPY; it has no pass rule.' : 'It is judged on whether it is built correctly, not on beating the market this year.'}</p>
+  return `
   <section style="margin-top:32px">${board}<p class="note" style="margin-top:12px;max-width:70ch">The sleeve pays trading costs (about ${us ? '0.3' : '0.7'}% a year in the replay) and the index does not, so it starts behind. ${us ? 'SPY and QQQ are price only, as the sleeve is.' : 'The fund line, when added, is after its expenses; the dividend adjustment is stated beside it.'}</p></section>
   ${(() => { if (!run) return ''; const cur = us ? '$' : '₹', hold = (z.rows || []).filter((r) => typeof r.weightNow === 'number' && r.weightNow > 0).sort((x, y) => y.weightNow - x.weightNow); if (!hold.length) return ''; const known = hold.filter((r) => typeof r.sinceEntry === 'number'), up = known.filter((r) => r.sinceEntry > 0).length, best = [...known].sort((x, y) => y.sinceEntry - x.sinceEntry), p = (v) => (typeof v === 'number' ? sgn(v * 100, 1, '%') : '–'), px = (v) => (typeof v === 'number' ? cur + fmt(v, 2) : '–'); return `<section style="margin-top:40px"><h3 class="ttl">What it holds</h3>
   <p class="note" style="margin:6px 0 0;max-width:70ch">${hold.length} stocks, bought at the open on ${esc(dmy(last?.fillDate || z.lastBuild))}. Since then the book is ${z.sinceFill === null ? '–' : pcs(z.sinceFill / 100, 2)}, after the trading cost of buying.${known.length ? ` ${up} of ${known.length} stocks are above their buy price${best.length > 1 ? `; best ${esc(best[0].sym)} ${p(best[0].sinceEntry)}, weakest ${esc(best.at(-1).sym)} ${p(best.at(-1).sinceEntry)}` : ''}.` : ''}</p>
@@ -649,19 +673,15 @@ const BOOKTXT = {
 };
 const bk = (id) => D.books?.by?.[id] || null, pc = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
 const confTxt = (r) => (r.confidence === null || r.confidence === undefined ? '–' : Math.round(r.confidence * 100) + '%');
-function bookCompare(cur) {
-  const rows = D.books?.rows || []; if (!rows.length) return '';
+function bookCompare(cur, mk) {
+  const rows = (D.books?.rows || []).filter((r) => !mk || (r.market === 'US') === (mk === 'us')); if (!rows.length) return '';
   const kc = (k) => (k === 'Kill' ? 'var(--red)' : k === 'Watch' ? 'var(--amber, #b7791f)' : 'var(--muted)');
-  return `<section style="margin-top:28px"><h3 class="ttl">All first-wave books, India and US</h3>
+  return `<section style="margin-top:28px"><h3 class="ttl">${mk ? (mk === 'us' ? 'US books' : 'India books') : 'All first-wave books'}</h3>
   <p class="note" style="margin:6px 0 0;max-width:70ch">Each book is read against its own comparator, shown in the second column. Confidence is the chance the book's true edge over that comparator is larger than its extra trading cost; it starts at 50%, moves with profit and not with time, and is only a reading aid (India decides; a US result alone adopts nothing): you decide Live, Adopted, Rejected or Parked. Paper only.</p>
   <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Book</th><th>Market</th><th>Against</th><th class="num">Months</th><th class="num">Since start</th><th class="num">Ahead of it</th><th class="num">Confidence</th><th>Line</th></tr></thead><tbody>${rows.map((r) => `<tr${r.id === cur ? ' style="background:var(--soft, rgba(127,127,127,.08))"' : ''}><td><button class="lnk" data-bg="paper:${esc(r.id)}">${esc(r.name)}</button><div class="note nm">${esc(r.rule)}</div></td><td class="note">${esc(r.market || 'India')}</td><td class="note">${esc(r.comparator || '')}</td><td class="num">${r.months || 0}</td><td class="num">${r.started ? pc(r.sinceStart?.book) : '–'}</td><td class="num">${pc(r.sinceStart?.excess)}</td><td class="num">${r.started ? confTxt(r) : '–'}</td><td style="color:${kc(r.kill)}">${r.started ? esc(r.kill || 'Continue') : 'Not started'}</td></tr>`).join('')}</tbody></table></div></section>`;
 }
-function viewBookPaper(s) {
-  const b = bk(s.id), sc = b?.scorecard;
-  const head = `<h2 class="big">${esc(s.name)}, on paper</h2><p class="note" style="margin:8px 0 0;max-width:62ch">Rule ${esc(s.rule)}. Simulated trades with trading costs included; no orders, no alerts.</p>`;
-  if (!b) return head + `<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written this book yet.</div></section>` + bookCompare(s.id);
-  const run = b.state === 'running', stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`, since = run && b.value ? b.value / 100 - 1 : null;
-  const state = run ? '' : b.state === 'pending fill' ? `<p class="note">The first signal was taken on ${esc(dmy(b.pending?.signalDate))}; the simulated purchase happens at the next open.</p>` : `<p class="note">Not started. The first signal is taken at the first session close after ${esc(dmy(b.startAfter))} and filled at the next open.</p>`;
+function bookScoreCard(s, b) {
+  const sc = b?.scorecard, stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`;
   const lastL = (b.lines || []).at(-1) || {}, ln = (k, l) => `<tr><td>${l}</td><td class="num">${typeof lastL[k] === 'number' ? sgn(lastL[k] - 100, 1, '%') : '–'}</td></tr>`;
   const kill = sc ? sc.kill.lines.map((l) => `<li style="color:${l.hit ? 'var(--red)' : 'inherit'}"><b>${esc(l.name)}</b>: ${esc(l.detail)}${l.hit ? ' (hit)' : ''}</li>`).join('') : '';
   const card = !sc ? '<p class="note">No monthly read yet. The first read is at the first month-end after the book starts.</p>' : `<dl class="kv">${stat(sc.months < 3 ? '50%' : Math.round(sc.confidence.confidence * 100) + '%', sc.months < 3 ? 'confidence (needs 3 reads of evidence)' : 'confidence')}${stat(esc(sc.kill.status), 'kill line')}${stat(pc(sc.sinceStart.book), 'book since start')}${stat(pc(sc.sinceStart.comp), esc(b.comparator.name))}${stat(pc(sc.sinceStart.excess), 'ahead of comparator')}${stat(pc(sc.excessLastMonth), 'last month')}</dl>
@@ -669,17 +689,23 @@ function viewBookPaper(s) {
     <ul style="margin:10px 0 0;padding-left:18px;font-size:13px;line-height:1.5">${kill}</ul>
     <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Reported lines since the first month-end</th><th class="num">Return</th></tr></thead><tbody>${ln('book', 'This book')}${b.market === 'US' ? ln('spy', 'SPY (price only)') + ln('qqq', 'QQQ (price only)') + ln('twin', 'Monthly momentum twin (C-151)') + ln('mtum', 'MTUM (price only)') : ln('n200', 'Nifty 200') + ln('n500', 'Nifty 500') + ln('twin', 'Monthly momentum twin (C-151)') + ln('fund', 'Momentum 30 index fund')}</tbody></table></div>
     <p class="note" style="margin:10px 0 0">Own drawdown ${pc(sc.drawdown)}; drawdown against the comparator ${pc(sc.relDrawdown)}; trailing 6 months ${pc(sc.trailing6)} against the comparator.</p>${b.riskReturn ? `<p class="note" style="margin:6px 0 0">Return per unit of volatility (a year of daily returns, annualised; ${b.riskReturn.book.n} days so far): this book ${b.riskReturn.book.ratio?.toFixed(2) ?? '–'} (return ${pc(b.riskReturn.book.ret, 1)}, volatility ${pc(b.riskReturn.book.vol, 1)}) against the stopped parent ${b.riskReturn.parent.ratio?.toFixed(2) ?? '–'} (return ${pc(b.riskReturn.parent.ret, 1)}, volatility ${pc(b.riskReturn.parent.vol, 1)}). This is what the overlay is meant to improve; it is shown for reading and takes no part in any rule.</p>` : (b.exposure !== undefined ? '<p class="note" style="margin:6px 0 0">Return per unit of volatility appears after 60 daily returns.</p>' : '')}`;
-  return head + `<section style="margin-top:20px">${state}<dl class="kv">${stat(run ? pc(since, 2) : '–', 'since the book started')}${stat(b.held, 'stocks held')}${stat(typeof b.cashShare === 'number' ? Math.round(b.cashShare * 100) + '%' : '–', 'in cash')}${stat(b.closedTrades + ' / ' + b.stopOuts, 'closed trades / stop-outs')}</dl>
-  <p style="margin:14px 0 0"><button class="lnk" data-bg="scan:${esc(s.id)}">Open the stock list for this rule</button></p></section>
-  ${bookCompare(s.id)}
-  <section style="margin-top:28px"><details class="fold"><summary>Scorecard: ${esc(s.name)} (${esc(s.rule)})</summary>${card}
+  return card;
+}
+function viewBookPaper(s) {
+  const b = bk(s.id), sc = b?.scorecard;
+  const head = '';
+  if (!b) return head + `<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written this book yet.</div></section>`;
+  const run = b.state === 'running', stat = (v, l) => `<div><dd>${v}</dd><dt>${l}</dt></div>`, since = run && b.value ? b.value / 100 - 1 : null;
+  const state = run ? '' : b.state === 'pending fill' ? `<p class="note">The first signal was taken on ${esc(dmy(b.pending?.signalDate))}; the simulated purchase happens at the next open.</p>` : `<p class="note">Not started. The first signal is taken at the first session close after ${esc(dmy(b.startAfter))} and filled at the next open.</p>`;
+  const yard = sc && typeof sc.sinceStart?.book === 'number' && typeof sc.sinceStart?.comp === 'number' ? `<p class="note" style="margin:0 0 14px">Against its yardstick (${esc(b.comparator.name)}): book ${pc(sc.sinceStart.book)}, yardstick ${pc(sc.sinceStart.comp)}, so ${pc(sc.sinceStart.excess)} ahead. <button class="lnk" data-scores="1">Full scores</button></p>` : `<p class="note" style="margin:0 0 14px">No monthly score yet: the first is at the first month-end after the book starts. <button class="lnk" data-scores="1">All scores</button></p>`;
+  return head + state + `<section style="margin-top:20px">${yard}
   <details class="fold"><summary>Costs, cash and the slippage sensitivity</summary><p class="note">Costs are the registered tier costs. ${b.market === 'US' ? `${esc(b.costNote || '')} Cash earns the 3-month Treasury yield (${esc(b.cashSource || '')}); ${b.cashCarried || 0} night(s) used the latest earlier figure and ${b.cashDays?.missing || 0} had none and earned zero (${b.cashDays?.credited || 0} credited).` : b.cashDays ? `Cash earns the HDFC Liquid Fund rate; ${b.cashDays.missing || 0} night(s) had no NAV and earned zero (${b.cashDays.credited || 0} credited).` : 'This book is the sleeve code, which holds almost no cash; no cash credit is applied.'} ${b.perTradeNote ? esc(b.perTradeNote) : ''} ${b.valueSens ? `With a further 0.2% a round trip the book would stand at ${fmt(b.valueSens, 2)} against ${fmt(b.value, 2)}: a sensitivity, not a result, and it never changes the kill line.` : ''} ${b.skippedWide ? `${b.skippedWide} signal(s) were passed over because the stop would be wider than 8%.` : ''}</p></details>
-  ${(b.positions || []).length ? `<details class="fold"><summary>What it holds (${b.positions.length})</summary><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Stock</th><th class="num">Bought</th><th class="num">Now</th><th class="num">Since bought</th><th class="num">Stop</th></tr></thead><tbody>${b.positions.map((h) => `<tr><td><b>${esc(h.sym)}</b>${h.name ? `<div class="note nm">${esc(h.name)}</div>` : ''}</td><td class="num">${fmt(h.entry, 2)}</td><td class="num">${fmt(h.last, 2)}</td><td class="num">${pc(h.sinceEntry)}</td><td class="num">${fmt(h.stop * 100, 1)}%</td></tr>`).join('')}</tbody></table></div></details>` : ''}
+  ${(b.positions || []).length ? `<details class="fold" open><summary>What it holds (${b.positions.length})</summary><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Stock</th><th class="num">Bought</th><th class="num">Now</th><th class="num">Since bought</th><th class="num">Stop</th></tr></thead><tbody>${b.positions.map((h) => `<tr><td><b>${esc(h.sym)}</b>${h.name ? `<div class="note nm">${esc(h.name)}</div>` : ''}</td><td class="num">${fmt(h.entry, 2)}</td><td class="num">${fmt(h.last, 2)}</td><td class="num">${pc(h.sinceEntry)}</td><td class="num">${fmt(h.stop * 100, 1)}%</td></tr>`).join('')}</tbody></table></div></details>` : ''}
   ${b.market === 'US' ? `<details class="fold"><summary>Corporate events (${(b.gapEvents || []).length} listed, ${(b.blockedNow || []).length} blocked now)</summary><p class="note">Bars are split-adjusted only. A confirmed distribution is credited before the stop is tested; a stop-out after an unconfirmed fall of 15% or more is listed; a one-day move that matches a split ratio blocks the name until it is resolved (C-179 item 9). A list for you, not a decision input.</p>${(b.gapEvents || []).length ? `<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Date</th><th>Stock</th><th>What</th><th class="num">Move</th><th>State</th></tr></thead><tbody>${b.gapEvents.map((g) => `<tr><td>${esc(dmy(g.date))}</td><td><b>${esc(g.sym)}</b></td><td>${esc(g.kind)}</td><td class="num">${pc(g.move, 0)}</td><td class="note">${esc(g.state)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="note">None so far.</p>'}</details>` : ''}
-  <p class="note" style="margin:12px 0 0">Data ${esc(b.asOf)}. Paper only; not a financial adviser.</p></details></section>`;
+  <p class="note" style="margin:12px 0 0">Data ${esc(b.asOf)}. Paper only; not a financial adviser.</p></section>`;
 }
 function viewBookScan(s) {
-  const b = bk(s.id), head = `<h2 class="big">${esc(s.name)}</h2><p class="note" style="margin:8px 0 0;max-width:62ch">Rule ${esc(s.rule)}. Paper only: no orders and no alerts come from it.</p>`;
+  const b = bk(s.id), head = '';
   if (!b) return head + '<section class="card" style="margin-top:20px"><div class="empty">The nightly job has not written a list yet.</div></section>';
   const w = b.watch || [], cnt = (st) => w.filter((r) => r.status === st).length, stCol = (st) => (/Exit|leave|too wide/.test(st) ? 'var(--red)' : /enter|buy|Breakout$/.test(st) ? 'var(--green)' : 'var(--muted)');
   const kind = w.some((r) => 'high55' in r) ? 'don' : w.some((r) => 'value' in r) ? 'tom' : 'rank', hi = /high52/.test(s.id), zs = b.scoreKind === 'zscore';
@@ -690,8 +716,8 @@ function viewBookScan(s) {
     return `<td class="num">${r.rank ?? '–'}</td>` + nm + st + `<td class="num">${zs ? (typeof r.score === 'number' ? fmt(r.score, 2) : '–') : hi ? (typeof r.score === 'number' ? fmt(r.score * 100, 1) + '%' : '–') : pc(r.score, 0)}</td>`; };
   const sum = kind === 'don' ? `${cnt('Breakout')} breaking out tonight, ${cnt('Exit tonight')} to exit, ${cnt('Held')} held, ${cnt('Near high')} within 2% of the high` : kind === 'tom' ? (b.nextEntry ? `Next entry: close of ${esc(dmy(b.nextEntry))}. ` : '') + `${cnt('Held')} held` : `${cnt('Held') + cnt('In buffer')} held, ${cnt('Would enter')} would enter, ${cnt('Would leave')} would leave`;
   return head + `<section style="margin-top:20px"><p class="note" style="margin:0">${sum} · data ${esc(b.asOf)}${b.state === 'running' ? '' : ' · book not started: this is a preview of tonight\'s list'}.</p>
-  <p style="margin:12px 0 0"><button class="lnk" data-bg="paper:${esc(s.id)}">Open the scorecard for this rule</button></p></section>
-  <section style="margin-top:20px"><details class="fold"><summary>Stock list (${w.length} names)</summary><div class="tablewrap" style="margin-top:12px"><table><thead><tr>${cols.map((c) => `<th${/Rank|high|To high|low|width|Close/.test(c) ? ' class="num"' : ''}>${c}</th>`).join('')}</tr></thead><tbody>${w.map((r) => `<tr>${cell(r)}</tr>`).join('')}</tbody></table></div>
+</section>
+  <section style="margin-top:20px"><details class="fold" open><summary>Stock list (${w.length} names)</summary><div class="tablewrap" style="margin-top:12px"><table><thead><tr>${cols.map((c) => `<th${/Rank|high|To high|low|width|Close/.test(c) ? ' class="num"' : ''}>${c}</th>`).join('')}</tr></thead><tbody>${w.map((r) => `<tr>${cell(r)}</tr>`).join('')}</tbody></table></div>
   <p class="note" style="margin:10px 0 0">Prices are price only. The list refreshes every night; the book only changes when the rule says so.</p></details></section>`;
 }
 
@@ -1037,9 +1063,11 @@ document.addEventListener('click', (e) => {
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : (['name', 'rank', 'rk', 'n'].includes(key) ? 1 : -1); s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
-  if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scoresView = false; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.stratopen) { stratOpen = !stratOpen; return render(); }
-  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; stratOpen = false; window.scrollTo(0, 0); return render(); }
+  if (t.dataset.def) { defOpen = !defOpen; return render(); }
+  if (t.dataset.scores) { scoresView = true; stratOpen = false; if (groupOf(tab) !== 'strat') tab = 'scan'; window.scrollTo(0, 0); return render(); }
+  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; scoresView = false; stratOpen = false; window.scrollTo(0, 0); return render(); }
   if (t.dataset.momall) { momAll = !momAll; return render(); }
   if (t.dataset.sm) { scanMkt = paperMkt = t.dataset.sm; return render(); }
   if (t.dataset.pm) { scanMkt = paperMkt = t.dataset.pm; return render(); }
