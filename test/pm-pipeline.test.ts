@@ -162,3 +162,18 @@ test('pipeline: a typed correction changes how a stock is taxed, and a fund type
   const gold = runPipeline(trades, 'zerodha', data, {}, {}, { INE000A01011: 'gold_silver_etf' });
   assert.ok(gold.tax.some((y) => y.slabGains !== 0 || y.other.ltcgTaxable > 0 || y.other.stcg !== 0), 'treated as a gold ETF, the gain is outside the equity pool');
 });
+
+test('pipeline: each holding gets its own flows, month-end values and an XIRR trend; the last value equals the held value', async () => {
+  const { xirrTrend } = await import('../src/pm/holdingxirr.ts');
+  const dates: string[] = []; for (let d = Date.parse('2024-06-01'); d <= Date.parse('2026-10-13'); d += 86400000) { const x = new Date(d); if (![0, 6].includes(x.getUTCDay())) dates.push(x.toISOString().slice(0, 10)); }
+  const px = dates.map((x) => 100 + (Date.parse(x) - Date.parse('2024-06-01')) / 86400000 * 0.1);   // steady climb
+  const ph = { dates, px: { ABC: px as (number | null)[] } };
+  const last = px[px.length - 1];
+  const r = runPipeline([[t('buy', 10, 100, '2024-06-03', '1')]], 'zerodha', { ...data, priceHistory: ph, prices: { ABC: last } } as any);
+  const n = r.holdings[0].name, part = r.holdingXirr[n];
+  assert.ok(part && part.flows.length === 1 && part.flows[0].amount < -999);
+  assert.equal(r.xirrDates.at(-1), '2026-10-13'); assert.equal(part.values['2026-10-13'], Math.round(10 * last * 100) / 100);
+  const tr = xirrTrend([part], r.xirrDates);
+  assert.ok(tr.now !== null && tr.now > 0 && tr.points.length === 13);
+  assert.ok(Math.abs(tr.now! - r.performance.xirrPriceOnly!) < 0.01, 'one holding: same XIRR as the account figure');
+});

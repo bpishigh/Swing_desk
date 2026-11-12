@@ -12,6 +12,7 @@ import { computeDividends,                   } from './dividends.js';
 import { FundMaster, fundTaxType,              } from './funds.js';
 import { assetClassOf,                 } from './assetclass.js';
 import { replay } from './ledger.js';
+import { monthEnds, valuesByName, HX,                      } from './holdingxirr.js';
 import { performance,                      } from './performance.js';
 import { inferBooks, bookTotals, attributeSales,                             } from './books.js';
 import { buildTrades,                           } from './swingjournal.js';
@@ -37,6 +38,8 @@ export const ELSS_MARGIN_DAYS = 5;
                      
                                                                                                                                                                   
                                                                        
+                                                                                                                                                                       
+                                                                    
                                                                                                                                                                                                                                                                                        
                                                                                                                                 
                       
@@ -210,6 +213,27 @@ export function runPipeline(batches           , broker                     , d  
     };
     series = valuationSeries([...stocks, ...(d.navHistory ? fundTrades : [])], res.events, dates, price);
   }
+  // XIRR for each holding and its month-end trend (src/pm/holdingxirr.ts). Flows carry the same charges as the account XIRR; a holding whose cost came from a demerger has no buy of its own and gets none.
+  const holdingXirr                                  = {}; let xirrDates           = [];
+  {
+    const nameOfKey = (k        ) => nameByKey.get(k) ?? k, part = (n        ) => holdingXirr[n] ?? (holdingXirr[n] = { flows: [], divs: [], values: {} });
+    for (const t of stocks) part(nameOfKey(keyOfT(t))).flows.push({ date: t.date, amount: t.side === 'buy' ? -(t.value + ch(t)) : t.value - ch(t) });
+    for (const t of fundTrades) part(nameOfKey(keyOfT(t))).flows.push({ date: t.date, amount: t.side === 'buy' ? -t.value : t.value });
+    for (const e of res.events) if (e.type === 'grant' && e.unitCost > 0) part(nameOfKey(e.key)).flows.push({ date: e.date, amount: -(e.qty * e.unitCost) });
+    for (const y of dividends) for (const l of y.lines) part(nameOfKey(l.key)).divs.push({ date: l.exDate, amount: l.net });
+    const ph = d.priceHistory, nav = d.navHistory ?? {};
+    const sessions = ph ? ph.dates : [];
+    xirrDates = sessions.length ? monthEnds(sessions, HX.months) : [d.pricesAsOf];
+    const lastLe = (a          , x        ) => { let lo = 0, hi = a.length - 1, best = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (a[m] <= x) { best = m; lo = m + 1; } else hi = m - 1; } return best; };
+    const navKeys = new Map                  (); for (const [k, m] of Object.entries(nav)) navKeys.set(k, Object.keys(m).sort());
+    const priceAt = (key        , date        )                     => {
+      if (isFundType(typeByKey.get(key))) { const m = nav[key], ds = navKeys.get(key); if (!m || !ds) return undefined; const i = lastLe(ds, date); return i < 0 ? undefined : m[ds[i]]; }
+      const arr = ph?.px[symOf.get(key) ?? '']; if (!arr || !ph) return undefined; const i = lastLe(ph.dates, date); return i < 0 ? undefined : arr[i] ?? undefined;
+    };
+    const vals = valuesByName([...stocks, ...(d.navHistory ? fundTrades : [])], res.events, xirrDates, priceAt, nameOfKey);
+    for (const [n, v] of vals) part(n).values = v;
+    for (const n of Object.keys(holdingXirr)) if (!holdingXirr[n].flows.length) delete holdingXirr[n];
+  }
   const warnings           = [];
   const zero = stocks.filter((t) => t.value === 0);
   if (absorbed.length) warnings.push(`Your broker showed free shares from a demerger (${absorbed.join('; ')}). The demerger is already counted from public records, with the cost moved over from the original company, so the broker's free credit was ignored to avoid counting it twice.`);
@@ -225,6 +249,6 @@ export function runPipeline(batches           , broker                     , d  
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, cgRows: cg, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
+    holdingXirr, xirrDates, books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }

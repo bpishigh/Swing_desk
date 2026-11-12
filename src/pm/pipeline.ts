@@ -12,6 +12,7 @@ import { computeDividends, type DividendYear } from './dividends.ts';
 import { FundMaster, fundTaxType, type AmfiRow } from './funds.ts';
 import { assetClassOf, type AssetClass } from './assetclass.ts';
 import { replay } from './ledger.ts';
+import { monthEnds, valuesByName, HX, type HoldingXirrPart } from './holdingxirr.ts';
 import { performance, type Perf, type Flow } from './performance.ts';
 import { inferBooks, bookTotals, attributeSales, type SaleGroup, type Tagged } from './books.ts';
 import { buildTrades, type HistLot, type JTrade } from './swingjournal.ts';
@@ -37,6 +38,8 @@ export interface Report {
   warnings: string[];
   tax: TaxYear[]; cgRows: CgRow[]; dividends: DividendYear[]; performance: Perf & { realised: number; unrealised: number; costOpen: number; notValued: string[] };
   books: Record<string, { cost: number; value: number; lots: number }>;
+  /** Per holding name: its dated cash flows, dividends and its value on month-ends, so XIRR and its trend can be worked out here or after adding accounts together. */
+  holdingXirr: Record<string, HoldingXirrPart>; xirrDates: string[];
   holdings: { name: string; symbol: string; isin?: string; kind: 'Stock' | 'ETF' | 'Fund'; book: string; qty: number; cost: number; value: number | null; price: number | null; category?: string; assetClass?: AssetClass | null; locked?: number; type?: string; fixKey?: string }[];
   saleProposals: { key: string; name: string; date: string; qty: number; price: number; swingDate: string; swingQty: number }[];
   swingGaps: string[];
@@ -210,6 +213,27 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
     };
     series = valuationSeries([...stocks, ...(d.navHistory ? fundTrades : [])], res.events, dates, price);
   }
+  // XIRR for each holding and its month-end trend (src/pm/holdingxirr.ts). Flows carry the same charges as the account XIRR; a holding whose cost came from a demerger has no buy of its own and gets none.
+  const holdingXirr: Record<string, HoldingXirrPart> = {}; let xirrDates: string[] = [];
+  {
+    const nameOfKey = (k: string) => nameByKey.get(k) ?? k, part = (n: string) => holdingXirr[n] ?? (holdingXirr[n] = { flows: [], divs: [], values: {} });
+    for (const t of stocks) part(nameOfKey(keyOfT(t))).flows.push({ date: t.date, amount: t.side === 'buy' ? -(t.value + ch(t)) : t.value - ch(t) });
+    for (const t of fundTrades) part(nameOfKey(keyOfT(t))).flows.push({ date: t.date, amount: t.side === 'buy' ? -t.value : t.value });
+    for (const e of res.events) if (e.type === 'grant' && e.unitCost > 0) part(nameOfKey(e.key)).flows.push({ date: e.date, amount: -(e.qty * e.unitCost) });
+    for (const y of dividends) for (const l of y.lines) part(nameOfKey(l.key)).divs.push({ date: l.exDate, amount: l.net });
+    const ph = d.priceHistory, nav = d.navHistory ?? {};
+    const sessions = ph ? ph.dates : [];
+    xirrDates = sessions.length ? monthEnds(sessions, HX.months) : [d.pricesAsOf];
+    const lastLe = (a: string[], x: string) => { let lo = 0, hi = a.length - 1, best = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (a[m] <= x) { best = m; lo = m + 1; } else hi = m - 1; } return best; };
+    const navKeys = new Map<string, string[]>(); for (const [k, m] of Object.entries(nav)) navKeys.set(k, Object.keys(m).sort());
+    const priceAt = (key: string, date: string): number | undefined => {
+      if (isFundType(typeByKey.get(key))) { const m = nav[key], ds = navKeys.get(key); if (!m || !ds) return undefined; const i = lastLe(ds, date); return i < 0 ? undefined : m[ds[i]]; }
+      const arr = ph?.px[symOf.get(key) ?? '']; if (!arr || !ph) return undefined; const i = lastLe(ph.dates, date); return i < 0 ? undefined : arr[i] ?? undefined;
+    };
+    const vals = valuesByName([...stocks, ...(d.navHistory ? fundTrades : [])], res.events, xirrDates, priceAt, nameOfKey);
+    for (const [n, v] of vals) part(n).values = v;
+    for (const n of Object.keys(holdingXirr)) if (!holdingXirr[n].flows.length) delete holdingXirr[n];
+  }
   const warnings: string[] = [];
   const zero = stocks.filter((t) => t.value === 0);
   if (absorbed.length) warnings.push(`Your broker showed free shares from a demerger (${absorbed.join('; ')}). The demerger is already counted from public records, with the cost moved over from the original company, so the broker's free credit was ignored to avoid counting it twice.`);
@@ -225,6 +249,6 @@ export function runPipeline(batches: Trade[][], broker: 'groww' | 'zerodha', d: 
     flows: ords.map((o) => ({ date: o.date, amount: o.side === 'buy' ? -(o.value + (o.charges ?? 0)) : o.value - (o.charges ?? 0) })),
     divFlows: dividends.flatMap((y) => y.lines.map((l) => ({ date: l.exDate, amount: l.net }))),
     warnings, tax, cgRows: cg, dividends, performance: { ...perf, realised, unrealised: heldValue - costOpen, costOpen, notValued },
-    books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
+    holdingXirr, xirrDates, books: bt, swingProposals, saleProposals, swingGaps, journal, journalSkipped: [...skipped], history, openLots, holdings: holdings.sort((a, b) => (b.value ?? 0) - (a.value ?? 0)), series, fundCodes,
   };
 }
