@@ -197,17 +197,22 @@ details.fold > summary { padding: 8px 0; }
 .stratgrid { display:grid; grid-template-columns:minmax(0,1fr); gap:28px; align-items:start; }
 @media (min-width: 900px) { .stratgrid { grid-template-columns:300px minmax(0,1fr); gap:44px; } .stratlist { position:sticky; top:16px; max-height:calc(100vh - 32px); overflow:auto; padding-right:6px; } }
 @media (max-width: 899px) { .stratbar .pick { display:inline-block; } .stratlist { display:none; } .stratlist.open { display:block; } }
-.sfam { margin:0 0 22px; } .sfam h3 { font:650 12px/1.3 var(--sans, inherit); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 2px; } .sfam .fd { font-size:13px; color:var(--muted); margin:0 0 6px; }
-.sitem { display:flex; justify-content:space-between; align-items:baseline; gap:10px; width:100%; text-align:left; font:inherit; background:none; border:0; border-left:2px solid transparent; padding:8px 0 8px 12px; color:var(--ink); cursor:pointer; }
-.sitem:hover { background:var(--neutral-bg); } .sitem.on { border-left-color:var(--accent); background:var(--neutral-bg); }
-.sitem .n { font-size:15px; font-weight:560; } .sitem .d { display:block; font-size:13px; color:var(--muted); line-height:1.4; margin-top:1px; } .sitem .st { font-size:12px; color:var(--muted); white-space:nowrap; }
-.about { border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:0 0 22px; }
-.about details.abt > summary { cursor:pointer; margin:0 0 10px; font-size:14px; } @media (min-width: 700px) { .about details.abt > summary { display:none; } }
-.about .lbl2 { font:650 12px/1.3 var(--sans, inherit); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-.about .lead { font-size:17px; line-height:1.5; margin:6px 0 14px; max-width:62ch; }
-.about dl.wd { display:grid; grid-template-columns:minmax(0,1fr); gap:10px 18px; margin:0; } @media (min-width: 700px) { .about dl.wd { grid-template-columns:150px minmax(0,1fr); } }
-.about dt { font-size:13px; color:var(--muted); font-weight:600; } .about dd { margin:0; font-size:14.5px; line-height:1.55; max-width:68ch; } .about .us { margin:14px 0 0; font-size:13px; color:var(--muted); }
-.seg { margin:0 0 22px; }
+.sfam { margin:0 0 20px; } .sfam h3 { font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px 12px; }
+.sitem { display:flex; justify-content:space-between; align-items:center; gap:10px; width:100%; text-align:left; font:inherit; background:none; border:0; border-radius:8px; padding:9px 12px; color:var(--ink); cursor:pointer; }
+.sitem:hover { background:var(--neutral-bg); } .sitem.on { background:var(--accent-soft); box-shadow:inset 3px 0 0 var(--accent); }
+.sitem .n { font-size:14.5px; font-weight:560; line-height:1.3; } .sitem .st { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); white-space:nowrap; }
+.sitem .st::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--muted); opacity:.45; } .sitem .st.run::before { background:var(--ok); opacity:1; } .sitem .st.rdy::before { background:var(--accent); opacity:1; }
+.about { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:24px 26px; margin:0 0 20px; }
+.about .eyebrow { font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.about .ttl { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:6px 0 0; } .about h2 { font-size:24px; line-height:1.25; margin:0; letter-spacing:-.01em; }
+.pill { font-family:var(--font); font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--neutral-bg); color:var(--muted); } .pill.live { background:var(--accent-soft); color:var(--accent); } .pill.run { background:var(--neutral-bg); color:var(--ok); }
+.about .lead { font-size:16px; line-height:1.55; margin:10px 0 0; max-width:64ch; color:var(--ink); }
+.about details.abt { margin-top:16px; } .about details.abt > summary { cursor:pointer; font-size:13px; font-weight:600; color:var(--accent); } @media (min-width: 700px) { .about details.abt > summary { display:none; } }
+.about .what { font-size:14.5px; line-height:1.6; max-width:68ch; margin:0 0 16px; color:var(--ink); }
+.about .facts { display:grid; grid-template-columns:minmax(0,1fr); gap:12px; } @media (min-width: 760px) { .about .facts { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+.about .fact { background:var(--bg); border:1px solid var(--line-soft); border-radius:12px; padding:14px 16px; } .about .fact b { display:block; font-weight:650; font-size:11px; line-height:1.3; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px; } .about .fact span { display:block; font-size:13.5px; line-height:1.55; }
+.about .us { margin:14px 0 0; font-size:13px; color:var(--muted); }
+.seg { margin:0 0 20px; display:inline-flex; gap:2px; padding:3px; background:var(--neutral-bg); border-radius:999px; } .seg .chip-btn { border:0; background:none; } .seg .chip-btn[aria-pressed="true"] { color:var(--ink); background:var(--bg); box-shadow:0 1px 2px rgba(0,0,0,.18); }
 </style>
 </head>
 <body>
@@ -542,12 +547,13 @@ function stratState(s) {
 }
 function aboutPanel(s) {
   const p = plainOf(s); if (!p) return '';
-  return `<section class="about"><div class="lbl2">About this strategy</div><p class="lead">${esc(p.short)}</p><details class="abt"${window.innerWidth < 700 ? '' : ' open'}><summary class="lnk">Full definition</summary><dl class="wd"><dt>What it does</dt><dd>${esc(p.what)}</dd><dt>When it trades</dt><dd>${esc(p.when)}</dd><dt>Protection</dt><dd>${esc(p.stop)}</dd><dt>Why we test it</dt><dd>${esc(p.why)}</dd><dt>Status</dt><dd>${s.status === 'live' ? 'Live: sends real alerts.' : 'Paper only: simulated, no orders and no alerts.'} ${esc(stratState(s))}.</dd></dl></details>${s.market === 'us' && s.status !== 'live' ? `<p class="us">${US_NOTE}</p>` : ''}</section>`;
+  const stt = stratState(s), live = s.status === 'live';
+  return `<section class="about"><div class="eyebrow">${esc(FAMS[p.fam][0])}</div><div class="ttl"><h2>${esc(s.name.replace(/ \(US\)$/, ''))}</h2><span class="pill ${live ? 'live' : 'run'}">${live ? 'Live: sends real alerts' : 'Paper only'}</span><span class="pill">${esc(stt)}</span></div><p class="lead">${esc(p.short)}</p><details class="abt"${window.innerWidth < 700 ? '' : ' open'}><summary>Full definition</summary><p class="what" style="margin-top:14px">${esc(p.what)}</p><div class="facts"><div class="fact"><b>When it trades</b><span>${esc(p.when)}</span></div><div class="fact"><b>Protection</b><span>${esc(p.stop)}</span></div><div class="fact"><b>Why we test it</b><span>${esc(p.why)}</span></div></div></details>${s.market === 'us' && !live ? `<p class="us">${US_NOTE}</p>` : ''}</section>`;
 }
 function stratList(m, cur) {
   const list = (D.strategies || []).filter((x) => x.market === m);
   return FAMS.map(([fn, fd], fi) => { const items = list.filter((x) => plainOf(x)?.fam === fi); if (!items.length) return '';
-    return `<div class="sfam"><h3>${esc(fn)}</h3><p class="fd">${esc(fd)}</p>${items.map((x) => `<button class="sitem${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name.replace(/ \(US\)$/, ''))}</span><span class="st">${esc(stratState(x))}</span></button>`).join('')}</div>`; }).join('')
+    return `<div class="sfam"><h3 title="${esc(fd)}">${esc(fn)}</h3>${items.map((x) => `<button class="sitem${x.id === cur.id ? ' on' : ''}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}"><span class="n">${esc(x.name.replace(/ \(US\)$/, ''))}</span><span class="st ${/^Running/.test(stratState(x)) ? 'run' : /ready/.test(stratState(x)) ? 'rdy' : ''}">${esc(stratState(x))}</span></button>`).join('')}</div>`; }).join('')
     + `<details class="fold"><summary>How paper tests are judged</summary><p class="note">Every paper test is a simulated book that starts at 100. Signals are taken at a close and filled at the next day\'s open, with trading costs deducted. Each book is compared with one named yardstick, usually the same momentum portfolio without the idea being tested. A confidence figure says how likely the idea\'s edge beats its extra cost; it starts at 50% and moves only with results. No paper test trades real money, and nothing is adopted until you mark it Live, Adopted, Rejected or Parked.</p></details>`;
 }
 // One page for every scan and paper test: market, a grouped list, what the chosen rule is in plain words, then its stock list or paper test.
