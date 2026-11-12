@@ -370,14 +370,15 @@
   },
   "2018-03-31": {
    "listed": 1749,
-   "attempted": 150,
-   "parsed": 149,
-   "fetchFailed": 1,
+   "attempted": 1749,
+   "parsed": 1720,
+   "fetchFailed": 26,
    "parseFailed": 0,
-   "unmapped": 0,
+   "unmapped": 3,
    "families": {
-    "IFIndAs": 142,
-    "IFOTB": 7
+    "IFIndAs": 1485,
+    "IFOTB": 81,
+    "IFBanking": 5
    },
    "missingField": {
     "revenue": 0,
@@ -387,8 +388,13 @@
    },
    "periodMismatch": 0,
    "errors": {},
-   "unmappedSymbols": [],
-   "at": "2026-11-11T19:38:29.486Z"
+   "unmappedSymbols": [
+    "KARUNACAB",
+    "SUPERFORGE",
+    "PRASGLOFIN"
+   ],
+   "alreadyStored": 149,
+   "at": "2026-11-12T18:10:06.093Z"
   },
   "2024-09-30": {
    "listed": 3645,
