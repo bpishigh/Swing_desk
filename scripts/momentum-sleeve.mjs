@@ -4,6 +4,7 @@
 // Usage: node --max-old-space-size=6000 scripts/momentum-sleeve.mjs [--asof=YYYY-MM-DD] [--dry]
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
+import { writeStockHist } from './stock-hist-lib.mjs';
 import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { eligible, BASE, tierCost } from '../src/backtest/ind-base.ts';
@@ -134,3 +135,4 @@ if (STOP) { out.stopRule = STOP; out.stops = st.stops ?? []; out.stopQueue = (st
 if (process.env.DBG) console.log(rows.slice(0, 45).map((r) => `${r.rank} ${r.sym} ${r.score} ${(names[r.sym] ?? "").slice(0, 28)}`).join("\n"));
 console.log(JSON.stringify({ asOf: D, state: out.state, universe: out.universe, held: out.heldCount, pending: out.pending, reviews: st.reviews.length, top3: rows.slice(0, 3).map((r) => r.sym) }));
 if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(out) + '\n'); }
+if (!process.env.MOM_DIR && !ASOF) { const n = writeStockHist({ series, dates, t, file: 'data/india/momentum-sleeve/stock-hist.json' }); console.log('stock history for charts: ' + n + ' names'); }   // chart data for the Strategies page, written by the registered run only
