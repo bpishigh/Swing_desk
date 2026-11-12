@@ -533,29 +533,29 @@
    "PVRINOX": 1520
   },
   "high": {
-   "CUPID": 354,
-   "SHREEJISPG": 884.55,
+   "CUPID": 384.8,
+   "SHREEJISPG": 886.95,
    "LAURUSLABS": 2454,
-   "SBC": 68.73,
+   "SBC": 69.52,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
-   "ATHERENERG": 1868.2,
+   "ATHERENERG": 1923,
    "RAYMOND": 1172.3,
-   "SKYGOLD": 983.4,
+   "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
-   "SONACOMS": 925,
-   "ACUTAAS": 3916.9,
+   "SONACOMS": 926,
+   "ACUTAAS": 3996.1,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2104.9,
-   "NYKAA": 359.7,
+   "NYKAA": 360.3,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 361.6,
+   "FEDERALBNK": 362.5,
    "MOTHERSON": 169.69,
    "BOSCHLTD": 52475,
-   "PVRINOX": 1589.8
+   "PVRINOX": 1652.6
   },
   "startedFill": "2026-11-03"
  },
@@ -634,12 +634,16 @@
   {
    "d": "2026-11-11",
    "v": 100.8223
+  },
+  {
+   "d": "2026-11-12",
+   "v": 102.0542
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-11",
-   "v": 100.8223
+   "d": "2026-11-12",
+   "v": 102.0542
   }
  },
  "stops": [
@@ -701,5 +705,5 @@
   }
  ],
  "stopQueue": [],
- "stopChecked": "2026-11-11"
+ "stopChecked": "2026-11-12"
 }

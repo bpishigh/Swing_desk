@@ -1,0 +1,33 @@
+{
+ "signalDate": "2026-11-12",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "GLAND",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 3353.69,
+   "limit": 3387.23,
+   "stop": 3101.3,
+   "atrPct": 3.38,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "SAILIFE",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 1930.75,
+   "limit": 1950.06,
+   "stop": 1731.49,
+   "atrPct": 4.18,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

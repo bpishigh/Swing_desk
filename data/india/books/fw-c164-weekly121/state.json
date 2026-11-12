@@ -1,126 +1,192 @@
 {
  "id": "fw-c164-weekly121",
  "startAfter": "2026-11-10",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-11",
-  "buys": [
-   {
-    "sym": "STLTECH",
-    "value": 1628051367.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "CUPID",
-    "value": 4076767031.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "HFCL",
-    "value": 1702003564.375,
-    "stop": 0.25
-   },
-   {
-    "sym": "MTARTECH",
-    "value": 1547200181.75,
-    "stop": 0.25
-   },
-   {
-    "sym": "CPPLUS",
-    "value": 1079222038.8000002,
-    "stop": 0.25
-   },
-   {
-    "sym": "WELCORP",
-    "value": 2848699292.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "AEROFLEX",
-    "value": 1666597566.9,
-    "stop": 0.25
-   },
-   {
-    "sym": "SKYGOLD",
-    "value": 1662621821.9250002,
-    "stop": 0.25
-   },
-   {
-    "sym": "RATNAVEER",
-    "value": 1292619909.75,
-    "stop": 0.25
-   },
-   {
-    "sym": "SYRMA",
-    "value": 1847392167.8,
-    "stop": 0.25
-   },
-   {
-    "sym": "APARINDS",
-    "value": 2666698311,
-    "stop": 0.25
-   },
-   {
-    "sym": "TFCILTD",
-    "value": 2115025156.6399999,
-    "stop": 0.25
-   },
-   {
-    "sym": "LAURUSLABS",
-    "value": 3778363064.6000004,
-    "stop": 0.25
-   },
-   {
-    "sym": "ATHERENERG",
-    "value": 3650696112.1000004,
-    "stop": 0.25
-   },
-   {
-    "sym": "RRKABEL",
-    "value": 1022171684.1000001,
-    "stop": 0.25
-   },
-   {
-    "sym": "TDPOWERSYS",
-    "value": 2484820136.35,
-    "stop": 0.25
-   },
-   {
-    "sym": "AEGISLOG",
-    "value": 1220368518.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "AZAD",
-    "value": 1546398193.65,
-    "stop": 0.25
-   },
-   {
-    "sym": "ACUTAAS",
-    "value": 1660490655.2,
-    "stop": 0.25
-   },
-   {
-    "sym": "MCX",
-    "value": 5167036368.6,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "STLTECH": {
+   "sh": 0.006773307097299498,
+   "entry": 736.9,
+   "entryDate": "2026-11-12",
+   "high": 736.9,
+   "stop": 0.25
+  },
+  "CUPID": {
+   "sh": 0.013864583333333333,
+   "entry": 360,
+   "entryDate": "2026-11-12",
+   "high": 384.8,
+   "stop": 0.25
+  },
+  "HFCL": {
+   "sh": 0.023215116279069768,
+   "entry": 215,
+   "entryDate": "2026-11-12",
+   "high": 215,
+   "stop": 0.25
+  },
+  "MTARTECH": {
+   "sh": 0.000839006555723651,
+   "entry": 5949,
+   "entryDate": "2026-11-12",
+   "high": 5995,
+   "stop": 0.25
+  },
+  "CPPLUS": {
+   "sh": 0.0011780151050271419,
+   "entry": 4237,
+   "entryDate": "2026-11-12",
+   "high": 4237,
+   "stop": 0.25
+  },
+  "WELCORP": {
+   "sh": 0.0022495267712276906,
+   "entry": 2218.8,
+   "entryDate": "2026-11-12",
+   "high": 2218.8,
+   "stop": 0.25
+  },
+  "AEROFLEX": {
+   "sh": 0.009864130434782608,
+   "entry": 506,
+   "entryDate": "2026-11-12",
+   "high": 506,
+   "stop": 0.25
+  },
+  "SKYGOLD": {
+   "sh": 0.004941831683168317,
+   "entry": 1010,
+   "entryDate": "2026-11-12",
+   "high": 1050.05,
+   "stop": 0.25
+  },
+  "RATNAVEER": {
+   "sh": 0.013417338709677418,
+   "entry": 372,
+   "entryDate": "2026-11-12",
+   "high": 372.9,
+   "stop": 0.25
+  },
+  "SYRMA": {
+   "sh": 0.0032925984563625566,
+   "entry": 1515.9,
+   "entryDate": "2026-11-12",
+   "high": 1515.9,
+   "stop": 0.25
+  },
+  "APARINDS": {
+   "sh": 0.00034733820459290185,
+   "entry": 14370,
+   "entryDate": "2026-11-12",
+   "high": 14370,
+   "stop": 0.25
+  },
+  "TFCILTD": {
+   "sh": 0.029977477477477477,
+   "entry": 166.5,
+   "entryDate": "2026-11-12",
+   "high": 166.52,
+   "stop": 0.25
+  },
+  "LAURUSLABS": {
+   "sh": 0.0020565512978986404,
+   "entry": 2427,
+   "entryDate": "2026-11-12",
+   "high": 2427,
+   "stop": 0.25
+  },
+  "ATHERENERG": {
+   "sh": 0.0026671208720743826,
+   "entry": 1871.4,
+   "entryDate": "2026-11-12",
+   "high": 1923,
+   "stop": 0.25
+  },
+  "RRKABEL": {
+   "sh": 0.0025349162011173185,
+   "entry": 1969,
+   "entryDate": "2026-11-12",
+   "high": 1969,
+   "stop": 0.25
+  },
+  "TDPOWERSYS": {
+   "sh": 0.007922619047619048,
+   "entry": 630,
+   "entryDate": "2026-11-12",
+   "high": 630,
+   "stop": 0.25
+  },
+  "AEGISLOG": {
+   "sh": 0.004057926829268293,
+   "entry": 1230,
+   "entryDate": "2026-11-12",
+   "high": 1240,
+   "stop": 0.25
+  },
+  "AZAD": {
+   "sh": 0.0020166666666666666,
+   "entry": 2475,
+   "entryDate": "2026-11-12",
+   "high": 2475,
+   "stop": 0.25
+  },
+  "ACUTAAS": {
+   "sh": 0.001264568026349126,
+   "entry": 3947,
+   "entryDate": "2026-11-12",
+   "high": 3996.1,
+   "stop": 0.25
+  },
+  "MCX": {
+   "sh": 0.001382617728531856,
+   "entry": 3610,
+   "entryDate": "2026-11-12",
+   "high": 3624.7,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "STLTECH": 1628051367.6,
+  "CUPID": 4076767031.7,
+  "HFCL": 1702003564.375,
+  "MTARTECH": 1547200181.75,
+  "CPPLUS": 1079222038.8000002,
+  "WELCORP": 2848699292.6,
+  "AEROFLEX": 1666597566.9,
+  "SKYGOLD": 1662621821.9250002,
+  "RATNAVEER": 1292619909.75,
+  "SYRMA": 1847392167.8,
+  "APARINDS": 2666698311,
+  "TFCILTD": 2115025156.6399999,
+  "LAURUSLABS": 3778363064.6000004,
+  "ATHERENERG": 3650696112.1000004,
+  "RRKABEL": 1022171684.1000001,
+  "TDPOWERSYS": 2484820136.35,
+  "AEGISLOG": 1220368518.5,
+  "AZAD": 1546398193.65,
+  "ACUTAAS": 1660490655.2,
+  "MCX": 5167036368.6
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-12",
+   "v": 99.9982,
+   "vs": 99.8982
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-12",
  "lastSignal": "2026-11-11",
- "lastStep": "2026-11-11",
- "lastNavDate": "2026-11-10"
+ "lastStep": "2026-11-12",
+ "lastNavDate": "2026-11-11",
+ "costs": {
+  "2026-11": 0.1750000000000001
+ }
 }

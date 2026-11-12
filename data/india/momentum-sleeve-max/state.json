@@ -1,138 +1,41 @@
 {
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
- "book": null,
- "pending": {
-  "signalDate": "2026-11-11",
-  "resultsRule": {
-   "rule": "C-155",
-   "source": "calendar 2026-11-11",
-   "inWindow": 423,
-   "skipped": []
+ "book": {
+  "cash": 0,
+  "shares": {
+   "CUPID": 0.013864583333333336,
+   "LAURUSLABS": 0.002056551297898641,
+   "STLTECH": 0.006436995060804082,
+   "TFCILTD": 0.029977477477477484,
+   "CPPLUS": 0.0005920892329734826,
+   "SKYGOLD": 0.0035350997237927383,
+   "RATNAVEER": 0.0070979822086859505,
+   "GLAND": 0.0006114729191466679,
+   "WELCORP": 0.0022248771246887295,
+   "HFCL": 0.01271938251255042,
+   "PVRINOX": 0.0011262957622645957,
+   "FEDERALBNK": 0.008380548696905105,
+   "AUROPHARMA": 0.0012324198394705029,
+   "NYKAA": 0.006389120958602935,
+   "BOSCHLTD": 0.000032273382107834646,
+   "AEGISLOG": 0.001339692600315245,
+   "NAVINFLUOR": 0.00020076225102043464,
+   "SYRMA": 0.0015894967950333136,
+   "MOTHERSON": 0.012579609841865597,
+   "ETERNAL": 0.013864583333333336,
+   "PAYTM": 0.0027884078212290506,
+   "INDHOTEL": 0.00568447127156768,
+   "KOTAKBANK": 0.010271118427821795,
+   "ICICIBANK": 0.0031648278485828427,
+   "KARURVYSYA": 0.003577137438576211,
+   "RADICO": 0.0004715520399675306,
+   "TVSMOTOR": 0.0006374106522625619,
+   "TITAN": 0.0006627179834612119,
+   "MCX": 0.0013826177285318562,
+   "PNB": 0.021778603191330133
   },
-  "target": [
-   {
-    "sym": "CUPID",
-    "w": 0.05
-   },
-   {
-    "sym": "LAURUSLABS",
-    "w": 0.05
-   },
-   {
-    "sym": "STLTECH",
-    "w": 0.04751737200407241
-   },
-   {
-    "sym": "TFCILTD",
-    "w": 0.05
-   },
-   {
-    "sym": "CPPLUS",
-    "w": 0.025130799700562444
-   },
-   {
-    "sym": "SKYGOLD",
-    "w": 0.03576709963466732
-   },
-   {
-    "sym": "RATNAVEER",
-    "w": 0.026450782686012256
-   },
-   {
-    "sym": "GLAND",
-    "w": 0.020021029163344695
-   },
-   {
-    "sym": "WELCORP",
-    "w": 0.04945211484356977
-   },
-   {
-    "sym": "HFCL",
-    "w": 0.02739461297468911
-   },
-   {
-    "sym": "PVRINOX",
-    "w": 0.017865030903779222
-   },
-   {
-    "sym": "FEDERALBNK",
-    "w": 0.030390770130524897
-   },
-   {
-    "sym": "AUROPHARMA",
-    "w": 0.022384176418171482
-   },
-   {
-    "sym": "NYKAA",
-    "w": 0.022695540114406217
-   },
-   {
-    "sym": "BOSCHLTD",
-    "w": 0.01635249353382696
-   },
-   {
-    "sym": "AEGISLOG",
-    "w": 0.01650710642011271
-   },
-   {
-    "sym": "NAVINFLUOR",
-    "w": 0.01957947302588972
-   },
-   {
-    "sym": "SYRMA",
-    "w": 0.024137422405118958
-   },
-   {
-    "sym": "MOTHERSON",
-    "w": 0.02126530589346175
-   },
-   {
-    "sym": "ETERNAL",
-    "w": 0.05
-   },
-   {
-    "sym": "PAYTM",
-    "w": 0.05
-   },
-   {
-    "sym": "INDHOTEL",
-    "w": 0.05
-   },
-   {
-    "sym": "KOTAKBANK",
-    "w": 0.05
-   },
-   {
-    "sym": "ICICIBANK",
-    "w": 0.05
-   },
-   {
-    "sym": "KARURVYSYA",
-    "w": 0.013760288268602705
-   },
-   {
-    "sym": "RADICO",
-    "w": 0.02102085227002766
-   },
-   {
-    "sym": "TVSMOTOR",
-    "w": 0.029053027476029614
-   },
-   {
-    "sym": "TITAN",
-    "w": 0.03299482472128448
-   },
-   {
-    "sym": "MCX",
-    "w": 0.05
-   },
-   {
-    "sym": "PNB",
-    "w": 0.03025987741184562
-   }
-  ],
-  "values": {
+  "lastValue": {
    "HDFCBANK": 22670187551.5,
    "ICICIBANK": 21648347265.95,
    "BHARTIARTL": 18797148423.15,
@@ -314,15 +217,136 @@
    "GMRAIRPORT": 969529061.365,
    "WOCKPHARMA": 962149965.4499999
   },
-  "check": {
-   "sameNames": true,
-   "maxWeightDiffPp": 0,
-   "pass": true
+  "entry": {
+   "CUPID": 360,
+   "LAURUSLABS": 2427,
+   "STLTECH": 736.9,
+   "TFCILTD": 166.5,
+   "CPPLUS": 4237,
+   "SKYGOLD": 1010,
+   "RATNAVEER": 372,
+   "GLAND": 3268.5,
+   "WELCORP": 2218.8,
+   "HFCL": 215,
+   "PVRINOX": 1583.4,
+   "FEDERALBNK": 362,
+   "AUROPHARMA": 1813.1,
+   "NYKAA": 354.6,
+   "BOSCHLTD": 50580,
+   "AEGISLOG": 1230,
+   "NAVINFLUOR": 9735.5,
+   "SYRMA": 1515.9,
+   "MOTHERSON": 168.75,
+   "ETERNAL": 360,
+   "PAYTM": 1790,
+   "INDHOTEL": 878.05,
+   "KOTAKBANK": 485.95,
+   "ICICIBANK": 1577.1,
+   "KARURVYSYA": 384,
+   "RADICO": 4450,
+   "TVSMOTOR": 4550,
+   "TITAN": 4970,
+   "MCX": 3610,
+   "PNB": 138.7
+  },
+  "high": {
+   "CUPID": 384.8,
+   "LAURUSLABS": 2427,
+   "STLTECH": 736.9,
+   "TFCILTD": 166.52,
+   "CPPLUS": 4237,
+   "SKYGOLD": 1050.05,
+   "RATNAVEER": 372.9,
+   "GLAND": 3308.7,
+   "WELCORP": 2218.8,
+   "HFCL": 215,
+   "PVRINOX": 1652.6,
+   "FEDERALBNK": 362.5,
+   "AUROPHARMA": 1813.1,
+   "NYKAA": 360.3,
+   "BOSCHLTD": 50580,
+   "AEGISLOG": 1240,
+   "NAVINFLUOR": 9969,
+   "SYRMA": 1515.9,
+   "MOTHERSON": 168.75,
+   "ETERNAL": 364.35,
+   "PAYTM": 1925,
+   "INDHOTEL": 882,
+   "KOTAKBANK": 490.4,
+   "ICICIBANK": 1590,
+   "KARURVYSYA": 384,
+   "RADICO": 4638.2,
+   "TVSMOTOR": 4550,
+   "TITAN": 4970,
+   "MCX": 3624.7,
+   "PNB": 141.79
+  },
+  "startedFill": "2026-11-12"
+ },
+ "pending": null,
+ "lastSignal": "2026-11-11",
+ "reviews": [
+  {
+   "signalDate": "2026-11-11",
+   "fillDate": "2026-11-12",
+   "fillBasis": "open",
+   "closeFallbacks": [],
+   "count": 30,
+   "entered": [
+    "CUPID",
+    "LAURUSLABS",
+    "STLTECH",
+    "TFCILTD",
+    "CPPLUS",
+    "SKYGOLD",
+    "RATNAVEER",
+    "GLAND",
+    "WELCORP",
+    "HFCL",
+    "PVRINOX",
+    "FEDERALBNK",
+    "AUROPHARMA",
+    "NYKAA",
+    "BOSCHLTD",
+    "AEGISLOG",
+    "NAVINFLUOR",
+    "SYRMA",
+    "MOTHERSON",
+    "ETERNAL",
+    "PAYTM",
+    "INDHOTEL",
+    "KOTAKBANK",
+    "ICICIBANK",
+    "KARURVYSYA",
+    "RADICO",
+    "TVSMOTOR",
+    "TITAN",
+    "MCX",
+    "PNB"
+   ],
+   "left": [],
+   "turnoverPct": 50,
+   "costPct": 0.18,
+   "check": {
+    "sameNames": true,
+    "maxWeightDiffPp": 0,
+    "pass": true
+   }
+  }
+ ],
+ "daily": [
+  {
+   "d": "2026-11-12",
+   "v": 100.667
+  }
+ ],
+ "monthly": {
+  "2026-11": {
+   "d": "2026-11-12",
+   "v": 100.667
   }
  },
- "lastSignal": "2026-11-11",
- "reviews": [],
- "daily": [],
- "monthly": {},
- "stops": []
+ "stops": [],
+ "stopQueue": [],
+ "stopChecked": "2026-11-12"
 }

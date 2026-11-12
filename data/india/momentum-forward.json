@@ -481,6 +481,45 @@
    "basis": 2074.64,
    "width": 10.43,
    "room": 1.61
+  },
+  "GRANULES|2|2026-11-12": {
+   "sym": "GRANULES",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-12",
+   "trigger": 848.69,
+   "stop": 761.5,
+   "limit": 857.18,
+   "basis": 848.69,
+   "width": 10.27,
+   "room": 0.86
+  },
+  "WOCKPHARMA|4|2026-11-12": {
+   "sym": "WOCKPHARMA",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-12",
+   "trigger": 2068.13,
+   "stop": 1897,
+   "limit": 2088.81,
+   "basis": 2068.13,
+   "width": 8.27,
+   "room": 2.07
+  },
+  "RUBICON|4|2026-11-12": {
+   "sym": "RUBICON",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-12",
+   "trigger": 1750.39,
+   "stop": 1606,
+   "limit": 1767.89,
+   "basis": 1750.39,
+   "width": 8.25,
+   "room": 1.03
   }
  },
  "lastLogged": {
@@ -520,10 +559,13 @@
   "VIJAYA|4": "2026-11-06",
   "IPCALAB|4": "2026-11-09",
   "RUBICON|2": "2026-11-09",
-  "WOCKPHARMA|2": "2026-11-11"
+  "WOCKPHARMA|2": "2026-11-11",
+  "GRANULES|2": "2026-11-12",
+  "WOCKPHARMA|4": "2026-11-12",
+  "RUBICON|4": "2026-11-12"
  },
  "summary": {
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -589,14 +631,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 0,
-     "open": 11,
+     "open": 13,
      "meanNet": null,
      "win": null,
      "excess": null
     },
     "others": {
      "matured": 0,
-     "open": 15,
+     "open": 16,
      "meanNet": null,
      "win": null,
      "excess": null

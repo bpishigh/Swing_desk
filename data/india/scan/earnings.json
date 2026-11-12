@@ -1,28 +1,28 @@
 {
- "asOf": "2026-11-11",
+ "asOf": "2026-11-12",
  "source": "NSE event calendar",
  "dates": {
+  "EMCURE": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "SAILIFE": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "LAURUSLABS": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "GLENMARK": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "WELSPUNLIV": {
+  "GLAND": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "ADANIPORTS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "WELSPUNLIV": {
    "date": null,
    "sessions": null,
    "inWindow": null

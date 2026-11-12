@@ -1,126 +1,192 @@
 {
  "id": "fw-c161-high52",
  "startAfter": "2026-11-10",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-11",
-  "buys": [
-   {
-    "sym": "APOLLO",
-    "value": 3320819622.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "ATHERENERG",
-    "value": 3650696112.1000004,
-    "stop": 0.25
-   },
-   {
-    "sym": "GAIL",
-    "value": 1476119865.8049998,
-    "stop": 0.25
-   },
-   {
-    "sym": "GLENMARK",
-    "value": 1408102086.1999998,
-    "stop": 0.25
-   },
-   {
-    "sym": "KALYANKJIL",
-    "value": 2174510545,
-    "stop": 0.25
-   },
-   {
-    "sym": "KARURVYSYA",
-    "value": 1156351227.05,
-    "stop": 0.25
-   },
-   {
-    "sym": "KOTAKBANK",
-    "value": 9914954242.2,
-    "stop": 0.25
-   },
-   {
-    "sym": "MARICO",
-    "value": 1878241971.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "MCX",
-    "value": 5167036368.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "NAVINFLUOR",
-    "value": 1449080392.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "PNB",
-    "value": 2620457139.2349997,
-    "stop": 0.25
-   },
-   {
-    "sym": "SONACOMS",
-    "value": 1917963450.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "TVSMOTOR",
-    "value": 2453784953,
-    "stop": 0.25
-   },
-   {
-    "sym": "UNIONBANK",
-    "value": 3082157169.48,
-    "stop": 0.25
-   },
-   {
-    "sym": "JSWSTEEL",
-    "value": 2980279136.8,
-    "stop": 0.25
-   },
-   {
-    "sym": "MANKIND",
-    "value": 1681113069.8000002,
-    "stop": 0.25
-   },
-   {
-    "sym": "PVRINOX",
-    "value": 1240307308.25,
-    "stop": 0.25
-   },
-   {
-    "sym": "DRREDDY",
-    "value": 2494739392.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "MOTHERSON",
-    "value": 1627800653.6999998,
-    "stop": 0.25
-   },
-   {
-    "sym": "ETERNAL",
-    "value": 8535180003.375,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "APOLLO": {
+   "sh": 0.010823484766345008,
+   "entry": 461.15,
+   "entryDate": "2026-11-12",
+   "high": 461.15,
+   "stop": 0.25
+  },
+  "ATHERENERG": {
+   "sh": 0.0026671208720743826,
+   "entry": 1871.4,
+   "entryDate": "2026-11-12",
+   "high": 1923,
+   "stop": 0.25
+  },
+  "GAIL": {
+   "sh": 0.0264101275199746,
+   "entry": 188.99,
+   "entryDate": "2026-11-12",
+   "high": 188.99,
+   "stop": 0.25
+  },
+  "GLENMARK": {
+   "sh": 0.001872889305816135,
+   "entry": 2665,
+   "entryDate": "2026-11-12",
+   "high": 2665,
+   "stop": 0.25
+  },
+  "KALYANKJIL": {
+   "sh": 0.007394444444444445,
+   "entry": 675,
+   "entryDate": "2026-11-12",
+   "high": 710.9,
+   "stop": 0.25
+  },
+  "KARURVYSYA": {
+   "sh": 0.012998046875,
+   "entry": 384,
+   "entryDate": "2026-11-12",
+   "high": 384,
+   "stop": 0.25
+  },
+  "KOTAKBANK": {
+   "sh": 0.010271118427821793,
+   "entry": 485.95,
+   "entryDate": "2026-11-12",
+   "high": 490.4,
+   "stop": 0.25
+  },
+  "MARICO": {
+   "sh": 0.005454918032786886,
+   "entry": 915,
+   "entryDate": "2026-11-12",
+   "high": 915,
+   "stop": 0.25
+  },
+  "MCX": {
+   "sh": 0.001382617728531856,
+   "entry": 3610,
+   "entryDate": "2026-11-12",
+   "high": 3624.7,
+   "stop": 0.25
+  },
+  "NAVINFLUOR": {
+   "sh": 0.0005126855323301319,
+   "entry": 9735.5,
+   "entryDate": "2026-11-12",
+   "high": 9969,
+   "stop": 0.25
+  },
+  "PNB": {
+   "sh": 0.03598594087959625,
+   "entry": 138.7,
+   "entryDate": "2026-11-12",
+   "high": 141.79,
+   "stop": 0.25
+  },
+  "SONACOMS": {
+   "sh": 0.005395945945945946,
+   "entry": 925,
+   "entryDate": "2026-11-12",
+   "high": 926,
+   "stop": 0.25
+  },
+  "TVSMOTOR": {
+   "sh": 0.001096978021978022,
+   "entry": 4550,
+   "entryDate": "2026-11-12",
+   "high": 4550,
+   "stop": 0.25
+  },
+  "UNIONBANK": {
+   "sh": 0.024684718100890207,
+   "entry": 202.2,
+   "entryDate": "2026-11-12",
+   "high": 204.4,
+   "stop": 0.25
+  },
+  "JSWSTEEL": {
+   "sh": 0.0036835793357933577,
+   "entry": 1355,
+   "entryDate": "2026-11-12",
+   "high": 1355,
+   "stop": 0.25
+  },
+  "MANKIND": {
+   "sh": 0.0018764097744360902,
+   "entry": 2660,
+   "entryDate": "2026-11-12",
+   "high": 2660,
+   "stop": 0.25
+  },
+  "PVRINOX": {
+   "sh": 0.0031522356953391432,
+   "entry": 1583.4,
+   "entryDate": "2026-11-12",
+   "high": 1652.6,
+   "stop": 0.25
+  },
+  "DRREDDY": {
+   "sh": 0.003624727668845316,
+   "entry": 1377,
+   "entryDate": "2026-11-12",
+   "high": 1386.6,
+   "stop": 0.25
+  },
+  "MOTHERSON": {
+   "sh": 0.02957777777777778,
+   "entry": 168.75,
+   "entryDate": "2026-11-12",
+   "high": 168.75,
+   "stop": 0.25
+  },
+  "ETERNAL": {
+   "sh": 0.013864583333333333,
+   "entry": 360,
+   "entryDate": "2026-11-12",
+   "high": 364.35,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "APOLLO": 3320819622.7,
+  "ATHERENERG": 3650696112.1000004,
+  "GAIL": 1476119865.8049998,
+  "GLENMARK": 1408102086.1999998,
+  "KALYANKJIL": 2174510545,
+  "KARURVYSYA": 1156351227.05,
+  "KOTAKBANK": 9914954242.2,
+  "MARICO": 1878241971.6,
+  "MCX": 5167036368.6,
+  "NAVINFLUOR": 1449080392.5,
+  "PNB": 2620457139.2349997,
+  "SONACOMS": 1917963450.6,
+  "TVSMOTOR": 2453784953,
+  "UNIONBANK": 3082157169.48,
+  "JSWSTEEL": 2980279136.8,
+  "MANKIND": 1681113069.8000002,
+  "PVRINOX": 1240307308.25,
+  "DRREDDY": 2494739392.5,
+  "MOTHERSON": 1627800653.6999998,
+  "ETERNAL": 8535180003.375
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-12",
+   "v": 100.3247,
+   "vs": 100.2247
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-12",
  "lastSignal": "2026-11-11",
- "lastStep": "2026-11-11",
- "lastNavDate": "2026-11-10"
+ "lastStep": "2026-11-12",
+ "lastNavDate": "2026-11-11",
+ "costs": {
+  "2026-11": 0.1750000000000001
+ }
 }

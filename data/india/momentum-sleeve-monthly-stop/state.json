@@ -1,138 +1,41 @@
 {
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
- "book": null,
- "pending": {
-  "signalDate": "2026-11-11",
-  "resultsRule": {
-   "rule": "C-155",
-   "source": "calendar 2026-11-11",
-   "inWindow": 423,
-   "skipped": []
+ "book": {
+  "cash": 0,
+  "shares": {
+   "CUPID": 0.013864583333333336,
+   "LAURUSLABS": 0.002056551297898641,
+   "STLTECH": 0.0065043955179460485,
+   "TFCILTD": 0.029977477477477484,
+   "CPPLUS": 0.0005954891489591246,
+   "SKYGOLD": 0.0035436618583252534,
+   "ATHERENERG": 0.002667120872074383,
+   "DIVISLAB": 0.00044057286609586026,
+   "RATNAVEER": 0.007099293012580127,
+   "SONACOMS": 0.004132995874190299,
+   "GLAND": 0.0006095535297752476,
+   "WELCORP": 0.0022242086475646205,
+   "HFCL": 0.012726259703249681,
+   "ACUTAAS": 0.0006062922273090331,
+   "PVRINOX": 0.0011167559325532437,
+   "FEDERALBNK": 0.008338979599089162,
+   "AUROPHARMA": 0.0012270418211715235,
+   "NYKAA": 0.006343895328530191,
+   "BOSCHLTD": 0.00003200202576804903,
+   "NAVINFLUOR": 0.00019951768485138743,
+   "AEGISLOG": 0.001328355713876257,
+   "SYRMA": 0.001580350873675628,
+   "MOTHERSON": 0.0124925600917123,
+   "ETERNAL": 0.013864583333333336,
+   "PAYTM": 0.0027884078212290506,
+   "AEROFLEX": 0.004083142662805814,
+   "INDHOTEL": 0.00568447127156768,
+   "KALYANKJIL": 0.00388534803072198,
+   "REDINGTON": 0.005336605099592078,
+   "KOTAKBANK": 0.010271118427821795
   },
-  "target": [
-   {
-    "sym": "CUPID",
-    "w": 0.05
-   },
-   {
-    "sym": "LAURUSLABS",
-    "w": 0.05
-   },
-   {
-    "sym": "STLTECH",
-    "w": 0.048014916675927305
-   },
-   {
-    "sym": "TFCILTD",
-    "w": 0.05
-   },
-   {
-    "sym": "CPPLUS",
-    "w": 0.025275106678084754
-   },
-   {
-    "sym": "SKYGOLD",
-    "w": 0.03585372879447539
-   },
-   {
-    "sym": "ATHERENERG",
-    "w": 0.05
-   },
-   {
-    "sym": "DIVISLAB",
-    "w": 0.05
-   },
-   {
-    "sym": "RATNAVEER",
-    "w": 0.026455667424791454
-   },
-   {
-    "sym": "SONACOMS",
-    "w": 0.038297231992246696
-   },
-   {
-    "sym": "GLAND",
-    "w": 0.019958183942603524
-   },
-   {
-    "sym": "WELCORP",
-    "w": 0.04943725667133864
-   },
-   {
-    "sym": "HFCL",
-    "w": 0.02740942485548391
-   },
-   {
-    "sym": "ACUTAAS",
-    "w": 0.023972305746944686
-   },
-   {
-    "sym": "PVRINOX",
-    "w": 0.01771371243280547
-   },
-   {
-    "sym": "FEDERALBNK",
-    "w": 0.030240026194543215
-   },
-   {
-    "sym": "AUROPHARMA",
-    "w": 0.02228649662876122
-   },
-   {
-    "sym": "NYKAA",
-    "w": 0.022534888890526485
-   },
-   {
-    "sym": "BOSCHLTD",
-    "w": 0.016215000885027996
-   },
-   {
-    "sym": "NAVINFLUOR",
-    "w": 0.01945809587649068
-   },
-   {
-    "sym": "AEGISLOG",
-    "w": 0.016367418262637577
-   },
-   {
-    "sym": "SYRMA",
-    "w": 0.023998536332630948
-   },
-   {
-    "sym": "MOTHERSON",
-    "w": 0.0211181519206256
-   },
-   {
-    "sym": "ETERNAL",
-    "w": 0.05
-   },
-   {
-    "sym": "PAYTM",
-    "w": 0.05
-   },
-   {
-    "sym": "AEROFLEX",
-    "w": 0.020696921486398616
-   },
-   {
-    "sym": "INDHOTEL",
-    "w": 0.05
-   },
-   {
-    "sym": "KALYANKJIL",
-    "w": 0.026272075339216994
-   },
-   {
-    "sym": "REDINGTON",
-    "w": 0.018424852968438862
-   },
-   {
-    "sym": "KOTAKBANK",
-    "w": 0.05
-   }
-  ],
-  "values": {
+  "lastValue": {
    "HDFCBANK": 22670187551.5,
    "RELIANCE": 22364941790.5,
    "ICICIBANK": 21648347265.95,
@@ -610,15 +513,136 @@
    "CENTUM": 207863052.60000002,
    "EMCURE": 207629529.89999998
   },
-  "check": {
-   "sameNames": true,
-   "maxWeightDiffPp": 0,
-   "pass": true
+  "entry": {
+   "CUPID": 360,
+   "LAURUSLABS": 2427,
+   "STLTECH": 736.9,
+   "TFCILTD": 166.5,
+   "CPPLUS": 4237,
+   "SKYGOLD": 1010,
+   "ATHERENERG": 1871.4,
+   "DIVISLAB": 11329,
+   "RATNAVEER": 372,
+   "SONACOMS": 925,
+   "GLAND": 3268.5,
+   "WELCORP": 2218.8,
+   "HFCL": 215,
+   "ACUTAAS": 3947,
+   "PVRINOX": 1583.4,
+   "FEDERALBNK": 362,
+   "AUROPHARMA": 1813.1,
+   "NYKAA": 354.6,
+   "BOSCHLTD": 50580,
+   "NAVINFLUOR": 9735.5,
+   "AEGISLOG": 1230,
+   "SYRMA": 1515.9,
+   "MOTHERSON": 168.75,
+   "ETERNAL": 360,
+   "PAYTM": 1790,
+   "AEROFLEX": 506,
+   "INDHOTEL": 878.05,
+   "KALYANKJIL": 675,
+   "REDINGTON": 344.65,
+   "KOTAKBANK": 485.95
+  },
+  "high": {
+   "CUPID": 384.8,
+   "LAURUSLABS": 2427,
+   "STLTECH": 736.9,
+   "TFCILTD": 166.52,
+   "CPPLUS": 4237,
+   "SKYGOLD": 1050.05,
+   "ATHERENERG": 1923,
+   "DIVISLAB": 11485,
+   "RATNAVEER": 372.9,
+   "SONACOMS": 926,
+   "GLAND": 3308.7,
+   "WELCORP": 2218.8,
+   "HFCL": 215,
+   "ACUTAAS": 3996.1,
+   "PVRINOX": 1652.6,
+   "FEDERALBNK": 362.5,
+   "AUROPHARMA": 1813.1,
+   "NYKAA": 360.3,
+   "BOSCHLTD": 50580,
+   "NAVINFLUOR": 9969,
+   "AEGISLOG": 1240,
+   "SYRMA": 1515.9,
+   "MOTHERSON": 168.75,
+   "ETERNAL": 364.35,
+   "PAYTM": 1925,
+   "AEROFLEX": 506,
+   "INDHOTEL": 882,
+   "KALYANKJIL": 710.9,
+   "REDINGTON": 359.1,
+   "KOTAKBANK": 490.4
+  },
+  "startedFill": "2026-11-12"
+ },
+ "pending": null,
+ "lastSignal": "2026-11-11",
+ "reviews": [
+  {
+   "signalDate": "2026-11-11",
+   "fillDate": "2026-11-12",
+   "fillBasis": "open",
+   "closeFallbacks": [],
+   "count": 30,
+   "entered": [
+    "CUPID",
+    "LAURUSLABS",
+    "STLTECH",
+    "TFCILTD",
+    "CPPLUS",
+    "SKYGOLD",
+    "ATHERENERG",
+    "DIVISLAB",
+    "RATNAVEER",
+    "SONACOMS",
+    "GLAND",
+    "WELCORP",
+    "HFCL",
+    "ACUTAAS",
+    "PVRINOX",
+    "FEDERALBNK",
+    "AUROPHARMA",
+    "NYKAA",
+    "BOSCHLTD",
+    "NAVINFLUOR",
+    "AEGISLOG",
+    "SYRMA",
+    "MOTHERSON",
+    "ETERNAL",
+    "PAYTM",
+    "AEROFLEX",
+    "INDHOTEL",
+    "KALYANKJIL",
+    "REDINGTON",
+    "KOTAKBANK"
+   ],
+   "left": [],
+   "turnoverPct": 50,
+   "costPct": 0.18,
+   "check": {
+    "sameNames": true,
+    "maxWeightDiffPp": 0,
+    "pass": true
+   }
+  }
+ ],
+ "daily": [
+  {
+   "d": "2026-11-12",
+   "v": 100.9678
+  }
+ ],
+ "monthly": {
+  "2026-11": {
+   "d": "2026-11-12",
+   "v": 100.9678
   }
  },
- "lastSignal": "2026-11-11",
- "reviews": [],
- "daily": [],
- "monthly": {},
- "stops": []
+ "stops": [],
+ "stopQueue": [],
+ "stopChecked": "2026-11-12"
 }
