@@ -952,6 +952,39 @@
    ],
    "alreadyStored": 4,
    "at": "2026-11-12T17:32:37.884Z"
+  },
+  "2019-03-31": {
+   "listed": 1720,
+   "attempted": 1720,
+   "parsed": 1596,
+   "fetchFailed": 116,
+   "parseFailed": 1,
+   "unmapped": 7,
+   "families": {
+    "IFIndAs": 1533,
+    "IFBanking": 27,
+    "IFOTB": 36
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 1
+   },
+   "unmappedSymbols": [
+    "PRASGLOFIN",
+    "AUTORIDFIN",
+    "ATCOM",
+    "GRANDFONRY",
+    "RAJASPETRO",
+    "NARMADASUG",
+    "MAFATLAFIN"
+   ],
+   "at": "2026-11-12T17:39:32.865Z"
   }
  }
 }
