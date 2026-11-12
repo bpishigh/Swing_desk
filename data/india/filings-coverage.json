@@ -651,6 +651,38 @@
     "KUNDANMM"
    ],
    "at": "2026-11-12T15:46:53.743Z"
+  },
+  "2021-09-30": {
+   "listed": 2957,
+   "attempted": 2957,
+   "parsed": 2923,
+   "fetchFailed": 22,
+   "parseFailed": 6,
+   "unmapped": 6,
+   "families": {
+    "IFIndAs": 2883,
+    "IFBanking": 36,
+    "IFOTB": 4
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 6
+   },
+   "unmappedSymbols": [
+    "MAFATLAFIN",
+    "MAFATLAFIN",
+    "ATCOM",
+    "ATCOM",
+    "KUNDANMM",
+    "RUSHABEAR"
+   ],
+   "at": "2026-11-12T15:58:06.847Z"
   }
  }
 }
