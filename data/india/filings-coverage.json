@@ -1018,6 +1018,38 @@
     "GRANDFONRY"
    ],
    "at": "2026-11-12T17:48:53.753Z"
+  },
+  "2018-09-30": {
+   "listed": 2033,
+   "attempted": 2033,
+   "parsed": 2025,
+   "fetchFailed": 1,
+   "parseFailed": 0,
+   "unmapped": 7,
+   "families": {
+    "IFIndAs": 1964,
+    "IFOTB": 48,
+    "IFBanking": 11
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {},
+   "unmappedSymbols": [
+    "NARMADASUG",
+    "AUTORIDFIN",
+    "ATCOM",
+    "RAJASPETRO",
+    "MAFATLAFIN",
+    "PRASGLOFIN",
+    "GRANDFONRY"
+   ],
+   "alreadyStored": 2,
+   "at": "2026-11-12T17:57:06.110Z"
   }
  }
 }
