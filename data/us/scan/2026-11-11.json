@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 297,
   "template": 148,
-  "qualified": 37,
+  "qualified": 10,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -373,127 +373,6 @@
  "ready": [],
  "watch": [
   {
-   "sym": "SLN",
-   "type": "ADRC",
-   "group": "Pharma and biotech",
-   "path": "main",
-   "rsPct": 99.18,
-   "close": 19.77,
-   "tags": [
-    "results date not checked",
-    "ADR: delisting risk not in the price; results dates less reliable",
-    "failed qualification 1 night(s)",
-    "extended: more than 25% above the 50-day"
-   ],
-   "clears50M": true,
-   "composite": 94.75,
-   "tightness": 0.09,
-   "distPivot": 0.48,
-   "setup": null,
-   "gb": {
-    "pct": 71.8,
-    "n": 103
-   },
-   "diag": {
-    "rs121": 39.69,
-    "rs6m2w": 177.22,
-    "atr14": 0.07,
-    "sma50": 14.46,
-    "sma200": 9.63,
-    "high52": 19.86,
-    "low52": 4.19,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 99.2th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.5% below its 52-week high (limit 25%) and 371.8% above its 52-week low (needs 30%).",
-    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
-    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: extended, 36.7% above its 50-day (limit 25%). Wait for a pullback."
-   ]
-  },
-  {
-   "sym": "MANE",
-   "type": "CS",
-   "group": "Pharma and biotech",
-   "path": "ipo",
-   "rsPct": 98.53,
-   "close": 156.56,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)",
-    "IPO path: 3-month return rank, shorter template",
-    "extended: more than 25% above the 50-day"
-   ],
-   "clears50M": true,
-   "composite": 73.99,
-   "tightness": 1.25,
-   "distPivot": 0.04,
-   "setup": null,
-   "gb": {
-    "pct": 71.8,
-    "n": 103
-   },
-   "diag": {
-    "rs121": null,
-    "rs6m2w": 34.99,
-    "atr14": 8.6,
-    "sma50": 120.86,
-    "sma200": null,
-    "high52": 156.63,
-    "low52": 32,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 98.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.",
-    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
-    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: extended, 29.5% above its 50-day (limit 25%). Wait for a pullback."
-   ]
-  },
-  {
-   "sym": "VTRS",
-   "type": "CS",
-   "group": "Pharma and biotech",
-   "path": "main",
-   "rsPct": 96.06,
-   "close": 21.06,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 72.07,
-   "tightness": 1.29,
-   "distPivot": 0.19,
-   "setup": null,
-   "gb": {
-    "pct": 71.8,
-    "n": 103
-   },
-   "diag": {
-    "rs121": 69.62,
-    "rs6m2w": 25.38,
-    "atr14": 0.61,
-    "sma50": 17.96,
-    "sma200": 16.16,
-    "high52": 21.1,
-    "low52": 10.15,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 96.1th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.2% below its 52-week high (limit 25%) and 107.5% above its 52-week low (needs 30%).",
-    "Group: Pharma and biotech ranks 4 of 59 (median strength 74.8); the 2 strongest groups are traded in the yellow light.",
-    "Sector breadth: 71.8% of the 103 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 0.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "BTSG",
    "type": "CS",
    "group": "Healthcare services",
@@ -649,7 +528,7 @@
  "thinGroup": {
   "qualified": 2
  },
- "qualifiedTotal": 37,
+ "qualifiedTotal": 10,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
