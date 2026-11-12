@@ -777,6 +777,39 @@
     "MAFATLAFIN"
    ],
    "at": "2026-11-12T16:31:21.051Z"
+  },
+  "2020-09-30": {
+   "listed": 2800,
+   "attempted": 2800,
+   "parsed": 2777,
+   "fetchFailed": 0,
+   "parseFailed": 16,
+   "unmapped": 7,
+   "families": {
+    "IFIndAs": 2719,
+    "IFOTB": 6,
+    "IFBanking": 52
+   },
+   "missingField": {
+    "revenue": 0,
+    "pbt": 0,
+    "pat": 0,
+    "eps": 0
+   },
+   "periodMismatch": 0,
+   "errors": {
+    "no format family in the header comment and none inferable from the tags": 16
+   },
+   "unmappedSymbols": [
+    "AUTORIDFIN",
+    "NARMADASUG",
+    "ATCOM",
+    "ATCOM",
+    "KUNDANMM",
+    "MAFATLAFIN",
+    "MAFATLAFIN"
+   ],
+   "at": "2026-11-12T16:43:03.831Z"
   }
  }
 }
