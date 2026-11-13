@@ -15,7 +15,7 @@ export interface UsQuarter { period: string; basis: 'consolidated'; asOf: string
 export const CHAINS = {
   revenue: ['Revenues', 'RevenueFromContractWithCustomerExcludingAssessedTax', 'RevenueFromContractWithCustomerIncludingAssessedTax', 'SalesRevenueNet', 'SalesRevenueGoodsNet', 'RevenuesNetOfInterestExpense'],
   pbt: ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest', 'IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments'],
-  pat: ['NetIncomeLoss', 'ProfitLoss'],
+  pat: ['NetIncomeLoss', 'ProfitLoss', 'NetIncomeLossAvailableToCommonStockholdersBasic'],
   eps: ['EarningsPerShareDiluted', 'EarningsPerShareBasicAndDiluted', 'EarningsPerShareBasic'],
   opInc: ['OperatingIncomeLoss'],
   interest: ['InterestExpense', 'InterestExpenseDebt', 'InterestAndDebtExpense'],
@@ -99,7 +99,8 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     const filedSrc = pat.filed ?? rev.filed; if (!filedSrc) continue;   // a quarter needs a profit or revenue figure and a filing date
     const accn = pat.accn ?? rev.accn ?? '';
     const fiscalEnd = monthEnd(end); const fp = (() => { const y = val('pat', end, 'Y'); return y ? 'FY' : val('pat', end, 'Q') ? 'Q' : ''; })();
-    const pbtV = pbt.val, intV = intr.val;
+    // A quarter with reported operating income but no interest-expense figure (Apple and Nvidia stopped showing one) is read as having none, so operating EBIT equals reported operating income; the extra `interestAssumed` is set to 1 on that quarter so the assumption can be seen. With no operating income the figure stays null.
+    const pbtV = pbt.val, intV = intr.val ?? (op.val != null ? 0 : null), interestAssumed = intr.val == null && op.val != null;
     const otherIncome = pbtV != null && intV != null && op.val != null ? pbtV + intV - op.val : nonOp.val;
     const ytdV = (k: string): number | null => ytdOf(k);
     const debtLong = instAt('debtLong', end), debtCur = instAt('debtCurrent', end);
@@ -108,7 +109,7 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
     put(bs, 'ppe', instAt('ppe', end)); put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
     if (debtLong != null || debtCur != null) { put(bs, 'borrowings', (debtLong ?? 0) + (debtCur ?? 0)); put(bs, 'borrowingsCurrent', debtCur ?? 0); }
-    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); qx.faceValue = 1;
+    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); if (interestAssumed) qx.interestAssumed = 1; put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); qx.faceValue = 1;
     if (qx.paidUp == null) delete qx.faceValue;
     const cfx: Record<string, number> = {}; put(cfx, 'cfo', ytdV('cfo')); put(cfx, 'capex', ytdV('capex'));
     const fields: Values = { revenue: rev.val, pbt: pbtV, pat: pat.val, eps: eps.val };

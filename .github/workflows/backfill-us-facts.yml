@@ -1,0 +1,33 @@
+name: backfill-us-facts
+# US company facts from SEC EDGAR into data/us/facts (quarterly figures with original filing dates), for the 600 most traded US common stocks. Manual, and called by the nightly US job.
+on:
+  workflow_dispatch:
+    inputs:
+      limit: { description: 'Only the first N symbols by dollar volume', required: false, default: '600' }
+concurrency: backfill-us-facts
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/backfill-us-facts.mjs --limit=${{ github.event.inputs.limit || '600' }}
+        env: { SEC_UA: "${{ secrets.SEC_UA }}" }
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add -A data/us/facts data/us/facts-log.json
+          git commit -m "backfill-us-facts: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
