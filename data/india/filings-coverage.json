@@ -1736,7 +1736,46 @@
     "ATCOM",
     "ATCOM"
    ],
-   "at": "2026-11-12T16:09:36.563Z"
+   "at": "2026-11-12T16:09:36.563Z",
+   "topup": {
+    "listed": 2899,
+    "attempted": 2899,
+    "parsed": 2863,
+    "fetchFailed": 25,
+    "parseFailed": 6,
+    "unmapped": 5,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 6
+    },
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "KUNDANMM",
+     "ATCOM",
+     "ATCOM"
+    ],
+    "toppedUp": 2863,
+    "extraCount": {
+     "q.otherIncome": 2863,
+     "q.financeCost": 2863,
+     "q.depreciation": 2830,
+     "q.exceptional": 2862,
+     "q.pbtPre": 2828,
+     "q.paidUp": 2863,
+     "q.faceValue": 2863,
+     "cf.cfo": 10,
+     "cf.capex": 10
+    },
+    "at": "2026-11-13T22:20:14.603Z"
+   }
   },
   "2021-03-31": {
    "listed": 2730,
