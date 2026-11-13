@@ -36,7 +36,50 @@
     "RUSHABEAR"
    ],
    "alreadyStored": 149,
-   "at": "2026-11-08T16:11:10.391Z"
+   "at": "2026-11-08T16:11:10.391Z",
+   "topup": {
+    "listed": 4998,
+    "attempted": 40,
+    "parsed": 39,
+    "fetchFailed": 0,
+    "parseFailed": 0,
+    "unmapped": 1,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "KUNDANMM"
+    ],
+    "toppedUp": 39,
+    "extraCount": {
+     "q.otherIncome": 39,
+     "q.financeCost": 39,
+     "q.depreciation": 39,
+     "q.exceptional": 39,
+     "q.pbtPre": 39,
+     "q.paidUp": 39,
+     "q.faceValue": 39,
+     "bs.assets": 39,
+     "bs.equity": 39,
+     "bs.borrowings": 39,
+     "bs.cash": 39,
+     "bs.ppe": 39,
+     "bs.inventories": 39,
+     "cf.cfo": 39,
+     "cf.capex": 39,
+     "bs.borrowingsCurrent": 36,
+     "bs.currentAssets": 36,
+     "bs.currentLiabilities": 36,
+     "bs.receivables": 36
+    },
+    "at": "2026-11-13T17:13:16.407Z"
+   }
   },
   "2025-03-31": {
    "listed": 4426,
