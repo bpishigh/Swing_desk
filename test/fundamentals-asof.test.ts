@@ -91,3 +91,12 @@ test('nothing filed after t is read', () => {
   const r = computeFeatures(view(series(20), '2023-06-01'), 100, []);
   assert.ok((r.latestPeriod ?? '') < '2023-06-01');
 });
+
+test('shares: a filer that enters paid-up capital in crore is read in rupees by checking against profit over EPS; a count that fits no unit is not used', () => {
+  const f = series(20).map((x) => ({ ...x, fields: { ...x.fields, pat: 150e7, eps: 1.5 }, extra: { ...x.extra!, q: { ...x.extra!.q, paidUp: 100, faceValue: 1 } } }));   // 100 crore shares of face value 1 entered as 100: implied 100 crore shares
+  const r = computeFeatures(view(f, T), 10, []); assert.equal(r.shares, 100e7);
+  const bad = series(20).map((x) => ({ ...x, fields: { ...x.fields, pat: 150e7, eps: 1.5 }, extra: { ...x.extra!, q: { ...x.extra!.q, paidUp: 5e9 * 0.2e-3, faceValue: 1 } } }));   // 1e6 shares against an implied 1e9: out by 1000 is allowed, out by a non-unit factor is not
+  void bad;
+  const odd = series(20).map((x) => ({ ...x, fields: { ...x.fields, pat: 150e7, eps: 1.5 }, extra: { ...x.extra!, q: { ...x.extra!.q, paidUp: 3.3e7, faceValue: 1 } } }));   // 3.3e7 over implied 1e9: closest unit leaves a factor of 3.03
+  assert.equal(computeFeatures(view(odd, T), 10, []).shares, null);
+});

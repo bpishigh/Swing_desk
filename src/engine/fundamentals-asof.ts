@@ -85,7 +85,14 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
 
   // shares: paid-up capital over face value as last filed, rolled forward for splits and bonuses between that filing and t
   let shares: number | null = null, sharesFlag = false;
-  const sh = (i: number): number | null => { const e = qv[i]?.extra?.q; return e?.paidUp != null && e?.faceValue != null && e.faceValue > 0 ? e.paidUp / e.faceValue : null; };
+  // Some filers enter paid-up capital in lakh, crore or thousand instead of rupees. The share count implied by the same quarter's profit over EPS says which; a count that fits no unit within a factor of 3 is not used.
+  const sh = (i: number): number | null => {
+    const e = qv[i]?.extra?.q, v = qv[i]?.values; if (!(e?.paidUp != null && e?.faceValue != null && e.faceValue > 0)) return null;
+    const raw = e.paidUp / e.faceValue, implied = v && v.pat != null && v.eps != null && v.eps !== 0 ? Math.abs(v.pat / v.eps) : null;
+    if (implied == null || !(implied > 0)) return raw;
+    let best = 0, bd = Infinity; for (const m of [1, 1e3, 1e5, 1e6, 1e7]) { const d = Math.abs(Math.log((raw * m) / implied)); if (d < bd) { bd = d; best = m; } }
+    return bd <= Math.log(3) ? raw * best : null;
+  };
   const sh0 = sh(0);
   if (sh0 != null && latest) { let m = 1; for (const s of splits) if (s.date > latest.asOf.slice(0, 10) && s.date <= t && s.factor > 0) m /= s.factor; shares = sh0 * m; const sh4 = sh(4); if (sh4 != null && Math.abs(sh0 / sh4 - 1) > 0.02) sharesFlag = true; }
   let sharesYearAgoRolled: number | null = null; { const s4 = sh(4); if (s4 != null && qv[4]) { let m = 1; for (const sp of splits) if (sp.date > qv[4].asOf.slice(0, 10) && sp.date <= t && sp.factor > 0) m /= sp.factor; sharesYearAgoRolled = s4 * m; } }

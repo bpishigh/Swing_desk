@@ -409,6 +409,96 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "ba-a1-pead",
+      "name": "Post-earnings drift",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "A1",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/ba-a1-pead/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-a2-value",
+      "name": "Value-lite",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "A2",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/ba-a2-value/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-a3-quality",
+      "name": "Quality-lite",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "A3",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/ba-a3-quality/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-a5-fallen",
+      "name": "Fallen and rebuilding",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "A5",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/ba-a5-fallen/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-a6-compounder",
+      "name": "Consistent compounder, lite",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "A6",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/ba-a6-compounder/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
