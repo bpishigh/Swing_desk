@@ -62,7 +62,7 @@ export function fiscalEndMonth(view: View): number | null {
   return voters >= 2 && ranked[0][1] >= 2 && ranked[0][1] > ranked[1][1] ? Number(ranked[0][0]) : null;
 }
 
-export function computeFeatures(view: View, close: number | null, splits: Split[], opt: { fiscalEnd?: number | null } = {}): Features {
+export function computeFeatures(view: View, close: number | null, splits: Split[], opt: { fiscalEnd?: number | null; sueShareRule?: 'both' | 'increase' } = {}): Features {
   const qv = view.quarters, qs = qv.map(toQuarter), t = view.t;
   const latest = qv[0] ?? null, financial = latest?.format != null && FINANCIAL.has(latest.format);
   const missing: string[] = [];
@@ -124,7 +124,7 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
     const exc = (q: Quarter | undefined) => !!q && q.exceptional != null && q.pbt != null && q.pbt !== 0 && Math.abs(q.exceptional) > 0.25 * Math.abs(q.pbt);
     if (d0 == null) sue = { ...sue, reason: 'no EPS change (missing year-ago quarter, basis change or EPS missing)' };
     else if (exc(qs[0]) || exc(qs[4])) sue = { value: null, epsChange: d0, period: latest.period, reason: 'exceptional items above 25% of PBT in the quarter or the year-ago quarter' };
-    else if (sh(0) != null && sh(4) != null && Math.abs((sh(0) as number) / (sh(4) as number) - 1) > 0.02) sue = { value: null, epsChange: d0, period: latest.period, reason: 'share count moved more than 2% from the year-ago quarter' };
+    else if (sh(0) != null && sh(4) != null && (opt.sueShareRule === 'increase' ? (sh(0) as number) / (sh(4) as number) - 1 : Math.abs((sh(0) as number) / (sh(4) as number) - 1)) > 0.02) sue = { value: null, epsChange: d0, period: latest.period, reason: 'share count moved more than 2% from the year-ago quarter' };
     else if (close != null && close > 0 && Math.abs(d0) < 0.005 * close) sue = { value: null, epsChange: d0, period: latest.period, reason: 'EPS change below 0.5% of the close' };
     else if (prior.length < 6) sue = { value: null, epsChange: d0, period: latest.period, reason: 'fewer than 6 earlier changes' };
     else { const s = sd(prior); sue = s > 0 ? { value: d0 / s, epsChange: d0, period: latest.period, reason: 'ok' } : { value: null, epsChange: d0, period: latest.period, reason: 'zero spread' }; }

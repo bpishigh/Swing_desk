@@ -30,7 +30,7 @@ for (const p of list) {
   // a split-like move since the latest filing makes the cover share count and today's adjusted close disagree
   const latest = view.quarters[0]?.asOf.slice(0, 10) ?? null; let splitSince = false;
   if (latest && s) for (let i = t; i > 0 && dates[i] > latest; i--) { const m = dayMove(s.c, i); if (m && splitLike(m.ratio)) { splitSince = true; break; } }
-  const f1 = computeFeatures(view, splitSince ? null : close, []);
+  const f1 = computeFeatures(view, splitSince ? null : close, [], { sueShareRule: process.env.SUE_SHARE_RULE === 'increase' ? 'increase' : 'both' });   // 'increase' is a measurement only: the adopted rule is 'both'
   if (splitSince) { cov.splitSinceFiling++; f1.eyNullReason = 'split since filing'; }
   if (f1.ttm.pat != null) cov.ttm++; if (f1.growth.revenue != null || f1.growth.pbtPre != null) cov.growth++; if (f1.growth.revenueCagr3 != null) cov.cagr3++; if (f1.bs) cov.balanceSheet++; if (f1.earningsYield != null) cov.earningsYield++; if (f1.fiscalYears.length) cov.fiscalEnd++; if (f1.financial) cov.financial++; if (f1.sue.value != null) cov.sue++;
   rows[p.sym] = { entity: p.sym, tradedValue: Math.round(p.value), ...f1, flags: { ...flagsOf(f1), pledge: null } };
