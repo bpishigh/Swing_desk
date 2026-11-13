@@ -2203,7 +2203,47 @@
     "MAFATLAFIN",
     "MAFATLAFIN"
    ],
-   "at": "2026-11-12T17:24:20.490Z"
+   "at": "2026-11-12T17:24:20.490Z",
+   "topup": {
+    "listed": 2528,
+    "attempted": 2528,
+    "parsed": 2511,
+    "fetchFailed": 1,
+    "parseFailed": 8,
+    "unmapped": 8,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 8
+    },
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "NARMADASUG",
+     "AUTORIDFIN",
+     "ATCOM",
+     "ATCOM",
+     "RAJASPETRO",
+     "MAFATLAFIN",
+     "MAFATLAFIN"
+    ],
+    "toppedUp": 2511,
+    "extraCount": {
+     "q.otherIncome": 2511,
+     "q.financeCost": 2511,
+     "q.depreciation": 2478,
+     "q.exceptional": 2511,
+     "q.pbtPre": 2471,
+     "q.paidUp": 2511,
+     "q.faceValue": 2511
+    },
+    "at": "2026-11-13T23:32:09.158Z"
+   }
   },
   "2019-06-30": {
    "listed": 2005,
