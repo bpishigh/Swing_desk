@@ -804,7 +804,56 @@
     "KUNDANMM"
    ],
    "alreadyStored": 150,
-   "at": "2026-11-12T04:03:04.455Z"
+   "at": "2026-11-12T04:03:04.455Z",
+   "topup": {
+    "listed": 3072,
+    "attempted": 3072,
+    "parsed": 3060,
+    "fetchFailed": 2,
+    "parseFailed": 5,
+    "unmapped": 5,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 5
+    },
+    "unmappedSymbols": [
+     "ATCOM",
+     "ATCOM",
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "KUNDANMM"
+    ],
+    "toppedUp": 3060,
+    "extraCount": {
+     "q.otherIncome": 3060,
+     "q.financeCost": 3060,
+     "q.depreciation": 3001,
+     "q.exceptional": 3060,
+     "q.pbtPre": 2997,
+     "q.paidUp": 3060,
+     "q.faceValue": 3060,
+     "cf.cfo": 3029,
+     "cf.capex": 2966,
+     "bs.borrowings": 175,
+     "bs.assets": 5,
+     "bs.equity": 5,
+     "bs.borrowingsCurrent": 3,
+     "bs.cash": 5,
+     "bs.currentAssets": 3,
+     "bs.currentLiabilities": 3,
+     "bs.ppe": 3,
+     "bs.inventories": 3,
+     "bs.receivables": 3
+    },
+    "at": "2026-11-13T21:46:12.005Z"
+   }
   },
   "2020-03-31": {
    "listed": 2575,
