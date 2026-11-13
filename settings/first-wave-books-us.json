@@ -45,6 +45,51 @@
       "signal": "pullback",
       "startAfter": "2026-11-12",
       "comparator": "mtum"
+    },
+    {
+      "id": "ba-us-a1-pead",
+      "rule": "A1-US",
+      "name": "Post-earnings drift (EPS surprise) (US)",
+      "signal": "pead",
+      "startAfter": "2026-11-17",
+      "comparator": "spy",
+      "batch": "A"
+    },
+    {
+      "id": "ba-us-a2-value",
+      "rule": "A2-US",
+      "name": "Value-lite: cheapest earnings yield (US)",
+      "signal": "valueLite",
+      "startAfter": "2026-11-17",
+      "comparator": "spy",
+      "batch": "A"
+    },
+    {
+      "id": "ba-us-a3-quality",
+      "rule": "A3-US",
+      "name": "Quality-lite: profitability and stability (US)",
+      "signal": "qualityLite",
+      "startAfter": "2026-11-17",
+      "comparator": "spy",
+      "batch": "A"
+    },
+    {
+      "id": "ba-us-a5-fallen",
+      "rule": "A5-US",
+      "name": "Fallen and rebuilding (US)",
+      "signal": "fallen",
+      "startAfter": "2026-11-17",
+      "comparator": "spy",
+      "batch": "A"
+    },
+    {
+      "id": "ba-us-a6-compounder",
+      "rule": "A6-US",
+      "name": "Consistent compounder, lite (US)",
+      "signal": "compounder",
+      "startAfter": "2026-11-17",
+      "comparator": "spy",
+      "batch": "A"
     }
   ],
   "sleeveBooks": [

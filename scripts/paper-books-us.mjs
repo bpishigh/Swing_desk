@@ -17,6 +17,7 @@ import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 import { splitLike, dayMove, bigFall } from '../src/engine/gap-events.ts';
+import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
 import { loadDays } from './us-hist-lib.mjs';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3), ASOF = arg('asof'), ONLY = arg('only'), DRY = process.argv.includes('--dry');
@@ -29,6 +30,9 @@ const allowed = new Set(tk.rows.filter(([, ty]) => ty === 'CS' || ty === 'ADRC')
 const days = loadDays(ASOF).map((d) => ({ date: d.date, rows: d.rows.filter((r) => allowed.has(r[0])) })), dates = days.map((d) => d.date), t = days.length - 1, D = dates[t];
 const FH = buildHistories(days, [], allowed), series = FH.series, names = R('data/names.json', { us: {} }).us ?? {};
 const el = eligibleUs(series, t).map((p) => ({ sym: p.sym, value: p.value }));
+// Batch A US versions (docs/BATCH_A_RULES.md, US rows): the top 500 by dollar volume and the nightly US company figures; a book does nothing on a night the figures are not from tonight.
+const fundFile = R('data/us/fundamentals/latest.json'), fundOk = !!fundFile && fundFile.asOf === D, fundRows = fundOk ? fundFile.rows : {};
+const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead']);
 const OPEN = (() => { const f = `data/us/open/${D}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } })();
 const openMissing = new Set(), open = (s) => { const o = OPEN[s]; if (o > 0) return o; openMissing.add(s); return NaN; };
 const age = (sym) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };
@@ -72,15 +76,25 @@ for (const b of books) {
   const elOk = el.filter((p) => !blocked(p.sym)), ctxOf = (held) => ({ el: elOk, series, t, dates, held, group: (sym) => sicOf.get(sym) ?? null });
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(elOk.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
-  const signal = (held) => { const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog); if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide); return null; };
+  const baCtx = (held, stx) => ({ el: elOk.slice(0, 500), series, t, dates, held, fund: fundRows, st: stx, group: (sym) => sicOf.get(sym) ?? null });
+  const signal = (held, stx) => { if (BA_SIGNALS.has(b.signal)) { if (!fundOk) { st.fundMissing = (st.fundMissing ?? 0) + 1; return null; } const bx = baCtx(held, stx);
+      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : pead(bx, wide, plog); }
+    const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog); if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide); return null; };
   const before = st.lastStep, cr = before === D ? { r: null } : cashRetFor(st); if (cr.carried && before !== D && st.started) st.cashCarried++;
   stepBook(st, { D, open, age, close: px, dist, blocked, cashRet: cr.r, tier: tierUs, signal });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
   if (plog.length) st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400);
   for (const q of st.stopQueue.filter((q) => q.on === D)) { const s = series.get(q.sym), m = s ? dayMove(s.c, t) : null; if (m && bigFall(m.ratio) && !has(q.sym, D, 'distribution')) gap({ date: D, sym: q.sym, kind: 'stop-out after fall', move: Math.round((m.ratio - 1) * 1e4) / 1e4, state: 'unconfirmed fall of 15% or more' }); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high, blocked: blocked(sym) }));
-  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchDonchian(wx), watchRows = watch.map((r) => ({ ...r, name: r.group ? `${names[r.sym] ?? r.sym} (SIC ${r.group})` : names[r.sym] ?? null }));
-  const bm = monthlyValues(st), comp = b.comparator === 'parent' ? monthsOf(parent) : mtumM, compName = b.comparator === 'parent' ? 'Stopped US parent (monthly review, 25% stop)' : 'MTUM (iShares MSCI USA Momentum Factor ETF), price only';
+  const baWatch = (sig, held) => { if (!fundOk) return []; const bx = baCtx(held, st);
+    if (sig === 'pead') return (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio }));
+    const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : compounderPassers(bx);
+    const r3 = (x) => (x == null || x !== x ? null : Math.round(x * 1000) / 1000), state = (sym, rank) => (held.has(sym) ? (rank != null && rank <= 20 ? 'Held' : rank != null && rank <= 40 ? 'In buffer' : 'Would leave') : rank != null && rank <= 20 ? 'Would enter' : '');
+    const o = rows.slice(0, 40).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: state(r.sym, i + 1) }));
+    for (const sym of held) if (!o.some((r) => r.sym === sym)) { const i = rows.findIndex((r) => r.sym === sym); o.push({ rank: i < 0 ? undefined : i + 1, sym, score: i < 0 ? null : r3(rows[i].s), status: i < 0 ? 'Would leave (no longer ranked)' : state(sym, i + 1) }); }
+    return o; };
+  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = BA_SIGNALS.has(b.signal) ? baWatch(b.signal, new Set(Object.keys(st.pos))) : b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchDonchian(wx), watchRows = watch.map((r) => ({ ...r, name: r.group ? `${names[r.sym] ?? r.sym} (SIC ${r.group})` : names[r.sym] ?? null }));
+  const spyM = [...BM.SPY].map(([m, b0]) => ({ m, v: b0[1] })), bm = monthlyValues(st), comp = b.comparator === 'parent' ? monthsOf(parent) : b.comparator === 'spy' ? spyM : mtumM, compName = b.comparator === 'parent' ? 'Stopped US parent (monthly review, 25% stop)' : b.comparator === 'spy' ? 'SPY (S&P 500 ETF), price only' : 'MTUM (iShares MSCI USA Momentum Factor ETF), price only';
   const trades = st.closed.map((c) => c.ret - tierUs(st.lastValue[c.sym] ?? 0)), tr = { n: trades.length, avg: trades.length ? trades.reduce((a, x) => a + x, 0) / trades.length : null };
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;

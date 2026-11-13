@@ -499,6 +499,96 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "ba-us-a1-pead",
+      "name": "Post-earnings drift (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "A1-US",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/us/books/ba-us-a1-pead/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-us-a2-value",
+      "name": "Value-lite (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "A2-US",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/us/books/ba-us-a2-value/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-us-a3-quality",
+      "name": "Quality-lite (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "A3-US",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/us/books/ba-us-a3-quality/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-us-a5-fallen",
+      "name": "Fallen and rebuilding (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "A5-US",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/us/books/ba-us-a5-fallen/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "ba-us-a6-compounder",
+      "name": "Consistent compounder, lite (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "A6-US",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/us/books/ba-us-a6-compounder/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
