@@ -73,3 +73,19 @@ test('a stated family with no map falls back to the tags; still an error when th
   assert.equal(ok.ok, true); if (ok.ok) { assert.equal(ok.family, 'IFIndAs'); assert.equal(ok.inferred, true); }
   assert.equal(parseResultsXbrl(body(''), maps).ok, false);
 });
+
+// Batch A (A0): extra figures read from the same real files. Expected values read with grep, independent of the parser.
+test('extras: Ind AS consolidated carries income lines, balance sheet and cash flow', () => {
+  const r = parse('IFIndAs-consolidated');
+  assert.equal(r.extra.q.financeCost, 396600000); assert.equal(r.extra.q.otherIncome, 465600000); assert.equal(r.extra.q.exceptional, 316100000);
+  assert.equal(r.extra.q.pbtPre, 2221400000); assert.equal(r.extra.q.paidUp, 313500000); assert.equal(r.extra.q.faceValue, 2);
+  assert.equal(r.extra.bs.assets, 141367500000); assert.equal(r.extra.bs.equity, 77328300000);
+  assert.equal(r.extra.bs.borrowings, 12114000000 + 16010900000); assert.equal(r.extra.bs.cash, 3061900000);
+  assert.equal(r.extra.cf.cfo, 12338000000); assert.equal(r.extra.cf.capex, 8692900000);
+});
+test('extras: borrowings fall back to the single tag for banks and are summed otherwise; absent figures stay absent', () => {
+  assert.equal(parse('IFBanking-standalone').extra.bs.borrowings, 27527400000);
+  assert.equal(parse('IFOTB-standalone').extra.bs.borrowings, 2800214000 + 725722000);
+  assert.equal(parse('IFLI-consolidated').extra.q.financeCost, undefined);
+  assert.equal(parse('IFNBFC-standalone').extra.q.financeCost, 0);
+});

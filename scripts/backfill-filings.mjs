@@ -6,6 +6,7 @@ import { gunzipSync, gzipSync } from 'node:zlib';
 import { execSync } from 'node:child_process';
 import { parseResultsXbrl } from '../src/ingest/filings-parse.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
+const TOPUP = process.argv.includes('--topup');   // Batch A: filings already stored get the extra figures (extra) added, no new rows
 const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "2"));
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const NSEH = { ...UA, referer: 'https://www.nseindia.com/', accept: 'application/json' };
@@ -38,19 +39,22 @@ for (const period of periods) {
     }
   }
   const recs = all.slice(0, LIMIT), c = { listed: all.length, attempted: recs.length, parsed: 0, fetchFailed: 0, parseFailed: 0, unmapped: 0, families: {}, missingField: { revenue: 0, pbt: 0, pat: 0, eps: 0 }, periodMismatch: 0, errors: {}, unmappedSymbols: [] };
+  const countExtra = (e) => { c.extraCount = c.extraCount || {}; for (const part of ['q', 'bs', 'cf']) for (const k of Object.keys(e[part] || {})) c.extraCount[`${part}.${k}`] = (c.extraCount[`${part}.${k}`] || 0) + 1; };
   let i = 0;
   const worker = async () => { while (i < recs.length) {
-    const rec = recs[i++]; const pre = entityOf(rec.symbol, pe); if (pre && load(pre).results.some((y) => y.source === rec.xbrl)) { c.alreadyStored = (c.alreadyStored || 0) + 1; c.parsed++; continue; }   // resume: a filing already stored is not fetched again
+    const rec = recs[i++]; const pre = entityOf(rec.symbol, pe); const have = pre ? load(pre).results.find((y) => y.source === rec.xbrl) : null;
+    if (have && !(TOPUP && !have.extra)) { c.alreadyStored = (c.alreadyStored || 0) + 1; c.parsed++; continue; }   // resume: a filing already stored is not fetched again (top-up mode refetches only those without extra)
+    if (have && TOPUP) { const r0 = await get(rec.xbrl); if (r0.status !== 200) { c.fetchFailed++; continue; } const x0 = parseResultsXbrl(r0.t, maps); if (!x0.ok) { c.parseFailed++; continue; } have.extra = x0.extra; c.toppedUp = (c.toppedUp || 0) + 1; countExtra(x0.extra); c.parsed++; await sleep(150); continue; }   // resume: a filing already stored is not fetched again
     const r = await get(rec.xbrl); if (r.status !== 200) { c.fetchFailed++; continue; }
     const x = parseResultsXbrl(r.t, maps); if (!x.ok) { c.parseFailed++; c.errors[x.error] = (c.errors[x.error] || 0) + 1; continue; }
     if (x.periodEnd && x.periodEnd !== pe) c.periodMismatch++;
     const id = entityOf(rec.symbol || x.symbol, pe); if (!id) { c.unmapped++; if (c.unmappedSymbols.length < 40) c.unmappedSymbols.push(rec.symbol || x.symbol); continue; }
-    c.parsed++; c.families[x.family] = (c.families[x.family] || 0) + 1; for (const k of x.missing) c.missingField[k]++;
+    c.parsed++; countExtra(x.extra); c.families[x.family] = (c.families[x.family] || 0) + 1; for (const k of x.missing) c.missingField[k]++;
     const o = load(id), src = rec.xbrl; if (o.results.some((y) => y.source === src)) continue;
-    o.results.push({ period: x.periodEnd || pe, basis: x.basis || (/^Consolidated/i.test(rec.consolidated) ? 'consolidated' : 'standalone'), asOf: isoTime(rec.broadcast_Date), original: /^Original/i.test(rec.type_Sub || 'Original'), format: x.family, fields: x.quarter, ytd: x.ytd, audited: x.audited, rounding: x.rounding, boardMeeting: x.boardMeeting, source: src, fetched });
+    o.results.push({ period: x.periodEnd || pe, basis: x.basis || (/^Consolidated/i.test(rec.consolidated) ? 'consolidated' : 'standalone'), asOf: isoTime(rec.broadcast_Date), original: /^Original/i.test(rec.type_Sub || 'Original'), format: x.family, fields: x.quarter, ytd: x.ytd, extra: x.extra, audited: x.audited, rounding: x.rounding, boardMeeting: x.boardMeeting, source: src, fetched });
     await sleep(150); } };
   await Promise.all(Array.from({ length: CONC }, worker));
-  cov.periods[isoDate(period)] = { ...c, at: new Date().toISOString() };
+  if (TOPUP) { const k = isoDate(period); cov.periods[k] = { ...(cov.periods[k] || {}), topup: { ...c, at: new Date().toISOString() } }; } else cov.periods[isoDate(period)] = { ...c, at: new Date().toISOString() };   // top-up keeps the original coverage block and adds its own
   flush();
   if (process.env.COMMIT_EACH === '1') { try { execSync('git add data/india/filings data/india/filings-coverage.json && git commit -q -m "backfill-filings: ' + period + '" && (git pull -q --rebase origin main; git push -q origin HEAD:main)', { stdio: 'inherit' }); } catch (e) { console.log('commit step failed, continuing: ' + String(e).slice(0, 100)); } }
   console.log(period, JSON.stringify({ listed: c.listed, parsed: c.parsed, fetchFailed: c.fetchFailed, parseFailed: c.parseFailed, unmapped: c.unmapped, families: c.families }));

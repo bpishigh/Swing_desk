@@ -1,12 +1,164 @@
 {
   "version": "FILINGS-TAGS-1",
-  "note": "Which XBRL tag means revenue, profit before tax, profit and EPS, per format family of the NSE integrated filing (header comment of the file). Tags are tried in the order listed. A family with no tag for a field leaves the field absent. Built from real files (fixtures/filings, data/filings-tag-census.json, 31 Mar 2026). Revenue for banks and insurers is total income (the files carry no 'revenue from operations'). Aliases are families seen in earlier probes and not yet in a fixture: they borrow the map of the family they mirror and are flagged unverified until a fixture is added. See docs/FILINGS_LOADER_SPEC.md section 6.",
+  "note": "Which XBRL tag means revenue, profit before tax, profit and EPS, per format family of the NSE integrated filing (header comment of the file). Tags are tried in the order listed. A family with no tag for a field leaves the field absent. Built from real files (fixtures/filings, data/filings-tag-census.json, 31 Mar 2026). Revenue for banks and insurers is total income (the files carry no 'revenue from operations'). Aliases are families seen in earlier probes and not yet in a fixture: they borrow the map of the family they mirror and are flagged unverified until a fixture is added. See docs/FILINGS_LOADER_SPEC.md section 6. \"extras\" (Batch A, A0): further figures read from the same file: q = quarter lines, bs = balance sheet at period end (context OneI), cf = year-to-date cash flow (FourD). An entry is a list of alternatives; an alternative that is itself a list is summed.",
   "families": {
-    "IFIndAs": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForPeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
-    "IFNBFC": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForPeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
-    "IFOTB": { "revenue": ["RevenueFromOperations"], "pbt": ["ProfitBeforeTax"], "pat": ["ProfitLossForThePeriod"], "eps": ["BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"] },
-    "IFBanking": { "revenue": ["Income"], "pbt": ["ProfitLossFromOrdinaryActivitiesBeforeTax"], "pat": ["ProfitLossForThePeriod"], "eps": ["BasicEarningsPerShareAfterExtraordinaryItems"] },
-    "IFLI": { "revenue": ["Income"], "pbt": ["ProfitLossBeforeTax"], "pat": ["ProfitLossAfterTaxAndExtraordinaryItems"], "eps": [] }
+    "IFIndAs": {
+      "revenue": [
+        "RevenueFromOperations"
+      ],
+      "pbt": [
+        "ProfitBeforeTax"
+      ],
+      "pat": [
+        "ProfitLossForPeriod"
+      ],
+      "eps": [
+        "BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"
+      ]
+    },
+    "IFNBFC": {
+      "revenue": [
+        "RevenueFromOperations"
+      ],
+      "pbt": [
+        "ProfitBeforeTax"
+      ],
+      "pat": [
+        "ProfitLossForPeriod"
+      ],
+      "eps": [
+        "BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"
+      ]
+    },
+    "IFOTB": {
+      "revenue": [
+        "RevenueFromOperations"
+      ],
+      "pbt": [
+        "ProfitBeforeTax"
+      ],
+      "pat": [
+        "ProfitLossForThePeriod"
+      ],
+      "eps": [
+        "BasicEarningsLossPerShareFromContinuingAndDiscontinuedOperations"
+      ]
+    },
+    "IFBanking": {
+      "revenue": [
+        "Income"
+      ],
+      "pbt": [
+        "ProfitLossFromOrdinaryActivitiesBeforeTax"
+      ],
+      "pat": [
+        "ProfitLossForThePeriod"
+      ],
+      "eps": [
+        "BasicEarningsPerShareAfterExtraordinaryItems"
+      ]
+    },
+    "IFLI": {
+      "revenue": [
+        "Income"
+      ],
+      "pbt": [
+        "ProfitLossBeforeTax"
+      ],
+      "pat": [
+        "ProfitLossAfterTaxAndExtraordinaryItems"
+      ],
+      "eps": []
+    }
   },
-  "aliases": { "IFFIndAs": "IFIndAs", "FRNBFC": "IFNBFC", "FRBanking": "IFBanking" }
+  "aliases": {
+    "IFFIndAs": "IFIndAs",
+    "FRNBFC": "IFNBFC",
+    "FRBanking": "IFBanking"
+  },
+  "extras": {
+    "q": {
+      "otherIncome": [
+        "OtherIncome"
+      ],
+      "financeCost": [
+        "FinanceCosts",
+        "InterestExpended"
+      ],
+      "depreciation": [
+        "DepreciationDepletionAndAmortisationExpense",
+        "DepreciationAndAmortisationExpense"
+      ],
+      "exceptional": [
+        "ExceptionalItemsBeforeTax",
+        "ExceptionalItems"
+      ],
+      "pbtPre": [
+        "ProfitBeforeExceptionalItemsAndTax"
+      ],
+      "paidUp": [
+        "PaidUpValueOfEquityShareCapital",
+        "PaidUpEquityShareCapital"
+      ],
+      "faceValue": [
+        "FaceValueOfEquityShareCapital"
+      ]
+    },
+    "bs": {
+      "assets": [
+        "Assets"
+      ],
+      "equity": [
+        "Equity",
+        "ShareholdersFunds",
+        [
+          "ShareCapital",
+          "ReservesAndSurplus"
+        ]
+      ],
+      "borrowings": [
+        [
+          "BorrowingsCurrent",
+          "BorrowingsNoncurrent"
+        ],
+        "Borrowings",
+        [
+          "LongTermBorrowings",
+          "ShortTermBorrowings"
+        ]
+      ],
+      "borrowingsCurrent": [
+        "BorrowingsCurrent",
+        "ShortTermBorrowings"
+      ],
+      "cash": [
+        "CashAndCashEquivalents",
+        "CashAndBankBalances",
+        "CashAndBalancesWithReserveBankOfIndia"
+      ],
+      "currentAssets": [
+        "CurrentAssets"
+      ],
+      "currentLiabilities": [
+        "CurrentLiabilities"
+      ],
+      "ppe": [
+        "PropertyPlantAndEquipment"
+      ],
+      "inventories": [
+        "Inventories"
+      ],
+      "receivables": [
+        "TradeReceivablesCurrent"
+      ]
+    },
+    "cf": {
+      "cfo": [
+        "CashFlowsFromUsedInOperatingActivities"
+      ],
+      "capex": [
+        "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"
+      ]
+    }
+  }
 }
