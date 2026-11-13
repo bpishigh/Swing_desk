@@ -29,6 +29,8 @@ for (const d of days) for (const r of d.rows) allowed.add(r[0]);
 const hist = asOfHistories(days, t, res, allowed);
 const list = eligible(hist, t);
 
+// A7 pledge flag (level only): the monthly stock-facts job's promoter pledge from NSE's shareholding filing; the four-quarter trend needs history the desk does not keep and is not built.
+const facts = R('data/stocks/facts.json', { stocks: {} }).stocks;
 const ents = R('data/india/entities.json').entities, bySym = new Map();
 for (const e of ents) for (const u of e.symbols) { const a = bySym.get(u.symbol) || []; a.push([u, e]); bySym.set(u.symbol, a); }
 const entityOf = (sym) => { const a = bySym.get(sym); if (!a) return null; return (a.find(([u]) => (u.from == null || u.from <= D) && (u.to == null || u.to >= D)) || a[a.length - 1])[1]; };
@@ -44,13 +46,13 @@ for (const p of list) {
   const view = asOfResults(facts, e.id, D, { limit: 40, events: e.events });
   const f = computeFeatures(view, hist.series.get(p.sym)?.c[t] ?? null, splitsOf.get(p.sym) ?? []);
   if (f.ttm.pat != null) cov.ttm++; if (f.growth.revenue != null || f.growth.pbtPre != null) cov.growth++; if (f.growth.revenueCagr3 != null) cov.cagr3++; if (f.bs) cov.balanceSheet++; if (f.earningsYield != null) cov.earningsYield++; if (f.fiscalYears.length) cov.fiscalEnd++; if (f.financial) cov.financial++;
-  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f, flags: flagsOf(f) };   // A7: information only, no book reads it
+  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f, flags: { ...flagsOf(f), pledge: ((q) => (q == null ? null : q > 0.05))(facts[p.sym]?.pledge?.pledgedOfPromoter ?? null), pledgeOfPromoter: facts[p.sym]?.pledge?.pledgedOfPromoter ?? null, pledgeAsOf: facts[p.sym]?.pledge?.asOf ?? null } };   // A7: information only, no book reads it
 }
-// A4: Graham-lite passers, a list for information (no book). A7 pledge flag is not available from these filings, so it is absent, not false.
+// A4: Graham-lite passers, a list for information (no book).
 const graham = grahamList({ el: list.map((p) => ({ sym: p.sym, value: p.value })), fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
-const flagCount = { dilution: 0, exceptional: 0, profitWithoutSales: 0 }; for (const r of Object.values(rows)) for (const k of Object.keys(flagCount)) if (r.flags[k]) flagCount[k]++;
+const flagCount = { dilution: 0, exceptional: 0, profitWithoutSales: 0, pledge: 0 }; for (const r of Object.values(rows)) for (const k of Object.keys(flagCount)) if (r.flags[k]) flagCount[k]++;
 cov.graham = graham.length; cov.flags = flagCount;
-const out = { version: 'FUND-1', asOf: D, graham, flagsNote: 'pledge flag unavailable (no shareholding data in the filings)', source: 'data/india/filings (NSE results XBRL), prices from the daily files', universe: UNIVERSE, coverage: cov, rows };
+const out = { version: 'FUND-1', asOf: D, graham, flagsNote: 'pledge flag is the level only (above 5% of promoter holding (stored as a fraction), from the monthly stock-facts job); the four-quarter rise is not built', source: 'data/india/filings (NSE results XBRL), prices from the daily files', universe: UNIVERSE, coverage: cov, rows };
 mkdirSync(OUT.slice(0, OUT.lastIndexOf('/')), { recursive: true });
 writeFileSync(OUT, JSON.stringify(out));
 console.log(D, JSON.stringify(cov));
