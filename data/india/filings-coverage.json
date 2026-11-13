@@ -1102,7 +1102,53 @@
     "ATCOM",
     "ATCOM"
    ],
-   "at": "2026-11-11T20:56:17.435Z"
+   "at": "2026-11-11T20:56:17.435Z",
+   "topup": {
+    "listed": 3329,
+    "attempted": 3329,
+    "parsed": 3325,
+    "fetchFailed": 2,
+    "parseFailed": 0,
+    "unmapped": 2,
+    "families": {
+     "IFIndAs": 2
+    },
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "ATCOM",
+     "ATCOM"
+    ],
+    "toppedUp": 3323,
+    "extraCount": {
+     "q.otherIncome": 3325,
+     "q.financeCost": 3325,
+     "q.depreciation": 3263,
+     "q.exceptional": 3325,
+     "q.pbtPre": 3263,
+     "q.paidUp": 3325,
+     "q.faceValue": 3325,
+     "bs.assets": 3288,
+     "bs.equity": 3288,
+     "bs.borrowings": 3269,
+     "bs.borrowingsCurrent": 3009,
+     "bs.cash": 3288,
+     "bs.currentAssets": 3009,
+     "bs.currentLiabilities": 3009,
+     "bs.ppe": 3235,
+     "bs.inventories": 3235,
+     "bs.receivables": 3009,
+     "cf.cfo": 3297,
+     "cf.capex": 3235
+    },
+    "at": "2026-11-13T20:36:39.188Z"
+   }
   },
   "2023-06-30": {
    "listed": 3289,
