@@ -726,7 +726,52 @@
     "ATCOM",
     "ATCOM"
    ],
-   "at": "2026-11-11T20:30:55.379Z"
+   "at": "2026-11-11T20:30:55.379Z",
+   "topup": {
+    "listed": 3452,
+    "attempted": 3452,
+    "parsed": 3448,
+    "fetchFailed": 1,
+    "parseFailed": 0,
+    "unmapped": 3,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "ATCOM",
+     "ATCOM"
+    ],
+    "toppedUp": 3448,
+    "extraCount": {
+     "q.otherIncome": 3448,
+     "q.financeCost": 3448,
+     "q.depreciation": 3383,
+     "q.exceptional": 3448,
+     "q.pbtPre": 3381,
+     "q.paidUp": 3448,
+     "q.faceValue": 3448,
+     "bs.assets": 3421,
+     "bs.equity": 3421,
+     "bs.borrowings": 3379,
+     "bs.borrowingsCurrent": 3112,
+     "bs.cash": 3421,
+     "bs.currentAssets": 3112,
+     "bs.currentLiabilities": 3112,
+     "bs.ppe": 3354,
+     "bs.inventories": 3356,
+     "bs.receivables": 3110,
+     "cf.cfo": 3421,
+     "cf.capex": 3354
+    },
+    "at": "2026-11-13T20:09:48.527Z"
+   }
   },
   "2022-03-31": {
    "listed": 3072,
