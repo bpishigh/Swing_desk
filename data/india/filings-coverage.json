@@ -1592,7 +1592,47 @@
     "RUSHABEAR",
     "KUNDANMM"
    ],
-   "at": "2026-11-12T15:46:53.743Z"
+   "at": "2026-11-12T15:46:53.743Z",
+   "topup": {
+    "listed": 2906,
+    "attempted": 2906,
+    "parsed": 2873,
+    "fetchFailed": 20,
+    "parseFailed": 7,
+    "unmapped": 6,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 7
+    },
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "ATCOM",
+     "ATCOM",
+     "RUSHABEAR",
+     "KUNDANMM"
+    ],
+    "toppedUp": 2873,
+    "extraCount": {
+     "q.otherIncome": 2873,
+     "q.financeCost": 2873,
+     "q.depreciation": 2836,
+     "q.exceptional": 2873,
+     "q.pbtPre": 2827,
+     "q.paidUp": 2873,
+     "q.faceValue": 2873,
+     "cf.cfo": 29,
+     "cf.capex": 29
+    },
+    "at": "2026-11-13T21:57:45.927Z"
+   }
   },
   "2021-09-30": {
    "listed": 2957,
