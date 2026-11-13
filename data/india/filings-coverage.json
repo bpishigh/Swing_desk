@@ -222,7 +222,62 @@
     "ATCOM",
     "RUSHABEAR"
    ],
-   "at": "2026-11-08T16:26:43.153Z"
+   "at": "2026-11-08T16:26:43.153Z",
+   "topup": {
+    "listed": 4442,
+    "attempted": 4442,
+    "parsed": 4426,
+    "fetchFailed": 0,
+    "parseFailed": 8,
+    "unmapped": 8,
+    "families": {
+     "IFIndAs": 2
+    },
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no tag map for family IFInsuranceIndAs": 1,
+     "no tag map for family IFGI": 7
+    },
+    "unmappedSymbols": [
+     "NAHARENTP",
+     "NAHARENTP",
+     "KUNDANMM",
+     "KUNDANMM",
+     "ATCOM",
+     "ATCOM",
+     "RUSHABEAR",
+     "ESFL"
+    ],
+    "extraCount": {
+     "q.otherIncome": 4419,
+     "q.financeCost": 4419,
+     "q.depreciation": 4353,
+     "q.exceptional": 4419,
+     "q.pbtPre": 4346,
+     "q.paidUp": 4419,
+     "q.faceValue": 4419,
+     "bs.assets": 38,
+     "bs.equity": 31,
+     "bs.borrowings": 31,
+     "bs.borrowingsCurrent": 31,
+     "bs.cash": 31,
+     "bs.currentAssets": 31,
+     "bs.currentLiabilities": 31,
+     "bs.ppe": 31,
+     "bs.inventories": 31,
+     "bs.receivables": 31,
+     "cf.cfo": 29,
+     "cf.capex": 29
+    },
+    "toppedUp": 4424,
+    "at": "2026-11-13T17:46:17.892Z"
+   }
   },
   "2026-09-30": {
    "listed": 3190,
