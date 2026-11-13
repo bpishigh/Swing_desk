@@ -2129,7 +2129,47 @@
     "AUTORIDFIN",
     "PRASGLOFIN"
    ],
-   "at": "2026-11-12T17:14:06.075Z"
+   "at": "2026-11-12T17:14:06.075Z",
+   "topup": {
+    "listed": 2738,
+    "attempted": 2738,
+    "parsed": 2710,
+    "fetchFailed": 1,
+    "parseFailed": 19,
+    "unmapped": 8,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 19
+    },
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "ATCOM",
+     "ATCOM",
+     "NARMADASUG",
+     "KUNDANMM",
+     "AUTORIDFIN",
+     "PRASGLOFIN"
+    ],
+    "toppedUp": 2710,
+    "extraCount": {
+     "q.otherIncome": 2710,
+     "q.financeCost": 2710,
+     "q.depreciation": 2652,
+     "q.exceptional": 2709,
+     "q.pbtPre": 2646,
+     "q.paidUp": 2710,
+     "q.faceValue": 2710
+    },
+    "at": "2026-11-13T23:22:47.439Z"
+   }
   },
   "2019-09-30": {
    "listed": 2528,
