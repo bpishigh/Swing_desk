@@ -1,0 +1,99 @@
+{
+ "asOf": "2026-11-13",
+ "note": "Liquid = median traded value of the last 60 sessions at least Rs 5 crore. Vanished = last seen more than 10 sessions before asOf. Price files start 2020.",
+ "byYear": {
+  "2020": {
+   "vanished": 11,
+   "withFilings": 9,
+   "missing": [
+    "RIL-RE",
+    "M&MFIN-RE"
+   ],
+   "share": 0.818
+  },
+  "2021": {
+   "vanished": 11,
+   "withFilings": 8,
+   "missing": [
+    "N100",
+    "L&TFH-RE",
+    "AIRTEL-RE"
+   ],
+   "share": 0.727
+  },
+  "2022": {
+   "vanished": 17,
+   "withFilings": 12,
+   "missing": [
+    "PHILIPCARB",
+    "RUCHI",
+    "NETFIT",
+    "BURGERKING",
+    "SUZLON-RE"
+   ],
+   "share": 0.706
+  },
+  "2023": {
+   "vanished": 21,
+   "withFilings": 16,
+   "missing": [
+    "ICICILIQ",
+    "SPICEJET",
+    "SHARE-RE",
+    "PNB-RE",
+    "PLPHAR-RE"
+   ],
+   "share": 0.762
+  },
+  "2024": {
+   "vanished": 32,
+   "withFilings": 23,
+   "missing": [
+    "GRASIM-RE",
+    "SKIPPER-RE",
+    "IBUL-RE",
+    "SOUTH-RE",
+    "HCC-RE",
+    "TIL-RE",
+    "SOBHA-RE",
+    "TATACON-RE",
+    "UPL-RE"
+   ],
+   "share": 0.719
+  },
+  "2025": {
+   "vanished": 26,
+   "withFilings": 16,
+   "missing": [
+    "GOLDSHARE",
+    "SILVERETF",
+    "LLOYDS-RE1",
+    "M&MFIN-RE1",
+    "INFIBE-RE",
+    "INOXWI-RE",
+    "LLOYDSE-RE",
+    "UTKAR-RE",
+    "ADANI-RE",
+    "HCC-RE1"
+   ],
+   "share": 0.615
+  },
+  "2026": {
+   "vanished": 18,
+   "withFilings": 13,
+   "missing": [
+    "AXISGOLD",
+    "AXISILVER",
+    "ASHIKA",
+    "GENESYS-RE",
+    "OLAELEC-RE"
+   ],
+   "share": 0.722
+  }
+ },
+ "stillTrading": {
+  "liquid": 1138,
+  "withFilings": 1056,
+  "share": 0.928
+ }
+}
