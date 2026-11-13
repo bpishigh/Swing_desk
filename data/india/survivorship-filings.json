@@ -1,99 +1,62 @@
 {
  "asOf": "2026-11-13",
- "note": "Liquid = median traded value of the last 60 sessions at least Rs 5 crore. Vanished = last seen more than 10 sessions before asOf. Price files start 2020.",
+ "note": "Liquid = median traded value of the last 60 sessions at least Rs 5 crore. Vanished = last seen more than 10 sessions before asOf. Price files start 2020. Rights entitlements and obvious exchange-traded funds are left out by ticker pattern.",
  "byYear": {
   "2020": {
-   "vanished": 11,
+   "vanished": 9,
    "withFilings": 9,
-   "missing": [
-    "RIL-RE",
-    "M&MFIN-RE"
-   ],
-   "share": 0.818
+   "missing": [],
+   "share": 1
   },
   "2021": {
-   "vanished": 11,
+   "vanished": 8,
    "withFilings": 8,
-   "missing": [
-    "N100",
-    "L&TFH-RE",
-    "AIRTEL-RE"
-   ],
-   "share": 0.727
+   "missing": [],
+   "share": 1
   },
   "2022": {
-   "vanished": 17,
+   "vanished": 15,
    "withFilings": 12,
    "missing": [
     "PHILIPCARB",
     "RUCHI",
-    "NETFIT",
-    "BURGERKING",
-    "SUZLON-RE"
+    "BURGERKING"
    ],
-   "share": 0.706
+   "share": 0.8
   },
   "2023": {
-   "vanished": 21,
+   "vanished": 18,
    "withFilings": 16,
    "missing": [
     "ICICILIQ",
-    "SPICEJET",
-    "SHARE-RE",
-    "PNB-RE",
-    "PLPHAR-RE"
+    "SPICEJET"
    ],
-   "share": 0.762
+   "share": 0.889
   },
   "2024": {
-   "vanished": 32,
+   "vanished": 23,
    "withFilings": 23,
-   "missing": [
-    "GRASIM-RE",
-    "SKIPPER-RE",
-    "IBUL-RE",
-    "SOUTH-RE",
-    "HCC-RE",
-    "TIL-RE",
-    "SOBHA-RE",
-    "TATACON-RE",
-    "UPL-RE"
-   ],
-   "share": 0.719
+   "missing": [],
+   "share": 1
   },
   "2025": {
-   "vanished": 26,
+   "vanished": 16,
    "withFilings": 16,
-   "missing": [
-    "GOLDSHARE",
-    "SILVERETF",
-    "LLOYDS-RE1",
-    "M&MFIN-RE1",
-    "INFIBE-RE",
-    "INOXWI-RE",
-    "LLOYDSE-RE",
-    "UTKAR-RE",
-    "ADANI-RE",
-    "HCC-RE1"
-   ],
-   "share": 0.615
+   "missing": [],
+   "share": 1
   },
   "2026": {
-   "vanished": 18,
+   "vanished": 14,
    "withFilings": 13,
    "missing": [
-    "AXISGOLD",
-    "AXISILVER",
-    "ASHIKA",
-    "GENESYS-RE",
-    "OLAELEC-RE"
+    "ASHIKA"
    ],
-   "share": 0.722
+   "share": 0.929
   }
  },
  "stillTrading": {
-  "liquid": 1138,
-  "withFilings": 1056,
-  "share": 0.928
+  "liquid": 1078,
+  "withFilings": 1052,
+  "share": 0.976
  }
 }
