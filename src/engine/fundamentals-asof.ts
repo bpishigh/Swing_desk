@@ -88,6 +88,7 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   // Some filers enter paid-up capital in lakh, crore or thousand instead of rupees. The share count implied by the same quarter's profit over EPS says which; a count that fits no unit within a factor of 3 is not used.
   const sh = (i: number): number | null => {
     const e = qv[i]?.extra?.q, v = qv[i]?.values; if (!(e?.paidUp != null && e?.faceValue != null && e.faceValue > 0)) return null;
+    if (![0.1, 0.25, 0.5, 1, 2, 2.5, 5, 10, 100].includes(e.faceValue)) return null;   // a face value that is not a rupee denomination in use is a mis-tagged filing (one filer entered 160.02)
     const raw = e.paidUp / e.faceValue, implied = v && v.pat != null && v.eps != null && v.eps !== 0 ? Math.abs(v.pat / v.eps) : null;
     if (implied == null || !(implied > 0)) return raw;
     let best = 0, bd = Infinity; for (const m of [1, 1e3, 1e5, 1e6, 1e7]) { const d = Math.abs(Math.log((raw * m) / implied)); if (d < bd) { bd = d; best = m; } }

@@ -8,7 +8,8 @@ import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays, asOfHistories } from '../src/backtest/india-asof.ts';
 import { eligible, BASE } from '../src/backtest/ind-base.ts';
 import { asOfResults } from '../src/engine/filings-asof.ts';
-import { computeFeatures } from '../src/engine/fundamentals-asof.ts';
+import { computeFeatures, flagsOf } from '../src/engine/fundamentals-asof.ts';
+import { grahamList } from '../src/engine/batch-a.ts';
 
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
 const ASOF = arg('asof', ''), OUT = arg('out', 'data/india/fundamentals/latest.json'), UNIVERSE = Number(arg('universe', '500'));
@@ -43,9 +44,13 @@ for (const p of list) {
   const view = asOfResults(facts, e.id, D, { limit: 40, events: e.events });
   const f = computeFeatures(view, hist.series.get(p.sym)?.c[t] ?? null, splitsOf.get(p.sym) ?? []);
   if (f.ttm.pat != null) cov.ttm++; if (f.growth.revenue != null || f.growth.pbtPre != null) cov.growth++; if (f.growth.revenueCagr3 != null) cov.cagr3++; if (f.bs) cov.balanceSheet++; if (f.earningsYield != null) cov.earningsYield++; if (f.fiscalYears.length) cov.fiscalEnd++; if (f.financial) cov.financial++;
-  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f };
+  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f, flags: flagsOf(f) };   // A7: information only, no book reads it
 }
-const out = { version: 'FUND-1', asOf: D, source: 'data/india/filings (NSE results XBRL), prices from the daily files', universe: UNIVERSE, coverage: cov, rows };
+// A4: Graham-lite passers, a list for information (no book). A7 pledge flag is not available from these filings, so it is absent, not false.
+const graham = grahamList({ el: list.map((p) => ({ sym: p.sym, value: p.value })), fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
+const flagCount = { dilution: 0, exceptional: 0, profitWithoutSales: 0 }; for (const r of Object.values(rows)) for (const k of Object.keys(flagCount)) if (r.flags[k]) flagCount[k]++;
+cov.graham = graham.length; cov.flags = flagCount;
+const out = { version: 'FUND-1', asOf: D, graham, flagsNote: 'pledge flag unavailable (no shareholding data in the filings)', source: 'data/india/filings (NSE results XBRL), prices from the daily files', universe: UNIVERSE, coverage: cov, rows };
 mkdirSync(OUT.slice(0, OUT.lastIndexOf('/')), { recursive: true });
 writeFileSync(OUT, JSON.stringify(out));
 console.log(D, JSON.stringify(cov));

@@ -100,3 +100,8 @@ test('shares: a filer that enters paid-up capital in crore is read in rupees by 
   const odd = series(20).map((x) => ({ ...x, fields: { ...x.fields, pat: 150e7, eps: 1.5 }, extra: { ...x.extra!, q: { ...x.extra!.q, paidUp: 3.3e7, faceValue: 1 } } }));   // 3.3e7 over implied 1e9: closest unit leaves a factor of 3.03
   assert.equal(computeFeatures(view(odd, T), 10, []).shares, null);
 });
+
+test('shares: a face value that is not a denomination in use means the filing is mis-tagged and the count is not used', () => {
+  const f = series(20).map((x) => ({ ...x, extra: { ...x.extra!, q: { ...x.extra!.q, paidUp: 1e7, faceValue: 160.02 } } }));
+  assert.equal(computeFeatures(view(f, T), 10, []).shares, null);
+});
