@@ -1,6 +1,6 @@
 {
   "version": "FW-US-1",
-  "note": "First-wave paper books, US versions (Engine Rules C-179 shared terms; C-181, C-183, C-184 here). Confirmation market: a US result alone adopts nothing. Paper only. Books under data/us/books/<id>/. startAfter is the date after which the first signal may be taken. Add a book here only after it is registered. Corporate events (confirmed distributions, owner-confirmed moves) are listed in settings/us-gap-events.json.",
+  "note": "First-wave paper books, US versions (Engine Rules C-179 shared terms; C-181, C-183, C-184 here). Confirmation market: a US result alone adopts nothing. Paper only. Books under data/us/books/<id>/. startAfter is the date after which the first signal may be taken. Add a book here only after it is registered. Corporate events (confirmed distributions, owner-confirmed moves) are listed in settings/us-gap-events.json. Batch A US books (ids ba-us-*, docs/BATCH_A_US_RULES.md) are built and waiting: startAfter 2099-12-31 is a placeholder until the owner marks that page Adopted, then it is set to the real date.",
   "cash": {
     "source": "data/us/cash-rate.json",
     "rule": "C-179 item 7"
@@ -51,7 +51,7 @@
       "rule": "A1-US",
       "name": "Post-earnings drift (EPS surprise) (US)",
       "signal": "pead",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "spy",
       "batch": "A"
     },
@@ -60,7 +60,7 @@
       "rule": "A2-US",
       "name": "Value-lite: cheapest earnings yield (US)",
       "signal": "valueLite",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "spy",
       "batch": "A"
     },
@@ -69,7 +69,7 @@
       "rule": "A3-US",
       "name": "Quality-lite: profitability and stability (US)",
       "signal": "qualityLite",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "spy",
       "batch": "A"
     },
@@ -78,7 +78,7 @@
       "rule": "A5-US",
       "name": "Fallen and rebuilding (US)",
       "signal": "fallen",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "spy",
       "batch": "A"
     },
@@ -87,7 +87,7 @@
       "rule": "A6-US",
       "name": "Consistent compounder, lite (US)",
       "signal": "compounder",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "spy",
       "batch": "A"
     }

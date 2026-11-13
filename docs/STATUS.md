@@ -141,3 +141,8 @@ Defect found and fixed 19 Oct: the Portfolio Manager's public data (site/pm-data
 - **Comparators:** Nifty 500 for A1, A3, A5, A6 (the Quality 30 funds fail the replacement test); the UTI Value 50 fund for A2 with its tracking difference unverified.
 - **Known limits:** share counts can still be wrong for a name whose EPS mixes pre- and post-split quarters; older quarters get balance-sheet and share-count figures only after the top-up finishes; pledge flag is a level, no history.
 - **Replay:** one run per book (C-198) waits for the filings top-up; results go to docs/replay/BATCH-A-REPLAY.md and the Test Register.
+
+## 14 Nov 2026: Batch A, US versions (built, waiting for adoption)
+- **Built:** SEC EDGAR facts loader and nightly fetch, US company-figures table (`data/us/fundamentals/latest.json`), five US books (ids `ba-us-*`) in the US runner and the registry, same rules and thresholds as India (docs/BATCH_A_US_RULES.md). First table, 12 Nov bars: 500 names, 440 with a trailing profit, 378 with an earnings yield, 71 with an earnings-surprise score (the 2% share-count guard drops most US names because buybacks move the cover share count), 14 on the Graham list.
+- **Waiting:** the books carry a placeholder start of 31 Dec 2099 until the owner marks docs/BATCH_A_US_RULES.md Adopted (C-179: the US is a confirmation market). No US replay (US prices are survivor-only).
+- **Known limits:** no exceptional-items line, so a one-off gain (Fidelity National Information Services shows a 24% earnings yield) can put a name at the top of the value list; the as-of date is the 10-Q filing date, not the earnings release; most foreign ADRs are unranked.

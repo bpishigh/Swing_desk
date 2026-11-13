@@ -355,3 +355,5 @@ Owner decision: free route only. Probes ran on the GitHub runner on 8 Nov 2026 (
 ### L4. Batch A status (13 Nov 2026)
 
 Wave 3 items for the fundamentals family that did not need new data are built: the company-figures table, post-earnings drift, value-lite, quality-lite, fallen-and-rebuilding, compounder-lite, a Graham-lite list and forensic flags (rules in docs/BATCH_A_RULES.md, C-191 to C-198). The balance sheet and cash flow now exist in the stored filings for newer quarters, so Magic Formula, Piotroski F-score, full quality, EBIT/EV and cash-flow-yield value and the Compounder Seed (rows 27, 28 and 30a above) are no longer blocked on data; each still needs its own written rule and the owner's approval. US versions wait for the EDGAR facts (loader spec step 6).
+
+US versions (14 Nov 2026): the SEC facts loader and the five US books are built and wait for the owner's adoption of docs/BATCH_A_US_RULES.md; no US replay (survivor-only prices).
