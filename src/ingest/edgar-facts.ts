@@ -2,7 +2,7 @@
 // (filings-asof.ts) and the company-figures table (fundamentals-asof.ts) read them unchanged. Pure: no network, no clock.
 // What it does: for every fiscal quarter it takes the value from the earliest filing that reported it (the original, never a restatement), the date of that filing as the as-of date, and for the fourth quarter
 // (never filed on its own) the full-year figure less the nine-month figure. Periods are put on calendar month ends (a 52 or 53 week quarter ending 27 Sep is 30 Sep) so quarter chains line up.
-// Mapping to the India shape: revenue, pbt (pre-tax income), pat (net income attributable to the parent), eps (diluted); extra.q: financeCost (interest expense), otherIncome (derived so that operating EBIT equals
+// Mapping to the India shape (a quarter with no interest-expense figure keeps financeCost null, never zero): revenue, pbt (pre-tax income), pat (net income attributable to the parent), eps (diluted); extra.q: financeCost (interest expense), otherIncome (derived so that operating EBIT equals
 // reported operating income), pbtPre (= pbt, there is no separate exceptional line), paidUp (shares outstanding on the filing's cover) with faceValue 1; extra.bs from instants at period end; extra.cf from year-to-date flows.
 // Missing stays null, never zero. Banks, insurers and other financial SIC groups carry format 'IFBanking' so strategies that skip financials do.
 import type { Values, Extra } from './filings-parse.ts';
@@ -18,7 +18,7 @@ export const CHAINS = {
   pat: ['NetIncomeLoss', 'ProfitLoss', 'NetIncomeLossAvailableToCommonStockholdersBasic'],
   eps: ['EarningsPerShareDiluted', 'EarningsPerShareBasicAndDiluted', 'EarningsPerShareBasic'],
   opInc: ['OperatingIncomeLoss'],
-  interest: ['InterestExpense', 'InterestExpenseDebt', 'InterestAndDebtExpense'],
+  interest: ['InterestExpense', 'InterestExpenseNonoperating', 'InterestExpenseDebt', 'InterestAndDebtExpense', 'InterestExpenseLongTermDebt', 'InterestExpenseOther', 'InterestExpenseDebtExcludingAmortization'],
   nonOp: ['NonoperatingIncomeExpense'],
   cfo: ['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations'],
   capex: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'],
@@ -95,12 +95,20 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
       return n ? { val: y.val - n.val, filed: y.filed, accn: y.accn } : { val: null, filed: null, accn: null };
     };
     const ytdOf = (k: string): number | null => { for (const kind of ['Y', 'N', 'H', 'Q'] as Kind[]) { const v = val(k, end, kind); if (v) return v.val; } return null; };
+    // EPS of the year-ago quarter as printed in THIS quarter's filing (its comparative column): split-adjusted by the filer, so a year-on-year change is never taken across a split. The fourth quarter's is the prior year less nine months as printed in this and the third-quarter filing.
+    const epsPrior = ((): number | null => {
+      const prevEnd = addDays(end, -364), rows = (g[CHAINS.eps.find((c) => g[c]?.units?.['USD/shares']) ?? '']?.units?.['USD/shares'] ?? []).filter((r) => okForm(r.form));
+      const pick = (e: string, kind: Kind, accn: string | null): number | null => { for (const d of [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5]) { const x = rows.find((r) => r.end === addDays(e, d) && kindOf(r) === kind && (accn == null || r.accn === accn)); if (x) return x.val; } return null; };
+      const cur = val('eps', end, 'Q'); if (cur) return pick(prevEnd, 'Q', cur.accn);
+      const y = val('eps', end, 'Y'); if (!y) return null; const n = val('eps', addDays(end, -91), 'N'); const fy = pick(prevEnd, 'Y', y.accn), nine = n ? pick(addDays(prevEnd, -91), 'N', n.accn) : null;
+      return fy != null && nine != null ? fy - nine : null;
+    })();
     const rev = q('revenue'), pbt = q('pbt'), pat = q('pat'), eps = q('eps'), op = q('opInc'), intr = q('interest'), nonOp = q('nonOp');
     const filedSrc = pat.filed ?? rev.filed; if (!filedSrc) continue;   // a quarter needs a profit or revenue figure and a filing date
     const accn = pat.accn ?? rev.accn ?? '';
     const fiscalEnd = monthEnd(end); const fp = (() => { const y = val('pat', end, 'Y'); return y ? 'FY' : val('pat', end, 'Q') ? 'Q' : ''; })();
-    // A quarter with reported operating income but no interest-expense figure (Apple and Nvidia stopped showing one) is read as having none, so operating EBIT equals reported operating income; the extra `interestAssumed` is set to 1 on that quarter so the assumption can be seen. With no operating income the figure stays null.
-    const pbtV = pbt.val, intV = intr.val ?? (op.val != null ? 0 : null), interestAssumed = intr.val == null && op.val != null;
+    // Interest expense is read as reported; a quarter with no interest figure under any of the tags above stays null (never zero), so interest cover is not scored for it and the strategies that need it leave the name out.
+    const pbtV = pbt.val, intV = intr.val;
     const otherIncome = pbtV != null && intV != null && op.val != null ? pbtV + intV - op.val : nonOp.val;
     const ytdV = (k: string): number | null => ytdOf(k);
     const debtLong = instAt('debtLong', end), debtCur = instAt('debtCurrent', end);
@@ -109,7 +117,7 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
     put(bs, 'ppe', instAt('ppe', end)); put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
     if (debtLong != null || debtCur != null) { put(bs, 'borrowings', (debtLong ?? 0) + (debtCur ?? 0)); put(bs, 'borrowingsCurrent', debtCur ?? 0); }
-    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); if (interestAssumed) qx.interestAssumed = 1; put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); qx.faceValue = 1;
+    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
     if (qx.paidUp == null) delete qx.faceValue;
     const cfx: Record<string, number> = {}; put(cfx, 'cfo', ytdV('cfo')); put(cfx, 'capex', ytdV('capex'));
     const fields: Values = { revenue: rev.val, pbt: pbtV, pat: pat.val, eps: eps.val };

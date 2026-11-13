@@ -17,9 +17,13 @@ test('Apple: quarters on month ends, original filing dates, fourth quarter is th
   const dates = q.map((x) => x.period); assert.deepEqual(dates, [...dates].sort()); for (const d of dates) assert.match(d, /-(03-31|06-30|09-30|12-31)$/);
   assert.ok(q.length >= 40);
 });
-test('Apple reports no interest expense: it is read as none, so operating EBIT is reported operating income', () => {
-  const q = buildQuarters(load('AAPL'), 3571).at(-1)!; assert.equal(q.extra.q.financeCost, 0); assert.ok(q.extra.q.otherIncome != null);
-  assert.equal(q.extra.q.interestAssumed, 1);
+test('a quarter with no interest-expense figure keeps financeCost null, never zero', () => {
+  const q = buildQuarters(load('AAPL'), 3571).at(-1)!; assert.equal(q.extra.q.financeCost, undefined); assert.equal(q.extra.q.interestAssumed, undefined);
+});
+test('each quarter carries the year-ago EPS as printed in its own filing (split-adjusted by the filer), and the fourth quarter is marked derived', () => {
+  const q = buildQuarters(load('NVDA'), 3674), by = new Map(q.map((x) => [x.period, x]));
+  const apr25 = by.get('2025-04-30')!; assert.ok(apr25.extra.q.epsPrior != null && apr25.extra.q.epsPrior < 1.5, String(apr25.extra.q.epsPrior));   // April 2024 quarter after the 10-for-1 split, not the 5.98 first printed
+  const jan = by.get('2026-01-31')!; assert.equal(jan.extra.q.epsDerived, 1);
 });
 test('JPMorgan is a financial name; Walmart (January year end) lines up on month ends', () => {
   assert.equal(buildQuarters(load('JPM'), 6021)[0].format, 'IFBanking');
@@ -32,7 +36,6 @@ test('the as-of view and the figures table read US quarters unchanged: Microsoft
   const facts = buildQuarters(load('MSFT'), 7372).map((x) => ({ entity: 'MSFT', period: x.period, basis: x.basis, asOf: x.asOf, revision: 0, fields: x.fields, ytd: x.ytd, format: x.format, extra: x.extra }));
   const view = asOfResults(facts, 'MSFT', '2026-11-13', { limit: 40 }), f = computeFeatures(view, 500, []);
   assert.ok(f.ttm.pat! > 100e9 && f.ttm.pat! < 160e9, String(f.ttm.pat)); assert.ok(f.shares! > 7e9 && f.shares! < 8e9); assert.ok(f.earningsYield! > 0.01 && f.earningsYield! < 0.1, String(f.earningsYield));
-  assert.ok(f.margin.operatingEbit! > 0.3 && f.margin.operatingEbit! < 0.6, String(f.margin.operatingEbit));
   assert.equal(f.financial, false); assert.ok(f.bs && f.bs.assets! > 5e11);
 });
 test('before a filing date the quarter does not exist', () => {

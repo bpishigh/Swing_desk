@@ -117,7 +117,8 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   // standardised unexpected earnings: this quarter's EPS minus the EPS four quarters earlier, over the standard deviation of that difference in the previous 8 quarters (at least 6)
   let sue: Features['sue'] = { value: null, epsChange: null, period: latest?.period ?? null, reason: 'no quarters' };
   if (latest) {
-    const diff = (i: number): number | null => { const a = qs[i], b = qs[i + 4]; if (!a || !b || a.basis !== b.basis || a.eps == null || b.eps == null || addMonths(b.period, 12) !== a.period) return null; return a.eps - b.eps; };
+    const diff = (i: number): number | null => { const a = qs[i], b = qs[i + 4]; if (!a || !b || a.basis !== b.basis || a.eps == null || b.eps == null || addMonths(b.period, 12) !== a.period) return null;
+      const own = qv[i]?.extra?.q?.epsPrior; return own != null ? a.eps - own : a.eps - b.eps; };   // US: the year-ago EPS as printed in the same filing (split-adjusted by the filer); India: the year-ago quarter's own filing
     const d0 = diff(0), prior: number[] = []; for (let i = 1; i <= 8; i++) { const d = diff(i); if (d != null) prior.push(d); }
     const e0 = qv[0].extra?.q, e4 = qv[4]?.extra?.q; const y4 = qs[4];
     const exc = (q: Quarter | undefined) => !!q && q.exceptional != null && q.pbt != null && q.pbt !== 0 && Math.abs(q.exceptional) > 0.25 * Math.abs(q.pbt);
