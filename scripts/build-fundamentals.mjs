@@ -30,7 +30,7 @@ const hist = asOfHistories(days, t, res, allowed);
 const list = eligible(hist, t);
 
 // A7 pledge flag (level only): the monthly stock-facts job's promoter pledge from NSE's shareholding filing; the four-quarter trend needs history the desk does not keep and is not built.
-const facts = R('data/stocks/facts.json', { stocks: {} }).stocks;
+const stockFacts = R('data/stocks/facts.json', { stocks: {} }).stocks;
 const ents = R('data/india/entities.json').entities, bySym = new Map();
 for (const e of ents) for (const u of e.symbols) { const a = bySym.get(u.symbol) || []; a.push([u, e]); bySym.set(u.symbol, a); }
 const entityOf = (sym) => { const a = bySym.get(sym); if (!a) return null; return (a.find(([u]) => (u.from == null || u.from <= D) && (u.to == null || u.to >= D)) || a[a.length - 1])[1]; };
@@ -46,7 +46,7 @@ for (const p of list) {
   const view = asOfResults(facts, e.id, D, { limit: 40, events: e.events });
   const f = computeFeatures(view, hist.series.get(p.sym)?.c[t] ?? null, splitsOf.get(p.sym) ?? []);
   if (f.ttm.pat != null) cov.ttm++; if (f.growth.revenue != null || f.growth.pbtPre != null) cov.growth++; if (f.growth.revenueCagr3 != null) cov.cagr3++; if (f.bs) cov.balanceSheet++; if (f.earningsYield != null) cov.earningsYield++; if (f.fiscalYears.length) cov.fiscalEnd++; if (f.financial) cov.financial++;
-  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f, flags: { ...flagsOf(f), pledge: ((q) => (q == null ? null : q > 0.05))(facts[p.sym]?.pledge?.pledgedOfPromoter ?? null), pledgeOfPromoter: facts[p.sym]?.pledge?.pledgedOfPromoter ?? null, pledgeAsOf: facts[p.sym]?.pledge?.asOf ?? null } };   // A7: information only, no book reads it
+  rows[p.sym] = { entity: e.id, tradedValue: Math.round(p.value), ...f, flags: { ...flagsOf(f), pledge: ((q) => (q == null ? null : q > 0.05))(stockFacts[p.sym]?.pledge?.pledgedOfPromoter ?? null), pledgeOfPromoter: stockFacts[p.sym]?.pledge?.pledgedOfPromoter ?? null, pledgeAsOf: stockFacts[p.sym]?.pledge?.asOf ?? null } };   // A7: information only, no book reads it
 }
 // A4: Graham-lite passers, a list for information (no book).
 const graham = grahamList({ el: list.map((p) => ({ sym: p.sym, value: p.value })), fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
