@@ -1,6 +1,6 @@
 {
- "start": "2026-10-25T11:15:35.623Z",
- "wanted": 332,
+ "start": "2026-11-13T12:40:34.887Z",
+ "wanted": 328,
  "noPage": [
   "Franklin India Banking & PSU Debt Fund - Direct Plan - Growth",
   "ITI Banking & PSU Debt Fund - Direct Plan - Growth Option",
@@ -24,23 +24,21 @@
   "Kotak FMP Series 304 - Direct Plan - Growth Option",
   "SBI Fixed Maturity Plan (FMP) - Series 1 (3668 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 34 (3682 Days) - Direct Plan - Growth",
-  "SBI Fixed Maturity Plan (FMP) - Series 52 (1848 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 53 (1839 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 54 (1842 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 55 (1849 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 57 (1835 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 58 (1842 Days) - Direct Plan - Growth",
   "SBI Fixed Maturity Plan (FMP) - Series 6 (3668 Days) - Direct Plan - Growth",
-  "SBI Fixed Maturity Plan (FMP) - Series 60 (1878 Days) - Direct Plan - Growth"
+  "SBI Fixed Maturity Plan (FMP) - Series 60 (1878 Days) - Direct Plan - Growth",
+  "SBI Fixed Maturity Plan (FMP) - Series 61 (1927 Days) - Direct Plan - Growth"
  ],
  "ambiguous": [],
- "noStats": [
-  "Carnelian Liquid Fund - Direct Plan - Growth"
- ],
- "ok": 300,
+ "noStats": [],
+ "ok": 298,
  "kept": 0,
- "end": "2026-10-25T11:18:45.145Z",
- "noPageN": 31,
+ "end": "2026-11-13T12:46:14.652Z",
+ "noPageN": 30,
  "ambiguousN": 0,
- "noStatsN": 1
+ "noStatsN": 0
 }
