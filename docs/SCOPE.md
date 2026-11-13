@@ -351,3 +351,7 @@ Owner decision: free route only. Probes ran on the GitHub runner on 8 Nov 2026 (
 **Build standard (8 Nov 2026, C-158):** every strategy above is built to `docs/STRATEGY_BUILD_STANDARD.md` (file shape, build order, documents, UI, definition of done).
 
 **Filings loader (8 Nov 2026):** specified in `docs/FILINGS_LOADER_SPEC.md` (implements C-157). Risk, kill-line and fund rules for all new strategies: C-159.
+
+### L4. Batch A status (13 Nov 2026)
+
+Wave 3 items for the fundamentals family that did not need new data are built: the company-figures table, post-earnings drift, value-lite, quality-lite, fallen-and-rebuilding, compounder-lite, a Graham-lite list and forensic flags (rules in docs/BATCH_A_RULES.md, C-191 to C-198). The balance sheet and cash flow now exist in the stored filings for newer quarters, so Magic Formula, Piotroski F-score, full quality, EBIT/EV and cash-flow-yield value and the Compounder Seed (rows 27, 28 and 30a above) are no longer blocked on data; each still needs its own written rule and the owner's approval. US versions wait for the EDGAR facts (loader spec step 6).
