@@ -198,7 +198,63 @@
     "ATCOM",
     "RUSHABEAR"
    ],
-   "at": "2026-11-08T15:35:06.957Z"
+   "at": "2026-11-08T15:35:06.957Z",
+   "topup": {
+    "listed": 4633,
+    "attempted": 4633,
+    "parsed": 4613,
+    "fetchFailed": 2,
+    "parseFailed": 9,
+    "unmapped": 9,
+    "families": {
+     "IFIndAs": 2
+    },
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no tag map for family IFGI": 8,
+     "no quarter context (OneD) facts": 1
+    },
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "RUSHABEAR",
+     "ATCOM",
+     "KUNDANMM",
+     "KUNDANMM",
+     "ESFL",
+     "ATCOM",
+     "ATCOM",
+     "RUSHABEAR"
+    ],
+    "extraCount": {
+     "q.otherIncome": 4604,
+     "q.financeCost": 4604,
+     "q.depreciation": 4530,
+     "q.exceptional": 4604,
+     "q.pbtPre": 4491,
+     "q.paidUp": 4604,
+     "q.faceValue": 4604,
+     "bs.assets": 4583,
+     "bs.equity": 4583,
+     "bs.borrowings": 4583,
+     "bs.borrowingsCurrent": 4208,
+     "bs.cash": 4583,
+     "bs.currentAssets": 4217,
+     "bs.currentLiabilities": 4217,
+     "bs.ppe": 4500,
+     "bs.inventories": 4500,
+     "bs.receivables": 4169,
+     "cf.cfo": 4158,
+     "cf.capex": 4092
+    },
+    "toppedUp": 4611,
+    "at": "2026-11-13T18:39:28.053Z"
+   }
   },
   "2026-06-30": {
    "listed": 4439,
