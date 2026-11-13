@@ -236,28 +236,28 @@
    "SKYGOLD": 1050.05,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
-   "GLAND": 3308.7,
+   "GLAND": 3334.1,
    "HFCL": 215,
-   "ACUTAAS": 3996.1,
+   "ACUTAAS": 4039.1,
    "PVRINOX": 1652.6,
    "FEDERALBNK": 362.5,
-   "AUROPHARMA": 1813.1,
-   "NYKAA": 360.3,
-   "NAVINFLUOR": 9969,
+   "AUROPHARMA": 1823.2,
+   "NYKAA": 365.2,
+   "NAVINFLUOR": 10002,
    "BOSCHLTD": 50580,
    "AEGISLOG": 1240,
    "SYRMA": 1515.9,
    "MOTHERSON": 168.75,
-   "AEROFLEX": 506,
-   "INDHOTEL": 882,
+   "AEROFLEX": 507.4,
+   "INDHOTEL": 890.3,
    "REDINGTON": 359.1,
    "KARURVYSYA": 384,
    "RADICO": 4638.2,
    "TITAN": 4970,
    "TVSMOTOR": 4550,
-   "PNB": 141.79,
+   "PNB": 142.81,
    "ZYDUSLIFE": 1206,
-   "APOLLO": 461.15,
+   "APOLLO": 475.6,
    "UNIONBANK": 204.4,
    "IIFL": 663.15
   },
@@ -318,15 +318,20 @@
   {
    "d": "2026-11-12",
    "v": 100.0293
+  },
+  {
+   "d": "2026-11-13",
+   "v": 99.7591
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-12",
-   "v": 100.0293
+   "d": "2026-11-13",
+   "v": 99.7591
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-12"
+ "stopChecked": "2026-11-13",
+ "gone": []
 }

@@ -119,20 +119,20 @@
    "CPPLUS": 4237,
    "DIVISLAB": 11485,
    "SKYGOLD": 1050.05,
-   "ATHERENERG": 1923,
+   "ATHERENERG": 1945,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
-   "GLAND": 3308.7,
+   "GLAND": 3334.1,
    "PVRINOX": 1652.6,
-   "ACUTAAS": 3996.1,
+   "ACUTAAS": 4039.1,
    "FEDERALBNK": 362.5,
    "BOSCHLTD": 50580,
-   "NYKAA": 360.3,
-   "AUROPHARMA": 1813.1,
+   "NYKAA": 365.2,
+   "AUROPHARMA": 1823.2,
    "ETERNAL": 364.35,
-   "NAVINFLUOR": 9969,
-   "PAYTM": 1925,
-   "INDHOTEL": 882,
+   "NAVINFLUOR": 10002,
+   "PAYTM": 1939.9,
+   "INDHOTEL": 890.3,
    "MOTHERSON": 168.75,
    "KALYANKJIL": 710.9,
    "KOTAKBANK": 490.4,
@@ -201,15 +201,20 @@
   {
    "d": "2026-11-12",
    "v": 101.3795
+  },
+  {
+   "d": "2026-11-13",
+   "v": 100.9447
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-12",
-   "v": 101.3795
+   "d": "2026-11-13",
+   "v": 100.9447
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-12"
+ "stopChecked": "2026-11-13",
+ "gone": []
 }

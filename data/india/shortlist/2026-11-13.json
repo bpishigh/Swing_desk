@@ -1,0 +1,32 @@
+{
+ "signalDate": "2026-11-13",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "GESHIP",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 1530.96,
+   "limit": 1546.27,
+   "stop": 1408.9,
+   "atrPct": 4.39,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "GESHIP",
+   "setup": "2",
+   "stream": "comparator",
+   "trigger": 1518,
+   "limit": 1533.18,
+   "stop": 1408.9,
+   "atrPct": 4.39,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

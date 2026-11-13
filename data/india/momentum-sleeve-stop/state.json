@@ -549,25 +549,25 @@
   "high": {
    "CUPID": 384.8,
    "STLTECH": 797.6,
-   "SHREEJISPG": 886.95,
+   "SHREEJISPG": 910.8,
    "LAURUSLABS": 2454,
-   "SBC": 69.52,
+   "SBC": 70.3,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "WELCORP": 2400,
    "CPPLUS": 4224.9,
-   "ATHERENERG": 1923,
+   "ATHERENERG": 1945,
    "HFCL": 228.16,
    "RAYMOND": 1172.3,
    "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
    "SONACOMS": 926,
    "AEROFLEX": 567.2,
-   "ACUTAAS": 3996.1,
+   "ACUTAAS": 4039.1,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2104.9,
-   "NYKAA": 360.3,
+   "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
    "FEDERALBNK": 362.5,
@@ -659,15 +659,20 @@
   {
    "d": "2026-11-12",
    "v": 102.0968
+  },
+  {
+   "d": "2026-11-13",
+   "v": 102.0407
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-12",
-   "v": 102.0968
+   "d": "2026-11-13",
+   "v": 102.0407
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-12"
+ "stopChecked": "2026-11-13",
+ "gone": []
 }

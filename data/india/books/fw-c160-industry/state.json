@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-13",
+  "buys": [
+   {
+    "sym": "SOLARINDS",
+    "value": 2343579100,
+    "stop": 0.25
+   },
+   {
+    "sym": "HSCL",
+    "value": 972777412.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "NAVINFLUOR",
+    "value": 1606461170,
+    "stop": 0.25
+   },
+   {
+    "sym": "PIDILITIND",
+    "value": 1051232615.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "UPL",
+    "value": 1198859289.975,
+    "stop": 0.25
+   },
+   {
+    "sym": "MTARTECH",
+    "value": 1599443465,
+    "stop": 0.25
+   },
+   {
+    "sym": "CPPLUS",
+    "value": 988992892.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "WELCORP",
+    "value": 2782873284.2999997,
+    "stop": 0.25
+   },
+   {
+    "sym": "SYRMA",
+    "value": 1847392167.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "APARINDS",
+    "value": 2666698311,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDCOPPER",
+    "value": 1815259262.45,
+    "stop": 0.25
+   },
+   {
+    "sym": "VEDL",
+    "value": 2767080461.505,
+    "stop": 0.25
+   },
+   {
+    "sym": "NATIONALUM",
+    "value": 1890369246.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "SAIL",
+    "value": 2441768860.5299997,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDZINC",
+    "value": 1989361282.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "LAURUSLABS",
+    "value": 4519842684.450001,
+    "stop": 0.25
+   },
+   {
+    "sym": "ACUTAAS",
+    "value": 1758197914.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "GLAND",
+    "value": 1145931719.8000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "AUROPHARMA",
+    "value": 1846468664.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "DIVISLAB",
+    "value": 7120371405.75,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,7 +120,7 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-12",
- "lastNavDate": "2026-11-11"
+ "lastSignal": "2026-11-13",
+ "lastStep": "2026-11-13",
+ "lastNavDate": "2026-11-12"
 }

@@ -1,11 +1,6 @@
 {
- "asOf": "2026-11-12",
+ "asOf": "2026-11-13",
  "rows": {
-  "EMCURE": {
-   "date": "2026-11-03",
-   "move": 0.147,
-   "excess": 0.121
-  },
   "SAILIFE": {
    "date": "2026-11-05",
    "move": 0.1546,
@@ -16,15 +11,25 @@
    "move": 0.05,
    "excess": 0.0456
   },
-  "ADANIPORTS": {
-   "date": "2026-10-28",
-   "move": 0.067,
-   "excess": 0.0577
+  "EMCURE": {
+   "date": "2026-11-03",
+   "move": 0.147,
+   "excess": 0.121
   },
   "WELSPUNLIV": {
    "date": "2026-10-30",
    "move": 0.1422,
    "excess": 0.14
+  },
+  "GESHIP": {
+   "date": "2026-11-06",
+   "move": -0.0233,
+   "excess": -0.0277
+  },
+  "ADANIPORTS": {
+   "date": "2026-10-28",
+   "move": 0.067,
+   "excess": 0.0577
   }
  }
 }

@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-12",
+ "asOf": "2026-11-13",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,57 +12,56 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 26,
-  "open": 6,
-  "pending": 2,
+  "orders": 27,
+  "open": 7,
+  "pending": 1,
   "notFilled": 12,
-  "closed": 6,
-  "meanR": -0.3377653432447168,
-  "winRate": 0.3333333333333333
+  "closed": 7,
+  "meanR": -0.2406471348332508,
+  "winRate": 0.42857142857142855
  },
  "comparator": {
-  "orders": 7,
-  "open": 3,
-  "pending": 0,
+  "orders": 8,
+  "open": 2,
+  "pending": 1,
   "notFilled": 1,
-  "closed": 3,
-  "meanR": 0.01887164628803047,
-  "winRate": 0.6666666666666666
+  "closed": 4,
+  "meanR": 0.17441443751236038,
+  "winRate": 0.75
  },
  "light": "green",
  "newOrdersTonight": [
   {
    "stream": "capwaived",
-   "sym": "SAILIFE",
+   "sym": "GESHIP",
    "setup": "2",
-   "trigger": 1930.75,
-   "stop": 1731.49,
+   "trigger": 1530.96,
+   "stop": 1408.9,
    "status": "pending",
    "kind": "trigger",
    "tags": [
-    "inside base",
     "over cap",
     "room fail"
    ],
-   "stopPct": 10.32,
+   "stopPct": 7.97,
    "maxStopPct": 7,
-   "roomR": 0.06
+   "roomR": 2.19
   },
   {
-   "stream": "capwaived",
-   "sym": "GLAND",
+   "stream": "comparator",
+   "sym": "GESHIP",
    "setup": "2",
-   "trigger": 3353.69,
-   "stop": 3101.3,
+   "trigger": 1518,
+   "stop": 1408.9,
    "status": "pending",
-   "kind": "trigger",
+   "kind": "close",
    "tags": [
     "over cap",
     "room fail"
    ],
-   "stopPct": 7.53,
+   "stopPct": 7.19,
    "maxStopPct": 7,
-   "roomR": 0.08
+   "roomR": 2.57
   }
  ]
 }

@@ -1,12 +1,7 @@
 {
- "asOf": "2026-11-12",
+ "asOf": "2026-11-13",
  "source": "NSE event calendar",
  "dates": {
-  "EMCURE": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "SAILIFE": {
    "date": null,
    "sessions": null,
@@ -17,12 +12,22 @@
    "sessions": null,
    "inWindow": null
   },
-  "ADANIPORTS": {
+  "EMCURE": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "WELSPUNLIV": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "GESHIP": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ADANIPORTS": {
    "date": null,
    "sessions": null,
    "inWindow": null

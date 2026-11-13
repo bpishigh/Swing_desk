@@ -520,6 +520,32 @@
    "basis": 1750.39,
    "width": 8.25,
    "room": 1.03
+  },
+  "GESHIP|2|2026-11-13": {
+   "sym": "GESHIP",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-13",
+   "trigger": 1530.96,
+   "stop": 1408.9,
+   "limit": 1546.27,
+   "basis": 1530.96,
+   "width": 7.97,
+   "room": 2.19
+  },
+  "GESHIP|4|2026-11-13": {
+   "sym": "GESHIP",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-13",
+   "trigger": 1530.96,
+   "stop": 1408.9,
+   "limit": 1546.27,
+   "basis": 1530.96,
+   "width": 7.97,
+   "room": 2.19
   }
  },
  "lastLogged": {
@@ -562,10 +588,12 @@
   "WOCKPHARMA|2": "2026-11-11",
   "GRANULES|2": "2026-11-12",
   "WOCKPHARMA|4": "2026-11-12",
-  "RUBICON|4": "2026-11-12"
+  "RUBICON|4": "2026-11-12",
+  "GESHIP|2": "2026-11-13",
+  "GESHIP|4": "2026-11-13"
  },
  "summary": {
-  "updated": "2026-11-12",
+  "updated": "2026-11-13",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -638,7 +666,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 16,
+     "open": 18,
      "meanNet": null,
      "win": null,
      "excess": null
