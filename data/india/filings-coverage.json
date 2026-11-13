@@ -1465,7 +1465,53 @@
     "ATCOM",
     "ATCOM"
    ],
-   "at": "2026-11-12T03:52:01.165Z"
+   "at": "2026-11-12T03:52:01.165Z",
+   "topup": {
+    "listed": 2540,
+    "attempted": 2540,
+    "parsed": 2528,
+    "fetchFailed": 8,
+    "parseFailed": 0,
+    "unmapped": 4,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "ATCOM",
+     "ATCOM"
+    ],
+    "toppedUp": 2528,
+    "extraCount": {
+     "q.otherIncome": 2528,
+     "q.financeCost": 2528,
+     "q.depreciation": 2503,
+     "q.exceptional": 2528,
+     "q.pbtPre": 2503,
+     "q.paidUp": 2528,
+     "q.faceValue": 2528,
+     "bs.assets": 22,
+     "bs.equity": 22,
+     "bs.borrowings": 22,
+     "bs.borrowingsCurrent": 22,
+     "bs.cash": 22,
+     "bs.currentAssets": 22,
+     "bs.currentLiabilities": 22,
+     "bs.ppe": 22,
+     "bs.inventories": 22,
+     "bs.receivables": 22,
+     "cf.cfo": 27,
+     "cf.capex": 22
+    },
+    "at": "2026-11-13T21:33:46.219Z"
+   }
   },
   "2021-12-31": {
    "listed": 2906,
