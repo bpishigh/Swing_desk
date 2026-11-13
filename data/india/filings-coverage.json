@@ -125,7 +125,60 @@
     "ATCOM"
    ],
    "alreadyStored": 1875,
-   "at": "2026-11-08T14:59:58.847Z"
+   "at": "2026-11-08T14:59:58.847Z",
+   "topup": {
+    "listed": 4427,
+    "attempted": 4427,
+    "parsed": 4398,
+    "fetchFailed": 14,
+    "parseFailed": 9,
+    "unmapped": 6,
+    "families": {
+     "IFOTB": 64
+    },
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 9
+    },
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "KUNDANMM",
+     "RUSHABEAR",
+     "ATCOM",
+     "ATCOM",
+     "ESFL"
+    ],
+    "asOfRepaired": 611,
+    "toppedUp": 4334,
+    "extraCount": {
+     "q.otherIncome": 4389,
+     "q.financeCost": 4389,
+     "q.depreciation": 4315,
+     "q.exceptional": 4389,
+     "q.pbtPre": 4249,
+     "q.paidUp": 4389,
+     "q.faceValue": 4389,
+     "bs.assets": 4368,
+     "bs.equity": 4368,
+     "bs.borrowings": 4368,
+     "bs.cash": 4368,
+     "bs.ppe": 4285,
+     "bs.inventories": 4285,
+     "cf.cfo": 4363,
+     "cf.capex": 4289,
+     "bs.borrowingsCurrent": 3995,
+     "bs.currentAssets": 4004,
+     "bs.currentLiabilities": 4004,
+     "bs.receivables": 3929
+    },
+    "at": "2026-11-13T19:13:29.313Z"
+   }
   },
   "2025-06-30": {
    "listed": 4102,
