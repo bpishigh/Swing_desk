@@ -1389,7 +1389,55 @@
     "MAFATLAFIN",
     "MAFATLAFIN"
    ],
-   "at": "2026-11-12T03:42:33.325Z"
+   "at": "2026-11-12T03:42:33.325Z",
+   "topup": {
+    "listed": 3083,
+    "attempted": 3083,
+    "parsed": 3072,
+    "fetchFailed": 5,
+    "parseFailed": 0,
+    "unmapped": 6,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "VERTIS",
+     "VERTIS",
+     "ATCOM",
+     "ATCOM",
+     "MAFATLAFIN",
+     "MAFATLAFIN"
+    ],
+    "toppedUp": 3072,
+    "extraCount": {
+     "q.otherIncome": 3072,
+     "q.financeCost": 3072,
+     "q.depreciation": 3027,
+     "q.exceptional": 3072,
+     "q.pbtPre": 3027,
+     "q.paidUp": 3072,
+     "q.faceValue": 3072,
+     "bs.assets": 3027,
+     "bs.equity": 3027,
+     "bs.borrowings": 3027,
+     "bs.borrowingsCurrent": 2785,
+     "bs.cash": 3027,
+     "bs.currentAssets": 2785,
+     "bs.currentLiabilities": 2785,
+     "bs.ppe": 2982,
+     "bs.inventories": 2982,
+     "bs.receivables": 2785,
+     "cf.cfo": 3036,
+     "cf.capex": 2973
+    },
+    "at": "2026-11-13T21:23:25.716Z"
+   }
   },
   "2022-06-30": {
    "listed": 2540,
