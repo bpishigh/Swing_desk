@@ -253,7 +253,62 @@
    "unmappedSymbols": [
     "RUSHABEAR"
    ],
-   "at": "2026-11-08T16:37:28.058Z"
+   "at": "2026-11-08T16:37:28.058Z",
+   "topup": {
+    "listed": 4046,
+    "attempted": 4046,
+    "parsed": 4018,
+    "fetchFailed": 8,
+    "parseFailed": 15,
+    "unmapped": 5,
+    "families": {
+     "IFIndAs": 799,
+     "IFNBFC": 50,
+     "IFOTB": 1
+    },
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no tag map for family IFInsuranceIndAs": 8,
+     "no format family in the header comment": 1,
+     "no tag map for family IFGI": 6
+    },
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "KUNDANMM",
+     "ESFL",
+     "RUSHABEAR",
+     "ESFL"
+    ],
+    "extraCount": {
+     "q.otherIncome": 4011,
+     "q.financeCost": 4011,
+     "q.depreciation": 3941,
+     "q.exceptional": 4011,
+     "q.pbtPre": 3939,
+     "q.paidUp": 4011,
+     "q.faceValue": 4011,
+     "bs.assets": 3984,
+     "bs.equity": 3984,
+     "bs.borrowings": 3984,
+     "bs.borrowingsCurrent": 3636,
+     "bs.cash": 3984,
+     "bs.currentAssets": 3643,
+     "bs.currentLiabilities": 3643,
+     "bs.ppe": 3907,
+     "bs.inventories": 3907,
+     "bs.receivables": 3635,
+     "cf.cfo": 3858,
+     "cf.capex": 3790
+    },
+    "toppedUp": 3168,
+    "at": "2026-11-13T17:29:57.227Z"
+   }
   },
   "2025-12-31": {
    "listed": 4425,
