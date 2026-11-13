@@ -2414,7 +2414,46 @@
     "RAJASPETRO",
     "GRANDFONRY"
    ],
-   "at": "2026-11-12T17:48:53.753Z"
+   "at": "2026-11-12T17:48:53.753Z",
+   "topup": {
+    "listed": 2083,
+    "attempted": 2083,
+    "parsed": 2074,
+    "fetchFailed": 1,
+    "parseFailed": 1,
+    "unmapped": 7,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 1
+    },
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "ATCOM",
+     "NARMADASUG",
+     "AUTORIDFIN",
+     "PRASGLOFIN",
+     "RAJASPETRO",
+     "GRANDFONRY"
+    ],
+    "toppedUp": 2074,
+    "extraCount": {
+     "q.otherIncome": 2074,
+     "q.financeCost": 2074,
+     "q.depreciation": 2033,
+     "q.exceptional": 2074,
+     "q.pbtPre": 1984,
+     "q.paidUp": 2074,
+     "q.faceValue": 2074
+    },
+    "at": "2026-11-13T23:52:33.269Z"
+   }
   },
   "2018-09-30": {
    "listed": 2033,
