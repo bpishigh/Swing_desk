@@ -2,13 +2,13 @@
 // What it guarantees: nothing filed after t is ever returned; the original filing is used unless revisions are asked for; consolidated is used where filed, with a basis-break flag when the basis changes;
 // year-on-year growth is not computed across a structure event until the year-ago quarter is itself on the new basis (five quarters counting the event quarter), nor across a basis difference;
 // a missing field stays null, never 0.
-import type { Values } from '../ingest/filings-parse.ts';
+import type { Values, Extra } from '../ingest/filings-parse.ts';
 import type { StructureEvent } from '../ingest/entities.ts';
 
-export interface ResultFact { entity: string; period: string; basis: 'consolidated' | 'standalone'; asOf: string; revision: number; fields: Values }
+export interface ResultFact { entity: string; period: string; basis: 'consolidated' | 'standalone'; asOf: string; revision: number; fields: Values; ytd?: Values; format?: string; extra?: Extra }
 export type GrowthReason = 'ok' | 'no year-ago quarter' | 'basis differs' | 'structure event' | 'base not positive' | 'value missing';
 export interface Growth { revenue: number | null; pbt: number | null; pat: number | null; eps: number | null }
-export interface QuarterView { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revision: number; values: Values; yoy: Growth | null; yoyReason: GrowthReason; basisBreak: boolean }
+export interface QuarterView { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revision: number; values: Values; ytd: Values | null; format: string | null; extra: Extra | null; yoy: Growth | null; yoyReason: GrowthReason; basisBreak: boolean }
 export interface View { entity: string; t: string; quarters: QuarterView[]; flags: Array<{ kind: 'structure event' | 'first consolidated filing'; date: string; detail: string }> }
 export interface Opts { revisions?: boolean; limit?: number; events?: StructureEvent[] }
 
@@ -49,7 +49,7 @@ export function asOfResults(facts: ResultFact[], entity: string, t: string, o: O
       for (const k of ['revenue', 'pbt', 'pat', 'eps'] as const) { const r = growth(f.fields[k], ya.fields[k]); if (r === 'base') { base = true; g[k] = null; } else { g[k] = r; if (r == null) missing = true; } }
       yoy = g; if (g.revenue == null && g.pbt == null && g.pat == null && g.eps == null) reason = base ? 'base not positive' : 'value missing';
     }
-    return { period: p, basis: f.basis, asOf: f.asOf, revision: f.revision, values: f.fields, yoy: reason === 'ok' ? yoy : null, yoyReason: reason, basisBreak: breaks.has(p) };
+    return { period: p, basis: f.basis, asOf: f.asOf, revision: f.revision, values: f.fields, ytd: f.ytd ?? null, format: f.format ?? null, extra: f.extra ?? null, yoy: reason === 'ok' ? yoy : null, yoyReason: reason, basisBreak: breaks.has(p) };
   });
   const quarters = views.reverse().slice(0, o.limit ?? 12);
   return { entity, t, quarters, flags };
