@@ -884,7 +884,45 @@
     "AUTORIDFIN",
     "NARMADASUG"
    ],
-   "at": "2026-11-12T17:03:07.823Z"
+   "at": "2026-11-12T17:03:07.823Z",
+   "topup": {
+    "listed": 2575,
+    "attempted": 2575,
+    "parsed": 2552,
+    "fetchFailed": 0,
+    "parseFailed": 18,
+    "unmapped": 5,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 18
+    },
+    "unmappedSymbols": [
+     "MAFATLAFIN",
+     "MAFATLAFIN",
+     "KUNDANMM",
+     "AUTORIDFIN",
+     "NARMADASUG"
+    ],
+    "toppedUp": 2552,
+    "extraCount": {
+     "q.otherIncome": 2552,
+     "q.financeCost": 2552,
+     "q.exceptional": 2552,
+     "q.paidUp": 2552,
+     "q.faceValue": 2552,
+     "q.depreciation": 2506,
+     "q.pbtPre": 2497,
+     "bs.borrowings": 113
+    },
+    "at": "2026-11-13T23:12:42.699Z"
+   }
   },
   "2018-03-31": {
    "listed": 1749,
