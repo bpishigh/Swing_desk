@@ -10,6 +10,7 @@ import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
+import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
@@ -33,6 +34,10 @@ for (const d of days) for (const r of d.rows) allowed.add(r[0]);
 const asOf = asOfHistories(days, t, res, allowed), FH = buildHistories(days, res.splits, allowed), series = FH.series;
 const isCo = (sym) => sym in industry || sym in names;   // listed companies only: no ETFs or liquid funds
 const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value }));
+// Batch A (A0 table, claude/batch-a-fundamentals-rules-draft.md): the top 500 by traded value and the nightly company figures. Books that need them do nothing on a night the figures are not from tonight, and say so.
+const el500 = (() => { const u = BASE.universe; BASE.universe = 500; try { return eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } })();
+const fundFile = R('data/india/fundamentals/latest.json'), fundOk = !!fundFile && fundFile.asOf === D, fundRows = fundOk ? fundFile.rows : {};
+const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead']);
 const todayRows = uniq.find((d) => d.date === D)?.rows ?? {};
 const open = (s) => { const r = todayRows[s]; return r && r[2] > 0 ? r[2] : NaN; };
 const age = (sym) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };   // sessions since the name last had a close
@@ -55,13 +60,26 @@ const idxStore = R('data/india/idx_closes.json', { closes: {} }).closes, idxAt =
 const n500At = (d) => R(`data/india/tracker/${d}.json`)?.b?.close ?? null;
 const parentCost = (() => { const rv = parent?.reviews ?? [], ms = Object.keys(parent?.monthly ?? {}).length; return rv.length && ms ? rv.reduce((a, r) => a + (r.costPct ?? 0), 0) / 100 / ms : 0; })();
 
+const baWatch = (sig, held, stx) => {
+  if (!fundOk) return [];
+  const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
+  if (sig === 'pead') return (stx.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio }));
+  const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : compounderPassers(bx);
+  const r3 = (x) => (x == null || x !== x ? null : Math.round(x * 1000) / 1000);
+  const state = (sym, rank) => (held.has(sym) ? (rank != null && rank <= 20 ? 'Held' : rank != null && rank <= 40 ? 'In buffer' : 'Would leave') : rank != null && rank <= 20 ? 'Would enter' : '');
+  const out = rows.slice(0, 40).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: state(r.sym, i + 1) }));
+  for (const sym of held) if (!out.some((r) => r.sym === sym)) { const i = rows.findIndex((r) => r.sym === sym); out.push({ rank: i < 0 ? undefined : i + 1, sym, score: i < 0 ? null : r3(rows[i].s), status: i < 0 ? 'Would leave (no longer ranked)' : state(sym, i + 1) }); }
+  return out;
+};
 const out = [], twinM0 = monthsOf(twin);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
   const ctxOf = (held) => ({ el, series, t, dates, held, group: (sym) => industry[sym] ?? null });
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
-  const signal = (held) => { const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
+  const signal = (held, stx) => { if (BA_SIGNALS.has(b.signal)) { if (!fundOk) { st.fundMissing = (st.fundMissing ?? 0) + 1; return null; } const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
+      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : pead(bx, wide, plog); }
+    const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
@@ -70,11 +88,12 @@ for (const b of books) {
   if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
   // tonight's list for the stock-list view
-  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchTom(wx);
+  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = BA_SIGNALS.has(b.signal) ? baWatch(b.signal, new Set(Object.keys(st.pos)), st) : b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchTom(wx);
   const nm = (r) => ({ ...r, name: (names[r.sym] ?? null) && r.group ? `${names[r.sym]} (${r.group})` : names[r.sym] ?? null }), watchRows = watch.map(nm);
   // scorecard against the one comparator (C-176); the four reported lines are shown whatever the comparator is
   const bm = monthlyValues(st), fundM = monthEndNav('148703'), liqM = monthEndNav(cfg.cashFund.code), parM = monthsOf(parent), twinM = monthsOf(twin);
-  const comp = b.comparator === 'parent' ? parM : b.comparator === 'fund' ? fundM : liqM, compName = b.comparator === 'parent' ? 'Stopped parent (monthly review, 25% stop)' : b.comparator === 'fund' ? 'Momentum 30 index fund' : 'Liquid fund rate';
+  const n500M = bm.map((x) => ({ m: x.m, v: n500At(x.d) })).filter((x) => x.v > 0), valM = monthEndNav('151739');
+  const comp = b.comparator === 'parent' ? parM : b.comparator === 'fund' ? fundM : b.comparator === 'n500' ? n500M : b.comparator === 'valueFund' ? valM : liqM, compName = b.comparator === 'parent' ? 'Stopped parent (monthly review, 25% stop)' : b.comparator === 'fund' ? 'Momentum 30 index fund' : b.comparator === 'n500' ? 'Nifty 500' : b.comparator === 'valueFund' ? 'Nifty 500 Value 50 index fund (UTI)' : 'Liquid fund rate';
   const trades = st.closed.map((c) => c.ret - tierCost(st.lastValue[c.sym] ?? 0)), tr = { n: trades.length, avg: trades.length ? trades.reduce((a, x) => a + x, 0) / trades.length : null };
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;

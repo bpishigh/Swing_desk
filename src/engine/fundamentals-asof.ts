@@ -15,7 +15,7 @@ export interface Features {
   growth: { revenue: number | null; pbtPre: number | null; pat: number | null; revenueCagr3: number | null };
   fiscalYears: Array<{ end: string; revenue: number | null; operatingEbit: number | null; pat: number | null }>;
   quarterlyEbitMargin: Array<number | null>;   // latest first, up to 12
-  shares: number | null; sharesFlag: boolean; marketCap: number | null; earningsYield: number | null; eyNullReason: string | null;
+  shares: number | null; sharesYearAgoRolled: number | null; sharesFlag: boolean; marketCap: number | null; earningsYield: number | null; eyNullReason: string | null;
   bs: Balance | null; bsPrev: Balance | null; cashFlowFy: Array<{ end: string; cfo: number | null; capex: number | null }>;
   netDebt: number | null; enterpriseValue: number | null; returnOnCapital: number | null;
   sue: { value: number | null; epsChange: number | null; period: string | null; reason: string };
@@ -88,6 +88,7 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   const sh = (i: number): number | null => { const e = qv[i]?.extra?.q; return e?.paidUp != null && e?.faceValue != null && e.faceValue > 0 ? e.paidUp / e.faceValue : null; };
   const sh0 = sh(0);
   if (sh0 != null && latest) { let m = 1; for (const s of splits) if (s.date > latest.asOf.slice(0, 10) && s.date <= t && s.factor > 0) m /= s.factor; shares = sh0 * m; const sh4 = sh(4); if (sh4 != null && Math.abs(sh0 / sh4 - 1) > 0.02) sharesFlag = true; }
+  let sharesYearAgoRolled: number | null = null; { const s4 = sh(4); if (s4 != null && qv[4]) { let m = 1; for (const sp of splits) if (sp.date > qv[4].asOf.slice(0, 10) && sp.date <= t && sp.factor > 0) m /= sp.factor; sharesYearAgoRolled = s4 * m; } }
   const marketCap = close != null && close > 0 && shares != null ? close * shares : null;
   let earningsYield: number | null = null, eyNullReason: string | null = null;
   if (marketCap == null) eyNullReason = 'no market cap'; else if (ttmPat == null) eyNullReason = 'no TTM profit';
@@ -111,7 +112,11 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
     const diff = (i: number): number | null => { const a = qs[i], b = qs[i + 4]; if (!a || !b || a.basis !== b.basis || a.eps == null || b.eps == null || addMonths(b.period, 12) !== a.period) return null; return a.eps - b.eps; };
     const d0 = diff(0), prior: number[] = []; for (let i = 1; i <= 8; i++) { const d = diff(i); if (d != null) prior.push(d); }
     const e0 = qv[0].extra?.q, e4 = qv[4]?.extra?.q; const y4 = qs[4];
+    const exc = (q: Quarter | undefined) => !!q && q.exceptional != null && q.pbt != null && q.pbt !== 0 && Math.abs(q.exceptional) > 0.25 * Math.abs(q.pbt);
     if (d0 == null) sue = { ...sue, reason: 'no EPS change (missing year-ago quarter, basis change or EPS missing)' };
+    else if (exc(qs[0]) || exc(qs[4])) sue = { value: null, epsChange: d0, period: latest.period, reason: 'exceptional items above 25% of PBT in the quarter or the year-ago quarter' };
+    else if (sh(0) != null && sh(4) != null && Math.abs((sh(0) as number) / (sh(4) as number) - 1) > 0.02) sue = { value: null, epsChange: d0, period: latest.period, reason: 'share count moved more than 2% from the year-ago quarter' };
+    else if (close != null && close > 0 && Math.abs(d0) < 0.005 * close) sue = { value: null, epsChange: d0, period: latest.period, reason: 'EPS change below 0.5% of the close' };
     else if (prior.length < 6) sue = { value: null, epsChange: d0, period: latest.period, reason: 'fewer than 6 earlier changes' };
     else { const s = sd(prior); sue = s > 0 ? { value: d0 / s, epsChange: d0, period: latest.period, reason: 'ok' } : { value: null, epsChange: d0, period: latest.period, reason: 'zero spread' }; }
     void e0; void e4; void y4;
@@ -122,7 +127,15 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
     ttm: { revenue: ttmRevenue, pbtPre: ttmPbtPre, pat: ttmPat, eps: ttmEps, operatingEbit: opEbit, financeCost: ttmFin, exceptional: ttmExc, pbt: ttmPbt },
     ttmPrev: { revenue: prevRev, pbtPre: prevPbt, pat: prevPat },
     margin: { operatingEbit: opEbit != null && ttmRevenue != null && ttmRevenue > 0 ? opEbit / ttmRevenue : null, pbtPre: ttmPbtPre != null && ttmRevenue != null && ttmRevenue > 0 ? ttmPbtPre / ttmRevenue : null },
-    interestCover, growth, fiscalYears, quarterlyEbitMargin, shares, sharesFlag, marketCap, earningsYield, eyNullReason, bs, bsPrev, cashFlowFy, netDebt, enterpriseValue, returnOnCapital, sue, missing,
+    interestCover, growth, fiscalYears, quarterlyEbitMargin, shares, sharesYearAgoRolled, sharesFlag, marketCap, earningsYield, eyNullReason, bs, bsPrev, cashFlowFy, netDebt, enterpriseValue, returnOnCapital, sue, missing,
   };
 }
 export { sd as stdev, sum };
+
+/** A7 flags (information only, no book uses them): dilution (share count up more than 5% over a year after removing splits and bonuses), exceptional items above 25% of TTM PBT, profit up more than 20% while revenue fell. Pledge needs the shareholding filings and is not here. */
+export function flagsOf(f: Features): { dilution: boolean | null; exceptional: boolean | null; profitWithoutSales: boolean | null } {
+  const dil = f.shares != null && f.sharesYearAgoRolled != null && f.sharesYearAgoRolled > 0 ? f.shares / f.sharesYearAgoRolled - 1 > 0.05 : null;
+  const exc = f.ttm.pbt != null && f.ttm.exceptional != null && f.ttm.pbt !== 0 ? Math.abs(f.ttm.exceptional) > 0.25 * Math.abs(f.ttm.pbt) : null;
+  const pws = f.growth.pat != null && f.growth.revenue != null ? f.growth.pat > 0.2 && f.growth.revenue < 0 : null;
+  return { dilution: dil, exceptional: exc, profitWithoutSales: pws };
+}
