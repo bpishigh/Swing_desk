@@ -2342,7 +2342,46 @@
     "NARMADASUG",
     "MAFATLAFIN"
    ],
-   "at": "2026-11-12T17:39:32.865Z"
+   "at": "2026-11-12T17:39:32.865Z",
+   "topup": {
+    "listed": 1720,
+    "attempted": 1720,
+    "parsed": 1596,
+    "fetchFailed": 116,
+    "parseFailed": 1,
+    "unmapped": 7,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {
+     "no format family in the header comment and none inferable from the tags": 1
+    },
+    "unmappedSymbols": [
+     "PRASGLOFIN",
+     "AUTORIDFIN",
+     "ATCOM",
+     "GRANDFONRY",
+     "RAJASPETRO",
+     "NARMADASUG",
+     "MAFATLAFIN"
+    ],
+    "toppedUp": 1596,
+    "extraCount": {
+     "q.otherIncome": 1596,
+     "q.financeCost": 1596,
+     "q.depreciation": 1569,
+     "q.exceptional": 1596,
+     "q.pbtPre": 1533,
+     "q.paidUp": 1596,
+     "q.faceValue": 1596
+    },
+    "at": "2026-11-13T23:45:32.534Z"
+   }
   },
   "2018-12-31": {
    "listed": 2083,
