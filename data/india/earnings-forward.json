@@ -3749,16 +3749,596 @@
    "rea": -0.0146,
    "top": false,
    "signal": false
+  },
+  "ACE|2026-11-12": {
+   "s": "ACE",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 1180,
+   "run": 0.056,
+   "rea": 0.0104,
+   "top": true,
+   "signal": false
+  },
+  "ALKEM|2026-11-12": {
+   "s": "ALKEM",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 5114,
+   "run": 0.0044,
+   "rea": -0.0634,
+   "top": false,
+   "signal": false
+  },
+  "AMBER|2026-11-12": {
+   "s": "AMBER",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 6772,
+   "run": -0.0411,
+   "rea": 0.091,
+   "top": false,
+   "signal": false
+  },
+  "ANURAS|2026-11-06": {
+   "s": "ANURAS",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1198.3,
+   "run": -0.0114,
+   "rea": 0.036,
+   "top": false,
+   "signal": false
+  },
+  "ASTERDM|2026-11-06": {
+   "s": "ASTERDM",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 733.5,
+   "run": 0.0485,
+   "rea": 0.015,
+   "top": true,
+   "signal": false
+  },
+  "AVANTIFEED|2026-11-10": {
+   "s": "AVANTIFEED",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 762.9,
+   "run": 0.0087,
+   "rea": 0.0379,
+   "top": false,
+   "signal": false
+  },
+  "AZAD|2026-11-06": {
+   "s": "AZAD",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 2434.2,
+   "run": -0.0399,
+   "rea": -0.062,
+   "top": false,
+   "signal": false
+  },
+  "BDL|2026-11-12": {
+   "s": "BDL",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 1030,
+   "run": 0.025,
+   "rea": -0.0657,
+   "top": true,
+   "signal": false
+  },
+  "BOSCHLTD|2026-11-06": {
+   "s": "BOSCHLTD",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 49550,
+   "run": 0.1402,
+   "rea": -0.0601,
+   "top": true,
+   "signal": false
+  },
+  "CAPLIPOINT|2026-11-12": {
+   "s": "CAPLIPOINT",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 2388.7,
+   "run": 0.0029,
+   "rea": -0.0543,
+   "top": false,
+   "signal": false
+  },
+  "CHOLAHLDNG|2026-11-06": {
+   "s": "CHOLAHLDNG",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1424.4,
+   "run": 0.0228,
+   "rea": 0.0039,
+   "top": true,
+   "signal": false
+  },
+  "COCHINSHIP|2026-11-10": {
+   "s": "COCHINSHIP",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 1196,
+   "run": 0.0663,
+   "rea": -0.0908,
+   "top": true,
+   "signal": false
+  },
+  "COHANCE|2026-11-06": {
+   "s": "COHANCE",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 443.65,
+   "run": -0.0612,
+   "rea": -0.0163,
+   "top": false,
+   "signal": false
+  },
+  "COROMANDEL|2026-11-06": {
+   "s": "COROMANDEL",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1879.2,
+   "run": 0.0189,
+   "rea": -0.0153,
+   "top": false,
+   "signal": false
+  },
+  "CUPID|2026-11-11": {
+   "s": "CUPID",
+   "d": "2026-11-11",
+   "entry": "2026-11-12",
+   "px": 384.8,
+   "run": 0.0203,
+   "rea": 0.1044,
+   "top": false,
+   "signal": false
+  },
+  "DATAPATTNS|2026-11-06": {
+   "s": "DATAPATTNS",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 4025,
+   "run": -0.0356,
+   "rea": 0.012,
+   "top": false,
+   "signal": false
+  },
+  "DIVISLAB|2026-11-07": {
+   "s": "DIVISLAB",
+   "d": "2026-11-07",
+   "entry": "2026-11-11",
+   "px": 11367,
+   "run": 0.0818,
+   "rea": 0.0817,
+   "top": true,
+   "signal": true
+  },
+  "EIHOTEL|2026-11-12": {
+   "s": "EIHOTEL",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 316.55,
+   "run": 0.0016,
+   "rea": 0.0134,
+   "top": false,
+   "signal": false
+  },
+  "ELGIEQUIP|2026-11-06": {
+   "s": "ELGIEQUIP",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 553.9,
+   "run": -0.026,
+   "rea": 0.008,
+   "top": false,
+   "signal": false
+  },
+  "FINCABLES|2026-11-07": {
+   "s": "FINCABLES",
+   "d": "2026-11-07",
+   "entry": "2026-11-11",
+   "px": 1225.4,
+   "run": -0.0707,
+   "rea": 0.1035,
+   "top": false,
+   "signal": false
+  },
+  "GRSE|2026-11-11": {
+   "s": "GRSE",
+   "d": "2026-11-11",
+   "entry": "2026-11-12",
+   "px": 2211.5,
+   "run": 0.1046,
+   "rea": -0.0118,
+   "top": true,
+   "signal": false
+  },
+  "GLAND|2026-11-06": {
+   "s": "GLAND",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 3302.4,
+   "run": 0.0529,
+   "rea": 0.0456,
+   "top": true,
+   "signal": true
+  },
+  "GESHIP|2026-11-06": {
+   "s": "GESHIP",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1426,
+   "run": -0.0891,
+   "rea": -0.0277,
+   "top": false,
+   "signal": false
+  },
+  "HBLENGINE|2026-11-07": {
+   "s": "HBLENGINE",
+   "d": "2026-11-07",
+   "entry": "2026-11-11",
+   "px": 806.3,
+   "run": 0.0188,
+   "rea": -0.059,
+   "top": false,
+   "signal": false
+  },
+  "HINDALCO|2026-11-06": {
+   "s": "HINDALCO",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 960,
+   "run": 0.0085,
+   "rea": 0.0192,
+   "top": false,
+   "signal": false
+  },
+  "HINDCOPPER|2026-11-11": {
+   "s": "HINDCOPPER",
+   "d": "2026-11-11",
+   "entry": "2026-11-12",
+   "px": 446.15,
+   "run": -0.0163,
+   "rea": 0.0196,
+   "top": false,
+   "signal": false
+  },
+  "HAL|2026-11-12": {
+   "s": "HAL",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 4809.8,
+   "run": -0.0491,
+   "rea": -0.0302,
+   "top": false,
+   "signal": false
+  },
+  "POWERINDIA|2026-11-12": {
+   "s": "POWERINDIA",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 31595,
+   "run": -0.0436,
+   "rea": 0.0836,
+   "top": false,
+   "signal": false
+  },
+  "HONASA|2026-11-06": {
+   "s": "HONASA",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 484.05,
+   "run": 0.0384,
+   "rea": 0.0004,
+   "top": true,
+   "signal": false
+  },
+  "IFCI|2026-11-12": {
+   "s": "IFCI",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 62.21,
+   "run": 0.0029,
+   "rea": -0.0187,
+   "top": false,
+   "signal": false
+  },
+  "IRCTC|2026-11-12": {
+   "s": "IRCTC",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 457.7,
+   "run": -0.0175,
+   "rea": -0.0326,
+   "top": false,
+   "signal": false
+  },
+  "JUBLFOOD|2026-11-06": {
+   "s": "JUBLFOOD",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 428.5,
+   "run": 0.0769,
+   "rea": -0.0657,
+   "top": true,
+   "signal": false
+  },
+  "KALYANKJIL|2026-11-10": {
+   "s": "KALYANKJIL",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 710.9,
+   "run": 0.139,
+   "rea": 0.1456,
+   "top": true,
+   "signal": true
+  },
+  "MMTC|2026-11-10": {
+   "s": "MMTC",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 53.64,
+   "run": -0.0056,
+   "rea": -0.0244,
+   "top": false,
+   "signal": false
+  },
+  "MRF|2026-11-10": {
+   "s": "MRF",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 128600,
+   "run": -0.0056,
+   "rea": 0.01,
+   "top": false,
+   "signal": false
+  },
+  "MANAPPURAM|2026-11-12": {
+   "s": "MANAPPURAM",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 308,
+   "run": 0.0487,
+   "rea": -0.0396,
+   "top": true,
+   "signal": false
+  },
+  "NMDC|2026-11-12": {
+   "s": "NMDC",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 69.8,
+   "run": -0.0293,
+   "rea": -0.0286,
+   "top": false,
+   "signal": false
+  },
+  "NSLNISP|2026-11-12": {
+   "s": "NSLNISP",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 40.54,
+   "run": -0.0349,
+   "rea": -0.0063,
+   "top": false,
+   "signal": false
+  },
+  "NAVA|2026-11-12": {
+   "s": "NAVA",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 574.75,
+   "run": 0.0431,
+   "rea": 0.0531,
+   "top": true,
+   "signal": true
+  },
+  "NUVAMA|2026-11-06": {
+   "s": "NUVAMA",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1871,
+   "run": 0.0716,
+   "rea": -0.0057,
+   "top": true,
+   "signal": false
+  },
+  "OIL|2026-11-12": {
+   "s": "OIL",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 441.5,
+   "run": -0.0937,
+   "rea": -0.0118,
+   "top": false,
+   "signal": false
+  },
+  "OLAELEC|2026-11-12": {
+   "s": "OLAELEC",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 34.65,
+   "run": -0.0791,
+   "rea": 0.0043,
+   "top": false,
+   "signal": false
+  },
+  "OLECTRA|2026-11-09": {
+   "s": "OLECTRA",
+   "d": "2026-11-09",
+   "entry": "2026-11-11",
+   "px": 1053.5,
+   "run": 0.0026,
+   "rea": 0.0068,
+   "top": false,
+   "signal": false
+  },
+  "PAGEIND|2026-11-12": {
+   "s": "PAGEIND",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 31325,
+   "run": -0.0118,
+   "rea": -0.1455,
+   "top": false,
+   "signal": false
+  },
+  "RVNL|2026-11-12": {
+   "s": "RVNL",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 199.46,
+   "run": 0.0885,
+   "rea": -0.0496,
+   "top": true,
+   "signal": false
+  },
+  "RPOWER|2026-11-12": {
+   "s": "RPOWER",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 18.55,
+   "run": 0.0694,
+   "rea": -0.042,
+   "top": true,
+   "signal": false
+  },
+  "SIEMENS|2026-11-06": {
+   "s": "SIEMENS",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 3655,
+   "run": -0.0355,
+   "rea": 0.0606,
+   "top": false,
+   "signal": false
+  },
+  "TDPOWERSYS|2026-11-12": {
+   "s": "TDPOWERSYS",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 637.55,
+   "run": -0.1809,
+   "rea": 0.0432,
+   "top": false,
+   "signal": false
+  },
+  "TATACHEM|2026-11-07": {
+   "s": "TATACHEM",
+   "d": "2026-11-07",
+   "entry": "2026-11-11",
+   "px": 607.85,
+   "run": -0.0182,
+   "rea": -0.019,
+   "top": false,
+   "signal": false
+  },
+  "TATAPOWER|2026-11-11": {
+   "s": "TATAPOWER",
+   "d": "2026-11-11",
+   "entry": "2026-11-12",
+   "px": 357,
+   "run": -0.0079,
+   "rea": -0.0263,
+   "top": false,
+   "signal": false
+  },
+  "TATASTEEL|2026-11-07": {
+   "s": "TATASTEEL",
+   "d": "2026-11-07",
+   "entry": "2026-11-11",
+   "px": 189.28,
+   "run": 0.0397,
+   "rea": -0.0037,
+   "top": true,
+   "signal": false
+  },
+  "TECHNOE|2026-11-12": {
+   "s": "TECHNOE",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 958.75,
+   "run": 0.1038,
+   "rea": -0.0148,
+   "top": true,
+   "signal": false
+  },
+  "TITAGARH|2026-11-10": {
+   "s": "TITAGARH",
+   "d": "2026-11-10",
+   "entry": "2026-11-12",
+   "px": 731.3,
+   "run": 0.0101,
+   "rea": 0.0231,
+   "top": false,
+   "signal": false
+  },
+  "TRITURBINE|2026-11-11": {
+   "s": "TRITURBINE",
+   "d": "2026-11-11",
+   "entry": "2026-11-12",
+   "px": 507.3,
+   "run": 0.0549,
+   "rea": -0.0094,
+   "top": true,
+   "signal": false
+  },
+  "VTL|2026-11-06": {
+   "s": "VTL",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 526.5,
+   "run": 0.013,
+   "rea": -0.0202,
+   "top": false,
+   "signal": false
+  },
+  "IDEA|2026-11-12": {
+   "s": "IDEA",
+   "d": "2026-11-12",
+   "entry": "2026-11-13",
+   "px": 12.57,
+   "run": -0.0049,
+   "rea": -0.0262,
+   "top": false,
+   "signal": false
+  },
+  "VOLTAS|2026-11-06": {
+   "s": "VOLTAS",
+   "d": "2026-11-06",
+   "entry": "2026-11-09",
+   "px": 1090.1,
+   "run": 0.0772,
+   "rea": -0.0271,
+   "top": true,
+   "signal": false
+  },
+  "WHIRLPOOL|2026-11-09": {
+   "s": "WHIRLPOOL",
+   "d": "2026-11-09",
+   "entry": "2026-11-11",
+   "px": 830.2,
+   "run": -0.0255,
+   "rea": -0.0155,
+   "top": false,
+   "signal": false
   }
  },
  "summary": {
-  "updated": "2026-11-07",
+  "updated": "2026-11-14",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
     "matured": 0,
-    "open": 52,
+    "open": 56,
     "meanNet": null,
     "win": null,
     "market": null
@@ -3766,7 +4346,7 @@
    {
     "group": "ran up, any reaction",
     "matured": 0,
-    "open": 141,
+    "open": 162,
     "meanNet": null,
     "win": null,
     "market": null
@@ -3774,7 +4354,7 @@
    {
     "group": "all results stocks",
     "matured": 0,
-    "open": 375,
+    "open": 433,
     "meanNet": null,
     "win": null,
     "market": null
