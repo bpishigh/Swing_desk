@@ -1471,7 +1471,12 @@
     "fetchFailed": 5,
     "parseFailed": 0,
     "unmapped": 6,
-    "families": {},
+    "families": {
+     "IFIndAs": 2840,
+     "FRNBFC": 187,
+     "FRBanking": 43,
+     "IFBanking": 2
+    },
     "missingField": {
      "revenue": 0,
      "pbt": 0,
@@ -1488,7 +1493,6 @@
      "MAFATLAFIN",
      "MAFATLAFIN"
     ],
-    "toppedUp": 3072,
     "extraCount": {
      "q.otherIncome": 3072,
      "q.financeCost": 3072,
@@ -1502,6 +1506,8 @@
      "bs.borrowings": 3027,
      "bs.borrowingsCurrent": 2785,
      "bs.cash": 3027,
+     "bs.bankOther": 2977,
+     "bs.currentInvestments": 2785,
      "bs.currentAssets": 2785,
      "bs.currentLiabilities": 2785,
      "bs.ppe": 2982,
@@ -1510,7 +1516,7 @@
      "cf.cfo": 3036,
      "cf.capex": 2973
     },
-    "at": "2026-11-13T21:23:25.716Z"
+    "at": "2026-11-14T18:41:36.333Z"
    }
   },
   "2022-06-30": {
