@@ -11,6 +11,7 @@ import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
 import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
+import { magic, magicRanked } from '../src/engine/batch-b.ts';
 import { stepEw } from '../src/engine/equal-weight.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
@@ -38,7 +39,7 @@ const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({
 // Batch A (A0 table, claude/batch-a-fundamentals-rules-draft.md): the top 500 by traded value and the nightly company figures. Books that need them do nothing on a night the figures are not from tonight, and say so.
 const el500 = (() => { const u = BASE.universe; BASE.universe = 500; try { return eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } })();
 const fundFile = R('data/india/fundamentals/latest.json'), fundOk = !!fundFile && fundFile.asOf === D, fundRows = fundOk ? fundFile.rows : {};
-const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead']);
+const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead', 'magic']);
 const todayRows = uniq.find((d) => d.date === D)?.rows ?? {};
 const open = (s) => { const r = todayRows[s]; return r && r[2] > 0 ? r[2] : NaN; };
 const age = (sym) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };   // sessions since the name last had a close
@@ -65,7 +66,7 @@ const baWatch = (sig, held, stx) => {
   if (!fundOk) return [];
   const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
   if (sig === 'pead') return (stx.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio }));
-  const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : compounderPassers(bx);
+  const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : sig === 'magic' ? magicRanked(bx) : compounderPassers(bx);
   const r3 = (x) => (x == null || x !== x ? null : Math.round(x * 1000) / 1000);
   const state = (sym, rank) => (held.has(sym) ? (rank != null && rank <= 20 ? 'Held' : rank != null && rank <= 40 ? 'In buffer' : 'Would leave') : rank != null && rank <= 20 ? 'Would enter' : '');
   const out = rows.slice(0, 40).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: state(r.sym, i + 1) }));
@@ -79,13 +80,13 @@ for (const b of books) {
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
   const signal = (held, stx) => { if (BA_SIGNALS.has(b.signal)) { if (!fundOk) { st.fundMissing = (st.fundMissing ?? 0) + 1; return null; } const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
-      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : pead(bx, wide, plog); }
+      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : b.signal === 'magic' ? magic(bx) : pead(bx, wide, plog); }
     const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
   stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
-  if (b.batch === 'A' && before !== D) stepEw(st, D, el500.map((p) => p.sym), (s) => { const v = px(s); return v > 0 ? v : null; });
+  if ((b.batch === 'A' || b.batch === 'B') && before !== D) stepEw(st, D, el500.map((p) => p.sym), (s) => { const v = px(s); return v > 0 ? v : null; });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
   if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
@@ -100,10 +101,11 @@ for (const b of books) {
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;
   const base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => bm.find((x) => x.m === m)?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
-  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), ...(b.batch === 'A' ? { ew: rb((m) => (bd(m) ? st.ew?.nav?.[bd(m)] ?? null : null)) } : {}), comparator: rb((m) => at(comp, m)) };
+  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), ...(b.batch === 'A' || b.batch === 'B' ? { ew: rb((m) => (bd(m) ? st.ew?.nav?.[bd(m)] ?? null : null)) } : {}), comparator: rb((m) => at(comp, m)) };
   const lines = bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) }));
   const nextEntry = b.signal === 'turnOfMonth' ? (() => { for (let k = 0; k < 45; k++) { const d = cal.addSessions(D, k); if (sessionsLeftInMonth(d, cal.sessionsBetween.bind(cal)) === 4) return d; } return null; })() : null;
-  const lat = { unscored: ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
+  const nonFin = Object.values(fundRows).filter((r) => !r.financial), magicOk = new Set(magicRanked({ el: el500, series, t, dates, held: new Set(), fund: fundRows, st, group: (sym) => industry[sym] ?? null }).map((r) => r.sym));
+  const lat = { unscored: b.signal === 'magic' && fundOk ? { text: `${Math.max(0, nonFin.length - magicOk.size)} of ${nonFin.length} non-financial names are not ranked (power companies, no balance sheet read with the investment lines yet, or no positive operating profit or capital base).` } : ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
     held: hold.length, cashShare: v ? Math.round(st.cash / v * 1e4) / 1e4 : null, positions: hold, pending: st.pending ? { signalDate: st.pending.signalDate, buys: st.pending.buys.map((x) => x.sym), sells: st.pending.sells } : null,
     closedTrades: st.closed.length, stopOuts: st.closed.filter((c) => c.why === 'stop').length, skippedWide: st.skipped.length, cashDays: st.cashDays, monthly: bm, daily: st.daily.slice(-400), recentClosed: st.closed.slice(-30),
     watch: watchRows, nextEntry, comparator: { id: b.comparator, name: compName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines, sens: st.daily.length ? { book: st.daily.at(-1).vs, note: 'with a further 0.2% a round trip (C-178); a sensitivity, not a result' } : null };

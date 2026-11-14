@@ -591,6 +591,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bb-b1-magic",
+      "name": "Magic Formula: cheap and high return on capital",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "B1",
+      "view": "book_list",
+      "startAfter": "2099-12-31",
+      "dataFile": "data/india/books/bb-b1-magic/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

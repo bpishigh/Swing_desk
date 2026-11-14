@@ -1,101 +1,108 @@
-# Batch B: balance-sheet and cash-flow books, India (DRAFT for owner approval, 14 Nov 2026)
+# Batch B: balance-sheet and cash-flow books, India (v2, 14 Nov 2026)
 
-Status: **DRAFT.** Nothing here is built as a book and nothing starts until the owner marks a block Adopted. C-numbers are assigned on adoption (next free: C-205). Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to the build standard (`claude/strategy-build-standard.md`, C-158) and the C-159, C-173, C-174, C-176 and C-177 rules.
+Status: **B1 Magic Formula ADOPTED by the owner 14 Nov 2026 as C-205**, on the terms below. **B2 Piotroski and B3 Full quality are revised drafts** (the owner's changes of 14 Nov applied) and are not adopted until the owner marks them. Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to `claude/strategy-build-standard.md` (C-158) and C-159, C-173, C-174, C-176, C-177. India only; the books start after their replays are read (the owner's rule). Where this page and the C-rows differ, the C-rows win.
 
-## Why these three, and what is left out
+**What v2 changes from v1 (owner answers of 14 Nov):** B1 adopted with liquid investments counted as cash, lease liabilities stated as a known limit, working capital floored at zero, utilities excluded. B2 moved to the fiscal year for all nine tests, with the count of 8-or-9 scorers measured and the card expectation stated. B3 rebuilt as A3 with three named changes so the pair comparison is clean. Replay window rule fixed in advance. Parser depth checked.
 
-Batch A used income-statement figures only. The A0 table now also holds balance-sheet and cash-flow extras, so the strategies that were blocked on data for newer quarters can be specified. Three are drafted:
+## What is left out
 
-- **B1 Magic Formula** (Greenblatt): cheap on EBIT over enterprise value and high on return on capital.
-- **B2 Piotroski F-score**: nine yes/no tests of improving financial health, applied to cheap-on-book names.
-- **B3 Full quality**: a composite of profitability, cash quality, safety and stability. It also answers the open question of how much the lite quality book (A3) misses.
+- **Compounder Seed:** parked by the owner. My earlier reason (no free-float figure) was weak, because promoter holding from the shareholding filings gives a usable free-float estimate (DATA_SOURCES row I5). It stays parked pending the read of the base-rate studies C-170 and C-171 (both were run once on 12 Nov; report `docs/replay/C170-C171-REPORT.md`).
+- **Value on EBIT/EV or cash-flow yield:** agreed as written: EBIT/EV is half of B1 and A2 covers cheapness.
+- **US versions of Batch B:** agreed as written. Measured on the 13 Nov US table, of 416 non-financial names 221 have operating EBIT and 134 a return on capital. The US is a confirmation market (C-179) and no US Batch B is built before an India result.
 
-**Not drafted, with reasons.**
-- *Value on EBIT/EV or cash-flow yield.* The EBIT/EV yield is already half of B1, and A2 already covers cheapness. A separate book would mostly repeat them.
-- *Compounder Seed.* It needs free-float market cap, which the desk does not hold. Free cash flow is available (capex is present for 395 of 403 non-financial names) but the rule cannot be written without the float figure.
-- *US versions.* Measured on the 13 Nov US table, of 416 non-financial names only 221 have operating EBIT and 134 have a return on capital, so Magic Formula would rank a third of the universe. B2 and B3 could be tried in the US later (balance sheets exist for 377), but the US is a confirmation market (C-179) and I would not build any US Batch B before an India result exists.
+## Shared terms (all Batch B books)
 
-## What is the same as Batch A (shared terms)
+Universe: the top 500 by 20-session median traded value; non-financial names only (the A0 financial flag). Equal weight, at most 20 names at 5%. Signal on a close, fill at the next open. Monthly review with the top-40 stay rule; 25% long-hold stop; after a stop-out the slot stays in cash until a later monthly review. India costs and cash rate as the other books. **Pass and kill read the Nifty 500** (cap-weighted, held as the owner would hold it); the equal-weight top-500 line on each card is for diagnosis only and carries no ahead-or-behind figure. Names missing a needed figure are not scored (never read as zero) and the count of unranked names is shown on the card. Hold-out of the replay and start: one registered replay per book, labelled **an implementation check, not evidence** (a window from late 2022 is about four years in one market phase), then the books start.
 
-Universe: the top 500 by 20-session median traded value. Non-financial names only (the A0 financial flag). Equal weight, at most 20 names at 5%. Signal on a close, fill at the next open (C-139). Monthly review with the top-40 stay rule; 25% long-hold stop; after a stop-out the slot stays in cash until a later monthly review. India costs (tiers) and the cash rate as the other books. Comparator for pass and kill: **Nifty 500** (the Quality 30 fund failed the replacement test, so the Nifty 500 is the fallback under D2). The verdict reads the yardstick only; the equal-weight line on each card is for diagnosis. A name with any needed figure missing is **not scored** (never read as zero) and the count of such names is shown on the card. One registered replay per book, labelled as in Batch A (seen price period, survivor bias, zero cash, monthly top-500 rebuild); balance-sheet depth before about 2023 is thinner, so the replay window is set by what the measured depth supports and stated on the result, not promised here.
+**Replay window rule (fixed now, before any replay is run).** A month enters a book's replay only if at least 90% of the eligible non-financial names in that month's top 500 carry every figure that book needs (the same 90% rule as Batch A, loader spec section 7). The window starts at the first such month and ends at the last stored session. The start is whatever that rule gives; it is not chosen from results.
 
-## B1. Magic Formula
+**Comparator note.** The Nifty 200 Quality 30 fund fails the desk's replacement test (C-159: total cost no higher than the self-run cost, assets at least Rs 500 crore, a record of at least three years, tracking difference no worse than -1.0% a year over three years). The funds checked on 13 Nov fail it (see STATUS), so the Nifty 500 is the comparator under D2's fallback.
 
-**Question.** Does buying the names that are both cheap on operating profit over enterprise value and earn a high return on capital beat the Nifty 500?
+## What the data allows (checked 14 Nov 2026)
 
-**Figures (all from the A0 table, India).**
-- Earnings yield = TTM operating EBIT / enterprise value, where enterprise value = market cap + borrowings - cash (latest balance sheet).
-- Return on capital = TTM operating EBIT / (net working capital without cash and short debt + fixed assets), as built in A0.
-- Skip a name if EBIT is not positive, the enterprise value is not positive, or the return-on-capital base is not positive.
+- **Balance sheets exist only from the September 2022 results.** For 31 Mar 2022 and earlier, the stored filings carry cash-flow figures but no balance sheet. A tag probe of the older quarterly files for Sep 2021 (49 files, `data/probe-bs-tags.json`) found no balance-sheet tags at all, and the half-yearly list (`data/probe-bs-halfyear.json`) holds only the annual files, which also carry no balance sheet. **So the gap is the source, not our parser.** The window cannot be doubled by fixing the parser. A different source (annual-report XBRL) is not probed and not assumed.
+- From Sep 2022 on, about 99% of the March and September filings carry the balance sheet and cash flow (for example 3,154 of 3,227 at Mar 2023, 4,940 of 4,970 at Mar 2026).
+- Consequence: B1 and B3 can score from about December 2022 (the first filings with a balance sheet). B2 on a fiscal-year basis needs two consecutive fiscal-year balance sheets (Mar 2023 and Mar 2024) and so scores from about mid-2024: a window of about two and a half years, which is thin and labelled so.
+- **Current investments:** the tag `CurrentInvestments` is present in 49 of 50 sampled filings (Sep 2025 and Mar 2026), with `BankBalanceOtherThanCashAndCashEquivalents` alongside. Until 14 Nov the table counted only cash and cash equivalents. Built 14 Nov (A0): cash for net debt, enterprise value and working capital is now cash and cash equivalents plus bank balances other than cash equivalents plus current investments. The tag does not separate liquid funds from bonds or equity holdings in current investments, so some of that line is not truly liquid; stated as a limit. Stored balance sheets carry the new lines only after a re-read (`--rebs`, running for the March and September periods Sep 2022 to Sep 2026); a balance sheet not yet re-read is marked `cash only` and B1 does not score that name.
+- **Lease liabilities:** none of the 50 sampled filings carries a lease-liability tag (the tags checked were all balance-sheet lines matching Lease, Invest, Cash, Bank, Borrow, Deposit, Equity, Assets). Enterprise value therefore excludes leases. Known limit, written on the card: retailers, restaurants, airlines and similar names look cheaper and more capital-light than they are.
 
-**Rule.** Rank the eligible names on earnings yield (1 = highest) and on return on capital (1 = highest). Combined rank = the sum. Lowest sum first; ties go to higher traded value. Hold the top 20 at 5%. Monthly review with the top-40 stay rule.
+## B1. Magic Formula (ADOPTED, C-205)
 
-**Measured (13 Nov 2026 India table):** 391 of 403 non-financial names have an enterprise value and 393 a return-on-capital figure.
+**Question.** Does buying names that are both cheap on operating profit over enterprise value and earn a high return on capital beat the Nifty 500?
 
-**Expected before the first signal:** a book heavy in capital-light and in cyclical names; it will often look like the A2 value book with a quality tilt. Overlap with A2 and A3 is reported on the first read, not gated.
+**Figures (A0 table, India).**
+- Earnings yield = TTM operating EBIT / enterprise value, where enterprise value = market cap + borrowings - (cash and cash equivalents + other bank balances + current investments).
+- Return on capital = TTM operating EBIT / (net working capital + fixed assets), where net working capital = current assets excluding that same cash-like pool, less current liabilities excluding short-term borrowings, **floored at zero** (so a name with negative working capital still scores on its fixed assets, the usual reading of Greenblatt). The name is skipped only if the capital base is still not positive.
+- Skipped: financial names; the industry labelled Power in the desk's industry map (utilities; gas distribution sits under Oil Gas and Consumable Fuels and is not excluded, a limit); operating EBIT or enterprise value not positive; a balance sheet not yet re-read with the new lines.
 
-**Variant (not run):** exclude utilities. Decision B1-1 below.
+**Rule.** Rank the eligible names on earnings yield and on return on capital (1 = highest). Combined rank = the sum. Lowest first; ties go to higher traded value. Hold the top 20 at 5%; monthly review with the top-40 stay rule.
 
-## B2. Piotroski F-score
+**Known limits, printed on the card.** No lease liabilities in the filings. Current investments are not all liquid. Utilities are matched by the desk's industry label, not a full classification. Overlap with A2 and A3 is reported at the first read, not gated.
+
+**Built 14 Nov 2026** (`src/engine/batch-b.ts`, `test/batch-b.test.ts`; book `bb-b1-magic` in `settings/first-wave-books.json`). The start date is a placeholder (`2099-12-31`) until the replay is read; then the owner's rule applies and the real date is set.
+
+## B2. Piotroski F-score (revised draft, not adopted)
 
 **Question.** Among cheap-on-book names, do those with improving financial health do better than the Nifty 500?
 
-**Candidates.** Non-financial names with positive equity. Book-to-market = equity / market cap. Take the highest 30% by book-to-market (about 120 names).
+**All nine tests use fiscal-year figures,** as in Piotroski's paper: the latest fiscal-year-end balance sheet against the one a year earlier, and the latest fiscal year against the year before. This removes the mixed-bases limit of v1. The score changes once a year (when the fiscal-year results are filed); membership still moves monthly because book-to-market moves with price.
 
-**The nine tests (1 point each).** Each uses the latest balance sheet against the one a year earlier (A0 `bs` and `bsPrev`), TTM profit against the TTM a year earlier, and the latest fiscal year's operating cash flow:
-1. Profitability: TTM PAT / total assets > 0.
-2. Cash flow: latest fiscal-year operating cash flow > 0.
-3. Improving return: TTM PAT / assets now > the same a year earlier.
-4. Accruals: fiscal-year operating cash flow > fiscal-year PAT.
-5. Leverage: borrowings / assets now < a year earlier.
-6. Liquidity: current assets / current liabilities now > a year earlier.
-7. No dilution: shares not more than 2% above the year-ago (split-rolled) count.
-8. Margin: TTM operating EBIT margin now > a year earlier. **Substitution:** the original test uses gross margin; the filings carry no cost of goods sold, so operating margin stands in. Decision B2-1.
-9. Turnover: TTM revenue / assets now > a year earlier.
+**Candidates.** Non-financial names with positive equity. Book-to-market = fiscal-year-end equity / current market cap. Take the highest 30% by book-to-market.
 
-A name missing any figure for any test is not scored.
+**The nine tests (1 point each).**
+1. ROA > 0: fiscal-year profit / fiscal-year-end total assets. (The paper divides by beginning-of-year assets, which would need a third balance sheet and would push the first score later still.)
+2. Operating cash flow > 0.
+3. ROA higher than the year before.
+4. Operating cash flow > profit.
+5. Borrowings / assets lower than the year before.
+6. Current ratio higher than the year before.
+7. No new shares: fiscal-year-end shares not more than 2% above the prior year-end, after removing split and bonus effects with the corporate-action history. (The count below used paid-up capital as a proxy.)
+8. Operating EBIT margin higher than the year before. **Substitution:** the paper uses gross margin; the filings carry no cost of goods sold. Labelled on the card (B2-1, yes).
+9. Revenue / total assets higher than the year before.
 
-**Rule.** Among candidates, buy those scoring 8 or 9, highest score first, then highest book-to-market; fewer than 20 qualifying names means fewer positions and the rest in cash. Monthly review: a held name stays while its score is 6 or more and it remains in the cheapest 40% by book-to-market. 8-or-9 and 30% are the figures in Piotroski's paper, used as written.
+A name missing any figure is not scored.
 
-**Known limit.** The tests mix bases: balance sheets are as of the latest and the year-earlier balance-sheet date, profit is trailing twelve months, cash flow is the fiscal year. This is stated on the card.
+**Count of scorers, measured 14 Nov 2026** (descriptive, on the 13 Nov table; not a performance test). Of 403 non-financial names, 360 are scorable on the fiscal-year basis. Across the whole list: score 9 for 19 names, 8 or more for 58, 7 or more for 116. Within the cheapest 30% by book-to-market (104 of 347 names with equity and market cap): **score 9 for 5, 8 or more for 14, 7 or more for 35, 6 or more for 53.** The same whole-list count of 8 or more was 50 in Aug 2024 (226 scorable) and 59 in Aug 2025 (329 scorable).
 
-**Measured (13 Nov 2026):** balance sheets with the needed lines exist for 402 of 403 non-financial names, a year-earlier balance sheet for 399, fiscal-year operating cash flow for 395, and a year-ago share count for 383. The count with all nine tests computable is measured on the first table build and shown on the card.
+**So the paper rule (8 or 9) gives about 14 names now, not 20.** That is above ten, so the owner's switch condition (usually under ten) is not met; but 14 names at 5% is about 70% invested with the rest in cash, and a part-cash book trails the Nifty 500 in any rising market, as the turn-of-month book did. Two options, decision **B2-2** below: (a) the paper rule as written, fewer than 20 names, with average exposure reported on the card as for A1; (b) a departure from the paper, written now: hold the top 20 by score among names scoring 7 or more (35 qualify), then highest book-to-market, recorded as a departure.
 
-## B3. Full quality
+**Expectation for the card.** The published effect is concentrated in small, thinly followed value stocks. This universe, the 500 most traded names, is the opposite. A weak or no result is the expected one. The replay is an implementation check, and the live read is the evidence.
 
-**Question.** Does a quality ranking that uses cash and the balance sheet, not margins alone, do better than the lite version (A3) and the Nifty 500?
+**Window.** First scorable about mid-2024 (see above): about two and a half years, labelled so.
 
-**Five measures (non-financial names, all five required).**
-1. Return on capital (as B1).
-2. TTM operating EBIT margin.
-3. Cash quality = latest fiscal-year operating cash flow / total assets.
-4. Safety = net debt / TTM operating EBIT (net cash counts as best; EBIT not positive means not scored).
-5. Stability = the lower standard deviation of quarterly operating EBIT margin over the last 12 stored quarters (needs at least 8).
+## B3. Full quality (revised draft, not adopted)
 
-**Rule.** Convert each measure to a percentile rank within the eligible names (higher is better, stability and safety reversed). Score = the average of the five percentiles. Hold the top 20 at 5%. Monthly review with the top-40 stay rule.
+**Question.** What does the lite quality book (A3) miss? B3 is A3 with three named changes, so the pair read is clean.
 
-**Comparison with A3, descriptive.** On the first read, the rank correlation between B3 and A3 over the names both score, and the overlap of the two holdings. This answers how much the lite book misses. It is a report, not a gate.
+**B3 = A3 with exactly three changes.** A3 scores equal-weighted percentile ranks of (1) TTM operating EBIT margin, ranked within industry where the industry has at least 5 eligible names and otherwise across the list, (2) stability (lowest standard deviation of quarterly operating EBIT margin over 12 quarters, at least 10 needed), (3) TTM interest cover, (4) 3-year revenue CAGR. B3:
+- **keeps** margin (same industry treatment), stability and 3-year revenue CAGR unchanged;
+- **replaces** interest cover with **net debt over TTM operating EBIT** (borrowings less the cash-like pool, over EBIT; net cash counts as best; EBIT not positive means not scored);
+- **adds** return on capital (as B1, including the floor and the cash-like pool) and **cash quality** (latest fiscal-year operating cash flow / total assets, close to the cash-based operating profitability that Ball and co-authors, 2016, support).
 
-**Known limit.** The five measures and equal weights are my proposal, not a published formula (QMJ needs gross profit, which is not held). It is the most owner-dependent block here. Decision B3-1.
+Six measures, equal weight, all six required; percentile ranks across the eligible list except margin, which uses A3's within-industry treatment. Hold the top 20 at 5%, monthly review with the top-40 stay rule, same stops, same universe and the same non-financial filter as A3.
+
+**Comparators.** B3 is read **against A3 as a pair** for the question "what does lite miss" (the monthly return difference B3 minus A3, with the holdings overlap and the rank correlation over the names both score, descriptive only), and **against the Nifty 500 for pass and kill**.
+
+**Window.** First scorable about December 2022 under the 90% rule; the 12-quarter stability measure needs quarters that exist from 2019.
 
 ## Decisions for the owner
 
-| Id | Decision | My suggestion |
+| Id | Decision | Status |
 |---|---|---|
-| B-1 | Which blocks to adopt: any of B1, B2, B3 | B1 and B3 first; B2 after, because it needs the most care with mixed bases |
-| B-2 | India only for now (no US Batch B) | Yes |
-| B1-1 | Exclude utilities from Magic Formula (Greenblatt does) | Yes if the industry map names them; the count is shown |
-| B2-1 | Operating margin in place of gross margin for test 8 | Yes, labelled on the card |
-| B3-1 | The five measures and equal weights for full quality | Accept as written, or name the changes |
-| B-3 | Start date | After the replays are read and the data is checked, as Batch A did |
-| B-4 | Replay | One registered run per book, labelled; no tuning |
+| B1 | Adopt Magic Formula with the four conditions above | **Adopted 14 Nov 2026 (C-205)** |
+| B2-1 | Operating margin in place of gross margin | Yes (14 Nov) |
+| B2-2 | Rule when fewer than 20 names score 8 or 9: (a) paper rule, about 14 names, exposure reported; (b) floor of 7, top 20 | **Open.** The measured count is 14, so (a) follows the owner's stated condition; (b) avoids the cash drag. Choose before B2 is adopted |
+| B2 | Adopt Piotroski (fiscal-year basis) | Open |
+| B3 | Adopt full quality as A3 plus three changes, read as a pair with A3 and against the Nifty 500 | Open |
+| B-4 | Replay: one run per book, 90% window rule, labelled an implementation check | Fixed 14 Nov |
 
-These are proposals. A block is Adopted only when the owner marks it so. Each adopted book adds to the count of rules tried (counted once across both markets, C-179), recorded on adoption.
+These are proposals until the owner marks a block Adopted.
 
-## Build order after sign-off
+## Build order
 
-1. Pure signal modules for each adopted block in `src/engine/` with unit tests. 2. One settings entry each in `settings/first-wave-books.json`; registry and card through the existing views. 3. One registered replay per book. 4. C-rows and Test Register rows. Nothing is built before adoption.
+1. Done 14 Nov: A0 liquid-investment cash and the working-capital floor (unit tests), `--rebs` re-read of stored balance sheets (running), B1 signal module, tests and paper book. 2. Next: replay support for the B books with the 90% window rule, then one registered replay per adopted book once the re-read is complete. 3. B2 and B3 signal modules only after the owner marks them. 4. C-rows and register rows on each adoption.
 
 ## Log
 
-- 14 Nov 2026: drafted after the owner asked to proceed with the strategies not yet started. Data coverage measured on the 13 Nov tables (India and US); nothing built.
+- 14 Nov 2026: v1 drafted (three books, India only).
+- 14 Nov 2026 (later): v2 after the owner's answers. B1 adopted as C-205. Probes: current investments and bank deposits are in the filings and now counted as cash; no lease line; the pre-Oct-2022 gap is the source. Piotroski scorer counts measured. B3 reduced to A3 plus three changes.

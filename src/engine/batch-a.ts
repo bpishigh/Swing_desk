@@ -8,14 +8,14 @@ import type { Features } from './fundamentals-asof.ts';
 export const BA = { names: 20, keep: 40, industryCap: 5, minIndustry: 5, sue: 2.0, peadHold: 60, fallenDrawdown: 0.5, fallenWindow: 1260, fallenGrowth: 0.15, fallenHigh: 0.75, fallenCover: 3, compMargin: 0.10, compCover: 4, grahamPE: 15 };
 export interface BCtx { el: Name[]; series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; fund: Record<string, Features>; st: BookState; group?: (sym: string) => string | null }
 export interface SignalLogRow { date: string; sym: string; sue: number | null; epsChange: number | null; reaction: number | null; volRatio: number | null; taken: boolean; why: string }
-const pct = (xs: number[], x: number): number => { let lo = 0, eq = 0; for (const v of xs) { if (v < x) lo++; else if (v === x) eq++; } return xs.length > 1 ? (lo + 0.5 * Math.max(0, eq - 1)) / (xs.length - 1) : 0.5; };
-const byValue = (a: { sym: string }, b: { sym: string }): number => (a.sym < b.sym ? -1 : 1);
+export const pct = (xs: number[], x: number): number => { let lo = 0, eq = 0; for (const v of xs) { if (v < x) lo++; else if (v === x) eq++; } return xs.length > 1 ? (lo + 0.5 * Math.max(0, eq - 1)) / (xs.length - 1) : 0.5; };
+export const byValue = (a: { sym: string }, b: { sym: string }): number => (a.sym < b.sym ? -1 : 1);
 
 /** A ranking book reviews on the first session of a month, and once at the very start (a book that has never filled). Otherwise nothing is decided. */
 export const reviewNow = (x: BCtx): boolean => isMonthStart(x.dates, x.t) || (!x.st.started && x.held.size === 0);
 
 /** Pick up to 20 from a ranked list with the keep rule: held names stay while within `keep`, the rest go to the best-ranked others. Returns buys (new names) and sells (held names left out). */
-function rebalance(ranked: Name[], x: BCtx): Orders {
+export function rebalance(ranked: Name[], x: BCtx): Orders {
   const chosen = rankSelect(ranked.map((r) => r.sym), x.held, BA.names, BA.keep), val = new Map(ranked.map((r) => [r.sym, r.value])), buys: Buy[] = [];
   for (const s of chosen) if (!x.held.has(s)) buys.push({ sym: s, value: val.get(s) ?? 0, stop: BOOK.longStop });
   return { buys, sells: [...x.held].filter((s) => !chosen.has(s)) };
@@ -26,7 +26,7 @@ function screenSelect(passers: Name[], x: BCtx): Orders {
   for (const p of passers) { if (chosen.size >= BA.names) break; if (!chosen.has(p.sym)) { chosen.add(p.sym); buys.push({ sym: p.sym, value: p.value, stop: BOOK.longStop }); } }
   return { buys, sells: [...x.held].filter((s) => !chosen.has(s)) };
 }
-const orNull = (o: Orders): Orders | null => (o.buys.length || o.sells.length ? o : null);
+export const orNull = (o: Orders): Orders | null => (o.buys.length || o.sells.length ? o : null);
 
 /** A2 Value-lite: cheapest earnings yield, at most 5 names per industry. Ranking list = positive yield, high to low, walking down and skipping names whose industry already has 5. */
 export function valueRanked(x: BCtx): Array<Name & { s: number }> {

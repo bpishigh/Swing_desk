@@ -99,6 +99,15 @@
       "startAfter": "2026-11-17",
       "comparator": "n500",
       "batch": "A"
+    },
+    {
+      "id": "bb-b1-magic",
+      "rule": "B1",
+      "name": "Magic Formula: cheap and high return on capital",
+      "signal": "magic",
+      "startAfter": "2099-12-31",
+      "comparator": "n500",
+      "batch": "B"
     }
   ],
   "navFunds": [
