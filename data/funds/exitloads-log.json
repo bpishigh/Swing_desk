@@ -1,13 +1,13 @@
 {
- "start": "2026-10-27T17:26:46.135Z",
- "wanted": 1983,
- "parsed": 931,
+ "start": "2026-11-14T11:47:44.242Z",
+ "wanted": 1994,
+ "parsed": 934,
  "unparsed": 2,
- "none": 600,
- "kept": 12,
+ "none": 623,
+ "kept": 9,
  "noPage": 401,
  "ambiguous": 13,
- "noNote": 24,
+ "noNote": 12,
  "unparsedSamples": [
   "Exit load of 1% if redeemed before child attains 18 years of age",
   "Exit load of 3% if redeemed before the age of 58 yrs."
@@ -140,7 +140,7 @@
    "near": [
     "360 50 elss index nifty one saver tax",
     "50 elss index navi nifty saver tax",
-    "250 cap elss index large mid nifty saver tax zerodha"
+    "250 cap case elss index large mid nifty saver tax zerodha"
    ]
   },
   {
@@ -245,8 +245,13 @@
    "near": []
   },
   {
-   "name": "Zerodha Nifty 1D Rate Liquid ETF - Direct Plan - Growth Option",
-   "key": "1d etf liquid nifty rate zerodha",
+   "name": "Zerodha CASE Nifty 1D Rate Liquid ETF - Direct Plan - Growth Option",
+   "key": "1d case etf liquid nifty rate zerodha",
+   "near": []
+  },
+  {
+   "name": "360 ONE MSCI India ETF - Direct Plan - GROWTH Option",
+   "key": "360 etf msci one",
    "near": []
   },
   {
@@ -288,8 +293,13 @@
    ]
   },
   {
-   "name": "Zerodha Nifty Next 100 ETF - Direct Plan - Growth",
-   "key": "100 etf next nifty zerodha",
+   "name": "Zerodha CASE BSE TOP 10 BANKS ETF - Direct Plan - Growth",
+   "key": "10 banks bse case etf top zerodha",
+   "near": []
+  },
+  {
+   "name": "Zerodha CASE Nifty Next 100 ETF - Direct Plan - Growth",
+   "key": "100 case etf next nifty zerodha",
    "near": []
   },
   {
@@ -311,11 +321,6 @@
   {
    "name": "UTI - Gold Exchange Traded Fund - Direct Plan - Growth",
    "key": "exchange gold traded uti",
-   "near": []
-  },
-  {
-   "name": "360 ONE MSCI India ETF - Direct Plan - GROWTH Option",
-   "key": "360 etf msci one",
    "near": []
   },
   {
@@ -409,11 +414,6 @@
    "name": "Reliance Interval Fund - II - Series 2 - Direct Plan - Growth Plan - Growth Option",
    "key": "2 ii interval reliance series",
    "near": []
-  },
-  {
-   "name": "Reliance Interval Fund - II - Series 3 - Direct Plan - Growth Plan - Growth Option",
-   "key": "3 ii interval reliance series",
-   "near": []
   }
  ],
  "noNoteSamples": [
@@ -424,88 +424,16 @@
    "fee": "Expense ratio 0.7% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Aditya Birla Sun Life ELSS Tax Saver Fund - Direct Plan - GROWTH",
-   "url": "https://sharpely.in/mutual-funds/aditya-birla-sun-life-elss-tax-saver-directgrowth/15889",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Baroda BNP Paribas ELSS Tax Saver Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/baroda-bnp-paribas-elss-tax-saver-fund-directgrowth/15732",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Franklin India ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/franklin-india-elss-tax-saver-fund-directgrowth/16014",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "ITI ELSS Tax Saver Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/iti-elss-tax-saver-fund-directgrowth/40137",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Kotak ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/kotak-elss-tax-saver-fund-directgrowth/16380",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Motilal Oswal ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/motilal-oswal-elss-tax-saver-fund-directgrowth/29162",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "PGIM India ELSS Tax Saver Fund - Direct Plan - Direct Growth",
-   "url": "https://sharpely.in/mutual-funds/pgim-india-elss-tax-saver-fund-directgrowth/31167",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Parag Parikh ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/parag-parikh-elss-tax-saver-fund-directgrowth/40105",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Quantum ELSS Tax Saver Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/quantum-elss-tax-saver-fund-directgrowth/10080",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Quant ELSS Tax Saver Fund - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/quant-elss-tax-saver-fund-directgrowth/17381",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "SBI ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/sbi-elss-tax-saver-fund-directgrowth/16244",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
-   "name": "Shriram ELSS Tax Saver Fund - Direct Plan - Growth",
-   "url": "https://sharpely.in/mutual-funds/shriram-elss-tax-saver-fund-directgrowth/38439",
-   "exit": null,
-   "fee": "Expense ratio N/A; Exit load N/A; Lock-in: N/A."
-  },
-  {
    "name": "ITI Large & Mid Cap Fund - Direct Plan - Growth Option",
    "url": "https://sharpely.in/mutual-funds/iti-large-mid-cap-fund-directgrowth/44501",
    "exit": "null",
-   "fee": "Expense ratio 1.06% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 1.04% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "PGIM India Multi Cap Fund - Direct Plan - Direct Growth",
    "url": "https://sharpely.in/mutual-funds/pgim-india-multi-cap-fund-directgrowth/44505",
    "exit": "null",
-   "fee": "Expense ratio 0.78% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 0.81% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "Nippon India Equity Savings Fund - Segregated Portfolio 1 - Direct Plan - Growth Plan - Growth Option",
@@ -523,25 +451,25 @@
    "name": "Bandhan BSE Healthcare Index Fund - Direct Plan - Growth",
    "url": "https://sharpely.in/mutual-funds/bandhan-bse-healthcare-index-fund-directgrowth/44512",
    "exit": "null",
-   "fee": "Expense ratio 0.34% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 0.33% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "DSP Nifty Top 10 Equal Weight Index Fund - Direct Plan - Growth",
    "url": "https://sharpely.in/mutual-funds/dsp-nifty-top-10-equal-weight-index-fund-directgrowth/44493",
    "exit": "null",
-   "fee": "Expense ratio 0.4% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 0.37% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "Nippon India Nifty 500 Equal Weight Index Fund - Direct Plan - Growth Option",
    "url": "https://sharpely.in/mutual-funds/nippon-india-nifty-500-equal-weight-index-fund-directgrowth/44515",
    "exit": "null",
-   "fee": "Expense ratio 0.55% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 0.53% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "Tata Nifty200 Alpha 30 Index Fund - Direct Plan - Growth Option",
    "url": "https://sharpely.in/mutual-funds/tata-nifty200-alpha-30-index-fund-directgrowth/44509",
    "exit": "null",
-   "fee": "Expense ratio 0.82% p.a.; Exit load N/A; Lock-in: No lock-in."
+   "fee": "Expense ratio 0.78% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
    "name": "HDFC FMP 1876D March 2022 - Direct Plan - Growth Option",
@@ -550,17 +478,17 @@
    "fee": "Expense ratio 0.05% p.a.; Exit load N/A; Lock-in: No lock-in."
   },
   {
-   "name": "Nippon India Fixed Maturity Plan - XLIV - Series 1 - Direct Plan - Growth Option",
-   "url": "https://sharpely.in/mutual-funds/nippon-india-fixed-maturity-plan-xliv-series-1-directgrowth/42540",
-   "exit": "null",
-   "fee": "Expense ratio 0.17% p.a.; Exit load N/A; Lock-in: No lock-in."
-  },
-  {
    "name": "Nippon India Fixed Maturity Plan - XLV - Series 5 - Direct Plan - Growth Option",
    "url": "https://sharpely.in/mutual-funds/nippon-india-fixed-maturity-plan-xlv-series-5-directgrowth/43467",
    "exit": "null",
    "fee": "Expense ratio 0.1% p.a.; Exit load N/A; Lock-in: No lock-in."
+  },
+  {
+   "name": "Nippon India Fixed Maturity Plan - XLIV - Series 1 - Direct Plan - Growth Option",
+   "url": "https://sharpely.in/mutual-funds/nippon-india-fixed-maturity-plan-xliv-series-1-directgrowth/42540",
+   "exit": "null",
+   "fee": "Expense ratio 0.17% p.a.; Exit load N/A; Lock-in: No lock-in."
   }
  ],
- "end": "2026-10-27T17:55:10.507Z"
+ "end": "2026-11-14T12:07:36.556Z"
 }
