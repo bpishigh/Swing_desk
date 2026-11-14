@@ -178,15 +178,13 @@
    ],
    "at": "2026-11-08T15:16:17.901Z",
    "topup": {
-    "listed": 4103,
-    "attempted": 4103,
-    "parsed": 4085,
-    "fetchFailed": 3,
-    "parseFailed": 9,
-    "unmapped": 6,
-    "families": {
-     "IFOTB": 15
-    },
+    "listed": 0,
+    "attempted": 0,
+    "parsed": 0,
+    "fetchFailed": 0,
+    "parseFailed": 0,
+    "unmapped": 0,
+    "families": {},
     "missingField": {
      "revenue": 0,
      "pbt": 0,
@@ -194,40 +192,9 @@
      "eps": 0
     },
     "periodMismatch": 0,
-    "errors": {
-     "no format family in the header comment and none inferable from the tags": 9
-    },
-    "unmappedSymbols": [
-     "KUNDANMM",
-     "KUNDANMM",
-     "ATCOM",
-     "ATCOM",
-     "RUSHABEAR",
-     "ESFL"
-    ],
-    "toppedUp": 4070,
-    "extraCount": {
-     "q.otherIncome": 4078,
-     "q.financeCost": 4078,
-     "q.depreciation": 4013,
-     "q.exceptional": 4078,
-     "q.pbtPre": 3998,
-     "q.paidUp": 4078,
-     "q.faceValue": 4078,
-     "bs.assets": 37,
-     "bs.equity": 30,
-     "bs.borrowings": 30,
-     "bs.borrowingsCurrent": 30,
-     "bs.cash": 30,
-     "bs.currentAssets": 30,
-     "bs.currentLiabilities": 30,
-     "bs.ppe": 30,
-     "bs.inventories": 30,
-     "bs.receivables": 30,
-     "cf.cfo": 28,
-     "cf.capex": 28
-    },
-    "at": "2026-11-13T18:54:11.267Z"
+    "errors": {},
+    "unmappedSymbols": [],
+    "at": "2026-11-14T12:13:48.553Z"
    }
   },
   "2025-09-30": {
