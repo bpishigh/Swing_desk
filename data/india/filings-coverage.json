@@ -950,7 +950,40 @@
     "PRASGLOFIN"
    ],
    "alreadyStored": 149,
-   "at": "2026-11-12T18:10:06.093Z"
+   "at": "2026-11-12T18:10:06.093Z",
+   "topup": {
+    "listed": 1749,
+    "attempted": 1749,
+    "parsed": 1720,
+    "fetchFailed": 26,
+    "parseFailed": 0,
+    "unmapped": 3,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "KARUNACAB",
+     "SUPERFORGE",
+     "PRASGLOFIN"
+    ],
+    "toppedUp": 1720,
+    "extraCount": {
+     "q.otherIncome": 1720,
+     "q.financeCost": 1720,
+     "q.depreciation": 1715,
+     "q.exceptional": 1716,
+     "q.pbtPre": 1627,
+     "q.paidUp": 1720,
+     "q.faceValue": 1720
+    },
+    "at": "2026-11-14T00:11:31.769Z"
+   }
   },
   "2024-09-30": {
    "listed": 3645,
