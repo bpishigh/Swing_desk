@@ -22,13 +22,13 @@ The five rules (A1 post-earnings drift, A2 value-lite, A3 quality-lite, A5 falle
 | Costs | India tiers | US tiers (C-179 item 3) | |
 | Cash | liquid fund rate | 3-month Treasury yield (C-179 item 7) | |
 | Comparator | Nifty 500 (A2: the UTI Value 50 fund) | **SPY** for A1, A3, A5, A6; **VLUE** (iShares MSCI USA Value Factor) for A2; price only (no dividends, so value ETFs look slightly worse than they are) | a value book against the plain index mixes a style bet with the rule; C-137 item 8 for SPY |
-| Reference lines on every Batch A card (India and US) | none | **equal-weight top 500** (the book's own universe, rebuilt monthly, price only, no costs; forward only from the first night the book runs), **VLUE and QUAL** price-only lines on the US cards (QUAL is the quality comparator line for A3 and A6; shown on all five, comparator only for A2) | reported so a gap to a cap-weighted comparator is not read as a failed rule; the kill line still reads against the registered comparator, and whether it should read against the equal-weight line is a separate owner decision |
+| Reference lines on every Batch A card (India and US) | none | **equal-weight top 500** (the book's own universe, rebuilt monthly, price only, no costs; forward only from the first night the book runs), **VLUE and QUAL** price-only lines on the US cards (QUAL is the quality comparator line for A3 and A6; shown on all five, comparator only for A2) | for diagnosis only, never a comparison or part of a verdict (owner, 14 Nov); the kill line reads the registered comparator |
 | Stop-out industry | segments.json industry | SIC two-digit group | same field as C-180 |
 | Pledge flag | from the stock-facts file | none | no US source |
 | A1 share rule | skip if the share count moved more than 2% either way | skip only if it rose more than 2% | see Known limits |
 | Replay | one registered run per book | **none** | the desk's US price history holds only names still trading (survivor-only), so a replay would flatter every book; forward paper is the evidence |
 
-Both comparisons apply here too: the yardstick (SPY or VLUE) and the equal-weight line are shown together on each card; the kill line reads the yardstick.
+The same applies here: the verdict reads the yardstick (SPY or VLUE) only; the equal-weight line is for diagnosis, with no ahead-or-behind figure.
 
 ## Known limits
 

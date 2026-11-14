@@ -125,6 +125,6 @@ These are answers to a draft. A block is Adopted only when the owner marks it so
 
 - 13 Nov 2026 (docs): adopted; C-191 to C-198 written; pledge level added to the A7 flags from the monthly stock-facts job; Quality 30 funds checked and all fail the replacement test (comparator for A3 and A6 is the Nifty 500); UTI Value 50 passes size and record, tracking difference unverified.
 
-## Two comparisons on every Batch A card (owner, 14 Nov 2026)
+## Judged against the yardstick only (owner, 14 Nov 2026)
 
-Each card reports the book against its registered yardstick **and** against the equal-weight top-500 line (same universe, monthly rebuild, price only, no costs; forward only). Both are shown side by side. The kill line is unchanged and reads the yardstick. A miss against the yardstick that still beats the equal-weight line reads as weighting, not the rule; a miss against both reads as the rule. Whether the kill line itself should change is left to a later owner decision once the equal-weight line has a few months of history.
+A book is judged against what the owner could otherwise have bought: the Nifty 500 (or the registered fund or SPY/VLUE), held cap-weighted. The equal-weight top-500 line on each card is for diagnosis only. It is never a comparison, never counts toward a verdict and carries no ahead-or-behind figure. It is there so a shortfall can be understood, not excused. Equal weight is part of how the engine invests, so its cost stays in the result.
