@@ -1,7 +1,10 @@
 name: exchange-log
-# Wave 2 collection (Batch C, C-5): surveillance lists and bulk and block deals. Manual only until the owner says to start it nightly; then add the two schedule lines shown below.
+# Wave 2 collection (Batch C, C-5): surveillance lists and bulk and block deals. Started by the owner 15 Nov 2026; runs every day including weekends.
 # schedule when started: every day including weekends, 14:00 UTC (19:30 IST, after the exchange publishes) and a retry 04:30 UTC next morning; both are safe to repeat (the latest-day file stays up until the next trading evening).
 on:
+  schedule:
+    - cron: '0 14 * * *'
+    - cron: '30 4 * * *'
   workflow_dispatch:
 concurrency: exchange-log
 permissions:

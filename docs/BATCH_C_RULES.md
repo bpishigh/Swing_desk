@@ -1,6 +1,6 @@
 # Batch C: exchange-data strategies, India (v2 draft, 15 Nov 2026)
 
-Status: **DRAFT for the owner. Nothing here is adopted.** The two collection jobs are built and ready (below); the strategies are not built. Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to `claude/strategy-build-standard.md` (C-158) and C-159, C-173, C-174, C-176, C-177. This is Wave 2 (packages 18 to 23 of `docs/SCOPE.md` section L). The first group is the four whose data was probed on 15 Nov 2026 and is in hand: 18a, 18b, 21, 20. Packages 19, 22 and 23 follow after further probing (end of this page). **v2 (15 Nov 2026) applies the review notes that arrived after v1**: they are proposals until you mark them, except the first, which corrects a conflict with your own earlier decision. Where this page and a C-row differ, the C-row wins.
+Status: **18a, 18b, 21 and 20 ADOPTED by the owner 15 Nov 2026 as C-208 to C-211** (decisions C-1 to C-5 all yes, with the four review additions). The collection job is scheduled daily. 19, 22 and 23 are not yet drafted. Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to `claude/strategy-build-standard.md` (C-158) and C-159, C-173, C-174, C-176, C-177. This is Wave 2 (packages 18 to 23 of `docs/SCOPE.md` section L). The first group is the four whose data was probed on 15 Nov 2026 and is in hand: 18a, 18b, 21, 20. Packages 19, 22 and 23 follow after further probing (end of this page). **v2 (15 Nov 2026) applies the review notes that arrived after v1**: they are proposals until you mark them, except the first, which corrects a conflict with your own earlier decision. Where this page and a C-row differ, the C-row wins.
 
 ## What the data allows (probe of 15 Nov 2026, `data/probe-wave2.json`)
 
@@ -89,7 +89,7 @@ Universe: the top 500 by 20-session median traded value, as Batch A and B (names
 | C-4 | 20: round trip as the main filter, keywords second, fund tag, Rs 10 crore floor, 60-session hold, forward-only | As written |
 | C-5 | Adopt the four and build in order: 18a snapshot and 20 log first (built), then the 21 loader and replay, then the 18b report | Yes |
 
-These are proposals until you mark each Adopted.
+**Adopted 15 Nov 2026 (owner: "go", C-1 to C-5 yes, schedule started).**
 
 ## Build order if adopted
 
