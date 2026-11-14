@@ -1,10 +1,14 @@
 {
- "start": "2026-10-25T13:20:38.503Z",
+ "start": "2026-11-14T11:42:29.663Z",
  "wanted": 46,
- "ok": 46,
- "kept": 0,
+ "ok": 43,
+ "kept": 3,
  "noPage": [],
  "ambiguous": [],
- "noFacts": [],
- "end": "2026-10-25T13:21:10.577Z"
+ "noFacts": [
+  "Franklin U. S. Opportunities Equity Active Fund of Funds - Direct Plan - Growth",
+  "Aditya Birla Sun Life US Treasury 3-10 Year Bond ETFs Passive FOF - Direct Plan - GROWTH",
+  "DSP World Mining Overseas Equity Omni FoF - Direct Plan - Growth"
+ ],
+ "end": "2026-11-14T11:43:02.310Z"
 }
