@@ -6,7 +6,8 @@ import { gunzipSync, gzipSync } from 'node:zlib';
 import { execSync } from 'node:child_process';
 import { parseResultsXbrl } from '../src/ingest/filings-parse.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
-const TOPUP = process.argv.includes('--topup');   // Batch A: filings already stored get the extra figures (extra) added, no new rows
+const REBS = process.argv.includes('--rebs');   // Batch B: re-read the balance sheet of stored filings that carry one but not yet the liquid-investment lines (bs.v = 2)
+const TOPUP = process.argv.includes('--topup') || REBS;   // Batch A: filings already stored get the extra figures (extra) added, no new rows
 const periods = arg('periods', '31-Mar-2026').split(',').filter(Boolean), LIMIT = Number(arg('limit', '0')) || Infinity, CONC = Number(arg("conc", "2"));
 const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36' };
 const NSEH = { ...UA, referer: 'https://www.nseindia.com/', accept: 'application/json' };
@@ -43,8 +44,8 @@ for (const period of periods) {
   let i = 0;
   const worker = async () => { while (i < recs.length) {
     const rec = recs[i++]; const pre = entityOf(rec.symbol, pe); const have = pre ? load(pre).results.find((y) => y.source === rec.xbrl) : null;
-    if (have && !(TOPUP && (!have.extra || !have.asOf))) { c.alreadyStored = (c.alreadyStored || 0) + 1; c.parsed++; continue; }   // resume: a filing already stored is not fetched again (top-up mode refetches only those without extra)
-    if (have && TOPUP) { const r0 = await get(rec.xbrl); if (r0.status !== 200) { c.fetchFailed++; continue; } const x0 = parseResultsXbrl(r0.t, maps); if (!x0.ok) { c.parseFailed++; continue; } have.extra = x0.extra; if (!have.asOf) { have.asOf = isoTime(rec.broadcast_Date || rec.revised_Date); c.asOfRepaired = (c.asOfRepaired || 0) + 1; } c.toppedUp = (c.toppedUp || 0) + 1; countExtra(x0.extra); c.parsed++; await sleep(150); continue; }   // resume: a filing already stored is not fetched again
+    if (have && !(TOPUP && (!have.extra || !have.asOf || (REBS && have.extra.bs?.assets != null && have.extra.bs.v !== 2)))) { c.alreadyStored = (c.alreadyStored || 0) + 1; c.parsed++; continue; }   // resume: a filing already stored is not fetched again (top-up mode refetches only those without extra)
+    if (have && TOPUP) { const r0 = await get(rec.xbrl); if (r0.status !== 200) { c.fetchFailed++; continue; } const x0 = parseResultsXbrl(r0.t, maps); if (!x0.ok) { c.parseFailed++; continue; } have.extra = x0.extra; if (REBS && have.extra.bs?.assets != null) have.extra.bs.v = 2; if (!have.asOf) { have.asOf = isoTime(rec.broadcast_Date || rec.revised_Date); c.asOfRepaired = (c.asOfRepaired || 0) + 1; } c.toppedUp = (c.toppedUp || 0) + 1; countExtra(x0.extra); c.parsed++; await sleep(150); continue; }   // resume: a filing already stored is not fetched again
     const r = await get(rec.xbrl); if (r.status !== 200) { c.fetchFailed++; continue; }
     const x = parseResultsXbrl(r.t, maps); if (!x.ok) { c.parseFailed++; c.errors[x.error] = (c.errors[x.error] || 0) + 1; continue; }
     if (x.periodEnd && x.periodEnd !== pe) c.periodMismatch++;

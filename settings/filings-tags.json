@@ -136,6 +136,12 @@
         "CashAndBankBalances",
         "CashAndBalancesWithReserveBankOfIndia"
       ],
+      "bankOther": [
+        "BankBalanceOtherThanCashAndCashEquivalents"
+      ],
+      "currentInvestments": [
+        "CurrentInvestments"
+      ],
       "currentAssets": [
         "CurrentAssets"
       ],

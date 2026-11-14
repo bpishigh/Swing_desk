@@ -6,6 +6,7 @@ on:
       periods: { description: "Comma list of quarter ends, e.g. 31-Mar-2026,31-Dec-2025", default: "31-Mar-2026" }
       limit: { description: "Max filings per period (0 = all)", default: "0" }
       topup: { description: "1 = add the extra figures (Batch A) to filings already stored", default: "0" }
+      rebs: { description: "1 = re-read stored balance sheets for the liquid-investment lines (Batch B)", default: "0" }
       then: { description: "Later batches, separated by semicolons; after this run commits, the next one is dispatched with the rest", default: "" }
 concurrency: backfill-filings
 permissions:
@@ -24,7 +25,7 @@ jobs:
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           git pull --rebase origin main
-      - run: node scripts/backfill-filings.mjs --periods="${{ inputs.periods }}" --limit="${{ inputs.limit }}" ${{ inputs.topup == '1' && '--topup' || '' }}
+      - run: node scripts/backfill-filings.mjs --periods="${{ inputs.periods }}" --limit="${{ inputs.limit }}" ${{ inputs.topup == '1' && '--topup' || '' }} ${{ inputs.rebs == '1' && '--rebs' || '' }}
         env:
           COMMIT_EACH: "1"
       - run: node scripts/check-no-personal-data.mjs
@@ -49,4 +50,4 @@ jobs:
           THEN: ${{ inputs.then }}
         run: |
           next="${THEN%%;*}"; rest=""; case "$THEN" in *";"*) rest="${THEN#*;}";; esac
-          gh workflow run backfill-filings.yml --ref main -f periods="$next" -f limit="${{ inputs.limit }}" -f topup="${{ inputs.topup }}" -f then="$rest"
+          gh workflow run backfill-filings.yml --ref main -f periods="$next" -f limit="${{ inputs.limit }}" -f topup="${{ inputs.topup }}" -f rebs="${{ inputs.rebs }}" -f then="$rest"

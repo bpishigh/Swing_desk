@@ -5,7 +5,7 @@ import type { QuarterView, View } from './filings-asof.ts';
 
 export interface Split { date: string; factor: number }   // factor scales closes before the date (0.5 for a 1:1 bonus), as in india-asof.ts
 export interface Quarter { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revenue: number | null; pbt: number | null; pat: number | null; eps: number | null; pbtPre: number | null; otherIncome: number | null; financeCost: number | null; depreciation: number | null; exceptional: number | null }
-export interface Balance { period: string; assets: number | null; equity: number | null; borrowings: number | null; borrowingsCurrent: number | null; cash: number | null; currentAssets: number | null; currentLiabilities: number | null; ppe: number | null; inventories: number | null; receivables: number | null }
+export interface Balance { period: string; assets: number | null; equity: number | null; borrowings: number | null; borrowingsCurrent: number | null; cash: number | null; cashPlain?: number | null; liquidBasis?: 'cash+bank+current investments' | 'cash only'; currentAssets: number | null; currentLiabilities: number | null; ppe: number | null; inventories: number | null; receivables: number | null }
 export interface Features {
   entity: string; t: string; asOf: string | null; latestPeriod: string | null; basis: 'consolidated' | 'standalone' | null; financial: boolean; basisBreak: boolean;
   ttm: { revenue: number | null; pbtPre: number | null; pat: number | null; eps: number | null; operatingEbit: number | null; financeCost: number | null; exceptional: number | null; pbt: number | null };
@@ -35,7 +35,7 @@ function toQuarter(v: QuarterView): Quarter {
   const pbtPre = nz(q.pbtPre) ?? (pbt != null && exceptional != null ? pbt - exceptional : exceptional == null ? pbt : null);   // without an exceptional line the quarter has none to remove only when the file also lacks the tag: then PBT stands in
   return { period: v.period, basis: v.basis, asOf: v.asOf, revenue: nz(v.values.revenue), pbt, pat: nz(v.values.pat), eps: nz(v.values.eps), pbtPre, otherIncome: nz(q.otherIncome), financeCost: nz(q.financeCost), depreciation: nz(q.depreciation), exceptional };
 }
-const balanceOf = (v: QuarterView): Balance | null => { const b = v.extra?.bs; if (!b || b.assets == null) return null; return { period: v.period, assets: b.assets ?? null, equity: b.equity ?? null, borrowings: b.borrowings ?? null, borrowingsCurrent: b.borrowingsCurrent ?? null, cash: b.cash ?? null, currentAssets: b.currentAssets ?? null, currentLiabilities: b.currentLiabilities ?? null, ppe: b.ppe ?? null, inventories: b.inventories ?? null, receivables: b.receivables ?? null }; };
+const balanceOf = (v: QuarterView): Balance | null => { const b = v.extra?.bs; if (!b || b.assets == null) return null; return { period: v.period, assets: b.assets ?? null, equity: b.equity ?? null, borrowings: b.borrowings ?? null, borrowingsCurrent: b.borrowingsCurrent ?? null, cash: b.cash == null ? null : b.cash + (b.bankOther ?? 0) + (b.currentInvestments ?? 0), cashPlain: b.cash ?? null, liquidBasis: b.currentInvestments != null || b.bankOther != null ? 'cash+bank+current investments' : 'cash only', currentAssets: b.currentAssets ?? null, currentLiabilities: b.currentLiabilities ?? null, ppe: b.ppe ?? null, inventories: b.inventories ?? null, receivables: b.receivables ?? null }; };
 
 /** The latest `n` consecutive quarters ending at index `from` of the latest-first list, all on one basis; null if a quarter is missing or the basis differs. */
 function chain(qs: Quarter[], from: number, n: number): Quarter[] | null {
@@ -110,9 +110,9 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   if (fe != null) for (const v of qv) if (Number(v.period.slice(5, 7)) === fe && v.extra?.cf?.cfo != null) cashFlowFy.push({ end: v.period, cfo: v.extra.cf.cfo ?? null, capex: v.extra.cf.capex ?? null });
   const netDebt = bs && bs.borrowings != null && bs.cash != null ? bs.borrowings - bs.cash : null;
   const enterpriseValue = marketCap != null && netDebt != null ? marketCap + netDebt : null;
-  // return on capital (Greenblatt): operating EBIT over net working capital (without cash and short debt) plus fixed assets
+  // return on capital (Greenblatt): operating EBIT over net working capital (without cash, bank deposits, current investments and short debt; floored at zero) plus fixed assets
   let returnOnCapital: number | null = null;
-  if (!financial && bs && opEbit != null && bs.currentAssets != null && bs.currentLiabilities != null && bs.cash != null && bs.ppe != null) { const nwc = (bs.currentAssets - bs.cash) - (bs.currentLiabilities - (bs.borrowingsCurrent ?? 0)); const cap = nwc + bs.ppe; if (cap > 0) returnOnCapital = opEbit / cap; }
+  if (!financial && bs && opEbit != null && bs.currentAssets != null && bs.currentLiabilities != null && bs.cash != null && bs.ppe != null) { const nwc = (bs.currentAssets - bs.cash) - (bs.currentLiabilities - (bs.borrowingsCurrent ?? 0)); const cap = Math.max(nwc, 0) + bs.ppe; if (cap > 0) returnOnCapital = opEbit / cap; }
 
   // standardised unexpected earnings: this quarter's EPS minus the EPS four quarters earlier, over the standard deviation of that difference in the previous 8 quarters (at least 6)
   let sue: Features['sue'] = { value: null, epsChange: null, period: latest?.period ?? null, reason: 'no quarters' };

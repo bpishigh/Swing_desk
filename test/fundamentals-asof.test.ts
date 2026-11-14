@@ -77,6 +77,21 @@ test('balance sheet: latest filing that carries one, and the one a year earlier'
   assert.equal(r.enterpriseValue, 5000 + 500);
   const nwc = (1500 - 300) - (900 - 100); assert.equal(r.returnOnCapital, 840 / (nwc + 2500));
 });
+test('liquid investments count as cash in net debt and in return on capital (owner, 14 Nov); old filings without the lines stay cash only', () => {
+  const bs = { assets: 5000, equity: 2000, borrowings: 800, cash: 300, bankOther: 100, currentInvestments: 600, currentAssets: 2500, currentLiabilities: 900, ppe: 2500, borrowingsCurrent: 100 };
+  const f = series(20, (i) => (i === 19 ? { bs } : {}));
+  const r = computeFeatures(view(f, T), 50, []);
+  assert.equal(r.bs?.cash, 1000); assert.equal(r.bs?.cashPlain, 300); assert.equal(r.bs?.liquidBasis, 'cash+bank+current investments');
+  assert.equal(r.netDebt, 800 - 1000); assert.equal(r.enterpriseValue, 5000 - 200);
+  const nwc = (2500 - 1000) - (900 - 100); assert.equal(r.returnOnCapital, 840 / (nwc + 2500));
+  const old = computeFeatures(view(series(20, (i) => (i === 19 ? { bs: { ...bs, bankOther: undefined, currentInvestments: undefined } } : {})), T), 50, []);
+  assert.equal(old.bs?.cash, 300); assert.equal(old.bs?.liquidBasis, 'cash only');
+});
+test('return on capital: negative working capital is floored at zero, so the name still scores on fixed assets', () => {
+  const f = series(20, (i) => (i === 19 ? { bs: { assets: 5000, equity: 2000, borrowings: 800, cash: 300, currentAssets: 1000, currentLiabilities: 2500, ppe: 2500, borrowingsCurrent: 100 } } : {}));
+  const r = computeFeatures(view(f, T), 50, []);
+  assert.equal(r.returnOnCapital, 840 / 2500);
+});
 test('SUE: EPS change over the spread of the previous 8 changes; needs 6 earlier changes and the same basis', () => {
   const eps = [1, 1.1, 1.2, 1.1, 1.3, 1.2, 1.4, 1.3, 1.5, 1.5, 1.6, 1.6, 1.8, 1.7, 1.9, 1.8, 2.0, 2.0, 2.1, 3.5];
   const f = eps.map((e, i) => fact(i, { eps: e }));
