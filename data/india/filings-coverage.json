@@ -135,22 +135,28 @@
    "alreadyStored": 1875,
    "at": "2026-11-08T14:59:58.847Z",
    "topup": {
-    "listed": 4427,
-    "attempted": 4427,
-    "parsed": 4398,
+    "listed": 4430,
+    "attempted": 4430,
+    "parsed": 4401,
     "fetchFailed": 14,
     "parseFailed": 9,
     "unmapped": 6,
     "families": {
-     "IFOTB": 64
+     "IFNBFC": 5,
+     "IFIndAs": 88,
+     "IFOTB": 66,
+     "IFFIndAs": 3874,
+     "FRNBFC": 285,
+     "FRBanking": 74,
+     "IFLI": 9
     },
     "missingField": {
      "revenue": 0,
      "pbt": 0,
      "pat": 0,
-     "eps": 0
+     "eps": 9
     },
-    "periodMismatch": 0,
+    "periodMismatch": 5,
     "errors": {
      "no format family in the header comment and none inferable from the tags": 9
     },
@@ -162,30 +168,30 @@
      "ATCOM",
      "ESFL"
     ],
-    "asOfRepaired": 611,
-    "toppedUp": 4334,
     "extraCount": {
-     "q.otherIncome": 4389,
-     "q.financeCost": 4389,
-     "q.depreciation": 4315,
-     "q.exceptional": 4389,
-     "q.pbtPre": 4249,
-     "q.paidUp": 4389,
-     "q.faceValue": 4389,
-     "bs.assets": 4368,
-     "bs.equity": 4368,
-     "bs.borrowings": 4368,
-     "bs.cash": 4368,
-     "bs.ppe": 4285,
-     "bs.inventories": 4285,
-     "cf.cfo": 4363,
-     "cf.capex": 4289,
-     "bs.borrowingsCurrent": 3995,
-     "bs.currentAssets": 4004,
-     "bs.currentLiabilities": 4004,
-     "bs.receivables": 3929
+     "q.otherIncome": 4392,
+     "q.financeCost": 4392,
+     "q.depreciation": 4318,
+     "q.exceptional": 4392,
+     "q.pbtPre": 4252,
+     "q.paidUp": 4392,
+     "q.faceValue": 4392,
+     "bs.assets": 4371,
+     "bs.equity": 4371,
+     "bs.borrowings": 4371,
+     "bs.cash": 4371,
+     "bs.bankOther": 4278,
+     "bs.ppe": 4288,
+     "bs.inventories": 4288,
+     "cf.cfo": 4366,
+     "cf.capex": 4292,
+     "bs.borrowingsCurrent": 3998,
+     "bs.currentInvestments": 3998,
+     "bs.currentAssets": 4007,
+     "bs.currentLiabilities": 4007,
+     "bs.receivables": 3932
     },
-    "at": "2026-11-13T19:13:29.313Z"
+    "at": "2026-11-14T17:34:10.024Z"
    }
   },
   "2025-06-30": {
