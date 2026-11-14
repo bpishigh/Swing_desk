@@ -6,6 +6,8 @@ import type { QuarterView, View } from './filings-asof.ts';
 export interface Split { date: string; factor: number }   // factor scales closes before the date (0.5 for a 1:1 bonus), as in india-asof.ts
 export interface Quarter { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revenue: number | null; pbt: number | null; pat: number | null; eps: number | null; pbtPre: number | null; otherIncome: number | null; financeCost: number | null; depreciation: number | null; exceptional: number | null }
 export interface Balance { period: string; assets: number | null; equity: number | null; borrowings: number | null; borrowingsCurrent: number | null; cash: number | null; cashPlain?: number | null; liquidBasis?: 'cash+bank+current investments' | 'cash only'; currentAssets: number | null; currentLiabilities: number | null; ppe: number | null; inventories: number | null; receivables: number | null }
+export interface FyBlock { end: string; assets: number | null; equity: number | null; borrowings: number | null; currentAssets: number | null; currentLiabilities: number | null; revenue: number | null; ebit: number | null; pat: number | null; cfo: number | null }
+export interface FyPair { cur: FyBlock; prev: FyBlock; shareRatio: number | null }
 export interface Features {
   entity: string; t: string; asOf: string | null; latestPeriod: string | null; basis: 'consolidated' | 'standalone' | null; financial: boolean; basisBreak: boolean;
   ttm: { revenue: number | null; pbtPre: number | null; pat: number | null; eps: number | null; operatingEbit: number | null; financeCost: number | null; exceptional: number | null; pbt: number | null };
@@ -18,6 +20,7 @@ export interface Features {
   shares: number | null; sharesYearAgoRolled: number | null; sharesFlag: boolean; marketCap: number | null; earningsYield: number | null; eyNullReason: string | null;
   bs: Balance | null; bsPrev: Balance | null; cashFlowFy: Array<{ end: string; cfo: number | null; capex: number | null }>;
   netDebt: number | null; enterpriseValue: number | null; returnOnCapital: number | null;
+  fy: FyPair | null;   // latest fiscal year with a year-end balance sheet, and the year before (B2 Piotroski, fiscal-year basis)
   sue: { value: number | null; epsChange: number | null; period: string | null; reason: string };
   missing: string[];
 }
@@ -108,6 +111,20 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   for (let i = 0; i < qv.length; i++) { const b = balanceOf(qv[i]); if (b) { bs = b; const pi = qv.findIndex((x) => x.period === addMonths(b.period, -12)); bsPrev = pi >= 0 ? balanceOf(qv[pi]) : null; break; } }
   const cashFlowFy: Features['cashFlowFy'] = [];
   if (fe != null) for (const v of qv) if (Number(v.period.slice(5, 7)) === fe && v.extra?.cf?.cfo != null) cashFlowFy.push({ end: v.period, cfo: v.extra.cf.cfo ?? null, capex: v.extra.cf.capex ?? null });
+  // fiscal-year pair: the latest two fiscal-year-end quarters (12 months apart) that each have a balance sheet and four consecutive quarters of flows; shares of both rolled through splits and bonuses to t so their ratio is free of those
+  let fy: FyPair | null = null;
+  if (fe != null) {
+    const blk = (i: number): FyBlock | null => { const b = balanceOf(qv[i]), c = chain(qs, i, 4); if (!b || !c) return null; return { end: qs[i].period, assets: b.assets, equity: b.equity, borrowings: b.borrowings, currentAssets: b.currentAssets, currentLiabilities: b.currentLiabilities, revenue: financial ? null : f(c, 'revenue'), ebit: ebit(c), pat: f(c, 'pat'), cfo: qv[i].extra?.cf?.cfo ?? null }; };
+    const rolled = (i: number): number | null => { const s0 = sh(i); if (s0 == null) return null; let m = 1; for (const sp of splits) if (sp.date > qv[i].asOf.slice(0, 10) && sp.date <= t && sp.factor > 0) m /= sp.factor; return s0 * m; };
+    for (let i = 0; i < qs.length && !fy; i++) {
+      if (Number(qs[i].period.slice(5, 7)) !== fe) continue;
+      const cur = blk(i); if (!cur) break;   // the latest fiscal-year end only; an older year is not used in its place
+      const j = qs.findIndex((x) => x.period === addMonths(qs[i].period, -12)); if (j < 0) break;
+      const prev = blk(j); if (!prev) break;
+      const a = rolled(i), b = rolled(j);
+      fy = { cur, prev, shareRatio: a != null && b != null && b > 0 ? a / b : null };
+    }
+  }
   const netDebt = bs && bs.borrowings != null && bs.cash != null ? bs.borrowings - bs.cash : null;
   const enterpriseValue = marketCap != null && netDebt != null ? marketCap + netDebt : null;
   // return on capital (Greenblatt): operating EBIT over net working capital (without cash, bank deposits, current investments and short debt; floored at zero) plus fixed assets
@@ -136,7 +153,7 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
     ttm: { revenue: ttmRevenue, pbtPre: ttmPbtPre, pat: ttmPat, eps: ttmEps, operatingEbit: opEbit, financeCost: ttmFin, exceptional: ttmExc, pbt: ttmPbt },
     ttmPrev: { revenue: prevRev, pbtPre: prevPbt, pat: prevPat },
     margin: { operatingEbit: opEbit != null && ttmRevenue != null && ttmRevenue > 0 ? opEbit / ttmRevenue : null, pbtPre: ttmPbtPre != null && ttmRevenue != null && ttmRevenue > 0 ? ttmPbtPre / ttmRevenue : null },
-    interestCover, growth, fiscalYears, quarterlyEbitMargin, shares, sharesYearAgoRolled, sharesFlag, marketCap, earningsYield, eyNullReason, bs, bsPrev, cashFlowFy, netDebt, enterpriseValue, returnOnCapital, sue, missing,
+    interestCover, growth, fiscalYears, quarterlyEbitMargin, shares, sharesYearAgoRolled, sharesFlag, marketCap, earningsYield, eyNullReason, bs, bsPrev, cashFlowFy, netDebt, enterpriseValue, returnOnCapital, fy, sue, missing,
   };
 }
 export { sd as stdev, sum };

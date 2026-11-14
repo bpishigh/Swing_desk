@@ -1,6 +1,6 @@
 # Batch B: balance-sheet and cash-flow books, India (v2, 14 Nov 2026)
 
-Status: **B1 Magic Formula ADOPTED by the owner 14 Nov 2026 as C-205**, on the terms below. **B2 Piotroski and B3 Full quality are revised drafts** (the owner's changes of 14 Nov applied) and are not adopted until the owner marks them. Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to `claude/strategy-build-standard.md` (C-158) and C-159, C-173, C-174, C-176, C-177. India only; the books start after their replays are read (the owner's rule). Where this page and the C-rows differ, the C-rows win.
+Status: **B1, B2 and B3 ADOPTED by the owner 14 Nov 2026 as C-205, C-206 and C-207**, on the terms below (B2-2: paper rule, exposure on the card, tripwire that flags and never switches). Paper only. Not a financial adviser. Pasted reviewer text is not approval. Written to `claude/strategy-build-standard.md` (C-158) and C-159, C-173, C-174, C-176, C-177. India only; the books start after their replays are read (the owner's rule). Where this page and the C-rows differ, the C-rows win.
 
 **What v2 changes from v1 (owner answers of 14 Nov):** B1 adopted with liquid investments counted as cash, lease liabilities stated as a known limit, working capital floored at zero, utilities excluded. B2 moved to the fiscal year for all nine tests, with the count of 8-or-9 scorers measured and the card expectation stated. B3 rebuilt as A3 with three named changes so the pair comparison is clean. Replay window rule fixed in advance. Parser depth checked.
 
@@ -41,7 +41,7 @@ Universe: the top 500 by 20-session median traded value; non-financial names onl
 
 **Built 14 Nov 2026** (`src/engine/batch-b.ts`, `test/batch-b.test.ts`; book `bb-b1-magic` in `settings/first-wave-books.json`). The start date is a placeholder (`2099-12-31`) until the replay is read; then the owner's rule applies and the real date is set.
 
-## B2. Piotroski F-score (revised draft, not adopted)
+## B2. Piotroski F-score (ADOPTED, C-206)
 
 **Question.** Among cheap-on-book names, do those with improving financial health do better than the Nifty 500?
 
@@ -70,7 +70,7 @@ A name missing any figure is not scored.
 
 **Window.** First scorable about mid-2024 (see above): about two and a half years, labelled so.
 
-## B3. Full quality (revised draft, not adopted)
+## B3. Full quality (ADOPTED, C-207)
 
 **Question.** What does the lite quality book (A3) miss? B3 is A3 with three named changes, so the pair read is clean.
 
@@ -91,18 +91,19 @@ Six measures, equal weight, all six required; percentile ranks across the eligib
 |---|---|---|
 | B1 | Adopt Magic Formula with the four conditions above | **Adopted 14 Nov 2026 (C-205)** |
 | B2-1 | Operating margin in place of gross margin | Yes (14 Nov) |
-| B2-2 | Rule when fewer than 20 names score 8 or 9 | **Proposed, awaiting the owner's own word:** keep the paper rule (about 14 names, no floor of 7). Card shows average share invested, so a weak read can be told from cash drag. Tripwire: if the count is under ten at two reviews in a row, the card flags it and the owner decides; it never switches to the floor by itself |
-| B2 | Adopt Piotroski (fiscal-year basis) | Open |
-| B3 | Adopt full quality as A3 plus three changes, read as a pair with A3 and against the Nifty 500 | Open |
+| B2-2 | Rule when fewer than 20 names score 8 or 9 | **Decided 14 Nov 2026:** paper rule (about 14 names, no floor of 7). Card shows average share invested. Tripwire: under ten at two reviews in a row flags on the card and the owner decides; it never switches to the floor by itself |
+| B2 | Adopt Piotroski (fiscal-year basis) | **Adopted 14 Nov 2026 (C-206)** |
+| B3 | Adopt full quality as A3 plus three changes, read as a pair with A3 and against the Nifty 500 | **Adopted 14 Nov 2026 (C-207)** |
 | B-4 | Replay: one run per book, 90% window rule, labelled an implementation check | Fixed 14 Nov |
 
 These are proposals until the owner marks a block Adopted.
 
 ## Build order
 
-1. Done 14 Nov: A0 liquid-investment cash and the working-capital floor (unit tests), `--rebs` re-read of stored balance sheets (running), B1 signal module, tests and paper book. 2. Next: replay support for the B books with the 90% window rule, then one registered replay per adopted book once the re-read is complete. 3. B2 and B3 signal modules only after the owner marks them. 4. C-rows and register rows on each adoption.
+1. Done 14 Nov: A0 liquid-investment cash and the working-capital floor (unit tests), `--rebs` re-read of stored balance sheets (running), B1 signal module, tests and paper book. 2. Next: replay support for the B books with the 90% window rule, then one registered replay per adopted book once the re-read is complete. 3. Done 14 Nov: B2 and B3 signal modules, tests, books (start dates are placeholders until their replays are read), fiscal-year pair added to the company-figures table (appears from the next night's table). 4. C-rows and register rows on each adoption.
 
 ## Log
 
 - 14 Nov 2026: v1 drafted (three books, India only).
 - 14 Nov 2026 (later): v2 after the owner's answers. B1 adopted as C-205. Probes: current investments and bank deposits are in the filings and now counted as cash; no lease line; the pre-Oct-2022 gap is the source. Piotroski scorer counts measured. B3 reduced to A3 plus three changes.
+- 14 Nov 2026 (late): owner adopted B2 and B3 and decided B2-2. Built as C-206, C-207. Cash quality uses the latest fiscal-year operating cash flow over the latest balance sheet's total assets (stated as built).

@@ -108,6 +108,24 @@
       "startAfter": "2099-12-31",
       "comparator": "n500",
       "batch": "B"
+    },
+    {
+      "id": "bb-b2-piotroski",
+      "rule": "B2",
+      "name": "Piotroski F-score on cheap names",
+      "signal": "piotroski",
+      "startAfter": "2099-12-31",
+      "comparator": "n500",
+      "batch": "B"
+    },
+    {
+      "id": "bb-b3-fullquality",
+      "rule": "B3",
+      "name": "Full quality",
+      "signal": "fullQuality",
+      "startAfter": "2099-12-31",
+      "comparator": "n500",
+      "batch": "B"
     }
   ],
   "navFunds": [

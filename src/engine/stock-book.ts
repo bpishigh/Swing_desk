@@ -11,7 +11,7 @@ export interface Pending { signalDate: string; buys: Buy[]; sells: string[] }
 export interface BookState {
   id: string; startAfter: string; cash: number; pos: Record<string, Pos>; lastValue: Record<string, number>;
   pending: Pending | null; stopQueue: Array<{ sym: string; on: string }>; closed: Closed[];
-  daily: Array<{ d: string; v: number; vs: number }>; skipped: Array<{ date: string; sym: string; width: number }>;
+  daily: Array<{ d: string; v: number; vs: number; x?: number }>; skipped: Array<{ date: string; sym: string; width: number }>;
   slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
 }
 export const newBook = (id: string, startAfter: string): BookState => ({ id, startAfter, cash: BOOK.startValue, pos: {}, lastValue: {}, pending: null, stopQueue: [], closed: [], daily: [], skipped: [], slipCum: 0, cashDays: { credited: 0, missing: 0 }, started: null, lastSignal: null, lastStep: null });
@@ -66,7 +66,7 @@ export function stepBook(st: BookState, e: Env): BookState {
     for (const [s, p] of Object.entries(st.pos)) { const d = e.dist?.(s) ?? 0; if (d > 0) { st.cash += p.sh * d; p.high = Math.max(0, p.high - d); st.distCredit = (st.distCredit ?? 0) + p.sh * d; } }
     if (e.cashRet === null) st.cashDays.missing++; else { st.cash *= 1 + e.cashRet; st.cashDays.credited++; }
     let v = st.cash; for (const [s, p] of Object.entries(st.pos)) { const c = e.close(s); v += p.sh * (c > 0 ? c : p.entry); }
-    st.daily.push({ d: D, v: r4(v), vs: r4(v - st.slipCum) });
+    st.daily.push({ d: D, v: r4(v), vs: r4(v - st.slipCum), x: v > 0 ? r4(1 - st.cash / v) : 0 });
     for (const [s, p] of Object.entries(st.pos)) {
       if (e.blocked?.(s)) continue;
       const c = e.close(s); if (!(c > 0)) continue; p.high = Math.max(p.high, c);

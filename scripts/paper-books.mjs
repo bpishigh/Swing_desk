@@ -11,7 +11,7 @@ import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
 import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
-import { magic, magicRanked } from '../src/engine/batch-b.ts';
+import { magic, magicRanked, piotroski, piotroskiRanked, piotroskiPool, fullQuality, fullQualityRanked } from '../src/engine/batch-b.ts';
 import { stepEw } from '../src/engine/equal-weight.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
@@ -39,7 +39,7 @@ const el = eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({
 // Batch A (A0 table, claude/batch-a-fundamentals-rules-draft.md): the top 500 by traded value and the nightly company figures. Books that need them do nothing on a night the figures are not from tonight, and say so.
 const el500 = (() => { const u = BASE.universe; BASE.universe = 500; try { return eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } })();
 const fundFile = R('data/india/fundamentals/latest.json'), fundOk = !!fundFile && fundFile.asOf === D, fundRows = fundOk ? fundFile.rows : {};
-const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead', 'magic']);
+const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead', 'magic', 'piotroski', 'fullQuality']);
 const todayRows = uniq.find((d) => d.date === D)?.rows ?? {};
 const open = (s) => { const r = todayRows[s]; return r && r[2] > 0 ? r[2] : NaN; };
 const age = (sym) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };   // sessions since the name last had a close
@@ -66,7 +66,7 @@ const baWatch = (sig, held, stx) => {
   if (!fundOk) return [];
   const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
   if (sig === 'pead') return (stx.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio }));
-  const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : sig === 'magic' ? magicRanked(bx) : compounderPassers(bx);
+  const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : sig === 'magic' ? magicRanked(bx) : sig === 'piotroski' ? piotroskiRanked(bx) : sig === 'fullQuality' ? fullQualityRanked(bx) : compounderPassers(bx);
   const r3 = (x) => (x == null || x !== x ? null : Math.round(x * 1000) / 1000);
   const state = (sym, rank) => (held.has(sym) ? (rank != null && rank <= 20 ? 'Held' : rank != null && rank <= 40 ? 'In buffer' : 'Would leave') : rank != null && rank <= 20 ? 'Would enter' : '');
   const out = rows.slice(0, 40).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: state(r.sym, i + 1) }));
@@ -80,7 +80,7 @@ for (const b of books) {
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
   const signal = (held, stx) => { if (BA_SIGNALS.has(b.signal)) { if (!fundOk) { st.fundMissing = (st.fundMissing ?? 0) + 1; return null; } const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
-      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : b.signal === 'magic' ? magic(bx) : pead(bx, wide, plog); }
+      return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : b.signal === 'magic' ? magic(bx) : b.signal === 'piotroski' ? piotroski(bx) : b.signal === 'fullQuality' ? fullQuality(bx) : pead(bx, wide, plog); }
     const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
@@ -105,7 +105,17 @@ for (const b of books) {
   const lines = bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) }));
   const nextEntry = b.signal === 'turnOfMonth' ? (() => { for (let k = 0; k < 45; k++) { const d = cal.addSessions(D, k); if (sessionsLeftInMonth(d, cal.sessionsBetween.bind(cal)) === 4) return d; } return null; })() : null;
   const nonFin = Object.values(fundRows).filter((r) => !r.financial), magicOk = new Set(magicRanked({ el: el500, series, t, dates, held: new Set(), fund: fundRows, st, group: (sym) => industry[sym] ?? null }).map((r) => r.sym));
-  const lat = { unscored: b.signal === 'magic' && fundOk ? { text: `${Math.max(0, nonFin.length - magicOk.size)} of ${nonFin.length} non-financial names are not ranked (power companies, no balance sheet read with the investment lines yet, or no positive operating profit or capital base).` } : ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
+  const bx2 = fundOk && (b.signal === 'piotroski' || b.signal === 'fullQuality') ? { el: el500, series, t, dates, held: new Set(), fund: fundRows, st, group: (sym) => industry[sym] ?? null } : null;
+  let b2 = null;
+  if (bx2 && b.signal === 'piotroski') {
+    const pp = piotroskiPool(bx2), n8 = pp.scored.filter((r) => r.s >= 8).length, m = D.slice(0, 7);
+    st.b2Counts = st.b2Counts ?? {}; if (st.b2Counts[m] === undefined) st.b2Counts[m] = n8;
+    const last2 = Object.entries(st.b2Counts).sort().slice(-2).map(([, n]) => n);
+    const xs = st.daily.map((d) => d.x).filter((v) => v != null);
+    b2 = { pool: pp.pool, scored: pp.scored.length, atLeast8: n8, atLeast7: pp.scored.filter((r) => r.s >= 7).length, counts: Object.entries(st.b2Counts).sort().slice(-12).map(([mm, n]) => ({ m: mm, n })), tripwire: last2.length === 2 && last2.every((n) => n < 10), avgInvested: xs.length ? Math.round(xs.reduce((a, c) => a + c, 0) / xs.length * 1e4) / 1e4 : null };
+  }
+  const fqOk = bx2 && b.signal === 'fullQuality' ? new Set(fullQualityRanked(bx2).map((r) => r.sym)) : null;
+  const lat = { b2, unscored: fqOk ? { text: `${Math.max(0, nonFin.length - fqOk.size)} of ${nonFin.length} non-financial names are not scored (a measure is missing, EBIT is not positive, or the balance sheet is not yet read with the investment lines).` } : b2 ? { text: `${b2.pool} names are in the cheapest 30% by book-to-market; ${b2.scored} can be scored on all nine tests; ${b2.atLeast8} score 8 or 9 and are held (at most 20). The rest of the book is in cash.` } : b.signal === 'magic' && fundOk ? { text: `${Math.max(0, nonFin.length - magicOk.size)} of ${nonFin.length} non-financial names are not ranked (power companies, no balance sheet read with the investment lines yet, or no positive operating profit or capital base).` } : ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
     held: hold.length, cashShare: v ? Math.round(st.cash / v * 1e4) / 1e4 : null, positions: hold, pending: st.pending ? { signalDate: st.pending.signalDate, buys: st.pending.buys.map((x) => x.sym), sells: st.pending.sells } : null,
     closedTrades: st.closed.length, stopOuts: st.closed.filter((c) => c.why === 'stop').length, skippedWide: st.skipped.length, cashDays: st.cashDays, monthly: bm, daily: st.daily.slice(-400), recentClosed: st.closed.slice(-30),
     watch: watchRows, nextEntry, comparator: { id: b.comparator, name: compName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines, sens: st.daily.length ? { book: st.daily.at(-1).vs, note: 'with a further 0.2% a round trip (C-178); a sensitivity, not a result' } : null };

@@ -609,6 +609,42 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bb-b2-piotroski",
+      "name": "Piotroski F-score on cheap names",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "B2",
+      "view": "book_list",
+      "startAfter": "2099-12-31",
+      "dataFile": "data/india/books/bb-b2-piotroski/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "bb-b3-fullquality",
+      "name": "Full quality",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "B3",
+      "view": "book_list",
+      "startAfter": "2099-12-31",
+      "dataFile": "data/india/books/bb-b3-fullquality/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
