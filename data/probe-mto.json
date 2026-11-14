@@ -1,0 +1,47 @@
+{
+ "at": "2026-11-14T19:21:03.171Z",
+ "years": {
+  "2012": {
+   "date": "11062012",
+   "status": 200,
+   "lines": 1461,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 11062012 ; 242972550 ; 0001457 | Trade Date <11-JUN-2012> ; Settlement Type <N> ; Settlement No <2012110> ; Settlement Date <13-JUN-2012> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gro"
+  },
+  "2014": {
+   "date": "10062014",
+   "status": 200,
+   "lines": 1276,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 10062014 ; 605440772 ; 0001272 | Trade Date <10-JUN-2014> ; Settlement Type <N> ; Settlement No <2014108> ; Settlement Date <12-JUN-2014> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gro"
+  },
+  "2016": {
+   "date": "10062016",
+   "status": 200,
+   "lines": 1599,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 10062016 ; 412011437 ; 0001595 | Trade Date <10-JUN-2016> ; Settlement Type <N> ; Settlement No <2016109> ; Settlement Date <14-JUN-2016> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gro"
+  },
+  "2018": {
+   "date": "11062018",
+   "status": 200,
+   "lines": 1726,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 11062018 ; 436844236 ; 0001722 | Trade Date <11-JUN-2018> ; Settlement Type <N> ; Settlement No <2018110> ; Settlement Date <13-JUN-2018> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gro"
+  },
+  "2019": {
+   "date": "10062019",
+   "status": 200,
+   "lines": 1760,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 10062019 ; 450676724 ; 0001756 | Trade Date <10-JUN-2019> ; Settlement Type <N> ; Settlement No <2019108> ; Settlement Date <12-JUN-2019> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gro"
+  },
+  "2020": {
+   "date": "10062020",
+   "status": 200,
+   "lines": 1840,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 10062020 ; 946216846 ; 0001836 | Trade Date <10-JUN-2020> ; Settlement Type <N> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gross across client level) ; % of Deliverable Quantity to Tra"
+  },
+  "2021": {
+   "date": "10062021",
+   "status": 200,
+   "lines": 1858,
+   "head": "Security Wise Delivery Position - Compulsory Rolling Settlement | 10 ; MTO ; 10062021 ; 1340301209 ; 0001854 | Trade Date <10-JUN-2021> ; Settlement Type <N> | Record Type ; Sr No ; Name of Security ; Quantity Traded ; Deliverable Quantity(gross across client level) ; % of Deliverable Quantity to Tr"
+  }
+ }
+}
