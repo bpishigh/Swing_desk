@@ -517,12 +517,12 @@
    "alreadyStored": 27,
    "at": "2026-11-09T15:28:08.582Z",
    "topup": {
-    "listed": 4426,
-    "attempted": 4426,
-    "parsed": 4410,
+    "listed": 0,
+    "attempted": 0,
+    "parsed": 0,
     "fetchFailed": 0,
-    "parseFailed": 8,
-    "unmapped": 8,
+    "parseFailed": 0,
+    "unmapped": 0,
     "families": {},
     "missingField": {
      "revenue": 0,
@@ -531,42 +531,9 @@
      "eps": 0
     },
     "periodMismatch": 0,
-    "errors": {
-     "no tag map for family IFGI": 8
-    },
-    "unmappedSymbols": [
-     "RUSHABEAR",
-     "KUNDANMM",
-     "KUNDANMM",
-     "ATCOM",
-     "ATCOM",
-     "RUSHABEAR",
-     "RUSHABEAR",
-     "ESFL"
-    ],
-    "toppedUp": 4410,
-    "extraCount": {
-     "q.otherIncome": 4401,
-     "q.financeCost": 4401,
-     "q.depreciation": 4329,
-     "q.exceptional": 4401,
-     "q.pbtPre": 4319,
-     "q.paidUp": 4401,
-     "q.faceValue": 4401,
-     "bs.assets": 45,
-     "bs.equity": 36,
-     "bs.borrowings": 36,
-     "bs.borrowingsCurrent": 36,
-     "bs.cash": 36,
-     "bs.currentAssets": 36,
-     "bs.currentLiabilities": 36,
-     "bs.ppe": 36,
-     "bs.inventories": 36,
-     "bs.receivables": 36,
-     "cf.cfo": 37,
-     "cf.capex": 37
-    },
-    "at": "2026-11-13T18:22:07.354Z"
+    "errors": {},
+    "unmappedSymbols": [],
+    "at": "2026-11-14T12:13:44.138Z"
    }
   },
   "2024-12-31": {
