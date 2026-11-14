@@ -2553,7 +2553,43 @@
     "NARMADASUG",
     "VITALCOMM"
    ],
-   "at": "2026-11-12T18:02:57.523Z"
+   "at": "2026-11-12T18:02:57.523Z",
+   "topup": {
+    "listed": 1474,
+    "attempted": 1474,
+    "parsed": 1467,
+    "fetchFailed": 1,
+    "parseFailed": 0,
+    "unmapped": 6,
+    "families": {},
+    "missingField": {
+     "revenue": 0,
+     "pbt": 0,
+     "pat": 0,
+     "eps": 0
+    },
+    "periodMismatch": 0,
+    "errors": {},
+    "unmappedSymbols": [
+     "AUTORIDFIN",
+     "GRANDFONRY",
+     "MAFATLAFIN",
+     "PRASGLOFIN",
+     "NARMADASUG",
+     "VITALCOMM"
+    ],
+    "toppedUp": 1467,
+    "extraCount": {
+     "q.otherIncome": 1467,
+     "q.financeCost": 1467,
+     "q.exceptional": 1463,
+     "q.paidUp": 1467,
+     "q.faceValue": 1467,
+     "q.depreciation": 1431,
+     "q.pbtPre": 1383
+    },
+    "at": "2026-11-14T00:05:18.800Z"
+   }
   },
   "2017-12-31": {
    "listed": 1,
