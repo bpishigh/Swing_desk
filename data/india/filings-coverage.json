@@ -280,23 +280,69 @@
    ],
    "at": "2026-11-08T15:35:06.957Z",
    "topup": {
-    "listed": 0,
-    "attempted": 0,
-    "parsed": 0,
-    "fetchFailed": 0,
-    "parseFailed": 0,
-    "unmapped": 0,
-    "families": {},
+    "listed": 4645,
+    "attempted": 4645,
+    "parsed": 4625,
+    "fetchFailed": 2,
+    "parseFailed": 9,
+    "unmapped": 9,
+    "families": {
+     "IFIndAs": 4183,
+     "IFNBFC": 285,
+     "IFOTB": 39,
+     "IFBanking": 74,
+     "IFLI": 9,
+     "IFFIndAs": 24,
+     "FRNBFC": 7
+    },
     "missingField": {
      "revenue": 0,
      "pbt": 0,
      "pat": 0,
-     "eps": 0
+     "eps": 9
     },
     "periodMismatch": 0,
-    "errors": {},
-    "unmappedSymbols": [],
-    "at": "2026-11-14T12:13:46.275Z"
+    "errors": {
+     "no tag map for family IFGI": 8,
+     "no quarter context (OneD) facts": 1
+    },
+    "unmappedSymbols": [
+     "KUNDANMM",
+     "RUSHABEAR",
+     "ATCOM",
+     "KUNDANMM",
+     "KUNDANMM",
+     "ESFL",
+     "ATCOM",
+     "ATCOM",
+     "RUSHABEAR"
+    ],
+    "extraCount": {
+     "q.otherIncome": 4616,
+     "q.financeCost": 4616,
+     "q.depreciation": 4542,
+     "q.exceptional": 4616,
+     "q.pbtPre": 4503,
+     "q.paidUp": 4616,
+     "q.faceValue": 4616,
+     "bs.assets": 4595,
+     "bs.equity": 4595,
+     "bs.borrowings": 4595,
+     "bs.borrowingsCurrent": 4220,
+     "bs.cash": 4595,
+     "bs.bankOther": 4502,
+     "bs.currentInvestments": 4220,
+     "bs.currentAssets": 4229,
+     "bs.currentLiabilities": 4229,
+     "bs.ppe": 4512,
+     "bs.inventories": 4512,
+     "bs.receivables": 4181,
+     "cf.cfo": 4170,
+     "cf.capex": 4104,
+     "bs.v": 4
+    },
+    "toppedUp": 4,
+    "at": "2026-11-14T17:15:03.755Z"
    }
   },
   "2026-06-30": {
