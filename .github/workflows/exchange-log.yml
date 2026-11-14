@@ -1,6 +1,6 @@
 name: exchange-log
 # Wave 2 collection (Batch C, C-5): surveillance lists and bulk and block deals. Manual only until the owner says to start it nightly; then add the two schedule lines shown below.
-# schedule: evening run 14:00 UTC (19:30 IST, after the exchange publishes) and a retry 04:30 UTC the next morning; both are safe to repeat.
+# schedule when started: every day including weekends, 14:00 UTC (19:30 IST, after the exchange publishes) and a retry 04:30 UTC next morning; both are safe to repeat (the latest-day file stays up until the next trading evening).
 on:
   workflow_dispatch:
 concurrency: exchange-log

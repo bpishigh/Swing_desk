@@ -51,6 +51,10 @@ Universe: the top 500 by 20-session median traded value, as Batch A and B (names
 
 **Tags on every signal.** Whether the signal day was a results day, a bulk or block deal day, or a derivatives expiry day, because delivery share jumps mechanically on all three. The card and the replay report show results by tag, so what is driving the signal is visible.
 
+**Trade-for-trade names.** A stock in the trade-for-trade series is 100% delivery by definition, so a move into or out of that series would make the ratio fire or fail for no real reason. A signal requires the normal series on the signal day and across the 20-session average.
+
+**Splice check and tag coverage.** Both delivery files load for 2021: compare them on a few shared dates before joining them. The replay report states that the results-day tag exists only from 2018 and the deal-day tag only from the first logged night, so most of the replay carries the expiry tag alone.
+
 **Entry and exit (decision C-3).** Entry at the next open. Hold 20 sessions, then sell at the next open, or earlier on the C-159 stop. At most 20 names; no signal while the book is full (missed signals logged with a no-slot reason, as in A1).
 
 **Cost and stop behaviour, stated before the first signal.** A 20-session hold is about twelve round trips a year per slot, so costs bear heavily, and the tight C-159 stop (the tighter of 3 x ATR(20) and 8%) is expected to fire often after a 2% up day. The card reports the stop-out share and average exposure from the first month, and the replay reports them too.
@@ -65,7 +69,7 @@ Universe: the top 500 by 20-session median traded value, as Batch A and B (names
 
 **Data (forward only).** A nightly job reads the day's bulk and block files and appends every row to a stored log (built, below). A missed night cannot be recovered. The job runs in the evening and again the next morning as a retry; a source that fails after retries makes the run show as failed.
 
-**Signal.** A *buy* row in the top 500, value (units times price) at least Rs 10 crore (a setting), not excluded by the buyer rule. **Behaviour is the main filter:** exclude a client that is on both sides of the same stock within 5 sessions (round trip), which catches proprietary firms whatever their name. **Keywords are a second net:** exclude client names containing SECURITIES, CAPITAL MARKETS, TRADING, BROKING, PROPRIETARY, ARBITRAGE, ALGO, QUANT. The word FINANCE is not used (it would remove funds and insurers). A **positive tag** marks mutual funds, insurers and pension funds, so the card can show results by buyer type. The card shows excluded and kept counts.
+**Signal.** A *buy* row in the top 500, value (units times price) at least Rs 10 crore (a setting), not excluded by the buyer rule. **Behaviour is the main filter, as known at entry:** exclude a client who sold the same stock on the signal day or in the 5 sessions before it (round trip), which catches proprietary firms whatever their name. A sale in the 5 sessions after entry cannot be known at entry; it is logged as a tag. A running list is kept: a client seen round-tripping any stock in the log is excluded from then on. **Keywords are a second net:** exclude client names containing SECURITIES, CAPITAL MARKETS, TRADING, BROKING, PROPRIETARY, ARBITRAGE, ALGO, QUANT. The word FINANCE is not used (it would remove funds and insurers). A **positive tag** marks mutual funds, insurers and pension funds, so the card can show results by buyer type. **Promoter holding companies** often carry Trading or Investments in their names, so rows dropped by the keyword net are tagged as possible promoter entities and counted separately on the card (promoter buying is the best-evidenced buyer type). The card shows excluded and kept counts.
 
 **Also logged on every signal.** The gap from the deal price to the next-open fill, and any large sell rows in the same stock the same day (a fund buying from an exiting promoter or private-equity holder is a different event from open-market accumulation).
 
@@ -89,7 +93,7 @@ These are proposals until you mark each Adopted.
 
 ## Build order if adopted
 
-**Built 15 Nov 2026 (collection only, changes no rule):** `scripts/exchange-log.mjs` and workflow `exchange-log.yml` store the surveillance lists (`data/india/surveillance/`) and the bulk and block rows (`data/india/deals/`), with tests. It is dispatch-only; **it is not scheduled until you say start** (the schedule is two lines: 14:00 UTC and a 04:30 UTC retry). A manual test run on 15 Nov stored one snapshot (ASM long 134, short 38, GSM 76, ESM 229) and the 13 Nov deals (136 bulk, 26 block rows). Remaining: 1. Surveillance bind-rate count. 2. The deal log keeps growing from the first scheduled night. 3. Delivery loader backfill, then the one replay. 4. Anchor lock-in event study. 5. C-rows, register rows, STATUS and the cards, one paper book per adopted strategy.
+**Built 15 Nov 2026 (collection only, changes no rule):** `scripts/exchange-log.mjs` and workflow `exchange-log.yml` store the surveillance lists (`data/india/surveillance/`) and the bulk and block rows (`data/india/deals/`), with tests. It is dispatch-only; **it is not scheduled until you say start** (the schedule is two lines: 14:00 UTC and a 04:30 UTC retry, every day including weekends, since the exchange's latest-day file stays up until the next trading evening and a weekend run can recover a failed Friday). A manual test run on 15 Nov stored one snapshot (ASM long 134, short 38, GSM 76, ESM 229) and the 13 Nov deals (136 bulk, 26 block rows). Remaining: 1. Surveillance bind-rate count. 2. The deal log keeps growing from the first scheduled night. 3. Delivery loader backfill, then the one replay. 4. Anchor lock-in event study. 5. C-rows, register rows, STATUS and the cards, one paper book per adopted strategy.
 
 ## Packages 19, 22 and 23 (not in this draft)
 
@@ -101,4 +105,5 @@ These are proposals until you mark each Adopted.
 ## Log
 
 - 15 Nov 2026: v1 drafted after the Wave 2 data probe.
+- 15 Nov 2026 (later still): four review additions applied as proposals (round trip as known at entry and a running list, promoter-entity tag, trade-for-trade series, splice check and tag coverage; daily schedule including weekends).
 - 15 Nov 2026 (later): v2. Flags changed to information only (D6 of Batch A); 18b made a report only; 21 stores every stock, tags signals, uses the MTO file for earlier years, states cost and stop behaviour; 20 uses behaviour as the main filter with a fund tag and logged gap; collection jobs built, not scheduled.
