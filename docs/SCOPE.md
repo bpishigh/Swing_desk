@@ -218,6 +218,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | 15 | Trend template as an India candidate filter, forward test (S-6) | Strategy | Trend | S. Reg. |
 | 16 | M-2 price-only multibagger lift test (needs package 2) | Study | Multibagger | M |
 | 17 | MAX/lottery flag and turn-of-month | Flag and strategy | Risk, calendar | S |
+| 36 | Volatility contraction pattern (VCP, Minervini; added 14 Nov 2026 at the owner's request) | Strategy | Trend | M. Reg. |
 
 ### Wave 2: exchange-data strategies (no full fundamentals needed)
 
@@ -280,6 +281,7 @@ Numbers refer to the packages in section 9. Wave and size are from section 9 (si
 | 16 | Price-only multibagger lift test | Test whether nearness to the 52-week high, excluding lottery-type stocks, or a liquidity or size band raises the share of stocks that reach 5x in 5 years, against the base rate. | T | 1 | M |
 | 17a | Lottery (MAX) flag | Flag stocks whose best single-day return last month was among the highest. Avoid them, because investors overpay for lottery-like stocks. | F | 1 | S |
 | 17b | Turn-of-month | Be invested around the last and first trading days of each month and in a liquid fund otherwise. | S | 1 | S |
+| 36 | Volatility contraction pattern | A base that tightens in steps: successive pullbacks each shallower than the last (for example 25%, 12%, 6%) with volume drying up, then a buy on the breakout above the last small range. The desk today only tests one volatility ratio (10-day over 50-day average range under 0.7) and distance to the 50-session high; it does not count pullbacks or check volume (Engine Rules review item 9, proposed). Step 1: measure pullback count, depth sequence and volume dry-up on every candidate and log them, with no filtering. Step 2: compare with the owner's yes or no on about 20 labelled charts. Step 3: a registered paper test against the plain base breakout, only if step 2 supports it. Spec page and pre-registration come first. | S | 1 | M |
 | 18a | Surveillance flags | Mark stocks on the exchange surveillance lists (ASM, GSM, ESM). Exclude them from new entries. | F | 2 | M |
 | 18b | Anchor lock-in flag | Mark IPO stocks near the 30-day and 90-day anchor-investor unlock. Avoid new entries because selling pressure can follow. | F | 2 | M |
 | 19 | Index inclusion and exclusion | Buy stocks announced for inclusion in a major index before the effective date. Avoid or exit stocks announced for exclusion. | S | 2 | M |
