@@ -91,7 +91,7 @@ Six measures, equal weight, all six required; percentile ranks across the eligib
 |---|---|---|
 | B1 | Adopt Magic Formula with the four conditions above | **Adopted 14 Nov 2026 (C-205)** |
 | B2-1 | Operating margin in place of gross margin | Yes (14 Nov) |
-| B2-2 | Rule when fewer than 20 names score 8 or 9: (a) paper rule, about 14 names, exposure reported; (b) floor of 7, top 20 | **Open.** The measured count is 14, so (a) follows the owner's stated condition; (b) avoids the cash drag. Choose before B2 is adopted |
+| B2-2 | Rule when fewer than 20 names score 8 or 9 | **Proposed, awaiting the owner's own word:** keep the paper rule (about 14 names, no floor of 7). Card shows average share invested, so a weak read can be told from cash drag. Tripwire: if the count is under ten at two reviews in a row, the card flags it and the owner decides; it never switches to the floor by itself |
 | B2 | Adopt Piotroski (fiscal-year basis) | Open |
 | B3 | Adopt full quality as A3 plus three changes, read as a pair with A3 and against the Nifty 500 | Open |
 | B-4 | Replay: one run per book, 90% window rule, labelled an implementation check | Fixed 14 Nov |
