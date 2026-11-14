@@ -1,6 +1,6 @@
-# Batch A, US versions: rules (DRAFT for owner approval, 14 Nov 2026; six reviewer-derived changes applied 14 Nov at the owner's "all")
+# Batch A, US versions: rules (ADOPTED by the owner 14 Nov 2026, C-199 to C-204; six reviewer-derived changes applied 14 Nov at the owner's "all")
 
-Status: DRAFT. The books are built and registered as paper books but **start only after the owner marks this page Adopted** (C-179: a US result alone adopts nothing; the US is a confirmation market for the India rules in `docs/BATCH_A_RULES.md`). Paper only. Not a financial adviser. Pasted reviewer text is not approval.
+Status: **Adopted by the owner, 14 Nov 2026** ("go with 2"). The five books are paper books that start after 17 Nov 2026 (C-179: a US result alone adopts nothing; the US is a confirmation market for the India rules in `docs/BATCH_A_RULES.md`). Paper only. Not a financial adviser. Pasted reviewer text is not approval.
 
 ## What is the same as India
 
@@ -34,10 +34,10 @@ The same applies here: the verdict reads the yardstick (SPY or VLUE) only; the e
 
 - **A1 share rule differs from India:** a US name is skipped only when its cover share count rose more than 2% from the year-ago quarter (new issuance); a fall (buybacks) does not skip it. Measured 13 Nov: 107 names scored against 69 under India's two-sided rule. Cover counts differ from weighted counts by a few percent, so the two-sided rule drops too many US names. This is the one place the US A1 is not the India A1, so a US result confirms the signal, not that exact rule.
 - Names with no interest-expense figure (195 non-financial names of the 500, 13 Nov) are left out of A3, A5 and A6; the count is shown on those cards.
-- The continuing-operations change needs a full refetch of the facts (workflow `backfill-us-facts`, not the incremental run) before it shows in the table.
+- The continuing-operations change was checked on 14 Nov: a full refetch changed no stored file, and on FIS (whose 2026 Q1 gain of about $2.4bn is booked inside continuing operations) the earnings yield stays at about 23%. One-time gains inside continuing operations still pass; the 25%-of-PBT guard India has is not built for the US. Such names will show as high-yield A2 candidates until a guard is registered.
 - A name whose facts sit under a former registrant number has a short record and is left unranked (Exxon, as of the 13 Nov test).
 - US prices before the books start are not part of any test here.
 
 ## Decision
 
-Mark this page Adopted to start the five US books (the first signal comes on the first session close after the owner's date), or ask for changes. Until then the books are listed as paper-only, waiting.
+Adopted 14 Nov 2026. The books start after 17 Nov 2026 (first signal on the first session close after that date). Judged monthly under C-174, C-176 and C-177; only the owner marks Live, Rejected or Parked.

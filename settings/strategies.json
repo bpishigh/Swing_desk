@@ -507,7 +507,7 @@
       "status": "paper_only",
       "rule": "A1-US",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-17",
       "dataFile": "data/us/books/ba-us-a1-pead/latest.json",
       "benchmarks": [
         "spy",
@@ -525,7 +525,7 @@
       "status": "paper_only",
       "rule": "A2-US",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-17",
       "dataFile": "data/us/books/ba-us-a2-value/latest.json",
       "benchmarks": [
         "spy",
@@ -545,7 +545,7 @@
       "status": "paper_only",
       "rule": "A3-US",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-17",
       "dataFile": "data/us/books/ba-us-a3-quality/latest.json",
       "benchmarks": [
         "spy",
@@ -563,7 +563,7 @@
       "status": "paper_only",
       "rule": "A5-US",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-17",
       "dataFile": "data/us/books/ba-us-a5-fallen/latest.json",
       "benchmarks": [
         "spy",
@@ -581,7 +581,7 @@
       "status": "paper_only",
       "rule": "A6-US",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-17",
       "dataFile": "data/us/books/ba-us-a6-compounder/latest.json",
       "benchmarks": [
         "spy",
