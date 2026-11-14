@@ -355,26 +355,28 @@
    ],
    "at": "2026-11-08T16:37:28.058Z",
    "topup": {
-    "listed": 4162,
-    "attempted": 4162,
-    "parsed": 4134,
-    "fetchFailed": 8,
-    "parseFailed": 15,
+    "listed": 4356,
+    "attempted": 4356,
+    "parsed": 4328,
+    "fetchFailed": 9,
+    "parseFailed": 14,
     "unmapped": 5,
     "families": {
-     "IFIndAs": 108,
-     "IFNBFC": 8
+     "IFIndAs": 3963,
+     "IFNBFC": 284,
+     "IFOTB": 4,
+     "IFLI": 7,
+     "IFBanking": 70
     },
     "missingField": {
      "revenue": 0,
      "pbt": 0,
      "pat": 0,
-     "eps": 0
+     "eps": 7
     },
     "periodMismatch": 0,
     "errors": {
      "no tag map for family IFInsuranceIndAs": 8,
-     "no format family in the header comment": 1,
      "no tag map for family IFGI": 6
     },
     "unmappedSymbols": [
@@ -385,30 +387,29 @@
      "ESFL"
     ],
     "extraCount": {
-     "q.otherIncome": 322,
-     "q.financeCost": 322,
-     "q.depreciation": 316,
-     "q.exceptional": 322,
-     "q.pbtPre": 316,
-     "q.paidUp": 322,
-     "q.faceValue": 322,
-     "bs.assets": 317,
-     "bs.equity": 317,
-     "bs.borrowings": 317,
-     "bs.borrowingsCurrent": 282,
-     "bs.cash": 317,
-     "bs.currentAssets": 282,
-     "bs.currentLiabilities": 282,
-     "bs.ppe": 311,
-     "bs.inventories": 311,
-     "bs.receivables": 282,
-     "cf.cfo": 304,
-     "cf.capex": 300
+     "q.otherIncome": 4321,
+     "q.financeCost": 4321,
+     "q.depreciation": 4251,
+     "q.exceptional": 4321,
+     "q.pbtPre": 4247,
+     "q.paidUp": 4321,
+     "q.faceValue": 4321,
+     "bs.assets": 4294,
+     "bs.equity": 4294,
+     "bs.borrowings": 4294,
+     "bs.borrowingsCurrent": 3933,
+     "bs.cash": 4294,
+     "bs.bankOther": 4210,
+     "bs.currentInvestments": 3933,
+     "bs.currentAssets": 3940,
+     "bs.currentLiabilities": 3940,
+     "bs.ppe": 4217,
+     "bs.inventories": 4217,
+     "bs.receivables": 3930,
+     "cf.cfo": 4153,
+     "cf.capex": 4085
     },
-    "alreadyStored": 3812,
-    "asOfRepaired": 206,
-    "toppedUp": 206,
-    "at": "2026-11-14T12:12:08.865Z"
+    "at": "2026-11-14T16:37:13.158Z"
    }
   },
   "2025-12-31": {
