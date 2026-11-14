@@ -1,0 +1,64 @@
+{
+ "asOf": "2026-11-13.json",
+ "sessions": 20,
+ "ranked": 2901,
+ "lists": {
+  "asmLong": {
+   "listed": 134,
+   "top500": [
+    "ATHERENERG",
+    "AVALON",
+    "BLUESTONE",
+    "CUPID",
+    "CYIENTDLM",
+    "EBGNG",
+    "ESDS",
+    "HFCL",
+    "MANINDS",
+    "MOREPENLAB",
+    "MTARTECH",
+    "OPTIEMUS",
+    "PAISALO",
+    "PASHUPATI",
+    "RAYMOND",
+    "RUBICON",
+    "SANSERA",
+    "SHANTIGOLD",
+    "SHILPAMED",
+    "SHREEJISPG",
+    "SKYGOLD",
+    "SSWL",
+    "STLNETWORK",
+    "STLTECH",
+    "TFCILTD",
+    "WELCORP"
+   ],
+   "top200": 9,
+   "top500n": 26
+  },
+  "asmShort": {
+   "listed": 38,
+   "top500": [
+    "SMT",
+    "SYMBIOTEC",
+    "TONBO",
+    "VEDPOWER"
+   ],
+   "top200": 1,
+   "top500n": 4
+  },
+  "gsm": {
+   "listed": 76,
+   "top500": [],
+   "top200": 0,
+   "top500n": 0
+  },
+  "esm": {
+   "listed": 229,
+   "top500": [],
+   "top200": 0,
+   "top500n": 0
+  }
+ },
+ "anyTop500": 30
+}
