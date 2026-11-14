@@ -52,6 +52,7 @@ for (const p of list) {
 const graham = grahamList({ el: list.map((p) => ({ sym: p.sym, value: p.value })), fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
 const flagCount = { dilution: 0, exceptional: 0, profitWithoutSales: 0, pledge: 0 }; for (const r of Object.values(rows)) for (const k of Object.keys(flagCount)) if (r.flags[k]) flagCount[k]++;
 cov.graham = graham.length; cov.flags = flagCount;
+cov.noInterest = Object.values(rows).filter((r) => !r.financial && r.interestCover == null).length;   // non-financial names with no interest-expense figure: not scored by A3, A5 and A6, shown on those cards
 const out = { version: 'FUND-1', asOf: D, graham, flagsNote: 'pledge flag is the level only (above 5% of promoter holding (stored as a fraction), from the monthly stock-facts job); the four-quarter rise is not built', source: 'data/india/filings (NSE results XBRL), prices from the daily files', universe: UNIVERSE, coverage: cov, rows };
 mkdirSync(OUT.slice(0, OUT.lastIndexOf('/')), { recursive: true });
 writeFileSync(OUT, JSON.stringify(out));

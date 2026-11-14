@@ -30,13 +30,14 @@ for (const p of list) {
   // a split-like move since the latest filing makes the cover share count and today's adjusted close disagree
   const latest = view.quarters[0]?.asOf.slice(0, 10) ?? null; let splitSince = false;
   if (latest && s) for (let i = t; i > 0 && dates[i] > latest; i--) { const m = dayMove(s.c, i); if (m && splitLike(m.ratio)) { splitSince = true; break; } }
-  const f1 = computeFeatures(view, splitSince ? null : close, [], { sueShareRule: process.env.SUE_SHARE_RULE === 'increase' ? 'increase' : 'both' });   // 'increase' is a measurement only: the adopted rule is 'both'
+  const f1 = computeFeatures(view, splitSince ? null : close, [], { sueShareRule: process.env.SUE_SHARE_RULE === 'both' ? 'both' : 'increase' });   // US A1 skips a name only when its share count rose more than 2% (new issuance); a fall (buyback) does not skip it. 'both' is the India rule, kept for measurement.
   if (splitSince) { cov.splitSinceFiling++; f1.eyNullReason = 'split since filing'; }
   if (f1.ttm.pat != null) cov.ttm++; if (f1.growth.revenue != null || f1.growth.pbtPre != null) cov.growth++; if (f1.growth.revenueCagr3 != null) cov.cagr3++; if (f1.bs) cov.balanceSheet++; if (f1.earningsYield != null) cov.earningsYield++; if (f1.fiscalYears.length) cov.fiscalEnd++; if (f1.financial) cov.financial++; if (f1.sue.value != null) cov.sue++;
   rows[p.sym] = { entity: p.sym, tradedValue: Math.round(p.value), ...f1, flags: { ...flagsOf(f1), pledge: null } };
 }
 const graham = grahamList({ el: list, fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
 cov.graham = graham.length;
+cov.noInterest = Object.values(rows).filter((r) => !r.financial && r.interestCover == null).length;   // non-financial names with no interest-expense figure: not scored by A3, A5 and A6, shown on those cards
 const out = { version: 'FUND-US-1', asOf: D, source: 'data/us/facts (SEC EDGAR company facts), prices from the Nasdaq-sourced store', universe: 500, graham, flagsNote: 'no pledge flag for US names', coverage: cov, rows };
 mkdirSync(OUT.slice(0, OUT.lastIndexOf('/')), { recursive: true }); writeFileSync(OUT, JSON.stringify(out));
 console.log(D, JSON.stringify(cov));

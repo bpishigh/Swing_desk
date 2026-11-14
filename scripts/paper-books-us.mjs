@@ -17,6 +17,7 @@ import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 import { splitLike, dayMove, bigFall } from '../src/engine/gap-events.ts';
+import { stepEw } from '../src/engine/equal-weight.ts';
 import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
 import { loadDays } from './us-hist-lib.mjs';
 
@@ -32,6 +33,8 @@ const FH = buildHistories(days, [], allowed), series = FH.series, names = R('dat
 const el = eligibleUs(series, t).map((p) => ({ sym: p.sym, value: p.value }));
 // Batch A US versions (docs/BATCH_A_RULES.md, US rows): the top 500 by dollar volume and the nightly US company figures; a book does nothing on a night the figures are not from tonight.
 const fundFile = R('data/us/fundamentals/latest.json'), fundOk = !!fundFile && fundFile.asOf === D, fundRows = fundOk ? fundFile.rows : {};
+const gapRows = R('data/us/eightk-gap.json', { rows: {} }).rows;
+const gapFor = (sym, date) => { for (let k = 0; k <= 6; k++) { const d = new Date(Date.parse(date) - k * 864e5).toISOString().slice(0, 10), g = gapRows[`${sym}|${d}`]; if (g) return g; } return null; };
 const BA_SIGNALS = new Set(['valueLite', 'qualityLite', 'fallen', 'compounder', 'pead']);
 const OPEN = (() => { const f = `data/us/open/${D}.json.gz`; if (!existsSync(f)) return {}; try { return JSON.parse(gunzipSync(readFileSync(f))).open ?? {}; } catch { return {}; } })();
 const openMissing = new Set(), open = (s) => { const o = OPEN[s]; if (o > 0) return o; openMissing.add(s); return NaN; };
@@ -49,7 +52,7 @@ const cashRetFor = (st) => { if (!cashDates.length || t < 1) return { r: null };
 // Benchmarks and comparators, price only: month-end closes
 const bars = (s) => { const f = `data/us/hist-bench/${s}.json.gz`; return existsSync(f) ? JSON.parse(gunzipSync(readFileSync(f)).toString()).bars : []; };
 const monthEnd = (bs) => { const o = new Map(); for (const b of bs) o.set(b[0].slice(0, 7), b); return o; };
-const BM = Object.fromEntries(['SPY', 'QQQ', 'MTUM'].map((s) => [s, monthEnd(bars(s))]));
+const BM = Object.fromEntries(['SPY', 'QQQ', 'MTUM', 'VLUE', 'QUAL'].map((s) => [s, monthEnd(bars(s))]));
 const closeOn = (s, d) => { const bs = bars(s); let v = null; for (const b of bs) { if (b[0] > d) break; v = b[1]; } return v; };
 const mtumM = [...BM.MTUM].map(([m, b]) => ({ m, v: b[1] }));
 const monthsOf = (st) => Object.entries(st?.monthly ?? {}).sort().map(([m, x]) => ({ m, v: x.v }));
@@ -82,26 +85,35 @@ for (const b of books) {
     const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog); if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide); return null; };
   const before = st.lastStep, cr = before === D ? { r: null } : cashRetFor(st); if (cr.carried && before !== D && st.started) st.cashCarried++;
   stepBook(st, { D, open, age, close: px, dist, blocked, cashRet: cr.r, tier: tierUs, signal });
+  if (b.batch === 'A' && before !== D) stepEw(st, D, elOk.slice(0, 500).map((p) => p.sym), (s) => { const v = pxAt(s, t); return v > 0 ? v : null; });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
   if (plog.length) st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400);
   for (const q of st.stopQueue.filter((q) => q.on === D)) { const s = series.get(q.sym), m = s ? dayMove(s.c, t) : null; if (m && bigFall(m.ratio) && !has(q.sym, D, 'distribution')) gap({ date: D, sym: q.sym, kind: 'stop-out after fall', move: Math.round((m.ratio - 1) * 1e4) / 1e4, state: 'unconfirmed fall of 15% or more' }); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high, blocked: blocked(sym) }));
   const baWatch = (sig, held) => { if (!fundOk) return []; const bx = baCtx(held, st);
-    if (sig === 'pead') return (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio }));
+    if (sig === 'pead') return (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.sue, date: r.date, reaction: r.reaction, volRatio: r.volRatio, gapDays: r.gapDays ?? null }));
     const rows = sig === 'valueLite' ? valueRanked(bx) : sig === 'qualityLite' ? qualityRanked(bx) : sig === 'fallen' ? fallenPassers(bx) : compounderPassers(bx);
     const r3 = (x) => (x == null || x !== x ? null : Math.round(x * 1000) / 1000), state = (sym, rank) => (held.has(sym) ? (rank != null && rank <= 20 ? 'Held' : rank != null && rank <= 40 ? 'In buffer' : 'Would leave') : rank != null && rank <= 20 ? 'Would enter' : '');
     const o = rows.slice(0, 40).map((r, i) => ({ rank: i + 1, sym: r.sym, score: r3(r.s), status: state(r.sym, i + 1) }));
     for (const sym of held) if (!o.some((r) => r.sym === sym)) { const i = rows.findIndex((r) => r.sym === sym); o.push({ rank: i < 0 ? undefined : i + 1, sym, score: i < 0 ? null : r3(rows[i].s), status: i < 0 ? 'Would leave (no longer ranked)' : state(sym, i + 1) }); }
     return o; };
   const wx = ctxOf(new Set(Object.keys(st.pos))), watch = BA_SIGNALS.has(b.signal) ? baWatch(b.signal, new Set(Object.keys(st.pos))) : b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchDonchian(wx), watchRows = watch.map((r) => ({ ...r, name: r.group ? `${names[r.sym] ?? r.sym} (SIC ${r.group})` : names[r.sym] ?? null }));
-  const spyM = [...BM.SPY].map(([m, b0]) => ({ m, v: b0[1] })), bm = monthlyValues(st), comp = b.comparator === 'parent' ? monthsOf(parent) : b.comparator === 'spy' ? spyM : mtumM, compName = b.comparator === 'parent' ? 'Stopped US parent (monthly review, 25% stop)' : b.comparator === 'spy' ? 'SPY (S&P 500 ETF), price only' : 'MTUM (iShares MSCI USA Momentum Factor ETF), price only';
+  const spyM = [...BM.SPY].map(([m, b0]) => ({ m, v: b0[1] })), bm = monthlyValues(st), comp = b.comparator === 'parent' ? monthsOf(parent) : b.comparator === 'spy' ? spyM : b.comparator === 'vlue' ? [...BM.VLUE].map(([m, b0]) => ({ m, v: b0[1] })) : mtumM, compName = b.comparator === 'parent' ? 'Stopped US parent (monthly review, 25% stop)' : b.comparator === 'spy' ? 'SPY (S&P 500 ETF), price only' : b.comparator === 'vlue' ? 'VLUE (iShares MSCI USA Value Factor ETF), price only' : 'MTUM (iShares MSCI USA Momentum Factor ETF), price only';
   const trades = st.closed.map((c) => c.ret - tierUs(st.lastValue[c.sym] ?? 0)), tr = { n: trades.length, avg: trades.length ? trades.reduce((a, x) => a + x, 0) / trades.length : null };
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;
   const base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => bm.find((x) => x.m === m)?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
-  const lineOf = { book: rb((m) => at(bm, m)), spy: rb((m) => (bd(m) ? closeOn('SPY', bd(m)) : null)), qqq: rb((m) => (bd(m) ? closeOn('QQQ', bd(m)) : null)), twin: rb((m) => at(twinM, m)), mtum: rb((m) => (bd(m) ? closeOn('MTUM', bd(m)) : null)), comparator: rb((m) => at(comp, m)) };
+  const lineOf = { book: rb((m) => at(bm, m)), spy: rb((m) => (bd(m) ? closeOn('SPY', bd(m)) : null)), qqq: rb((m) => (bd(m) ? closeOn('QQQ', bd(m)) : null)), twin: rb((m) => at(twinM, m)), mtum: rb((m) => (bd(m) ? closeOn('MTUM', bd(m)) : null)), ...(b.batch === 'A' ? { ew: rb((m) => (bd(m) ? st.ew?.nav?.[bd(m)] ?? null : null)), vlue: rb((m) => (bd(m) ? closeOn('VLUE', bd(m)) : null)), qual: rb((m) => (bd(m) ? closeOn('QUAL', bd(m)) : null)) } : {}), comparator: rb((m) => at(comp, m)) };
   const lines = bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) }));
-  const lat = { id: b.id, rule: b.rule, name: b.name, market: 'US', asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
+    let gapSplit = null;
+  if (b.signal === 'pead') {
+    for (const r of st.signalLog ?? []) if (r.gapDays === undefined) { const g = gapFor(r.sym, r.date); if (g) r.gapDays = g.days; }
+    const grp = { short: [], long: [], unknown: [] };
+    for (const c of st.closed) { const lg = (st.signalLog ?? []).filter((r) => r.taken && r.sym === c.sym && r.date < c.entryDate).at(-1); const d = lg?.gapDays; (d == null ? grp.unknown : d <= 3 ? grp.short : grp.long).push(c.ret); }
+    const f = (a) => (a.length ? `${a.length} trade(s), mean ${(a.reduce((x, y) => x + y, 0) / a.length * 100).toFixed(1)}%` : 'none');
+    if (st.closed.length) gapSplit = `Closed trades by the gap between the earnings release (8-K) and the 10-Q/10-K the table is dated from: gap of 3 days or less ${f(grp.short)}; longer ${f(grp.long)}; gap not found ${f(grp.unknown)}. Descriptive only.`;
+  }
+  const lat = { gapSplit, unscored: ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, market: 'US', asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
     held: hold.length, cashShare: v ? Math.round(st.cash / v * 1e4) / 1e4 : null, positions: hold, pending: st.pending ? { signalDate: st.pending.signalDate, buys: st.pending.buys.map((x) => x.sym), sells: st.pending.sells } : null,
     closedTrades: st.closed.length, stopOuts: st.closed.filter((c) => c.why === 'stop').length, skippedWide: st.skipped.length, cashDays: st.cashDays, cashCarried: st.cashCarried, cashSource: cashSrc.source ?? 'none: cash earns zero', monthly: bm, daily: st.daily.slice(-400), recentClosed: st.closed.slice(-30),
     watch: watchRows, nextEntry: null, comparator: { id: b.comparator, name: compName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines, lineKeys: ['book', 'spy', 'qqq', 'twin', 'mtum', 'comparator'],

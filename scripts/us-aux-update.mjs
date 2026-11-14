@@ -1,5 +1,5 @@
 // Nightly inputs for the US first-wave books (Engine Rules C-179 items 6 and 7): (1) the 3-month Treasury yield for the cash credit, FRED DGS3MO with the Treasury's own daily table as fallback,
-// (2) SPY, QQQ and MTUM daily bars from Nasdaq (price only, split-adjusted, no dividends), appended to data/us/hist-bench/SYM.json.gz. Fails soft: a source that cannot be reached leaves the last stored data.
+// (2) SPY, QQQ, MTUM, VLUE and QUAL daily bars from Nasdaq (price only, split-adjusted, no dividends), appended to data/us/hist-bench/SYM.json.gz. Fails soft: a source that cannot be reached leaves the last stored data.
 // Writes data/us/cash-rate.json = { source, asOf, series: { date: percent } }. Usage: node scripts/us-aux-update.mjs
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { gunzipSync, gzipSync } from 'node:zlib';
@@ -22,7 +22,7 @@ try {
 } catch (e) { console.error('Treasury:', String(e).slice(0, 160)); }
 cash.asOf = Object.keys(cash.series).sort().at(-1) ?? null; mkdirSync('data/us', { recursive: true }); writeFileSync('data/us/cash-rate.json', JSON.stringify(cash) + '\n'); console.log('cash', cash.source, cash.asOf, Object.keys(cash.series).length);
 mkdirSync('data/us/hist-bench', { recursive: true });
-for (const s of ['SPY', 'QQQ', 'MTUM']) {
+for (const s of ['SPY', 'QQQ', 'MTUM', 'VLUE', 'QUAL']) {
   const f = `data/us/hist-bench/${s}.json.gz`, old = existsSync(f) ? JSON.parse(gunzipSync(readFileSync(f)).toString()) : null, from = old ? old.to : '2016-10-01';
   try {
     let g = null; for (let a = 0; a < 3 && !g; a++) { try { g = await nasdaqBars(s, 'etf', from); } catch (e) { if (a === 2) throw e; await new Promise((r) => setTimeout(r, 2000 * (a + 1))); } }

@@ -61,7 +61,7 @@
       "name": "Value-lite: cheapest earnings yield (US)",
       "signal": "valueLite",
       "startAfter": "2099-12-31",
-      "comparator": "spy",
+      "comparator": "vlue",
       "batch": "A"
     },
     {

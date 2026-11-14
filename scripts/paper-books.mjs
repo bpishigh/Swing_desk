@@ -11,6 +11,7 @@ import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
 import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
+import { stepEw } from '../src/engine/equal-weight.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
@@ -84,6 +85,7 @@ for (const b of books) {
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
   stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
+  if (b.batch === 'A' && before !== D) stepEw(st, D, el500.map((p) => p.sym), (s) => { const v = px(s); return v > 0 ? v : null; });
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
   if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
@@ -98,10 +100,10 @@ for (const b of books) {
   const costs = Object.entries(st.costs ?? {}), bookCost = costs.length ? costs.reduce((a, [m, c]) => a + c / (bm.find((x) => x.m === m)?.v ?? st.daily.at(-1)?.v ?? 100), 0) / costs.length : 0, hurdle = Math.max(0, bookCost - (b.comparator === 'parent' ? parentCost : 0));
   const sc = bm.length ? scorecard(bm.map((x) => ({ m: x.m, v: x.v })), comp, tr, hurdle) : null;
   const base = bm[0]?.m, at = (arr, m) => arr.find((x) => x.m === m)?.v ?? null, bd = (m) => bm.find((x) => x.m === m)?.d, rb = (f) => { const b0 = base ? f(base) : null; return (m) => { const x = f(m); return b0 > 0 && x > 0 ? Math.round(x / b0 * 1e4) / 100 : null; }; };
-  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), comparator: rb((m) => at(comp, m)) };
+  const lineOf = { book: rb((m) => at(bm, m)), n200: rb((m) => (bd(m) ? idxAt('Nifty 200', bd(m)) : null) ?? refm[m]?.nifty200 ?? null), n500: rb((m) => n500At(bd(m))), twin: rb((m) => at(twinM, m)), fund: rb((m) => at(fundM, m)), ...(b.batch === 'A' ? { ew: rb((m) => (bd(m) ? st.ew?.nav?.[bd(m)] ?? null : null)) } : {}), comparator: rb((m) => at(comp, m)) };
   const lines = bm.map((x) => ({ m: x.m, ...Object.fromEntries(Object.entries(lineOf).map(([k, f]) => [k, f(x.m)])) }));
   const nextEntry = b.signal === 'turnOfMonth' ? (() => { for (let k = 0; k < 45; k++) { const d = cal.addSessions(D, k); if (sessionsLeftInMonth(d, cal.sessionsBetween.bind(cal)) === 4) return d; } return null; })() : null;
-  const lat = { id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
+  const lat = { unscored: ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
     held: hold.length, cashShare: v ? Math.round(st.cash / v * 1e4) / 1e4 : null, positions: hold, pending: st.pending ? { signalDate: st.pending.signalDate, buys: st.pending.buys.map((x) => x.sym), sells: st.pending.sells } : null,
     closedTrades: st.closed.length, stopOuts: st.closed.filter((c) => c.why === 'stop').length, skippedWide: st.skipped.length, cashDays: st.cashDays, monthly: bm, daily: st.daily.slice(-400), recentClosed: st.closed.slice(-30),
     watch: watchRows, nextEntry, comparator: { id: b.comparator, name: compName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines, sens: st.daily.length ? { book: st.daily.at(-1).vs, note: 'with a further 0.2% a round trip (C-178); a sensitivity, not a result' } : null };

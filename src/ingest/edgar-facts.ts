@@ -16,7 +16,9 @@ export const CHAINS = {
   revenue: ['Revenues', 'RevenueFromContractWithCustomerExcludingAssessedTax', 'RevenueFromContractWithCustomerIncludingAssessedTax', 'SalesRevenueNet', 'SalesRevenueGoodsNet', 'RevenuesNetOfInterestExpense'],
   pbt: ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest', 'IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments'],
   pat: ['NetIncomeLoss', 'ProfitLoss', 'NetIncomeLossAvailableToCommonStockholdersBasic'],
-  eps: ['EarningsPerShareDiluted', 'EarningsPerShareBasicAndDiluted', 'EarningsPerShareBasic'],
+  // Continuing-operations figures come first, so a discontinued-operations gain never counts as earnings (Batch A US change 6); a company that reports no such line falls back to the total.
+  eps: ['IncomeLossFromContinuingOperationsPerDilutedShare', 'IncomeLossFromContinuingOperationsPerBasicAndDilutedShare', 'EarningsPerShareDiluted', 'EarningsPerShareBasicAndDiluted', 'EarningsPerShareBasic'],
+  discOps: ['IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity', 'IncomeLossFromDiscontinuedOperationsNetOfTax'],
   opInc: ['OperatingIncomeLoss'],
   interest: ['InterestExpense', 'InterestExpenseNonoperating', 'InterestExpenseDebt', 'InterestAndDebtExpense', 'InterestExpenseLongTermDebt', 'InterestExpenseOther', 'InterestExpenseDebtExcludingAmortization'],
   nonOp: ['NonoperatingIncomeExpense'],
@@ -77,7 +79,7 @@ const near = <T>(m: Map<string, T>, end: string, k: Kind): T | undefined => { fo
 export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQuarter[] {
   const g = cf.facts?.['us-gaap'] ?? {}; if (!Object.keys(g).length) return [];
   const F: Record<string, ReturnType<typeof flows>> = {};
-  for (const k of ['revenue', 'pbt', 'pat', 'opInc', 'interest', 'nonOp', 'cfo', 'capex'] as const) F[k] = flows(g, CHAINS[k], 'USD');
+  for (const k of ['revenue', 'pbt', 'pat', 'discOps', 'opInc', 'interest', 'nonOp', 'cfo', 'capex'] as const) F[k] = flows(g, CHAINS[k], 'USD');
   F.eps = flows(g, CHAINS.eps, 'USD/shares');
   const B: Record<string, Map<string, number>> = {}; for (const k of ['assets', 'equity', 'debtLong', 'debtCurrent', 'cash', 'currentAssets', 'currentLiabilities', 'ppe', 'inventories', 'receivables'] as const) B[k] = instants(g, CHAINS[k]);
   const dei = cf.facts?.dei?.[DEI_SHARES]?.units?.shares ?? [], shareByAccn = new Map<string, number>(); for (const r of dei) if (okForm(r.form) && !shareByAccn.has(r.accn)) shareByAccn.set(r.accn, r.val);
@@ -97,13 +99,19 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     const ytdOf = (k: string): number | null => { for (const kind of ['Y', 'N', 'H', 'Q'] as Kind[]) { const v = val(k, end, kind); if (v) return v.val; } return null; };
     // EPS of the year-ago quarter as printed in THIS quarter's filing (its comparative column): split-adjusted by the filer, so a year-on-year change is never taken across a split. The fourth quarter's is the prior year less nine months as printed in this and the third-quarter filing.
     const epsPrior = ((): number | null => {
-      const prevEnd = addDays(end, -364), rows = (g[CHAINS.eps.find((c) => g[c]?.units?.['USD/shares']) ?? '']?.units?.['USD/shares'] ?? []).filter((r) => okForm(r.form));
-      const pick = (e: string, kind: Kind, accn: string | null): number | null => { for (const d of [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5]) { const x = rows.find((r) => r.end === addDays(e, d) && kindOf(r) === kind && (accn == null || r.accn === accn)); if (x) return x.val; } return null; };
-      const cur = val('eps', end, 'Q'); if (cur) return pick(prevEnd, 'Q', cur.accn);
-      const y = val('eps', end, 'Y'); if (!y) return null; const n = val('eps', addDays(end, -91), 'N'); const fy = pick(prevEnd, 'Y', y.accn), nine = n ? pick(addDays(prevEnd, -91), 'N', n.accn) : null;
+      const prevEnd = addDays(end, -364), okRows = (c: string) => (g[c]?.units?.['USD/shares'] ?? []).filter((r) => okForm(r.form));
+      const find = (rows: UsRow[], e: string, kind: Kind, accn: string | null): UsRow | undefined => { for (const d of [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5]) { const x = rows.find((r) => r.end === addDays(e, d) && kindOf(r) === kind && (accn == null || r.accn === accn)); if (x) return x; } return undefined; };
+      const cur = val('eps', end, 'Q'), y = cur ? null : val('eps', end, 'Y'); if (!cur && !y) return null;
+      const accn = (cur ?? y)!.accn;
+      // the concept that supplied this filing's figure also supplies the comparative one
+      const c = CHAINS.eps.find((cc) => { const r = okRows(cc); return r.some((x) => x.accn === accn && x.val === (cur ?? y)!.val && kindOf(x) === (cur ? 'Q' : 'Y')); }); if (!c) return null;
+      const rows = okRows(c);
+      if (cur) return find(rows, prevEnd, 'Q', accn)?.val ?? null;
+      const n = val('eps', addDays(end, -91), 'N'); const fy = find(rows, prevEnd, 'Y', accn)?.val, nine = n ? find(rows, addDays(prevEnd, -91), 'N', n.accn)?.val : undefined;
       return fy != null && nine != null ? fy - nine : null;
     })();
-    const rev = q('revenue'), pbt = q('pbt'), pat = q('pat'), eps = q('eps'), op = q('opInc'), intr = q('interest'), nonOp = q('nonOp');
+    const rev = q('revenue'), pbt = q('pbt'), pat0 = q('pat'), disc = q('discOps'), eps = q('eps'), op = q('opInc'), intr = q('interest'), nonOp = q('nonOp');
+    const pat = { ...pat0, val: pat0.val != null && disc.val != null ? pat0.val - disc.val : pat0.val };   // income from continuing operations: net income less the discontinued-operations line when one is reported
     const filedSrc = pat.filed ?? rev.filed; if (!filedSrc) continue;   // a quarter needs a profit or revenue figure and a filing date
     const accn = pat.accn ?? rev.accn ?? '';
     const fiscalEnd = monthEnd(end); const fp = (() => { const y = val('pat', end, 'Y'); return y ? 'FY' : val('pat', end, 'Q') ? 'Q' : ''; })();
@@ -121,7 +129,7 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     if (qx.paidUp == null) delete qx.faceValue;
     const cfx: Record<string, number> = {}; put(cfx, 'cfo', ytdV('cfo')); put(cfx, 'capex', ytdV('capex'));
     const fields: Values = { revenue: rev.val, pbt: pbtV, pat: pat.val, eps: eps.val };
-    const ytd: Values = { revenue: ytdV('revenue'), pbt: ytdV('pbt'), pat: ytdV('pat'), eps: ytdV('eps') };
+    const ytd: Values = { revenue: ytdV('revenue'), pbt: ytdV('pbt'), pat: ytdV('pat') != null && ytdV('discOps') != null ? (ytdV('pat') as number) - (ytdV('discOps') as number) : ytdV('pat'), eps: ytdV('eps') };
     const key = fiscalEnd; if (out.has(key)) continue;
     out.set(key, { period: fiscalEnd, basis: 'consolidated', asOf: `${filedSrc}T00:00:00`, revision: 0, fields, ytd, format: formatOfSic(sic), extra: { q: qx, bs, cf: cfx }, form: fp === 'FY' ? '10-K' : '10-Q', accn, fp });
   }

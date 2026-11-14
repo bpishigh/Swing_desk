@@ -99,6 +99,10 @@ jobs:
       - name: US company-figures table (Batch A, A0 US; A4 list and A7 flags)
         continue-on-error: true
         run: node --max-old-space-size=6000 scripts/build-fundamentals-us.mjs
+      - name: A1 US 8-K gap log (earnings release to 10-Q/10-K, descriptive only)
+        continue-on-error: true
+        run: node scripts/us-eightk-gap.mjs
+        env: { SEC_UA: "${{ secrets.SEC_UA }}" }
       - name: First-wave paper books, US (C-181, C-183, C-184; shared terms C-179; paper only, confirmation market)
         continue-on-error: true
         run: node --max-old-space-size=6000 scripts/paper-books-us.mjs
@@ -108,7 +112,7 @@ jobs:
           git config user.name "swing-desk-bot"
           git config user.email "noreply@github.com"
           mkdir -p data/us/facts data/us/fundamentals data/us/hist-tail data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop
-          for p in data/us/hist-tail data/us/open data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop data/us/books data/us/momentum-sleeve-lowturn data/us/momentum-sleeve-max data/us/momentum-sleeve-template data/us/cash-rate.json data/us/hist-bench data/us/facts data/us/facts-log.json data/us/fundamentals; do [ -e "$p" ] && git add "$p"; done; true
+          for p in data/us/hist-tail data/us/open data/us/hist data/us/hist-meta.json data/us/hist-through.json data/us/scan data/us/paper data/us/momentum-sleeve data/us/momentum-sleeve-stop data/us/momentum-sleeve-stop5 data/us/momentum-sleeve-stop8 data/us/momentum-sleeve-monthly data/us/momentum-sleeve-monthly-stop data/us/books data/us/momentum-sleeve-lowturn data/us/momentum-sleeve-max data/us/momentum-sleeve-template data/us/cash-rate.json data/us/hist-bench data/us/facts data/us/facts-log.json data/us/fundamentals data/us/eightk-gap.json; do [ -e "$p" ] && git add "$p"; done; true
           git commit -m "us-hist-nightly: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
