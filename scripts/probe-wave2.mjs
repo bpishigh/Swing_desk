@@ -6,7 +6,7 @@ const get = async (url, h = {}) => { try { const r = await fetch(url, { headers:
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const fmt = (d) => `${String(d.getUTCDate()).padStart(2, '0')}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
 const ddmmyyyy = (d) => fmt(d).replaceAll('-', '');
-const shape = (t) => { try { const j = JSON.parse(t); const a = Array.isArray(j) ? j : j.data ?? j.Data ?? j.rows ?? null; return { json: true, topKeys: Array.isArray(j) ? null : Object.keys(j).slice(0, 8), n: Array.isArray(a) ? a.length : null, first: Array.isArray(a) && a[0] ? a[0] : null }; } catch { return { json: false, head: t.slice(0, 220).replace(/\s+/g, ' ') }; } };
+const shape = (t) => { try { const j = JSON.parse(t); const a = Array.isArray(j) ? j : j.data ?? j.Data ?? j.rows ?? null; return { json: true, topKeys: Array.isArray(j) ? null : Object.keys(j).slice(0, 8), n: Array.isArray(a) ? a.length : null, first: Array.isArray(a) && a[0] ? a[0] : null }; } catch { return { json: false, head: t.slice(0, 220).replace(/\s+/g, ' ').replaceAll(',', ' ; ') }; } };
 const out = { at: new Date().toISOString(), probes: {} };
 const P = async (name, url, h) => { const r = await get(url, h); out.probes[name] = { url, status: r.status, type: r.type, len: r.len, err: r.err, ...(r.status === 200 ? shape(r.t) : { head: r.t.slice(0, 160).replace(/\s+/g, ' ') }) }; await sleep(800); return r; };
 await get('https://www.nseindia.com/');   // cookie warm-up, not kept
@@ -18,7 +18,7 @@ for (const [k, u] of [['bulk_latest', 'https://nsearchives.nseindia.com/content/
 // Delivery file (security-wise bhavcopy with delivery quantity), several vintages
 const dl = {};
 for (const [k, d] of [['recent', back(3)], ['1m', back(35)], ['2025', new Date('2025-06-12T00:00:00Z')], ['2023', new Date('2023-06-14T00:00:00Z')], ['2021', new Date('2021-06-15T00:00:00Z')], ['2019', new Date('2019-06-12T00:00:00Z')], ['2016', new Date('2016-06-15T00:00:00Z')]]) {
-  for (let off = 0; off < 5; off++) { const dd = new Date(d.getTime() - off * 864e5); if ([0, 6].includes(dd.getUTCDay())) continue; const r = await get(`https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_${ddmmyyyy(dd)}.csv`); if (r.status === 200 && r.len > 1000) { const lines = r.t.split(/\r?\n/); dl[k] = { date: fmt(dd), status: 200, rows: lines.length - 1, header: lines[0].slice(0, 200), sample: lines[1]?.slice(0, 200) }; break; } dl[k] = { date: fmt(dd), status: r.status }; await sleep(500); }
+  for (let off = 0; off < 5; off++) { const dd = new Date(d.getTime() - off * 864e5); if ([0, 6].includes(dd.getUTCDay())) continue; const r = await get(`https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_${ddmmyyyy(dd)}.csv`); if (r.status === 200 && r.len > 1000) { const lines = r.t.split(/\r?\n/); dl[k] = { date: fmt(dd), status: 200, rows: lines.length - 1, header: lines[0].slice(0, 200).replaceAll(',', ' ; '), cols: lines[0].split(',').length }; break; } dl[k] = { date: fmt(dd), status: r.status }; await sleep(500); }
 }
 out.probes.delivery = dl;
 // Index review notices: what the desk's circular store holds, and NSE Indices pages

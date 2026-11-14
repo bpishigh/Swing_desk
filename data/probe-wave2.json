@@ -72,7 +72,7 @@
    "type": "text/csv",
    "len": 12951,
    "json": false,
-   "head": "Date,Symbol,Security Name,Client Name,Buy/Sell,Quantity Traded,Trade Price / Wght. Avg. Price,Remarks 13-NOV-2026,AAATECH,AAA Technologies Limited,VAIBHAV RAJENDRA DOSHI,BUY,80083,90.63,- 13-NOV-2026,ALICON,Alicon Castal"
+   "head": "Date ; Symbol ; Security Name ; Client Name ; Buy/Sell ; Quantity Traded ; Trade Price / Wght. Avg. Price ; Remarks 13-NOV-2026 ; AAATECH ; AAA Technologies Limited ; VAIBHAV RAJENDRA DOSHI ; BUY ; 80083 ; 90.63 ; - 13-NOV-2026 ; ALICON ; Alicon Castal"
   },
   "block_latest": {
    "url": "https://nsearchives.nseindia.com/content/equities/block.csv",
@@ -80,7 +80,7 @@
    "type": "text/csv",
    "len": 2605,
    "json": false,
-   "head": "Date,Symbol,Security Name,Client Name,Buy/Sell,Quantity Traded,Trade Price / Wght. Avg. Price 13-NOV-2026,MEESHO,Meesho Limited,ADITYA BIRLA SUN LIFE MUTUAL FUND,BUY,4200000,246.75 13-NOV-2026,MEESHO,Meesho Limited,WILLI"
+   "head": "Date ; Symbol ; Security Name ; Client Name ; Buy/Sell ; Quantity Traded ; Trade Price / Wght. Avg. Price 13-NOV-2026 ; MEESHO ; Meesho Limited ; ADITYA BIRLA SUN LIFE MUTUAL FUND ; BUY ; 4200000 ; 246.75 13-NOV-2026 ; MEESHO ; Meesho Limited ; WILLI"
   },
   "bulk_hist_2025": {
    "url": "https://www.nseindia.com/api/historical/bulk-deals?from=01-10-2025&to=31-10-2025",
@@ -153,36 +153,36 @@
     "date": "15-06-2021",
     "status": 200,
     "rows": 2059,
-    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
-    "sample": "20MICRONS, EQ, 15-Jun-2021, 66.95, 67.80, 69.90, 67.00, 67.10, 67.25, 68.34, 412007, 281.58, 4176, 192924, 46.83"
+    "header": "SYMBOL ; SERIES ; DATE1 ; PREV_CLOSE ; OPEN_PRICE ; HIGH_PRICE ; LOW_PRICE ; LAST_PRICE ; CLOSE_PRICE ; AVG_PRICE ; TTL_TRD_QNTY ; TURNOVER_LACS ; NO_OF_TRADES ; DELIV_QTY ; DELIV_PER",
+    "sample": "20MICRONS ; EQ ; 15-Jun-2021 ; 66.95 ; 67.80 ; 69.90 ; 67.00 ; 67.10 ; 67.25 ; 68.34 ; 412007 ; 281.58 ; 4176 ; 192924 ; 46.83"
    },
    "2023": {
     "date": "14-06-2023",
     "status": 200,
     "rows": 2410,
-    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "header": "SYMBOL ; SERIES ; DATE1 ; PREV_CLOSE ; OPEN_PRICE ; HIGH_PRICE ; LOW_PRICE ; LAST_PRICE ; CLOSE_PRICE ; AVG_PRICE ; TTL_TRD_QNTY ; TURNOVER_LACS ; NO_OF_TRADES ; DELIV_QTY ; DELIV_PER",
     "sample": "1018GS2026, GS, 14-Jun-2023, 115.00, 115.00, 115.00, 115.00, 115.00, 115.00, 115.00, 1, 0.00, 1, 1, 100.00"
    },
    "2025": {
     "date": "12-06-2025",
     "status": 200,
     "rows": 2861,
-    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
+    "header": "SYMBOL ; SERIES ; DATE1 ; PREV_CLOSE ; OPEN_PRICE ; HIGH_PRICE ; LOW_PRICE ; LAST_PRICE ; CLOSE_PRICE ; AVG_PRICE ; TTL_TRD_QNTY ; TURNOVER_LACS ; NO_OF_TRADES ; DELIV_QTY ; DELIV_PER",
     "sample": "1018GS2026, GS, 12-Jun-2025, 107.65, 107.00, 107.95, 106.75, 107.95, 107.94, 106.99, 10509, 11.24, 5, 10499, 99.90"
    },
    "recent": {
     "date": "11-11-2026",
     "status": 200,
     "rows": 3584,
-    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
-    "sample": "20MICRONS, EQ, 11-Nov-2026, 187.33, 187.50, 189.78, 186.20, 187.15, 188.12, 188.40, 52116, 98.19, 2089, 29010, 55.66"
+    "header": "SYMBOL ; SERIES ; DATE1 ; PREV_CLOSE ; OPEN_PRICE ; HIGH_PRICE ; LOW_PRICE ; LAST_PRICE ; CLOSE_PRICE ; AVG_PRICE ; TTL_TRD_QNTY ; TURNOVER_LACS ; NO_OF_TRADES ; DELIV_QTY ; DELIV_PER",
+    "sample": "20MICRONS ; EQ ; 11-Nov-2026 ; 187.33 ; 187.50 ; 189.78 ; 186.20 ; 187.15 ; 188.12 ; 188.40 ; 52116 ; 98.19 ; 2089 ; 29010 ; 55.66"
    },
    "1m": {
     "date": "09-10-2026",
     "status": 200,
     "rows": 3513,
-    "header": "SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN_PRICE, HIGH_PRICE, LOW_PRICE, LAST_PRICE, CLOSE_PRICE, AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER",
-    "sample": "20MICRONS, EQ, 09-Oct-2026, 194.81, 196.00, 198.70, 193.51, 195.10, 196.12, 196.92, 67881, 133.67, 2139, 30312, 44.65"
+    "header": "SYMBOL ; SERIES ; DATE1 ; PREV_CLOSE ; OPEN_PRICE ; HIGH_PRICE ; LOW_PRICE ; LAST_PRICE ; CLOSE_PRICE ; AVG_PRICE ; TTL_TRD_QNTY ; TURNOVER_LACS ; NO_OF_TRADES ; DELIV_QTY ; DELIV_PER",
+    "sample": "20MICRONS ; EQ ; 09-Oct-2026 ; 194.81 ; 196.00 ; 198.70 ; 193.51 ; 195.10 ; 196.12 ; 196.92 ; 67881 ; 133.67 ; 2139 ; 30312 ; 44.65"
    }
   },
   "niftyindices_press": {
