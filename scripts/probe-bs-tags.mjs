@@ -12,8 +12,10 @@ const out = { at: new Date().toISOString(), files: [], summary: {} };
 for (const s of SYMS) {
   const r = await get(`https://www.nseindia.com/api/integrated-filing-results?index=equities&type=${TYPE}&symbol=${s}&page=1&size=50`, NSEH);
   let a = []; try { a = JSON.parse(r.t).data || []; } catch {}
+  (out.lists ??= {})[s] = { n: a.length, first: a[0]?.qe_Date ?? null, last: a.at(-1)?.qe_Date ?? null, status: r.status };
   for (const p of PERIODS) {
-    const rec = a.find((x) => (x.qe_Date || '').includes(p.slice(0, 7)) || x.qe_Date === p) ?? null; if (!rec?.xbrl) { out.files.push({ s, p, found: false }); continue; }
+    const iso = (q) => { const d = new Date(`${q} UTC`); return Number.isNaN(d.getTime()) ? String(q) : d.toISOString().slice(0, 10); };
+    const cands = a.filter((x) => iso(x.qe_Date) === p && x.xbrl), rec = cands.find((x) => /^Y/i.test(String(x.consolidated)) || /Consolidated/i.test(String(x.consolidated))) ?? cands[0] ?? null; if (!rec?.xbrl) { out.files.push({ s, p, found: false }); continue; }
     const x = await get(rec.xbrl); const t = x.t;
     const ctx = {}; for (const m of t.matchAll(/<(?:\w+:)?context\s+id="([^"]+)"[^>]*>([\s\S]*?)<\/(?:\w+:)?context>/g)) ctx[m[1]] = /instant/.test(m[2]) ? 'instant' : 'duration';
     const tags = {};
