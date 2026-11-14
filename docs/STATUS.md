@@ -155,3 +155,5 @@ Defect found and fixed 19 Oct: the Portfolio Manager's public data (site/pm-data
 
 - 15 Nov, Batch C step 1 done: surveillance bind-rate count (data/surv-bind-2026-11-15.json). Top 500 by 20-session median traded value: ASM long 26 of 134 (9 in top 200), ASM short 4 of 38, GSM 0 of 76, ESM 0 of 229; 30 distinct names in all. Surveillance touches about 6% of the universe, almost all via ASM.
 - 15 Nov, delivery finding: the stored daily files already carry delivery percent for every stock from 2 Jan 2020 (about 90% of names per day); only 2010-2019 lacks it. Package 21's replay window (2020 on) needs no new loader; the pre-2020 MTO splice is optional and deferred. src/ingest/delivery.ts parsers exist but are unused for now.
+
+- 15 Nov, Batch C package 21: signal module src/engine/batch-c.ts and one replay run (C-212, docs/replay/BATCH-C-REPLAY.md). Result: the signal fires often (1,296 times) but 94% are skipped because the adopted C-159 stop is wider than 8% on those volatile up-days, so the book holds about 4% exposure and ends flat. Forward book start date left as placeholder pending the owner's decision.

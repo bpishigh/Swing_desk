@@ -16,11 +16,12 @@ import { asOfResults } from '../src/engine/filings-asof.ts';
 import { computeFeatures } from '../src/engine/fundamentals-asof.ts';
 import { valueLite, qualityLite, fallen, compounder, pead } from '../src/engine/batch-a.ts';
 import { magic, piotroski, fullQuality, piotroskiScore, LIQUID_BASIS } from '../src/engine/batch-b.ts';
+import { deliveryAccum, deliveryRatio, expiryDays } from '../src/engine/batch-c.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
 const FROM = arg('from', '2021-01-01'), TO = arg('to', '9999-12-31'), OUT = arg('out', 'docs/replay'), SMOKE = process.argv.includes('--smoke');
-const BOOKS = { A1: { id: 'ba-a1-pead', name: 'Post-earnings drift', fn: pead }, A2: { id: 'ba-a2-value', name: 'Value-lite', fn: valueLite }, A3: { id: 'ba-a3-quality', name: 'Quality-lite', fn: qualityLite }, A5: { id: 'ba-a5-fallen', name: 'Fallen and rebuilding', fn: fallen }, A6: { id: 'ba-a6-compounder', name: 'Consistent compounder, lite', fn: compounder } , B1: { id: 'bb-b1-magic', name: 'Magic Formula', fn: magic, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.enterpriseValue != null && f.returnOnCapital != null }, B2: { id: 'bb-b2-piotroski', name: 'Piotroski F-score', fn: piotroski, batch: 'B', need: (f) => !f.financial && f.marketCap != null && f.fy?.cur.equity != null && piotroskiScore(f) != null }, B3: { id: 'bb-b3-fullquality', name: 'Full quality', fn: fullQuality, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.netDebt != null && f.returnOnCapital != null && f.cashFlowFy[0]?.cfo != null && f.bs?.assets != null && f.margin.operatingEbit != null && f.growth.revenueCagr3 != null && f.quarterlyEbitMargin.length >= 12 && f.quarterlyEbitMargin.filter((v) => v != null).length >= 10 } };
+const BOOKS = { A1: { id: 'ba-a1-pead', name: 'Post-earnings drift', fn: pead }, A2: { id: 'ba-a2-value', name: 'Value-lite', fn: valueLite }, A3: { id: 'ba-a3-quality', name: 'Quality-lite', fn: qualityLite }, A5: { id: 'ba-a5-fallen', name: 'Fallen and rebuilding', fn: fallen }, A6: { id: 'ba-a6-compounder', name: 'Consistent compounder, lite', fn: compounder } , C1: { id: 'bc-c1-delivery', name: 'Delivery accumulation', fn: deliveryAccum, batch: 'C' }, B1: { id: 'bb-b1-magic', name: 'Magic Formula', fn: magic, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.enterpriseValue != null && f.returnOnCapital != null }, B2: { id: 'bb-b2-piotroski', name: 'Piotroski F-score', fn: piotroski, batch: 'B', need: (f) => !f.financial && f.marketCap != null && f.fy?.cur.equity != null && piotroskiScore(f) != null }, B3: { id: 'bb-b3-fullquality', name: 'Full quality', fn: fullQuality, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.netDebt != null && f.returnOnCapital != null && f.cashFlowFy[0]?.cfo != null && f.bs?.assets != null && f.margin.operatingEbit != null && f.growth.revenueCagr3 != null && f.quarterlyEbitMargin.length >= 12 && f.quarterlyEbitMargin.filter((v) => v != null).length >= 10 } };
 const WANT = arg('book', 'A1,A2,A3,A5,A6').split(',').map((s) => s.trim()).filter((s) => BOOKS[s]);
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 BASE.universe = 500;
@@ -60,6 +61,10 @@ const pxAt = (sym, t) => { const s = series.get(sym); if (!s) return NaN; for (l
 const idx = (() => { const o = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) o[d] = v[3]; } return o; })();
 const idxDates = Object.keys(idx).sort(), n500At = (d) => { let lo = 0, hi = idxDates.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (idxDates[m] <= d) { a = m; lo = m + 1; } else hi = m - 1; } return a >= 0 ? idx[idxDates[a]] : null; };
 
+// Package 21 inputs: delivery % per name per session from the stored daily files (2020 on), and the normal-series flag (EQ).
+const deliv = new Map(); if (WANT.includes('C1')) for (let t = 0; t < uniq.length; t++) for (const [sym, r] of Object.entries(uniq[t].rows)) { let d = deliv.get(sym); if (!d) { d = { p: new Float32Array(uniq.length).fill(NaN), eq: new Uint8Array(uniq.length) }; deliv.set(sym, d); } if (r[7] != null) d.p[t] = r[7]; d.eq[t] = r[0] === 'EQ' ? 1 : 0; }
+const expiry = expiryDays(dates), resultsTag = (sym, t) => { const f = rowsNow[sym], day = f?.asOf?.slice(0, 10); return !!day && day >= (dates[t - 1] ?? '') && day <= dates[t]; };
+const delivEnv = { deliv, tags: (sym, t) => [...(resultsTag(sym, t) ? ['results'] : []), ...(expiry.has(dates[t]) ? ['expiry'] : [])] };
 const states = Object.fromEntries(WANT.filter((k) => !BOOKS[k].batch).map((k) => [k, newBook(BOOKS[k].id, FROM)])), window = Object.fromEntries(WANT.filter((k) => BOOKS[k].batch).map((k) => [k, { start: null, months: [] }])), wide = Object.fromEntries(WANT.map((k) => [k, []])), plog = Object.fromEntries(WANT.map((k) => [k, []]));
 const exposure = Object.fromEntries(WANT.map((k) => [k, { sum: 0, n: 0 }]));
 let el500 = [], elMonth = '', unranked = 0;
@@ -75,16 +80,17 @@ for (let t = t0; t <= t1; t++) {
     for (const n of el500) { const e = entityOf(n.sym, D); const st = e && storeOf(e); if (st && st.days.has(D)) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; } }   // a filing was broadcast tonight: refresh that name
   }
   if (monthStart) for (const k of WANT) { const b = BOOKS[k]; if (!b.batch) continue;   // Batch B window rule (fixed before any run): a month counts once 90% of eligible non-financial names carry every figure the book needs; the book starts at the first such month
+    if (b.batch === 'C') { const ok = el500.filter((n) => { const d = deliv.get(n.sym); if (!d) return false; let k = 0; for (let i = t - 20; i < t; i++) if (d.p[i] >= 0) k++; return k >= 15; }).length, cov = el500.length ? ok / el500.length : 0; window[k].months.push({ m: D.slice(0, 7), eligible: el500.length, covered: ok, share: Math.round(cov * 1e4) / 1e4 }); if (!states[k] && cov >= 0.9) { states[k] = newBook(b.id, D); window[k].start = D; } continue; }
     const nf = el500.map((n) => rowsNow[n.sym]).filter((f) => f && !f.financial), ok = nf.filter(b.need).length, cov = nf.length ? ok / nf.length : 0;
     window[k].months.push({ m: D.slice(0, 7), eligible: nf.length, covered: ok, share: Math.round(cov * 1e4) / 1e4 });
     if (!states[k] && cov >= 0.9) { states[k] = newBook(b.id, D); window[k].start = D; } }
   for (const k of WANT) {
     const st = states[k], b = BOOKS[k]; if (!st) continue;
-    const signal = (held, stx) => b.fn({ el: el500, series, t, dates, held, fund: rowsNow, st: stx, group: (sym) => industry[sym] ?? null }, ...(k === 'A1' ? [wide[k], plog[k]] : []));
+    const signal = (held, stx) => b.fn({ el: el500, series, t, dates, held, fund: rowsNow, st: stx, group: (sym) => industry[sym] ?? null }, ...(k === 'A1' ? [wide[k], plog[k]] : k === 'C1' ? [delivEnv, plog[k]] : []));
     stepBook(st, { D, open: (s) => openAt(s, t), age: (s) => ageAt(s, t), close: (s) => pxAt(s, t), cashRet: null, tier: (v) => tierCost(v), signal });
     const v = st.daily.at(-1)?.v ?? null; if (v) { const posV = Object.values(st.pos).reduce((a, p) => a + p.sh * (pxAt(Object.keys(st.pos).find((s) => st.pos[s] === p), t) || p.entry), 0); exposure[k].sum += posV / v; exposure[k].n++; }
   }
-  if (SMOKE && (t - t0) % 60 === 0) console.log(D, `ey=${Object.values(rowsNow).filter((r) => r.earningsYield != null).length} ttm=${Object.values(rowsNow).filter((r) => r.ttm.pat != null).length}`, `el500=${el500.length}`, WANT.map((k) => `${k}:${Object.keys(states[k].pos).length}`).join(' '), `${Math.round((Date.now() - t00) / 1000)}s`);
+  if (SMOKE && (t - t0) % 60 === 0) console.log(D, `ey=${Object.values(rowsNow).filter((r) => r.earningsYield != null).length} ttm=${Object.values(rowsNow).filter((r) => r.ttm.pat != null).length}`, `el500=${el500.length}`, WANT.map((k) => `${k}:${Object.keys(states[k]?.pos ?? {}).length}`).join(' '), `${Math.round((Date.now() - t00) / 1000)}s`);
 }
 const surv = R('data/india/survivorship-filings.json');
 const pct = (x) => (x == null ? 'n/a' : (x * 100).toFixed(1) + '%');
@@ -98,7 +104,7 @@ for (const k of WANT) {
   summary[k] = { name: BOOKS[k].name, months: sc?.months ?? 0, sinceStart: sc?.sinceStart ?? null, confidence: sc ? sc.confidence.confidence : null, drawdown: sc?.drawdown ?? null, closedTrades: st.closed.length, avgNetTrade: tr.avg, stopOuts: st.closed.filter((c) => c.why === 'stop').length, avgExposure: exposure[k].n ? exposure[k].sum / exposure[k].n : null, byYear: Object.fromEntries(Object.entries(byYear).map(([y, a]) => [y, { book: a.book - 1, comp: a.comp - 1, excess: a.book - a.comp }])), skippedWide: st.skipped?.length ?? 0, signals: k === 'A1' ? plog[k].length : null, signalsNoSlot: k === 'A1' ? plog[k].filter((x) => x.why === 'no slot').length : null, firstValue: bm[0]?.m ?? null };
 }
 for (const k of WANT) if (window[k] && summary[k]) summary[k].window = window[k];
-const KIND = WANT.every((k) => BOOKS[k].batch === 'B') ? 'B' : 'A';
+const KIND = WANT.every((k) => BOOKS[k].batch === 'B') ? 'B' : WANT.every((k) => BOOKS[k].batch === 'C') ? 'C' : 'A';
 const stamp = new Date().toISOString().slice(0, 10), out = { run: stamp, from: FROM, to: dates[t1], universe: 'top 500, rebuilt monthly', unrankedLastMonth: unranked, summary, survivorship: surv?.byYear ?? null, stillTradingShare: surv?.stillTrading?.share ?? null };
 if (SMOKE) { console.log(JSON.stringify(out, null, 1)); process.exit(0); }
 mkdirSync(OUT, { recursive: true });
@@ -110,6 +116,12 @@ for (const k of WANT) { const s = summary[k]; L.push(`| ${k} ${s.name} | ${s.mon
 L.push(``, `## Calendar years (book return, Nifty 500 return, ratio of growth)`, ``);
 for (const k of WANT) { L.push(`**${k} ${summary[k].name}:** ` + Object.entries(summary[k].byYear).map(([y, a]) => `${y}: ${pct(a.book)} vs ${pct(a.comp)}`).join('; ')); L.push(``); }
 if (summary.A1) L.push(`A1 signals logged: ${summary.A1.signals}, skipped for no free slot: ${summary.A1.signalsNoSlot}.`, ``);
+if (KIND === 'C') { const lg = plog.C1, st = states.C1, di = (d) => dates.indexOf(d), tagOf = new Map(lg.map((x) => [x.sym + x.date, x]));
+  const rows = (st?.closed ?? []).map((c) => ({ ...c, sig: tagOf.get(c.sym + dates[di(c.entryDate) - 1]) })).filter((c) => c.sig), grp = (f) => { const a = rows.filter(f); return { n: a.length, avg: a.length ? a.reduce((m, c) => m + c.ret, 0) / a.length : null, stop: a.length ? a.filter((c) => c.why === 'stop').length / a.length : null }; };
+  const cells = { all: grp(() => true), 'expiry tag': grp((c) => c.sig.tags.includes('expiry')), 'results tag': grp((c) => c.sig.tags.includes('results')), 'no tag': grp((c) => !c.sig.tags.length) };
+  L.push(`## Signals and results by tag`, ``, `Signals logged: ${lg.length}; bought ${lg.filter((x) => x.taken).length}; no slot ${lg.filter((x) => x.why === 'no slot').length}; stop too wide ${lg.filter((x) => x.why === 'stop too wide').length}; already held ${lg.filter((x) => x.why === 'already held').length}. Tags: results ${lg.filter((x) => x.tags.includes('results')).length}, expiry ${lg.filter((x) => x.tags.includes('expiry')).length}, none ${lg.filter((x) => !x.tags.length).length}. The deal-day tag is not available in the replay (deal logging starts 13 Nov 2026) and weekly expiries are not tagged, only the monthly one.`, ``, `| Group | Closed trades | Average gross trade return | Stop-out share |`, `|---|---|---|---|`);
+  for (const [n, g] of Object.entries(cells)) L.push(`| ${n} | ${g.n} | ${pct(g.avg)} | ${pct(g.stop)} |`);
+  L.push(``, `Trade return is price return from the fill to the exit before costs (the book table above is after costs). **Window:** ${window.C1.start ? 'started ' + window.C1.start : 'never reached 90% coverage'} (a month counts once 90% of the top 500 have at least 15 delivery readings in the prior 20 sessions). Delivery percent comes from the stored daily files from 2 Jan 2020; the replay starts ${FROM}. **Implementation check, not evidence.**`, ``); }
 if (KIND === 'B') { L.push(`## Window (rule fixed before the run)`, ``, `A month counts once at least 90% of eligible non-financial names in that month's top 500 carry every figure the book needs; the book starts at the first such month. **This run is an implementation check, not evidence:** the window is short and sits in one market phase, and balance sheets before Sep 2022 do not exist in the source.`, ``);
   for (const k of WANT) { const w = window[k]; L.push(`**${k} ${BOOKS[k].name}:** ${w.start ? 'started ' + w.start : 'never reached 90% coverage'}; coverage by month: ` + w.months.map((x) => `${x.m} ${(x.share * 100).toFixed(0)}%`).join(', ')); L.push(``); } }
 L.push(`Forward paper stays the primary evidence. This table shows what the rules would have done, not what they will do.`);
