@@ -1,0 +1,30 @@
+name: probe-bs-halfyear
+# One-off, Batch B window: half-yearly list for Sep 2021 and Mar 2022. Manual only.
+on:
+  workflow_dispatch:
+concurrency: probe-bs-halfyear
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/probe-bs-halfyear.mjs
+      - run: node scripts/check-no-personal-data.mjs
+        if: always()
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/probe-bs-halfyear.json
+          git commit -m "probe-bs-halfyear: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
