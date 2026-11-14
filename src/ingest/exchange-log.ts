@@ -1,5 +1,5 @@
 // Wave 2 collection helpers (Batch C, C-5): parse the exchange's day files into stored rows. Pure. No network.
-export interface Deal { date: string; symbol: string; name: string; client: string; side: 'BUY' | 'SELL'; qty: number; price: number; remarks: string | null }
+export interface Deal { date: string; symbol: string; name: string; client: string; side: 'BUY' | 'SELL'; units: number; price: number; remarks: string | null }
 const MON: Record<string, string> = { JAN: '01', FEB: '02', MAR: '03', APR: '04', MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', NOV: '11', DEC: '12' };
 export const isoOf = (s: string): string | null => { const m = /^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/.exec(s.trim()); return m && MON[m[2].toUpperCase()] ? `${m[3]}-${MON[m[2].toUpperCase()]}-${m[1].padStart(2, '0')}` : null; };
 function splitCsv(line: string): string[] { const o: string[] = []; let cur = '', q = false; for (const ch of line) { if (ch === '"') q = !q; else if (ch === ',' && !q) { o.push(cur); cur = ''; } else cur += ch; } o.push(cur); return o.map((x) => x.trim()); }
@@ -7,9 +7,9 @@ function splitCsv(line: string): string[] { const o: string[] = []; let cur = ''
 export function parseDeals(csv: string): { rows: Deal[]; bad: number } {
   const lines = csv.split(/\r?\n/).filter((l) => l.trim()); const rows: Deal[] = []; let bad = 0;
   for (const l of lines.slice(1)) {
-    const c = splitCsv(l); const date = isoOf(c[0] ?? ''), side = /^b/i.test(c[4] ?? '') ? 'BUY' : /^s/i.test(c[4] ?? '') ? 'SELL' : null, qty = Number((c[5] ?? '').replace(/,/g, '')), price = Number((c[6] ?? '').replace(/,/g, ''));
-    if (!date || !side || !(qty > 0) || !(price > 0) || !c[1]) { bad++; continue; }
-    rows.push({ date, symbol: c[1], name: c[2] ?? '', client: c[3] ?? '', side, qty, price, remarks: c[7] ? c[7] : null });
+    const c = splitCsv(l); const date = isoOf(c[0] ?? ''), side = /^b/i.test(c[4] ?? '') ? 'BUY' : /^s/i.test(c[4] ?? '') ? 'SELL' : null, units = Number((c[5] ?? '').replace(/,/g, '')), price = Number((c[6] ?? '').replace(/,/g, ''));
+    if (!date || !side || !(units > 0) || !(price > 0) || !c[1]) { bad++; continue; }
+    rows.push({ date, symbol: c[1], name: c[2] ?? '', client: c[3] ?? '', side, units, price, remarks: c[7] ? c[7] : null });
   }
   return { rows, bad };
 }
