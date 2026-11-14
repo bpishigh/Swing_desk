@@ -1178,7 +1178,8 @@
     "parseFailed": 0,
     "unmapped": 2,
     "families": {
-     "IFIndAs": 2
+     "IFIndAs": 3263,
+     "IFBanking": 62
     },
     "missingField": {
      "revenue": 0,
@@ -1192,7 +1193,6 @@
      "ATCOM",
      "ATCOM"
     ],
-    "toppedUp": 3323,
     "extraCount": {
      "q.otherIncome": 3325,
      "q.financeCost": 3325,
@@ -1206,6 +1206,8 @@
      "bs.borrowings": 3269,
      "bs.borrowingsCurrent": 3009,
      "bs.cash": 3288,
+     "bs.bankOther": 3227,
+     "bs.currentInvestments": 3009,
      "bs.currentAssets": 3009,
      "bs.currentLiabilities": 3009,
      "bs.ppe": 3235,
@@ -1214,7 +1216,7 @@
      "cf.cfo": 3297,
      "cf.capex": 3235
     },
-    "at": "2026-11-13T20:36:39.188Z"
+    "at": "2026-11-14T18:16:21.382Z"
    }
   },
   "2023-06-30": {
