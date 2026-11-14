@@ -483,16 +483,15 @@
    ],
    "at": "2026-11-08T16:37:28.058Z",
    "topup": {
-    "listed": 4046,
-    "attempted": 4046,
-    "parsed": 4018,
+    "listed": 4162,
+    "attempted": 4162,
+    "parsed": 4134,
     "fetchFailed": 8,
     "parseFailed": 15,
     "unmapped": 5,
     "families": {
-     "IFIndAs": 799,
-     "IFNBFC": 50,
-     "IFOTB": 1
+     "IFIndAs": 108,
+     "IFNBFC": 8
     },
     "missingField": {
      "revenue": 0,
@@ -514,28 +513,30 @@
      "ESFL"
     ],
     "extraCount": {
-     "q.otherIncome": 4011,
-     "q.financeCost": 4011,
-     "q.depreciation": 3941,
-     "q.exceptional": 4011,
-     "q.pbtPre": 3939,
-     "q.paidUp": 4011,
-     "q.faceValue": 4011,
-     "bs.assets": 3984,
-     "bs.equity": 3984,
-     "bs.borrowings": 3984,
-     "bs.borrowingsCurrent": 3636,
-     "bs.cash": 3984,
-     "bs.currentAssets": 3643,
-     "bs.currentLiabilities": 3643,
-     "bs.ppe": 3907,
-     "bs.inventories": 3907,
-     "bs.receivables": 3635,
-     "cf.cfo": 3858,
-     "cf.capex": 3790
+     "q.otherIncome": 322,
+     "q.financeCost": 322,
+     "q.depreciation": 316,
+     "q.exceptional": 322,
+     "q.pbtPre": 316,
+     "q.paidUp": 322,
+     "q.faceValue": 322,
+     "bs.assets": 317,
+     "bs.equity": 317,
+     "bs.borrowings": 317,
+     "bs.borrowingsCurrent": 282,
+     "bs.cash": 317,
+     "bs.currentAssets": 282,
+     "bs.currentLiabilities": 282,
+     "bs.ppe": 311,
+     "bs.inventories": 311,
+     "bs.receivables": 282,
+     "cf.cfo": 304,
+     "cf.capex": 300
     },
-    "toppedUp": 3168,
-    "at": "2026-11-13T17:29:57.227Z"
+    "alreadyStored": 3812,
+    "asOfRepaired": 206,
+    "toppedUp": 206,
+    "at": "2026-11-14T12:12:08.865Z"
    }
   },
   "2025-12-31": {
