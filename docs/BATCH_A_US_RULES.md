@@ -28,6 +28,8 @@ The five rules (A1 post-earnings drift, A2 value-lite, A3 quality-lite, A5 falle
 | A1 share rule | skip if the share count moved more than 2% either way | skip only if it rose more than 2% | see Known limits |
 | Replay | one registered run per book | **none** | the desk's US price history holds only names still trading (survivor-only), so a replay would flatter every book; forward paper is the evidence |
 
+Both comparisons apply here too: the yardstick (SPY or VLUE) and the equal-weight line are shown together on each card; the kill line reads the yardstick.
+
 ## Known limits
 
 - **A1 share rule differs from India:** a US name is skipped only when its cover share count rose more than 2% from the year-ago quarter (new issuance); a fall (buybacks) does not skip it. Measured 13 Nov: 107 names scored against 69 under India's two-sided rule. Cover counts differ from weighted counts by a few percent, so the two-sided rule drops too many US names. This is the one place the US A1 is not the India A1, so a US result confirms the signal, not that exact rule.

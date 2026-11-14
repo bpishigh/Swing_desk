@@ -124,3 +124,7 @@ These are answers to a draft. A block is Adopted only when the owner marks it so
 - 13 Nov 2026 (late): owner accepted the A1 reconciliation and said yes to the stop-out rule (D10). A0 table, A1, A2, A3, A5, A6 built and registered as paper books starting after 17 Nov. Share counts are checked against profit over EPS to catch unit errors; known miss: names whose EPS mixes pre- and post-split quarters (e.g. BAJAJFINSV).
 
 - 13 Nov 2026 (docs): adopted; C-191 to C-198 written; pledge level added to the A7 flags from the monthly stock-facts job; Quality 30 funds checked and all fail the replacement test (comparator for A3 and A6 is the Nifty 500); UTI Value 50 passes size and record, tracking difference unverified.
+
+## Two comparisons on every Batch A card (owner, 14 Nov 2026)
+
+Each card reports the book against its registered yardstick **and** against the equal-weight top-500 line (same universe, monthly rebuild, price only, no costs; forward only). Both are shown side by side. The kill line is unchanged and reads the yardstick. A miss against the yardstick that still beats the equal-weight line reads as weighting, not the rule; a miss against both reads as the rule. Whether the kill line itself should change is left to a later owner decision once the equal-weight line has a few months of history.
