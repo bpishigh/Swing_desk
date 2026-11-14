@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-13",
+  "buys": [
+   {
+    "sym": "VLO",
+    "value": 1135525935.08,
+    "stop": 0.25
+   },
+   {
+    "sym": "MPC",
+    "value": 980116035.115,
+    "stop": 0.25
+   },
+   {
+    "sym": "PSX",
+    "value": 795173462.52,
+    "stop": 0.25
+   },
+   {
+    "sym": "COP",
+    "value": 879970246.86,
+    "stop": 0.25
+   },
+   {
+    "sym": "XOM",
+    "value": 2171289166.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "MU",
+    "value": 22680090208.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "AAOI",
+    "value": 812729628.5999999,
+    "stop": 0.25
+   },
+   {
+    "sym": "LITE",
+    "value": 4408801416.94,
+    "stop": 0.25
+   },
+   {
+    "sym": "MRVL",
+    "value": 4503829830.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "INTC",
+    "value": 8837814264.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "SNDK",
+    "value": 11783896820.48,
+    "stop": 0.25
+   },
+   {
+    "sym": "DELL",
+    "value": 2909947950.0249996,
+    "stop": 0.25
+   },
+   {
+    "sym": "HPE",
+    "value": 769414152.9000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "STX",
+    "value": 3383575431.4399996,
+    "stop": 0.25
+   },
+   {
+    "sym": "FTNT",
+    "value": 688631408.415,
+    "stop": 0.25
+   },
+   {
+    "sym": "MRNA",
+    "value": 3114697695,
+    "stop": 0.25
+   },
+   {
+    "sym": "MRK",
+    "value": 1318076812.37,
+    "stop": 0.25
+   },
+   {
+    "sym": "JNJ",
+    "value": 1987805067.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "AMGN",
+    "value": 1142191790.52,
+    "stop": 0.25
+   },
+   {
+    "sym": "GILD",
+    "value": 957518474.96,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +120,8 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-12",
+ "lastSignal": "2026-11-13",
+ "lastStep": "2026-11-13",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0

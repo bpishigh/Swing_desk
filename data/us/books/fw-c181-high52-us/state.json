@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-13",
+  "buys": [
+   {
+    "sym": "AAPL",
+    "value": 14480265667.35,
+    "stop": 0.25
+   },
+   {
+    "sym": "ABBV",
+    "value": 1372153515.6599998,
+    "stop": 0.25
+   },
+   {
+    "sym": "ADP",
+    "value": 702919277.17,
+    "stop": 0.25
+   },
+   {
+    "sym": "BRK.B",
+    "value": 2848301377.9300003,
+    "stop": 0.25
+   },
+   {
+    "sym": "CB",
+    "value": 586704702.72,
+    "stop": 0.25
+   },
+   {
+    "sym": "COST",
+    "value": 2370414046.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "HUM",
+    "value": 601093815.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "JNJ",
+    "value": 1987805067.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "KO",
+    "value": 1623321362.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "LLY",
+    "value": 3643945035.2200003,
+    "stop": 0.25
+   },
+   {
+    "sym": "MCK",
+    "value": 699320716.52,
+    "stop": 0.25
+   },
+   {
+    "sym": "MO",
+    "value": 566946522.565,
+    "stop": 0.25
+   },
+   {
+    "sym": "PG",
+    "value": 1555478850.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "BLK",
+    "value": 754828224.77,
+    "stop": 0.25
+   },
+   {
+    "sym": "DIS",
+    "value": 820318500.135,
+    "stop": 0.25
+   },
+   {
+    "sym": "MAR",
+    "value": 635031100.74,
+    "stop": 0.25
+   },
+   {
+    "sym": "TRV",
+    "value": 586043368.735,
+    "stop": 0.25
+   },
+   {
+    "sym": "AMT",
+    "value": 570662415.15,
+    "stop": 0.25
+   },
+   {
+    "sym": "MA",
+    "value": 1999697109.5099998,
+    "stop": 0.25
+   },
+   {
+    "sym": "HLT",
+    "value": 714199083.5,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +120,8 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-12",
+ "lastSignal": "2026-11-13",
+ "lastStep": "2026-11-13",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0

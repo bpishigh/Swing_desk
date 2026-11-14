@@ -4,20 +4,100 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-13",
+  "buys": [
+   {
+    "sym": "CVX",
+    "value": 1835088782.49,
+    "stop": 0.07063199781709034
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
- "skipped": [],
+ "skipped": [
+  {
+   "date": "2026-11-13",
+   "sym": "MRK",
+   "width": 0.0929
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "TMO",
+   "width": 0.0932
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "COP",
+   "width": 0.0891
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "KDP",
+   "width": 0.0964
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "XOM",
+   "width": 0.0806
+  }
+ ],
  "slipCum": 0,
  "cashDays": {
   "credited": 0,
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-12",
+ "lastSignal": "2026-11-13",
+ "lastStep": "2026-11-13",
  "blocks": {},
  "gaps": [],
- "cashCarried": 0
+ "cashCarried": 0,
+ "signalLog": [
+  {
+   "date": "2026-11-13",
+   "sym": "MRK",
+   "dip": "run",
+   "volRatio": 0.6583,
+   "tight": 0.0385
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "TMO",
+   "dip": "run",
+   "volRatio": 0.8133,
+   "tight": 0.0638
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "COP",
+   "dip": "average",
+   "volRatio": 0.8313,
+   "tight": 0.0869
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "CVX",
+   "dip": "average",
+   "volRatio": 0.9073,
+   "tight": 0.0773
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "KDP",
+   "dip": "average",
+   "volRatio": 3.0785,
+   "tight": 0.0966
+  },
+  {
+   "date": "2026-11-13",
+   "sym": "XOM",
+   "dip": "average",
+   "volRatio": 0.8044,
+   "tight": 0.0891
+  }
+ ]
 }

@@ -1,18 +1,35 @@
 {
  "id": "fw-c187-voltarget-us",
  "startAfter": "2026-11-12",
- "exposure": null,
- "lastD": null,
- "prevParent": null,
+ "exposure": 1,
+ "lastD": "2026-11-13",
+ "prevParent": 100.5334,
  "rets": [],
  "value": 100,
- "daily": [],
- "monthly": {},
+ "daily": [
+  {
+   "d": "2026-11-13",
+   "v": 100,
+   "e": 1
+  }
+ ],
+ "monthly": {
+  "2026-11": {
+   "d": "2026-11-13",
+   "v": 100
+  }
+ },
  "costs": {},
  "cashDays": {
   "credited": 0,
   "missing": 0
  },
- "started": null,
- "reviews": []
+ "started": "2026-11-13",
+ "reviews": [
+  {
+   "d": "2026-11-13",
+   "e": 1,
+   "vol": null
+  }
+ ]
 }
