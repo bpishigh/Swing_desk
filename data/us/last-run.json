@@ -1,6 +1,6 @@
 {
- "ts": "2026-11-13T00:07:47.291Z",
- "date": "2026-11-12",
+ "ts": "2026-11-14T00:07:49.031Z",
+ "date": "2026-11-13",
  "status": "written",
  "fetched": {
   "SPY": {
@@ -70,8 +70,8 @@
  },
  "conflicts": [],
  "flags": [
-  "VIX: Cboe has no row for 2026-11-12 yet",
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-12"
+  "VIX: Cboe has no row for 2026-11-13 yet",
+  "14 of 14 sectors, SPY and QQQ written for 2026-11-13"
  ],
  "backfilled": 0
 }
