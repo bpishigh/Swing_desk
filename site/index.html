@@ -536,7 +536,7 @@ let paperMkt = 'in', stratSel = {}, momAll = false, paperStream = 'all';
 const curStrat = (m) => { const l = (D.strategies || []).filter((x) => x.market === m); return l.find((x) => x.id === stratSel[m]) || l[0] || { id: 'swing', name: 'Swing setups', view: 'setups', market: m, status: 'live' }; };
 const mmm = (ym) => (ym ? new Date(ym + '-01T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '–');
 const dmy = (d) => (d ? new Date(d.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '–');
-let scoresView = false, defOpen = false;
+let scoresView = false, overlapView = false, defOpen = false;
 const BASE_OF = { 'swing-in': 'swing', 'swing-us': 'swing', 'mom30-india': 'mom30', 'mom30-us': 'mom30', 'fw-c161-high52': 'high52', 'fw-c181-high52-us': 'high52', 'fw-c163-donchian': 'donchian', 'fw-c183-donchian-us': 'donchian', 'fw-c164-weekly121': 'weekly121', 'fw-c184-weekly121-us': 'weekly121', 'fw-c166-turnmonth': 'turnmonth', 'fw-c162-lowturn': 'lowturn', 'fw-c182-lowturn-us': 'lowturn', 'fw-c168-max': 'max', 'fw-c188-max-us': 'max', 'fw-c165-template': 'template', 'fw-c185-template-us': 'template', 'fw-c160-industry': 'industry', 'fw-c180-industry-us': 'industry', 'fw-c172-pullback': 'pullback', 'fw-c189-pullback-us': 'pullback', 'fw-c167-voltarget': 'voltarget', 'fw-c187-voltarget-us': 'voltarget', 'ba-a1-pead': 'pead', 'ba-a2-value': 'valuelite', 'bb-b1-magic': 'magic', 'bb-b2-piotroski': 'piotroski', 'bb-b3-fullquality': 'fullquality', 'ba-a3-quality': 'qualitylite', 'ba-a5-fallen': 'fallen', 'ba-a6-compounder': 'compounder', 'ba-us-a1-pead': 'pead', 'ba-us-a2-value': 'valuelite', 'ba-us-a3-quality': 'qualitylite', 'ba-us-a5-fallen': 'fallen', 'ba-us-a6-compounder': 'compounder' };
 const FAMS = [['Daily ideas', 'Trade ideas sent each evening'], ['Momentum portfolios', 'Hold the strongest-trending stocks and change the list on a fixed calendar'], ['Variations on the momentum portfolio', 'The same portfolio with one change, to see whether the change helps'], ['Entry and timing rules', 'Rules about when to buy and sell'], ['Company-figure strategies', 'Pick stocks from what companies report: profits, growth, price against earnings']];
 // Plain-language definitions, one per rule (US versions share them). Words a newcomer may not know are explained where they appear.
@@ -588,6 +588,24 @@ function stratHead(s) {
   const stt = stratState(s), live = s.status === 'live';
   return `<div class="shead"><div class="eyebrow">${esc(FAMS[p.fam][0])}${s.rule ? ' · ' + esc(s.rule) : ''}</div><div class="stitle"><h2>${esc(s.name.replace(/ \(US\)$/, ''))}</h2><span class="pill ${live ? 'live' : ''}">${live ? 'Live: sends real alerts' : 'Paper only'}</span><span class="pill ${stateCls(stt)}">${esc(stt)}</span></div><p class="lead">${esc(p.short)}</p><button class="defbtn" data-def="1" aria-expanded="${defOpen}">${defOpen ? 'Hide definition' : 'Show full definition'}</button>${defOpen ? `<div class="defbox"><p class="what">${esc(p.what)}</p><div class="facts"><div class="fact"><b>When it trades</b><span>${esc(p.when)}</span></div><div class="fact"><b>Protection</b><span>${esc(p.stop)}</span></div><div class="fact"><b>Why we test it</b><span>${esc(p.why)}</span></div></div>${s.market === 'us' && !live ? `<p class="us">${US_NOTE}</p>` : ''}</div>` : ''}</div>`;
 }
+function overlapPage(m) {
+  const o = D.books?.overlap, head = `<div class="shead"><div class="eyebrow">Compare</div><div class="stitle"><h2>Overlap: which stocks the books share</h2></div><p class="lead">A stock qualifies in a book when it ranks in that book's top 20. Stocks that qualify in the most books come first. For diagnosis only: it shows whether the books are separate ideas or one idea counted several times, and it adds no pass or kill line. Paper only.</p></div>`;
+  if (m !== 'in') return head + '<div class="sbody"><p class="note">India only for now.</p></div>';
+  if (!o || !o.names?.length) return head + '<div class="sbody"><p class="note">No overlap yet. It appears after the first night the company figures are built and the books read them.</p></div>';
+  const bs = o.books, n = bs.length, shorts = bs.map((b) => b.short);
+  const grp = (c) => (c >= 3 ? `In ${c} of ${n} books` : c === 2 ? 'In two books' : 'In one book only');
+  const rows = (list) => list.map((x) => `<tr><td><b>${esc(x.sym)}</b></td><td>${esc(x.industry || '')}</td><td class="num">${x.count}</td>${shorts.map((s) => `<td class="num">${x.ranks[s] ?? ''}</td>`).join('')}</tr>`).join('');
+  const heads = `<tr><th>Stock</th><th>Industry</th><th class="num">Books</th>${bs.map((b) => `<th class="num" title="${esc(b.label)}">${esc(b.short)}</th>`).join('')}</tr>`;
+  const tiers = [...new Set(o.names.map((x) => x.count))].sort((a, b) => b - a);
+  const top = tiers.filter((c) => c >= 2), rest = o.names.filter((x) => x.count === 1);
+  const sect = (c) => { const l = o.names.filter((x) => x.count === c); return `<h3 class="ttl">${esc(grp(c))} (${l.length})</h3><div class="tablewrap"><table style="table-layout:fixed;min-width:640px"><thead>${heads}</thead><tbody>${rows(l)}</tbody></table></div>`; };
+  const grid = `<div class="tablewrap"><table><thead><tr><th></th>${shorts.map((s) => `<th class="num">${esc(s)}</th>`).join('')}</tr></thead><tbody>${shorts.map((a, i) => `<tr><td><b>${esc(a)}</b></td>${shorts.map((c, j) => { if (i === j) return `<td class="num">${(o.names.filter((x) => x.in.includes(a)).length)}</td>`; const k = i < j ? a + '|' + c : c + '|' + a; const r = o.corr[k]; return `<td class="num">${o.pairs[k] ?? ''}${r == null ? '' : ` <span class="note">(${r > 0 ? '+' : ''}${r.toFixed(2)})</span>`}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const hist = (o.history || []).slice(-12);
+  return head + `<div class="sbody">${top.length ? top.map(sect).join('') : '<p class="note">No stock qualifies in more than one book tonight.</p>'}
+  <details class="fold"${top.length ? '' : ' open'}><summary>${esc(grp(1))} (${rest.length})</summary><div class="tablewrap"><table style="table-layout:fixed;min-width:640px"><thead>${heads}</thead><tbody>${rows(rest)}</tbody></table></div></details>
+  <details class="fold"><summary>Pair overlap and rank likeness</summary><p class="note">Each cell is the number of top-20 names two books share; the figure in brackets is how alike their full rankings are over the names both rank (+1 identical order, 0 unrelated, -1 reversed; left out under 10 common names). The diagonal is each book's own count of qualifying names. Cell numbers in the table above are each book's rank.</p>${grid}</details>
+  <p class="note">As of ${esc(o.asOf)}. ${hist.length > 1 ? 'Month by month history is kept in docs and the data folder.' : ''}</p></div>`;
+}
 function scoresPage(m) {
   const bs = (D.strategies || []).filter((x) => x.market === m && x.view === 'book_list' && bk(x.id)?.scorecard);
   return `<div class="shead"><div class="eyebrow">Compare</div><div class="stitle"><h2>Scores: all strategies</h2></div><p class="lead">Every paper book side by side, each read against its own yardstick. Paper only; a US result alone adopts nothing.</p></div>
@@ -598,15 +616,15 @@ const paperJudged = () => `<details class="fold"><summary>How paper tests are ju
 function switcher(m, cur) {
   const list = (D.strategies || []).filter((x) => x.market === m), curFam = plainOf(cur)?.fam;
   const first = (fi) => list.find((x) => plainOf(x)?.fam === fi);
-  const fams = FAM_SHORT.map((n, fi) => (first(fi) ? `<button role="tab" data-strat="${m}:${first(fi).id}" aria-selected="${!scoresView && curFam === fi}">${esc(n)}</button>` : '')).join('') + `<button role="tab" data-scores="1" aria-selected="${scoresView}">Scores</button>`;
+  const fams = FAM_SHORT.map((n, fi) => (first(fi) ? `<button role="tab" data-strat="${m}:${first(fi).id}" aria-selected="${!scoresView && !overlapView && curFam === fi}">${esc(n)}</button>` : '')).join('') + `<button role="tab" data-scores="1" aria-selected="${scoresView}">Scores</button>` + (m === 'in' ? `<button role="tab" data-overlap="1" aria-selected="${overlapView}">Overlap</button>` : '');
   const mk = `<div class="chips" role="group" aria-label="Market">${[['in', 'India'], ['us', 'US']].map(([k, l]) => `<button class="chip-btn" data-sm="${k}" aria-pressed="${m === k}">${l}</button>`).join('')}</div>`;
-  const chips = scoresView ? '' : `<div class="swrow2" role="group" aria-label="Strategies">${list.filter((x) => plainOf(x)?.fam === curFam).map((x) => { const st = stratState(x); return `<button class="sc ${stateCls(st)}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}" title="${esc(st)}">${esc(x.name.replace(/ \(US\)$/, ''))}</button>`; }).join('')}</div>`;
+  const chips = scoresView || overlapView ? '' : `<div class="swrow2" role="group" aria-label="Strategies">${list.filter((x) => plainOf(x)?.fam === curFam).map((x) => { const st = stratState(x); return `<button class="sc ${stateCls(st)}" data-strat="${m}:${x.id}" aria-pressed="${x.id === cur.id}" title="${esc(st)}">${esc(x.name.replace(/ \(US\)$/, ''))}</button>`; }).join('')}</div>`;
   return `<div class="sw" role="navigation" aria-label="Strategies"><div class="swrow1"><div class="fams" role="tablist">${fams}</div>${mk}</div>${chips}</div>`;
 }
 function shell(kind, body) {
   const m = kind === 'scan' ? scanMkt : paperMkt, cur = curStrat(m);
   const seg = `<div class="viewrow"><div class="chips seg" role="group" aria-label="View">${[['scan', 'Stock list'], ['paper', 'Paper test']].map(([k, l]) => `<button class="chip-btn" data-go="${k}" aria-pressed="${kind === k}">${l}</button>`).join('')}</div></div>`;
-  const main = scoresView ? scoresPage(m) : `${stratHead(cur)}<div class="kpis">${kpis(cur).map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join('')}</div>${seg}<div class="sbody">${body}</div><div class="sbody" style="margin-top:32px">${paperJudged()}</div>`;
+  const main = overlapView ? overlapPage(m) : scoresView ? scoresPage(m) : `${stratHead(cur)}<div class="kpis">${kpis(cur).map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${esc(l)}</div></div>`).join('')}</div>${seg}<div class="sbody">${body}</div><div class="sbody" style="margin-top:32px">${paperJudged()}</div>`;
   return `${switcher(m, cur)}<div class="stratmain">${main}</div>`;
 }
 const pcs = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
@@ -1191,10 +1209,11 @@ document.addEventListener('click', (e) => {
   if (t.dataset.sort) { const [st, key] = t.dataset.sort.split(':'); const s = sortState[st]; s.dir = s.key === key ? -s.dir : (['name', 'rank', 'rk', 'n'].includes(key) ? 1 : -1); s.key = key; return render(); }
   if (t.dataset.sector) { screenSector = t.dataset.sector; return render(); }
   if (t.dataset.foot) { tab = t.dataset.foot; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
-  if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scoresView = false; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
+  if (t.dataset.bg) { const [to, id] = t.dataset.bg.split(':'); stratSel.in = id; scoresView = false; overlapView = false; scanMkt = paperMkt = 'in'; tab = to; history.replaceState(null, '', '#' + tab); window.scrollTo(0, 0); return render(); }
   if (t.dataset.def) { defOpen = !defOpen; return render(); }
-  if (t.dataset.scores) { scoresView = true; if (groupOf(tab) !== 'strat') tab = 'scan'; window.scrollTo(0, 0); return render(); }
-  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; scoresView = false; window.scrollTo(0, 0); return render(); }
+  if (t.dataset.overlap) { overlapView = true; scoresView = false; if (groupOf(tab) !== 'strat') tab = 'scan'; window.scrollTo(0, 0); return render(); }
+  if (t.dataset.scores) { scoresView = true; overlapView = false; if (groupOf(tab) !== 'strat') tab = 'scan'; window.scrollTo(0, 0); return render(); }
+  if (t.dataset.strat) { const [m, id] = t.dataset.strat.split(':'); stratSel[m] = id; scoresView = false; overlapView = false; window.scrollTo(0, 0); return render(); }
   if (t.dataset.momall) { momAll = !momAll; return render(); }
   if (t.dataset.sm) { scanMkt = paperMkt = t.dataset.sm; return render(); }
   if (t.dataset.pm) { scanMkt = paperMkt = t.dataset.pm; return render(); }

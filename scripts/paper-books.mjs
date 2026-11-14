@@ -10,6 +10,7 @@ import { loadCalendarFiles } from '../src/engine/calendar-files.ts';
 import { makeCalendar } from '../src/engine/calendar.ts';
 import { newBook, stepBook, monthlyValues } from '../src/engine/stock-book.ts';
 import { high52, weekly121, donchian, turnOfMonth, sessionsLeftInMonth, watchRanked, watchDonchian, watchTom, industryMomentum, watchIndustry, pullback, watchPullback } from '../src/engine/first-wave.ts';
+import { overlapOf } from '../src/engine/overlap.ts';
 import { valueLite, qualityLite, fallen, compounder, pead, valueRanked, qualityRanked, fallenPassers, compounderPassers } from '../src/engine/batch-a.ts';
 import { magic, magicRanked, piotroski, piotroskiRanked, piotroskiPool, fullQuality, fullQualityRanked } from '../src/engine/batch-b.ts';
 import { stepEw } from '../src/engine/equal-weight.ts';
@@ -159,4 +160,16 @@ for (const b of cfg.volBooks ?? []) {
   if (!DRY) { mkdirSync(dir, { recursive: true }); writeFileSync(stFile, JSON.stringify(st, null, 1) + '\n'); writeFileSync(dir + '/latest.json', JSON.stringify(lat) + '\n'); }
 }
 if (!DRY) { mkdirSync(BDIR, { recursive: true }); writeFileSync(BDIR + '/summary.json', JSON.stringify({ asOf: D, books: out }) + '\n'); }
+
+// Overlap page (diagnosis only, no pass or kill line): which names qualify (rank 20 or better in the book's own ranking) in how many of the company-figure books, and how alike the full rankings are.
+if (fundOk) {
+  const OVB = [['ba-a2-value', 'A2', 'Value', 'valueLite'], ['ba-a3-quality', 'A3', 'Quality (half)', 'qualityLite'], ['ba-a5-fallen', 'A5', 'Fallen', 'fallen'], ['ba-a6-compounder', 'A6', 'Compounder', 'compounder'], ['bb-b1-magic', 'B1', 'Magic Formula', 'magic'], ['bb-b2-piotroski', 'B2', 'Piotroski', 'piotroski'], ['bb-b3-fullquality', 'B3', 'Full quality', 'fullQuality']].filter(([id]) => books.some((b) => b.id === id));
+  const ox = { el: el500, series, t, dates, held: new Set(), fund: fundRows, st: {}, group: (sym) => industry[sym] ?? null };
+  const rk = { valueLite: valueRanked, qualityLite: qualityRanked, fallen: fallenPassers, magic: magicRanked, piotroski: piotroskiRanked, fullQuality: fullQualityRanked, compounder: compounderPassers };
+  const lists = Object.fromEntries(OVB.map(([id, , , sig]) => [id, rk[sig](ox).map((r) => r.sym)]));
+  const ov = overlapOf(OVB.map(([id, short, label]) => ({ id, short, label, list: lists[id] })), (sym) => industry[sym] ?? null), names = ov.names, pairs = ov.pairs, corr = { ...ov.corr, ...Object.fromEntries(Object.entries(ov.common).map(([k, n]) => [k + '#n', n])) };
+  const hf = BDIR + '/overlap-history.json', hist = R(hf, { months: {} }); hist.months[D.slice(0, 7)] = { d: D, pairs, held: Object.fromEntries(OVB.map(([id, short]) => [short, Math.min(20, lists[id].length)])) };
+  if (DRY && process.env.OVERLAP_PRINT) console.log(JSON.stringify({ names: names.slice(0, 12), pairs, corr, sizes: OVB.map(([id]) => [id, lists[id].length]) }));
+  if (!DRY) { writeFileSync(hf, JSON.stringify(hist) + '\n'); writeFileSync(BDIR + '/overlap.json', JSON.stringify({ asOf: D, books: OVB.map(([id, short, label]) => ({ id, short, label, ranked: lists[id].length })), names, pairs, corr, history: Object.entries(hist.months).sort().map(([m, x]) => ({ m, ...x })) }) + '\n'); }
+}
 console.log(JSON.stringify({ asOf: D, universe: el.length, books: out.map((o) => ({ id: o.id, state: o.state, held: o.held, conf: o.confidence, kill: o.kill })) }));

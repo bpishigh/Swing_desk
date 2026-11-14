@@ -113,7 +113,7 @@ const bookSum = read('data/india/books/summary.json', null);   // first-wave pap
 const slimBook = (z) => (z ? { ...z, daily: undefined, monthly: undefined, recentClosed: (z.recentClosed || []).slice(-10), scorecard: z.scorecard ? { ...z.scorecard, pairs: undefined } : null } : null);
 const bookSumUs = read('data/us/books/summary.json', null);   // US versions (C-179): same cards, market column
 const bookRows = [...(bookSum?.books ?? []).map((b) => ({ ...b, market: 'India' })), ...(bookSumUs?.books ?? [])];
-const books = bookRows.length ? { asOf: bookSum?.asOf ?? bookSumUs?.asOf, asOfUs: bookSumUs?.asOf ?? null, rows: bookRows, by: Object.fromEntries([...(bookSum?.books ?? []).map((b) => [b.id, slimBook(read(`data/india/books/${b.id}/latest.json`, null))]), ...(bookSumUs?.books ?? []).map((b) => [b.id, slimBook(read(`data/us/books/${b.id}/latest.json`, null))])]) } : null;
+const books = bookRows.length ? { asOf: bookSum?.asOf ?? bookSumUs?.asOf, asOfUs: bookSumUs?.asOf ?? null, rows: bookRows, overlap: read('data/india/books/overlap.json', null), by: Object.fromEntries([...(bookSum?.books ?? []).map((b) => [b.id, slimBook(read(`data/india/books/${b.id}/latest.json`, null))]), ...(bookSumUs?.books ?? []).map((b) => [b.id, slimBook(read(`data/us/books/${b.id}/latest.json`, null))])]) } : null;
 const evidence = read('settings/evidence.json', null);   // what the registered tests found for each rule behind the Ready list: information only
 const out = { generatedAt: new Date(now).toISOString(), expected, india, us, health, store, scan, paper, scanIndia, paperIndia, names, strategies, momentum, momentumUs, momentumStops, momentumUsStops, momentumMonthly, momentumUsMonthly, books, evidence };
 mkdirSync('site/data', { recursive: true });
