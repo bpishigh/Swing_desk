@@ -1,0 +1,33 @@
+name: exchange-log
+# Wave 2 collection (Batch C, C-5): surveillance lists and bulk and block deals. Manual only until the owner says to start it nightly; then add the two schedule lines shown below.
+# schedule: evening run 14:00 UTC (19:30 IST, after the exchange publishes) and a retry 04:30 UTC the next morning; both are safe to repeat.
+on:
+  workflow_dispatch:
+concurrency: exchange-log
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - id: log
+        run: node scripts/exchange-log.mjs
+        continue-on-error: true
+      - run: node scripts/check-no-personal-data.mjs
+      - name: Commit result
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india/surveillance data/india/deals data/india/exchange-log-status.json
+          git commit -m "exchange-log: $(date -u +%Y-%m-%dT%H:%MZ)" || true
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && break
+            sleep $((i * 3))
+          done
+      - name: Fail the run if a source failed
+        if: steps.log.outcome == 'failure'
+        run: exit 1
