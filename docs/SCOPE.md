@@ -220,7 +220,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | 16 | M-2 price-only multibagger lift test (needs package 2) | Study | Multibagger | M |
 | 17 | MAX/lottery flag and turn-of-month | Flag and strategy | Risk, calendar | S |
 | 36 | Volatility contraction pattern (VCP, Minervini; added 14 Nov 2026 at the owner's request) | Strategy | Trend | M. Reg. |
-| 36b | Minervini SEPA book, flat-base setups only (C-218, adopted 15 Nov 2026): bd-m2-sepaflat built, forward from 17 Nov; engine SEPA mode (intraday stop, half sale, 50-day rule, risk sizing). Contraction (VCP) bases parked: counter found 0 to 7 name-days a year; test on his worked examples awaits NFLX 2009 and MELI 2007 price files. Proposal `docs/MINERVINI_SEPA.md` v3 | Strategy | Trend | M. Reg. |
+| 36b | Minervini SEPA book, flat-base setups only (C-218, adopted 15 Nov 2026): bd-m2-sepaflat built, PAUSED 16 Nov by the owner after two negative replays; engine SEPA mode (intraday stop, half sale, 50-day rule, risk sizing). Contraction (VCP) bases parked: counter found 0 to 7 name-days a year; test on his worked examples awaits NFLX 2009 and MELI 2007 price files. Proposal `docs/MINERVINI_SEPA.md` v3 | Strategy | Trend | M. Reg. |
 
 ### Wave 2: exchange-data strategies (no full fundamentals needed)
 

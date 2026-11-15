@@ -725,7 +725,7 @@
       "status": "paper_only",
       "rule": "M2",
       "view": "book_list",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "dataFile": "data/india/books/bd-m2-sepaflat/latest.json",
       "benchmarks": [
         "nifty200",

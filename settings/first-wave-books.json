@@ -168,7 +168,7 @@
       "rule": "M2",
       "name": "Minervini flat-base setups (his rules, flat bases only)",
       "signal": "sepaFlat",
-      "startAfter": "2026-11-17",
+      "startAfter": "2099-12-31",
       "comparator": "n500",
       "batch": "D"
     }
