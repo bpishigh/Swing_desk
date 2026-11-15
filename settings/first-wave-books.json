@@ -153,6 +153,15 @@
       "startAfter": "2026-10-16",
       "comparator": "n500",
       "batch": "C"
+    },
+    {
+      "id": "bd-m1-minervini",
+      "rule": "M1",
+      "name": "Minervini trend template",
+      "signal": "minervini",
+      "startAfter": "2026-11-15",
+      "comparator": "n500",
+      "batch": "D"
     }
   ],
   "navFunds": [

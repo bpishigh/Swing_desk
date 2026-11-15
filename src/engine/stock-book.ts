@@ -12,7 +12,7 @@ export interface BookState {
   id: string; startAfter: string; cash: number; pos: Record<string, Pos>; lastValue: Record<string, number>;
   pending: Pending | null; stopQueue: Array<{ sym: string; on: string }>; closed: Closed[];
   daily: Array<{ d: string; v: number; vs: number; x?: number }>; skipped: Array<{ date: string; sym: string; width: number }>;
-  slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
+  weight?: number; slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
 }
 export const newBook = (id: string, startAfter: string): BookState => ({ id, startAfter, cash: BOOK.startValue, pos: {}, lastValue: {}, pending: null, stopQueue: [], closed: [], daily: [], skipped: [], slipCum: 0, cashDays: { credited: 0, missing: 0 }, started: null, lastSignal: null, lastStep: null });
 
@@ -54,7 +54,7 @@ export function stepBook(st: BookState, e: Env): BookState {
       let V = st.cash; for (const [s, p] of Object.entries(st.pos)) { const x = px(s); V += p.sh * (x > 0 ? x : 0); }
       for (const b of pend.buys) {
         const x = px(b.sym); if (!(x > 0) || st.pos[b.sym] || e.blocked?.(b.sym)) continue;
-        const amt = Math.min(BOOK.weight * V, st.cash / (1 - e.tier(b.value) / 2)); if (!(amt > 0)) continue;
+        const amt = Math.min((st.weight ?? BOOK.weight) * V, st.cash / (1 - e.tier(b.value) / 2)); if (!(amt > 0)) continue;
         const cost = amt * e.tier(b.value) / 2; (st.costs ??= {})[D.slice(0, 7)] = ((st.costs ??= {})[D.slice(0, 7)] ?? 0) + cost; st.cash -= amt; traded += amt; st.slipCum += amt * BOOK.slipEachWay; st.lastValue[b.sym] = b.value;
         st.pos[b.sym] = { sh: (amt - cost) / x, entry: x, entryDate: D, high: x, stop: b.stop };
       }

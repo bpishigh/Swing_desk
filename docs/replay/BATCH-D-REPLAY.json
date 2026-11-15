@@ -1,0 +1,118 @@
+{
+ "run": "2026-11-15",
+ "from": "2021-01-01",
+ "to": "2026-11-13",
+ "universe": "top 500, rebuilt monthly",
+ "unrankedLastMonth": 1,
+ "summary": {
+  "M1": {
+   "name": "Minervini trend template",
+   "months": 70,
+   "sinceStart": {
+    "book": 1.1195202992345612,
+    "comp": 1.084849235560589,
+    "excess": 0.03467106367397221
+   },
+   "confidence": 0.545839576035521,
+   "drawdown": -0.30381861327018633,
+   "closedTrades": 2976,
+   "avgNetTrade": 0.024147782258064448,
+   "stopOuts": 1219,
+   "avgExposure": 0.7689547936091364,
+   "byYear": {
+    "2021": {
+     "book": 0.5077015195237271,
+     "comp": 0.32681554360135934,
+     "excess": 0.18088597592236777
+    },
+    "2022": {
+     "book": -0.1071490228146098,
+     "comp": 0.030184313359383985,
+     "excess": -0.1373333361739938
+    },
+    "2023": {
+     "book": 0.4215409025227097,
+     "comp": 0.2576437728374603,
+     "excess": 0.1638971296852494
+    },
+    "2024": {
+     "book": 0.19838646570162144,
+     "comp": 0.15164070481724612,
+     "excess": 0.04674576088437532
+    },
+    "2025": {
+     "book": -0.19231615375165878,
+     "comp": 0.05311189967553709,
+     "excess": -0.24542805342719587
+    },
+    "2026": {
+     "book": 0.14431496237849095,
+     "comp": 0,
+     "excess": 0.14431496237849095
+    }
+   },
+   "skippedWide": 0,
+   "signals": null,
+   "signalsNoSlot": null,
+   "firstValue": "2021-01",
+   "window": {
+    "start": "2021-01-01",
+    "months": []
+   }
+  }
+ },
+ "survivorship": {
+  "2020": {
+   "vanished": 9,
+   "withFilings": 9,
+   "missing": [],
+   "share": 1
+  },
+  "2021": {
+   "vanished": 8,
+   "withFilings": 8,
+   "missing": [],
+   "share": 1
+  },
+  "2022": {
+   "vanished": 15,
+   "withFilings": 12,
+   "missing": [
+    "PHILIPCARB",
+    "RUCHI",
+    "BURGERKING"
+   ],
+   "share": 0.8
+  },
+  "2023": {
+   "vanished": 18,
+   "withFilings": 16,
+   "missing": [
+    "ICICILIQ",
+    "SPICEJET"
+   ],
+   "share": 0.889
+  },
+  "2024": {
+   "vanished": 23,
+   "withFilings": 23,
+   "missing": [],
+   "share": 1
+  },
+  "2025": {
+   "vanished": 16,
+   "withFilings": 16,
+   "missing": [],
+   "share": 1
+  },
+  "2026": {
+   "vanished": 14,
+   "withFilings": 13,
+   "missing": [
+    "ASHIKA"
+   ],
+   "share": 0.929
+  }
+ },
+ "stillTradingShare": 0.976
+}

@@ -121,3 +121,42 @@ export function runupBook(x: BCtx, events: RunupEvent[], log?: RunupLogRow[]): O
   }
   return orNull({ buys, sells });
 }
+
+// ---- Package 15b, Minervini-exact trend template book (docs/MINERVINI_BOOK.md v3, adopted by the owner 15 Nov 2026). The eight published tests at their minimums, every passer held at equal weight as at most 100 slots of 1%, monthly review, exit at a review when any test fails, 25% long-hold stop. RS = the US scan's weighted four-quarter return (0.4, 0.2, 0.2, 0.2; quarter 63 sessions) ranked as a percentile across every stored stock meeting the price (Rs 20), history (260 sessions) and liquidity (Rs 5 crore median traded value) floors. Tests 6 and 7 use intraday lows and highs.
+import { isMonthStart } from './first-wave.ts';
+export const MV = { slots: 100, weight: 0.01, quarter: 63, rsW: [0.4, 0.2, 0.2, 0.2], rsMin: 70, rising: 21, lowPct: 0.30, highPct: 0.25, year: 252 };
+const okn = (v: number): boolean => v > 0;
+const smaAt = (c: ArrayLike<number>, t: number, n: number): number => { if (t - n + 1 < 0) return NaN; let s = 0; for (let i = t - n + 1; i <= t; i++) { if (!okn(c[i])) return NaN; s += c[i]; } return s / n; };
+/** Weighted four-quarter return, or NaN when any of the five closes is missing. */
+export function weightedRs(c: ArrayLike<number>, t: number): number {
+  const p = [0, 1, 2, 3, 4].map((k) => c[t - k * MV.quarter]); if (t - 4 * MV.quarter < 0 || !p.every(okn)) return NaN;
+  return MV.rsW[0] * (p[0] / p[1] - 1) + MV.rsW[1] * (p[1] / p[2] - 1) + MV.rsW[2] * (p[2] / p[3] - 1) + MV.rsW[3] * (p[3] / p[4] - 1);
+}
+export function percentiles(m: Map<string, number>): Map<string, number> {
+  const v = [...m.values()].sort((a, b) => a - b), n = v.length, out = new Map<string, number>();
+  for (const [k, x] of m) { let lo = 0, hi = n; while (lo < hi) { const mid = (lo + hi) >> 1; if (v[mid] < x) lo = mid + 1; else hi = mid; } out.set(k, n > 1 ? (100 * lo) / (n - 1) : 100); }
+  return out;
+}
+/** Tests 1 to 7 on one name (test 8 is the rank, applied by the caller). Null when history is short. */
+export function templateSeven(s: Ser, t: number): boolean | null {
+  const c = s.c, h = s.h ?? s.c, l = s.l ?? s.c; if (!okn(c[t])) return null;
+  const s50 = smaAt(c, t, 50), s150 = smaAt(c, t, 150), s200 = smaAt(c, t, 200), s200b = smaAt(c, t - MV.rising, 200); if (![s50, s150, s200, s200b].every(Number.isFinite)) return null;
+  let hi = -Infinity, lo = Infinity; for (let i = t - MV.year + 1; i <= t; i++) { if (i < 0 || !okn(h[i]) || !okn(l[i])) return null; if (h[i] > hi) hi = h[i]; if (l[i] < lo) lo = l[i]; }
+  const p = c[t]; return p > s150 && p > s200 && s150 > s200 && s200 > s200b && s50 > s150 && s50 > s200 && p > s50 && p >= lo * (1 + MV.lowPct) && p >= hi * (1 - MV.highPct);
+}
+export interface MvStats { month: string; ranked: number; passing: number }
+/** x.el must be the wide eligible list (price, history and liquidity floors only), not the top 500. */
+export function minerviniPassers(x: BCtx): Array<Name & { rs: number }> {
+  const rs = new Map<string, number>(); for (const n of x.el) { const s = x.series.get(n.sym); if (!s) continue; const v = weightedRs(s.c, x.t); if (Number.isFinite(v)) rs.set(n.sym, v); }
+  const pc = percentiles(rs), out: Array<Name & { rs: number }> = [];
+  for (const n of x.el) { const r = pc.get(n.sym), s = x.series.get(n.sym); if (r == null || !s || r < MV.rsMin) continue; if (templateSeven(s, x.t) === true) out.push({ ...n, rs: r }); }
+  return out;
+}
+export function minervini(x: BCtx, stats?: MvStats[]): Orders | null {
+  if (!(isMonthStart(x.dates, x.t) || (!x.st.started && x.held.size === 0))) return null;
+  const pass = minerviniPassers(x), ok = new Map(pass.map((n) => [n.sym, n]));
+  stats?.push({ month: x.dates[x.t].slice(0, 7), ranked: x.el.length, passing: pass.length });
+  const sells = [...x.held].filter((s) => !ok.has(s)), keep = x.held.size - sells.length, room = MV.slots - keep;
+  const fresh = pass.filter((n) => !x.held.has(n.sym)).sort((a, b) => b.value - a.value || (a.sym < b.sym ? -1 : 1)).slice(0, Math.max(0, room));
+  return orNull({ buys: fresh.map((n) => ({ sym: n.sym, value: n.value, stop: BOOK.longStop })), sells });
+}
