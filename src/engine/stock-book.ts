@@ -12,7 +12,7 @@ export interface BookState {
   id: string; startAfter: string; cash: number; pos: Record<string, Pos>; lastValue: Record<string, number>;
   pending: Pending | null; stopQueue: Array<{ sym: string; on: string }>; closed: Closed[];
   daily: Array<{ d: string; v: number; vs: number; x?: number }>; skipped: Array<{ date: string; sym: string; width: number; why?: string }>;
-  weight?: number; risk?: number; posCap?: number; mvFail?: Record<string, number>; sepaLast?: Record<string, number>; sepaCounts?: Record<string, Record<string, number>>; slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
+  weight?: number; risk?: number; posCap?: number; stopCap?: number; mvFail?: Record<string, number>; sepaLast?: Record<string, number>; sepaCounts?: Record<string, Record<string, number>>; slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
 }
 export const newBook = (id: string, startAfter: string): BookState => ({ id, startAfter, cash: BOOK.startValue, pos: {}, lastValue: {}, pending: null, stopQueue: [], closed: [], daily: [], skipped: [], slipCum: 0, cashDays: { credited: 0, missing: 0 }, started: null, lastSignal: null, lastStep: null });
 
@@ -59,7 +59,7 @@ export function stepBook(st: BookState, e: Env): BookState {
         const x = px(b.sym); if (!(x > 0) || st.pos[b.sym] || e.blocked?.(b.sym)) continue;
         let stopPx: number | undefined, width = 0, amt: number;
         if (st.risk) {   // SEPA mode: size = risk / stop width, capped; a signal that finds too little cash is skipped and logged, never cut down
-          stopPx = Math.max(b.stopPx ?? 0, 0.9 * x); width = (x - stopPx) / x; if (!(width > 0)) continue;
+          stopPx = Math.max(b.stopPx ?? 0, (1 - (st.stopCap ?? 0.1)) * x); width = (x - stopPx) / x; if (!(width > 0)) continue;
           amt = Math.min(st.risk * V / width, (st.posCap ?? 0.25) * V); if (st.cash / (1 - e.tier(b.value) / 2) < amt * 0.999) { st.skipped.push({ date: D, sym: b.sym, width, why: 'no cash' }); continue; }
         } else amt = Math.min((st.weight ?? BOOK.weight) * V, st.cash / (1 - e.tier(b.value) / 2));
         if (!(amt > 0)) continue;

@@ -52,3 +52,7 @@ test('largest one-day fall since the 52-week low', () => {
 test('flat-base volume: dry-up before, 150% on the day', () => {
   const v = new Array(100).fill(100); for (let i = 89; i < 99; i++) v[i] = 60; v[99] = 160; const r = flatVolume(v, 99); assert.equal(r.dry, true); assert.equal(r.vol, true);
 });
+test('stopCap setting: a 7% cap sizes at 1.25% / 7% and puts the stop 7% below the fill', () => {
+  const st = newBook('t', '2020-01-01'); st.risk = 0.0125; st.stopCap = 0.07; stepBook(st, mk({ D: '2021-01-04' }, () => ({ buys: [{ sym: 'A', value: 1e9, stop: 0.2, stopPx: 80 }], sells: [] }))); stepBook(st, mk({ D: '2021-01-05' }));
+  assert.ok(Math.abs(st.pos.A.fixStop! - 93) < 1e-9); assert.ok(Math.abs(st.pos.A.sh * 100 - 1.25 / 0.07) < 1e-6);
+});

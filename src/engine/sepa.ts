@@ -83,7 +83,7 @@ export function bigFallSince52Low(c: ArrayLike<number>, t: number): boolean {
 }
 export const sma50At = (c: ArrayLike<number>, t: number): number => avg(c, t - 49, t);
 export interface SepaLogRow { date: string; sym: string; rs: number; pivot: number; depth: number; length: number; wideDepth: number | null; wideLength: number | null; dry: boolean; vol: boolean; fig: number[] | null; earnings: boolean | null; taken: boolean; why: string }
-export interface SepaEnv { fig: (sym: string) => number[] | null; log?: SepaLogRow[] }
+export interface SepaEnv { fig: (sym: string) => number[] | null; log?: SepaLogRow[]; earningsOff?: boolean }   // earningsOff: price-only variant for holdouts before 2021 (docs/SEPA_STOP_PREREG.md)
 /** x.el is the wide eligible list. Orders: buys only (exits are the engine's). Per-rule results for every name that reaches the base stage go to the log; funnel counts go to st.sepaCounts. */
 export function sepaFlat(x: { el: Name[]; series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState }, env: SepaEnv): Orders | null {
   const D = x.dates[x.t], rsRaw = new Map<string, number>(); for (const n of x.el) { const s = x.series.get(n.sym); if (!s) continue; const v = weightedRs(s.c, x.t); if (Number.isFinite(v)) rsRaw.set(n.sym, v); }
@@ -96,6 +96,7 @@ export function sepaFlat(x: { el: Name[]; series: Map<string, Ser>; t: number; d
     env.log?.push(row);
     if (!(vv.dry && vv.vol)) { row.why = !vv.dry ? 'volume did not dry up' : 'breakout volume under 150%'; continue; }
     if (x.held.has(n.sym)) { row.why = 'held'; continue; } if (last[n.sym] != null && x.t - last[n.sym] < SF.cooldown) { row.why = 'repeat of a recent signal'; continue; }
+    if (env.earningsOff) { row.earnings = null; cnt.e25++; cand.push({ n, rs: r, fs, row }); continue; }
     const g = env.fig(n.sym); row.fig = g ? g.map((v) => Math.round(v * 1e3) / 1e3) : null; if (g) cnt.fig++;
     if (!g) { row.why = 'no earnings figure'; continue; } row.earnings = earningsPass(g); if (!row.earnings) { row.why = 'earnings below the floor'; continue; } cnt.e25++;
     cand.push({ n, rs: r, fs, row });
