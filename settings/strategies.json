@@ -645,6 +645,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-c1-delivery",
+      "name": "Delivery accumulation",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "C1",
+      "view": "book_list",
+      "startAfter": "2026-11-15",
+      "dataFile": "data/india/books/bc-c1-delivery/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

@@ -126,6 +126,15 @@
       "startAfter": "2099-12-31",
       "comparator": "n500",
       "batch": "B"
+    },
+    {
+      "id": "bc-c1-delivery",
+      "rule": "C1",
+      "name": "Delivery accumulation",
+      "signal": "deliveryAccum",
+      "startAfter": "2026-11-15",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [
