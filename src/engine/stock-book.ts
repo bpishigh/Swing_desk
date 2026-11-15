@@ -12,7 +12,7 @@ export interface BookState {
   id: string; startAfter: string; cash: number; pos: Record<string, Pos>; lastValue: Record<string, number>;
   pending: Pending | null; stopQueue: Array<{ sym: string; on: string }>; closed: Closed[];
   daily: Array<{ d: string; v: number; vs: number; x?: number }>; skipped: Array<{ date: string; sym: string; width: number }>;
-  weight?: number; slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
+  weight?: number; mvFail?: Record<string, number>; slipCum: number; costs?: Record<string, number>; distCredit?: number; cashDays: { credited: number; missing: number }; started: string | null; lastSignal: string | null; lastStep: string | null;
 }
 export const newBook = (id: string, startAfter: string): BookState => ({ id, startAfter, cash: BOOK.startValue, pos: {}, lastValue: {}, pending: null, stopQueue: [], closed: [], daily: [], skipped: [], slipCum: 0, cashDays: { credited: 0, missing: 0 }, started: null, lastSignal: null, lastStep: null });
 

@@ -22,17 +22,18 @@ import { scorecard } from '../src/engine/scorecard.ts';
 
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
 const FROM = arg('from', '2021-01-01'), TO = arg('to', '9999-12-31'), OUT = arg('out', 'docs/replay'), SMOKE = process.argv.includes('--smoke');
-const BOOKS = { A1: { id: 'ba-a1-pead', name: 'Post-earnings drift', fn: pead }, A2: { id: 'ba-a2-value', name: 'Value-lite', fn: valueLite }, A3: { id: 'ba-a3-quality', name: 'Quality-lite', fn: qualityLite }, A5: { id: 'ba-a5-fallen', name: 'Fallen and rebuilding', fn: fallen }, A6: { id: 'ba-a6-compounder', name: 'Consistent compounder, lite', fn: compounder } , M1: { id: 'bd-m1-minervini', name: 'Minervini trend template', fn: minervini, batch: 'D' }, C1: { id: 'bc-c1-delivery', name: 'Delivery accumulation', fn: deliveryAccum, batch: 'C' }, B1: { id: 'bb-b1-magic', name: 'Magic Formula', fn: magic, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.enterpriseValue != null && f.returnOnCapital != null }, B2: { id: 'bb-b2-piotroski', name: 'Piotroski F-score', fn: piotroski, batch: 'B', need: (f) => !f.financial && f.marketCap != null && f.fy?.cur.equity != null && piotroskiScore(f) != null }, B3: { id: 'bb-b3-fullquality', name: 'Full quality', fn: fullQuality, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.netDebt != null && f.returnOnCapital != null && f.cashFlowFy[0]?.cfo != null && f.bs?.assets != null && f.margin.operatingEbit != null && f.growth.revenueCagr3 != null && f.quarterlyEbitMargin.length >= 12 && f.quarterlyEbitMargin.filter((v) => v != null).length >= 10 } };
+const BOOKS = { A1: { id: 'ba-a1-pead', name: 'Post-earnings drift', fn: pead }, A2: { id: 'ba-a2-value', name: 'Value-lite', fn: valueLite }, A3: { id: 'ba-a3-quality', name: 'Quality-lite', fn: qualityLite }, A5: { id: 'ba-a5-fallen', name: 'Fallen and rebuilding', fn: fallen }, A6: { id: 'ba-a6-compounder', name: 'Consistent compounder, lite', fn: compounder } , M1: { id: 'bd-m1-minervini', name: 'Minervini trend template', fn: minervini, batch: 'D' }, M1G: { id: 'bd-m1g', name: 'M1 + market gate (G)', fn: (x, st) => minervini(x, st, { gateOff: gateOff(x.dates[x.t]) }), batch: 'D' }, M1B: { id: 'bd-m1b', name: 'M1 + exit buffer (B)', fn: (x, st) => minervini(x, st, { buffer: true }), batch: 'D' }, M1V: { id: 'bd-m1v', name: 'M1 variant: 4-month rising, RS 80 (V)', fn: (x, st) => minervini(x, st, { rising: 84, rsMin: 80 }), batch: 'D' }, C1: { id: 'bc-c1-delivery', name: 'Delivery accumulation', fn: deliveryAccum, batch: 'C' }, B1: { id: 'bb-b1-magic', name: 'Magic Formula', fn: magic, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.enterpriseValue != null && f.returnOnCapital != null }, B2: { id: 'bb-b2-piotroski', name: 'Piotroski F-score', fn: piotroski, batch: 'B', need: (f) => !f.financial && f.marketCap != null && f.fy?.cur.equity != null && piotroskiScore(f) != null }, B3: { id: 'bb-b3-fullquality', name: 'Full quality', fn: fullQuality, batch: 'B', need: (f) => !f.financial && f.bs?.liquidBasis === LIQUID_BASIS && f.ttm.operatingEbit != null && f.netDebt != null && f.returnOnCapital != null && f.cashFlowFy[0]?.cfo != null && f.bs?.assets != null && f.margin.operatingEbit != null && f.growth.revenueCagr3 != null && f.quarterlyEbitMargin.length >= 12 && f.quarterlyEbitMargin.filter((v) => v != null).length >= 10 } };
 const WANT = arg('book', 'A1,A2,A3,A5,A6').split(',').map((s) => s.trim()).filter((s) => BOOKS[s]);
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 BASE.universe = 500;
 
 const raw = [];
 for (const f of readdirSync('data/india/bhav-hist').filter((x) => x.endsWith('.json.gz')).sort()) raw.push(JSON.parse(gunzipSync(readFileSync('data/india/bhav-hist/' + f))));
+if (process.argv.includes('--pre')) for (const f of readdirSync('data/india/bhav-pre2020').filter((x) => x.endsWith('.json.gz')).sort()) raw.push(JSON.parse(gunzipSync(readFileSync('data/india/bhav-pre2020/' + f))));
 for (const f of readdirSync('data/india/bhav').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) raw.push(R('data/india/bhav/' + f));
 raw.sort((a, b) => (a.date < b.date ? -1 : 1));
 const uniq = raw.filter((d, i) => i === 0 || d.date !== raw[i - 1].date);
-const actions = [...R('data/india/corp-actions-history.json', []), ...R('data/india/corp-actions.json', [])];
+const actions = [...(process.argv.includes('--pre') ? R('data/india/corp-actions-history-pre2019.json', []) : []), ...R('data/india/corp-actions-history.json', []), ...R('data/india/corp-actions.json', [])];
 const ov = { ...R('data/india/corp-action-overrides-hist.json', {}), ...R('data/india/corp-action-overrides.json', {}) };
 const res = resolveHistory(uniq, actions, ov), days = toDays(uniq), dates = days.map((d) => d.date);
 const industry = R('data/india/segments.json', {}).industry ?? {}, names = R('data/names.json', { india: {} }).india ?? {}, allowed = new Set(Object.keys(industry));
@@ -60,7 +61,7 @@ const ageAt = (sym, t) => { const s = series.get(sym); if (!s) return 0; for (le
 const pxAt = (sym, t) => { const s = series.get(sym); if (!s) return NaN; for (let k = t; k >= Math.max(0, t - 400); k--) if (s.c[k] > 0) return s.c[k]; return NaN; };
 
 const idx = (() => { const o = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) o[d] = v[3]; } return o; })();
-const idxDates = Object.keys(idx).sort(), n500At = (d) => { let lo = 0, hi = idxDates.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (idxDates[m] <= d) { a = m; lo = m + 1; } else hi = m - 1; } return a >= 0 ? idx[idxDates[a]] : null; };
+const idxDates = Object.keys(idx).sort(), gateOff = (D) => { let lo = 0, hi = idxDates.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (idxDates[m] <= D) { a = m; lo = m + 1; } else hi = m - 1; } if (a < 199) return false; let sum = 0; for (let i = a - 199; i <= a; i++) sum += idx[idxDates[i]]; return idx[idxDates[a]] < sum / 200; }, n500At = (d) => { let lo = 0, hi = idxDates.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (idxDates[m] <= d) { a = m; lo = m + 1; } else hi = m - 1; } return a >= 0 ? idx[idxDates[a]] : null; };
 
 // Package 21 inputs: delivery % per name per session from the stored daily files (2020 on), and the normal-series flag (EQ).
 const deliv = new Map(); if (WANT.includes('C1')) for (let t = 0; t < uniq.length; t++) for (const [sym, r] of Object.entries(uniq[t].rows)) { let d = deliv.get(sym); if (!d) { d = { p: new Float32Array(uniq.length).fill(NaN), eq: new Uint8Array(uniq.length) }; deliv.set(sym, d); } if (r[7] != null) d.p[t] = r[7]; d.eq[t] = r[0] === 'EQ' ? 1 : 0; }
@@ -68,18 +69,18 @@ const expiry = expiryDays(dates), resultsTag = (sym, t) => { const f = rowsNow[s
 const delivEnv = { deliv, tags: (sym, t) => [...(resultsTag(sym, t) ? ['results'] : []), ...(expiry.has(dates[t]) ? ['expiry'] : [])] };
 const states = Object.fromEntries(WANT.filter((k) => !BOOKS[k].batch).map((k) => [k, newBook(BOOKS[k].id, FROM)])), window = Object.fromEntries(WANT.filter((k) => BOOKS[k].batch).map((k) => [k, { start: null, months: [] }])), wide = Object.fromEntries(WANT.map((k) => [k, []])), plog = Object.fromEntries(WANT.map((k) => [k, []]));
 const exposure = Object.fromEntries(WANT.map((k) => [k, { sum: 0, n: 0 }]));
-let el500 = [], elWide = [], elMonth = '', unranked = 0; const mvStats = [];
+let el500 = [], elWide = [], elMonth = '', unranked = 0; const mvBy = Object.fromEntries(['M1', 'M1G', 'M1B', 'M1V'].map((k) => [k, []]));
 const t00 = Date.now();
 for (let t = t0; t <= t1; t++) {
   const D = dates[t], monthStart = isMonthStart(dates, t);
   if (monthStart || !el500.length) {
     const hist = asOfHistories(days.slice(0, t + 1), t, res, allowed);
     el500 = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); elMonth = D.slice(0, 7);
-    if (WANT.includes('M1')) { const u = BASE.universe; BASE.universe = 100000; try { elWide = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } }
-    for (const n of el500) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; else delete rowsNow[n.sym]; }
+    if (WANT.some((k) => k.startsWith('M1'))) { const u = BASE.universe; BASE.universe = 100000; try { elWide = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } }
+    if (!WANT.every((k) => BOOKS[k].batch === 'D')) for (const n of el500) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; else delete rowsNow[n.sym]; }
     unranked = el500.filter((n) => !rowsNow[n.sym]).length;
   } else {
-    for (const n of el500) { const e = entityOf(n.sym, D); const st = e && storeOf(e); if (st && st.days.has(D)) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; } }   // a filing was broadcast tonight: refresh that name
+    if (!WANT.every((k) => BOOKS[k].batch === 'D')) for (const n of el500) { const e = entityOf(n.sym, D); const st = e && storeOf(e); if (st && st.days.has(D)) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; } }   // a filing was broadcast tonight: refresh that name
   }
   if (monthStart) for (const k of WANT) { const b = BOOKS[k]; if (!b.batch) continue;   // Batch B window rule (fixed before any run): a month counts once 90% of eligible non-financial names carry every figure the book needs; the book starts at the first such month
     if (b.batch === 'D') { if (!states[k]) { states[k] = newBook(b.id, D); states[k].weight = MV.weight; window[k].start = D; } continue; }
@@ -89,7 +90,7 @@ for (let t = t0; t <= t1; t++) {
     if (!states[k] && cov >= 0.9) { states[k] = newBook(b.id, D); window[k].start = D; } }
   for (const k of WANT) {
     const st = states[k], b = BOOKS[k]; if (!st) continue;
-    const signal = (held, stx) => b.fn({ el: k === 'M1' ? elWide : el500, series, t, dates, held, fund: rowsNow, st: stx, group: (sym) => industry[sym] ?? null }, ...(k === 'A1' ? [wide[k], plog[k]] : k === 'C1' ? [delivEnv, plog[k]] : k === 'M1' ? [mvStats] : []));
+    const signal = (held, stx) => b.fn({ el: k.startsWith('M1') ? elWide : el500, series, t, dates, held, fund: rowsNow, st: stx, group: (sym) => industry[sym] ?? null }, ...(k === 'A1' ? [wide[k], plog[k]] : k === 'C1' ? [delivEnv, plog[k]] : k.startsWith('M1') ? [mvBy[k]] : []));
     stepBook(st, { D, open: (s) => openAt(s, t), age: (s) => ageAt(s, t), close: (s) => pxAt(s, t), cashRet: null, tier: (v) => tierCost(v), signal });
     const v = st.daily.at(-1)?.v ?? null; if (v) { const posV = Object.values(st.pos).reduce((a, p) => a + p.sh * (pxAt(Object.keys(st.pos).find((s) => st.pos[s] === p), t) || p.entry), 0); exposure[k].sum += posV / v; exposure[k].n++; }
   }
@@ -119,9 +120,13 @@ for (const k of WANT) { const s = summary[k]; L.push(`| ${k} ${s.name} | ${s.mon
 L.push(``, `## Calendar years (book return, Nifty 500 return, ratio of growth)`, ``);
 for (const k of WANT) { L.push(`**${k} ${summary[k].name}:** ` + Object.entries(summary[k].byYear).map(([y, a]) => `${y}: ${pct(a.book)} vs ${pct(a.comp)}`).join('; ')); L.push(``); }
 if (summary.A1) L.push(`A1 signals logged: ${summary.A1.signals}, skipped for no free slot: ${summary.A1.signalsNoSlot}.`, ``);
-if (KIND === 'D') { const st = states.M1, nc = st?.closed.length ?? 0, yrs = Math.max(0.1, (summary.M1.months ?? 0) / 12), by = Object.fromEntries(mvStats.map((x) => [x.month, x.passing]));
-  const pass = mvStats.map((x) => x.passing), avg = pass.length ? pass.reduce((a, x) => a + x, 0) / pass.length : 0;
-  L.push(`## Template book`, ``, `Reviews: ${mvStats.length}. Names passing all eight tests per review: average ${avg.toFixed(0)}, lowest ${Math.min(...pass)}, highest ${Math.max(...pass)}; names ranked on average ${(mvStats.reduce((a, x) => a + x.ranked, 0) / Math.max(1, mvStats.length)).toFixed(0)}. Closed trades ${nc} (${(nc / yrs).toFixed(0)} a year); stopped out ${st?.closed.filter((c) => c.why === 'stop').length ?? 0}. Average exposure ${pct(summary.M1.avgExposure)} (a passer is 1% of the book, so exposure follows the pass count). Slots: at most ${MV.slots} at ${(MV.weight * 100).toFixed(0)}%; when more pass, the largest by traded value are held.`, ``, `Passing names by review: ` + Object.entries(by).map(([m, n]) => `${m} ${n}`).join(', '), ``, `**Implementation check, not evidence.** The 2021 to 2026 prices have been seen in other tests; survivor bias applies; cash earns nothing here. The 4-month and RS 80 variant is registered and not run.`, ``); }
+if (KIND === 'D') { L.push(`## Template books`, ``);
+  const yrsOf = (k) => Math.max(0.1, (summary[k].months ?? 0) / 12), tr = {};
+  for (const k of WANT) { const st = states[k], ms = mvBy[k], pass = ms.map((x) => x.passing), avg = pass.length ? pass.reduce((a, x) => a + x, 0) / pass.length : 0, nc = st?.closed.length ?? 0; tr[k] = nc / yrsOf(k);
+    L.push(`**${k} ${BOOKS[k].name}:** reviews ${ms.length}; passing per review average ${avg.toFixed(0)}, lowest ${pass.length ? Math.min(...pass) : 'n/a'}, highest ${pass.length ? Math.max(...pass) : 'n/a'}; names ranked on average ${(ms.reduce((a, x) => a + x.ranked, 0) / Math.max(1, ms.length)).toFixed(0)}. Closed trades ${nc} (${tr[k].toFixed(0)} a year); stopped out ${st?.closed.filter((c) => c.why === 'stop').length ?? 0}. Average exposure ${pct(summary[k].avgExposure)}.`, ``); }
+  if (WANT.includes('M1') && WANT.length > 1) { const c = summary.M1.sinceStart; L.push(`## Pre-registered pass rule (docs/MINERVINI_HOLDOUT_PREREG.md, C-217)`, ``, `Control M1: return ${pct(c?.book)}, drawdown ${pct(summary.M1.drawdown)}, ${tr.M1.toFixed(0)} trades a year.`, ``, `| Candidate | Beats control's return | Second test | Excess over Nifty 500 positive | Verdict |`, `|---|---|---|---|---|`);
+    for (const k of WANT.filter((x) => x !== 'M1')) { const r = summary[k].sinceStart, a = r && c && r.book > c.book, b = k === 'M1B' ? tr[k] < tr.M1 : (summary[k].drawdown ?? -1) > (summary.M1.drawdown ?? -1), e = r && r.excess > 0; L.push(`| ${k} ${BOOKS[k].name} | ${a ? 'yes' : 'no'} (${pct(r?.book)}) | ${b ? 'yes' : 'no'} (${k === 'M1B' ? tr[k].toFixed(0) + ' trades a year' : 'drawdown ' + pct(summary[k].drawdown)}) | ${e ? 'yes' : 'no'} (${pct(r?.excess)}) | ${a && b && e ? '**goes to forward paper**' : 'dropped'} |`); } L.push(``); }
+  L.push(`**Implementation check on a holdout, not evidence.** Survivor bias is heavy (names delisted before 2026 are mostly absent), cash earns nothing, a pass is permission to paper-trade forward only.`, ``); }
 if (KIND === 'C') { const lg = plog.C1, st = states.C1, di = (d) => dates.indexOf(d), tagOf = new Map(lg.map((x) => [x.sym + x.date, x]));
   const rows = (st?.closed ?? []).map((c) => ({ ...c, sig: tagOf.get(c.sym + dates[di(c.entryDate) - 1]) })).filter((c) => c.sig), grp = (f) => { const a = rows.filter(f); return { n: a.length, avg: a.length ? a.reduce((m, c) => m + c.ret, 0) / a.length : null, stop: a.length ? a.filter((c) => c.why === 'stop').length / a.length : null }; };
   const cells = { all: grp(() => true), 'expiry tag': grp((c) => c.sig.tags.includes('expiry')), 'results tag': grp((c) => c.sig.tags.includes('results')), 'no tag': grp((c) => !c.sig.tags.length) };

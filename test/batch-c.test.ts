@@ -50,3 +50,12 @@ test('Minervini book: buys every passer up to the slot count, sells a held name 
   const o = minervini(x)!; assert.deepEqual(o.sells, ['FLAT']); assert.ok(o.buys.length >= 1 && o.buys.every((b) => b.sym !== 'FLAT'));
   assert.equal(minervini({ ...(x as object), t: t + 3 } as never), null);
 });
+test('Minervini candidates: gate sells everything; buffer keeps a first-time failer and sells a repeat failer; variant tightens the tests', () => {
+  const n = 400, dates = Array.from({ length: n }, (_, i) => { const d = new Date(Date.UTC(2025, 0, 1)); d.setUTCDate(d.getUTCDate() + i); return d.toISOString().slice(0, 10); });
+  const t = dates.findIndex((d, i) => i > 300 && d.endsWith('-01')), series = new Map([['UP1', ramp(n, (i) => 50 + i * 0.5)], ['UP2', ramp(n, (i) => 40 + i * 0.7)], ['FLAT', ramp(n, () => 100)]]);
+  const mk = () => ({ el: [{ sym: 'UP1', value: 9e8 }, { sym: 'UP2', value: 8e8 }, { sym: 'FLAT', value: 7e8 }], series, t, dates, held: new Set(['FLAT', 'UP2']), fund: {}, st: newBook('m', '2025-01-01') });
+  assert.deepEqual(minervini(mk() as never, undefined, { gateOff: true })!.sells.sort(), ['FLAT', 'UP2']);
+  const x = mk(); assert.deepEqual(minervini(x as never, undefined, { buffer: true })?.sells ?? [], []);     // first failed review: kept
+  assert.deepEqual(minervini(x as never, undefined, { buffer: true })!.sells, ['FLAT']);                   // second in a row: sold
+  assert.equal(templateSeven(ramp(400, (i) => 50 + i * 0.5), 399, 84), true);
+});

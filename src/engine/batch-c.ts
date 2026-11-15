@@ -138,25 +138,29 @@ export function percentiles(m: Map<string, number>): Map<string, number> {
   return out;
 }
 /** Tests 1 to 7 on one name (test 8 is the rank, applied by the caller). Null when history is short. */
-export function templateSeven(s: Ser, t: number): boolean | null {
+export function templateSeven(s: Ser, t: number, rising = MV.rising): boolean | null {
   const c = s.c, h = s.h ?? s.c, l = s.l ?? s.c; if (!okn(c[t])) return null;
-  const s50 = smaAt(c, t, 50), s150 = smaAt(c, t, 150), s200 = smaAt(c, t, 200), s200b = smaAt(c, t - MV.rising, 200); if (![s50, s150, s200, s200b].every(Number.isFinite)) return null;
+  const s50 = smaAt(c, t, 50), s150 = smaAt(c, t, 150), s200 = smaAt(c, t, 200), s200b = smaAt(c, t - rising, 200); if (![s50, s150, s200, s200b].every(Number.isFinite)) return null;
   let hi = -Infinity, lo = Infinity; for (let i = t - MV.year + 1; i <= t; i++) { if (i < 0 || !okn(h[i]) || !okn(l[i])) return null; if (h[i] > hi) hi = h[i]; if (l[i] < lo) lo = l[i]; }
   const p = c[t]; return p > s150 && p > s200 && s150 > s200 && s200 > s200b && s50 > s150 && s50 > s200 && p > s50 && p >= lo * (1 + MV.lowPct) && p >= hi * (1 - MV.highPct);
 }
 export interface MvStats { month: string; ranked: number; passing: number }
 /** x.el must be the wide eligible list (price, history and liquidity floors only), not the top 500. */
-export function minerviniPassers(x: BCtx): Array<Name & { rs: number }> {
+export interface MvOpts { rising?: number; rsMin?: number; gateOff?: boolean; buffer?: boolean }
+export function minerviniPassers(x: BCtx, o: MvOpts = {}): Array<Name & { rs: number }> {
   const rs = new Map<string, number>(); for (const n of x.el) { const s = x.series.get(n.sym); if (!s) continue; const v = weightedRs(s.c, x.t); if (Number.isFinite(v)) rs.set(n.sym, v); }
   const pc = percentiles(rs), out: Array<Name & { rs: number }> = [];
-  for (const n of x.el) { const r = pc.get(n.sym), s = x.series.get(n.sym); if (r == null || !s || r < MV.rsMin) continue; if (templateSeven(s, x.t) === true) out.push({ ...n, rs: r }); }
+  for (const n of x.el) { const r = pc.get(n.sym), s = x.series.get(n.sym); if (r == null || !s || r < (o.rsMin ?? MV.rsMin)) continue; if (templateSeven(s, x.t, o.rising ?? MV.rising) === true) out.push({ ...n, rs: r }); }
   return out;
 }
-export function minervini(x: BCtx, stats?: MvStats[]): Orders | null {
+export function minervini(x: BCtx, stats?: MvStats[], o: MvOpts = {}): Orders | null {
   if (!(isMonthStart(x.dates, x.t) || (!x.st.started && x.held.size === 0))) return null;
-  const pass = minerviniPassers(x), ok = new Map(pass.map((n) => [n.sym, n]));
+  if (o.gateOff) { stats?.push({ month: x.dates[x.t].slice(0, 7), ranked: x.el.length, passing: 0 }); return orNull({ buys: [], sells: [...x.held] }); }   // G: the market is below its 200-day average, so cash
+  const pass = minerviniPassers(x, o), ok = new Map(pass.map((n) => [n.sym, n]));
   stats?.push({ month: x.dates[x.t].slice(0, 7), ranked: x.el.length, passing: pass.length });
-  const sells = [...x.held].filter((s) => !ok.has(s)), keep = x.held.size - sells.length, room = MV.slots - keep;
+  const fails = (x.st.mvFail ??= {}); let sells = [...x.held].filter((s) => !ok.has(s));
+  if (o.buffer) { const next: Record<string, number> = {}; sells = sells.filter((s) => { if ((fails[s] ?? 0) >= 1) return true; next[s] = 1; return false; }); x.st.mvFail = next; }   // B: a failing name goes only after a second failed review in a row
+  const keep = x.held.size - sells.length, room = MV.slots - keep;
   const fresh = pass.filter((n) => !x.held.has(n.sym)).sort((a, b) => b.value - a.value || (a.sym < b.sym ? -1 : 1)).slice(0, Math.max(0, room));
   return orNull({ buys: fresh.map((n) => ({ sym: n.sym, value: n.value, stop: BOOK.longStop })), sells });
 }
