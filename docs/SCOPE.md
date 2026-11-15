@@ -256,7 +256,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | 35 | Composite v2 by family, with the pre-registered combinations and nested tests | Composite | Waves 3 and 4. Reg. | L |
 
 ### Housekeeping (any time)
-- Correct two rows in `claude/strategy-universe-consolidated.md` (momentum sleeve evidence, trend template wording).
+- Done 16 Nov 2026: two rows in `claude/strategy-universe-consolidated.md` corrected (momentum sleeve evidence now carries the desk's own C-129, C-131 and C-149 results; trend template and Minervini rows now carry C-135, C-216 to C-220).
 - (Decided and done 8 Nov 2026: 0.20% wording corrected.)
 - Add C-157 onward rows to Engine Rules and the Test Register as each package is approved.
 
