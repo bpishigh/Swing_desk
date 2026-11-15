@@ -224,10 +224,10 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 
 | # | Package | Category | Needs | Size |
 |---|---|---|---|---|
-| 18 | Flags: ASM/GSM/ESM lists and anchor lock-in calendar (30 and 90 day) | Flag | Exchange lists, listing dates | M |
+| 18 | Flags: ASM/GSM/ESM lists and anchor lock-in calendar (30 and 90 day). **15 Nov 2026: 18a adopted (C-208), snapshot job scheduled daily; 18b study run once (C-214), report only.** | Flag | Exchange lists, listing dates | M |
 | 19 | Index inclusion and exclusion (S-4) | Strategy | NSE review announcements. Reg. | M |
-| 20 | Bulk and block deals, with the prop-firm and round-trip filter | Strategy | Exchange deal files; exit rule needed | M |
-| 21 | Delivery-percentage accumulation | Strategy | NSE delivery file; exit rule needed | S |
+| 20 | Bulk and block deals, with the prop-firm and round-trip filter. **15 Nov 2026: adopted (C-211); forward paper book bc-c2-bulkblock started.** Does not cover promoter or institutional holding changes (see 25). | Strategy | Exchange deal files; exit rule needed | M |
+| 21 | Delivery-percentage accumulation. **15 Nov 2026: adopted (C-210), one replay (C-212), stop revised (C-213), forward paper book bc-c1-delivery started.** | Strategy | NSE delivery file; exit rule needed | S |
 | 22 | Corporate actions: demergers (S-5), buybacks (S-7), rights, open offers, delistings, splits, bonus | Strategy | Corporate-action feed; exit rules needed | L |
 | 23 | US: 13F best-ideas and short-interest exclusion (L-7) | Strategy | EDGAR, FINRA (independent of the India filings reader) | M |
 
@@ -236,7 +236,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | # | Package | Category | Family | Size |
 |---|---|---|---|---|
 | 24 | PEAD and results-day volume (S-1), reconciled with C-59 to C-62 | Strategy | Earnings | L |
-| 25 | Promoter and insider open-market buying (S-2) | Strategy | Ownership | M |
+| 25 | Promoter and insider open-market buying (S-2). **Owner asked 15 Nov 2026 whether the deal book covers promoter buying and institutional inflow: it does not (deals book only reads the exchange's bulk and block lists).** Package 25 now carries three inputs, drafted as one spec page: (a) insider and promoter trades from the SEBI insider-trading filings (open-market buys outside routine schedules, size against the person's holding); (b) takeover-threshold filings (SAST) as a confirming event; (c) quarterly change in promoter holding and in FII and DII holding from the shareholding filings (lagged by weeks; read as a slower, separate signal, with promoter pledge as an exclusion). Data in hand: shareholding and pledge for 21 to 26 quarters per stock (full from Sep 2021); insider-trade and SAST queries by date range work (SCOPE L3). Exit rule and the buyer-type rule (promoter versus other insider, size floor) are for the owner. Not started. | Strategy | Ownership | M |
 | 26 | Forensic and dilution flags: pledge history, QIP and preferential, auditor events, Beneish, Altman, cash flow against profit (S-3, M-9) | Flag | Quality | M |
 | 27 | Quality (QMJ-lite) and value (cash-flow yield, EBIT/EV) scores, needed as composite inputs even where funds cover the exposure | Strategy | Quality, value | L |
 | 28 | Magic Formula, Graham defensive, Piotroski F-score | Strategy | Value, quality | M |
