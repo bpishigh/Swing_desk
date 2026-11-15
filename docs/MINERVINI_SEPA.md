@@ -53,6 +53,10 @@ The price chain was run over all stored history (2012 to date, one run) to count
 
 **Result (counts only):** contraction (VCP-style) bases give 0 to 7 breakout name-days a year in every year 2012 to 2026, so that layer is effectively empty with the desk's 2% swing filter (most bases split into seven or more swings). Flat bases give 107 to 475 breakout name-days a year (45 to 245 distinct names), 35 to 184 names a year with the 150% volume condition. A name can count on more than one day, and the earnings screen would cut these sharply. So a flat-base-only book is readable; a book that needs two or more contractions is not. This is a count, not a performance read.
 
+**Flat-base count (owner "go" 15 Nov 2026; `docs/replay/SEPA-FLAT-COUNT.md`).** Definition fixed before the run: 20 to 35 sessions, depth at most 15%, volume dry-up before and 150% on the signal day, first signal per base, six slots, ties broken by highest RS rank. Taken trades per year (calendar counting only, no returns): price chain only 21 to 38 every year 2012 to 2025; with the earnings floor (2021 on) 17, 22, 22, 31, 25 in 2021 to 2025 (average 23.4 at 25%, 24.0 at 20%), 28 in part-year 2026. Pre-set line (20 a year): met in 4 of 5 full years with earnings (2021 gave 17 and 18), no year under 10. Earnings figures exist for 52% to 85% of primary signals; a missing figure is not a fail. Caveat: the slot calendar uses an assumed exit (10% stop, 50-day rule, 250-session cap), so the taken counts move with exits and are not a result.
+
+**Contraction counter test:** not run. None of the five worked examples has stored price data (the US history starts in October 2016; VIVO, MIK and FSII are delisted; NFLX 2009 and MELI 2007 predate it). The pre-set pass rule stands; daily price files for NFLX (2009) and MELI (2007) are needed.
+
 ## 6. Order of work after the owner's "go"
 
 1. Owner reads the count and decides (S-5 below).
