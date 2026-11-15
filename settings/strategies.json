@@ -717,6 +717,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bd-m2-sepaflat",
+      "name": "Minervini flat-base setups (his rules, flat bases only)",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "M2",
+      "view": "book_list",
+      "startAfter": "2026-11-17",
+      "dataFile": "data/india/books/bd-m2-sepaflat/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

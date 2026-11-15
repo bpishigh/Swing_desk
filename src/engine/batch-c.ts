@@ -138,11 +138,11 @@ export function percentiles(m: Map<string, number>): Map<string, number> {
   return out;
 }
 /** Tests 1 to 7 on one name (test 8 is the rank, applied by the caller). Null when history is short. */
-export function templateSeven(s: Ser, t: number, rising = MV.rising): boolean | null {
+export function templateSeven(s: Ser, t: number, rising = MV.rising, lowPct = MV.lowPct): boolean | null {
   const c = s.c, h = s.h ?? s.c, l = s.l ?? s.c; if (!okn(c[t])) return null;
   const s50 = smaAt(c, t, 50), s150 = smaAt(c, t, 150), s200 = smaAt(c, t, 200), s200b = smaAt(c, t - rising, 200); if (![s50, s150, s200, s200b].every(Number.isFinite)) return null;
   let hi = -Infinity, lo = Infinity; for (let i = t - MV.year + 1; i <= t; i++) { if (i < 0 || !okn(h[i]) || !okn(l[i])) return null; if (h[i] > hi) hi = h[i]; if (l[i] < lo) lo = l[i]; }
-  const p = c[t]; return p > s150 && p > s200 && s150 > s200 && s200 > s200b && s50 > s150 && s50 > s200 && p > s50 && p >= lo * (1 + MV.lowPct) && p >= hi * (1 - MV.highPct);
+  const p = c[t]; return p > s150 && p > s200 && s150 > s200 && s200 > s200b && s50 > s150 && s50 > s200 && p > s50 && p >= lo * (1 + lowPct) && p >= hi * (1 - MV.highPct);
 }
 export interface MvStats { month: string; ranked: number; passing: number }
 /** x.el must be the wide eligible list (price, history and liquidity floors only), not the top 500. */

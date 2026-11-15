@@ -1,6 +1,6 @@
 # Minervini SEPA book (package 36b): proposal v3
 
-Status: **v3, 15 Nov 2026. Proposal only: not built, not registered, not adopted.** The owner's goal is a book run exactly as Minervini publishes, no differences. v3 takes its rule wording from the owner's source sheet (his own reading of *Trade Like a Stock Market Wizard*, 2013, and *Think & Trade Like a Champion*, 2017). The sheet is marked "Not an approval", and so is this page: nothing starts until the owner says "go".
+Status: **v3, 15 Nov 2026. Flat-base part adopted and built as C-218 (bd-m2-sepaflat, forward from 17 Nov 2026); contraction bases parked.** The owner's goal is a book run exactly as Minervini publishes, no differences. v3 takes its rule wording from the owner's source sheet (his own reading of *Trade Like a Stock Market Wizard*, 2013, and *Think & Trade Like a Champion*, 2017). The sheet is marked "Not an approval", and so is this page: nothing starts until the owner says "go".
 
 Where the two books differ, the later book is used and the earlier one is noted. Anything the books do not state as a number is a desk figure and is labelled on the card.
 

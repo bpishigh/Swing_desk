@@ -162,6 +162,15 @@
       "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "D"
+    },
+    {
+      "id": "bd-m2-sepaflat",
+      "rule": "M2",
+      "name": "Minervini flat-base setups (his rules, flat bases only)",
+      "signal": "sepaFlat",
+      "startAfter": "2026-11-17",
+      "comparator": "n500",
+      "batch": "D"
     }
   ],
   "navFunds": [

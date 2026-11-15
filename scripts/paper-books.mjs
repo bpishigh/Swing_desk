@@ -19,6 +19,8 @@ import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
 import { deliveryAccum, dealBook, runupBook, minervini, minerviniPassers, MV, expiryDays } from '../src/engine/batch-c.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
+import { sepaFlat, SF, earningsFig, bigFallSince52Low, sma50At } from '../src/engine/sepa.ts';
+import { asOfResults } from '../src/engine/filings-asof.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3), ASOF = arg('asof'), ONLY = arg('only'), DRY = process.argv.includes('--dry');
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
@@ -70,8 +72,14 @@ const delivEnv = (() => { if (!books.some((b) => b.signal === 'deliveryAccum')) 
   return { deliv, tags: (sym, tt) => { const f = fundRows[sym], day = f?.asOf?.slice(0, 10); return [...(day && day >= (dates[tt - 1] ?? '') && day <= dates[tt] ? ['results'] : []), ...(expiry.has(dates[tt]) ? ['expiry'] : [])]; } }; })();
 // Package 20 inputs (C-211): the stored bulk and block deal log (forward only). Rows dated tonight or the previous session that are not yet in the book's signal log are candidates; a night with no file for tonight is counted, never filled in.
 const dealLog = (() => { if (!books.some((b) => b.signal === 'dealBook') || !existsSync('data/india/deals')) return []; const o = []; for (const f of readdirSync('data/india/deals').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) { const j = R('data/india/deals/' + f); for (const r of j.bulk ?? []) o.push({ ...r, kind: 'bulk' }); for (const r of j.block ?? []) o.push({ ...r, kind: 'block' }); } return o; })();
-const elWide = books.some((b) => b.signal === 'minervini') ? (() => { const u = BASE.universe; BASE.universe = 100000; try { return eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } })() : [];   // Minervini book: every stock meeting the price, history and liquidity floors
+const elWide = books.some((b) => b.signal === 'minervini' || b.signal === 'sepaFlat') ? (() => { const u = BASE.universe; BASE.universe = 100000; try { return eligible(asOf, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } })() : [];   // Minervini book: every stock meeting the price, history and liquidity floors
 const runupEvents = books.some((b) => b.signal === 'runupBook') ? Object.values(R('data/india/earnings-forward.json', { events: {} }).events) : [];   // C-61 events, logged nightly before this runner
+// Package 36b inputs (flat-base book): the latest three quarters' profit growth for a candidate, read from the stored filings as of tonight (only names that reach the base, dry-up and volume stage are looked up).
+const sepaFig = (() => { if (!books.some((b) => b.signal === 'sepaFlat')) return () => null; const ents = R('data/india/entities.json').entities, bySym = new Map(), cache = new Map();
+  for (const e of ents) for (const u of e.symbols) { const a = bySym.get(u.symbol) || []; a.push([u, e]); bySym.set(u.symbol, a); }
+  return (sym) => { const a = bySym.get(sym); if (!a) return null; const e = (a.find(([u]) => (u.from == null || u.from <= D) && (u.to == null || u.to >= D)) || a[a.length - 1])[1]; const p = `data/india/filings/${e.id}.json.gz`; if (!existsSync(p)) return null;
+    let facts = cache.get(e.id); if (!facts) { const st0 = JSON.parse(gunzipSync(readFileSync(p))); facts = st0.results.filter((y) => y.asOf).map((y) => ({ entity: e.id, period: y.period, basis: y.basis, asOf: y.asOf, revision: y.revision ?? 0, fields: y.fields, ytd: y.ytd, format: y.format, extra: y.extra })); cache.set(e.id, facts); }
+    return earningsFig(asOfResults(facts, e.id, D, { limit: 8, events: e.events })); }; })();
 const baWatch = (sig, held, stx) => {
   if (!fundOk) return [];
   const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
@@ -86,11 +94,13 @@ const baWatch = (sig, held, stx) => {
 const out = [], twinM0 = monthsOf(twin);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
-  if (b.signal === 'minervini') st.weight = MV.weight;   // 100 slots of 1% (docs/MINERVINI_BOOK.md v3)
+  if (b.signal === 'minervini') st.weight = MV.weight;
+  if (b.signal === 'sepaFlat') { st.risk = SF.risk; st.posCap = SF.posCap; }   // flat-base book: 1.25% risk per trade, 25% position cap (docs/MINERVINI_SEPA.md v3)   // 100 slots of 1% (docs/MINERVINI_BOOK.md v3)
   const ctxOf = (held) => ({ el, series, t, dates, held, group: (sym) => industry[sym] ?? null });
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
-  const signal = (held, stx) => { if (b.signal === 'minervini') { const stats = [], o = minervini({ el: elWide, series, t, dates, held, fund: fundRows, st: stx }, stats); for (const x of stats) { st.mvCounts = st.mvCounts ?? {}; st.mvCounts[x.month] = { passing: x.passing, ranked: x.ranked }; } return o; }
+  const signal = (held, stx) => { if (b.signal === 'sepaFlat') return sepaFlat({ el: elWide, series, t, dates, held, st: stx }, { fig: sepaFig, log: plog });
+    if (b.signal === 'minervini') { const stats = [], o = minervini({ el: elWide, series, t, dates, held, fund: fundRows, st: stx }, stats); for (const x of stats) { st.mvCounts = st.mvCounts ?? {}; st.mvCounts[x.month] = { passing: x.passing, ranked: x.ranked }; } return o; }
       if (b.signal === 'runupBook') return runupBook({ el: el500, series, t, dates, held, fund: fundRows, st: stx }, runupEvents, plog);
       if (b.signal === 'dealBook') { const have = new Set((stx.signalLog ?? []).map((r) => r.date + r.sym + r.client)), prevD = dates[t - 1] ?? '', rows = dealLog.filter((r) => (r.date === D || r.date === prevD) && !have.has(r.date + r.symbol + r.client));
         if (!dealLog.some((r) => r.date === D)) { st.dealsMissing = (st.dealsMissing ?? 0) + 1; st.dealsMissingDates = [...new Set([...(st.dealsMissingDates ?? []), D])].slice(-30); }
@@ -103,7 +113,8 @@ for (const b of books) {
     if (b.signal === 'high52') return high52(x); if (b.signal === 'weekly121') return weekly121(x); if (b.signal === 'donchian') return donchian(x, wide);
     if (b.signal === 'turnOfMonth') return turnOfMonth(x, sessionsLeftInMonth(D, cal.sessionsBetween.bind(cal)), wide); return null; };
   const before = st.lastStep;
-  stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
+  stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal,
+    ...(b.signal === 'sepaFlat' ? { bar: (sym) => { const x = series.get(sym), o = open(sym); return x?.h && x.l && x.h[t] > 0 && x.l[t] > 0 ? { o, h: x.h[t], l: x.l[t] } : null; }, sma50: (sym) => { const x = series.get(sym); return x ? sma50At(x.c, t) : NaN; }, bigFall: (sym) => { const x = series.get(sym); return x ? bigFallSince52Low(x.c, t) : false; } } : {}) });
   if ((b.batch === 'A' || b.batch === 'B') && before !== D) stepEw(st, D, el500.map((p) => p.sym), (s) => { const v = px(s); return v > 0 ? v : null; });
   if (b.signal === 'dealBook') for (const r of st.signalLog ?? []) if (r.taken && r.gap == null && st.pos[r.sym] && st.pos[r.sym].entryDate > r.date && r.price > 0) r.gap = Math.round((st.pos[r.sym].entry / r.price - 1) * 1e4) / 1e4;
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
@@ -135,7 +146,8 @@ for (const b of books) {
   }
   const fqOk = bx2 && b.signal === 'fullQuality' ? new Set(fullQualityRanked(bx2).map((r) => r.sym)) : null;
   const mv = b.signal === 'minervini' ? { counts: Object.entries(st.mvCounts ?? {}).sort().slice(-12).map(([m, x]) => ({ m, ...x })), note: 'A passer is 1% of the book, so exposure follows the number of passers; the book sits in cash when few pass.' } : null;
-  const lat = { mv, b2, unscored: fqOk ? { text: `${Math.max(0, nonFin.length - fqOk.size)} of ${nonFin.length} non-financial names are not scored (a measure is missing, EBIT is not positive, or the balance sheet is not yet read with the investment lines).` } : b2 ? { text: `${b2.pool} names are in the cheapest 30% by book-to-market; ${b2.scored} can be scored on all nine tests; ${b2.atLeast8} score 8 or 9 and are held (at most 20). The rest of the book is in cash.` } : b.signal === 'magic' && fundOk ? { text: `${Math.max(0, nonFin.length - magicOk.size)} of ${nonFin.length} non-financial names are not ranked (power companies, no balance sheet read with the investment lines yet, or no positive operating profit or capital base).` } : ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
+  const sepa = b.signal === 'sepaFlat' ? { counts: Object.entries(st.sepaCounts ?? {}).sort().slice(-30).map(([d, x]) => ({ d, ...x })), halfSold: Object.values(st.pos).filter((p) => p.half).length, recent: (st.signalLog ?? []).slice(-30).reverse(), note: 'Flat-base setups only: his published rules with desk figures for breakout volume (150%), distance above the pivot (5%), the stop at the base low (10% at most) and the 52-week-low proxy for his largest-fall exit. A signal with too little cash is skipped and logged.' } : null;
+  const lat = { sepa, mv, b2, unscored: fqOk ? { text: `${Math.max(0, nonFin.length - fqOk.size)} of ${nonFin.length} non-financial names are not scored (a measure is missing, EBIT is not positive, or the balance sheet is not yet read with the investment lines).` } : b2 ? { text: `${b2.pool} names are in the cheapest 30% by book-to-market; ${b2.scored} can be scored on all nine tests; ${b2.atLeast8} score 8 or 9 and are held (at most 20). The rest of the book is in cash.` } : b.signal === 'magic' && fundOk ? { text: `${Math.max(0, nonFin.length - magicOk.size)} of ${nonFin.length} non-financial names are not ranked (power companies, no balance sheet read with the investment lines yet, or no positive operating profit or capital base).` } : ['qualityLite', 'fallen', 'compounder'].includes(b.signal) && fundOk ? { noInterest: fundFile.coverage?.noInterest ?? null, universe: Object.keys(fundRows).length } : null, id: b.id, rule: b.rule, name: b.name, asOf: D, startAfter: b.startAfter, state: st.started ? 'running' : st.pending ? 'pending fill' : 'waiting', started: st.started, value: v, valueSens: st.daily.at(-1)?.vs ?? null,
     held: hold.length, cashShare: v ? Math.round(st.cash / v * 1e4) / 1e4 : null, positions: hold, pending: st.pending ? { signalDate: st.pending.signalDate, buys: st.pending.buys.map((x) => x.sym), sells: st.pending.sells } : null,
     closedTrades: st.closed.length, stopOuts: st.closed.filter((c) => c.why === 'stop').length, skippedWide: st.skipped.length, cashDays: st.cashDays, monthly: bm, daily: st.daily.slice(-400), recentClosed: st.closed.slice(-30),
     watch: watchRows, nextEntry, comparator: { id: b.comparator, name: compName }, hurdleMonthly: Math.round(hurdle * 1e5) / 1e5, scorecard: sc, lines, sens: st.daily.length ? { book: st.daily.at(-1).vs, note: 'with a further 0.2% a round trip (C-178); a sensitivity, not a result' } : null };
