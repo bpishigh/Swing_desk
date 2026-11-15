@@ -144,6 +144,15 @@
       "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "C"
+    },
+    {
+      "id": "bc-c3-runup",
+      "rule": "C-61",
+      "name": "Earnings run-up (C-61 signals)",
+      "signal": "runupBook",
+      "startAfter": "2026-10-16",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [

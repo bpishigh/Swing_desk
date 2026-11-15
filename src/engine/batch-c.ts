@@ -101,3 +101,23 @@ export function dealBook(x: BCtx, env: DealEnv, rows: DealRow[], log?: DealLogRo
   }
   return orNull({ buys, sells });
 }
+
+// ---- C-61 earnings run-up, as a paper book (owner request 15 Nov 2026). Signal exactly as the frozen C-61 config: ran up into results (above the frozen cut over the market) AND a reaction day at least +2% over the market; both are computed by scripts/earnings-forward.mjs and logged as events. The book takes each signal on the close of its entry session (the close after the reaction), fills at the next open, holds 20 sessions then sells at the next open, with the 25% long-hold stop instead of C-61's no stop, tier costs instead of C-61's flat 0.4%. Those three differences are why this book's numbers will not equal the C-61 test's.
+export interface RunupEvent { s: string; d: string; entry: string; px: number; run: number; rea: number; signal: boolean }
+export interface RunupLogRow { date: string; sym: string; resultsDate: string; run: number; rea: number; taken: boolean; why: string }
+export const RUNUP = { hold: 20, names: 20 };
+export function runupBook(x: BCtx, events: RunupEvent[], log?: RunupLogRow[]): Orders | null {
+  const { t } = x, D = x.dates[t], sells: string[] = [], buys: Buy[] = [];
+  for (const [sym, p] of Object.entries(x.st.pos)) { const i = x.dates.indexOf(p.entryDate); if (i >= 0 && t - i + 1 >= RUNUP.hold) sells.push(sym); }
+  const room = RUNUP.names - (x.held.size - sells.length);
+  const cands = events.filter((e) => e.signal && e.entry === D).sort((a, b) => b.run - a.run || (a.s < b.s ? -1 : 1));
+  const value = (sym: string): number | null => { const s = x.series.get(sym); if (!s?.v) return null; const a: number[] = []; for (let i = t - 19; i <= t; i++) if (s.c[i] > 0 && s.v[i] > 0) a.push(s.c[i] * s.v[i]); if (a.length < 10) return null; a.sort((p, q) => p - q); return a[Math.floor(a.length / 2)]; };
+  for (const e of cands) {
+    const base = { date: D, sym: e.s, resultsDate: e.d, run: e.run, rea: e.rea }, v = value(e.s);
+    if (x.held.has(e.s)) { log?.push({ ...base, taken: false, why: 'already held' }); continue; }
+    if (v == null) { log?.push({ ...base, taken: false, why: 'no price history' }); continue; }
+    if (buys.length >= room) { log?.push({ ...base, taken: false, why: 'no slot' }); continue; }
+    buys.push({ sym: e.s, value: v, stop: BOOK.longStop }); log?.push({ ...base, taken: true, why: 'bought next open' });
+  }
+  return orNull({ buys, sells });
+}
