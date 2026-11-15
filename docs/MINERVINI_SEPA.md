@@ -51,6 +51,8 @@ Comparing candidates with his profile of past winners; the manual review; earnin
 
 The price chain was run over all stored history (2012 to date, one run) to count valid signals per year. See `docs/replay/SEPA-COUNT.md` for the table. The earnings screen is not applied, so the figures are an upper bound; the sheet's own figure is that about 95% of template passers fail it.
 
+**Result (counts only):** contraction (VCP-style) bases give 0 to 7 breakout name-days a year in every year 2012 to 2026, so that layer is effectively empty with the desk's 2% swing filter (most bases split into seven or more swings). Flat bases give 107 to 475 breakout name-days a year (45 to 245 distinct names), 35 to 184 names a year with the 150% volume condition. A name can count on more than one day, and the earnings screen would cut these sharply. So a flat-base-only book is readable; a book that needs two or more contractions is not. This is a count, not a performance read.
+
 ## 6. Order of work after the owner's "go"
 
 1. Owner reads the count and decides (S-5 below).
