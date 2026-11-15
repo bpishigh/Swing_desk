@@ -43,6 +43,8 @@ Universe: the top 500 by 20-session median traded value, as Batch A and B (names
 
 ## 21. Delivery-percentage accumulation
 
+> **Stop revised (C-213, owner, 15 Nov 2026):** this book's stop is 3 x ATR(20) capped at 15%, replacing C-159's 8% cap, because the 8% cap skipped 94% of signals in the C-212 replay. Names needing more than 15% are skipped and logged. One labelled re-run followed (C-213 in the Test Register); no further replays.
+
 **Question.** When the share of volume taken into delivery jumps while the price rises, does the stock keep rising?
 
 **Data.** A loader (one workflow, on the GitHub runner) pulls the delivery file for each session and stores delivered quantity, traded quantity and delivery percentage for **every stock** (not only the current top 500: the list changes monthly, and a name that enters later needs its 20-session history; the files are small). It uses the MTO file for years before 2021 and the full bhavcopy file from 2021, records any missing day, and starts from the earliest loadable date.

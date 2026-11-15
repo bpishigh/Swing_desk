@@ -1,11 +1,13 @@
 // Batch C signal rules (docs/BATCH_C_RULES.md, adopted as C-208 to C-211). Pure: data in, orders out.
-// Package 21, delivery accumulation (C-210): delivery % at least 1.5x its own prior 20-session average, close up at least 2% on the day, close above its 50-session average, top 500, normal series (EQ) on the signal day and across the average. Rank by the ratio. Entry next open; hold 20 sessions; C-159 short-hold stop; at most 20 names; wide stop skipped and logged.
-import { shortStop } from './stock-book.ts';
+// Package 21, delivery accumulation (C-210): delivery % at least 1.5x its own prior 20-session average, close up at least 2% on the day, close above its 50-session average, top 500, normal series (EQ) on the signal day and across the average. Rank by the ratio. Entry next open; hold 20 sessions; stop 3 x ATR(20) capped at 15% (C-213, replacing C-159's 8% cap); at most 20 names; wide stop skipped and logged.
+import { BOOK } from './stock-book.ts';
 import { atrN, type Orders, type Name } from './first-wave.ts';
 import { BA, orNull, byValue, type BCtx } from './batch-a.ts';
 import type { Buy } from './stock-book.ts';
 
-export const BC = { ratio: 1.5, rise: 0.02, avgWin: 20, minAvg: 15, maWin: 50, hold: 20, names: 20 };
+export const BC = { ratio: 1.5, rise: 0.02, avgWin: 20, minAvg: 15, maWin: 50, hold: 20, names: 20, stopCap: 0.15 };
+/** C-213 (owner, 15 Nov 2026): this book's stop is 3 x ATR(20), capped at 15% (C-159's 8% cap skipped 94% of signals in the C-212 replay). Wider than 15% is skipped and logged. */
+export const wideStop = (atr20: number, close: number): number | null => { if (!(atr20 > 0) || !(close > 0)) return null; const w = BOOK.atrMult * atr20 / close; return w <= BC.stopCap ? w : null; };
 /** Per-name delivery history aligned to the session list: p = delivery % (NaN = missing), eq = 1 when the name was in the normal series that day. */
 export interface Deliv { p: ArrayLike<number>; eq: ArrayLike<number> }
 export type Tag = 'results' | 'deal' | 'expiry';
@@ -38,7 +40,7 @@ export function deliveryAccum(x: BCtx, env: DelivEnv, log?: DelivLogRow[]): Orde
   for (const n of cand) {
     const s = x.series.get(n.sym)!, base = { date: D, sym: n.sym, ratio: Math.round(n.ratio * 100) / 100, reaction: Math.round(n.reaction * 1e4) / 1e4, tags: env.tags(n.sym, t) };
     if (x.held.has(n.sym)) { log?.push({ ...base, taken: false, why: 'already held' }); continue; }
-    const st = shortStop(atrN(s, t), s.c[t]);
+    const st = wideStop(atrN(s, t), s.c[t]);
     if (st === null) { log?.push({ ...base, taken: false, why: 'stop too wide' }); continue; }
     if (buys.length >= room) { log?.push({ ...base, taken: false, why: 'no slot' }); continue; }
     buys.push({ sym: n.sym, value: n.value, stop: st }); log?.push({ ...base, taken: true, why: 'bought next open' });

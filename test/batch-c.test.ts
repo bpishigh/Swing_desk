@@ -13,3 +13,5 @@ test('expiry: last Thursday before Sep 2025, last Tuesday after, prior session o
   const e = expiryDays(wk('2025-01-01', '2025-12-31')); assert.ok(e.has('2025-01-30') && e.has('2025-10-28') && e.has('2025-09-30'));
   const h = wk('2025-01-01', '2025-01-31').filter((d) => d !== '2025-01-30'); assert.ok(expiryDays(h).has('2025-01-29'));
 });
+import { wideStop } from '../src/engine/batch-c.ts';
+test('stop: 3 x ATR up to 15%, wider is skipped', () => { assert.ok(Math.abs((wideStop(3, 100) ?? 0) - 0.09) < 1e-9); assert.equal(wideStop(6, 100), null); assert.equal(wideStop(0, 100), null); });
