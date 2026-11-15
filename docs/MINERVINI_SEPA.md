@@ -1,41 +1,50 @@
-# Minervini SEPA book, as published (package 36b): proposal
+# Minervini-style SEPA book (package 36b): proposal v2
 
-Status: **proposed 15 Nov 2026 at the owner's request ("a strategy that is exactly like Minervini's, no differences"); not built, not adopted.** Paper only. Not a financial adviser. Pasted reviewer text is not approval. Numbers below come from published summaries of his method (one secondary source read on 15 Nov: finermarketpoints.com, plus the trend template already in `docs/MINERVINI_BOOK.md`); they are to be checked against his books before registration, and the places where sources disagree are listed as decisions.
+Status: **v2, 15 Nov 2026. Proposal only: not built, not registered, not adopted.** v1 was called "as published"; an outside review pasted by the owner (not an approval) pointed out that several v1 figures look like O'Neil's rules or a secondary site's reading. I could not check them against his books from here (only secondary summaries are reachable), so every figure that cannot be sourced to his books is removed or marked, and the book is called **Minervini-style**, not "exact". Paper only. Not a financial adviser.
 
-## What "exactly" can and cannot mean
-His method has a coded part and a judged part. A rule-based book can carry only the coded part. The judged part stays out, and the card and every report say so. **No rule-based book can be identical to what he does.** The closest honest version is below.
+## What stays in, and how sure the source is
+| Rule | Source status |
+|---|---|
+| Trend template, eight tests (the C-216 screen) | His published template; already in `docs/MINERVINI_BOOK.md` |
+| Stop at most about 8% below entry | Matches every summary read and the review's recollection |
+| Risk 1.25% of the book per trade (published range 1 to 2%) | Matches; exact figure to confirm |
+| Position cap 25% of the book | Matches the review's recollection; to confirm |
+| 4 to 8 names (as many as cash allows) | Matches; sources also say 15 to 20, so the lower range is used |
+| Breakout above the pivot on clearly higher volume | Stated qualitatively; the number below is a desk figure |
+| Base made of successively shallower contractions with volume drying up | His pattern; the algorithm below is a desk definition |
 
-**Coded here (his published rules):**
-1. **Trend template**, all eight tests (the C-216 screen, unchanged).
-2. **Fundamentals:** current-quarter EPS growth at least 25% year on year (he states 20 to 25% as the floor and 40 to 50% preferred), return on equity above 17%, institutional holding between 20% and 80%. Sales growth, margin and debt have no stated numbers in the source, so the book adds none.
-3. **Volatility contraction pattern:** at least two contractions in the base, each about half the depth of the one before (for example 25%, then 12%, then 6%), volume drying up through the contractions. Pivot = the high of the last contraction.
-4. **Entry:** a close above the pivot on volume at least 150% of the 50-session average (the published range is 100 to 150% for mid-caps and 300 to 400% for liquid US growth stocks). Signals are checked daily.
-5. **Stop:** 8% below the entry (his published maximum; 7% to 8% is typical).
-6. **Risk sizing:** risk 1.25% of the book per trade, so the position is 1.25% divided by the stop width (an 8% stop gives about 15.6%), capped at 25% of the book (his stated maximum position).
-7. **Concentration:** at most 8 positions (the source says 4 to 8 and also 15 to 20; the lower range is his own).
-8. **Profit rule:** after a gain of 8%, sell half and move the stop on the rest to breakeven (published example); the rest is held until the stop, or until the close falls below the 50-day average on volume above the 50-session average (stage-3 exit, coded as that single test).
-9. **Market gate:** no new entries when the Nifty 500 closes below its 50-day average (his rule is qualitative; this is the simplest coding).
+**Removed because no source in his books could be found:** return on equity above 17% (O'Neil's CAN SLIM figure), institutional holding 20% to 80%, the 25% earnings-growth floor (he stresses accelerating earnings; no number confirmed), and "sell half at +8%". The profit rule is left out: he teaches taking gains at a multiple of the risk and moving the stop to breakeven, which needs his exact wording; until then exits are the stop and the single stage-3 test below. Earnings acceleration is **not coded** (listed below).
 
-**Not coded (stay with the person, listed on the card):** choosing the best few by chart quality and group leadership; reading news and catalysts; intraday entry (the book buys at the next open after the close above the pivot); discretionary adds and selling into strength; judging a base by eye (cup, flat base, handle). These are the differences that remain.
+**Desk definitions, not published (labelled as such on the card):** the 150% breakout volume, the contraction algorithm, the 50-day market gate, the stage-3 exit test.
 
-## Data
-- Prices, volume, highs and lows: the whole stored history.
-- Quarterly EPS growth and ROE: from the company-figures table; filings cover 2019 on and balance-sheet depth only from Sep 2022, so a replay window runs from the first month where 90% of the top-500 names carry every figure (the Batch B window rule).
-- Institutional holding: from the shareholding filings (full from Sep 2021); the test is the sum of FII and DII holdings.
+## Mechanics (corrected)
+- **Sizing and cash.** Position = 1.25% of the book divided by the stop width, capped at 25% (an 8% stop gives 15.6%). Eight positions at 15.6% would be 125% of the book, so without leverage the book holds **six at full size**, more only when stops are tighter. A signal that finds too little cash is **skipped and logged ("no cash")**; the book never borrows.
+- **Two exceptions to standing rules, needing the owner's explicit yes on this page:** (1) a position above the 5% per-name cap (up to 25%); (2) a fixed 8% stop replacing the C-159 short-hold stop for this book.
+- **The stop.** His is a resting order that fills during the day. Proposed: check the stop against the stored daily low; if the low reaches the stop, sell at the stop price, or at the open when the open gaps below it. This needs an optional intraday-stop path in the book engine (default unchanged). If not built, the book checks closes and sells at the next open, losses will often exceed 8%, and that is listed as a difference.
+- **The contraction algorithm (desk definition, decided before any count).** Base window: the 120 sessions ending tonight. Swings: a zigzag on highs and lows with a 5% reversal. Contractions: each decline from a swing high to the next swing low. Valid base: at least two contractions, each shallower than the one before and at most 70% of it, the last at most 10% deep, the base high at least 25 sessions old, and average volume over the last contraction below the 50-session average. Pivot: the high of the last swing high. Entry signal: a close above the pivot and no more than 5% above it, on volume at least 150% of the 50-session average, for a name that passes the template (all eight tests) that night. Fill at the next open (his entry is intraday; the gap above the pivot is logged on every signal).
+- **Exit (stage-3 test).** A close below the 50-day average on volume above the 50-session average; or the stop.
+- **Market gate.** No new entries when the Nifty 500 closes below its own 50-day average.
+- **Daily signals;** no monthly review.
 
-## Replay, judging
-- One replay, labelled an implementation check, not evidence; window rule as above; survivor bias applies. Forward paper is the evidence.
-- Comparator: Nifty 500, cap-weighted (C-176); kill line C-174; confidence C-177. Read as a pair against the screen-only book (C-216), so the difference between screen and method is visible.
-- **Stated before the first signal:** (1) with at most 8 positions and an 8% stop, most months will have few or no signals and the book will often be mostly cash; exposure is reported monthly. (2) A near-miss on the pivot (entry the next open, often above it) is a built-in difference from his intraday entry; the fill gap above the pivot is logged on every signal. (3) The engine holds equal fixed slots today; risk-based sizing needs a per-trade weight in the buy order (a small change to shared engine code, defaults unchanged).
+## Not coded (the differences that remain, listed on the card)
+Choosing the best few by chart quality and group leadership; earnings acceleration and other fundamentals (no confirmed numbers); news and catalysts; intraday entry; adding to winners and selling into strength by feel; judging bases by eye (cup, flat base, handle).
+
+## Before anything is built (in this order)
+1. **Source check.** The owner supplies the rule wording from his own copy of the books (or says to keep "Minervini-style" and the labels above). Any rule not found comes out.
+2. **Count only.** Run the signal chain once over stored history and report the number of valid signals a year, as a count, with no returns read. This layer has failed on count before: the setup layer gave 35 valid trades in nine years in C-118(b) (3 to 10 a year) and 19 trades in US-SCAN-2 (C-52, not testable). If the count is a handful a year, the book cannot be read in any useful time and is not built.
+3. **Log, not just count.** Every night, record pass or fail on each rule (each template test, each contraction test, volume, gate) for every template passer. Without it, a comparison against the screen book changes eight things at once and cannot say which rule did the work.
+4. Only then a registered replay and a forward book, next to the screen book (C-216).
+
+## Reading the result
+- **Kill line.** A book that is mostly cash will trail the Nifty 500 by more than 5 points in any rising half-year, so the standard kill line would fire on cash. This book is read on **net return per trade** and against the **index scaled to the book's average exposure**, alongside the usual line.
+- **Expectation on the card (before the first signal):** the register's own results predict few trades and no edge from this layer. A weak or empty record is the likely outcome and is a result.
 
 ## Decisions for the owner
 | # | Decision | Proposed |
 |---|---|---|
-| S-1 | EPS growth floor: 25% (stated floor 20 to 25%) or 40% (his preferred) | 25% |
-| S-2 | Breakout volume: 150%, or another figure | 150% |
-| S-3 | Contractions: at least two, each about half the last; allow a tolerance (each at most 70% of the previous) | At least two, each at most 70% of the previous |
-| S-4 | Stop 8%, risk 1.25% per trade, position cap 25%, at most 8 positions | As stated |
-| S-5 | Profit rule: half off at +8% with breakeven stop, then 50-day exit | As stated |
-| S-6 | Market gate: Nifty 500 below its 50-day average stops new entries | As stated |
-| S-7 | Institutional holding 20% to 80% as a test (FII plus DII) | Yes |
-| S-8 | Build as a new book next to the screen book, with a replay first | Yes |
+| S-1 | Do the source check (owner's wording) or keep the name Minervini-style with the labels | Minervini-style until checked |
+| S-2 | Yes to the two exceptions: position up to 25%; 8% stop replacing C-159 | Yes |
+| S-3 | The desk contraction algorithm and volume figure as written above | Yes |
+| S-4 | Intraday stop path in the engine (stop checked on the daily low) | Yes |
+| S-5 | Count-only run first, and no build if signals are a handful a year | Yes |
+| S-6 | Nightly pass or fail log per rule for every template passer | Yes |

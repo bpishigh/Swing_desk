@@ -220,7 +220,7 @@ Sizes are relative (S, M, L), my own estimate, not a schedule. "Reg." means an E
 | 16 | M-2 price-only multibagger lift test (needs package 2) | Study | Multibagger | M |
 | 17 | MAX/lottery flag and turn-of-month | Flag and strategy | Risk, calendar | S |
 | 36 | Volatility contraction pattern (VCP, Minervini; added 14 Nov 2026 at the owner's request) | Strategy | Trend | M. Reg. |
-| 36b | Minervini SEPA book as published: template, EPS and ROE tests, VCP, breakout entry, 8% stop, risk sizing, market gate (owner request 15 Nov 2026; proposal `docs/MINERVINI_SEPA.md`, decisions S-1 to S-8 open; not built) | Strategy | Trend | M. Reg. |
+| 36b | Minervini-style SEPA book (v2: figures not found in his books removed): template, contraction base, breakout entry, 8% stop, risk sizing, market gate. Owner request 15 Nov 2026; proposal `docs/MINERVINI_SEPA.md`, decisions S-1 to S-6 open; order: source check, then a count-only run, then a replay; not built | Strategy | Trend | M. Reg. |
 
 ### Wave 2: exchange-data strategies (no full fundamentals needed)
 
