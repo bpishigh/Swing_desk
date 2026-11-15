@@ -99,6 +99,7 @@ for (let t = t0; t <= t1; t++) {
   }
   if (SMOKE && (t - t0) % 60 === 0) console.log(D, `ey=${Object.values(rowsNow).filter((r) => r.earningsYield != null).length} ttm=${Object.values(rowsNow).filter((r) => r.ttm.pat != null).length}`, `el500=${el500.length}`, WANT.map((k) => `${k}:${Object.keys(states[k]?.pos ?? {}).length}`).join(' '), `${Math.round((Date.now() - t00) / 1000)}s`);
 }
+if (arg('dump', '') && states.S1) writeFileSync(arg('dump', ''), JSON.stringify({ closed: states.S1.closed, skipped: states.S1.skipped, log: plog.S1, counts: states.S1.sepaCounts, daily: states.S1.daily }));
 const surv = R('data/india/survivorship-filings.json');
 const pct = (x) => (x == null ? 'n/a' : (x * 100).toFixed(1) + '%');
 const summary = {};
