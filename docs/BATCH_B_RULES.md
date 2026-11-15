@@ -107,3 +107,5 @@ These are proposals until the owner marks a block Adopted.
 - 14 Nov 2026: v1 drafted (three books, India only).
 - 14 Nov 2026 (later): v2 after the owner's answers. B1 adopted as C-205. Probes: current investments and bank deposits are in the filings and now counted as cash; no lease line; the pre-Oct-2022 gap is the source. Piotroski scorer counts measured. B3 reduced to A3 plus three changes.
 - 14 Nov 2026 (late): owner adopted B2 and B3 and decided B2-2. Built as C-206, C-207. Cash quality uses the latest fiscal-year operating cash flow over the latest balance sheet's total assets (stated as built).
+
+**16 Nov 2026 update.** The replay was run once after a data repair (C-221): no month reached the 90% window, so no replay figures exist. At the owner's instruction B1, B2 and B3 start as forward paper books from the Mon 16 Nov nightly run (startAfter 2026-11-15), on the coverage shown on each card (about 88%, 81% and 71% of eligible non-financial top-500 names by Nov 2026).

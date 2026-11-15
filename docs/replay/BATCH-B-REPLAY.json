@@ -1,0 +1,1389 @@
+{
+ "run": "2026-11-15",
+ "from": "2021-01-01",
+ "to": "2026-11-13",
+ "universe": "top 500, rebuilt monthly",
+ "unrankedLastMonth": 1,
+ "summary": {
+  "B1": {
+   "name": "Magic Formula",
+   "months": 0,
+   "sinceStart": null,
+   "confidence": null,
+   "drawdown": null,
+   "closedTrades": 0,
+   "stopOuts": 0,
+   "avgExposure": null,
+   "byYear": {},
+   "window": {
+    "start": null,
+    "months": [
+     {
+      "m": "2021-01",
+      "eligible": 0,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-02",
+      "eligible": 382,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-03",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-04",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-05",
+      "eligible": 388,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-06",
+      "eligible": 409,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-07",
+      "eligible": 412,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-08",
+      "eligible": 411,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-09",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-10",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-11",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-12",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-01",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-02",
+      "eligible": 414,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-03",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-04",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-05",
+      "eligible": 422,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-06",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-07",
+      "eligible": 367,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-08",
+      "eligible": 410,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-09",
+      "eligible": 434,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-10",
+      "eligible": 433,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-11",
+      "eligible": 439,
+      "covered": 79,
+      "share": 0.18
+     },
+     {
+      "m": "2022-12",
+      "eligible": 447,
+      "covered": 245,
+      "share": 0.5481
+     },
+     {
+      "m": "2023-01",
+      "eligible": 443,
+      "covered": 238,
+      "share": 0.5372
+     },
+     {
+      "m": "2023-02",
+      "eligible": 427,
+      "covered": 248,
+      "share": 0.5808
+     },
+     {
+      "m": "2023-03",
+      "eligible": 428,
+      "covered": 266,
+      "share": 0.6215
+     },
+     {
+      "m": "2023-04",
+      "eligible": 427,
+      "covered": 262,
+      "share": 0.6136
+     },
+     {
+      "m": "2023-05",
+      "eligible": 424,
+      "covered": 266,
+      "share": 0.6274
+     },
+     {
+      "m": "2023-06",
+      "eligible": 427,
+      "covered": 266,
+      "share": 0.623
+     },
+     {
+      "m": "2023-07",
+      "eligible": 435,
+      "covered": 274,
+      "share": 0.6299
+     },
+     {
+      "m": "2023-08",
+      "eligible": 431,
+      "covered": 321,
+      "share": 0.7448
+     },
+     {
+      "m": "2023-09",
+      "eligible": 439,
+      "covered": 370,
+      "share": 0.8428
+     },
+     {
+      "m": "2023-10",
+      "eligible": 435,
+      "covered": 358,
+      "share": 0.823
+     },
+     {
+      "m": "2023-11",
+      "eligible": 432,
+      "covered": 356,
+      "share": 0.8241
+     },
+     {
+      "m": "2023-12",
+      "eligible": 433,
+      "covered": 355,
+      "share": 0.8199
+     },
+     {
+      "m": "2024-01",
+      "eligible": 431,
+      "covered": 349,
+      "share": 0.8097
+     },
+     {
+      "m": "2024-02",
+      "eligible": 430,
+      "covered": 350,
+      "share": 0.814
+     },
+     {
+      "m": "2024-03",
+      "eligible": 433,
+      "covered": 364,
+      "share": 0.8406
+     },
+     {
+      "m": "2024-04",
+      "eligible": 430,
+      "covered": 354,
+      "share": 0.8233
+     },
+     {
+      "m": "2024-05",
+      "eligible": 428,
+      "covered": 353,
+      "share": 0.8248
+     },
+     {
+      "m": "2024-06",
+      "eligible": 429,
+      "covered": 354,
+      "share": 0.8252
+     },
+     {
+      "m": "2024-07",
+      "eligible": 432,
+      "covered": 355,
+      "share": 0.8218
+     },
+     {
+      "m": "2024-08",
+      "eligible": 437,
+      "covered": 359,
+      "share": 0.8215
+     },
+     {
+      "m": "2024-09",
+      "eligible": 440,
+      "covered": 367,
+      "share": 0.8341
+     },
+     {
+      "m": "2024-10",
+      "eligible": 441,
+      "covered": 364,
+      "share": 0.8254
+     },
+     {
+      "m": "2024-11",
+      "eligible": 437,
+      "covered": 357,
+      "share": 0.8169
+     },
+     {
+      "m": "2024-12",
+      "eligible": 441,
+      "covered": 361,
+      "share": 0.8186
+     },
+     {
+      "m": "2025-01",
+      "eligible": 449,
+      "covered": 367,
+      "share": 0.8174
+     },
+     {
+      "m": "2025-02",
+      "eligible": 442,
+      "covered": 364,
+      "share": 0.8235
+     },
+     {
+      "m": "2025-03",
+      "eligible": 440,
+      "covered": 369,
+      "share": 0.8386
+     },
+     {
+      "m": "2025-04",
+      "eligible": 442,
+      "covered": 372,
+      "share": 0.8416
+     },
+     {
+      "m": "2025-05",
+      "eligible": 450,
+      "covered": 364,
+      "share": 0.8089
+     },
+     {
+      "m": "2025-06",
+      "eligible": 472,
+      "covered": 373,
+      "share": 0.7903
+     },
+     {
+      "m": "2025-07",
+      "eligible": 470,
+      "covered": 367,
+      "share": 0.7809
+     },
+     {
+      "m": "2025-08",
+      "eligible": 470,
+      "covered": 368,
+      "share": 0.783
+     },
+     {
+      "m": "2025-09",
+      "eligible": 469,
+      "covered": 366,
+      "share": 0.7804
+     },
+     {
+      "m": "2025-10",
+      "eligible": 468,
+      "covered": 368,
+      "share": 0.7863
+     },
+     {
+      "m": "2025-11",
+      "eligible": 404,
+      "covered": 345,
+      "share": 0.854
+     },
+     {
+      "m": "2025-12",
+      "eligible": 390,
+      "covered": 338,
+      "share": 0.8667
+     },
+     {
+      "m": "2026-01",
+      "eligible": 386,
+      "covered": 334,
+      "share": 0.8653
+     },
+     {
+      "m": "2026-02",
+      "eligible": 373,
+      "covered": 326,
+      "share": 0.874
+     },
+     {
+      "m": "2026-03",
+      "eligible": 382,
+      "covered": 338,
+      "share": 0.8848
+     },
+     {
+      "m": "2026-04",
+      "eligible": 379,
+      "covered": 334,
+      "share": 0.8813
+     },
+     {
+      "m": "2026-05",
+      "eligible": 390,
+      "covered": 334,
+      "share": 0.8564
+     },
+     {
+      "m": "2026-06",
+      "eligible": 397,
+      "covered": 320,
+      "share": 0.806
+     },
+     {
+      "m": "2026-07",
+      "eligible": 395,
+      "covered": 323,
+      "share": 0.8177
+     },
+     {
+      "m": "2026-08",
+      "eligible": 395,
+      "covered": 321,
+      "share": 0.8127
+     },
+     {
+      "m": "2026-09",
+      "eligible": 404,
+      "covered": 327,
+      "share": 0.8094
+     },
+     {
+      "m": "2026-10",
+      "eligible": 406,
+      "covered": 323,
+      "share": 0.7956
+     },
+     {
+      "m": "2026-11",
+      "eligible": 404,
+      "covered": 354,
+      "share": 0.8762
+     }
+    ]
+   }
+  },
+  "B2": {
+   "name": "Piotroski F-score",
+   "months": 0,
+   "sinceStart": null,
+   "confidence": null,
+   "drawdown": null,
+   "closedTrades": 0,
+   "stopOuts": 0,
+   "avgExposure": null,
+   "byYear": {},
+   "window": {
+    "start": null,
+    "months": [
+     {
+      "m": "2021-01",
+      "eligible": 0,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-02",
+      "eligible": 382,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-03",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-04",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-05",
+      "eligible": 388,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-06",
+      "eligible": 409,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-07",
+      "eligible": 412,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-08",
+      "eligible": 411,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-09",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-10",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-11",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-12",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-01",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-02",
+      "eligible": 414,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-03",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-04",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-05",
+      "eligible": 422,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-06",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-07",
+      "eligible": 367,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-08",
+      "eligible": 410,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-09",
+      "eligible": 434,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-10",
+      "eligible": 433,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-11",
+      "eligible": 439,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-12",
+      "eligible": 447,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-01",
+      "eligible": 443,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-02",
+      "eligible": 427,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-03",
+      "eligible": 428,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-04",
+      "eligible": 427,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-05",
+      "eligible": 424,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-06",
+      "eligible": 427,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-07",
+      "eligible": 435,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-08",
+      "eligible": 431,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-09",
+      "eligible": 439,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-10",
+      "eligible": 435,
+      "covered": 1,
+      "share": 0.0023
+     },
+     {
+      "m": "2023-11",
+      "eligible": 432,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2023-12",
+      "eligible": 433,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2024-01",
+      "eligible": 431,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2024-02",
+      "eligible": 430,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2024-03",
+      "eligible": 433,
+      "covered": 2,
+      "share": 0.0046
+     },
+     {
+      "m": "2024-04",
+      "eligible": 430,
+      "covered": 1,
+      "share": 0.0023
+     },
+     {
+      "m": "2024-05",
+      "eligible": 428,
+      "covered": 45,
+      "share": 0.1051
+     },
+     {
+      "m": "2024-06",
+      "eligible": 429,
+      "covered": 250,
+      "share": 0.5828
+     },
+     {
+      "m": "2024-07",
+      "eligible": 432,
+      "covered": 248,
+      "share": 0.5741
+     },
+     {
+      "m": "2024-08",
+      "eligible": 437,
+      "covered": 251,
+      "share": 0.5744
+     },
+     {
+      "m": "2024-09",
+      "eligible": 440,
+      "covered": 254,
+      "share": 0.5773
+     },
+     {
+      "m": "2024-10",
+      "eligible": 441,
+      "covered": 244,
+      "share": 0.5533
+     },
+     {
+      "m": "2024-11",
+      "eligible": 437,
+      "covered": 244,
+      "share": 0.5584
+     },
+     {
+      "m": "2024-12",
+      "eligible": 441,
+      "covered": 243,
+      "share": 0.551
+     },
+     {
+      "m": "2025-01",
+      "eligible": 449,
+      "covered": 245,
+      "share": 0.5457
+     },
+     {
+      "m": "2025-02",
+      "eligible": 442,
+      "covered": 239,
+      "share": 0.5407
+     },
+     {
+      "m": "2025-03",
+      "eligible": 440,
+      "covered": 235,
+      "share": 0.5341
+     },
+     {
+      "m": "2025-04",
+      "eligible": 442,
+      "covered": 232,
+      "share": 0.5249
+     },
+     {
+      "m": "2025-05",
+      "eligible": 450,
+      "covered": 259,
+      "share": 0.5756
+     },
+     {
+      "m": "2025-06",
+      "eligible": 472,
+      "covered": 344,
+      "share": 0.7288
+     },
+     {
+      "m": "2025-07",
+      "eligible": 470,
+      "covered": 339,
+      "share": 0.7213
+     },
+     {
+      "m": "2025-08",
+      "eligible": 470,
+      "covered": 328,
+      "share": 0.6979
+     },
+     {
+      "m": "2025-09",
+      "eligible": 469,
+      "covered": 326,
+      "share": 0.6951
+     },
+     {
+      "m": "2025-10",
+      "eligible": 468,
+      "covered": 328,
+      "share": 0.7009
+     },
+     {
+      "m": "2025-11",
+      "eligible": 404,
+      "covered": 314,
+      "share": 0.7772
+     },
+     {
+      "m": "2025-12",
+      "eligible": 390,
+      "covered": 317,
+      "share": 0.8128
+     },
+     {
+      "m": "2026-01",
+      "eligible": 386,
+      "covered": 314,
+      "share": 0.8135
+     },
+     {
+      "m": "2026-02",
+      "eligible": 373,
+      "covered": 304,
+      "share": 0.815
+     },
+     {
+      "m": "2026-03",
+      "eligible": 382,
+      "covered": 309,
+      "share": 0.8089
+     },
+     {
+      "m": "2026-04",
+      "eligible": 379,
+      "covered": 301,
+      "share": 0.7942
+     },
+     {
+      "m": "2026-05",
+      "eligible": 390,
+      "covered": 319,
+      "share": 0.8179
+     },
+     {
+      "m": "2026-06",
+      "eligible": 397,
+      "covered": 347,
+      "share": 0.8741
+     },
+     {
+      "m": "2026-07",
+      "eligible": 395,
+      "covered": 348,
+      "share": 0.881
+     },
+     {
+      "m": "2026-08",
+      "eligible": 395,
+      "covered": 340,
+      "share": 0.8608
+     },
+     {
+      "m": "2026-09",
+      "eligible": 404,
+      "covered": 349,
+      "share": 0.8639
+     },
+     {
+      "m": "2026-10",
+      "eligible": 406,
+      "covered": 336,
+      "share": 0.8276
+     },
+     {
+      "m": "2026-11",
+      "eligible": 404,
+      "covered": 329,
+      "share": 0.8144
+     }
+    ]
+   }
+  },
+  "B3": {
+   "name": "Full quality",
+   "months": 0,
+   "sinceStart": null,
+   "confidence": null,
+   "drawdown": null,
+   "closedTrades": 0,
+   "stopOuts": 0,
+   "avgExposure": null,
+   "byYear": {},
+   "window": {
+    "start": null,
+    "months": [
+     {
+      "m": "2021-01",
+      "eligible": 0,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-02",
+      "eligible": 382,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-03",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-04",
+      "eligible": 401,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-05",
+      "eligible": 388,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-06",
+      "eligible": 409,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-07",
+      "eligible": 412,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-08",
+      "eligible": 411,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-09",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-10",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-11",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2021-12",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-01",
+      "eligible": 416,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-02",
+      "eligible": 414,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-03",
+      "eligible": 418,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-04",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-05",
+      "eligible": 422,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-06",
+      "eligible": 417,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-07",
+      "eligible": 367,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-08",
+      "eligible": 410,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-09",
+      "eligible": 434,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-10",
+      "eligible": 433,
+      "covered": 0,
+      "share": 0
+     },
+     {
+      "m": "2022-11",
+      "eligible": 439,
+      "covered": 23,
+      "share": 0.0524
+     },
+     {
+      "m": "2022-12",
+      "eligible": 447,
+      "covered": 84,
+      "share": 0.1879
+     },
+     {
+      "m": "2023-01",
+      "eligible": 443,
+      "covered": 77,
+      "share": 0.1738
+     },
+     {
+      "m": "2023-02",
+      "eligible": 427,
+      "covered": 82,
+      "share": 0.192
+     },
+     {
+      "m": "2023-03",
+      "eligible": 428,
+      "covered": 91,
+      "share": 0.2126
+     },
+     {
+      "m": "2023-04",
+      "eligible": 427,
+      "covered": 91,
+      "share": 0.2131
+     },
+     {
+      "m": "2023-05",
+      "eligible": 424,
+      "covered": 97,
+      "share": 0.2288
+     },
+     {
+      "m": "2023-06",
+      "eligible": 427,
+      "covered": 152,
+      "share": 0.356
+     },
+     {
+      "m": "2023-07",
+      "eligible": 435,
+      "covered": 157,
+      "share": 0.3609
+     },
+     {
+      "m": "2023-08",
+      "eligible": 431,
+      "covered": 199,
+      "share": 0.4617
+     },
+     {
+      "m": "2023-09",
+      "eligible": 439,
+      "covered": 238,
+      "share": 0.5421
+     },
+     {
+      "m": "2023-10",
+      "eligible": 435,
+      "covered": 233,
+      "share": 0.5356
+     },
+     {
+      "m": "2023-11",
+      "eligible": 432,
+      "covered": 216,
+      "share": 0.5
+     },
+     {
+      "m": "2023-12",
+      "eligible": 433,
+      "covered": 204,
+      "share": 0.4711
+     },
+     {
+      "m": "2024-01",
+      "eligible": 431,
+      "covered": 197,
+      "share": 0.4571
+     },
+     {
+      "m": "2024-02",
+      "eligible": 430,
+      "covered": 202,
+      "share": 0.4698
+     },
+     {
+      "m": "2024-03",
+      "eligible": 433,
+      "covered": 229,
+      "share": 0.5289
+     },
+     {
+      "m": "2024-04",
+      "eligible": 430,
+      "covered": 218,
+      "share": 0.507
+     },
+     {
+      "m": "2024-05",
+      "eligible": 428,
+      "covered": 212,
+      "share": 0.4953
+     },
+     {
+      "m": "2024-06",
+      "eligible": 429,
+      "covered": 225,
+      "share": 0.5245
+     },
+     {
+      "m": "2024-07",
+      "eligible": 432,
+      "covered": 227,
+      "share": 0.5255
+     },
+     {
+      "m": "2024-08",
+      "eligible": 437,
+      "covered": 260,
+      "share": 0.595
+     },
+     {
+      "m": "2024-09",
+      "eligible": 440,
+      "covered": 273,
+      "share": 0.6205
+     },
+     {
+      "m": "2024-10",
+      "eligible": 441,
+      "covered": 269,
+      "share": 0.61
+     },
+     {
+      "m": "2024-11",
+      "eligible": 437,
+      "covered": 281,
+      "share": 0.643
+     },
+     {
+      "m": "2024-12",
+      "eligible": 441,
+      "covered": 288,
+      "share": 0.6531
+     },
+     {
+      "m": "2025-01",
+      "eligible": 449,
+      "covered": 294,
+      "share": 0.6548
+     },
+     {
+      "m": "2025-02",
+      "eligible": 442,
+      "covered": 291,
+      "share": 0.6584
+     },
+     {
+      "m": "2025-03",
+      "eligible": 440,
+      "covered": 293,
+      "share": 0.6659
+     },
+     {
+      "m": "2025-04",
+      "eligible": 442,
+      "covered": 294,
+      "share": 0.6652
+     },
+     {
+      "m": "2025-05",
+      "eligible": 450,
+      "covered": 292,
+      "share": 0.6489
+     },
+     {
+      "m": "2025-06",
+      "eligible": 472,
+      "covered": 296,
+      "share": 0.6271
+     },
+     {
+      "m": "2025-07",
+      "eligible": 470,
+      "covered": 298,
+      "share": 0.634
+     },
+     {
+      "m": "2025-08",
+      "eligible": 470,
+      "covered": 264,
+      "share": 0.5617
+     },
+     {
+      "m": "2025-09",
+      "eligible": 469,
+      "covered": 253,
+      "share": 0.5394
+     },
+     {
+      "m": "2025-10",
+      "eligible": 468,
+      "covered": 252,
+      "share": 0.5385
+     },
+     {
+      "m": "2025-11",
+      "eligible": 404,
+      "covered": 206,
+      "share": 0.5099
+     },
+     {
+      "m": "2025-12",
+      "eligible": 390,
+      "covered": 195,
+      "share": 0.5
+     },
+     {
+      "m": "2026-01",
+      "eligible": 386,
+      "covered": 187,
+      "share": 0.4845
+     },
+     {
+      "m": "2026-02",
+      "eligible": 373,
+      "covered": 183,
+      "share": 0.4906
+     },
+     {
+      "m": "2026-03",
+      "eligible": 382,
+      "covered": 198,
+      "share": 0.5183
+     },
+     {
+      "m": "2026-04",
+      "eligible": 379,
+      "covered": 189,
+      "share": 0.4987
+     },
+     {
+      "m": "2026-05",
+      "eligible": 390,
+      "covered": 195,
+      "share": 0.5
+     },
+     {
+      "m": "2026-06",
+      "eligible": 397,
+      "covered": 190,
+      "share": 0.4786
+     },
+     {
+      "m": "2026-07",
+      "eligible": 395,
+      "covered": 199,
+      "share": 0.5038
+     },
+     {
+      "m": "2026-08",
+      "eligible": 395,
+      "covered": 239,
+      "share": 0.6051
+     },
+     {
+      "m": "2026-09",
+      "eligible": 404,
+      "covered": 267,
+      "share": 0.6609
+     },
+     {
+      "m": "2026-10",
+      "eligible": 406,
+      "covered": 266,
+      "share": 0.6552
+     },
+     {
+      "m": "2026-11",
+      "eligible": 404,
+      "covered": 288,
+      "share": 0.7129
+     }
+    ]
+   }
+  }
+ },
+ "survivorship": {
+  "2020": {
+   "vanished": 9,
+   "withFilings": 9,
+   "missing": [],
+   "share": 1
+  },
+  "2021": {
+   "vanished": 8,
+   "withFilings": 8,
+   "missing": [],
+   "share": 1
+  },
+  "2022": {
+   "vanished": 15,
+   "withFilings": 12,
+   "missing": [
+    "PHILIPCARB",
+    "RUCHI",
+    "BURGERKING"
+   ],
+   "share": 0.8
+  },
+  "2023": {
+   "vanished": 18,
+   "withFilings": 16,
+   "missing": [
+    "ICICILIQ",
+    "SPICEJET"
+   ],
+   "share": 0.889
+  },
+  "2024": {
+   "vanished": 23,
+   "withFilings": 23,
+   "missing": [],
+   "share": 1
+  },
+  "2025": {
+   "vanished": 16,
+   "withFilings": 16,
+   "missing": [],
+   "share": 1
+  },
+  "2026": {
+   "vanished": 14,
+   "withFilings": 13,
+   "missing": [
+    "ASHIKA"
+   ],
+   "share": 0.929
+  }
+ },
+ "stillTradingShare": 0.976
+}

@@ -105,7 +105,7 @@
       "rule": "B1",
       "name": "Magic Formula: cheap and high return on capital",
       "signal": "magic",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "B"
     },
@@ -114,7 +114,7 @@
       "rule": "B2",
       "name": "Piotroski F-score on cheap names",
       "signal": "piotroski",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "B"
     },
@@ -123,7 +123,7 @@
       "rule": "B3",
       "name": "Full quality",
       "signal": "fullQuality",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "B"
     },

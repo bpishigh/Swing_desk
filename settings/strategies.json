@@ -599,7 +599,7 @@
       "status": "paper_only",
       "rule": "B1",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "dataFile": "data/india/books/bb-b1-magic/latest.json",
       "benchmarks": [
         "nifty200",
@@ -617,7 +617,7 @@
       "status": "paper_only",
       "rule": "B2",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "dataFile": "data/india/books/bb-b2-piotroski/latest.json",
       "benchmarks": [
         "nifty200",
@@ -635,7 +635,7 @@
       "status": "paper_only",
       "rule": "B3",
       "view": "book_list",
-      "startAfter": "2099-12-31",
+      "startAfter": "2026-11-15",
       "dataFile": "data/india/books/bb-b3-fullquality/latest.json",
       "benchmarks": [
         "nifty200",
