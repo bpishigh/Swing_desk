@@ -17,7 +17,7 @@ import { stepEw } from '../src/engine/equal-weight.ts';
 import { selectSleeve } from '../src/engine/momentum-sleeve.ts';
 import { trendTemplate } from '../src/engine/sleeve-filters.ts';
 import { newVt, stepVt, riskReturn } from '../src/engine/vol-target.ts';
-import { deliveryAccum, expiryDays } from '../src/engine/batch-c.ts';
+import { deliveryAccum, dealBook, expiryDays } from '../src/engine/batch-c.ts';
 import { scorecard } from '../src/engine/scorecard.ts';
 
 const arg = (k) => process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3), ASOF = arg('asof'), ONLY = arg('only'), DRY = process.argv.includes('--dry');
@@ -68,6 +68,8 @@ const parentCost = (() => { const rv = parent?.reviews ?? [], ms = Object.keys(p
 const delivEnv = (() => { if (!books.some((b) => b.signal === 'deliveryAccum')) return null; const n = sel0.length, deliv = new Map(), lo = Math.max(0, n - 80), expiry = expiryDays(uniq.map((d) => d.date).filter((d) => d <= D));
   for (let i = lo; i < n; i++) for (const [sym, r] of Object.entries(sel0[i].rows)) { let d = deliv.get(sym); if (!d) { d = { p: new Float32Array(n).fill(NaN), eq: new Uint8Array(n) }; deliv.set(sym, d); } if (r[7] != null) d.p[i] = r[7]; d.eq[i] = r[0] === 'EQ' ? 1 : 0; }
   return { deliv, tags: (sym, tt) => { const f = fundRows[sym], day = f?.asOf?.slice(0, 10); return [...(day && day >= (dates[tt - 1] ?? '') && day <= dates[tt] ? ['results'] : []), ...(expiry.has(dates[tt]) ? ['expiry'] : [])]; } }; })();
+// Package 20 inputs (C-211): the stored bulk and block deal log (forward only). Rows dated tonight or the previous session that are not yet in the book's signal log are candidates; a night with no file for tonight is counted, never filled in.
+const dealLog = (() => { if (!books.some((b) => b.signal === 'dealBook') || !existsSync('data/india/deals')) return []; const o = []; for (const f of readdirSync('data/india/deals').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) { const j = R('data/india/deals/' + f); for (const r of j.bulk ?? []) o.push({ ...r, kind: 'bulk' }); for (const r of j.block ?? []) o.push({ ...r, kind: 'block' }); } return o; })();
 const baWatch = (sig, held, stx) => {
   if (!fundOk) return [];
   const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
@@ -85,7 +87,11 @@ for (const b of books) {
   const ctxOf = (held) => ({ el, series, t, dates, held, group: (sym) => industry[sym] ?? null });
   let pc = null; const pullCtx = (held) => { if (pc) return { ...pc, held }; const sel = selectSleeve(el.slice(0, 200), series, t, held), order = sel.ranked.map((r) => r.sym), qn = Math.floor(order.length * 0.2); pc = { ...ctxOf(held), quintile: new Set(order.slice(0, qn)), template: new Set(order.filter((s) => trendTemplate(series.get(s)?.c ?? [], t) === true)), order }; return pc; };
   const plog = [];
-  const signal = (held, stx) => { if (b.signal === 'deliveryAccum') return deliveryAccum({ el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null }, delivEnv, plog);
+  const signal = (held, stx) => { if (b.signal === 'dealBook') { const have = new Set((stx.signalLog ?? []).map((r) => r.date + r.sym + r.client)), prevD = dates[t - 1] ?? '', rows = dealLog.filter((r) => (r.date === D || r.date === prevD) && !have.has(r.date + r.symbol + r.client));
+        if (!dealLog.some((r) => r.date === D)) { st.dealsMissing = (st.dealsMissing ?? 0) + 1; st.dealsMissingDates = [...new Set([...(st.dealsMissingDates ?? []), D])].slice(-30); }
+        st.dealCounts = st.dealCounts ?? { kept: 0, roundTrip: 0, keyword: 0, promoter: 0, small: 0 };
+        return dealBook({ el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null }, { log: dealLog, open: (sym) => open(sym), counts: st.dealCounts }, rows, plog); }
+      if (b.signal === 'deliveryAccum') return deliveryAccum({ el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null }, delivEnv, plog);
     if (BA_SIGNALS.has(b.signal)) { if (!fundOk) { st.fundMissing = (st.fundMissing ?? 0) + 1; return null; } const bx = { el: el500, series, t, dates, held, fund: fundRows, st: stx, group: (sym) => industry[sym] ?? null };
       return b.signal === 'valueLite' ? valueLite(bx) : b.signal === 'qualityLite' ? qualityLite(bx) : b.signal === 'fallen' ? fallen(bx) : b.signal === 'compounder' ? compounder(bx) : b.signal === 'magic' ? magic(bx) : b.signal === 'piotroski' ? piotroski(bx) : b.signal === 'fullQuality' ? fullQuality(bx) : pead(bx, wide, plog); }
     const x = ctxOf(held); if (b.signal === 'industry') return industryMomentum(x); if (b.signal === 'pullback') return pullback(pullCtx(held), wide, plog);
@@ -94,11 +100,12 @@ for (const b of books) {
   const before = st.lastStep;
   stepBook(st, { D, open, age, close: (s) => px(s), cashRet: before === D ? null : cashRetFor(st), tier: (v) => tierCost(v), signal });
   if ((b.batch === 'A' || b.batch === 'B') && before !== D) stepEw(st, D, el500.map((p) => p.sym), (s) => { const v = px(s); return v > 0 ? v : null; });
+  if (b.signal === 'dealBook') for (const r of st.signalLog ?? []) if (r.taken && r.gap == null && st.pos[r.sym] && st.pos[r.sym].entryDate > r.date && r.price > 0) r.gap = Math.round((st.pos[r.sym].entry / r.price - 1) * 1e4) / 1e4;
   for (const w of wide) if (!st.skipped.some((s) => s.date === D && s.sym === w.sym)) st.skipped.push({ date: D, sym: w.sym, width: w.width });
-  if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym))].slice(-400); }
+  if (plog.length) { st.signalLog = [...(st.signalLog ?? []), ...plog.filter((x) => !(st.signalLog ?? []).some((y) => y.date === x.date && y.sym === x.sym && y.client === x.client))].slice(-400); }
   const v = st.daily.at(-1)?.v ?? null, hold = Object.entries(st.pos).map(([sym, p]) => ({ sym, name: names[sym] ?? null, entry: p.entry, entryDate: p.entryDate, last: Math.round(px(sym) * 100) / 100, sinceEntry: Math.round((px(sym) / p.entry - 1) * 1e4) / 1e4, stop: p.stop, high: p.high }));
   // tonight's list for the stock-list view
-  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'deliveryAccum' ? (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.ratio, date: r.date, reaction: r.reaction, tags: (r.tags ?? []).join(', ') })) : BA_SIGNALS.has(b.signal) ? baWatch(b.signal, new Set(Object.keys(st.pos)), st) : b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchTom(wx);
+  const wx = ctxOf(new Set(Object.keys(st.pos))), watch = b.signal === 'dealBook' ? (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.value, date: r.date, reaction: r.gap, tags: [r.kind, r.buyer === 'fund' ? 'fund buyer' : '', r.promoterTag ? 'possible promoter entity' : '', r.sameDaySells ? r.sameDaySells + ' large sell(s) same day' : ''].filter(Boolean).join(', ') })) : b.signal === 'deliveryAccum' ? (st.signalLog ?? []).slice(-30).reverse().map((r) => ({ sym: r.sym, status: r.taken ? 'Bought next open' : 'Skipped: ' + r.why, score: r.ratio, date: r.date, reaction: r.reaction, tags: (r.tags ?? []).join(', ') })) : BA_SIGNALS.has(b.signal) ? baWatch(b.signal, new Set(Object.keys(st.pos)), st) : b.signal === 'high52' || b.signal === 'weekly121' ? watchRanked(wx, b.signal) : b.signal === 'donchian' ? watchDonchian(wx) : b.signal === 'industry' ? watchIndustry(wx) : b.signal === 'pullback' ? watchPullback(pullCtx(new Set(Object.keys(st.pos)))) : watchTom(wx);
   const nm = (r) => ({ ...r, name: (names[r.sym] ?? null) && r.group ? `${names[r.sym]} (${r.group})` : names[r.sym] ?? null }), watchRows = watch.map(nm);
   // scorecard against the one comparator (C-176); the four reported lines are shown whatever the comparator is
   const bm = monthlyValues(st), fundM = monthEndNav('148703'), liqM = monthEndNav(cfg.cashFund.code), parM = monthsOf(parent), twinM = monthsOf(twin);

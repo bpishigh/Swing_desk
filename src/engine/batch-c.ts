@@ -62,3 +62,42 @@ export function expiryDays(dates: string[]): Set<string> {
 }
 const d0 = (y: number, mo: number): number => new Date(Date.UTC(y, mo - 1, 1)).getUTCDay();
 void BA;
+
+// ---- Package 20, bulk and block deals (C-211). Forward only. A buy row of at least Rs 10 crore in a top-500 name, kept by behaviour first (round trip known at entry, running list), keywords second; fund-type buyers tagged. Entry next open, hold 60 sessions, C-159 stop.
+import type { Deal } from '../ingest/exchange-log.ts';
+import { shortStop } from './stock-book.ts';
+export const BD = { minValue: 1e8, hold: 60, names: 20, lookbackSessions: 5, keywords: ['SECURITIES', 'CAPITAL MARKETS', 'TRADING', 'BROKING', 'PROPRIETARY', 'ARBITRAGE', 'ALGO', 'QUANT'], funds: /MUTUAL FUND|\bMF\b|ASSET MANAGEMENT|INSURANCE|LIFE INSURANCE|PENSION|PROVIDENT|\bAMC\b|\bLIC\b/ };
+export interface DealRow extends Deal { kind: 'bulk' | 'block' }
+export interface DealLogRow { date: string; sym: string; client: string; kind: string; value: number; price: number; taken: boolean; why: string; buyer: 'fund' | 'other'; promoterTag: boolean; sameDaySells: number; gap: number | null }
+const norm = (c: string): string => c.toUpperCase().replace(/\s+/g, ' ').trim();
+/** Clients seen on both sides of one stock within 5 sessions of each other anywhere in the log up to `upTo` (the running list). */
+export function roundTrippers(log: DealRow[], dates: string[], upTo: string): Set<string> {
+  const pos = new Map(dates.map((d, i) => [d, i])), by = new Map<string, Array<{ i: number; side: string }>>(), out = new Set<string>();
+  for (const r of log) { if (r.date > upTo || !pos.has(r.date)) continue; const k = norm(r.client) + '|' + r.symbol; const a = by.get(k) ?? []; a.push({ i: pos.get(r.date)!, side: r.side.toUpperCase() }); by.set(k, a); }
+  for (const [k, a] of by) { for (const b of a) if (b.side === 'BUY') for (const s of a) if (s.side === 'SELL' && Math.abs(s.i - b.i) <= BD.lookbackSessions) out.add(k.split('|')[0]); }
+  return out;
+}
+export interface DealEnv { log: DealRow[]; open: (sym: string, t: number) => number; counts?: { kept: number; roundTrip: number; keyword: number; promoter: number; small: number } }
+export function dealBook(x: BCtx, env: DealEnv, rows: DealRow[], log?: DealLogRow[]): Orders | null {
+  const { t } = x, D = x.dates[t], sells: string[] = [], buys: Buy[] = [], inTop = new Map(x.el.map((n) => [n.sym, n]));
+  for (const [sym, p] of Object.entries(x.st.pos)) { const i = x.dates.indexOf(p.entryDate); if (i >= 0 && t - i + 1 >= BD.hold) sells.push(sym); }
+  const trips = roundTrippers(env.log, x.dates, D), pos = new Map(x.dates.map((d, i) => [d, i])), c = env.counts ?? { kept: 0, roundTrip: 0, keyword: 0, promoter: 0, small: 0 };
+  const sold = (sym: string, client: string, di: number): boolean => env.log.some((r) => r.symbol === sym && r.side.toUpperCase() === 'SELL' && norm(r.client) === norm(client) && pos.has(r.date) && pos.get(r.date)! <= di && pos.get(r.date)! >= di - BD.lookbackSessions);
+  const agg = new Map<string, { sym: string; client: string; kind: string; value: number; units: number; price: number; date: string }>();
+  for (const r of rows) { if (r.side.toUpperCase() !== 'BUY' || !inTop.has(r.symbol)) continue; const k = r.symbol + '|' + norm(r.client), a = agg.get(k); const v = r.units * r.price; if (a) { a.value += v; a.units += r.units; a.price = a.value / a.units; } else agg.set(k, { sym: r.symbol, client: r.client, kind: r.kind, value: v, units: r.units, price: r.price, date: r.date }); }
+  const cands = [...agg.values()].filter((a) => { if (a.value >= BD.minValue) return true; c.small++; return false; }).sort((a, b) => b.value - a.value || (a.sym < b.sym ? -1 : 1));
+  const room = BD.names - (x.held.size - sells.length), taken = new Set<string>();
+  for (const a of cands) {
+    const di = pos.get(a.date) ?? t, sameDaySells = rows.filter((r) => r.symbol === a.sym && r.side.toUpperCase() === 'SELL' && r.units * r.price >= BD.minValue).length;
+    const kw = BD.keywords.some((w) => norm(a.client).includes(w)), buyer: 'fund' | 'other' = BD.funds.test(norm(a.client)) ? 'fund' : 'other';
+    const base = { date: a.date, sym: a.sym, client: a.client, kind: a.kind, value: Math.round(a.value), price: Math.round(a.price * 100) / 100, buyer, promoterTag: kw && buyer === 'other', sameDaySells, gap: null as number | null };
+    if (sold(a.sym, a.client, di) || trips.has(norm(a.client))) { c.roundTrip++; log?.push({ ...base, taken: false, why: 'round trip' }); continue; }
+    if (kw) { c.keyword++; if (base.promoterTag) c.promoter++; log?.push({ ...base, taken: false, why: 'keyword (' + (buyer === 'fund' ? 'fund' : 'possible promoter entity') + ')' }); continue; }
+    if (x.held.has(a.sym) || taken.has(a.sym)) { log?.push({ ...base, taken: false, why: 'already held' }); continue; }
+    const s = x.series.get(a.sym), st = s ? shortStop(atrN(s, t), s.c[t]) : null;
+    if (st === null) { log?.push({ ...base, taken: false, why: 'stop too wide' }); continue; }
+    if (buys.length >= room) { log?.push({ ...base, taken: false, why: 'no slot' }); continue; }
+    c.kept++; taken.add(a.sym); buys.push({ sym: a.sym, value: inTop.get(a.sym)!.value, stop: st }); log?.push({ ...base, taken: true, why: 'bought next open' });
+  }
+  return orNull({ buys, sells });
+}

@@ -135,6 +135,15 @@
       "startAfter": "2026-11-15",
       "comparator": "n500",
       "batch": "C"
+    },
+    {
+      "id": "bc-c2-bulkblock",
+      "rule": "C2",
+      "name": "Bulk and block deals",
+      "signal": "dealBook",
+      "startAfter": "2026-11-15",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [
