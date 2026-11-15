@@ -79,7 +79,7 @@ for (let t = t0; t <= t1; t++) {
   if (monthStart || !el500.length) {
     const hist = asOfHistories(days.slice(0, t + 1), t, res, allowed);
     el500 = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); elMonth = D.slice(0, 7);
-    if (WANT.some((k) => k.startsWith('M1') || k === 'S1')) { const u = BASE.universe; BASE.universe = 100000; try { elWide = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } }
+    if (WANT.some((k) => k.startsWith('M1') || isS(k))) { const u = BASE.universe; BASE.universe = 100000; try { elWide = eligible(hist, t, BASE.skip).filter((p) => isCo(p.sym)).map((p) => ({ sym: p.sym, value: p.value })); } finally { BASE.universe = u; } }
     if (!WANT.every((k) => BOOKS[k].batch === 'D')) for (const n of el500) { const f = featuresFor(n.sym, D, t); if (f) rowsNow[n.sym] = f; else delete rowsNow[n.sym]; }
     unranked = el500.filter((n) => !rowsNow[n.sym]).length;
   } else {
