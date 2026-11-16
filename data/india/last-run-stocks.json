@@ -1,35 +1,41 @@
 {
- "ts": "2026-11-13T14:07:59.170Z",
- "date": "2026-11-13",
+ "ts": "2026-11-16T14:08:18.188Z",
+ "date": "2026-11-16",
  "status": "written",
  "fetched": [
-  "2026-11-13"
+  "2026-11-16"
  ],
  "skipped": [],
  "notPublished": false,
- "sessionsStored": 265,
- "stocks": 2950,
+ "sessionsStored": 266,
+ "stocks": 2957,
  "flags": [
-  "2444 of 2950 stocks have a 200 SMA; 2659 have a warm EMA",
+  "corporate-actions list not refreshed: fetch failed (using the stored list)",
+  "circular list not refreshed: fetch failed (using the stored circulars)",
+  "2444 of 2957 stocks have a 200 SMA; 2662 have a warm EMA",
   "corporate actions: 104 breaks adjusted (5 approximate, 5 derived from a published average), 2 accepted as real moves, 2 unresolved (averages omitted), 2 older than the averages now reach",
   "NSE circulars: 52 breaks explained, 7 where the circular alone does not match the price move (7 of them explained by the list, e.g. split plus bonus on one day)"
  ],
  "circulars": {
-  "checked": 216,
+  "checked": 0,
   "newlyRead": 0,
   "unreadable": [],
   "errors": 0,
-  "problem": null
+  "problem": "circular list not refreshed: fetch failed (using the stored circulars)"
  },
  "derivation": {
-  "tried": 2,
+  "tried": 4,
   "derived": [],
   "failed": [
    "ALLCARGO 2025-11-12: break is outside the 200-close window",
    "DCMSRIND 2025-12-26: Dhan page not found",
-   "SHIVAM-RE1 2026-10-29,2026-10-30: more than one unresolved break"
+   "BNAGROCHEM 2026-11-16: Dhan page not found",
+   "SUVID-RE 2026-11-16: Dhan page not found"
   ]
  },
  "circularProblems": [],
- "newUnresolved": []
+ "newUnresolved": [
+  "BNAGROCHEM|2026-11-16",
+  "SUVID-RE|2026-11-16"
+ ]
 }
