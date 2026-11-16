@@ -16,8 +16,8 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-13",
- "lastNavDate": "2026-11-13",
+ "lastStep": "2026-11-16",
+ "lastNavDate": "2026-11-15",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -499,7 +499,8 @@
    "SHAKTIPUMP": 381.25
   },
   "nav": {
-   "2026-11-13": 100
+   "2026-11-13": 100,
+   "2026-11-16": 99.1417
   }
  }
 }

@@ -4329,16 +4329,226 @@
    "rea": -0.0155,
    "top": false,
    "signal": false
+  },
+  "ABB|2026-11-13": {
+   "s": "ABB",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 6895,
+   "run": -0.0075,
+   "rea": 0.0073,
+   "top": false,
+   "signal": false
+  },
+  "BELRISE|2026-11-13": {
+   "s": "BELRISE",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 235.09,
+   "run": -0.0505,
+   "rea": 0.0951,
+   "top": false,
+   "signal": false
+  },
+  "BBOX|2026-11-13": {
+   "s": "BBOX",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 901,
+   "run": 0.0147,
+   "rea": 0.0309,
+   "top": false,
+   "signal": false
+  },
+  "DEEPAKFERT|2026-11-13": {
+   "s": "DEEPAKFERT",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 1352.8,
+   "run": 0.0088,
+   "rea": 0.0867,
+   "top": false,
+   "signal": false
+  },
+  "EIDPARRY|2026-11-13": {
+   "s": "EIDPARRY",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 648.15,
+   "run": 0.0056,
+   "rea": -0.0215,
+   "top": false,
+   "signal": false
+  },
+  "EICHERMOT|2026-11-13": {
+   "s": "EICHERMOT",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 7599,
+   "run": -0.0401,
+   "rea": 0.018,
+   "top": false,
+   "signal": false
+  },
+  "FACT|2026-11-13": {
+   "s": "FACT",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 793.95,
+   "run": 0.1065,
+   "rea": 0.0015,
+   "top": true,
+   "signal": false
+  },
+  "GILLETTE|2026-11-13": {
+   "s": "GILLETTE",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 7087.5,
+   "run": -0.0463,
+   "rea": -0.0399,
+   "top": false,
+   "signal": false
+  },
+  "GPIL|2026-11-13": {
+   "s": "GPIL",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 223.45,
+   "run": 0.0743,
+   "rea": 0.0184,
+   "top": true,
+   "signal": false
+  },
+  "GODREJIND|2026-11-13": {
+   "s": "GODREJIND",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 1091,
+   "run": 0.0733,
+   "rea": 0.0178,
+   "top": true,
+   "signal": false
+  },
+  "GRASIM|2026-11-13": {
+   "s": "GRASIM",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 3084.4,
+   "run": -0.0001,
+   "rea": 0.0016,
+   "top": false,
+   "signal": false
+  },
+  "ITI|2026-11-13": {
+   "s": "ITI",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 255.32,
+   "run": 0.062,
+   "rea": 0.0286,
+   "top": true,
+   "signal": true
+  },
+  "INOXWIND|2026-11-13": {
+   "s": "INOXWIND",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 59.5,
+   "run": 0.0363,
+   "rea": -0.0805,
+   "top": true,
+   "signal": false
+  },
+  "JWL|2026-11-13": {
+   "s": "JWL",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 203.52,
+   "run": 0.0952,
+   "rea": -0.0273,
+   "top": true,
+   "signal": false
+  },
+  "NATCOPHARM|2026-11-13": {
+   "s": "NATCOPHARM",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 828.65,
+   "run": -0.0543,
+   "rea": 0.0359,
+   "top": false,
+   "signal": false
+  },
+  "PFOCUS|2026-11-13": {
+   "s": "PFOCUS",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 267.6,
+   "run": -0.1464,
+   "rea": -0.0152,
+   "top": false,
+   "signal": false
+  },
+  "RHIM|2026-11-13": {
+   "s": "RHIM",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 330.15,
+   "run": -0.0468,
+   "rea": -0.0817,
+   "top": false,
+   "signal": false
+  },
+  "RVNL|2026-11-13": {
+   "s": "RVNL",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 194.36,
+   "run": 0.0415,
+   "rea": -0.0424,
+   "top": true,
+   "signal": false
+  },
+  "TMPV|2026-11-13": {
+   "s": "TMPV",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 262.4,
+   "run": 0.0535,
+   "rea": -0.1059,
+   "top": true,
+   "signal": false
+  },
+  "USHAMART|2026-11-13": {
+   "s": "USHAMART",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 470,
+   "run": -0.021,
+   "rea": -0.0271,
+   "top": false,
+   "signal": false
+  },
+  "ZFCVINDIA|2026-11-13": {
+   "s": "ZFCVINDIA",
+   "d": "2026-11-13",
+   "entry": "2026-11-16",
+   "px": 2207.5,
+   "run": 0.0291,
+   "rea": -0.0346,
+   "top": true,
+   "signal": false
   }
  },
  "summary": {
-  "updated": "2026-11-14",
+  "updated": "2026-11-16",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
     "matured": 0,
-    "open": 56,
+    "open": 57,
     "meanNet": null,
     "win": null,
     "market": null
@@ -4346,7 +4556,7 @@
    {
     "group": "ran up, any reaction",
     "matured": 0,
-    "open": 162,
+    "open": 171,
     "meanNet": null,
     "win": null,
     "market": null
@@ -4354,7 +4564,7 @@
    {
     "group": "all results stocks",
     "matured": 0,
-    "open": 433,
+    "open": 454,
     "meanNet": null,
     "win": null,
     "market": null

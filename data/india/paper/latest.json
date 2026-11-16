@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-13",
+ "asOf": "2026-11-16",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -13,8 +13,8 @@
  },
  "capwaived": {
   "orders": 27,
-  "open": 7,
-  "pending": 1,
+  "open": 8,
+  "pending": 0,
   "notFilled": 12,
   "closed": 7,
   "meanR": -0.2406471348332508,
@@ -23,45 +23,12 @@
  "comparator": {
   "orders": 8,
   "open": 2,
-  "pending": 1,
+  "pending": 0,
   "notFilled": 1,
-  "closed": 4,
-  "meanR": 0.17441443751236038,
-  "winRate": 0.75
+  "closed": 5,
+  "meanR": 0.2106140869343019,
+  "winRate": 0.8
  },
  "light": "green",
- "newOrdersTonight": [
-  {
-   "stream": "capwaived",
-   "sym": "GESHIP",
-   "setup": "2",
-   "trigger": 1530.96,
-   "stop": 1408.9,
-   "status": "pending",
-   "kind": "trigger",
-   "tags": [
-    "over cap",
-    "room fail"
-   ],
-   "stopPct": 7.97,
-   "maxStopPct": 7,
-   "roomR": 2.19
-  },
-  {
-   "stream": "comparator",
-   "sym": "GESHIP",
-   "setup": "2",
-   "trigger": 1518,
-   "stop": 1408.9,
-   "status": "pending",
-   "kind": "close",
-   "tags": [
-    "over cap",
-    "room fail"
-   ],
-   "stopPct": 7.19,
-   "maxStopPct": 7,
-   "roomR": 2.57
-  }
- ]
+ "newOrdersTonight": []
 }

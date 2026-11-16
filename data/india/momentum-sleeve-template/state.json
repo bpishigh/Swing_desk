@@ -122,24 +122,24 @@
    "ATHERENERG": 1945,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
-   "GLAND": 3334.1,
+   "GLAND": 3385.9,
    "PVRINOX": 1652.6,
    "ACUTAAS": 4039.1,
    "FEDERALBNK": 362.5,
    "BOSCHLTD": 50580,
    "NYKAA": 365.2,
    "AUROPHARMA": 1823.2,
-   "ETERNAL": 364.35,
+   "ETERNAL": 371.1,
    "NAVINFLUOR": 10002,
    "PAYTM": 1939.9,
    "INDHOTEL": 890.3,
    "MOTHERSON": 168.75,
    "KALYANKJIL": 710.9,
-   "KOTAKBANK": 490.4,
+   "KOTAKBANK": 494.2,
    "ICICIBANK": 1590,
-   "RADICO": 4638.2,
+   "RADICO": 4665,
    "TVSMOTOR": 4550,
-   "KARURVYSYA": 384,
+   "KARURVYSYA": 390.25,
    "TITAN": 4970,
    "COFORGE": 2034,
    "ZYDUSLIFE": 1206
@@ -205,16 +205,20 @@
   {
    "d": "2026-11-13",
    "v": 100.9447
+  },
+  {
+   "d": "2026-11-16",
+   "v": 99.6676
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-13",
-   "v": 100.9447
+   "d": "2026-11-16",
+   "v": 99.6676
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-13",
+ "stopChecked": "2026-11-16",
  "gone": []
 }

@@ -1,126 +1,193 @@
 {
  "id": "fw-c160-industry",
  "startAfter": "2026-11-12",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-13",
-  "buys": [
-   {
-    "sym": "SOLARINDS",
-    "value": 2343579100,
-    "stop": 0.25
-   },
-   {
-    "sym": "HSCL",
-    "value": 972777412.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "NAVINFLUOR",
-    "value": 1606461170,
-    "stop": 0.25
-   },
-   {
-    "sym": "PIDILITIND",
-    "value": 1051232615.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "UPL",
-    "value": 1198859289.975,
-    "stop": 0.25
-   },
-   {
-    "sym": "MTARTECH",
-    "value": 1599443465,
-    "stop": 0.25
-   },
-   {
-    "sym": "CPPLUS",
-    "value": 988992892.1,
-    "stop": 0.25
-   },
-   {
-    "sym": "WELCORP",
-    "value": 2782873284.2999997,
-    "stop": 0.25
-   },
-   {
-    "sym": "SYRMA",
-    "value": 1847392167.8,
-    "stop": 0.25
-   },
-   {
-    "sym": "APARINDS",
-    "value": 2666698311,
-    "stop": 0.25
-   },
-   {
-    "sym": "HINDCOPPER",
-    "value": 1815259262.45,
-    "stop": 0.25
-   },
-   {
-    "sym": "VEDL",
-    "value": 2767080461.505,
-    "stop": 0.25
-   },
-   {
-    "sym": "NATIONALUM",
-    "value": 1890369246.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "SAIL",
-    "value": 2441768860.5299997,
-    "stop": 0.25
-   },
-   {
-    "sym": "HINDZINC",
-    "value": 1989361282.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "LAURUSLABS",
-    "value": 4519842684.450001,
-    "stop": 0.25
-   },
-   {
-    "sym": "ACUTAAS",
-    "value": 1758197914.4,
-    "stop": 0.25
-   },
-   {
-    "sym": "GLAND",
-    "value": 1145931719.8000002,
-    "stop": 0.25
-   },
-   {
-    "sym": "AUROPHARMA",
-    "value": 1846468664.4,
-    "stop": 0.25
-   },
-   {
-    "sym": "DIVISLAB",
-    "value": 7120371405.75,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "SOLARINDS": {
+   "sh": 0.00025806576702342175,
+   "entry": 19341,
+   "entryDate": "2026-11-16",
+   "high": 19341,
+   "stop": 0.25
+  },
+  "HSCL": {
+   "sh": 0.00890625,
+   "entry": 560,
+   "entryDate": "2026-11-16",
+   "high": 560,
+   "stop": 0.25
+  },
+  "NAVINFLUOR": {
+   "sh": 0.0004966417910447762,
+   "entry": 10050,
+   "entryDate": "2026-11-16",
+   "high": 10050,
+   "stop": 0.25
+  },
+  "PIDILITIND": {
+   "sh": 0.0032535362753405906,
+   "entry": 1534.1,
+   "entryDate": "2026-11-16",
+   "high": 1545.8,
+   "stop": 0.25
+  },
+  "UPL": {
+   "sh": 0.008912150700830283,
+   "entry": 560.05,
+   "entryDate": "2026-11-16",
+   "high": 563.45,
+   "stop": 0.25
+  },
+  "MTARTECH": {
+   "sh": 0.0008422629092136348,
+   "entry": 5926,
+   "entryDate": "2026-11-16",
+   "high": 5926,
+   "stop": 0.25
+  },
+  "CPPLUS": {
+   "sh": 0.0012135036496350364,
+   "entry": 4110,
+   "entryDate": "2026-11-16",
+   "high": 4110,
+   "stop": 0.25
+  },
+  "WELCORP": {
+   "sh": 0.002228236607142857,
+   "entry": 2240,
+   "entryDate": "2026-11-16",
+   "high": 2240,
+   "stop": 0.25
+  },
+  "SYRMA": {
+   "sh": 0.003314243027888446,
+   "entry": 1506,
+   "entryDate": "2026-11-16",
+   "high": 1506,
+   "stop": 0.25
+  },
+  "APARINDS": {
+   "sh": 0.000337771536847804,
+   "entry": 14777,
+   "entryDate": "2026-11-16",
+   "high": 14831,
+   "stop": 0.25
+  },
+  "HINDCOPPER": {
+   "sh": 0.011475456949074607,
+   "entry": 434.95,
+   "entryDate": "2026-11-16",
+   "high": 434.95,
+   "stop": 0.25
+  },
+  "VEDL": {
+   "sh": 0.019397808091407252,
+   "entry": 257.31,
+   "entryDate": "2026-11-16",
+   "high": 257.31,
+   "stop": 0.25
+  },
+  "NATIONALUM": {
+   "sh": 0.01519406392694064,
+   "entry": 328.5,
+   "entryDate": "2026-11-16",
+   "high": 328.5,
+   "stop": 0.25
+  },
+  "SAIL": {
+   "sh": 0.02842397494305239,
+   "entry": 175.6,
+   "entryDate": "2026-11-16",
+   "high": 175.6,
+   "stop": 0.25
+  },
+  "HINDZINC": {
+   "sh": 0.009100647278694501,
+   "entry": 548.45,
+   "entryDate": "2026-11-16",
+   "high": 550.2,
+   "stop": 0.25
+  },
+  "LAURUSLABS": {
+   "sh": 0.0020540123456790123,
+   "entry": 2430,
+   "entryDate": "2026-11-16",
+   "high": 2430,
+   "stop": 0.25
+  },
+  "ACUTAAS": {
+   "sh": 0.001223345588235294,
+   "entry": 4080,
+   "entryDate": "2026-11-16",
+   "high": 4080,
+   "stop": 0.25
+  },
+  "GLAND": {
+   "sh": 0.0014895696550077592,
+   "entry": 3350.8,
+   "entryDate": "2026-11-16",
+   "high": 3385.9,
+   "stop": 0.25
+  },
+  "AUROPHARMA": {
+   "sh": 0.002726118302474193,
+   "entry": 1830.9,
+   "entryDate": "2026-11-16",
+   "high": 1830.9,
+   "stop": 0.25
+  },
+  "DIVISLAB": {
+   "sh": 0.0004343994778067885,
+   "entry": 11490,
+   "entryDate": "2026-11-16",
+   "high": 11490,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "SOLARINDS": 2343579100,
+  "HSCL": 972777412.7,
+  "NAVINFLUOR": 1606461170,
+  "PIDILITIND": 1051232615.5,
+  "UPL": 1198859289.975,
+  "MTARTECH": 1599443465,
+  "CPPLUS": 988992892.1,
+  "WELCORP": 2782873284.2999997,
+  "SYRMA": 1847392167.8,
+  "APARINDS": 2666698311,
+  "HINDCOPPER": 1815259262.45,
+  "VEDL": 2767080461.505,
+  "NATIONALUM": 1890369246.5,
+  "SAIL": 2441768860.5299997,
+  "HINDZINC": 1989361282.7,
+  "LAURUSLABS": 4519842684.450001,
+  "ACUTAAS": 1758197914.4,
+  "GLAND": 1145931719.8000002,
+  "AUROPHARMA": 1846468664.4,
+  "DIVISLAB": 7120371405.75
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-16",
+   "v": 97.8756,
+   "vs": 97.7756,
+   "x": 1
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-16",
  "lastSignal": "2026-11-13",
- "lastStep": "2026-11-13",
- "lastNavDate": "2026-11-12"
+ "lastStep": "2026-11-16",
+ "lastNavDate": "2026-11-15",
+ "costs": {
+  "2026-11": 0.1825000000000001
+ }
 }

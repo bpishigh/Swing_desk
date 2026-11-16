@@ -257,7 +257,7 @@
    "CPPLUS": 4237,
    "SKYGOLD": 1050.05,
    "RATNAVEER": 372.9,
-   "GLAND": 3334.1,
+   "GLAND": 3385.9,
    "WELCORP": 2230.4,
    "HFCL": 215,
    "PVRINOX": 1652.6,
@@ -269,17 +269,17 @@
    "NAVINFLUOR": 10002,
    "SYRMA": 1515.9,
    "MOTHERSON": 168.75,
-   "ETERNAL": 364.35,
+   "ETERNAL": 371.1,
    "PAYTM": 1939.9,
    "INDHOTEL": 890.3,
-   "KOTAKBANK": 490.4,
+   "KOTAKBANK": 494.2,
    "ICICIBANK": 1590,
-   "KARURVYSYA": 384,
-   "RADICO": 4638.2,
+   "KARURVYSYA": 390.25,
+   "RADICO": 4665,
    "TVSMOTOR": 4550,
    "TITAN": 4970,
-   "MCX": 3720,
-   "PNB": 142.81
+   "MCX": 3729.6,
+   "PNB": 144.59
   },
   "startedFill": "2026-11-12"
  },
@@ -342,16 +342,20 @@
   {
    "d": "2026-11-13",
    "v": 100.5504
+  },
+  {
+   "d": "2026-11-16",
+   "v": 99.223
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-13",
-   "v": 100.5504
+   "d": "2026-11-16",
+   "v": 99.223
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-13",
+ "stopChecked": "2026-11-16",
  "gone": []
 }

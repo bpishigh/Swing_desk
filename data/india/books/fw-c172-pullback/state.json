@@ -4,18 +4,50 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-16",
+  "buys": [
+   {
+    "sym": "TITAN",
+    "value": 3401740872.2,
+    "stop": 0.0708910386965377
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
- "skipped": [],
+ "skipped": [
+  {
+   "date": "2026-11-16",
+   "sym": "TECHM",
+   "width": 0.0876
+  }
+ ],
  "slipCum": 0,
  "cashDays": {
   "credited": 0,
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-13",
- "lastNavDate": "2026-11-12"
+ "lastSignal": "2026-11-16",
+ "lastStep": "2026-11-16",
+ "lastNavDate": "2026-11-15",
+ "signalLog": [
+  {
+   "date": "2026-11-16",
+   "sym": "TECHM",
+   "dip": "run",
+   "volRatio": 0.3795,
+   "tight": 0.0377
+  },
+  {
+   "date": "2026-11-16",
+   "sym": "TITAN",
+   "dip": "run",
+   "volRatio": 0.9594,
+   "tight": 0.1077
+  }
+ ]
 }

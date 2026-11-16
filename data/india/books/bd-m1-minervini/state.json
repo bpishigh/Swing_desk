@@ -1,0 +1,534 @@
+{
+ "id": "bd-m1-minervini",
+ "startAfter": "2026-11-15",
+ "cash": 100,
+ "pos": {},
+ "lastValue": {},
+ "pending": {
+  "signalDate": "2026-11-16",
+  "buys": [
+   {
+    "sym": "ICICIBANK",
+    "value": 21648347265.95,
+    "stop": 0.25
+   },
+   {
+    "sym": "KOTAKBANK",
+    "value": 9626684937.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "ETERNAL",
+    "value": 9039414976.875,
+    "stop": 0.25
+   },
+   {
+    "sym": "DIVISLAB",
+    "value": 7376159402.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "MCX",
+    "value": 5500650087.700001,
+    "stop": 0.25
+   },
+   {
+    "sym": "LAURUSLABS",
+    "value": 5162388276.450001,
+    "stop": 0.25
+   },
+   {
+    "sym": "TECHM",
+    "value": 4961546195.9,
+    "stop": 0.25
+   },
+   {
+    "sym": "INDHOTEL",
+    "value": 4820515142.025,
+    "stop": 0.25
+   },
+   {
+    "sym": "CUPID",
+    "value": 4600550398.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "ATHERENERG",
+    "value": 4299777991.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "PAYTM",
+    "value": 4246499067.65,
+    "stop": 0.25
+   },
+   {
+    "sym": "ADANIPORTS",
+    "value": 4203995459.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "APOLLO",
+    "value": 4191420116.825,
+    "stop": 0.25
+   },
+   {
+    "sym": "COFORGE",
+    "value": 4179848556.0000005,
+    "stop": 0.25
+   },
+   {
+    "sym": "BHEL",
+    "value": 4000659733.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "TVSMOTOR",
+    "value": 2803621061,
+    "stop": 0.25
+   },
+   {
+    "sym": "KALYANKJIL",
+    "value": 2700980702,
+    "stop": 0.25
+   },
+   {
+    "sym": "FEDERALBNK",
+    "value": 2273190059.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "AUROPHARMA",
+    "value": 1910861694,
+    "stop": 0.25
+   },
+   {
+    "sym": "RADICO",
+    "value": 1908129850,
+    "stop": 0.25
+   },
+   {
+    "sym": "NAVINFLUOR",
+    "value": 1855575340,
+    "stop": 0.25
+   },
+   {
+    "sym": "TFCILTD",
+    "value": 1836282135.1999998,
+    "stop": 0.25
+   },
+   {
+    "sym": "MOTHERSON",
+    "value": 1826935611.9699998,
+    "stop": 0.25
+   },
+   {
+    "sym": "SONACOMS",
+    "value": 1760514078.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "ACUTAAS",
+    "value": 1758197914.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "NYKAA",
+    "value": 1720190657.85,
+    "stop": 0.25
+   },
+   {
+    "sym": "GLENMARK",
+    "value": 1664685016.0499997,
+    "stop": 0.25
+   },
+   {
+    "sym": "SKYGOLD",
+    "value": 1515923741.0500002,
+    "stop": 0.25
+   },
+   {
+    "sym": "BOSCHLTD",
+    "value": 1289445090,
+    "stop": 0.25
+   },
+   {
+    "sym": "PVRINOX",
+    "value": 1249655323.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "GLAND",
+    "value": 1181741955.15,
+    "stop": 0.25
+   },
+   {
+    "sym": "KARURVYSYA",
+    "value": 1147130032.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "MAHABANK",
+    "value": 1135544235.56,
+    "stop": 0.25
+   },
+   {
+    "sym": "GESHIP",
+    "value": 1127511547.1999998,
+    "stop": 0.25
+   },
+   {
+    "sym": "MOTILALOFS",
+    "value": 1018036958,
+    "stop": 0.25
+   },
+   {
+    "sym": "CPPLUS",
+    "value": 984652700.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "PPLPHARMA",
+    "value": 923026978.935,
+    "stop": 0.25
+   },
+   {
+    "sym": "SOUTHBANK",
+    "value": 919540232.175,
+    "stop": 0.25
+   },
+   {
+    "sym": "SHREEJISPG",
+    "value": 894582392.9,
+    "stop": 0.25
+   },
+   {
+    "sym": "SAILIFE",
+    "value": 879644124.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "RATNAVEER",
+    "value": 878328332.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "PHOENIXLTD",
+    "value": 844882434.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "SBC",
+    "value": 841808178.77,
+    "stop": 0.25
+   },
+   {
+    "sym": "ENGINERSIN",
+    "value": 837201923.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "SANSERA",
+    "value": 833987402.9000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "WELSPUNLIV",
+    "value": 814928357.8800001,
+    "stop": 0.25
+   },
+   {
+    "sym": "TANLA",
+    "value": 746814322.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "RAYMOND",
+    "value": 746795082.4000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "URBANCO",
+    "value": 734022837.6200001,
+    "stop": 0.25
+   },
+   {
+    "sym": "KTKBANK",
+    "value": 664276120,
+    "stop": 0.25
+   },
+   {
+    "sym": "RKFORGE",
+    "value": 661727883.3,
+    "stop": 0.25
+   },
+   {
+    "sym": "ANANDRATHI",
+    "value": 599274610.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "JYOTICNC",
+    "value": 591556669.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "NAZARA",
+    "value": 505571880.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "SSWL",
+    "value": 504702086.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "KROSS",
+    "value": 503977772.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "BELRISE",
+    "value": 498744101.935,
+    "stop": 0.25
+   },
+   {
+    "sym": "NUVAMA",
+    "value": 498611668.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "LALPATHLAB",
+    "value": 495636918.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "SHYAMMETL",
+    "value": 491597896,
+    "stop": 0.25
+   },
+   {
+    "sym": "GRAPHITE",
+    "value": 478773389.42499995,
+    "stop": 0.25
+   },
+   {
+    "sym": "ALIVUS",
+    "value": 478229158.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "CRAFTSMAN",
+    "value": 462184287,
+    "stop": 0.25
+   },
+   {
+    "sym": "ASTRAMICRO",
+    "value": 461170417.29999995,
+    "stop": 0.25
+   },
+   {
+    "sym": "PTCIL",
+    "value": 443312775,
+    "stop": 0.25
+   },
+   {
+    "sym": "AETHER",
+    "value": 440498964.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "AARTIPHARM",
+    "value": 438372965.09999996,
+    "stop": 0.25
+   },
+   {
+    "sym": "GRWRHITECH",
+    "value": 435210310.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "QPOWER",
+    "value": 432883930,
+    "stop": 0.25
+   },
+   {
+    "sym": "NEOGEN",
+    "value": 416683112.65,
+    "stop": 0.25
+   },
+   {
+    "sym": "CEMPRO",
+    "value": 401305802.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "KMEW",
+    "value": 399508865.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "SGMART",
+    "value": 384991458.15,
+    "stop": 0.25
+   },
+   {
+    "sym": "HONASA",
+    "value": 372796831.9,
+    "stop": 0.25
+   },
+   {
+    "sym": "TIPSMUSIC",
+    "value": 370864990.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "DIACABS",
+    "value": 368734396.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "SAREGAMA",
+    "value": 360987169.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "FLUOROCHEM",
+    "value": 343056297.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "UNIMECH",
+    "value": 339552941,
+    "stop": 0.25
+   },
+   {
+    "sym": "STLNETWORK",
+    "value": 333111794.34000003,
+    "stop": 0.25
+   },
+   {
+    "sym": "SAMBHV",
+    "value": 319199764.40999997,
+    "stop": 0.25
+   },
+   {
+    "sym": "ROLEXRINGS",
+    "value": 311754427.49,
+    "stop": 0.25
+   },
+   {
+    "sym": "63MOONS",
+    "value": 310593836.05,
+    "stop": 0.25
+   },
+   {
+    "sym": "THELEELA",
+    "value": 310006109.175,
+    "stop": 0.25
+   },
+   {
+    "sym": "INDGN",
+    "value": 302538318.65,
+    "stop": 0.25
+   },
+   {
+    "sym": "ANTHEM",
+    "value": 300871222.225,
+    "stop": 0.25
+   },
+   {
+    "sym": "PARACABLES",
+    "value": 287480125.295,
+    "stop": 0.25
+   },
+   {
+    "sym": "STYLEBAAZA",
+    "value": 283339105.525,
+    "stop": 0.25
+   },
+   {
+    "sym": "OPTIEMUS",
+    "value": 283274381.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "LUMAXTECH",
+    "value": 276215762.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "RUBICON",
+    "value": 276090787.29999995,
+    "stop": 0.25
+   },
+   {
+    "sym": "SHRINGARMS",
+    "value": 273483438.17499995,
+    "stop": 0.25
+   },
+   {
+    "sym": "KRISHANA",
+    "value": 264626748.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "GABRIEL",
+    "value": 259288950,
+    "stop": 0.25
+   },
+   {
+    "sym": "ABDL",
+    "value": 258030631.075,
+    "stop": 0.25
+   },
+   {
+    "sym": "LOTUSDEV",
+    "value": 245853777.44,
+    "stop": 0.25
+   },
+   {
+    "sym": "EMCURE",
+    "value": 245596095.60000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "YATHARTH",
+    "value": 234091595.85000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "GOODLUCK",
+    "value": 229211246.375,
+    "stop": 0.25
+   },
+   {
+    "sym": "SMSPHARMA",
+    "value": 227364136.65,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
+ "stopQueue": [],
+ "closed": [],
+ "daily": [],
+ "skipped": [],
+ "slipCum": 0,
+ "cashDays": {
+  "credited": 0,
+  "missing": 0
+ },
+ "started": null,
+ "lastSignal": "2026-11-16",
+ "lastStep": "2026-11-16",
+ "weight": 0.01,
+ "lastNavDate": "2026-11-15",
+ "mvFail": {},
+ "mvCounts": {
+  "2026-11": {
+   "passing": 153,
+   "ranked": 889
+  }
+ }
+}

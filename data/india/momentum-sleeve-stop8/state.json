@@ -534,14 +534,14 @@
   },
   "high": {
    "CUPID": 384.8,
-   "SHREEJISPG": 910.8,
+   "SHREEJISPG": 914.9,
    "LAURUSLABS": 2454,
-   "SBC": 70.3,
+   "SBC": 70.37,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
    "ATHERENERG": 1945,
-   "RAYMOND": 1172.3,
+   "RAYMOND": 1185.8,
    "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
    "SONACOMS": 926,
@@ -642,12 +642,16 @@
   {
    "d": "2026-11-13",
    "v": 101.8328
+  },
+  {
+   "d": "2026-11-16",
+   "v": 100.2371
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-13",
-   "v": 101.8328
+   "d": "2026-11-16",
+   "v": 100.2371
   }
  },
  "stops": [
@@ -708,7 +712,12 @@
    "ret": -0.0167
   }
  ],
- "stopQueue": [],
- "stopChecked": "2026-11-13",
+ "stopQueue": [
+  {
+   "sym": "LAURUSLABS",
+   "on": "2026-11-16"
+  }
+ ],
+ "stopChecked": "2026-11-16",
  "gone": []
 }

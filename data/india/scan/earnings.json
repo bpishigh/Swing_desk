@@ -1,18 +1,18 @@
 {
- "asOf": "2026-11-13",
+ "asOf": "2026-11-16",
  "source": "NSE event calendar",
  "dates": {
-  "SAILIFE": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "GLAND": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "EMCURE": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ACUTAAS": {
    "date": null,
    "sessions": null,
    "inWindow": null

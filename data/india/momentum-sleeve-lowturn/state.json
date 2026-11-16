@@ -236,7 +236,7 @@
    "SKYGOLD": 1050.05,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
-   "GLAND": 3334.1,
+   "GLAND": 3385.9,
    "HFCL": 215,
    "ACUTAAS": 4039.1,
    "PVRINOX": 1652.6,
@@ -251,14 +251,14 @@
    "AEROFLEX": 507.4,
    "INDHOTEL": 890.3,
    "REDINGTON": 359.1,
-   "KARURVYSYA": 384,
-   "RADICO": 4638.2,
+   "KARURVYSYA": 390.25,
+   "RADICO": 4665,
    "TITAN": 4970,
    "TVSMOTOR": 4550,
-   "PNB": 142.81,
+   "PNB": 144.59,
    "ZYDUSLIFE": 1206,
    "APOLLO": 475.6,
-   "UNIONBANK": 204.4,
+   "UNIONBANK": 205.6,
    "IIFL": 663.15
   },
   "startedFill": "2026-11-12"
@@ -322,16 +322,20 @@
   {
    "d": "2026-11-13",
    "v": 99.7591
+  },
+  {
+   "d": "2026-11-16",
+   "v": 98.6158
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-13",
-   "v": 99.7591
+   "d": "2026-11-16",
+   "v": 98.6158
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-13",
+ "stopChecked": "2026-11-16",
  "gone": []
 }
