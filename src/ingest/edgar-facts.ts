@@ -91,13 +91,14 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
   const ends = new Set<string>(); for (const m of [F.pat, F.revenue]) for (const key of m.keys()) { const [e, k] = key.split('|'); if (k === 'Q' || k === 'Y') ends.add(e); }
   const val = (k: string, end: string, kind: Kind): { val: number; filed: string; accn: string } | undefined => near(F[k], end, kind);
   const instAt = (k: string, end: string): number | null => { for (const d of [0, 1, -1, 2, -2, 3, -3]) { const v = B[k].get(addDays(end, d)); if (v != null) return v; } return null; };
+  const ppeBefore = (end: string): number | null => { let bestEnd = ''; for (const e of B.ppe.keys()) if (e < end && e >= addDays(end, -380) && e > bestEnd) bestEnd = e; return bestEnd ? (B.ppe.get(bestEnd) as number) : null; };
   const out = new Map<string, UsQuarter>();
   for (const end of [...ends].sort()) {
     const q = (k: string): { val: number | null; filed: string | null; accn: string | null } => {
       const d = val(k, end, 'Q'); if (d) return { val: d.val, filed: d.filed, accn: d.accn };
       const y = val(k, end, 'Y'); if (!y) return { val: null, filed: null, accn: null };
       // fourth quarter: full year less the nine months that ended three months before the year end
-      const nEnd = addDays(end, -91); let n: { val: number } | undefined; for (const dd of [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5]) { const v = near(F[k], addDays(nEnd, dd), 'N'); if (v) { n = v; break; } }
+      let n: { val: number } | undefined; { const lo = addDays(end, -135), hi = addDays(end, -70); let bestEnd = ''; for (const key of F[k].keys()) { if (!key.endsWith('|N')) continue; const e = key.slice(0, 10); if (e >= lo && e <= hi && e > bestEnd) bestEnd = e; } if (bestEnd) n = F[k].get(`${bestEnd}|N`); }   // the nine-month figure ends 70 to 135 days before the year end (a 52 or 53 week filer's fourth quarter can run 16 weeks)
       return n ? { val: y.val - n.val, filed: y.filed, accn: y.accn } : { val: null, filed: null, accn: null };
     };
     const ytdOf = (k: string): number | null => { for (const kind of ['Y', 'N', 'H', 'Q'] as Kind[]) { const v = val(k, end, kind); if (v) return v.val; } return null; };
@@ -127,7 +128,8 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     const bs: Record<string, number> = {};
     const put = (o: Record<string, number>, k: string, v: number | null | undefined) => { if (v != null && Number.isFinite(v)) o[k] = v; };
     put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentInvestments', instAt('stInv', end)); if (bs.assets != null) bs.v = 2; put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
-    put(bs, 'ppe', instAt('ppe', end)); put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
+    put(bs, 'ppe', instAt('ppe', end) ?? ppeBefore(end));   // a filer that stops tagging net property in its quarterly reports: the latest figure from the four quarters before, flagged
+    if (bs.ppe != null && instAt('ppe', end) == null) bs.ppeCarried = 1; put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
     if (debtLong != null || debtCur != null) { put(bs, 'borrowings', (debtLong ?? 0) + (debtCur ?? 0)); put(bs, 'borrowingsCurrent', debtCur ?? 0); }
     else if (bs.assets != null) { bs.borrowings = 0; bs.borrowingsCurrent = 0; bs.debtAssumedZero = 1; }   // no debt line under any tag: read as no debt (owner, 16 Nov 2026), flagged so it can be told apart
     const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'opIncome', op.val); put(qx, 'paidUp', (accn ? shareByAccn.get(accn) : undefined) ?? instAt('sharesOut', end) ?? near(F.sharesWtd, end, 'Q')?.val); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
