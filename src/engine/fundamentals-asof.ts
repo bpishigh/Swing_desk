@@ -4,7 +4,7 @@
 import type { QuarterView, View } from './filings-asof.ts';
 
 export interface Split { date: string; factor: number }   // factor scales closes before the date (0.5 for a 1:1 bonus), as in india-asof.ts
-export interface Quarter { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revenue: number | null; pbt: number | null; pat: number | null; eps: number | null; pbtPre: number | null; otherIncome: number | null; financeCost: number | null; depreciation: number | null; exceptional: number | null }
+export interface Quarter { period: string; basis: 'consolidated' | 'standalone'; asOf: string; revenue: number | null; pbt: number | null; pat: number | null; eps: number | null; pbtPre: number | null; otherIncome: number | null; financeCost: number | null; depreciation: number | null; exceptional: number | null; opIncome?: number | null }
 export interface Balance { period: string; assets: number | null; equity: number | null; borrowings: number | null; borrowingsCurrent: number | null; cash: number | null; cashPlain?: number | null; liquidBasis?: 'cash+bank+current investments' | 'cash only'; currentAssets: number | null; currentLiabilities: number | null; ppe: number | null; inventories: number | null; receivables: number | null }
 export interface FyBlock { end: string; assets: number | null; equity: number | null; borrowings: number | null; currentAssets: number | null; currentLiabilities: number | null; revenue: number | null; ebit: number | null; pat: number | null; cfo: number | null }
 export interface FyPair { cur: FyBlock; prev: FyBlock; shareRatio: number | null }
@@ -36,7 +36,7 @@ function toQuarter(v: QuarterView): Quarter {
   const pbt = nz(v.values.pbt);
   const exceptional = nz(q.exceptional) ?? null;
   const pbtPre = nz(q.pbtPre) ?? (pbt != null && exceptional != null ? pbt - exceptional : exceptional == null ? pbt : null);   // without an exceptional line the quarter has none to remove only when the file also lacks the tag: then PBT stands in
-  return { period: v.period, basis: v.basis, asOf: v.asOf, revenue: nz(v.values.revenue), pbt, pat: nz(v.values.pat), eps: nz(v.values.eps), pbtPre, otherIncome: nz(q.otherIncome), financeCost: nz(q.financeCost), depreciation: nz(q.depreciation), exceptional };
+  return { period: v.period, basis: v.basis, asOf: v.asOf, revenue: nz(v.values.revenue), pbt, pat: nz(v.values.pat), eps: nz(v.values.eps), pbtPre, otherIncome: nz(q.otherIncome), financeCost: nz(q.financeCost), depreciation: nz(q.depreciation), exceptional, opIncome: nz(q.opIncome) };
 }
 const balanceOf = (v: QuarterView): Balance | null => { const b = v.extra?.bs; if (!b || b.assets == null) return null; return { period: v.period, assets: b.assets ?? null, equity: b.equity ?? null, borrowings: b.borrowings ?? null, borrowingsCurrent: b.borrowingsCurrent ?? null, cash: b.cash == null ? null : b.cash + (b.bankOther ?? 0) + (b.currentInvestments ?? 0), cashPlain: b.cash ?? null, liquidBasis: b.v === 2 || b.currentInvestments != null || b.bankOther != null ? 'cash+bank+current investments' : 'cash only', currentAssets: b.currentAssets ?? null, currentLiabilities: b.currentLiabilities ?? null, ppe: b.ppe ?? null, inventories: b.inventories ?? null, receivables: b.receivables ?? null }; };
 
@@ -72,7 +72,8 @@ export function computeFeatures(view: View, close: number | null, splits: Split[
   const c4 = chain(qs, 0, 4), p4 = chain(qs, 4, 4), y3 = chain(qs, 12, 4);
   const f = (c: Quarter[] | null, k: keyof Quarter) => (c ? sum(c.map((q) => q[k] as number | null)) : null);
   const ttmRevenue = financial ? null : f(c4, 'revenue'), ttmPbtPre = f(c4, 'pbtPre'), ttmPat = f(c4, 'pat'), ttmEps = f(c4, 'eps'), ttmFin = f(c4, 'financeCost'), ttmOther = f(c4, 'otherIncome'), ttmExc = f(c4, 'exceptional'), ttmPbt = f(c4, 'pbt');
-  const ebit = (c: Quarter[] | null): number | null => { if (!c || financial) return null; const a = f(c, 'pbtPre'), b = f(c, 'financeCost'), o = f(c, 'otherIncome'); return a != null && b != null && o != null ? a + b - o : null; };
+  const ebit = (c: Quarter[] | null): number | null => { if (!c || financial) return null; const a = f(c, 'pbtPre'), b = f(c, 'financeCost'), o = f(c, 'otherIncome'); if (a != null && b != null && o != null) return a + b - o; return f(c, 'opIncome' as keyof Quarter);   // US: reported operating income when the interest line is missing (interest cover stays unscored)
+  };
   const opEbit = ebit(c4);
   const prevRev = financial ? null : f(p4, 'revenue'), prevPbt = f(p4, 'pbtPre'), prevPat = f(p4, 'pat'), rev3 = financial ? null : f(y3, 'revenue');
   const g = (cur: number | null, prev: number | null) => (cur != null && prev != null && prev > 0 ? cur / prev - 1 : null);

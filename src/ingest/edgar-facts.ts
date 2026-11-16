@@ -26,6 +26,7 @@ export const CHAINS = {
   capex: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'],
   assets: ['Assets'], equity: ['StockholdersEquity', 'StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest'],
   debtLong: ['LongTermDebtNoncurrent', 'LongTermDebt'], debtCurrent: ['LongTermDebtCurrent', 'DebtCurrent', 'ShortTermBorrowings', 'CommercialPaper'],
+  stInv: ['ShortTermInvestments', 'MarketableSecuritiesCurrent', 'AvailableForSaleSecuritiesDebtSecuritiesCurrent'],   // current investments: with cash they are the liquid basis of the Magic Formula enterprise value (Batch B US)
   cash: ['CashAndCashEquivalentsAtCarryingValue', 'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents'],
   currentAssets: ['AssetsCurrent'], currentLiabilities: ['LiabilitiesCurrent'], ppe: ['PropertyPlantAndEquipmentNet'], inventories: ['InventoryNet'], receivables: ['AccountsReceivableNetCurrent'],
 } as const;
@@ -81,7 +82,7 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
   const F: Record<string, ReturnType<typeof flows>> = {};
   for (const k of ['revenue', 'pbt', 'pat', 'discOps', 'opInc', 'interest', 'nonOp', 'cfo', 'capex'] as const) F[k] = flows(g, CHAINS[k], 'USD');
   F.eps = flows(g, CHAINS.eps, 'USD/shares');
-  const B: Record<string, Map<string, number>> = {}; for (const k of ['assets', 'equity', 'debtLong', 'debtCurrent', 'cash', 'currentAssets', 'currentLiabilities', 'ppe', 'inventories', 'receivables'] as const) B[k] = instants(g, CHAINS[k]);
+  const B: Record<string, Map<string, number>> = {}; for (const k of ['assets', 'equity', 'debtLong', 'debtCurrent', 'cash', 'stInv', 'currentAssets', 'currentLiabilities', 'ppe', 'inventories', 'receivables'] as const) B[k] = instants(g, CHAINS[k]);
   const dei = cf.facts?.dei?.[DEI_SHARES]?.units?.shares ?? [], shareByAccn = new Map<string, number>(); for (const r of dei) if (okForm(r.form) && !shareByAccn.has(r.accn)) shareByAccn.set(r.accn, r.val);
   // fiscal period ends: every end that has a 3-month (or, for the fourth quarter, a 12-month) flow of net income or revenue
   const ends = new Set<string>(); for (const m of [F.pat, F.revenue]) for (const key of m.keys()) { const [e, k] = key.split('|'); if (k === 'Q' || k === 'Y') ends.add(e); }
@@ -122,10 +123,10 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     const debtLong = instAt('debtLong', end), debtCur = instAt('debtCurrent', end);
     const bs: Record<string, number> = {};
     const put = (o: Record<string, number>, k: string, v: number | null | undefined) => { if (v != null && Number.isFinite(v)) o[k] = v; };
-    put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
+    put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentInvestments', instAt('stInv', end)); if (bs.assets != null) bs.v = 2; put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
     put(bs, 'ppe', instAt('ppe', end)); put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
     if (debtLong != null || debtCur != null) { put(bs, 'borrowings', (debtLong ?? 0) + (debtCur ?? 0)); put(bs, 'borrowingsCurrent', debtCur ?? 0); }
-    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
+    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'opIncome', op.val); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
     if (qx.paidUp == null) delete qx.faceValue;
     const cfx: Record<string, number> = {}; put(cfx, 'cfo', ytdV('cfo')); put(cfx, 'capex', ytdV('capex'));
     const fields: Values = { revenue: rev.val, pbt: pbtV, pat: pat.val, eps: eps.val };
