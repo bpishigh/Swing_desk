@@ -1,0 +1,3036 @@
+{
+"polygonStatus": 404,
+"rows": {
+"NVDA": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 197579000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 197579000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MU": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 99340000000
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 99340000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AMD": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 8050000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8050000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AAPL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 158063000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 158063000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TSLA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3466000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3628000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MSFT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 163191000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 163191000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"META": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 79380000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 79380000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SNDK": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 20993000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 21056000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AMZN": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 104366000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 94327000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GOOGL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 156976000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 156976000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"INTC": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1762000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6026000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AVGO": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 42814000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 43237000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GOOG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 156976000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 156976000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MRVL": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 1561300000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 1588300000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LITE": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 877900000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 874100000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ORCL": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 23056000000
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 24572000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PLTR": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3326241000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3326241000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CRWV": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -75589000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -75589000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"STX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5464000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5587000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BE": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 567405000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 567405000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MRNA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -2930000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -2930000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GEV": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2827000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2830000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AMAT": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 9141000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 9587000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DELL": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 14252000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 14547000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"WDC": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5707000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5893000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LRCX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9654434000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 9654434000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"V": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 28110000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 29874000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TXN": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 8465000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8538000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NFLX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 15564870000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 15564870000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"WMT": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 32280000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 32280000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"COST": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 11685000000
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 11685000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CAT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 14254000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 14254000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CRWD": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": -119489000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": -119489000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 21266000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 21800000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CSCO": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 15368000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 16061000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NOW": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1493000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1493000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PANW": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 695000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 695000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"QCOM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 8657000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8657000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ADI": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 4934886000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 4958652000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"KO": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 15337000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 16394000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 19829000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 19830000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CRM": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 8735000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 9455000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ACN": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 11405960000
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 11713501000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VRT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2641700000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2669500000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ANET": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5211100000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5211100000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ABBV": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 21233000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 23749000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TMO": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 8468000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8863000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9735000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -5024000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"APH": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9159900000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8457400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MPWR": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1102669000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1102669000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MCD": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 13042000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12798000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HD": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 21022000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 21022000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SMCI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4652723000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4652723000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PEP": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 15053000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 15053000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NXPI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4548000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3940000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CRDO": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 504963000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 504963000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"UBER": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 7034000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 7034000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"APP": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5918421000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5918421000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GLW": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2920000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2920000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NET": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -384850000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -223139000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VZ": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 29075000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 29075000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SNOW": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": -1236753000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": -1236753000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AMGN": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 12610000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12610000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VLO": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 17575000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 17575000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TER": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1605981000
+},
+"yf": {
+"end": "2026-06-30",
+"ttm": 1377440000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BKNG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9219000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 9219000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SHOP": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2069000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2560000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ISRG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3284100000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3734100000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"RTX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 11299000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 11299000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"T": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 23579000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 27571000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CIEN": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 738953000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 850448000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NEE": {
+"group": "ref",
+"sec": {
+"end": "2026-03-31",
+"ttm": 8232000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 8350000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MPC": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 21870000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 19856000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ALAB": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 397095000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 397095000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GILD": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -2362000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 11699000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HWM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2730000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2726000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 16662000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 16662000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TMUS": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 19384000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 19384000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MELI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2859000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2859000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LIN": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9161000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 9813000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LMT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 9316000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 9316000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ABT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 6647000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 7011000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PWR": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2545089000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2540554000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SYK": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5433000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5734000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SNPS": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 802356000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 1038696000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"RKLB": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -243714000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -243714000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"FIX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2094998000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2089264000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"INTU": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 5884000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 6177000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DASH": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 896000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 947000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ADBE": {
+"group": "ref",
+"sec": {
+"end": "2026-08-31",
+"ttm": 9271000000
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 9271000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MCHP": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1170400000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1208400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CLS": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1504800000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1510600000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CEG": {
+"group": "ref",
+"sec": {
+"end": "2026-06-30",
+"ttm": 4596000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5489000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DIS": {
+"group": "ref",
+"sec": {
+"end": "2026-06-30",
+"ttm": 18238000000
+},
+"yf": {
+"end": "2026-06-30",
+"ttm": 15027000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MDT": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 6787000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 7147000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AAOI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -50661000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -41358000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CVS": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 15061000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 15061000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DHR": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5218000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5218000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SPGI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 7444000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6788000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HPE": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 2602000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 3284000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DDOG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 96844000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 98600000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"KMB": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2409000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2409000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"UNP": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 10565000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 10565000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AAL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 972000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1036000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"REGN": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4864500000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5133600000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SBUX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3691100000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4084800000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BSX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3932000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4338000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ON": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 783600000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1217500000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HLT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3047000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3047000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VST": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4232000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4656000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4162500000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4162500000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"FCX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 7304000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6587000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CDNS": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1773695000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1817366000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MCK": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 6692000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 7011000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"FTNT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2599200000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2599200000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CMCSA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 18103000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 18101000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LOW": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 10292000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 10292000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VRTX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4303800000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4287800000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CMI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4485000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4223000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4337000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4336000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LNG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 6521000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6521000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ABNB": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3134000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3134000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MAR": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4344000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4367000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PH": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5296000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4796000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NTRA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -260415000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -260415000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"IONQ": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -1270456000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -1270456000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"KDP": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3598000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3676000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"RCL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5273000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5274000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"UAL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4924000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4166000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"RDDT": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 908042000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 908042000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HON": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 6527000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4976000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MMM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4735000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5076000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CMG": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1794941000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1900337000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PYPL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5828000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6350000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"WMB": {
+"group": "ref",
+"sec": {
+"end": "2026-06-30",
+"ttm": 4660000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4622000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"URI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4444000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4534000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CSX": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5439000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5472000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"OKTA": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 232000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 236000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CVNA": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 2399000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2399000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MO": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 11056000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12340000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"XEL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3231000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3222000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TGT": {
+"group": "ref",
+"sec": {
+"end": "2026-07-31",
+"ttm": 6023000000
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 6023000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"WM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 4800000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4842000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CDE": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 1067815000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1140430000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DAL": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 5286000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5286000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AXTI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 33432000
+},
+"yf": {
+"end": "2026-06-30",
+"ttm": 5243000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TEAM": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 295485000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 295485000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MSI": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": 3055000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3204000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SO": {
+"group": "ref",
+"sec": {
+"end": "2026-03-31",
+"ttm": 7293000000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 7711000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TTWO": {
+"group": "ref",
+"sec": {
+"end": "2026-09-30",
+"ttm": -180800000
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -181100000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TSM": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 2866894811000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LLY": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 44314400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NBIS": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": -503500000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ASML": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 15217800000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"XOM": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 48283000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"JNJ": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 25525000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"KLAC": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6185273000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"COHR": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1115729000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CVX": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 32906000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GE": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 9581000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MRK": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6201000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ETN": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5539000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ARM": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 930000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SPOT": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 2743000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NU": {
+"group": "miss",
+"sec": null,
+"yf": null,
+"poly": null
+},
+"IBM": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12808000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BABA": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-06-30",
+"ttm": 44296000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PFE": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 16624000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"COP": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 16766000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NKE": {
+"group": "miss",
+"sec": {
+"end": "2026-08-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 3758000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PSX": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12457000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TJX": {
+"group": "miss",
+"sec": {
+"end": "2026-07-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 7915000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NEM": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 14795000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SHW": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4028700000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ADP": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5908800000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"JCI": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4005000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SE": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 2472724000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DE": {
+"group": "miss",
+"sec": {
+"end": "2026-07-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 8247000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SLB": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4994000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BMY": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 14604000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"HCA": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 12052000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ASTS": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": -562013000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"OXY": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 6872000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SHEL": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 46123000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ALNY": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 977593000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BKR": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3525000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"TSEM": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 352819000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AZN": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 14775000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SAP": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 10673000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PBR": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 41569050123.40991,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DVN": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5172000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"EMR": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4016000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DHI": {
+"group": "miss",
+"sec": {
+"end": "2026-06-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-06-30",
+"ttm": 3810400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"FOXA": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 4052000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"STM": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 907000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NVO": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 141426000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PDD": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-06-30",
+"ttm": 98553669000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PCAR": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3126400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NUE": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 5162000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ASX": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 90277725000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VALE": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 10516000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BP": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 32558000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ONON": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 514300000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ARGX": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 1732557000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"FTAI": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 799848000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ROK": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1769000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"EFX": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1241400000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NVS": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 14444000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CNQ": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 15012000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ZTS": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3553000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SRE": {
+"group": "miss",
+"sec": {
+"end": "2026-03-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3832000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MTD": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1198487000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"AEM": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 8822415000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BTI": {
+"group": "miss",
+"sec": null,
+"yf": null,
+"poly": null
+},
+"VIK": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-06-30",
+"ttm": 1621231000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CART": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 598000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CASY": {
+"group": "miss",
+"sec": {
+"end": "2026-07-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 1097439000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BURL": {
+"group": "miss",
+"sec": {
+"end": "2026-07-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 987881000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"B": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 11223000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LEN": {
+"group": "miss",
+"sec": {
+"end": "2026-08-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-08-31",
+"ttm": 1799492000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"VRSN": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1171200000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"SU": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 14865000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BIIB": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1807200000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CLX": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1015000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"Q": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1246000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"MTZ": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 839430000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"EXE": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3910000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DKS": {
+"group": "miss",
+"sec": {
+"end": "2026-07-31",
+"ttm": null
+},
+"yf": {
+"end": "2026-07-31",
+"ttm": 1492190000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"DOW": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2121000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CCJ": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 499402000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"PHM": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 2400281000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CMS": {
+"group": "miss",
+"sec": {
+"end": "2026-06-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1761000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ED": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3472000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"LVS": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 3043000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"CTVA": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 769000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"NVR": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1322552000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"GFL": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 304300000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"ONTO": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 223521000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"BHP": {
+"group": "miss",
+"sec": null,
+"yf": null,
+"poly": null
+},
+"GMAB": {
+"group": "miss",
+"sec": null,
+"yf": {
+"end": "2026-09-30",
+"ttm": 1316000000.0,
+"label": "Operating Income"
+},
+"poly": null
+},
+"RIO": {
+"group": "miss",
+"sec": null,
+"yf": null,
+"poly": null
+},
+"HALO": {
+"group": "miss",
+"sec": {
+"end": "2026-09-30",
+"ttm": null
+},
+"yf": {
+"end": "2026-09-30",
+"ttm": 1007836000.0,
+"label": "Operating Income"
+},
+"poly": null
+}
+}
+}
