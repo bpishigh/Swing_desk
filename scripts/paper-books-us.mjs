@@ -63,6 +63,7 @@ const tierUs = (v) => usCost(v);
 const out = [], twinM = monthsOf(twin), has = (sym, date, kind) => events.find((e) => e.sym === sym && e.date === date && e.kind === kind);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
+  if (!st.started && b.startAfter && st.startAfter !== b.startAfter) st.startAfter = b.startAfter;   // unstarted book follows the settings file
   st.blocks ??= {}; st.gaps ??= []; st.cashCarried ??= 0;
   const gap = (g) => { if (!st.gaps.some((x) => x.date === g.date && x.sym === g.sym && x.kind === g.kind)) st.gaps.push(g); else { const x = st.gaps.find((y) => y.date === g.date && y.sym === g.sym && y.kind === g.kind); x.state = g.state; } };
   // split guard (C-179 item 9c): resolve old blocks, then block tonight's split-like moves (a confirmed distribution on that date is not a split)

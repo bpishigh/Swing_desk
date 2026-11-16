@@ -94,6 +94,7 @@ const baWatch = (sig, held, stx) => {
 const out = [], twinM0 = monthsOf(twin);
 for (const b of books) {
   const dir = `${BDIR}/${b.id}`, stFile = dir + '/state.json', st = R(stFile, null) ?? newBook(b.id, b.startAfter), wide = [];
+  if (!st.started && b.startAfter && st.startAfter !== b.startAfter) st.startAfter = b.startAfter;   // a book not yet started follows the settings file; the stored date was overriding it
   if (b.signal === 'minervini') st.weight = MV.weight;
   if (b.signal === 'sepaFlat') { st.risk = SF.risk; st.posCap = SF.posCap; }   // flat-base book: 1.25% risk per trade, 25% position cap (docs/MINERVINI_SEPA.md v3)   // 100 slots of 1% (docs/MINERVINI_BOOK.md v3)
   const ctxOf = (held) => ({ el, series, t, dates, held, group: (sym) => industry[sym] ?? null });
