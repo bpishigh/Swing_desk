@@ -1,0 +1,30 @@
+name: probe-us-opinc
+# One-off, US Batch B coverage: operating income from yfinance and the Polygon financials feed against SEC. Manual only; public data; writes data/us/probe-opinc.json.
+on:
+  workflow_dispatch:
+concurrency: probe-us-opinc
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install yfinance
+      - run: python scripts/probe-us-opinc.py
+        env: { POLYGON_KEY: "${{ secrets.POLYGON_KEY }}" }
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us/probe-opinc.json
+          git commit -m "probe-us-opinc: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
