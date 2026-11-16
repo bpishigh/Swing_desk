@@ -90,6 +90,23 @@
       "startAfter": "2026-11-15",
       "comparator": "spy",
       "batch": "A"
+    },
+    {
+      "id": "fw-c186-turnmonth-us",
+      "rule": "C-166-US",
+      "name": "Turn-of-month (US)",
+      "signal": "turnOfMonth",
+      "startAfter": "2026-11-15",
+      "comparator": "spy"
+    },
+    {
+      "id": "bd-us-m1-minervini",
+      "rule": "M1-US",
+      "name": "Trend template screen (Minervini's eight tests, US)",
+      "signal": "minervini",
+      "startAfter": "2026-11-15",
+      "comparator": "spy",
+      "batch": "D"
     }
   ],
   "sleeveBooks": [

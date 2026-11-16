@@ -735,6 +735,42 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "fw-c186-turnmonth-us",
+      "name": "Turn-of-month (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "C-166-US",
+      "view": "book_list",
+      "startAfter": "2026-11-15",
+      "dataFile": "data/us/books/fw-c186-turnmonth-us/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "bd-us-m1-minervini",
+      "name": "Trend template screen (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "M1-US",
+      "view": "book_list",
+      "startAfter": "2026-11-15",
+      "dataFile": "data/us/books/bd-us-m1-minervini/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
