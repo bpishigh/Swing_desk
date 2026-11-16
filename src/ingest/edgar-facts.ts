@@ -25,7 +25,9 @@ export const CHAINS = {
   cfo: ['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations'],
   capex: ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets'],
   assets: ['Assets'], equity: ['StockholdersEquity', 'StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest'],
-  debtLong: ['LongTermDebtNoncurrent', 'LongTermDebt'], debtCurrent: ['LongTermDebtCurrent', 'DebtCurrent', 'ShortTermBorrowings', 'CommercialPaper'],
+  debtLong: ['LongTermDebtNoncurrent', 'LongTermDebt', 'LongTermDebtAndCapitalLeaseObligations', 'LongTermNotesPayable', 'SeniorNotesNoncurrent', 'ConvertibleNotesPayableNoncurrent', 'NotesPayableNoncurrent', 'LongTermLineOfCredit'],
+  debtCurrent: ['LongTermDebtCurrent', 'DebtCurrent', 'ShortTermBorrowings', 'CommercialPaper', 'LongTermDebtAndCapitalLeaseObligationsCurrent', 'NotesPayableCurrent', 'LineOfCredit', 'ConvertibleNotesPayableCurrent'],
+  sharesOut: ['CommonStockSharesOutstanding'], sharesWtd: ['WeightedAverageNumberOfDilutedSharesOutstanding'],   // share count fallbacks when the cover page carries none (multi-class filers)
   stInv: ['ShortTermInvestments', 'MarketableSecuritiesCurrent', 'AvailableForSaleSecuritiesDebtSecuritiesCurrent'],   // current investments: with cash they are the liquid basis of the Magic Formula enterprise value (Batch B US)
   cash: ['CashAndCashEquivalentsAtCarryingValue', 'CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents'],
   currentAssets: ['AssetsCurrent'], currentLiabilities: ['LiabilitiesCurrent'], ppe: ['PropertyPlantAndEquipmentNet'], inventories: ['InventoryNet'], receivables: ['AccountsReceivableNetCurrent'],
@@ -64,10 +66,10 @@ function flows(g: Record<string, { units?: Record<string, UsRow[]> }>, chain: re
   }
   return out;
 }
-function instants(g: Record<string, { units?: Record<string, UsRow[]> }>, chain: readonly string[]): Map<string, number> {
+function instants(g: Record<string, { units?: Record<string, UsRow[]> }>, chain: readonly string[], unit = 'USD'): Map<string, number> {
   const out = new Map<string, number>();
   for (const c of chain) {
-    const rows = g[c]?.units?.USD; if (!rows) continue; const best = new Map<string, UsRow>();
+    const rows = g[c]?.units?.[unit]; if (!rows) continue; const best = new Map<string, UsRow>();
     for (const r of rows) { if (!okForm(r.form) || r.start) continue; const cur = best.get(r.end); if (!cur || r.filed < cur.filed) best.set(r.end, r); }
     for (const [end, r] of best) if (!out.has(end)) out.set(end, r.val);
   }
@@ -83,6 +85,7 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
   for (const k of ['revenue', 'pbt', 'pat', 'discOps', 'opInc', 'interest', 'nonOp', 'cfo', 'capex'] as const) F[k] = flows(g, CHAINS[k], 'USD');
   F.eps = flows(g, CHAINS.eps, 'USD/shares');
   const B: Record<string, Map<string, number>> = {}; for (const k of ['assets', 'equity', 'debtLong', 'debtCurrent', 'cash', 'stInv', 'currentAssets', 'currentLiabilities', 'ppe', 'inventories', 'receivables'] as const) B[k] = instants(g, CHAINS[k]);
+  B.sharesOut = instants(g, CHAINS.sharesOut, 'shares'); F.sharesWtd = flows(g, CHAINS.sharesWtd, 'shares');
   const dei = cf.facts?.dei?.[DEI_SHARES]?.units?.shares ?? [], shareByAccn = new Map<string, number>(); for (const r of dei) if (okForm(r.form) && !shareByAccn.has(r.accn)) shareByAccn.set(r.accn, r.val);
   // fiscal period ends: every end that has a 3-month (or, for the fourth quarter, a 12-month) flow of net income or revenue
   const ends = new Set<string>(); for (const m of [F.pat, F.revenue]) for (const key of m.keys()) { const [e, k] = key.split('|'); if (k === 'Q' || k === 'Y') ends.add(e); }
@@ -126,7 +129,8 @@ export function buildQuarters(cf: CompanyFacts, sic: number | null = null): UsQu
     put(bs, 'assets', instAt('assets', end)); put(bs, 'equity', instAt('equity', end)); put(bs, 'cash', instAt('cash', end)); put(bs, 'currentInvestments', instAt('stInv', end)); if (bs.assets != null) bs.v = 2; put(bs, 'currentAssets', instAt('currentAssets', end)); put(bs, 'currentLiabilities', instAt('currentLiabilities', end));
     put(bs, 'ppe', instAt('ppe', end)); put(bs, 'inventories', instAt('inventories', end)); put(bs, 'receivables', instAt('receivables', end));
     if (debtLong != null || debtCur != null) { put(bs, 'borrowings', (debtLong ?? 0) + (debtCur ?? 0)); put(bs, 'borrowingsCurrent', debtCur ?? 0); }
-    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'opIncome', op.val); put(qx, 'paidUp', accn ? shareByAccn.get(accn) : undefined); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
+    else if (bs.assets != null) { bs.borrowings = 0; bs.borrowingsCurrent = 0; bs.debtAssumedZero = 1; }   // no debt line under any tag: read as no debt (owner, 16 Nov 2026), flagged so it can be told apart
+    const qx: Record<string, number> = {}; put(qx, 'financeCost', intV); put(qx, 'otherIncome', otherIncome); put(qx, 'pbtPre', pbtV); put(qx, 'opIncome', op.val); put(qx, 'paidUp', (accn ? shareByAccn.get(accn) : undefined) ?? instAt('sharesOut', end) ?? near(F.sharesWtd, end, 'Q')?.val); put(qx, 'epsPrior', epsPrior); if (fp === 'FY') qx.epsDerived = 1; qx.faceValue = 1;
     if (qx.paidUp == null) delete qx.faceValue;
     const cfx: Record<string, number> = {}; put(cfx, 'cfo', ytdV('cfo')); put(cfx, 'capex', ytdV('capex'));
     const fields: Values = { revenue: rev.val, pbt: pbtV, pat: pat.val, eps: eps.val };
