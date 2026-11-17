@@ -47,6 +47,9 @@ jobs:
       - name: Market-cap segments (Nifty 100, Midcap 150, Smallcap 250 lists, weekly)
         continue-on-error: true
         run: node scripts/segments-india.mjs
+      - name: IPO ticker list (new listings from the stock files; output only)
+        continue-on-error: true
+        run: node scripts/india-ipo-list.mjs
       - run: node scripts/check-no-personal-data.mjs
         if: always()
       - name: Commit data
