@@ -134,6 +134,15 @@
       "startAfter": "2026-11-18",
       "comparator": "spy",
       "batch": "B"
+    },
+    {
+      "id": "bc-us-insider",
+      "rule": "U-2",
+      "name": "US insider buying (Form 4)",
+      "signal": "insiderBuy",
+      "startAfter": "2026-11-18",
+      "comparator": "spy",
+      "batch": "C"
     }
   ],
   "sleeveBooks": [

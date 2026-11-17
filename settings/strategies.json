@@ -825,6 +825,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-us-insider",
+      "name": "US insider buying (Form 4)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "U-2",
+      "view": "book_list",
+      "startAfter": "2026-11-18",
+      "dataFile": "data/us/books/bc-us-insider/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
