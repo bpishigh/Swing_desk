@@ -1,0 +1,29 @@
+name: count-us-8k
+# US Batch C U-3 steps 1 and 2: 8-K Item 2.02 event list and counts (no returns read). Manual; writes data/us/count-8k.json and data/us/eightk-202.json.
+on:
+  workflow_dispatch:
+concurrency: count-us-8k
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/count-us-8k.mjs
+        env: { SEC_UA: "${{ secrets.SEC_UA }}" }
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us/count-8k.json data/us/eightk-202.json
+          git commit -m "count-us-8k: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
