@@ -171,6 +171,15 @@
       "startAfter": "2099-12-31",
       "comparator": "n500",
       "batch": "D"
+    },
+    {
+      "id": "bc-ipo-base",
+      "rule": "IPO-1",
+      "name": "IPO base breakout (separate IPO list)",
+      "signal": "ipoBase",
+      "startAfter": "2026-11-18",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [

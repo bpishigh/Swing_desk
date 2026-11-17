@@ -34,3 +34,15 @@ test('run-up: needs both the run-up cut and the 2% reaction over SPY; a second r
   const log: any[] = []; assert.equal(runUp({ ...mk(c, [dates[t - 20]]) }, undefined, log), null); assert.equal(log[0].why, 'second release in the quarter');
   assert.ok(RUN.cut > 0);
 });
+
+import { ipoBase, IPOB } from '../src/engine/ipo-base.ts';
+test('ipo base: fires on a 2x-volume breakout above a tight base, not in a red market, not before 30 sessions', () => {
+  const t = N - 1, c = flat(100), h = c.map((x) => x * 1.01), l = c.map((x) => x * 0.99), v = flat(1e6);
+  for (let i = 0; i < 40; i++) { c[i] = 60 + i * 0.5; h[i] = c[i] * 1.01; l[i] = c[i] * 0.99; } for (let i = 40; i < t; i++) { c[i] = 100; h[i] = 100.5; l[i] = 99.5; }   // run up, then a tight 15+ session base with high 100.5
+  c[t] = 102; h[t] = 102; l[t] = 100; v[t] = 3e6;
+  const s = { c, h, l, v }, mk = (light: string, listed: string) => ({ series: new Map([['X', s]]), t, dates, held: new Set<string>(), st: newBook('x', '2026-01-01'), ipo: [{ sym: 'X', listed }], light });
+  assert.deepEqual(ipoBase(mk('green', dates[0]))?.buys.map((b) => b.sym), ['X']);
+  assert.equal(ipoBase(mk('red', dates[0])), null);
+  assert.equal(ipoBase(mk('green', dates[t - 10])), null);
+  assert.ok(IPOB.hold === 60);
+});
