@@ -1,0 +1,38 @@
+{
+ "rule": "U-3 steps 1 and 2: counts and distributions only; no book returns read",
+ "coverage": {
+  "names": 496,
+  "noFactsFile": 0,
+  "noEightK202": 33,
+  "filings": 16571,
+  "tooManyFilings": 403,
+  "secondInQuarterDropped": 1085
+ },
+ "events": 9686,
+ "timing": {
+  "preopen": 4980,
+  "intraday": 274,
+  "afterclose": 4432
+ },
+ "reactionIsHighestVolumeWithinTwo": 0.773,
+ "perYear": {
+  "2021": 1482,
+  "2022": 1594,
+  "2023": 1682,
+  "2024": 1744,
+  "2025": 1781,
+  "2026": 1403
+ },
+ "runUp": {
+  "p33": -0.0295,
+  "p50": 0.0005,
+  "p67": 0.0323
+ },
+ "reaction": {
+  "p33": -0.0206,
+  "p50": 0.0016,
+  "p67": 0.025
+ },
+ "eventsWithRunUpAboveP67": 3202,
+ "both": 1141
+}
