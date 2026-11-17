@@ -7,10 +7,10 @@
 import { shortStop, BOOK, type Buy, type BookState } from './stock-book.ts';
 import { atrN, type Orders, type Ser } from './first-wave.ts';
 
-export const IPOB = { names: 20, hold: 60, minSessions: 30, maxSessions: 250, base: 15, depth: 0.25, within: 0.05, trig: 0.005, volMult: 2, floor: 5e7, cooldown: 20, stopCap: BOOK.shortStopCap };   // stopCap: the C-159 8% cap; a replay candidate may raise it (the live book does not)
-const stopFor = (atr20: number, close: number): number | null => { if (IPOB.stopCap === BOOK.shortStopCap) return shortStop(atr20, close); if (!(atr20 > 0) || !(close > 0)) return null; const w = BOOK.atrMult * atr20 / close; return w <= IPOB.stopCap ? w : null; };
+export const IPOB = { names: 20, hold: 60, minSessions: 30, maxSessions: 250, base: 15, depth: 0.25, within: 0.05, trig: 0.005, volMult: 2, floor: 5e7, cooldown: 20, stopCap: BOOK.shortStopCap, atrMult: BOOK.atrMult, rs: false };   // atrMult, rs: replay candidates only; the live book keeps the defaults   // stopCap: the C-159 8% cap; a replay candidate may raise it (the live book does not)
+const stopFor = (atr20: number, close: number): number | null => { if (IPOB.stopCap === BOOK.shortStopCap && IPOB.atrMult === BOOK.atrMult) return shortStop(atr20, close); if (!(atr20 > 0) || !(close > 0)) return null; const w = IPOB.atrMult * atr20 / close; return w <= IPOB.stopCap ? w : null; };
 export interface IpoListRow { sym: string; listed: string }
-export interface IpoCtx { series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState; ipo: IpoListRow[]; light: string }
+export interface IpoCtx { series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState; ipo: IpoListRow[]; light: string; bench63?: number | null }
 export interface IpoLogRow { date: string; sym: string; sessions: number; volRatio: number | null; taken: boolean; why: string }
 
 export function ipoBase(x: IpoCtx, wide?: Array<{ sym: string; width: number }>, log?: IpoLogRow[]): Orders | null {
@@ -26,6 +26,7 @@ export function ipoBase(x: IpoCtx, wide?: Array<{ sym: string; width: number }>,
     let bh = 0, bl = Infinity, ok = true; for (let i = t - n; i <= t - 1; i++) { if (!(h[i] > 0 && l[i] > 0)) { ok = false; break; } bh = Math.max(bh, h[i]); bl = Math.min(bl, l[i]); } if (!ok) continue;
     const kk = Math.min(50, k), sma = (() => { let a = 0, m = 0; for (let i = t - kk; i <= t - 1; i++) if (c[i] > 0) { a += c[i]; m++; } return m ? a / m : NaN; })();
     if (!((bh - bl) / bh <= IPOB.depth && (bh - c[t - 1]) / bh <= IPOB.within && c[t - 1] > sma)) continue;
+    if (IPOB.rs && x.bench63 != null && !(c[t - 1] / c[Math.max(0, t - 64)] - 1 > x.bench63)) continue;   // candidate gate: 63-session return above the comparator's
     if (!(h[t] >= bh * (1 + IPOB.trig) && c[t] >= bh)) continue;
     let av = 0, am = 0; for (let i = t - kk; i <= t - 1; i++) if (v[i] > 0) { av += v[i]; am++; } const vr = am ? v[t] / (av / am) : 0; if (!(vr >= IPOB.volMult)) continue;
     let tv = 0; for (let i = t - 19; i <= t; i++) tv += (c[i] > 0 ? c[i] : 0) * (v[i] > 0 ? v[i] : 0); tv /= 20; if (tv < IPOB.floor) continue;

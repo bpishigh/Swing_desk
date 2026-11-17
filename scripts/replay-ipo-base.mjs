@@ -14,6 +14,8 @@ const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').
 const MK = arg('market', 'in'), FROM = arg('from', MK === 'us' ? '2017-01-02' : '2020-01-02'), TO = arg('to', '9999-12-31'), OUT = arg('out', 'docs/replay'), PRE = process.argv.includes('--pre'), EXTRA = 0.006;
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const STOPCAP = Number(arg('stopcap', 0)); if (STOPCAP > 0) IPOB.stopCap = STOPCAP;
+for (const kv of (arg('set', '') || '').split(',').filter(Boolean)) { const [k, v] = kv.split('='); IPOB[k] = v === 'true' ? true : Number(v); }   // candidate settings, named in the pre-registration
+const LIGHT = arg('light', 'one');
 const FLOOR = MK === 'us' ? 1e6 : 5e7; IPOB.floor = FLOOR;
 let days, dates, splits = [], openAt, tier, compClose, uniqRows = null;
 if (MK === 'in') {
@@ -41,14 +43,15 @@ const ipo = [...first].filter(([s, d]) => perDay.get(d) <= 20 && !renamed.has(s)
 const series = buildHistories(days, splits, new Set(ipo.map((x) => x.sym))).series;
 const ck = Object.keys(compClose).sort(), ckIdx = new Map(ck.map((d, i) => [d, i]));
 const compAt = (D) => { let lo = 0, hi = ck.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (ck[m] <= D) { a = m; lo = m + 1; } else hi = m - 1; } return a; };
-const lightAt = (D) => { const a = compAt(D); if (a < 199) return 'yellow'; let s = 0; for (let i = a - 199; i <= a; i++) s += compClose[ck[i]]; return compClose[ck[a]] >= s / 200 ? 'green' : 'red'; };
+const lightAt = (D) => { const a = compAt(D); if (a < 199) return 'yellow'; let s = 0, s50 = 0; for (let i = a - 199; i <= a; i++) { s += compClose[ck[i]]; if (i > a - 50) s50 += compClose[ck[i]]; } const up200 = compClose[ck[a]] >= s / 200, up50 = compClose[ck[a]] >= s50 / 50; return (LIGHT === 'both' ? up200 && up50 : up200) ? 'green' : 'red'; };
+const bench63At = (D) => { const a = compAt(D); return a >= 63 ? compClose[ck[a]] / compClose[ck[a - 63]] - 1 : null; };
 const pxAt = (sym, t) => { const s = series.get(sym); if (!s) return NaN; for (let k = t; k >= Math.max(0, t - 400); k--) if (s.c[k] > 0) return s.c[k]; return NaN; };
 const ageAt = (sym, t) => { const s = series.get(sym); if (!s) return 0; for (let k = t; k >= Math.max(0, t - 30); k--) if (s.c[k] > 0) return t - k; return 31; };
 let t0 = dates.findIndex((d) => d >= FROM); if (t0 < 1) t0 = 1; let t1 = dates.length - 1; while (t1 > t0 && dates[t1] > TO) t1--;
 const st = newBook('ipo-base', dates[t0]), log = [], wide = [], expo = { s: 0, n: 0 };
 for (let t = t0; t <= t1; t++) {
   const D = dates[t], light = lightAt(D);
-  const signal = (held, stx) => ipoBase({ series, t, dates, held, st: stx, ipo, light }, wide, log);
+  const signal = (held, stx) => ipoBase({ series, t, dates, held, st: stx, ipo, light, bench63: bench63At(D) }, wide, log);
   stepBook(st, { D, open: (s) => openAt(s, t), age: (s) => ageAt(s, t), close: (s) => pxAt(s, t), cashRet: null, tier, signal });
   const v = st.daily.at(-1)?.v; if (v) { let pv = 0; for (const [s, p] of Object.entries(st.pos)) pv += p.sh * (pxAt(s, t) || p.entry); expo.s += pv / v; expo.n++; }
 }
@@ -60,7 +63,7 @@ const yrs = Math.max(0.1, (sc?.months ?? 0) / 12), avgExp = expo.n ? expo.s / ex
 const compDd = (() => { let pk = 0, dd = 0; for (const x of compM) { pk = Math.max(pk, x.v); dd = Math.min(dd, x.v / pk - 1); } return dd; })();
 const byYear = {}; for (let i = 1; i < bm.length; i++) { const y = bm[i].m.slice(0, 4), a = (byYear[y] ??= { b: 1, c: 1 }); a.b *= bm[i].v / bm[i - 1].v; if (compM[i] && compM[i - 1]) a.c *= compM[i].v / compM[i - 1].v; }
 const p1 = avgNet != null && avgNet > 0, p2 = bookRet != null && compRet != null && avgExp != null && bookRet > avgExp * compRet, p3 = sc && sc.drawdown >= 1.5 * compDd, p4 = STOPCAP > 0 ? st.closed.length >= 60 : st.closed.length / yrs >= 30;
-const stamp = new Date().toISOString().slice(0, 10), tag = (MK === 'us' ? 'US' : PRE ? 'IN-HOLDOUT' : 'IN') + (STOPCAP > 0 ? `-STOP${Math.round(STOPCAP * 100)}` : ''), sessions = `${dates[t0]} to ${dates[t1]}`;
+const stamp = new Date().toISOString().slice(0, 10), tag = (MK === 'us' ? 'US' : PRE ? 'IN-HOLDOUT' : 'IN') + (STOPCAP > 0 ? `-STOP${Math.round(STOPCAP * 100)}` : '') + (arg('tag', '') ? '-' + arg('tag', '') : ''), sessions = `${dates[t0]} to ${dates[t1]}`;
 const L = [`# IPO base breakout replay: ${tag}`, ``, `Run ${stamp}, sessions ${sessions}. One run, rule as built, no tuning (docs/replay/IPO-BASE-PREREG.md). Paper only; not a financial adviser.`, ``,
   `IPO list: ${ipo.length} names; signals logged ${log.length}, bought ${log.filter((x) => x.taken).length}; skipped for no slot ${log.filter((x) => x.why === 'no slot').length}, stop too wide ${log.filter((x) => x.why === 'stop too wide').length}.`, ``,
   `| Months | Book since start | ${MK === 'us' ? 'SPY' : 'Nifty 500'} since start | Excess | Max drawdown | Comparator max drawdown | Closed trades | Stop-outs | Net per trade | Avg exposure |`, `|---|---|---|---|---|---|---|---|---|---|`,
