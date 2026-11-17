@@ -143,6 +143,15 @@
       "startAfter": "2026-11-18",
       "comparator": "spy",
       "batch": "C"
+    },
+    {
+      "id": "bc-us-runup",
+      "rule": "U-3",
+      "name": "US run-up before results (8-K Item 2.02)",
+      "signal": "runUp",
+      "startAfter": "2026-11-18",
+      "comparator": "spy",
+      "batch": "C"
     }
   ],
   "sleeveBooks": [

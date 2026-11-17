@@ -843,6 +843,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-us-runup",
+      "name": "US run-up before results",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "U-3",
+      "view": "book_list",
+      "startAfter": "2026-11-18",
+      "dataFile": "data/us/books/bc-us-runup/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
