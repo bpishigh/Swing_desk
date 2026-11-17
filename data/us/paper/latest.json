@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-13",
+ "asOf": "2026-11-16",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -12,22 +12,22 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 17,
-  "open": 2,
+  "orders": 18,
+  "open": 1,
   "pending": 1,
-  "notFilled": 8,
-  "closed": 6,
-  "meanR": -0.7705877930278332,
-  "winRate": 0.3333333333333333
+  "notFilled": 9,
+  "closed": 7,
+  "meanR": -0.6669465294263214,
+  "winRate": 0.2857142857142857
  },
  "comparator": {
   "orders": 11,
   "open": 1,
-  "pending": 1,
+  "pending": 0,
   "notFilled": 1,
-  "closed": 8,
-  "meanR": -0.47150626756793995,
-  "winRate": 0.375
+  "closed": 9,
+  "meanR": -0.4019723982921212,
+  "winRate": 0.4444444444444444
  },
  "light": "red",
  "newOrdersTonight": [
@@ -35,42 +35,15 @@
    "stream": "capwaived",
    "sym": "COP",
    "setup": "4",
-   "trigger": 142.87,
-   "stop": 132.14,
+   "trigger": 141.52,
+   "stop": 131.12,
    "tags": [
-    "inside base",
-    "over cap",
-    "room fail"
-   ]
-  },
-  {
-   "stream": "comparator",
-   "sym": "COP",
-   "setup": "4",
-   "trigger": 142.28,
-   "stop": 131.55,
-   "tags": [
-    "inside base",
     "over cap",
     "room fail"
    ]
   }
  ],
  "open": [
-  {
-   "stream": "comparator",
-   "sym": "TGT",
-   "setup": "4",
-   "entry": 158.41,
-   "stop": 160.01
-  },
-  {
-   "stream": "capwaived",
-   "sym": "TGT",
-   "setup": "4",
-   "entry": 160.05,
-   "stop": 160.01
-  },
   {
    "stream": "official",
    "sym": "LNTH",
@@ -84,6 +57,13 @@
    "setup": "4",
    "entry": 101.31,
    "stop": 101.2
+  },
+  {
+   "stream": "comparator",
+   "sym": "COP",
+   "setup": "4",
+   "entry": 140.52,
+   "stop": 131.55
   }
  ]
 }

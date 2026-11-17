@@ -1,23 +1,40 @@
 {
  "id": "fw-c189-pullback-us",
  "startAfter": "2026-11-12",
- "cash": 100,
- "pos": {},
- "lastValue": {},
+ "cash": 95.03435833333333,
+ "pos": {
+  "CVX": {
+   "sh": 0.022701449802299687,
+   "entry": 220.03,
+   "entryDate": "2026-11-16",
+   "high": 220.03,
+   "stop": 0.07063199781709034
+  }
+ },
+ "lastValue": {
+  "CVX": 1835088782.49
+ },
  "pending": {
-  "signalDate": "2026-11-13",
+  "signalDate": "2026-11-16",
   "buys": [
    {
-    "sym": "CVX",
-    "value": 1835088782.49,
-    "stop": 0.07063199781709034
+    "sym": "WELL",
+    "value": 622183336.1949999,
+    "stop": 0.0724469650521153
    }
   ],
   "sells": []
  },
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-16",
+   "v": 99.9638,
+   "vs": 99.9588,
+   "x": 0.0493
+  }
+ ],
  "skipped": [
   {
    "date": "2026-11-13",
@@ -45,14 +62,14 @@
    "width": 0.0806
   }
  ],
- "slipCum": 0,
+ "slipCum": 0.005,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
- "lastSignal": "2026-11-13",
- "lastStep": "2026-11-13",
+ "started": "2026-11-16",
+ "lastSignal": "2026-11-16",
+ "lastStep": "2026-11-16",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -98,6 +115,16 @@
    "dip": "average",
    "volRatio": 0.8044,
    "tight": 0.0891
+  },
+  {
+   "date": "2026-11-16",
+   "sym": "WELL",
+   "dip": "run",
+   "volRatio": 0.8846,
+   "tight": 0.0279
   }
- ]
+ ],
+ "costs": {
+  "2026-11": 0.005
+ }
 }
