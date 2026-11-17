@@ -4,6 +4,92 @@
   "top500Current": 496,
   "wideEligibleCurrent": 5699
  },
- "top500": {},
- "wide": {}
+ "top500": {
+  "2021": {
+   "events": 148,
+   "issuers": 82,
+   "ceoCfo": 30,
+   "medianLagDays": 2.0,
+   "medianValue": 997792
+  },
+  "2022": {
+   "events": 350,
+   "issuers": 114,
+   "ceoCfo": 130,
+   "medianLagDays": 2.0,
+   "medianValue": 546175
+  },
+  "2023": {
+   "events": 157,
+   "issuers": 82,
+   "ceoCfo": 42,
+   "medianLagDays": 2,
+   "medianValue": 679500
+  },
+  "2024": {
+   "events": 108,
+   "issuers": 65,
+   "ceoCfo": 27,
+   "medianLagDays": 1.0,
+   "medianValue": 983816
+  },
+  "2025": {
+   "events": 186,
+   "issuers": 115,
+   "ceoCfo": 53,
+   "medianLagDays": 1.0,
+   "medianValue": 817922
+  },
+  "2026": {
+   "events": 52,
+   "issuers": 39,
+   "ceoCfo": 15,
+   "medianLagDays": 2.0,
+   "medianValue": 1026410
+  }
+ },
+ "wide": {
+  "2021": {
+   "events": 1188,
+   "issuers": 525,
+   "ceoCfo": 294,
+   "medianLagDays": 2.0,
+   "medianValue": 889660
+  },
+  "2022": {
+   "events": 1514,
+   "issuers": 613,
+   "ceoCfo": 475,
+   "medianLagDays": 2.0,
+   "medianValue": 636410
+  },
+  "2023": {
+   "events": 1107,
+   "issuers": 525,
+   "ceoCfo": 357,
+   "medianLagDays": 2,
+   "medianValue": 677300
+  },
+  "2024": {
+   "events": 1061,
+   "issuers": 501,
+   "ceoCfo": 325,
+   "medianLagDays": 2,
+   "medianValue": 780000
+  },
+  "2025": {
+   "events": 1474,
+   "issuers": 734,
+   "ceoCfo": 442,
+   "medianLagDays": 2.0,
+   "medianValue": 729000
+  },
+  "2026": {
+   "events": 448,
+   "issuers": 291,
+   "ceoCfo": 110,
+   "medianLagDays": 2.0,
+   "medianValue": 772950
+  }
+ }
 }
