@@ -23,7 +23,7 @@ const actions = [...JSON.parse(readFileSync('data/india/corp-actions-history.jso
 const ov = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides-hist.json')) : {}), ...(existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {}) };   // hand overrides win over rule-derived ones
 const res = resolveHistory(sel, actions, ov);
 const seg = JSON.parse(readFileSync('data/india/segments.json', 'utf8'));
-const coreIndustry = seg.industry ?? {}, industry = { ...(seg.scanExtra ?? {}), ...coreIndustry };   // scanExtra: Microcap 250 names, swing scan only
+const coreIndustry = seg.industry ?? {}, industry = { ...(existsSync('data/india/industry-inferred.json') ? JSON.parse(readFileSync('data/india/industry-inferred.json', 'utf8')).industry : {}), ...(seg.scanExtra ?? {}), ...coreIndustry };   // scanExtra: Microcap 250 names; industry-inferred.json: names on no NSE list, industry inferred via Yahoo (86% agreement). Swing scan only
 const days = toDays(sel), t = days.length - 1;
 const allowed = new Set(Object.keys(industry));   // the group step needs an industry, so the universe is the NSE index lists (about 500 names) plus the Microcap 250 (about 750)
 const coreAllowed = new Set(Object.keys(coreIndustry));
