@@ -1,0 +1,34 @@
+{
+ "at": "2026-11-17T17:26:19.059Z",
+ "micro": {
+  "status": 200,
+  "head": [
+   "Company Name,Industry,Symbol,Series,ISIN Code",
+   "AXISCADES Technologies Ltd.,Capital Goods,AXISCADES,EQ,INE555B01013",
+   "Aarti Pharmalabs Ltd.,Healthcare,AARTIPHARM,EQ,INE0LRU01027"
+  ]
+ },
+ "home": 403,
+ "quotes": {
+  "GRAVITA": {
+   "status": 403,
+   "industryInfo": null
+  },
+  "KPITTECH": {
+   "status": 403,
+   "industryInfo": null
+  },
+  "RPOWER": {
+   "status": 403,
+   "industryInfo": null
+  },
+  "AARTIIND": {
+   "status": 403,
+   "industryInfo": null
+  },
+  "SHAKTIPUMP": {
+   "status": 403,
+   "industryInfo": null
+  }
+ }
+}
