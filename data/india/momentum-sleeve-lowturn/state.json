@@ -239,8 +239,8 @@
    "GLAND": 3385.9,
    "HFCL": 215,
    "ACUTAAS": 4039.1,
-   "PVRINOX": 1652.6,
-   "FEDERALBNK": 362.5,
+   "PVRINOX": 1677.4,
+   "FEDERALBNK": 365.8,
    "AUROPHARMA": 1823.2,
    "NYKAA": 365.2,
    "NAVINFLUOR": 10002,
@@ -249,16 +249,16 @@
    "SYRMA": 1515.9,
    "MOTHERSON": 168.75,
    "AEROFLEX": 507.4,
-   "INDHOTEL": 890.3,
+   "INDHOTEL": 901.55,
    "REDINGTON": 359.1,
-   "KARURVYSYA": 390.25,
+   "KARURVYSYA": 393.5,
    "RADICO": 4665,
    "TITAN": 4970,
    "TVSMOTOR": 4550,
-   "PNB": 144.59,
+   "PNB": 150,
    "ZYDUSLIFE": 1206,
    "APOLLO": 475.6,
-   "UNIONBANK": 205.6,
+   "UNIONBANK": 207.9,
    "IIFL": 663.15
   },
   "startedFill": "2026-11-12"
@@ -326,16 +326,20 @@
   {
    "d": "2026-11-16",
    "v": 98.6158
+  },
+  {
+   "d": "2026-11-17",
+   "v": 98.3342
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-16",
-   "v": 98.6158
+   "d": "2026-11-17",
+   "v": 98.3342
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-16",
+ "stopChecked": "2026-11-17",
  "gone": []
 }

@@ -2,11 +2,10 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 23.36030324253493,
+  "cash": 28.066503943815285,
   "shares": {
    "CUPID": 0.014470092222587525,
    "SHREEJISPG": 0.00435736712574472,
-   "LAURUSLABS": 0.0021236265723034923,
    "SBC": 0.05234361714960319,
    "TFCILTD": 0.03155497475702097,
    "RATNAVEER": 0.00944989505249814,
@@ -510,7 +509,6 @@
   "entry": {
    "CUPID": 344.9,
    "SHREEJISPG": 868,
-   "LAURUSLABS": 2350.1,
    "SBC": 65.3,
    "TFCILTD": 158.16,
    "RATNAVEER": 382,
@@ -535,13 +533,12 @@
   "high": {
    "CUPID": 384.8,
    "SHREEJISPG": 914.9,
-   "LAURUSLABS": 2454,
    "SBC": 70.37,
    "TFCILTD": 168.42,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
    "ATHERENERG": 1945,
-   "RAYMOND": 1185.8,
+   "RAYMOND": 1224,
    "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
    "SONACOMS": 926,
@@ -552,10 +549,10 @@
    "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 362.5,
+   "FEDERALBNK": 365.8,
    "MOTHERSON": 169.69,
    "BOSCHLTD": 52475,
-   "PVRINOX": 1652.6
+   "PVRINOX": 1677.4
   },
   "startedFill": "2026-11-03"
  },
@@ -646,12 +643,16 @@
   {
    "d": "2026-11-16",
    "v": 100.2371
+  },
+  {
+   "d": "2026-11-17",
+   "v": 100.2693
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-16",
-   "v": 100.2371
+   "d": "2026-11-17",
+   "v": 100.2693
   }
  },
  "stops": [
@@ -710,14 +711,22 @@
    "entry": 212.55,
    "price": 209,
    "ret": -0.0167
+  },
+  {
+   "sym": "LAURUSLABS",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 2350.1,
+   "price": 2220,
+   "ret": -0.0554
   }
  ],
  "stopQueue": [
   {
-   "sym": "LAURUSLABS",
-   "on": "2026-11-16"
+   "sym": "FCL",
+   "on": "2026-11-17"
   }
  ],
- "stopChecked": "2026-11-16",
+ "stopChecked": "2026-11-17",
  "gone": []
 }

@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-16",
+ "asOf": "2026-11-17",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,23 +12,54 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 27,
-  "open": 8,
-  "pending": 0,
+  "orders": 28,
+  "open": 7,
+  "pending": 1,
   "notFilled": 12,
-  "closed": 7,
-  "meanR": -0.2406471348332508,
-  "winRate": 0.42857142857142855
+  "closed": 8,
+  "meanR": 0.2896507495349944,
+  "winRate": 0.5
  },
  "comparator": {
-  "orders": 8,
+  "orders": 9,
   "open": 2,
-  "pending": 0,
+  "pending": 1,
   "notFilled": 1,
   "closed": 5,
   "meanR": 0.2106140869343019,
   "winRate": 0.8
  },
  "light": "green",
- "newOrdersTonight": []
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "LAURUSLABS",
+   "setup": "2",
+   "trigger": 2353.5,
+   "stop": 2190,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "room fail"
+   ],
+   "stopPct": 6.95,
+   "maxStopPct": 7,
+   "roomR": 0.82
+  },
+  {
+   "stream": "comparator",
+   "sym": "LAURUSLABS",
+   "setup": "2",
+   "trigger": 2338,
+   "stop": 2188.42,
+   "status": "pending",
+   "kind": "close",
+   "tags": [
+    "room fail"
+   ],
+   "stopPct": 6.4,
+   "maxStopPct": 7,
+   "roomR": 1
+  }
+ ]
 }

@@ -2,22 +2,16 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 29.080861941123317,
+  "cash": 51.49559252894263,
   "shares": {
-   "CUPID": 0.014470092222587525,
    "SHREEJISPG": 0.00435736712574472,
-   "LAURUSLABS": 0.0021236265723034923,
    "SBC": 0.05234361714960319,
    "TFCILTD": 0.03155497475702097,
-   "RATNAVEER": 0.00944989505249814,
-   "CPPLUS": 0.0006428472032722831,
    "ATHERENERG": 0.002812315342933865,
-   "SKYGOLD": 0.005021838951417264,
    "DIVISLAB": 0.0005008263730627634,
    "SONACOMS": 0.003796569315438701,
    "ACUTAAS": 0.0005291159883448523,
    "SYRMA": 0.0019081402755631851,
-   "FCL": 0.034452131349241195,
    "COFORGE": 0.0023710080324815604,
    "NYKAA": 0.006207631570408953,
    "ZYDUSLIFE": 0.0018518578346763525,
@@ -505,20 +499,14 @@
    "INDIAGLYCO": 205357819.15
   },
   "entry": {
-   "CUPID": 344.9,
    "SHREEJISPG": 868,
-   "LAURUSLABS": 2350.1,
    "SBC": 65.3,
    "TFCILTD": 158.16,
-   "RATNAVEER": 382,
-   "CPPLUS": 3913.7,
    "ATHERENERG": 1774.6,
-   "SKYGOLD": 880,
    "DIVISLAB": 9965,
    "SONACOMS": 909.7,
    "ACUTAAS": 3892,
    "SYRMA": 1519.4,
-   "FCL": 49,
    "COFORGE": 2104.9,
    "NYKAA": 354.4,
    "ZYDUSLIFE": 1244.7,
@@ -527,26 +515,20 @@
    "PVRINOX": 1520
   },
   "high": {
-   "CUPID": 384.8,
    "SHREEJISPG": 914.9,
-   "LAURUSLABS": 2454,
    "SBC": 70.37,
    "TFCILTD": 168.42,
-   "RATNAVEER": 382,
-   "CPPLUS": 4224.9,
    "ATHERENERG": 1945,
-   "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
    "SONACOMS": 926,
    "ACUTAAS": 4039.1,
    "SYRMA": 1519.4,
-   "FCL": 53.56,
    "COFORGE": 2104.9,
    "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 362.5,
-   "PVRINOX": 1652.6
+   "FEDERALBNK": 365.8,
+   "PVRINOX": 1677.4
   },
   "startedFill": "2026-11-03"
  },
@@ -637,12 +619,16 @@
   {
    "d": "2026-11-16",
    "v": 100.1286
+  },
+  {
+   "d": "2026-11-17",
+   "v": 100.0244
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-16",
-   "v": 100.1286
+   "d": "2026-11-17",
+   "v": 100.0244
   }
  },
  "stops": [
@@ -725,34 +711,62 @@
    "entry": 48995,
    "price": 49550,
    "ret": 0.0113
+  },
+  {
+   "sym": "CUPID",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 344.9,
+   "price": 362.1,
+   "ret": 0.0499
+  },
+  {
+   "sym": "LAURUSLABS",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 2350.1,
+   "price": 2220,
+   "ret": -0.0554
+  },
+  {
+   "sym": "RATNAVEER",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 382,
+   "price": 361,
+   "ret": -0.055
+  },
+  {
+   "sym": "CPPLUS",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 3913.7,
+   "price": 3951.5,
+   "ret": 0.0097
+  },
+  {
+   "sym": "SKYGOLD",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 880,
+   "price": 965.25,
+   "ret": 0.0969
+  },
+  {
+   "sym": "FCL",
+   "signalDate": "2026-11-16",
+   "fillDate": "2026-11-17",
+   "entry": 49,
+   "price": 49.41,
+   "ret": 0.0084
   }
  ],
  "stopQueue": [
   {
-   "sym": "CUPID",
-   "on": "2026-11-16"
-  },
-  {
-   "sym": "LAURUSLABS",
-   "on": "2026-11-16"
-  },
-  {
-   "sym": "RATNAVEER",
-   "on": "2026-11-16"
-  },
-  {
-   "sym": "CPPLUS",
-   "on": "2026-11-16"
-  },
-  {
-   "sym": "SKYGOLD",
-   "on": "2026-11-16"
-  },
-  {
-   "sym": "FCL",
-   "on": "2026-11-16"
+   "sym": "SYRMA",
+   "on": "2026-11-17"
   }
  ],
- "stopChecked": "2026-11-16",
+ "stopChecked": "2026-11-17",
  "gone": []
 }

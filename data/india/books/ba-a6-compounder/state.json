@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-17",
+  "buys": [
+   {
+    "sym": "BSE",
+    "value": 11074359102.3,
+    "stop": 0.25
+   },
+   {
+    "sym": "KRISHANA",
+    "value": 264626748.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "APOLLO",
+    "value": 4001989091.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "GODFRYPHLP",
+    "value": 453955537.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "TDPOWERSYS",
+    "value": 2664655378.15,
+    "stop": 0.25
+   },
+   {
+    "sym": "ANANTRAJ",
+    "value": 838248235.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "POLYCAB",
+    "value": 2439905040,
+    "stop": 0.25
+   },
+   {
+    "sym": "BAJAJ-AUTO",
+    "value": 3417335065,
+    "stop": 0.25
+   },
+   {
+    "sym": "CDSL",
+    "value": 1698120051,
+    "stop": 0.25
+   },
+   {
+    "sym": "TIPSMUSIC",
+    "value": 370864990.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "AFFLE",
+    "value": 236654785.39999998,
+    "stop": 0.25
+   },
+   {
+    "sym": "SOLARINDS",
+    "value": 2243865000,
+    "stop": 0.25
+   },
+   {
+    "sym": "SIRCA",
+    "value": 232206251.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "PERSISTENT",
+    "value": 2795486080,
+    "stop": 0.25
+   },
+   {
+    "sym": "MAXHEALTH",
+    "value": 3250247437.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "SRF",
+    "value": 585560689.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "ADANIPORTS",
+    "value": 4203995459.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "SONACOMS",
+    "value": 1760514078.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "CGPOWER",
+    "value": 2258532117.6000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "FSL",
+    "value": 293706096.25,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,9 +120,9 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -500,7 +605,8 @@
   },
   "nav": {
    "2026-11-13": 100,
-   "2026-11-16": 99.1417
+   "2026-11-16": 99.1417,
+   "2026-11-17": 99.2616
   }
  }
 }

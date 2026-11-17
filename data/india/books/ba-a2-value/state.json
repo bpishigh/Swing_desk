@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-17",
+  "buys": [
+   {
+    "sym": "VEDL",
+    "value": 2639681279.325,
+    "stop": 0.25
+   },
+   {
+    "sym": "PFC",
+    "value": 2301685926.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "CHENNPETRO",
+    "value": 2173289610.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "IOC",
+    "value": 1553127714.2150002,
+    "stop": 0.25
+   },
+   {
+    "sym": "GESHIP",
+    "value": 1032659548.8,
+    "stop": 0.25
+   },
+   {
+    "sym": "RECLTD",
+    "value": 1251764499.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "ONGC",
+    "value": 2333859212.325,
+    "stop": 0.25
+   },
+   {
+    "sym": "GANDHAR",
+    "value": 221525604.12,
+    "stop": 0.25
+   },
+   {
+    "sym": "COALINDIA",
+    "value": 2830959903.1000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "LICHSGFIN",
+    "value": 1140766177.9,
+    "stop": 0.25
+   },
+   {
+    "sym": "BANKINDIA",
+    "value": 1337686695.1499999,
+    "stop": 0.25
+   },
+   {
+    "sym": "SCI",
+    "value": 586755407.87,
+    "stop": 0.25
+   },
+   {
+    "sym": "CANBK",
+    "value": 2734840237.235,
+    "stop": 0.25
+   },
+   {
+    "sym": "GNFC",
+    "value": 222733432.025,
+    "stop": 0.25
+   },
+   {
+    "sym": "OIL",
+    "value": 660682182.0999999,
+    "stop": 0.25
+   },
+   {
+    "sym": "RAIN",
+    "value": 646817085.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "NMDC",
+    "value": 991520176.9000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "NLCINDIA",
+    "value": 378742917.235,
+    "stop": 0.25
+   },
+   {
+    "sym": "NATIONALUM",
+    "value": 1890369246.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "SENCO",
+    "value": 323258688.9,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,9 +120,9 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -500,7 +605,8 @@
   },
   "nav": {
    "2026-11-13": 100,
-   "2026-11-16": 99.1417
+   "2026-11-16": 99.1417,
+   "2026-11-17": 99.2616
   }
  }
 }

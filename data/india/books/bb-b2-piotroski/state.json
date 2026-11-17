@@ -4,7 +4,77 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-17",
+  "buys": [
+   {
+    "sym": "IOC",
+    "value": 1553127714.2150002,
+    "stop": 0.25
+   },
+   {
+    "sym": "PVRINOX",
+    "value": 1249655323.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "EXIDEIND",
+    "value": 666893137.7,
+    "stop": 0.25
+   },
+   {
+    "sym": "MRF",
+    "value": 355562452.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "ARVIND",
+    "value": 244966536,
+    "stop": 0.25
+   },
+   {
+    "sym": "ONGC",
+    "value": 2333859212.325,
+    "stop": 0.25
+   },
+   {
+    "sym": "RAIN",
+    "value": 646817085.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "SAIL",
+    "value": 2441768860.5299997,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDPETRO",
+    "value": 1706498413.3000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "VEDL",
+    "value": 2639681279.325,
+    "stop": 0.25
+   },
+   {
+    "sym": "MRPL",
+    "value": 1157245552.05,
+    "stop": 0.25
+   },
+   {
+    "sym": "STAR",
+    "value": 262692208.05,
+    "stop": 0.25
+   },
+   {
+    "sym": "JAYNECOIND",
+    "value": 239139878.615,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,9 +85,9 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -500,7 +570,8 @@
   },
   "nav": {
    "2026-11-13": 100,
-   "2026-11-16": 99.1417
+   "2026-11-16": 99.1417,
+   "2026-11-17": 99.2616
   }
  },
  "b2Counts": {

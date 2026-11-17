@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-17",
+  "buys": [
+   {
+    "sym": "EICHERMOT",
+    "value": 3056297156.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "TCS",
+    "value": 8605834408.349998,
+    "stop": 0.25
+   },
+   {
+    "sym": "IEX",
+    "value": 466972332.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "HEROMOTOCO",
+    "value": 2921927914.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "INFY",
+    "value": 14994616123.95,
+    "stop": 0.25
+   },
+   {
+    "sym": "CAMS",
+    "value": 943151874.875,
+    "stop": 0.25
+   },
+   {
+    "sym": "GVT&D",
+    "value": 2945134462.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "AFFLE",
+    "value": 236654785.39999998,
+    "stop": 0.25
+   },
+   {
+    "sym": "POLYCAB",
+    "value": 2439905040,
+    "stop": 0.25
+   },
+   {
+    "sym": "TIPSMUSIC",
+    "value": 370864990.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDZINC",
+    "value": 1946157994.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "BSE",
+    "value": 11074359102.3,
+    "stop": 0.25
+   },
+   {
+    "sym": "OFSS",
+    "value": 1682996658,
+    "stop": 0.25
+   },
+   {
+    "sym": "ECLERX",
+    "value": 281639182.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "TRENT",
+    "value": 2328575784,
+    "stop": 0.25
+   },
+   {
+    "sym": "COLPAL",
+    "value": 773146660,
+    "stop": 0.25
+   },
+   {
+    "sym": "HCLTECH",
+    "value": 4920289000.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "CUMMINSIND",
+    "value": 2792855519.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDCOPPER",
+    "value": 1815259262.45,
+    "stop": 0.25
+   },
+   {
+    "sym": "BOSCHLTD",
+    "value": 1289445090,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,9 +120,9 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -500,7 +605,8 @@
   },
   "nav": {
    "2026-11-13": 100,
-   "2026-11-16": 99.1417
+   "2026-11-16": 99.1417,
+   "2026-11-17": 99.2616
   }
  }
 }

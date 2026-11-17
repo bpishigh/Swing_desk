@@ -558,7 +558,7 @@
    "CPPLUS": 4224.9,
    "ATHERENERG": 1945,
    "HFCL": 228.16,
-   "RAYMOND": 1185.8,
+   "RAYMOND": 1224,
    "SKYGOLD": 1050.05,
    "DIVISLAB": 11565.5,
    "SONACOMS": 926,
@@ -570,11 +570,11 @@
    "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 362.5,
+   "FEDERALBNK": 365.8,
    "MOTHERSON": 169.69,
    "MTARTECH": 6610,
    "BOSCHLTD": 52475,
-   "PVRINOX": 1652.6,
+   "PVRINOX": 1677.4,
    "CHENNPETRO": 1566.9,
    "TDPOWERSYS": 728.4
   },
@@ -667,16 +667,20 @@
   {
    "d": "2026-11-16",
    "v": 99.8586
+  },
+  {
+   "d": "2026-11-17",
+   "v": 99.7217
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-16",
-   "v": 99.8586
+   "d": "2026-11-17",
+   "v": 99.7217
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-16",
+ "stopChecked": "2026-11-17",
  "gone": []
 }

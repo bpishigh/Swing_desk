@@ -1,0 +1,30 @@
+{
+ "signalDate": "2026-11-17",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "LAURUSLABS",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 2353.5,
+   "limit": 2377.03,
+   "stop": 2190,
+   "atrPct": 4.27,
+   "tags": [
+    "room fail"
+   ]
+  },
+  {
+   "sym": "LAURUSLABS",
+   "setup": "2",
+   "stream": "comparator",
+   "trigger": 2338,
+   "limit": 2361.38,
+   "stop": 2188.42,
+   "atrPct": 4.27,
+   "tags": [
+    "room fail"
+   ]
+  }
+ ]
+}

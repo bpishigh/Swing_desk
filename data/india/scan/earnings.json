@@ -1,8 +1,8 @@
 {
- "asOf": "2026-11-16",
+ "asOf": "2026-11-17",
  "source": "NSE event calendar",
  "dates": {
-  "GLAND": {
+  "WELSPUNLIV": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -17,17 +17,17 @@
    "sessions": null,
    "inWindow": null
   },
-  "WELSPUNLIV": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "GESHIP": {
+  "LAURUSLABS": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
   "ADANIPORTS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "GESHIP": {
    "date": null,
    "sessions": null,
    "inWindow": null

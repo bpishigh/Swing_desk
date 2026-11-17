@@ -4539,10 +4539,70 @@
    "rea": -0.0346,
    "top": true,
    "signal": false
+  },
+  "ASHOKLEY|2026-11-14": {
+   "s": "ASHOKLEY",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 160.5,
+   "run": 0.1064,
+   "rea": -0.0462,
+   "top": true,
+   "signal": false
+  },
+  "FIRSTCRY|2026-11-14": {
+   "s": "FIRSTCRY",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 178.97,
+   "run": -0.0934,
+   "rea": 0.121,
+   "top": false,
+   "signal": false
+  },
+  "KAYNES|2026-11-14": {
+   "s": "KAYNES",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 2858,
+   "run": 0.0156,
+   "rea": -0.1615,
+   "top": false,
+   "signal": false
+  },
+  "PTCIL|2026-11-14": {
+   "s": "PTCIL",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 23950,
+   "run": -0.074,
+   "rea": -0.0118,
+   "top": false,
+   "signal": false
+  },
+  "PATANJALI|2026-11-14": {
+   "s": "PATANJALI",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 404.8,
+   "run": 0.0509,
+   "rea": -0.0332,
+   "top": true,
+   "signal": false
+  },
+  "SAMMAANCAP|2026-11-14": {
+   "s": "SAMMAANCAP",
+   "d": "2026-11-14",
+   "entry": "2026-11-17",
+   "px": 131.29,
+   "run": 0.0748,
+   "rea": -0.04,
+   "top": true,
+   "signal": false
   }
  },
  "summary": {
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "cut": 0.0226,
   "groups": [
    {
@@ -4556,7 +4616,7 @@
    {
     "group": "ran up, any reaction",
     "matured": 0,
-    "open": 171,
+    "open": 174,
     "meanNet": null,
     "win": null,
     "market": null
@@ -4564,7 +4624,7 @@
    {
     "group": "all results stocks",
     "matured": 0,
-    "open": 454,
+    "open": 460,
     "meanNet": null,
     "win": null,
     "market": null

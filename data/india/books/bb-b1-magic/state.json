@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-17",
+  "buys": [
+   {
+    "sym": "NATIONALUM",
+    "value": 1890369246.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "HINDZINC",
+    "value": 1946157994.1,
+    "stop": 0.25
+   },
+   {
+    "sym": "VEDL",
+    "value": 2639681279.325,
+    "stop": 0.25
+   },
+   {
+    "sym": "TCS",
+    "value": 8605834408.349998,
+    "stop": 0.25
+   },
+   {
+    "sym": "INFY",
+    "value": 14994616123.95,
+    "stop": 0.25
+   },
+   {
+    "sym": "BSOFT",
+    "value": 457842827.70000005,
+    "stop": 0.25
+   },
+   {
+    "sym": "TANLA",
+    "value": 746814322.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "ZENSARTECH",
+    "value": 596999416.75,
+    "stop": 0.25
+   },
+   {
+    "sym": "WIPRO",
+    "value": 2904183485.9350004,
+    "stop": 0.25
+   },
+   {
+    "sym": "IEX",
+    "value": 466972332.6,
+    "stop": 0.25
+   },
+   {
+    "sym": "PETRONET",
+    "value": 781140427.4,
+    "stop": 0.25
+   },
+   {
+    "sym": "HCLTECH",
+    "value": 4920289000.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "KPITTECH",
+    "value": 768962604.375,
+    "stop": 0.25
+   },
+   {
+    "sym": "OFSS",
+    "value": 1682996658,
+    "stop": 0.25
+   },
+   {
+    "sym": "CHENNPETRO",
+    "value": 2173289610.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "SUNTV",
+    "value": 250667833.3,
+    "stop": 0.25
+   },
+   {
+    "sym": "COALINDIA",
+    "value": 2830959903.1000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "NMDC",
+    "value": 991520176.9000001,
+    "stop": 0.25
+   },
+   {
+    "sym": "HEROMOTOCO",
+    "value": 2921927914.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "OIL",
+    "value": 660682182.0999999,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,9 +120,9 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -500,7 +605,8 @@
   },
   "nav": {
    "2026-11-13": 100,
-   "2026-11-16": 99.1417
+   "2026-11-16": 99.1417,
+   "2026-11-17": 99.2616
   }
  }
 }

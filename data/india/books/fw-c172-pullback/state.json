@@ -1,39 +1,76 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 100,
- "pos": {},
- "lastValue": {},
+ "cash": 95.01406591122826,
+ "pos": {
+  "TITAN": {
+   "sh": 0.001021729340238685,
+   "entry": 4885.1,
+   "entryDate": "2026-11-17",
+   "high": 4908,
+   "stop": 0.0708910386965377
+  }
+ },
+ "lastValue": {
+  "TITAN": 3401740872.2
+ },
  "pending": {
-  "signalDate": "2026-11-16",
+  "signalDate": "2026-11-17",
   "buys": [
    {
-    "sym": "TITAN",
-    "value": 3401740872.2,
-    "stop": 0.0708910386965377
+    "sym": "TVSMOTOR",
+    "value": 2993161186,
+    "stop": 0.07945009180063589
    }
   ],
   "sells": []
  },
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-17",
+   "v": 100.0287,
+   "vs": 100.0237,
+   "x": 0.0501
+  }
+ ],
  "skipped": [
   {
    "date": "2026-11-16",
    "sym": "TECHM",
    "width": 0.0876
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "LAURUSLABS",
+   "width": 0.1187
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "SKYGOLD",
+   "width": 0.2242
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "MOTHERSON",
+   "width": 0.1031
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "COFORGE",
+   "width": 0.1073
   }
  ],
- "slipCum": 0,
+ "slipCum": 0.005,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
- "lastSignal": "2026-11-16",
- "lastStep": "2026-11-16",
- "lastNavDate": "2026-11-15",
+ "started": "2026-11-17",
+ "lastSignal": "2026-11-17",
+ "lastStep": "2026-11-17",
+ "lastNavDate": "2026-11-16",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -48,6 +85,44 @@
    "dip": "run",
    "volRatio": 0.9594,
    "tight": 0.1077
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "LAURUSLABS",
+   "dip": "average",
+   "volRatio": 1.6956,
+   "tight": 0.1001
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "SKYGOLD",
+   "dip": "average",
+   "volRatio": 0.3141,
+   "tight": 0.1854
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "MOTHERSON",
+   "dip": "run",
+   "volRatio": 0.4961,
+   "tight": 0.0678
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "COFORGE",
+   "dip": "average",
+   "volRatio": 0.7729,
+   "tight": 0.0338
+  },
+  {
+   "date": "2026-11-17",
+   "sym": "TVSMOTOR",
+   "dip": "run",
+   "volRatio": 1.1711,
+   "tight": 0.0575
   }
- ]
+ ],
+ "costs": {
+  "2026-11": 0.00875
+ }
 }
