@@ -12,7 +12,7 @@ ev = []   # (date, sym, owner, value, lag, ceoCfo)
 for y in range(2021, 2027):
     for q in range(1, 5):
         if y == 2026 and q > 3: continue
-        url = f'https://www.sec.gov/files/structureddata/data/form-345/{y}q{q}_form345.zip'
+        url = f'https://www.sec.gov/files/structureddata/data/insider-transactions-data-sets/{y}q{q}_form345.zip'
         try:
             data = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': UA}), timeout=300).read()
         except Exception as e:
