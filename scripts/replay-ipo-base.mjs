@@ -33,7 +33,8 @@ if (MK === 'in') {
 }
 // IPO list from the stored files (same rule as scripts/india-ipo-list.mjs): first appearance of an EQ symbol, renames removed (India), days with more than 20 first appearances dropped
 const first = new Map(), seen = new Set(days[0].rows.map((r) => r[0])), perDay = new Map();
-for (let i = 1; i < days.length; i++) { for (const r of days[i].rows) { const sym = r[0]; if (seen.has(sym)) continue; seen.add(sym); first.set(sym, days[i].date); perDay.set(days[i].date, (perDay.get(days[i].date) ?? 0) + 1); } }
+const eqRow = (sym, i) => (MK === 'in' ? uniqRows[i].rows[sym]?.[0] === 'EQ' && uniqRows[i].rows[sym][5] > 0 : true);   // as scripts/india-ipo-list.mjs: EQ series only
+for (let i = 1; i < days.length; i++) { for (const r of days[i].rows) { const sym = r[0]; if (seen.has(sym)) continue; seen.add(sym); if (!eqRow(sym, i)) continue; first.set(sym, days[i].date); perDay.set(days[i].date, (perDay.get(days[i].date) ?? 0) + 1); } }
 const renamed = new Set(); if (MK === 'in') for (const e of R('data/india/entities.json').entities) for (let i = 1; i < e.symbols.length; i++) renamed.add(e.symbols[i].symbol);
 const ipo = [...first].filter(([s, d]) => perDay.get(d) <= 20 && !renamed.has(s)).map(([sym, listed]) => ({ sym, listed }));
 const series = buildHistories(days, splits, new Set(ipo.map((x) => x.sym))).series;
