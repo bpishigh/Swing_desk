@@ -1,0 +1,29 @@
+name: probe-india-industry
+# One-off: Yahoo sector/industry for NSE names above the floor, to learn a map to NSE industries. Manual only; writes data/india/probe-industry-yf.json.
+on:
+  workflow_dispatch:
+concurrency: probe-india-industry
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install yfinance
+      - run: python scripts/probe-india-industry.py
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/india/probe-industry-yf.json
+          git commit -m "probe-india-industry: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1
