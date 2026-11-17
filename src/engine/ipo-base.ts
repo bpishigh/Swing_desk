@@ -4,10 +4,11 @@
 // prior close above the 50-session average (or the sessions available, at least 30). Signal tonight (the breakout session): the session's high is at least 0.5% above the base high, the close is at or above the
 // base high, and volume is at least 2x its 50-session average. Buy at the next open; C-159 stop (tighter of 3 x ATR(20) and 8%); hold 60 sessions; at most 20 names at 5%; 20-session cooldown per name.
 // A window with a one-day move over 40% is skipped (possible unadjusted bonus or split). No relative-strength or group gate: the list needs no industry.
-import { shortStop, type Buy, type BookState } from './stock-book.ts';
+import { shortStop, BOOK, type Buy, type BookState } from './stock-book.ts';
 import { atrN, type Orders, type Ser } from './first-wave.ts';
 
-export const IPOB = { names: 20, hold: 60, minSessions: 30, maxSessions: 250, base: 15, depth: 0.25, within: 0.05, trig: 0.005, volMult: 2, floor: 5e7, cooldown: 20 };
+export const IPOB = { names: 20, hold: 60, minSessions: 30, maxSessions: 250, base: 15, depth: 0.25, within: 0.05, trig: 0.005, volMult: 2, floor: 5e7, cooldown: 20, stopCap: BOOK.shortStopCap };   // stopCap: the C-159 8% cap; a replay candidate may raise it (the live book does not)
+const stopFor = (atr20: number, close: number): number | null => { if (IPOB.stopCap === BOOK.shortStopCap) return shortStop(atr20, close); if (!(atr20 > 0) || !(close > 0)) return null; const w = BOOK.atrMult * atr20 / close; return w <= IPOB.stopCap ? w : null; };
 export interface IpoListRow { sym: string; listed: string }
 export interface IpoCtx { series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState; ipo: IpoListRow[]; light: string }
 export interface IpoLogRow { date: string; sym: string; sessions: number; volRatio: number | null; taken: boolean; why: string }
@@ -36,7 +37,7 @@ export function ipoBase(x: IpoCtx, wide?: Array<{ sym: string; width: number }>,
     const base = { date: D, sym: n.sym, sessions: n.sessions, volRatio: n.vr };
     if (x.held.has(n.sym)) { log?.push({ ...base, taken: false, why: 'already held' }); continue; }
     const last = x.st.closed.filter((cl) => cl.sym === n.sym).at(-1); if (last && last.exitDate && x.dates.indexOf(last.exitDate) >= t - IPOB.cooldown) { log?.push({ ...base, taken: false, why: 'cooldown' }); continue; }
-    const s = x.series.get(n.sym)!, st = shortStop(atrN(s, t), s.c[t]);
+    const s = x.series.get(n.sym)!, st = stopFor(atrN(s, t), s.c[t]);
     if (st === null) { wide?.push({ sym: n.sym, width: Math.round(3 * atrN(s, t) / s.c[t] * 1e4) / 1e4 }); log?.push({ ...base, taken: false, why: 'stop too wide' }); continue; }
     if (buys.length >= room) { log?.push({ ...base, taken: false, why: 'no slot' }); continue; }
     buys.push({ sym: n.sym, value: n.value, stop: st }); log?.push({ ...base, taken: true, why: 'bought next open' });
