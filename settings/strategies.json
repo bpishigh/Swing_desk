@@ -771,6 +771,60 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bb-us-b1-magic",
+      "name": "Magic Formula: cheap and high return on capital (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "B1-US",
+      "view": "book_list",
+      "startAfter": "2026-11-18",
+      "dataFile": "data/us/books/bb-us-b1-magic/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "bb-us-b2-piotroski",
+      "name": "Piotroski F-score on cheap names (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "B2-US",
+      "view": "book_list",
+      "startAfter": "2026-11-18",
+      "dataFile": "data/us/books/bb-us-b2-piotroski/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "bb-us-b3-fullquality",
+      "name": "Full quality (US)",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "B3-US",
+      "view": "book_list",
+      "startAfter": "2026-11-18",
+      "dataFile": "data/us/books/bb-us-b3-fullquality/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

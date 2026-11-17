@@ -21,11 +21,15 @@ const days = loadDays(ASOF || undefined).map((d) => ({ date: d.date, rows: d.row
 const series = buildHistories(days, [], allowed).series;
 const list = eligibleUs(series, t).slice(0, 500).map((p) => ({ sym: p.sym, value: p.value }));
 const cov = { eligible: list.length, noFacts: 0, ttm: 0, growth: 0, cagr3: 0, balanceSheet: 0, earningsYield: 0, fiscalEnd: 0, financial: 0, splitSinceFiling: 0, sue: 0 };
+const yf = R('data/us/yf-opinc.json', { rows: {} }).rows;   // yfinance operating income, used only for quarters SEC leaves empty (owner decision 17 Nov 2026)
+const gapDays = (a, b) => Math.abs(Date.parse(a) - Date.parse(b)) / 86400000;
 const rows = {};
 for (const p of list) {
   const f = `data/us/facts/${p.sym.replace(/[^A-Za-z0-9.-]/g, '_')}.json.gz`; if (!existsSync(f)) { cov.noFacts++; continue; }
   const store = JSON.parse(gunzipSync(readFileSync(f)));
   const facts = store.results.map((y) => ({ entity: p.sym, period: y.period, basis: y.basis, asOf: y.asOf, revision: 0, fields: y.fields, ytd: y.ytd, format: y.format, extra: y.extra }));
+  let yfFilled = 0;
+  if (yf[p.sym]) for (const y of facts) { const q = y.extra?.q; if (!q || q.opIncome != null) continue; const k = Object.keys(yf[p.sym].quarters).find((e) => gapDays(e, y.period) <= 6); if (k) { y.extra = { ...y.extra, q: { ...q, opIncome: yf[p.sym].quarters[k] } }; yfFilled++; } }
   const view = asOfResults(facts, p.sym, D, { limit: 40 }), s = series.get(p.sym), close = s?.c[t] ?? null;
   // a split-like move since the latest filing makes the cover share count and today's adjusted close disagree
   const latest = view.quarters[0]?.asOf.slice(0, 10) ?? null; let splitSince = false;
@@ -33,7 +37,8 @@ for (const p of list) {
   const f1 = computeFeatures(view, splitSince ? null : close, [], { sueShareRule: process.env.SUE_SHARE_RULE === 'both' ? 'both' : 'increase' });   // US A1 skips a name only when its share count rose more than 2% (new issuance); a fall (buyback) does not skip it. 'both' is the India rule, kept for measurement.
   if (splitSince) { cov.splitSinceFiling++; f1.eyNullReason = 'split since filing'; }
   if (f1.ttm.pat != null) cov.ttm++; if (f1.growth.revenue != null || f1.growth.pbtPre != null) cov.growth++; if (f1.growth.revenueCagr3 != null) cov.cagr3++; if (f1.bs) cov.balanceSheet++; if (f1.earningsYield != null) cov.earningsYield++; if (f1.fiscalYears.length) cov.fiscalEnd++; if (f1.financial) cov.financial++; if (f1.sue.value != null) cov.sue++;
-  rows[p.sym] = { entity: p.sym, tradedValue: Math.round(p.value), ...f1, flags: { ...flagsOf(f1), pledge: null } };
+  if (yfFilled) cov.opIncomeYf = (cov.opIncomeYf ?? 0) + 1;
+  rows[p.sym] = { entity: p.sym, tradedValue: Math.round(p.value), ...f1, opIncomeFromYf: yfFilled > 0 || undefined, flags: { ...flagsOf(f1), pledge: null } };
 }
 const graham = grahamList({ el: list, fund: rows, series: new Map(), t, dates: [], held: new Set(), st: {} });
 cov.graham = graham.length;

@@ -1,0 +1,30 @@
+name: fetch-us-yf-opinc
+# US Batch B fallback: operating income from yfinance for names SEC lacks it for. Weekly (Sat) and manual; writes data/us/yf-opinc.json.
+on:
+  workflow_dispatch:
+  schedule: [{ cron: "30 3 * * 6" }]
+concurrency: fetch-us-yf-opinc
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install yfinance
+      - run: python scripts/fetch-us-yf-opinc.py
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "swing-desk-bot"
+          git config user.email "noreply@github.com"
+          git add data/us/yf-opinc.json
+          git commit -m "fetch-us-yf-opinc: $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 3))
+          done
+          exit 1

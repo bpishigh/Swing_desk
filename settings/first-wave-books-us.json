@@ -107,6 +107,33 @@
       "startAfter": "2026-11-15",
       "comparator": "spy",
       "batch": "D"
+    },
+    {
+      "id": "bb-us-b1-magic",
+      "rule": "B1-US",
+      "name": "Magic Formula: cheap and high return on capital (US)",
+      "signal": "magic",
+      "startAfter": "2026-11-18",
+      "comparator": "spy",
+      "batch": "B"
+    },
+    {
+      "id": "bb-us-b2-piotroski",
+      "rule": "B2-US",
+      "name": "Piotroski F-score on cheap names (US)",
+      "signal": "piotroski",
+      "startAfter": "2026-11-18",
+      "comparator": "spy",
+      "batch": "B"
+    },
+    {
+      "id": "bb-us-b3-fullquality",
+      "rule": "B3-US",
+      "name": "Full quality (US)",
+      "signal": "fullQuality",
+      "startAfter": "2026-11-18",
+      "comparator": "spy",
+      "batch": "B"
     }
   ],
   "sleeveBooks": [
