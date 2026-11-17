@@ -1,0 +1,6332 @@
+{
+"360ONE": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"3MINDIA": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": null
+},
+"63MOONS": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"AADHARHFC": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"AARTIDRUGS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"AARTIIND": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"AARTIPHARM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"AAVAS": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"ABB": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"ABBOTINDIA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"ABCAPITAL": {
+"sector": "Financial Services",
+"industry": "Financial Conglomerates",
+"nse": "Financial Services"
+},
+"ABDL": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": "Fast Moving Consumer Goods"
+},
+"ABFRL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Consumer Services"
+},
+"ABLBL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": "Consumer Services"
+},
+"ABREL": {
+"sector": "Real Estate",
+"industry": "Real Estate Services",
+"nse": "Realty"
+},
+"ABSLAMC": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"ACC": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"ACE": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": "Capital Goods"
+},
+"ACEVECTOR": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": null
+},
+"ACI": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"ACMESOLAR": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"ACUTAAS": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Healthcare"
+},
+"ADANIENSOL": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"ADANIENT": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": "Metals & Mining"
+},
+"ADANIGREEN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"ADANIPORTS": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"ADANIPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"ADROITIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"ADVAIT": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"ADVANCE": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"ADVENZYMES": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Healthcare"
+},
+"AEGISLOG": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"AEGISVOPAK": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"AEQUS": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"AEROENTER": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"AEROFLEX": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Capital Goods"
+},
+"AEROPLANE": {
+"sector": "Consumer Defensive",
+"industry": "Farm Products",
+"nse": null
+},
+"AETHER": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"AFCONS": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"AFFLE": {
+"sector": "Communication Services",
+"industry": "Advertising Agencies",
+"nse": "Information Technology"
+},
+"AGARWALEYE": {
+"sector": "Healthcare",
+"industry": "Medical Instruments & Supplies",
+"nse": null
+},
+"AGI": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"AGIIL": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"AGL": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": null
+},
+"AHCL": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"AHLUCONT": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"AIAENG": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"AIIL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"AJANTPHARM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"AJMERA": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"AKUMS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"ALEMBICLTD": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"ALGOQUANT": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"ALICON": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"ALIVUS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"ALKEM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"ALKYLAMINE": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"ALOKINDS": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"ALPHA": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"AMAGI": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"AMANTA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"AMBER": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"AMBUJACEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"ANANDRATHI": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"ANANTRAJ": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"ANGELONE": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"ANTELOPUS": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"nse": null
+},
+"ANTHEM": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"ANUP": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"ANURAS": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"AONESTEELS": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"APARINDS": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"APEX": {
+"sector": "Consumer Defensive",
+"industry": "Farm Products",
+"nse": null
+},
+"APLAPOLLO": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"APLLTD": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"APOLLO": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"APOLLOHOSP": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"APOLLOPIPE": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": null
+},
+"APOLLOTYRE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"APTUS": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"ARCIL": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": null
+},
+"ARDEE": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"ARE&M": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Automobile and Auto Components"
+},
+"ARFIN": {
+"sector": "Basic Materials",
+"industry": "Aluminum",
+"nse": null
+},
+"ARIHANTCAP": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"ARIS": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"ARMANFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"ARMEE": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"ARSSBL": {
+"sector": "Financial Services",
+"industry": "Financial Conglomerates",
+"nse": null
+},
+"ARTEMISMED": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"ARVIND": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"ARVINDFASN": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": "Consumer Services"
+},
+"ASAHIINDIA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"ASHAPURMIN": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"ASHOKA": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"ASHOKLEY": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": "Capital Goods"
+},
+"ASIANENE": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"nse": null
+},
+"ASIANPAINT": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"ASIANTILES": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": null
+},
+"ASKAUTOLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"ASTEC": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"ASTERDM": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"ASTRAL": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"ASTRAMICRO": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": "Capital Goods"
+},
+"ASTRAZEN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"ATGL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"ATHERENERG": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"ATLANTAELE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"ATUL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"AUBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"AUGMONT": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"AURIONPRO": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"AUROPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"AUTOAXLES": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"AUTOBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"AVADHSUGAR": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"AVALON": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Capital Goods"
+},
+"AVANTEL": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": null
+},
+"AVANTIFEED": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"AVL": {
+"sector": "Consumer Cyclical",
+"industry": "Specialty Retail",
+"nse": "Consumer Services"
+},
+"AVTNPL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"AWFIS": {
+"sector": "Industrials",
+"industry": "Rental & Leasing Services",
+"nse": null
+},
+"AWL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"AXISBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"AXISCADES": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Capital Goods"
+},
+"AYE": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"AZAD": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"BAJAJ-AUTO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"BAJAJCON": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"BAJAJELEC": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"BAJAJFINSV": {
+"sector": "Financial Services",
+"industry": "Financial Conglomerates",
+"nse": "Financial Services"
+},
+"BAJAJHFL": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"BAJAJHIND": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"BAJAJHLDNG": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"BAJEL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": null
+},
+"BAJFINANCE": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"BALAMINES": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"BALKRISIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"BALMLAWRIE": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": null
+},
+"BALRAMCHIN": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": "Fast Moving Consumer Goods"
+},
+"BALUFORGE": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Capital Goods"
+},
+"BANCOINDIA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"BANDHANBNK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"BANKBARODA": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"BANKBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"BANKBETA": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"BANKIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"BANKINDIA": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"BANKNIFTY1": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"BANSALWIRE": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"BASF": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"BATAINDIA": {
+"sector": "Consumer Cyclical",
+"industry": "Footwear & Accessories",
+"nse": "Consumer Durables"
+},
+"BAYERCROP": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"BBL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"BBOX": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"BBTC": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"BDL": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"BECTORFOOD": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"BEL": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"BELRISE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"BEML": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Capital Goods"
+},
+"BEPL": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"BERGEPAINT": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"BETA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"BFUTILITIE": {
+"sector": "Industrials",
+"industry": "Infrastructure Operations",
+"nse": null
+},
+"BHAGERIA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"BHARATCOAL": {
+"sector": "Basic Materials",
+"industry": "Coking Coal",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"BHARATFORG": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Automobile and Auto Components"
+},
+"BHARATSE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"BHARTIARTL": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"BHARTIHEXA": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"BHEL": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"BIKAJI": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"BIOCON": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"BIRLACABLE": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": null
+},
+"BIRLACORPN": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"BLACKBUCK": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Services"
+},
+"BLEL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"BLS": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": "Consumer Services"
+},
+"BLSE": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"BLUEJET": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"BLUESTARCO": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Consumer Durables"
+},
+"BLUESTONE": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"BLUSPRING": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"BOMDYEING": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"BONFIG": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"BOROLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"BORORENEW": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"BOSCH-HCIL": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"BOSCHLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"BPCL": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"BRIGADE": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"BRITANNIA": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"BSE": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"nse": "Financial Services"
+},
+"BSOFT": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"BUILDPRO": {
+"sector": "Consumer Cyclical",
+"industry": "Home Improvement Retail",
+"nse": null
+},
+"CAMLINFINE": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"CAMPUS": {
+"sector": "Consumer Cyclical",
+"industry": "Footwear & Accessories",
+"nse": "Consumer Durables"
+},
+"CAMS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Financial Services"
+},
+"CANBK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"CANFINHOME": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"CANHLIFE": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"CANTABIL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": null
+},
+"CAPACITE": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"CAPILLARY": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"CAPLIPOINT": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"CARBORUNIV": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": "Capital Goods"
+},
+"CARERATING": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"nse": null
+},
+"CARTRADE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto & Truck Dealerships",
+"nse": "Consumer Services"
+},
+"CARYSIL": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"CASHIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"CASTROLIND": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"CCAVENUE": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": null
+},
+"CCL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"CDSL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"CEATLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"CEIGALL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"CELLO": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"CEMPRO": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"CENTRALBK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"CENTUM": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Capital Goods"
+},
+"CENTURYPLY": {
+"sector": "Basic Materials",
+"industry": "Lumber & Wood Production",
+"nse": null
+},
+"CERA": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Consumer Durables"
+},
+"CESC": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": "Power"
+},
+"CGCL": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"CGPOWER": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"CHALET": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"CHAMBLFERT": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"CHEMPLASTS": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"CHENNPETRO": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"CHOICEIN": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"CHOLAFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"CHOLAHLDNG": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"CIEINDIA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"CIPLA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"CLEAN": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"CLEANMAX": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"CMLL": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": null
+},
+"CMPDI": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Services"
+},
+"CMRGREEN": {
+"sector": "Basic Materials",
+"industry": "Aluminum",
+"nse": "Capital Goods"
+},
+"CMSINFO": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": "Services"
+},
+"CNL": {
+"sector": "Technology",
+"industry": "Electronics & Computer Distribution",
+"nse": null
+},
+"COALINDIA": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"COCHINSHIP": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"COFORGE": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"COHANCE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"COLPAL": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"COMSYN": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"CONCOR": {
+"sector": "Industrials",
+"industry": "Railroads",
+"nse": "Services"
+},
+"CONCORDBIO": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"CONFIPET": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": null
+},
+"CORDELIA": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": null
+},
+"COROMANDEL": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"CORONA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"COSMOFIRST": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"CPPLUS": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"CPSEETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"CRAFTSMAN": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"CRAMC": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"CREDITACC": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"CRISIL": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"nse": "Financial Services"
+},
+"CROMPTON": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"CSBBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"CUB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"CUMMINSIND": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"CUPID": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"CYIENT": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Information Technology"
+},
+"CYIENTDLM": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"DABUR": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"DALBHARAT": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"DALMIASUG": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"DAMCAPITAL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"DATAPATTNS": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"DBL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"DBREALTY": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"DCAL": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": null
+},
+"DCBBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"DCMSHRIRAM": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": null
+},
+"DCXINDIA": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"DECNGOLD": {
+"sector": "Basic Materials",
+"industry": "Gold",
+"nse": null
+},
+"DEEDEV": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"DEEPA": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"DEEPAKFERT": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"DEEPAKNTR": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"DEEPINDS": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"nse": null
+},
+"DELHIVERY": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": "Services"
+},
+"DELTACORP": {
+"sector": "Consumer Cyclical",
+"industry": "Resorts & Casinos",
+"nse": null
+},
+"DEVYANI": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"nse": "Consumer Services"
+},
+"DHAMPURSUG": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"DHANBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": null
+},
+"DHANUKA": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"DHOOTTRANS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"DIVGIITTS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"DIVISLAB": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"DIXON": {
+"sector": "Technology",
+"industry": "Consumer Electronics",
+"nse": "Consumer Durables"
+},
+"DLF": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"DMART": {
+"sector": "Consumer Defensive",
+"industry": "Discount Stores",
+"nse": "Consumer Services"
+},
+"DODLA": {
+"sector": "Consumer Defensive",
+"industry": "Food Distribution",
+"nse": null
+},
+"DOMS": {
+"sector": "Industrials",
+"industry": "Business Equipment & Supplies",
+"nse": "Fast Moving Consumer Goods"
+},
+"DREDGECORP": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"DRREDDY": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"DSSL": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"DWARKESH": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"DYCL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"DYNAMATECH": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Capital Goods"
+},
+"EASEMYTRIP": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": null
+},
+"EBGNG": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"nse": "Information Technology"
+},
+"ECLERX": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Services"
+},
+"EDELWEISS": {
+"sector": "Financial Services",
+"industry": "Financial Conglomerates",
+"nse": "Financial Services"
+},
+"EICHERMOT": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"EIDPARRY": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Fast Moving Consumer Goods"
+},
+"EIEL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Utilities"
+},
+"EIHOTEL": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"EIMCOELECO": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": null
+},
+"ELECON": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"ELECTCAST": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"ELEVATE": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": null
+},
+"ELGIEQUIP": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"ELLEN": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"EMAMILTD": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"EMBDL": {
+"sector": "Real Estate",
+"industry": "Real Estate - Diversified",
+"nse": "Realty"
+},
+"EMCURE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"EMIL": {
+"sector": "Consumer Cyclical",
+"industry": "Specialty Retail",
+"nse": "Consumer Services"
+},
+"EMMVEE": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"EMUDHRA": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"ENDURANCE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"ENGINERSIN": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"ENRIN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Capital Goods"
+},
+"ENTERO": {
+"sector": "Healthcare",
+"industry": "Medical Distribution",
+"nse": "Consumer Services"
+},
+"EPACK": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"EPACKPEB": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"EPIGRAL": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"EPL": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": "Capital Goods"
+},
+"EQUITASBNK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"ERIS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"ESCORTS": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": "Capital Goods"
+},
+"ESDS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"ETERNAL": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"ETHOSLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"EUREKAFORB": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"EUROPRATIK": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"EXICOM": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"EXIDEIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"FACT": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"FAZE3Q": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"FCL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"FDC": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"FEDDERSHOL": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"FEDERALBNK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"FEDFINA": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"FIEMIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"FILATEX": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"FINCABLES": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"FINEORG": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"FINPIPE": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"FIRSTCRY": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"FIVESTAR": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"FLUOROCHEM": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"FMCGIETF": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"FORCEMOT": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"FORTIS": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"FOSECOIND": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"FRACTAL": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Information Technology"
+},
+"FREDUN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"FRONTSP": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"FSL": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Services"
+},
+"FUSION": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"FUSIONCX": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"GABRIEL": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"GAEL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"GAIL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"GAJA": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": null
+},
+"GALAPREC": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"GALAXYSURF": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"GALLANTT": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"GANDHAR": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": null
+},
+"GANECOS": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"GANESHCP": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"GARUDA": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"GATEWAY": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": null
+},
+"GCSL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"GENESYS": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"GENUSPOWER": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"GERMAN": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"GESHIP": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"GHCL": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"GHCLTEXTIL": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"GICRE": {
+"sector": "Financial Services",
+"industry": "Insurance - Reinsurance",
+"nse": "Financial Services"
+},
+"GILLETTE": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"GIPCL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": null
+},
+"GKSL": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"GLAND": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"GLASSWALL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"GLAXO": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": "Healthcare"
+},
+"GLENMARK": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"GLOBUSSPR": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": null
+},
+"GMDCLTD": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": "Metals & Mining"
+},
+"GMMPFAUDLR": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"GMRAIRPORT": {
+"sector": "Industrials",
+"industry": "Airports & Air Services",
+"nse": "Services"
+},
+"GMRP&UI": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": "Power"
+},
+"GNA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"GNFC": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"GNRL": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"nse": null
+},
+"GOCOLORS": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": null
+},
+"GODFRYPHLP": {
+"sector": "Consumer Defensive",
+"industry": "Tobacco",
+"nse": "Fast Moving Consumer Goods"
+},
+"GODIGIT": {
+"sector": "Financial Services",
+"industry": "Insurance - Property & Casualty",
+"nse": null
+},
+"GODREJAGRO": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"GODREJCP": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"GODREJIND": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Diversified"
+},
+"GODREJPROP": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"GOKEX": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Textiles"
+},
+"GOKULAGRO": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"GOLD1": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDADD": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDAXIS": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDBETA": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDCASE": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOLDIAM": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"GOLDIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GOODLUCK": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"GPIL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"GPPL": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"GRANULES": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"GRAPHITE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"GRASIM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"GRAVITA": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Metals & Mining"
+},
+"GREAVESCOT": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"GREENPLY": {
+"sector": "Basic Materials",
+"industry": "Lumber & Wood Production",
+"nse": null
+},
+"GRINDWELL": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"GRMOVER": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"GROWW": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"GROWWLIQID": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"GRSE": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"GRWRHITECH": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Capital Goods"
+},
+"GSFC": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"GSPCROP": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"GSPLTRANS": {
+"sector": "Energy",
+"industry": "Oil & Gas Midstream",
+"nse": null
+},
+"GUFICBIO": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"GUJALKALI": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"GUJENERGY": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": null
+},
+"GUJTHEM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"GULFOILLUB": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"GVPIL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"GVT&D": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"GYFTR": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"HAL": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"HAPPSTMNDS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"HAPPYFORGE": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Capital Goods"
+},
+"HARIOMPIPE": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"HATSUN": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"HAVELLS": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Consumer Durables"
+},
+"HBLENGINE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"HCC": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"HCG": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"HCLTECH": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"HDBFS": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"HDFCAMC": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"HDFCBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"HDFCBSE500": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"HDFCGOLD": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"HDFCLIFE": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"HDFCNIFTY": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"HDFCSILVER": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"HDFCSML250": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"HDFIRE": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"HEGAM": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"HERITGFOOD": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"HEROMOTOCO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"HEROMOTORS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"HEXAGON": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"HEXT": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"HIKAL": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"HINDALCO": {
+"sector": "Basic Materials",
+"industry": "Aluminum",
+"nse": "Metals & Mining"
+},
+"HINDCOPPER": {
+"sector": "Basic Materials",
+"industry": "Copper",
+"nse": "Metals & Mining"
+},
+"HINDOILEXP": {
+"sector": "Energy",
+"industry": "Oil & Gas E&P",
+"nse": null
+},
+"HINDPETRO": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"HINDUNILVR": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"HINDZINC": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"HIRECT": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"HITECH": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"HLEGLAS": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"HMAAGRO": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"HOMEFIRST": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"HONASA": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"HONAUT": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"HORIZONIND": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"HSCL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"HTEL": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"HUBTOWN": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"HUDCO": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"HUHTAMAKI": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"HYUNDAI": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"IBULLSLTD": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"ICICIAMC": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"ICICIBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"ICICIGI": {
+"sector": "Financial Services",
+"industry": "Insurance - Diversified",
+"nse": "Financial Services"
+},
+"ICICILIFE": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"ICIL": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"ICRA": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"nse": null
+},
+"IDBI": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"IDEA": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"IDEAFORGE": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"IDFCFIRSTB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"IEX": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"IFCI": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"IGIL": {
+"sector": "Basic Materials",
+"industry": "Other Precious Metals & Mining",
+"nse": "Services"
+},
+"IGL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"IIFL": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"IIFLCAPS": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"IKIO": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": null
+},
+"IKS": {
+"sector": "Healthcare",
+"industry": "Health Information Services",
+"nse": "Information Technology"
+},
+"IMFA": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"INDGN": {
+"sector": "Healthcare",
+"industry": "Health Information Services",
+"nse": "Healthcare"
+},
+"INDHOTEL": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"INDIACEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"INDIAGLYCO": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Fast Moving Consumer Goods"
+},
+"INDIAMART": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"INDIANB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"INDIGO": {
+"sector": "Industrials",
+"industry": "Airlines",
+"nse": "Services"
+},
+"INDIGOPNTS": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"INDNIPPON": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"INDOMIM": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"INDOTECH": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"INDRAMEDCO": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"INDSWFTLAB": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"INDUSINDBK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"INDUSTOWER": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"INFOBEAN": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"INFY": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"INNOVACAP": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"INOXGREEN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": null
+},
+"INOXINDIA": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"INOXWIND": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"INTELLECT": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"INTERARCH": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"IOB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"IOC": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"IOLCP": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"IONEXCHANG": {
+"sector": "Industrials",
+"industry": "Pollution & Treatment Controls",
+"nse": "Utilities"
+},
+"IPCALAB": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"IRB": {
+"sector": "Industrials",
+"industry": "Infrastructure Operations",
+"nse": "Construction"
+},
+"IRCON": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"IRCTC": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": "Consumer Services"
+},
+"IREDA": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"IRFC": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"IRMENERGY": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": null
+},
+"ITBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"ITC": {
+"sector": "Consumer Defensive",
+"industry": "Tobacco",
+"nse": "Fast Moving Consumer Goods"
+},
+"ITCHOTELS": {
+"sector": "Consumer Cyclical",
+"industry": "Resorts & Casinos",
+"nse": "Consumer Services"
+},
+"ITDC": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": null
+},
+"ITI": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": "Telecommunication"
+},
+"ITIETF": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"IVALUE": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"IXIGO": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": "Consumer Services"
+},
+"IZMO": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"J&KBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"JAIBALAJI": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"JAICORPLTD": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"JAINREC": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"JAMNAAUTO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"JARO": {
+"sector": "Consumer Defensive",
+"industry": "Education & Training Services",
+"nse": null
+},
+"JASH": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"JAYBARMARU": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"JAYKAY": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"JAYNECOIND": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"JBMA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"JGCHEM": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": null
+},
+"JINDALPOLY": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"JINDALSAW": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"JINDALSTEL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"JINDRILL": {
+"sector": "Energy",
+"industry": "Oil & Gas Equipment & Services",
+"nse": null
+},
+"JINDWORLD": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"JIOFIN": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"JISLJALEQS": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": null
+},
+"JKCEMENT": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"JKIL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"JKLAKSHMI": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"JKPAPER": {
+"sector": "Basic Materials",
+"industry": "Paper & Paper Products",
+"nse": "Forest Materials"
+},
+"JKTYRE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"JMFINANCIL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"JNPR": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": null
+},
+"JPPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"JSFB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"JSL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"JSLL": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Consumer Services"
+},
+"JSWCEMENT": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"JSWDULUX": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"JSWENERGY": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"JSWHL": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": null
+},
+"JSWINFRA": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"JSWSTEEL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"JTLIND": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"JUBLFOOD": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"nse": "Consumer Services"
+},
+"JUBLINGREA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"JUBLPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"JUNIORBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"JUSTDIAL": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"nse": "Consumer Services"
+},
+"JWL": {
+"sector": "Industrials",
+"industry": "Railroads",
+"nse": "Capital Goods"
+},
+"JYOTHYLAB": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"JYOTICNC": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"JYOTISTRUC": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"KAJARIACER": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Consumer Durables"
+},
+"KALAMANDIR": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": null
+},
+"KALYANKJIL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"KAMDHENU": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"KANOHAR": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"KANSAINER": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"KARAMTARA": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": null
+},
+"KARURVYSYA": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"KAYNES": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Capital Goods"
+},
+"KDDL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"KEC": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"KEI": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"KENNAMET": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": null
+},
+"KERNEX": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"KFINTECH": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Financial Services"
+},
+"KIMS": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"KINGFA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"KIRIINDUS": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"KIRLFER": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"KIRLOSBROS": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"KIRLOSENG": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"KIRLPNU": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"KISSHT": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"KITEX": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Textiles"
+},
+"KLBRENG-B": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"KMCSHIL": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"KMEW": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"KNACK": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"KNRCON": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"KOLTEPATIL": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"KOPRAN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"KOTAKBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"KOVAI": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"KPEL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"KPIGREEN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"KPIL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"KPITTECH": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"KPL": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"KPRMILL": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"KRBL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"KRISHANA": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"KRISHNADEF": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"KRN": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Capital Goods"
+},
+"KROSS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"KRSNAA": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": null
+},
+"KSB": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"KSCL": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Fast Moving Consumer Goods"
+},
+"KSHINTL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"KSL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"KTKBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"KUSUMGAR": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"KWIL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"LALITHAA": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"LALPATHLAB": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"LANDMARK": {
+"sector": "Consumer Cyclical",
+"industry": "Auto & Truck Dealerships",
+"nse": null
+},
+"LASERPOWER": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"LATENTVIEW": {
+"sector": "Industrials",
+"industry": "Consulting Services",
+"nse": "Information Technology"
+},
+"LAURUSLABS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"LCL": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"LEAPIND": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": null
+},
+"LEMONTREE": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"LENSKART": {
+"sector": "Healthcare",
+"industry": "Medical Instruments & Supplies",
+"nse": "Consumer Services"
+},
+"LGEINDIA": {
+"sector": "Technology",
+"industry": "Consumer Electronics",
+"nse": "Consumer Durables"
+},
+"LICHSGFIN": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"LICI": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"LINDEINDIA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"LIQGRWBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUID": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUID1": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDADD": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDBETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDCASE": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LIQUIDIETF": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"LIQUIDPLUS": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LLOYDSENGG": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"LLOYDSENT": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"LLOYDSME": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"LMW": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"LODHA": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"LOKESHMACH": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"LOWVOLIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"LT": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"LTF": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"LTFOODS": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"LTM": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"LTTS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"LUMAXIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"LUMAXTECH": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"LUMINO": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"LUPIN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"LXCHEM": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"M&M": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"M&MFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"MACPOWER": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"MAFANG": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MAHABANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"MAHLIFE": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"MAHLOG": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": null
+},
+"MAHSEAMLES": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"MANAKCOAT": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"MANALIPETC": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"MANAPPURAM": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"MANGLMCEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"MANINDS": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"MANINFRA": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"MANIPALHOS": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"MANKIND": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"MANOMAY": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"MANORAMA": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"MANYAVAR": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Consumer Services"
+},
+"MAPMYINDIA": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Information Technology"
+},
+"MARATHON": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"MARICO": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": "Fast Moving Consumer Goods"
+},
+"MARINE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"MARKOLINES": {
+"sector": "Industrials",
+"industry": "Infrastructure Operations",
+"nse": null
+},
+"MARKSANS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": "Healthcare"
+},
+"MARSONS": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"MARUTI": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"MASPTOP50": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MASTEK": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"MAXHEALTH": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"MAYURUNIQ": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"MAZDOCK": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"MBAPL": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"MBEL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"MCX": {
+"sector": "Financial Services",
+"industry": "Financial Data & Stock Exchanges",
+"nse": "Financial Services"
+},
+"MEDANTA": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"MEDIASSIST": {
+"sector": "Healthcare",
+"industry": "Healthcare Plans",
+"nse": null
+},
+"MEDPLUS": {
+"sector": "Healthcare",
+"industry": "Pharmaceutical Retailers",
+"nse": "Consumer Services"
+},
+"MEESHO": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"MENONBE": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"METALIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"METROPOLIS": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"MFSL": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"MGL": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"MID150BEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MIDCAPETF": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"MIDHANI": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"MIIL": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"MINDACORP": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"MMFL": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"MMTC": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Services"
+},
+"MOBIKWIK": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": null
+},
+"MOCAPITAL": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MODEFENCE": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MOIL": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"MOLBIO": {
+"sector": "Healthcare",
+"industry": "Medical Devices",
+"nse": null
+},
+"MOLDTKPAC": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"MOMSBELIEF": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": null
+},
+"MON100": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MONEYVIEW": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"MONQ50": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MOREALTY": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"MOSCHIP": {
+"sector": "Technology",
+"industry": "Semiconductor Equipment & Materials",
+"nse": null
+},
+"MOTHERSON": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"MOTILALOFS": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"MOTISONS": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"MPHASIS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"MPIMANIPAL": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": null
+},
+"MRF": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"MRPL": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"MSTCLTD": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Services"
+},
+"MSUMI": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"MTARTECH": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"MTNL": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": null
+},
+"MUFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"MUTHOOTFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"MUTHOOTMF": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"MVELECTRO": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"MVGJL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"MWL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"NACLIND": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": null
+},
+"NAM-INDIA": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"NATCOPHARM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"NATIONALUM": {
+"sector": "Basic Materials",
+"industry": "Aluminum",
+"nse": "Metals & Mining"
+},
+"NAUKRI": {
+"sector": "Communication Services",
+"industry": "Internet Content & Information",
+"nse": "Consumer Services"
+},
+"NAVA": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Power"
+},
+"NAVINFLUOR": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"NAZARA": {
+"sector": "Communication Services",
+"industry": "Electronic Gaming & Multimedia",
+"nse": "Media Entertainment & Publication"
+},
+"NBCC": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"NCC": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"NELCAST": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"NELCO": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": null
+},
+"NEOGEN": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"NEPHROPLUS": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"NESTLEIND": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"NETWEB": {
+"sector": "Technology",
+"industry": "Computer Hardware",
+"nse": "Information Technology"
+},
+"NETWORK18": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": "Media Entertainment & Publication"
+},
+"NEULANDLAB": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"NEWGEN": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Information Technology"
+},
+"NEXT50IETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"NH": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"NHPC": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"NIACL": {
+"sector": "Financial Services",
+"industry": "Insurance - Diversified",
+"nse": "Financial Services"
+},
+"NIBE": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"NIFTY1": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"NIFTYBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"NIFTYETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"NIFTYIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"NILKAMAL": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"NITINSPIN": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"NIVABUPA": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"NLCINDIA": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": "Power"
+},
+"NMDC": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"NOCIL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"NORTHARC": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"NRBBEARING": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"NSLNISP": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"NTPC": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": "Power"
+},
+"NTPCGREEN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"NUVAMA": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"NUVOCO": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"NYKAA": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"OBEROIRLTY": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"OFSS": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Information Technology"
+},
+"OIL": {
+"sector": "Energy",
+"industry": "Oil & Gas Integrated",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"OLAELEC": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"OLECTRA": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": "Automobile and Auto Components"
+},
+"ONEPOINT": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"ONESOURCE": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"ONGC": {
+"sector": "Energy",
+"industry": "Oil & Gas Integrated",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"OPTIEMUS": {
+"sector": "Technology",
+"industry": "Electronics & Computer Distribution",
+"nse": null
+},
+"ORCHPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"ORIENTCABL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"ORIENTCEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"ORIENTELEC": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"ORIENTHOT": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": null
+},
+"ORIENTTECH": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"OSWALPUMPS": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"PACEDIGITK": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": null
+},
+"PAGEIND": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Textiles"
+},
+"PAISALO": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"PANAMAPET": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": null
+},
+"PARACABLES": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": null
+},
+"PARADEEP": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"PARAGMILK": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"PARAS": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"PARKHOSPS": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"PASHUPATI": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"PATANJALI": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"PATELENG": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"PAYTM": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Financial Services"
+},
+"PCBL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"PCJEWELLER": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"PDSL": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": "Textiles"
+},
+"PENIND": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"PERMAGN": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"PERSISTENT": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"PETRONET": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"PFC": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"PFIZER": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": "Healthcare"
+},
+"PFOCUS": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": "Media Entertainment & Publication"
+},
+"PGEL": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Consumer Durables"
+},
+"PGHH": {
+"sector": "Consumer Defensive",
+"industry": "Household & Personal Products",
+"nse": null
+},
+"PGHL": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"PGIL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Textiles"
+},
+"PHARMABEES": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"PHOENIXLTD": {
+"sector": "Real Estate",
+"industry": "Real Estate - Diversified",
+"nse": "Realty"
+},
+"PICCADIL": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": "Fast Moving Consumer Goods"
+},
+"PIDILITIND": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"PIIND": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"PINELABS": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Financial Services"
+},
+"PIRAMALFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"PITTIENG": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"PLATIND": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"PNB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"PNBHOUSING": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"PNCINFRA": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"PNGJL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"PNGSREVA": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"POCL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"POKARNA": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": null
+},
+"POLICYBZR": {
+"sector": "Financial Services",
+"industry": "Insurance Brokers",
+"nse": "Financial Services"
+},
+"POLYCAB": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"POLYMED": {
+"sector": "Healthcare",
+"industry": "Medical Instruments & Supplies",
+"nse": "Healthcare"
+},
+"POLYPLEX": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"POONAWALLA": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"POWERGRID": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Electric",
+"nse": "Power"
+},
+"POWERICA": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"POWERINDIA": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"POWERMECH": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"PPLPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"PRAJIND": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Capital Goods"
+},
+"PRAKASH": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"PRANAV": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"PRASOLCHEM": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"PRECWIRE": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"PREMEXPLN": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"PREMIERENE": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"PRESTIGE": {
+"sector": "Real Estate",
+"industry": "Real Estate - Diversified",
+"nse": "Realty"
+},
+"PRICOLLTD": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"PRINCEPIPE": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": null
+},
+"PRIVISCL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"PROTEAN": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"PRUDENT": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": null
+},
+"PSB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": null
+},
+"PSPPROJECT": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"PSUBANK": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"PSUBNKBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"PTC": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"PTCIL": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Capital Goods"
+},
+"PVRINOX": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": "Media Entertainment & Publication"
+},
+"PVTBANIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"PWL": {
+"sector": "Consumer Defensive",
+"industry": "Education & Training Services",
+"nse": "Consumer Services"
+},
+"QPOWER": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"QUADFUTURE": {
+"sector": "Industrials",
+"industry": "Railroads",
+"nse": null
+},
+"QUESS": {
+"sector": "Industrials",
+"industry": "Staffing & Employment Services",
+"nse": "Services"
+},
+"QUICKHEAL": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"RADICO": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": "Fast Moving Consumer Goods"
+},
+"RAILTEL": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"RAIN": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"RAINBOW": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"RALLIS": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"RAMCOCEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"RAMKY": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"RAMRAT": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"RANEHOLDIN": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"RATEGAIN": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"RATNAMANI": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"RATNAVEER": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"RAYMOND": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"RAYMONDLSL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": "Textiles"
+},
+"RAYMONDREL": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"RBA": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"nse": "Consumer Services"
+},
+"RBLBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"RCF": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"RECLTD": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"REDINGTON": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Services"
+},
+"REFEX": {
+"sector": "Energy",
+"industry": "Thermal Coal",
+"nse": "Utilities"
+},
+"RELIANCE": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"RELIGARE": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"RENTOMOJO": {
+"sector": "Industrials",
+"industry": "Rental & Leasing Services",
+"nse": null
+},
+"RENUKA": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": "Fast Moving Consumer Goods"
+},
+"REPCOHOME": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": null
+},
+"RESPONIND": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"RGL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"RHETAN": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"RHIM": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Capital Goods"
+},
+"RICOAUTO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"RIIL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"RIR": {
+"sector": "Technology",
+"industry": "Semiconductors",
+"nse": null
+},
+"RISHABH": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"nse": null
+},
+"RITES": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"RKFORGE": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": "Automobile and Auto Components"
+},
+"RML": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"ROLEXRINGS": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"ROSSTECH": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"ROTO": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"ROUTE": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"RPEL": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"RPGLIFE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"RPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"RPSGVENT": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"RPTECH": {
+"sector": "Technology",
+"industry": "Electronics & Computer Distribution",
+"nse": null
+},
+"RRKABEL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"RSYSTEMS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"RTNPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"RUBICON": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": "Healthcare"
+},
+"RUNWALENTR": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": null
+},
+"RVNL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"SAFARI": {
+"sector": "Consumer Cyclical",
+"industry": "Footwear & Accessories",
+"nse": "Consumer Durables"
+},
+"SAGILITY": {
+"sector": "Healthcare",
+"industry": "Health Information Services",
+"nse": "Information Technology"
+},
+"SAIL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"SAILIFE": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"SAIPARENT": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"SAKAR": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"SALSTEEL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"SALZERELEC": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"SAMBHV": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"SAMHI": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"SAMMAANCAP": {
+"sector": "Financial Services",
+"industry": "Mortgage Finance",
+"nse": "Financial Services"
+},
+"SANATHAN": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"SANDHAR": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"SANDUMA": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"SANGHVIMOV": {
+"sector": "Industrials",
+"industry": "Rental & Leasing Services",
+"nse": null
+},
+"SANOFI": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"SANOFICONR": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"SANSERA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SAPPHIRE": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"nse": "Consumer Services"
+},
+"SARDAEN": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"SAREGAMA": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": "Media Entertainment & Publication"
+},
+"SASKEN": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"SATIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"SBC": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Manufacturing",
+"nse": null
+},
+"SBCL": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"SBFC": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"SBICARD": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"SBIFUNDS": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": null
+},
+"SBILIFE": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"SBILIQETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SBIN": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"SBISILVER": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SCHAEFFLER": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SCHNEIDER": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"SCI": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"SDBL": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Brewers",
+"nse": null
+},
+"SEAMECLTD": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": null
+},
+"SEDEMAC": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SENCO": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"SENORES": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": "Healthcare"
+},
+"SETL": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"SFL": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"SGFIN": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"SGMART": {
+"sector": "Industrials",
+"industry": "Industrial Distribution",
+"nse": "Metals & Mining"
+},
+"SHADOWFAX": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": "Services"
+},
+"SHAILY": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Consumer Durables"
+},
+"SHAKTIPUMP": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"SHANKESH": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"SHANTIGOLD": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"SHARDACROP": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"SHARDAMOTR": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"SHAREINDIA": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": "Financial Services"
+},
+"SHILCTECH": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"SHILPAMED": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"SHIPROCKET": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"SHOPERSTOP": {
+"sector": "Consumer Cyclical",
+"industry": "Department Stores",
+"nse": null
+},
+"SHREECEM": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"SHREEJISPG": {
+"sector": "Industrials",
+"industry": "Marine Shipping",
+"nse": "Services"
+},
+"SHREEPUSHK": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"SHRINGARMS": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": null
+},
+"SHRIPISTON": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SHRIRAMFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"SHUKRAPHAR": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"SHYAMMETL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"SIEMENS": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"SIGNATURE": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"SILVER": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVER1": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVERADD": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"SILVERAG": {
+"sector": "",
+"industry": "",
+"nse": null
+},
+"SILVERAXIS": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVERBEES": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVERBETA": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVERCASE": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SILVERIETF": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SIMPLEXINF": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"SIRCA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"SJS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SJVN": {
+"sector": "Utilities",
+"industry": "Utilities - Renewable",
+"nse": "Power"
+},
+"SKFINDIA": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": null
+},
+"SKFINDUS": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": null
+},
+"SKIPPER": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Capital Goods"
+},
+"SKMEGGPROD": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"SKYGOLD": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"SKYWAYS": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": null
+},
+"SMALLCAP": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"SMARTWORKS": {
+"sector": "Real Estate",
+"industry": "Real Estate Services",
+"nse": null
+},
+"SMCGLOBAL": {
+"sector": "Financial Services",
+"industry": "Capital Markets",
+"nse": null
+},
+"SMLMAH": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Capital Goods"
+},
+"SMSPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"SMT": {
+"sector": "Healthcare",
+"industry": "Medical Devices",
+"nse": null
+},
+"SOBHA": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"SOLARA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"SOLARINDS": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"SOMANYCERA": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": null
+},
+"SONA": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"SONACOMS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SONATSOFTW": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"SOTL": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"SOUTHBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"SPANDANA": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"SPARC": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"SPLPETRO": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"SPMLINFRA": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"SPORTKING": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": null
+},
+"SRF": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Chemicals"
+},
+"SRIT": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"SSRETAIL": {
+"sector": "Consumer Cyclical",
+"industry": "Specialty Retail",
+"nse": null
+},
+"SSWL": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"STAR": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"STARHEALTH": {
+"sector": "Financial Services",
+"industry": "Insurance - Life",
+"nse": "Financial Services"
+},
+"STEAMHOUSE": {
+"sector": "Utilities",
+"industry": "Utilities - Regulated Gas",
+"nse": null
+},
+"STLNETWORK": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": null
+},
+"STOVEKRAFT": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"STYLAMIND": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"STYLEBAAZA": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": null
+},
+"STYRENIX": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"SUBEXLTD": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": null
+},
+"SUBROS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Capital Goods"
+},
+"SUDARSCHEM": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": "Chemicals"
+},
+"SUDEEPPHRM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Chemicals"
+},
+"SUMICHEM": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"SUNDARMFIN": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"SUNDRMFAST": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"SUNFLAG": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"SUNPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"SUNSHINE": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": null
+},
+"SUNTECK": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"SUNTV": {
+"sector": "Communication Services",
+"industry": "Broadcasting",
+"nse": "Media Entertainment & Publication"
+},
+"SUPRAJIT": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"SUPREMEIND": {
+"sector": "Industrials",
+"industry": "Building Products & Equipment",
+"nse": "Capital Goods"
+},
+"SUPRIYA": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": "Healthcare"
+},
+"SURAKSHA": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": null
+},
+"SURYAROSNI": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"SUVEN": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"SUZLON": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"SWANCORP": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Chemicals"
+},
+"SWASTIKAIN": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"SWIGGY": {
+"sector": "Consumer Cyclical",
+"industry": "Internet Retail",
+"nse": "Consumer Services"
+},
+"SWSOLAR": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Construction"
+},
+"SYMBIOTEC": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"SYMPHONY": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": null
+},
+"SYNCOMF": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"SYNGENE": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"SYRMA": {
+"sector": "Technology",
+"industry": "Electronic Components",
+"nse": "Capital Goods"
+},
+"TALBROAUTO": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"TANLA": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"TARC": {
+"sector": "Real Estate",
+"industry": "Real Estate - Development",
+"nse": "Realty"
+},
+"TARIL": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"TASTYBITE": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"TATACAP": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": "Financial Services"
+},
+"TATACHEM": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": "Chemicals"
+},
+"TATACOMM": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"TATACONSUM": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+},
+"TATAELXSI": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Information Technology"
+},
+"TATAGOLD": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"TATAINVEST": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"TATAPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"TATASTEEL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"TATATECH": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"TATSILV": {
+"sector": null,
+"industry": null,
+"nse": null
+},
+"TATVA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"TBOTEK": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": "Consumer Services"
+},
+"TCPLPACK": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"TCS": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"TDPOWERSYS": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"TEAMLEASE": {
+"sector": "Industrials",
+"industry": "Staffing & Employment Services",
+"nse": null
+},
+"TECHM": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"TECHNOCRAF": {
+"sector": "Industrials",
+"industry": "Infrastructure Operations",
+"nse": null
+},
+"TECHNOE": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"TEGA": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"TEJASNET": {
+"sector": "Technology",
+"industry": "Communication Equipment",
+"nse": "Telecommunication"
+},
+"TEMBO": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"TEMPSENS": {
+"sector": "Technology",
+"industry": "Scientific & Technical Instruments",
+"nse": null
+},
+"TENNIND": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"TEXINFRA": {
+"sector": "Real Estate",
+"industry": "Real Estate Services",
+"nse": null
+},
+"TEXRAIL": {
+"sector": "Industrials",
+"industry": "Railroads",
+"nse": "Capital Goods"
+},
+"TFCILTD": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"TGVSL": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"THANGAMAYL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"THELEELA": {
+"sector": "Consumer Cyclical",
+"industry": "Lodging",
+"nse": "Consumer Services"
+},
+"THERMAX": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Capital Goods"
+},
+"THOMASCOOK": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": "Consumer Services"
+},
+"THYROCARE": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"TI": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": "Fast Moving Consumer Goods"
+},
+"TIIL": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": null
+},
+"TIINDIA": {
+"sector": "Industrials",
+"industry": "Conglomerates",
+"nse": "Automobile and Auto Components"
+},
+"TIMETECHNO": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": "Capital Goods"
+},
+"TIMEX": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"TIMKEN": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": "Capital Goods"
+},
+"TINNARUBR": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"TIPSMUSIC": {
+"sector": "Communication Services",
+"industry": "Entertainment",
+"nse": "Media Entertainment & Publication"
+},
+"TITAGARH": {
+"sector": "Industrials",
+"industry": "Railroads",
+"nse": "Capital Goods"
+},
+"TITAN": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"TMB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"TMCV": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Capital Goods"
+},
+"TMPV": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"TNPETRO": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"TONBO": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": null
+},
+"TORNTPHARM": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"TORNTPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"TRANSRAILL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Capital Goods"
+},
+"TRENT": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": "Consumer Services"
+},
+"TRIDENT": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"TRITURBINE": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": "Capital Goods"
+},
+"TRIVENI": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"TRIVENIPT": {
+"sector": "Industrials",
+"industry": "Specialty Industrial Machinery",
+"nse": null
+},
+"TRUALT": {
+"sector": "Energy",
+"industry": "Oil & Gas Refining & Marketing",
+"nse": null
+},
+"TTKHLTCARE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - General",
+"nse": null
+},
+"TTKPRESTIG": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"TTML": {
+"sector": "Communication Services",
+"industry": "Telecom Services",
+"nse": "Telecommunication"
+},
+"TVSMOTOR": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Manufacturers",
+"nse": "Automobile and Auto Components"
+},
+"TVSSCS": {
+"sector": "Industrials",
+"industry": "Integrated Freight & Logistics",
+"nse": "Services"
+},
+"TVSSRICHAK": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"UBL": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Brewers",
+"nse": "Fast Moving Consumer Goods"
+},
+"UCOBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"UDS": {
+"sector": "Industrials",
+"industry": "Specialty Business Services",
+"nse": null
+},
+"UFLEX": {
+"sector": "Consumer Cyclical",
+"industry": "Packaging & Containers",
+"nse": null
+},
+"UGROCAP": {
+"sector": "Financial Services",
+"industry": "Credit Services",
+"nse": null
+},
+"UJJIVANSFB": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"ULTRACEMCO": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": "Construction Materials"
+},
+"UNIMECH": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"UNIONBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"UNIPARTS": {
+"sector": "Industrials",
+"industry": "Farm & Heavy Construction Machinery",
+"nse": null
+},
+"UNITDSPR": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Wineries & Distilleries",
+"nse": "Fast Moving Consumer Goods"
+},
+"UNIVCABLES": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"UNOMINDA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"UPL": {
+"sector": "Basic Materials",
+"industry": "Agricultural Inputs",
+"nse": "Chemicals"
+},
+"URBANCO": {
+"sector": "Technology",
+"industry": "Software - Application",
+"nse": "Consumer Services"
+},
+"USHAMART": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"UTIAMC": {
+"sector": "Financial Services",
+"industry": "Asset Management",
+"nse": "Financial Services"
+},
+"UTKARSHBNK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": null
+},
+"UTLSOLAR": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"UTTAMSUGAR": {
+"sector": "Consumer Defensive",
+"industry": "Confectioners",
+"nse": null
+},
+"V2RETAIL": {
+"sector": "Consumer Cyclical",
+"industry": "Apparel Retail",
+"nse": "Consumer Services"
+},
+"VADILALIND": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": null
+},
+"VAIBHAVGBL": {
+"sector": "Consumer Cyclical",
+"industry": "Luxury Goods",
+"nse": "Consumer Durables"
+},
+"VALIANTORG": {
+"sector": "Basic Materials",
+"industry": "Chemicals",
+"nse": null
+},
+"VAML": {
+"sector": "Basic Materials",
+"industry": "Aluminum",
+"nse": "Metals & Mining"
+},
+"VARMORA": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"VARROC": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"VBL": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Non-Alcoholic",
+"nse": "Fast Moving Consumer Goods"
+},
+"VEDL": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Metals & Mining"
+},
+"VEDPOWER": {
+"sector": "Utilities",
+"industry": "Utilities - Independent Power Producers",
+"nse": "Power"
+},
+"VENKEYS": {
+"sector": "Consumer Defensive",
+"industry": "Farm Products",
+"nse": null
+},
+"VENUSPIPES": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"VGUARD": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Consumer Durables"
+},
+"VIDYAWIRES": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": null
+},
+"VIJAYA": {
+"sector": "Healthcare",
+"industry": "Diagnostics & Research",
+"nse": "Healthcare"
+},
+"VIKRAMSOLR": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"VIKRAN": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"VINATIORGA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"VINCOFE": {
+"sector": "Consumer Defensive",
+"industry": "Beverages - Non-Alcoholic",
+"nse": null
+},
+"VINDHYATEL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"VIPIND": {
+"sector": "Consumer Cyclical",
+"industry": "Footwear & Accessories",
+"nse": "Consumer Durables"
+},
+"VISHNU": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"VISL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Metals & Mining"
+},
+"VIYASH": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"VMART": {
+"sector": "Consumer Cyclical",
+"industry": "Department Stores",
+"nse": "Consumer Services"
+},
+"VMM": {
+"sector": "Consumer Cyclical",
+"industry": "Department Stores",
+"nse": "Consumer Services"
+},
+"VNL": {
+"sector": "Basic Materials",
+"industry": "Building Materials",
+"nse": null
+},
+"VOGL": {
+"sector": "Basic Materials",
+"industry": "Other Industrial Metals & Mining",
+"nse": "Oil Gas & Consumable Fuels"
+},
+"VOLTAMP": {
+"sector": "Industrials",
+"industry": "Electrical Equipment & Parts",
+"nse": "Capital Goods"
+},
+"VOLTAS": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"VRLLOG": {
+"sector": "Industrials",
+"industry": "Trucking",
+"nse": null
+},
+"VSSL": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": null
+},
+"VTL": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"WAAREEENER": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"WAAREERTL": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Capital Goods"
+},
+"WABAG": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Utilities"
+},
+"WALCHANNAG": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": null
+},
+"WANBURY": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"WEBELSOLAR": {
+"sector": "Technology",
+"industry": "Solar",
+"nse": "Capital Goods"
+},
+"WELCORP": {
+"sector": "Basic Materials",
+"industry": "Steel",
+"nse": "Capital Goods"
+},
+"WELENT": {
+"sector": "Industrials",
+"industry": "Engineering & Construction",
+"nse": "Construction"
+},
+"WELSPUNLIV": {
+"sector": "Consumer Cyclical",
+"industry": "Textile Manufacturing",
+"nse": "Textiles"
+},
+"WENDT": {
+"sector": "Industrials",
+"industry": "Tools & Accessories",
+"nse": null
+},
+"WESTLIFE": {
+"sector": "Consumer Cyclical",
+"industry": "Restaurants",
+"nse": "Consumer Services"
+},
+"WEWORK": {
+"sector": "Real Estate",
+"industry": "Real Estate Services",
+"nse": "Services"
+},
+"WHEELS": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": null
+},
+"WHIRLPOOL": {
+"sector": "Consumer Cyclical",
+"industry": "Furnishings, Fixtures & Appliances",
+"nse": "Consumer Durables"
+},
+"WINDLAS": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": null
+},
+"WIPRO": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"WOCKPHARMA": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"WONDERLA": {
+"sector": "Consumer Cyclical",
+"industry": "Leisure",
+"nse": null
+},
+"WSTCSTPAPR": {
+"sector": "Basic Materials",
+"industry": "Paper & Paper Products",
+"nse": null
+},
+"XPROINDIA": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"XTRANET": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": null
+},
+"YASHO": {
+"sector": "Basic Materials",
+"industry": "Specialty Chemicals",
+"nse": null
+},
+"YATHARTH": {
+"sector": "Healthcare",
+"industry": "Medical Care Facilities",
+"nse": "Healthcare"
+},
+"YATRA": {
+"sector": "Consumer Cyclical",
+"industry": "Travel Services",
+"nse": null
+},
+"YESBANK": {
+"sector": "Financial Services",
+"industry": "Banks - Regional",
+"nse": "Financial Services"
+},
+"ZAGGLE": {
+"sector": "Technology",
+"industry": "Software - Infrastructure",
+"nse": "Information Technology"
+},
+"ZEEL": {
+"sector": "Communication Services",
+"industry": "Broadcasting",
+"nse": "Media Entertainment & Publication"
+},
+"ZENSARTECH": {
+"sector": "Technology",
+"industry": "Information Technology Services",
+"nse": "Information Technology"
+},
+"ZENTEC": {
+"sector": "Industrials",
+"industry": "Aerospace & Defense",
+"nse": "Capital Goods"
+},
+"ZETWERK": {
+"sector": "Industrials",
+"industry": "Metal Fabrication",
+"nse": null
+},
+"ZFCVINDIA": {
+"sector": "Consumer Cyclical",
+"industry": "Auto Parts",
+"nse": "Automobile and Auto Components"
+},
+"ZOTA": {
+"sector": "Healthcare",
+"industry": "Biotechnology",
+"nse": null
+},
+"ZYDUSLIFE": {
+"sector": "Healthcare",
+"industry": "Drug Manufacturers - Specialty & Generic",
+"nse": "Healthcare"
+},
+"ZYDUSWELL": {
+"sector": "Consumer Defensive",
+"industry": "Packaged Foods",
+"nse": "Fast Moving Consumer Goods"
+}
+}
