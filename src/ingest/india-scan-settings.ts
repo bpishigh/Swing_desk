@@ -6,7 +6,7 @@ import { LIMITS, type Light, type SetupId } from '../engine/setups.ts';
 export const INDIA_SCAN_VERSION = 'IND-SCAN-1';
 export const INDIA_SCAN: typeof SCAN = {
   ...SCAN,
-  universeSize: 500,           // top 500 by 20-day traded value (same as C-54)
+  universeSize: 1500,          // option B (17 Nov 2026): every name above the floors, so the Rs 5 crore/day floor is the limit; was top 500 (same as C-54)
   minDollarVol: 5e7,           // rupees: 5 crore a day, safety floor (same as C-54)
   minPrice: 20,                // rupees (same as C-54)
   clears50M: 2.5e8,            // tag only: 25 crore a day, the middle cost tier

@@ -22,10 +22,12 @@ if (sel.length < INDIA_SCAN.minSessions + 1) { console.error('too few stored day
 const actions = [...JSON.parse(readFileSync('data/india/corp-actions-history.json')), ...(existsSync('data/india/corp-actions.json') ? JSON.parse(readFileSync('data/india/corp-actions.json')) : [])];
 const ov = { ...(existsSync('data/india/corp-action-overrides-hist.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides-hist.json')) : {}), ...(existsSync('data/india/corp-action-overrides.json') ? JSON.parse(readFileSync('data/india/corp-action-overrides.json')) : {}) };   // hand overrides win over rule-derived ones
 const res = resolveHistory(sel, actions, ov);
-const industry = JSON.parse(readFileSync('data/india/segments.json', 'utf8')).industry ?? {};
+const seg = JSON.parse(readFileSync('data/india/segments.json', 'utf8'));
+const coreIndustry = seg.industry ?? {}, industry = { ...(seg.scanExtra ?? {}), ...coreIndustry };   // scanExtra: Microcap 250 names, swing scan only
 const days = toDays(sel), t = days.length - 1;
-const allowed = new Set(Object.keys(industry));   // the group step needs an industry, so the universe is the NSE index lists (about 500 names)
-const hist = asOfHistories(days, t, res, allowed);
+const allowed = new Set(Object.keys(industry));   // the group step needs an industry, so the universe is the NSE index lists (about 500 names) plus the Microcap 250 (about 750)
+const coreAllowed = new Set(Object.keys(coreIndustry));
+const hist = asOfHistories(days, t, res, allowed), histCore = asOfHistories(days, t, res, coreAllowed);   // histCore: the monthly momentum list keeps its original 500-name universe
 const types = new Map([...allowed].map((s) => [s, 'CS']));
 const reg = JSON.parse(readFileSync('data/india/regime.json', 'utf8')).latest;
 const light = ['green', 'yellow', 'red'].includes(reg?.name) ? reg.name : 'yellow';
@@ -33,7 +35,7 @@ const stateFile = 'data/india/scan/state.json';
 const prev = !ASOF && existsSync(stateFile) ? JSON.parse(readFileSync(stateFile, 'utf8')).state ?? {} : {};
 const diagRows = [];   // output only: the scan's independent geometry tests, used for the geometry log below
 const out = runScan({ hist, types, sic: new Map(), light, prev, settings: INDIA_SCAN, version: INDIA_SCAN_VERSION, groupOf: (s) => industry[s] ?? null, setupsByLight: INDIA_SETUPS, diagRows });
-out.regimeDate = reg?.date ?? null; out.industryCovered = Object.keys(industry).length;
+out.regimeDate = reg?.date ?? null; out.industryCovered = Object.keys(industry).length; out.coreCovered = Object.keys(coreIndustry).length;
 out.notes = out.notes.filter((n) => !/SIC|US-SCAN|signed off|C-20a/.test(n));
 out.notes.push('IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE\'s broad industries. Results dates are not checked.');
 const summary = { asOf: out.asOf, light, funnel: out.funnel, industryCovered: out.industryCovered, groupsRanked: out.groups.length, ready: out.ready.length, watch: out.watch.length, noGroupQualified: out.noGroup.qualified, thinGroupQualified: out.thinGroup.qualified };
@@ -46,7 +48,7 @@ console.log(JSON.stringify(summary));
 { // forward-test inputs (C-66), output only: the month's momentum list (C-54 rule, first session of the month) and tonight's desk-geometry candidates
   if (!DRY || process.argv.includes('--extras')) {
     const mfile = `data/india/momentum/${out.asOf.slice(0, 7)}.json`;
-    if (!existsSync(mfile)) { const top = topShare(eligible(hist, t)); mkdirSync('data/india/momentum', { recursive: true }); writeFileSync(mfile, JSON.stringify({ month: out.asOf.slice(0, 7), date: out.asOf, rule: 'C-54 12-1 momentum, top decile of the 500 most traded names in the scan universe, computed on the first session run of the month', names: top.map((p) => p.sym).sort() }) + '\n'); }
+    if (!existsSync(mfile)) { const top = topShare(eligible(histCore, t)); mkdirSync('data/india/momentum', { recursive: true }); writeFileSync(mfile, JSON.stringify({ month: out.asOf.slice(0, 7), date: out.asOf, rule: 'C-54 12-1 momentum, top decile of the 500 most traded names in the scan universe, computed on the first session run of the month', names: top.map((p) => p.sym).sort() }) + '\n'); }
     const topG = new Set(out.groups.filter((g) => g.passes).map((g) => g.group)), rows = [];
     for (const r of diagRows) {
       if (!topG.has(industry[r.sym]) || r.path !== 'main') continue;

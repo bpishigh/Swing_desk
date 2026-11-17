@@ -5,12 +5,14 @@ export const LISTS: Record<'large' | 'mid' | 'small', { file: string; min: numbe
   mid: { file: 'ind_niftymidcap150list.csv', min: 140, max: 160 },
   small: { file: 'ind_niftysmallcap250list.csv', min: 230, max: 270 },
 };
+/** Extra list used by the swing scan only (not by the other India books): Nifty Microcap 250. Same CSV layout. */
+export const SCAN_EXTRA = { micro: { file: 'ind_niftymicrocap250_list.csv', min: 230, max: 270 } } as const;
 /** Symbols from one NSE list; throws on an unexpected header or an implausible count so a changed file is never read as truth. */
-export function parseIndexList(csv: string, which: keyof typeof LISTS): string[] {
+export function parseIndexList(csv: string, which: keyof typeof LISTS | keyof typeof SCAN_EXTRA): string[] {
   const lines = csv.replace(/^﻿/, '').trim().split(/\r?\n/);
   if (!/^Company Name,Industry,Symbol/.test(lines[0])) throw new Error(`${which}: unexpected header`);
   const out = [...new Set(lines.slice(1).map((l) => l.split(',')[2]?.trim()).filter((s): s is string => !!s))];
-  const { min, max } = LISTS[which];
+  const { min, max } = which === 'micro' ? SCAN_EXTRA.micro : LISTS[which];
   if (out.length < min || out.length > max) throw new Error(`${which}: ${out.length} symbols, expected ${min} to ${max}`);
   return out;
 }
