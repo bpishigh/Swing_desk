@@ -1,0 +1,9 @@
+{
+ "rule": "Form 4 code P, non-derivative, officer or director, one insider per filing summed, at least $250,000, form 4 only; filing date; no returns read",
+ "universes": {
+  "top500Current": 496,
+  "wideEligibleCurrent": 5699
+ },
+ "top500": {},
+ "wide": {}
+}
