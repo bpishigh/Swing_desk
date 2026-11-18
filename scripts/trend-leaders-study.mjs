@@ -16,6 +16,7 @@ const ov = { ...R('data/india/corp-action-overrides-hist.json', {}), ...R('data/
 const res = resolveHistory(uniq, actions, ov), days = toDays(uniq), dates = days.map((d) => d.date), N = dates.length;
 const eq = new Set(); for (const d of uniq) for (const [s, r] of Object.entries(d.rows)) if (r[0] === 'EQ') eq.add(s);
 const series = buildHistories(days, res.splits, eq).series;
+const oAdj = (sym, i) => { const r = uniq[i]?.rows?.[sym], c = series.get(sym)?.c[i]; return r && r[2] > 0 && r[5] > 0 && c > 0 ? (r[2] * c) / r[5] : NaN; };   // open on the same split-adjusted scale as the closes
 const comp = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) if (v?.[3] > 0) comp[d] = v[3]; }
 const ck = Object.keys(comp).sort(); if (ck.length < 1000) throw new Error('index series not found: ' + ck.length);
 const compAt = (D) => { let lo = 0, hi = ck.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (ck[m] <= D) { a = m; lo = m + 1; } else hi = m - 1; } return a; };
@@ -38,7 +39,7 @@ for (let t = Math.max(t0, 260); t <= tEnd; t++) {
     if (s.c[t] < hi) continue;
     let s200 = 0, n200 = 0, v50 = 0, n50 = 0; for (let k = t - 199; k <= t; k++) if (s.c[k] > 0) { s200 += s.c[k]; n200++; } for (let k = t - 50; k < t; k++) if (s.v[k] >= 0) { v50 += s.v[k]; n50++; }
     if (n200 < 180 || s.c[t] <= s200 / n200 || n50 < 40 || !(s.v[t] >= 1.5 * (v50 / n50))) continue;
-    const ent = uniq[t + 1]?.rows?.[sym]?.[2]; if (!(ent > 0)) continue;
+    const ent = oAdj(sym, t + 1); if (!(ent > 0)) continue;
     last.set(sym, t); sig.push({ sym, t, D, ent, rk: rets[i], year: D.slice(0, 4) });
   }
 }
@@ -75,7 +76,7 @@ for (const X of RULES) {
       if (X === 'lock') stop = Math.max(e.ent * 0.8, locked ? e.ent : 0, hi * 0.65);
       if (X === 'dead') { stop = hi * 0.65; if (j === e.t + 60 && s.c[j] < e.ent * 1.1) stop = Infinity; }
       if (X === 'atr') { const a = atr(j); stop = Number.isFinite(a) ? hi - 3 * a : hi * 0.65; }
-      if (s.c[j] <= stop) { const o = uniq[j + 1]?.rows?.[e.sym]?.[2]; xo = o > 0 ? o : s.c[j]; break; }
+      if (s.c[j] <= stop) { const o = oAdj(e.sym, j + 1); xo = o > 0 ? o : s.c[j]; break; }
     }
     if (xo == null) { let m = Math.min(N - 1, e.t + 781); while (m > e.t && !(s.c[m] > 0)) m--; xo = s.c[m]; }
     const a = compAt(e.D), b = compAt(dates[Math.min(N - 1, j)]), ben = comp[ck[b]] / comp[ck[a]] - 1;

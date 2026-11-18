@@ -44,6 +44,7 @@ const lightAt = (D) => { const a = compAt(D); if (a < 199) return 'yellow'; let 
 const bench63At = (D) => { const a = compAt(D); return a >= 63 ? compClose[ck[a]] / compClose[ck[a - 63]] - 1 : null; };
 
 const [LF, LT] = arg('list', '2020-01-02:2022-12-31').split(':'), TAG = arg('tag', 'discovery');
+const oAdj = (sym, i) => { const r = uniqRows[i]?.rows?.[sym], c = series.get(sym)?.c[i]; return r && r[2] > 0 && r[5] > 0 && c > 0 ? (r[2] * c) / r[5] : NaN; };   // open on the same split-adjusted scale as the closes
 const MINTV0 = Number(arg('mintv0', 0)), cohort = { total: 0, kept: 0 };
 const dIdx = new Map(dates.map((d, i) => [d, i]));
 const ma = (a, f, t) => { let s = 0, n = 0; for (let i = f; i <= t; i++) if (a[i] > 0) { s += a[i]; n++; } return n ? s / n : NaN; };
@@ -68,14 +69,14 @@ for (const { sym, listed } of ipo) {
     if (s.h[k] > hh) { hh = s.h[k]; hhAt = k; }
   }
   if (found == null) { none.push({ sym, listed, mult }); continue; }
-  const k = found, ent = uniqRows[k + 1]?.rows?.[sym]?.[2]; if (!(ent > 0)) { none.push({ sym, listed, mult, why: 'no entry open' }); continue; }
+  const k = found, ent = oAdj(sym, k + 1); if (!(ent > 0)) { none.push({ sym, listed, mult, why: 'no entry open' }); continue; }
   let lo = Infinity; for (let j = hhAt; j <= k; j++) if (s.l[j] > 0 && s.l[j] < lo) lo = s.l[j];
   const fw = (n) => { const j = k + 1 + n; return j <= N && s.c[j] > 0 ? s.c[j] / ent - 1 : null; };
   let mdd = 0; for (let j = k + 1; j <= Math.min(N, k + 61); j++) if (s.l[j] > 0) mdd = Math.min(mdd, s.l[j] / ent - 1);
   let pk = 0; for (let j = k + 1; j <= Math.min(N, k + 1 + 520); j++) if (s.c[j] > pk) pk = s.c[j];
   let reach2 = false; for (let j = k + 1; j <= Math.min(N, k + 251); j++) if (s.c[j] >= 2 * ent) { reach2 = true; break; }
   const D = dates[k], a = compAt(D), b63 = bench63At(D), r63 = s.c[k - 63] > 0 ? s.c[k] / s.c[k - 63] - 1 : null;
-  const ex = {}; for (const X of [0.25, 0.35, 0.5]) { let hi = ent, out = null, j = k + 1; for (; j <= Math.min(N - 1, k + 520); j++) { if (!(s.c[j] > 0)) continue; if (s.c[j] > hi) hi = s.c[j]; if (s.c[j] <= hi * (1 - X)) { const o = uniqRows[j + 1]?.rows?.[sym]?.[2]; out = o > 0 ? o : s.c[j]; break; } } if (out == null) { let m = Math.min(N, k + 521); while (m > k && !(s.c[m] > 0)) m--; out = s.c[m]; } ex[X] = { r: out / ent - 1 - 0.013, d: j - k }; }
+  const ex = {}; for (const X of [0.25, 0.35, 0.5]) { let hi = ent, out = null, j = k + 1; for (; j <= Math.min(N - 1, k + 520); j++) { if (!(s.c[j] > 0)) continue; if (s.c[j] > hi) hi = s.c[j]; if (s.c[j] <= hi * (1 - X)) { const o = oAdj(sym, j + 1); out = o > 0 ? o : s.c[j]; break; } } if (out == null) { let m = Math.min(N, k + 521); while (m > k && !(s.c[m] > 0)) m--; out = s.c[m]; } ex[X] = { r: out / ent - 1 - 0.013, d: j - k }; }
   events.push({ ex, sym, listed, brk: D, rel: k - t0, vsList: s.c[k] / s.c[t0] - 1, vs30: k - t0 >= 30 ? s.c[k] / c30 - 1 : null, pop0: s.c[t0] / (uniqRows[t0].rows[sym][1] > 0 ? uniqRows[t0].rows[sym][1] : s.c[t0]) - 1, baseLen: k - hhAt, baseDepth: hh > 0 && lo < Infinity ? 1 - lo / hh : null, volX: s.v[k] / ma(s.v, k - 20, k - 1), rs63: r63 != null && b63 != null ? r63 - b63 : null, regime: lightAt(D), deliv: uniqRows[k].rows[sym]?.[7] ?? null, f60: fw(60), f120: fw(120), f250: fw(250), mdd60: mdd, peakFromEntry: pk / ent, reach2, mult, winner5: mult >= 5, winner10: mult >= 10, peakAt });
 }
 const q = (arr, p) => { const a = arr.filter((x) => x != null).sort((x, y) => x - y); return a.length ? a[Math.min(a.length - 1, Math.floor(p * a.length))] : null; };

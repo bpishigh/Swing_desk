@@ -23,6 +23,7 @@ const FUND = process.argv.includes('--fund');
 const NAMES = [...(FUND ? ['revYoY', 'patYoY', 'revAccel', 'marginChg', 'patAccel'] : []), 'mom12_1', 'mom6', 'mom3', 'prox52', 'vol126', 'logTV', 'tvTrend', 'price', 'deliv', 'range40', 'udVol', 'age', 'dist200', 'fromLow'];
 const monthEnds = []; for (let t = 1; t < N; t++) if (dates[t].slice(0, 7) !== dates[t + 1]?.slice(0, 7) && dates[t].slice(0, 7) >= FROM && dates[t].slice(0, 7) <= TO) monthEnds.push(t);
 const tvAt = (s, a, b) => { let x = 0, n = 0; for (let i = a; i <= b; i++) if (s.c[i] > 0 && s.v[i] >= 0) { x += s.c[i] * s.v[i]; n++; } return n >= (b - a + 1) * 0.7 ? x / n : NaN; };
+const oAdj = (sym, i) => { const r = uniq[i]?.rows?.[sym], c = series.get(sym)?.c[i]; return r && r[2] > 0 && r[5] > 0 && c > 0 ? (r[2] * c) / r[5] : NaN; };   // open on the same split-adjusted scale as the closes
 const FIL = new Map(); if (FUND) for (const f of readdirSync('data/india/filings').filter((x) => x.endsWith('.json.gz'))) { try { const j = JSON.parse(gunzipSync(readFileSync('data/india/filings/' + f))); FIL.set(j.entity ?? f.replace('.json.gz', ''), j.results ?? []); } catch {} }
 const eom = (y, m) => new Date(Date.UTC(y, m, 0)).getUTCDate(), addM = (p, k) => { let y = +p.slice(0, 4), m = +p.slice(5, 7) + k; while (m < 1) { m += 12; y--; } while (m > 12) { m -= 12; y++; } return `${y}-${String(m).padStart(2, '0')}-${String(eom(y, m)).padStart(2, '0')}`; };
 function fund(sym, D) {
@@ -93,8 +94,8 @@ if (process.argv.includes('--portfolio') && COMBO.length) {
     const mark = () => { let v = cash; for (const p of pos) v += p.val * (pxAt(p.sym, t, p.t) / p.ent); return v; };
     let gateOk = true; if (GATE === 'green' || GATE === 'both') gateOk = gateOk && greenAt(dates[t - 1]); if (GATE === 'dd15' || GATE === 'both') gateOk = gateOk && mark() / peak - 1 > -0.15;
     const todays = !gateOk ? [] : (byT.get(t - 1) ?? []).filter((r) => !held.has(r.sym)).sort((x, y) => y.f.mom6 - x.f.mom6);
-    if (todays.length) { const eq0 = mark(); for (const r of todays) { const ent = uniq[t].rows?.[r.sym]?.[2]; if (!(ent > 0)) continue; if (pos.length >= 50) { skipped++; continue; } const val = Math.min(eq0 * 0.02, cash); if (val <= 0) { skipped++; continue; }
-      const s2 = series.get(r.sym); let hi = ent, xo = null, j = t; for (; j <= Math.min(N - 2, t + 780); j++) { if (!(s2.c[j] > 0)) continue; if (s2.c[j] > hi) hi = s2.c[j]; if (s2.c[j] <= hi * 0.65) { const o = uniq[j + 1]?.rows?.[r.sym]?.[2]; xo = o > 0 ? o : s2.c[j]; break; } }
+    if (todays.length) { const eq0 = mark(); for (const r of todays) { const ent = oAdj(r.sym, t); if (!(ent > 0)) continue; if (pos.length >= 50) { skipped++; continue; } const val = Math.min(eq0 * 0.02, cash); if (val <= 0) { skipped++; continue; }
+      const s2 = series.get(r.sym); let hi = ent, xo = null, j = t; for (; j <= Math.min(N - 2, t + 780); j++) { if (!(s2.c[j] > 0)) continue; if (s2.c[j] > hi) hi = s2.c[j]; if (s2.c[j] <= hi * 0.65) { const o = oAdj(r.sym, j + 1); xo = o > 0 ? o : s2.c[j]; break; } }
       if (xo == null) { let m = Math.min(N - 1, t + 780); while (m > t && !(s2.c[m] > 0)) m--; xo = s2.c[m]; }
       cash -= val; held.add(r.sym); pos.push({ sym: r.sym, t, ent, val, r: xo / ent - 1 - 0.02, xj: Math.min(j + 1, N - 1) }); taken++; } }
     const v = mark(); if (d0 == null) d0 = dates[t]; d1 = dates[t]; peak = Math.max(peak, v); mdd = Math.min(mdd, v / peak - 1); inv += 1 - cash / v; nd++; if (t > tEnds.at(-1) + 1 && pos.length === 0) break; pf = { final: v };

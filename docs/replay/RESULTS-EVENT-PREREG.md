@@ -17,3 +17,6 @@ Each original quarterly filing with a timestamp (data/india/filings) is an event
 - Discovery: at least 300 signal events; mean net excess at 60 sessions at least +3 points; above the control events by at least 3 points; positive in at least 3 of 4 years.
 - Validation: at least 300 signal events; mean net excess at least +2 points and above control by at least 2 points at 60 sessions; positive in at least 3 of 4 years.
 - Pass leads to a portfolio replay on the usual bar; fail closes results timing on this data. No amendments after seeing numbers.
+
+## Discovery result (18 Nov 2026; first run voided by the split-adjustment bug, this is the re-run, file RESULTS-EVENT-discovery-adj.md)
+520 signal events, 2,977 control. 60 sessions: signal +2.3% mean net excess over the Nifty 500, control +0.8%; 120 sessions: signal +11.3%, control +4.8%; 250 sessions: +10.7% vs +13.1%. Bar at 60 sessions (at least +3 points, and 3 above control): missed (+2.3, +1.5 above control). The 120-session gap (+6.5 points) is not the registered horizon and is not used. Verdict: fails; validation not opened; results timing closed on this data.
