@@ -624,7 +624,7 @@ function overlapPage(m) {
 function scoresPage(m) {
   const bs = (D.strategies || []).filter((x) => x.market === m && x.view === 'book_list' && bk(x.id)?.scorecard);
   return `<div class="shead"><div class="eyebrow">Compare</div><div class="stitle"><h2>Scores: all strategies</h2></div><p class="lead">Every paper book side by side, each read against its own yardstick. Paper only; a US result alone adopts nothing.</p></div>
-  <div class="sbody">${bookCompare('', m)}${bs.length ? `<section class="scoreslist"><h3 class="ttl">Detail by strategy</h3><p class="note" style="margin:0 0 6px">Open one for confidence, the stop line, drawdown and the reported comparison lines.</p>${bs.map((x) => `<details class="fold"><summary>${esc(x.name)} · ${esc(x.rule)} · ${x.market === 'us' ? 'US' : 'India'}</summary>${bookScoreCard(x, bk(x.id))}</details>`).join('')}</section>` : ''}</div>`;
+  <div class="sbody">${bookCompare('', m)}${setupScores(m)}${bs.length ? `<section class="scoreslist"><h3 class="ttl">Detail by strategy</h3><p class="note" style="margin:0 0 6px">Open one for confidence, the stop line, drawdown and the reported comparison lines.</p>${bs.map((x) => `<details class="fold"><summary>${esc(x.name)} · ${esc(x.rule)} · ${x.market === 'us' ? 'US' : 'India'}</summary>${bookScoreCard(x, bk(x.id))}</details>`).join('')}</section>` : ''}</div>`;
 }
 const FAM_SHORT = ['Daily ideas', 'Momentum', 'Variations', 'Timing rules', 'Fundamentals'];
 const paperJudged = () => `<details class="fold"><summary>How paper tests are judged</summary><p class="note">Every paper test is a simulated book that starts at 100. Signals are taken at a close and filled at the next day's open, with trading costs deducted. Each book is compared with one named yardstick, usually the same momentum portfolio without the idea being tested. A confidence figure says how likely the idea's edge beats its extra cost; it starts at 50% and moves only with results. No paper test trades real money, and nothing is adopted until you mark it Live, Adopted, Rejected or Parked.</p></details>`;
@@ -724,6 +724,21 @@ const BOOKTXT = {
 };
 const bk = (id) => D.books?.by?.[id] || null, pc = (x, d = 1) => (typeof x === 'number' ? sgn(x * 100, d, '%') : '–');
 const confTxt = (r) => (r.confidence === null || r.confidence === undefined ? '–' : Math.round(r.confidence * 100) + '%');
+let SWSET = null;
+const loadSetups = () => { if (SWSET === null) { SWSET = false; fetch('data/swing-setups.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : false)).then((d) => { SWSET = d || false; render(); }).catch(() => { SWSET = false; }); } };
+function setupScores(mk) {
+  loadSetups(); const d = SWSET && SWSET.markets && SWSET.markets[mk === 'us' ? 'us' : 'india']; if (!d) return '';
+  const f1 = (x) => (typeof x === 'number' ? (x >= 0 ? '+' : '') + x.toFixed(2) + 'R' : '–'), pcw = (x) => (typeof x === 'number' ? Math.round(x * 100) + '%' : '–'), S = (o, k) => o.streams[k];
+  const row = (x) => { const a = x.streams.official, c = x.streams.capwaived, k = x.streams.comparator, any = a || c || k, fired = x.nightsReady > 0 || !!any;
+    const cell = (st) => (st ? `${st.triggers} / ${st.closed} closed / ${f1(st.meanR)} / ${pcw(st.winRate)}` : '–');
+    return `<tr><td><b>${esc(x.name)}</b> <span class="muted">(${esc(x.id)})</span></td><td class="num">${x.nightsReady}</td><td>${cell(a)}</td><td>${cell(c)}</td><td>${cell(k)}</td><td>${fired ? '' : '<span style="color:var(--muted)">not fired yet</span>'}</td></tr>`; };
+  const why = Object.entries(d.block).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<li>${esc(k)}: ${v} (${Math.round((v / Math.max(1, d.watchSightings)) * 100)}%)</li>`).join('');
+  return `<section style="margin-top:28px"><h3 class="ttl">Swing setups: how each type has done</h3>
+  <p class="note" style="margin:6px 0 0;max-width:72ch">The swing desk's paper trades are tagged by setup type. Each cell shows signals / closed / average result in R / share of winners. "Official" follows every rule; "cap waived" lets through signals whose stop is wider than the setup allows; "comparator" is the control stream. ${d.nights} nights since ${esc(dmy(d.from))}; market light on those nights: ${Object.entries(d.lightNights).map(([k, v]) => `${v} ${k}`).join(', ')}. Counts are small, so these are not scores yet.</p>
+  <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Setup</th><th class="num">Nights ready</th><th>Official</th><th>Cap waived</th><th>Comparator</th><th></th></tr></thead><tbody>${d.setups.map(row).join('')}</tbody></table></div>
+  <details class="fold" style="margin-top:10px"><summary>Why stocks stayed on the watch list (${d.watchSightings} sightings, about ${d.avgQualified} qualifying stocks a night)</summary><ul style="margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.5">${why}</ul>
+  <p class="note" style="margin:8px 0 0">Base breakouts need a tight base and a close within 5% of the pivot at the same time; on ${d.nights} nights ${d.nightsWithBaseQuality ? 'some stocks passed' : 'no stock passed the tight-base check'}. ${esc(d.notes['3'])}</p></details></section>`;
+}
 function bookCompare(cur, mk) {
   const rows = (D.books?.rows || []).filter((r) => !mk || (r.market === 'US') === (mk === 'us')); if (!rows.length) return '';
   const kc = (k) => (k === 'Kill' ? 'var(--red)' : k === 'Watch' ? 'var(--amber, #b7791f)' : 'var(--muted)');
