@@ -27,7 +27,7 @@ if (MK === 'in') {
   const actions = [...(PRE ? R('data/india/corp-actions-history-pre2019.json', []) : []), ...R('data/india/corp-actions-history.json', []), ...R('data/india/corp-actions.json', [])];
   const ov = { ...R('data/india/corp-action-overrides-hist.json', {}), ...R('data/india/corp-action-overrides.json', {}) };
   const res = resolveHistory(uniq, actions, ov); days = toDays(uniq); dates = days.map((d) => d.date); splits = res.splits;
-  openAt = (sym, t) => { const r = uniq[t]?.rows?.[sym]; return r && r[2] > 0 ? r[2] : NaN; }; tier = (v) => tierCost(v) + EXTRA;
+  openAt = (sym, t) => { const r = uniq[t]?.rows?.[sym], c = series.get(sym)?.c[t]; return r && r[2] > 0 && r[5] > 0 && c > 0 ? (r[2] * c) / r[5] : NaN; }; tier = (v) => tierCost(v) + EXTRA;   // open on the adjusted scale of the closes (fix 18 Nov, C-243)
   const idx = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) idx[d] = v[3]; }
   compClose = idx;
 } else {
