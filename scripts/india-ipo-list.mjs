@@ -15,7 +15,7 @@ for (const e of ent.entities) if (e.symbols.length > 1) for (let i = 1; i < e.sy
 const seen = new Set(Object.keys(days[0].rows)), first = new Map(), seenDates = new Set();
 for (let i = 1; i < days.length; i++) {
   const d = days[i]; if (seenDates.has(d.date)) continue; seenDates.add(d.date);
-  for (const [sym, r] of Object.entries(d.rows)) { if (seen.has(sym)) continue; seen.add(sym); if (r[0] === 'EQ' && r[5] > 0 && d.date >= '2020-01-02') first.set(sym, { sym, listed: d.date, firstClose: r[5] }); }
+  for (const [sym, r] of Object.entries(d.rows)) { if (seen.has(sym)) continue; seen.add(sym); if (r[0] === 'EQ' && r[5] > 0 && r[5] * r[6] >= 3e7 && d.date >= '2020-01-02') first.set(sym, { sym, listed: d.date, firstClose: r[5] }); }
 }
 const perDay = new Map(); for (const x of first.values()) perDay.set(x.listed, (perDay.get(x.listed) ?? 0) + 1);
 const bulk = new Set([...perDay].filter(([, n]) => n > 20).map(([d]) => d));   // a day with more than 20 first appearances is a mass move (for example SME names moving to the main board), not IPOs

@@ -41,3 +41,5 @@ Portfolio result (20 names x 5%): whole span CAGR 8.3% vs Nifty 500 12.9%, max d
 
 ## Addendum 3 (18 Nov 2026): one sizing variant, registered before the run
 The event edge is spread over many trades; 20 slots capture under a tenth of them. One variant, sizing only, signal order unchanged: at most 50 names, 2% each. Same span, same three starts, same bar. If it fails, the study is closed. Family of 2 for the portfolio step noted.
+
+Sizing variant result (50 names x 2%): whole span CAGR 12.2% vs Nifty 500 12.9%, max drawdown -51% vs -38%; 2011–17 start 13.0% vs 5.5% (DD -27% vs -38%); 2018–23 start 6.2% vs 11.9% (DD -34% vs -38%). Fails the bar (loses to Nifty 500 in the later half and over the whole span; whole-span drawdown above 35%). Study closed: the event-level edge does not turn into a book that beats the index.
