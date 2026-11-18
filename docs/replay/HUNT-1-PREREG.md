@@ -22,3 +22,9 @@ Reported for every rule regardless: n, mean net, median, winners, hold, ex-best-
 
 ## Not in this run (declared)
 Earnings-gap detector for setup 3 (separate, needs filings asOf). US version (only after an India pass). Industry strength. Lower liquidity floors.
+
+## Results (19 Nov 2026; one run per sample, no amendments, no voids)
+Discovery 2011-2018 (event level, net of 1.3%): M1 n 2,019 excess +9.8 pts, 6/8 years; M2 1,357 +14.4, 7/8; M3 1,525 +16.8, 7/8; M4 220 +14.8, 7/8. All four pass. S1 -1.7, S2 -0.8, S3 -2.1, S4 -1.0 pts excess, positive in 1-2 of 8 years: all four swing rules fail discovery and were not taken to validation.
+Validation 2019-2026-06: M1 n 3,817 +16.6 pts, 7/8 years; M2 1,820 +20.8, 7/8; M3 3,260 +18.6, 6/8; M4 465 +12.6, 5/8. All four pass the pre-registered bars. Ex-best-2 means stay within 1-3 points of the mean; top-decile share 75-96%, i.e. the usual few-big-winners shape (median trade is -5% to +6%).
+Descriptive portfolio replay (50 x 2%, 35% trail, cash idle, not a selection step): 2011-18 CAGR M1 15.4, M2 14.7, M3 16.5, M4 10.9 vs Nifty 500 8.9, maxDD -23/-28/-30/-23 vs -25. 2019-26 CAGR M1 10.2, M2 12.5, M3 14.1, M4 13.6 vs index 13.4, maxDD -32/-31/-32/-21 vs -38.
+Reading: the event edge is real in both halves, but it is one effect (new highs in green markets, same family as the trend leaders), not four. As a portfolio with idle cash it matches the index in 2019-26 with a shallower drawdown; it does not beat the growth combo. Swing-horizon (9-15 session) versions of breakout, pullback, gap and oversold rules have no edge after 1.3% costs in India, which agrees with the swing ledger. Next tracks: US replication of M2/M3, an earnings-gap detector test, industry strength.
