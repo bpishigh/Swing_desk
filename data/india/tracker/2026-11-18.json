@@ -1,0 +1,21 @@
+{
+ "date": "2026-11-18",
+ "close": 25227.95,
+ "high": 25390.8,
+ "low": 25141.8,
+ "volume": 300,
+ "maAsOf": "2026-11-17",
+ "src": "NSE index close file",
+ "fetchedAt": "2026-11-18T14:08:11.451Z",
+ "flags": [
+  "volume from the NSE index close file (shares, shown in millions); basis versus Investing.com not confirmed"
+ ],
+ "sma50": 23385.96,
+ "sma200": 23992.91,
+ "vix": 15.57,
+ "b": {
+  "close": 23630.25,
+  "sma50": 22536.51,
+  "sma200": 22780.4
+ }
+}
