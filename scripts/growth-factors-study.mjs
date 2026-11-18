@@ -61,10 +61,32 @@ for (const name of NAMES) {
 // combined rule
 let combo = null;
 if (COMBO.length) { const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= 0.8 : r[n + '_p'] < 0.2))); combo = { names: COMBO, dirs: DIRS, n: sel.length, A: sel.filter((r) => r.a).length / sel.length, B: sel.filter((r) => r.b).length / sel.length, Cmed: med(sel.map((r) => r.c)), Cmean: mean(sel.map((r) => r.c)), lift: sel.filter((r) => r.a).length / sel.length / baseA, years: years.map((y) => { const s2 = sel.filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, n: s2.length, A: s2.length ? s2.filter((r) => r.a).length / s2.length : null, baseA: all.filter((r) => r.a).length / all.length, Cmed: med(s2.map((r) => r.c)) }; }) }; }
+let pf = null;
+if (process.argv.includes('--portfolio') && COMBO.length) {
+  const idxd = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) for (const [d, v] of Object.entries(R('data/india/idx-hist/' + f)['Nifty 500'] ?? {})) if (v?.[3] > 0) idxd[d] = v[3];
+  const ik = Object.keys(idxd).sort(), ia = (D) => { let lo = 0, hi = ik.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (ik[m] <= D) { a = m; lo = m + 1; } else hi = m - 1; } return a; };
+  const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= 0.8 : r[n + '_p'] < 0.2))), byT = new Map(); for (const r of sel) { if (!byT.has(r.t)) byT.set(r.t, []); byT.get(r.t).push(r); }
+  const tEnds = [...byT.keys()].sort((a, b) => a - b); let cash = 1, pos = [], peak = 1, mdd = 0, inv = 0, nd = 0, taken = 0, skipped = 0, d0 = null, d1 = null; const held = new Set();
+  const pxAt = (sym, t, from) => { const s2 = series.get(sym); for (let k = t; k >= from; k--) if (s2.c[k] > 0) return s2.c[k]; return NaN; };
+  const tStart = tEnds[0] + 1, tStop = Math.min(N - 1, tEnds.at(-1) + 781);
+  for (let t = tStart; t <= tStop; t++) {
+    for (const p of [...pos]) if (p.xj === t) { cash += p.val * (1 + p.r); held.delete(p.sym); pos.splice(pos.indexOf(p), 1); }
+    const mark = () => { let v = cash; for (const p of pos) v += p.val * (pxAt(p.sym, t, p.t) / p.ent); return v; };
+    const todays = (byT.get(t - 1) ?? []).filter((r) => !held.has(r.sym)).sort((x, y) => y.f.mom6 - x.f.mom6);
+    if (todays.length) { const eq0 = mark(); for (const r of todays) { const ent = uniq[t].rows?.[r.sym]?.[2]; if (!(ent > 0)) continue; if (pos.length >= 50) { skipped++; continue; } const val = Math.min(eq0 * 0.02, cash); if (val <= 0) { skipped++; continue; }
+      const s2 = series.get(r.sym); let hi = ent, xo = null, j = t; for (; j <= Math.min(N - 2, t + 780); j++) { if (!(s2.c[j] > 0)) continue; if (s2.c[j] > hi) hi = s2.c[j]; if (s2.c[j] <= hi * 0.65) { const o = uniq[j + 1]?.rows?.[r.sym]?.[2]; xo = o > 0 ? o : s2.c[j]; break; } }
+      if (xo == null) { let m = Math.min(N - 1, t + 780); while (m > t && !(s2.c[m] > 0)) m--; xo = s2.c[m]; }
+      cash -= val; held.add(r.sym); pos.push({ sym: r.sym, t, ent, val, r: xo / ent - 1 - 0.02, xj: Math.min(j + 1, N - 1) }); taken++; } }
+    const v = mark(); if (d0 == null) d0 = dates[t]; d1 = dates[t]; peak = Math.max(peak, v); mdd = Math.min(mdd, v / peak - 1); inv += 1 - cash / v; nd++; if (t > tEnds.at(-1) + 1 && pos.length === 0) break; pf = { final: v };
+  }
+  const yrs = (new Date(d1) - new Date(d0)) / 31557600000, b0 = idxd[ik[ia(d0)]], b1 = idxd[ik[ia(d1)]]; let bp = b0, bdd = 0; for (let t = dates.indexOf(d0); t <= dates.indexOf(d1); t++) { const c = idxd[ik[ia(dates[t])]]; bp = Math.max(bp, c); bdd = Math.min(bdd, c / bp - 1); }
+  pf = { from: d0, to: d1, final: pf.final, cagr: Math.pow(pf.final, 1 / yrs) - 1, mdd, avgInvested: inv / nd, taken, skipped, bench: Math.pow(b1 / b0, 1 / yrs) - 1, benchMdd: bdd };
+}
 mkdirSync(OUT, { recursive: true }); writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.json`, JSON.stringify({ sum, table, combo }));
 let md = `# What do stocks that grow have in common, ${TAG} (${FROM}..${TO})\n\nRule: docs/replay/GROWTH-FACTORS-PREREG.md. ${sum.stockMonths} stock-months over ${sum.months} month-ends. All-stock rate of 3x within 756 sessions ${pc(baseA)}, 5x ${pc(baseB)}, 12-month median return ${pc(baseC)}.\n\n| factor | Q1 3x rate | Q2 | Q3 | Q4 | Q5 | lift Q5 | lift Q1 | Q1 12m median | Q5 12m median |\n|---|---|---|---|---|---|---|---|---|---|\n`;
 for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) => pc(c.A)).join(' | ')} | ${t.liftTop.toFixed(2)} | ${t.liftBot.toFixed(2)} | ${pc(t.cell[0].Cmed)} | ${pc(t.cell[4].Cmed)} |\n`; }
 md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| factor | ` + years.join(' | ') + ` | years Q5>base | years Q1<base |\n|---|` + years.map(() => '---|').join('') + `---|---|\n`;
 for (const n of NAMES) { const y = table[n].yr; md += `| ${n} | ${y.map((r) => (r.q5A == null ? '-' : r.q5A > r.baseA ? 'Q5+' : 'Q5-') + '/' + (r.q1A == null ? '-' : r.q1A < r.baseA ? 'Q1+' : 'Q1-')).join(' | ')} | ${y.filter((r) => r.q5A > r.baseA).length} | ${y.filter((r) => r.q1A < r.baseA).length} |\n`; }
 if (combo) md += `\n## Combined rule ${COMBO.map((n, i) => n + (DIRS[i] > 0 ? ' top quintile' : ' bottom quintile')).join(' + ')}\n\n${combo.n} stock-months; 3x rate ${pc(combo.A)} (lift ${combo.lift.toFixed(2)}); 5x ${pc(combo.B)}; 12m median ${pc(combo.Cmed)}, mean ${pc(combo.Cmean)}.\n\n| year | n | 3x rate | all-stock 3x rate | 12m median |\n|---|---|---|---|---|\n` + combo.years.map((y) => `| ${y.y} | ${y.n} | ${pc(y.A)} | ${pc(y.baseA)} | ${pc(y.Cmed)} |`).join('\n') + '\n';
+if (pf) md += `\n## Portfolio replay (max 50 names, 2% each, 35% trail, cost 2.0%)\n\n${pf.from} to ${pf.to}: final ${pf.final.toFixed(2)}x, CAGR ${pc(pf.cagr)}, max drawdown ${pc(pf.mdd)}, average invested ${pc(pf.avgInvested)}, ${pf.taken} bought, ${pf.skipped} skipped. Nifty 500: CAGR ${pc(pf.bench)}, max drawdown ${pc(pf.benchMdd)}.\n`;
 writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.md`, md); console.log(md);
