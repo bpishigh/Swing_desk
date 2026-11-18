@@ -1,0 +1,70 @@
+// What do stocks that grow have in common (docs/replay/GROWTH-FACTORS-PREREG.md). Month-end cross-section, forward outcomes.
+// Usage: node --max-old-space-size=7000 scripts/growth-factors-study.mjs --from=2011-01 --to=2017-12 --tag=discovery [--combo=f1,f2,f3 --dir=1,-1,1]
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { gunzipSync } from 'node:zlib';
+import { buildHistories } from '../src/ingest/us-scan.ts';
+import { resolveHistory, toDays } from '../src/backtest/india-asof.ts';
+const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
+const FROM = arg('from', '2011-01'), TO = arg('to', '2017-12'), TAG = arg('tag', 'discovery'), OUT = 'docs/replay';
+const COMBO = arg('combo', '').split(',').filter(Boolean), DIRS = arg('dir', '').split(',').filter(Boolean).map(Number);
+const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
+const raw = [];
+for (const dir of ['bhav-hist', 'bhav-pre2020']) for (const f of readdirSync('data/india/' + dir).filter((x) => x.endsWith('.json.gz')).sort()) raw.push(JSON.parse(gunzipSync(readFileSync(`data/india/${dir}/${f}`))));
+for (const f of readdirSync('data/india/bhav').filter((x) => /^\d{4}-\d\d-\d\d\.json$/.test(x)).sort()) raw.push(R('data/india/bhav/' + f));
+raw.sort((a, b) => (a.date < b.date ? -1 : 1)); const uniq = raw.filter((d, i) => i === 0 || d.date !== raw[i - 1].date);
+const actions = [...R('data/india/corp-actions-history-pre2019.json', []), ...R('data/india/corp-actions-history.json', []), ...R('data/india/corp-actions.json', [])];
+const ov = { ...R('data/india/corp-action-overrides-hist.json', {}), ...R('data/india/corp-action-overrides.json', {}) };
+const res = resolveHistory(uniq, actions, ov), days = toDays(uniq), dates = days.map((d) => d.date), N = dates.length;
+const eq = new Set(); for (const d of uniq) for (const [s, r] of Object.entries(d.rows)) if (r[0] === 'EQ') eq.add(s);
+const series = buildHistories(days, res.splits, eq).series; const syms = [...series.keys()];
+const firstIdx = new Map(); for (let i = 0; i < N; i++) for (const r of days[i].rows) if (!firstIdx.has(r[0])) firstIdx.set(r[0], i);
+const NAMES = ['mom12_1', 'mom6', 'mom3', 'prox52', 'vol126', 'logTV', 'tvTrend', 'price', 'deliv', 'range40', 'udVol', 'age', 'dist200', 'fromLow'];
+const monthEnds = []; for (let t = 1; t < N; t++) if (dates[t].slice(0, 7) !== dates[t + 1]?.slice(0, 7) && dates[t].slice(0, 7) >= FROM && dates[t].slice(0, 7) <= TO) monthEnds.push(t);
+const tvAt = (s, a, b) => { let x = 0, n = 0; for (let i = a; i <= b; i++) if (s.c[i] > 0 && s.v[i] >= 0) { x += s.c[i] * s.v[i]; n++; } return n >= (b - a + 1) * 0.7 ? x / n : NaN; };
+const rows = [];
+for (const t of monthEnds) {
+  if (t + 756 > N - 1) continue;
+  const U = [];
+  for (const sym of syms) {
+    const s = series.get(sym); if (!(s.c[t] > 0) || !(s.c[t - 252] > 0) || !(s.c[t - 21] > 0)) continue;
+    const tv = tvAt(s, t - 19, t); if (!(tv >= 2e7)) continue;
+    let hi = 0, lo = Infinity, s200 = 0, n200 = 0, m40hi = 0, m40lo = Infinity, up = 0, dn = 0, sr = 0, sr2 = 0, nr = 0, dv = 0, ndv = 0;
+    for (let k = t - 251; k <= t; k++) { if (s.h[k] > hi) hi = s.h[k]; if (s.l[k] > 0 && s.l[k] < lo) lo = s.l[k]; }
+    for (let k = t - 199; k <= t; k++) if (s.c[k] > 0) { s200 += s.c[k]; n200++; }
+    for (let k = t - 39; k <= t; k++) if (s.c[k] > 0) { if (s.c[k] > m40hi) m40hi = s.c[k]; if (s.c[k] < m40lo) m40lo = s.c[k]; }
+    for (let k = t - 49; k <= t; k++) if (s.c[k] > 0 && s.c[k - 1] > 0 && s.v[k] >= 0) { if (s.c[k] >= s.c[k - 1]) up += s.v[k]; else dn += s.v[k]; }
+    for (let k = t - 125; k <= t; k++) if (s.c[k] > 0 && s.c[k - 1] > 0) { const r = s.c[k] / s.c[k - 1] - 1; sr += r; sr2 += r * r; nr++; }
+    for (let k = t - 59; k <= t; k++) { const d = uniq[k].rows[sym]?.[7]; if (d > 0) { dv += d; ndv++; } }
+    if (n200 < 180 || nr < 100) continue;
+    const tvOld = tvAt(s, t - 250, t - 125), f = {
+      mom12_1: s.c[t - 21] / s.c[t - 252] - 1, mom6: s.c[t] / s.c[t - 126] - 1, mom3: s.c[t] / s.c[t - 63] - 1, prox52: s.c[t] / hi, vol126: Math.sqrt(sr2 / nr - (sr / nr) ** 2), logTV: Math.log(tv), tvTrend: tv / tvOld, price: s.c[t],
+      deliv: ndv >= 30 ? dv / ndv : NaN, range40: (m40hi - m40lo) / m40hi, udVol: dn > 0 ? up / dn : NaN, age: t - (firstIdx.get(sym) ?? 0), dist200: s.c[t] / (s200 / n200) - 1, fromLow: s.c[t] / lo - 1 };
+    let mx = 0; for (let k = t + 1; k <= t + 756; k++) if (s.c[k] > mx) mx = s.c[k];
+    let c12 = NaN; for (let k = t + 252; k > t + 200; k--) if (s.c[k] > 0) { c12 = s.c[k] / s.c[t] - 1; break; }
+    U.push({ sym, t, y: dates[t].slice(0, 4), f, a: mx / s.c[t] >= 3, b: mx / s.c[t] >= 5, c: c12 });
+  }
+  if (U.length < 150) continue;
+  for (const name of NAMES) { const v = U.map((u, i) => [u.f[name], i]).filter((x) => Number.isFinite(x[0])).sort((a, b) => a[0] - b[0]); v.forEach(([, i], r) => { U[i][name + '_p'] = r / v.length; }); }
+  rows.push(...U);
+}
+const med = (a) => { const x = a.filter(Number.isFinite).sort((p, q) => p - q); return x.length ? x[x.length >> 1] : NaN; }, mean = (a) => { const x = a.filter(Number.isFinite); return x.length ? x.reduce((p, q) => p + q, 0) / x.length : NaN; };
+const pc = (x) => (Number.isFinite(x) ? (x * 100).toFixed(1) + '%' : 'n/a');
+const baseA = rows.filter((r) => r.a).length / rows.length, baseB = rows.filter((r) => r.b).length / rows.length, baseC = med(rows.map((r) => r.c));
+const sum = { stockMonths: rows.length, months: monthEnds.length, baseA, baseB, baseCmedian: baseC, baseCmean: mean(rows.map((r) => r.c)) };
+const years = [...new Set(rows.map((r) => r.y))].sort();
+const table = {};
+for (const name of NAMES) {
+  const qs = [0, 1, 2, 3, 4].map((q) => rows.filter((r) => r[name + '_p'] >= q / 5 && r[name + '_p'] < (q + 1) / 5)), cell = qs.map((a) => ({ n: a.length, A: a.filter((r) => r.a).length / a.length, B: a.filter((r) => r.b).length / a.length, Cmed: med(a.map((r) => r.c)), Cmean: mean(a.map((r) => r.c)) }));
+  const yr = years.map((y) => { const q5 = qs[4].filter((r) => r.y === y), q1 = qs[0].filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, q5A: q5.length ? q5.filter((r) => r.a).length / q5.length : null, q1A: q1.length ? q1.filter((r) => r.a).length / q1.length : null, baseA: all.filter((r) => r.a).length / all.length, q5C: med(q5.map((r) => r.c)), q1C: med(q1.map((r) => r.c)) }; });
+  table[name] = { cell, liftTop: cell[4].A / baseA, liftBot: cell[0].A / baseA, yr };
+}
+// combined rule
+let combo = null;
+if (COMBO.length) { const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= 0.8 : r[n + '_p'] < 0.2))); combo = { names: COMBO, dirs: DIRS, n: sel.length, A: sel.filter((r) => r.a).length / sel.length, B: sel.filter((r) => r.b).length / sel.length, Cmed: med(sel.map((r) => r.c)), Cmean: mean(sel.map((r) => r.c)), lift: sel.filter((r) => r.a).length / sel.length / baseA, years: years.map((y) => { const s2 = sel.filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, n: s2.length, A: s2.length ? s2.filter((r) => r.a).length / s2.length : null, baseA: all.filter((r) => r.a).length / all.length, Cmed: med(s2.map((r) => r.c)) }; }) }; }
+mkdirSync(OUT, { recursive: true }); writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.json`, JSON.stringify({ sum, table, combo }));
+let md = `# What do stocks that grow have in common, ${TAG} (${FROM}..${TO})\n\nRule: docs/replay/GROWTH-FACTORS-PREREG.md. ${sum.stockMonths} stock-months over ${sum.months} month-ends. All-stock rate of 3x within 756 sessions ${pc(baseA)}, 5x ${pc(baseB)}, 12-month median return ${pc(baseC)}.\n\n| factor | Q1 3x rate | Q2 | Q3 | Q4 | Q5 | lift Q5 | lift Q1 | Q1 12m median | Q5 12m median |\n|---|---|---|---|---|---|---|---|---|---|\n`;
+for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) => pc(c.A)).join(' | ')} | ${t.liftTop.toFixed(2)} | ${t.liftBot.toFixed(2)} | ${pc(t.cell[0].Cmed)} | ${pc(t.cell[4].Cmed)} |\n`; }
+md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| factor | ` + years.join(' | ') + ` | years Q5>base | years Q1<base |\n|---|` + years.map(() => '---|').join('') + `---|---|\n`;
+for (const n of NAMES) { const y = table[n].yr; md += `| ${n} | ${y.map((r) => (r.q5A == null ? '-' : r.q5A > r.baseA ? 'Q5+' : 'Q5-') + '/' + (r.q1A == null ? '-' : r.q1A < r.baseA ? 'Q1+' : 'Q1-')).join(' | ')} | ${y.filter((r) => r.q5A > r.baseA).length} | ${y.filter((r) => r.q1A < r.baseA).length} |\n`; }
+if (combo) md += `\n## Combined rule ${COMBO.map((n, i) => n + (DIRS[i] > 0 ? ' top quintile' : ' bottom quintile')).join(' + ')}\n\n${combo.n} stock-months; 3x rate ${pc(combo.A)} (lift ${combo.lift.toFixed(2)}); 5x ${pc(combo.B)}; 12m median ${pc(combo.Cmed)}, mean ${pc(combo.Cmean)}.\n\n| year | n | 3x rate | all-stock 3x rate | 12m median |\n|---|---|---|---|---|\n` + combo.years.map((y) => `| ${y.y} | ${y.n} | ${pc(y.A)} | ${pc(y.baseA)} | ${pc(y.Cmed)} |`).join('\n') + '\n';
+writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.md`, md); console.log(md);
