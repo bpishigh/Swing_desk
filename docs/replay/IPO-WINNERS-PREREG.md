@@ -20,3 +20,7 @@ Descriptive study first. No strategy is run in this step. Paper only; not financ
 - Family size for any feature cut: at most 6 single-feature splits (sessions since listing, base depth, volume ratio, relative strength, regime, size of day-0 pop). Chosen cut points are the tercile or median of the discovery sample, set by rule, not by eye.
 - A strategy is proposed only if a split lifts the 2x-in-250-sessions rate by at least 15 points with at least 30 events on each side. Otherwise the finding is "no usable edge" and is reported as that.
 - Any strategy proposed gets its own registered rule, then one validation run on the 2010–2018 listings; pass bar set at that time. Nothing live changes without the owner's go.
+
+## Addendum 1 (18 Nov 2026, after the first discovery run)
+The first run (no filter) listed winners such as SERVOTECH, RAJRATAN, ACCURACY, GODHA, MGEL and HARDWYN. These are SME-to-mainboard migrations or thin names: the stored files hold no SME rows, so a migrated stock looks like a new listing, its "listing" day trades ~Rs 0.2 crore, and its history before that is missing. This also affects the IPO list used in C-226 to C-231 (disclosed there).
+The fix is chosen for data reasons, not performance: real mainboard IPOs trade tens of crores on day 0. Filter: day-0 traded value (close x volume) of at least Rs 3 crore. Both the unfiltered and filtered result are reported. The family size and reading rule above are unchanged.
