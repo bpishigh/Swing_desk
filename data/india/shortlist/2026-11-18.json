@@ -1,0 +1,15 @@
+{
+ "signalDate": "2026-11-18",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "SHADOWFAX",
+   "setup": "1ipo",
+   "stream": "ready",
+   "trigger": 305.52,
+   "limit": 308.58,
+   "stop": 275.5,
+   "atrPct": 4.87
+  }
+ ]
+}

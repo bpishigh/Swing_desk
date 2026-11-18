@@ -68,7 +68,11 @@
    "run": 0.03,
    "rea": -0.0016,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.0196,
+   "m": 0.0256,
+   "done": true
   },
   "CIEINDIA|2026-10-22": {
    "s": "CIEINDIA",
@@ -128,7 +132,11 @@
    "run": 0.0413,
    "rea": -0.0218,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.0055,
+   "m": 0.0256,
+   "done": true
   },
   "CYIENT|2026-10-22": {
    "s": "CYIENT",
@@ -148,7 +156,11 @@
    "run": 0.0031,
    "rea": 0.0147,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": 0.1359,
+   "m": 0.0256,
+   "done": true
   },
   "ETERNAL|2026-10-21": {
    "s": "ETERNAL",
@@ -168,7 +180,11 @@
    "run": 0.0637,
    "rea": 0.0525,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-18",
+   "r": 0.033,
+   "m": 0.0256,
+   "done": true
   },
   "GALLANTT|2026-10-19": {
    "s": "GALLANTT",
@@ -218,7 +234,11 @@
    "run": -0.0138,
    "rea": -0.0748,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.0819,
+   "m": 0.0256,
+   "done": true
   },
   "HINDPETRO|2026-10-22": {
    "s": "HINDPETRO",
@@ -328,7 +348,11 @@
    "run": 0.0857,
    "rea": -0.0009,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.1467,
+   "m": 0.0256,
+   "done": true
   },
   "JSL|2026-10-22": {
    "s": "JSL",
@@ -368,7 +392,11 @@
    "run": 0.0553,
    "rea": 0.0182,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.0445,
+   "m": 0.0256,
+   "done": true
   },
   "M&MFIN|2026-10-21": {
    "s": "M&MFIN",
@@ -408,7 +436,11 @@
    "run": -0.0244,
    "rea": -0.0073,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": 0.0737,
+   "m": 0.0256,
+   "done": true
   },
   "PIRAMALFIN|2026-10-19": {
    "s": "PIRAMALFIN",
@@ -428,7 +460,11 @@
    "run": 0.0259,
    "rea": 0.0707,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-18",
+   "r": 0.227,
+   "m": 0.0256,
+   "done": true
   },
   "SRF|2026-10-21": {
    "s": "SRF",
@@ -488,7 +524,11 @@
    "run": -0.0286,
    "rea": -0.0209,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": -0.1073,
+   "m": 0.0256,
+   "done": true
   },
   "ULTRACEMCO|2026-10-19": {
    "s": "ULTRACEMCO",
@@ -518,7 +558,11 @@
    "run": -0.0118,
    "rea": -0.0655,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-18",
+   "r": 0.2123,
+   "m": 0.0256,
+   "done": true
   },
   "VMM|2026-10-21": {
    "s": "VMM",
@@ -4602,32 +4646,32 @@
   }
  },
  "summary": {
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 0,
-    "open": 57,
-    "meanNet": null,
-    "win": null,
-    "market": null
+    "matured": 2,
+    "open": 55,
+    "meanNet": 0.126,
+    "win": 1,
+    "market": 0.0256
    },
    {
     "group": "ran up, any reaction",
-    "matured": 0,
-    "open": 174,
-    "meanNet": null,
-    "win": null,
-    "market": null
+    "matured": 6,
+    "open": 168,
+    "meanNet": 0.0033,
+    "win": 0.333,
+    "market": 0.0256
    },
    {
     "group": "all results stocks",
-    "matured": 0,
-    "open": 460,
-    "meanNet": null,
-    "win": null,
-    "market": null
+    "matured": 11,
+    "open": 449,
+    "meanNet": 0.0211,
+    "win": 0.455,
+    "market": 0.0256
    }
   ]
  }

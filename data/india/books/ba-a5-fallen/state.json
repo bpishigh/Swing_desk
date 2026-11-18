@@ -1,128 +1,192 @@
 {
  "id": "ba-a5-fallen",
  "startAfter": "2026-11-15",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-17",
-  "buys": [
-   {
-    "sym": "FCL",
-    "value": 587055971.02,
-    "stop": 0.25
-   },
-   {
-    "sym": "CUPID",
-    "value": 4218564129.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "MARKSANS",
-    "value": 371791315.75,
-    "stop": 0.25
-   },
-   {
-    "sym": "BSE",
-    "value": 11074359102.3,
-    "stop": 0.25
-   },
-   {
-    "sym": "OPTIEMUS",
-    "value": 283274381.1,
-    "stop": 0.25
-   },
-   {
-    "sym": "KALYANKJIL",
-    "value": 2976351193.725,
-    "stop": 0.25
-   },
-   {
-    "sym": "DEEPAKFERT",
-    "value": 251803228.60000002,
-    "stop": 0.25
-   },
-   {
-    "sym": "SONACOMS",
-    "value": 1760514078.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "PARAS",
-    "value": 819456909.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "FINCABLES",
-    "value": 1026128694,
-    "stop": 0.25
-   },
-   {
-    "sym": "EMAMILTD",
-    "value": 234517745,
-    "stop": 0.25
-   },
-   {
-    "sym": "MARINE",
-    "value": 354517635.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "SHILPAMED",
-    "value": 702374918.375,
-    "stop": 0.25
-   },
-   {
-    "sym": "SCI",
-    "value": 586755407.87,
-    "stop": 0.25
-   },
-   {
-    "sym": "MRPL",
-    "value": 1157245552.05,
-    "stop": 0.25
-   },
-   {
-    "sym": "MIDHANI",
-    "value": 230914127.85,
-    "stop": 0.25
-   },
-   {
-    "sym": "OFSS",
-    "value": 1682996658,
-    "stop": 0.25
-   },
-   {
-    "sym": "IOLCP",
-    "value": 375413500.125,
-    "stop": 0.25
-   },
-   {
-    "sym": "JAMNAAUTO",
-    "value": 221688805.77,
-    "stop": 0.25
-   },
-   {
-    "sym": "GRAVITA",
-    "value": 238974732.65,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "FCL": {
+   "sh": 0.10586924219910847,
+   "entry": 47.11,
+   "entryDate": "2026-11-18",
+   "high": 47.11,
+   "stop": 0.25
+  },
+  "CUPID": {
+   "sh": 0.013637295081967213,
+   "entry": 366,
+   "entryDate": "2026-11-18",
+   "high": 366,
+   "stop": 0.25
+  },
+  "MARKSANS": {
+   "sh": 0.01628837361201829,
+   "entry": 306.2,
+   "entryDate": "2026-11-18",
+   "high": 306.2,
+   "stop": 0.25
+  },
+  "BSE": {
+   "sh": 0.001291430567414422,
+   "entry": 3864.9,
+   "entryDate": "2026-11-18",
+   "high": 3864.9,
+   "stop": 0.25
+  },
+  "OPTIEMUS": {
+   "sh": 0.006281486146095717,
+   "entry": 794,
+   "entryDate": "2026-11-18",
+   "high": 829.85,
+   "stop": 0.25
+  },
+  "KALYANKJIL": {
+   "sh": 0.007310508971072867,
+   "entry": 682.75,
+   "entryDate": "2026-11-18",
+   "high": 682.75,
+   "stop": 0.25
+  },
+  "DEEPAKFERT": {
+   "sh": 0.0035073839662447255,
+   "entry": 1422,
+   "entryDate": "2026-11-18",
+   "high": 1480.5,
+   "stop": 0.25
+  },
+  "SONACOMS": {
+   "sh": 0.005539678135405106,
+   "entry": 901,
+   "entryDate": "2026-11-18",
+   "high": 901,
+   "stop": 0.25
+  },
+  "PARAS": {
+   "sh": 0.003933359621451104,
+   "entry": 1268,
+   "entryDate": "2026-11-18",
+   "high": 1268,
+   "stop": 0.25
+  },
+  "FINCABLES": {
+   "sh": 0.004074489795918367,
+   "entry": 1225,
+   "entryDate": "2026-11-18",
+   "high": 1225,
+   "stop": 0.25
+  },
+  "EMAMILTD": {
+   "sh": 0.012176039119804402,
+   "entry": 409,
+   "entryDate": "2026-11-18",
+   "high": 412.8,
+   "stop": 0.25
+  },
+  "MARINE": {
+   "sh": 0.012051467923160565,
+   "entry": 413.85,
+   "entryDate": "2026-11-18",
+   "high": 414.6,
+   "stop": 0.25
+  },
+  "SHILPAMED": {
+   "sh": 0.005422079686905473,
+   "entry": 919.85,
+   "entryDate": "2026-11-18",
+   "high": 919.85,
+   "stop": 0.25
+  },
+  "SCI": {
+   "sh": 0.01931268151016457,
+   "entry": 258.25,
+   "entryDate": "2026-11-18",
+   "high": 258.25,
+   "stop": 0.25
+  },
+  "MRPL": {
+   "sh": 0.028705141476880608,
+   "entry": 173.88,
+   "entryDate": "2026-11-18",
+   "high": 175.97,
+   "stop": 0.25
+  },
+  "MIDHANI": {
+   "sh": 0.012749615975422427,
+   "entry": 390.6,
+   "entryDate": "2026-11-18",
+   "high": 390.6,
+   "stop": 0.25
+  },
+  "OFSS": {
+   "sh": 0.0005123960578995996,
+   "entry": 9741,
+   "entryDate": "2026-11-18",
+   "high": 9741,
+   "stop": 0.25
+  },
+  "IOLCP": {
+   "sh": 0.026354029062087184,
+   "entry": 189.25,
+   "entryDate": "2026-11-18",
+   "high": 189.74,
+   "stop": 0.25
+  },
+  "JAMNAAUTO": {
+   "sh": 0.03510750793091294,
+   "entry": 141.85,
+   "entryDate": "2026-11-18",
+   "high": 141.85,
+   "stop": 0.25
+  },
+  "GRAVITA": {
+   "sh": 0.00335195530726257,
+   "entry": 1485.7,
+   "entryDate": "2026-11-18",
+   "high": 1485.7,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "FCL": 587055971.02,
+  "CUPID": 4218564129.7,
+  "MARKSANS": 371791315.75,
+  "BSE": 11074359102.3,
+  "OPTIEMUS": 283274381.1,
+  "KALYANKJIL": 2976351193.725,
+  "DEEPAKFERT": 251803228.60000002,
+  "SONACOMS": 1760514078.5,
+  "PARAS": 819456909.5,
+  "FINCABLES": 1026128694,
+  "EMAMILTD": 234517745,
+  "MARINE": 354517635.6,
+  "SHILPAMED": 702374918.375,
+  "SCI": 586755407.87,
+  "MRPL": 1157245552.05,
+  "MIDHANI": 230914127.85,
+  "OFSS": 1682996658,
+  "IOLCP": 375413500.125,
+  "JAMNAAUTO": 221688805.77,
+  "GRAVITA": 238974732.65
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-18",
+   "v": 98.7469,
+   "vs": 98.6469,
+   "x": 1
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-18",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-17",
- "lastNavDate": "2026-11-16",
+ "lastStep": "2026-11-18",
+ "lastNavDate": "2026-11-17",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -606,7 +670,11 @@
   "nav": {
    "2026-11-13": 100,
    "2026-11-16": 99.1417,
-   "2026-11-17": 99.2616
+   "2026-11-17": 99.2616,
+   "2026-11-18": 98.3729
   }
+ },
+ "costs": {
+  "2026-11": 0.25375000000000003
  }
 }

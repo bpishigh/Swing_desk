@@ -1,35 +1,15 @@
 {
- "asOf": "2026-11-17",
+ "asOf": "2026-11-18",
  "rows": {
-  "WELSPUNLIV": {
-   "date": "2026-10-30",
-   "move": 0.1422,
-   "excess": 0.14
-  },
-  "EMCURE": {
-   "date": "2026-11-03",
-   "move": 0.147,
-   "excess": 0.121
+  "PVRINOX": {
+   "date": "2026-10-28",
+   "move": 0.018,
+   "excess": 0.0087
   },
   "ACUTAAS": {
    "date": "2026-10-27",
    "move": 0.1079,
    "excess": 0.0927
-  },
-  "LAURUSLABS": {
-   "date": "2026-10-29",
-   "move": 0.1025,
-   "excess": 0.1101
-  },
-  "ADANIPORTS": {
-   "date": "2026-10-28",
-   "move": 0.067,
-   "excess": 0.0577
-  },
-  "GESHIP": {
-   "date": "2026-11-06",
-   "move": -0.0233,
-   "excess": -0.0277
   }
  }
 }

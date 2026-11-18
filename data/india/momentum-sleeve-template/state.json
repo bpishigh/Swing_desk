@@ -115,7 +115,7 @@
   "high": {
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
-   "TFCILTD": 166.52,
+   "TFCILTD": 169.69,
    "CPPLUS": 4237,
    "DIVISLAB": 11485,
    "SKYGOLD": 1050.05,
@@ -123,25 +123,25 @@
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
    "GLAND": 3385.9,
-   "PVRINOX": 1677.4,
+   "PVRINOX": 1714.4,
    "ACUTAAS": 4039.1,
    "FEDERALBNK": 365.8,
    "BOSCHLTD": 50580,
    "NYKAA": 365.2,
    "AUROPHARMA": 1823.2,
    "ETERNAL": 375.05,
-   "NAVINFLUOR": 10002,
+   "NAVINFLUOR": 10278,
    "PAYTM": 1939.9,
    "INDHOTEL": 901.55,
    "MOTHERSON": 168.75,
    "KALYANKJIL": 710.9,
    "KOTAKBANK": 497.25,
-   "ICICIBANK": 1598.7,
+   "ICICIBANK": 1601.3,
    "RADICO": 4665,
    "TVSMOTOR": 4550,
    "KARURVYSYA": 393.5,
    "TITAN": 4970,
-   "COFORGE": 2041,
+   "COFORGE": 2049,
    "ZYDUSLIFE": 1206
   },
   "startedFill": "2026-11-12"
@@ -213,16 +213,20 @@
   {
    "d": "2026-11-17",
    "v": 100.1547
+  },
+  {
+   "d": "2026-11-18",
+   "v": 99.2799
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-17",
-   "v": 100.1547
+   "d": "2026-11-18",
+   "v": 99.2799
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-17",
+ "stopChecked": "2026-11-18",
  "gone": []
 }

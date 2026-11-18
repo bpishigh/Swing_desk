@@ -1,13 +1,48 @@
 {
- "asOf": "2026-11-17",
+ "asOf": "2026-11-18",
  "source": "NSE event calendar",
  "dates": {
-  "WELSPUNLIV": {
+  "SHADOWFAX": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "EMCURE": {
+  "ICIL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SHREEJISPG": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "PVRINOX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "KPL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "NITINSPIN": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "PGIL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SAREGAMA": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "AMANTA": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -17,17 +52,7 @@
    "sessions": null,
    "inWindow": null
   },
-  "LAURUSLABS": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "ADANIPORTS": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "GESHIP": {
+  "TIPSMUSIC": {
    "date": null,
    "sessions": null,
    "inWindow": null

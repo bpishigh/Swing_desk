@@ -1,128 +1,192 @@
 {
  "id": "ba-a6-compounder",
  "startAfter": "2026-11-15",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-17",
-  "buys": [
-   {
-    "sym": "BSE",
-    "value": 11074359102.3,
-    "stop": 0.25
-   },
-   {
-    "sym": "KRISHANA",
-    "value": 264626748.55,
-    "stop": 0.25
-   },
-   {
-    "sym": "APOLLO",
-    "value": 4001989091.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "GODFRYPHLP",
-    "value": 453955537.25,
-    "stop": 0.25
-   },
-   {
-    "sym": "TDPOWERSYS",
-    "value": 2664655378.15,
-    "stop": 0.25
-   },
-   {
-    "sym": "ANANTRAJ",
-    "value": 838248235.8,
-    "stop": 0.25
-   },
-   {
-    "sym": "POLYCAB",
-    "value": 2439905040,
-    "stop": 0.25
-   },
-   {
-    "sym": "BAJAJ-AUTO",
-    "value": 3417335065,
-    "stop": 0.25
-   },
-   {
-    "sym": "CDSL",
-    "value": 1698120051,
-    "stop": 0.25
-   },
-   {
-    "sym": "TIPSMUSIC",
-    "value": 370864990.55,
-    "stop": 0.25
-   },
-   {
-    "sym": "AFFLE",
-    "value": 236654785.39999998,
-    "stop": 0.25
-   },
-   {
-    "sym": "SOLARINDS",
-    "value": 2243865000,
-    "stop": 0.25
-   },
-   {
-    "sym": "SIRCA",
-    "value": 232206251.75,
-    "stop": 0.25
-   },
-   {
-    "sym": "PERSISTENT",
-    "value": 2795486080,
-    "stop": 0.25
-   },
-   {
-    "sym": "MAXHEALTH",
-    "value": 3250247437.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "SRF",
-    "value": 585560689.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "ADANIPORTS",
-    "value": 4203995459.55,
-    "stop": 0.25
-   },
-   {
-    "sym": "SONACOMS",
-    "value": 1760514078.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "CGPOWER",
-    "value": 2258532117.6000004,
-    "stop": 0.25
-   },
-   {
-    "sym": "FSL",
-    "value": 293706096.25,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "BSE": {
+   "sh": 0.001291430567414422,
+   "entry": 3864.9,
+   "entryDate": "2026-11-18",
+   "high": 3864.9,
+   "stop": 0.25
+  },
+  "KRISHANA": {
+   "sh": 0.020531450683352544,
+   "entry": 242.92,
+   "entryDate": "2026-11-18",
+   "high": 242.92,
+   "stop": 0.25
+  },
+  "APOLLO": {
+   "sh": 0.010886041439476553,
+   "entry": 458.5,
+   "entryDate": "2026-11-18",
+   "high": 458.5,
+   "stop": 0.25
+  },
+  "GODFRYPHLP": {
+   "sh": 0.0027892735305631677,
+   "entry": 1788.1,
+   "entryDate": "2026-11-18",
+   "high": 1788.1,
+   "stop": 0.25
+  },
+  "TDPOWERSYS": {
+   "sh": 0.007977065686431197,
+   "entry": 625.7,
+   "entryDate": "2026-11-18",
+   "high": 632.3,
+   "stop": 0.25
+  },
+  "ANANTRAJ": {
+   "sh": 0.010758196721311475,
+   "entry": 463.6,
+   "entryDate": "2026-11-18",
+   "high": 463.6,
+   "stop": 0.25
+  },
+  "POLYCAB": {
+   "sh": 0.0006524509803921568,
+   "entry": 7650,
+   "entryDate": "2026-11-18",
+   "high": 7650,
+   "stop": 0.25
+  },
+  "BAJAJ-AUTO": {
+   "sh": 0.00046451838064215915,
+   "entry": 10745,
+   "entryDate": "2026-11-18",
+   "high": 10745,
+   "stop": 0.25
+  },
+  "CDSL": {
+   "sh": 0.0034675906627761564,
+   "entry": 1439.4,
+   "entryDate": "2026-11-18",
+   "high": 1439.4,
+   "stop": 0.25
+  },
+  "TIPSMUSIC": {
+   "sh": 0.005987394957983193,
+   "entry": 833,
+   "entryDate": "2026-11-18",
+   "high": 833,
+   "stop": 0.25
+  },
+  "AFFLE": {
+   "sh": 0.0031518987341772153,
+   "entry": 1580,
+   "entryDate": "2026-11-18",
+   "high": 1585.1,
+   "stop": 0.25
+  },
+  "SOLARINDS": {
+   "sh": 0.00026563331559340073,
+   "entry": 18790,
+   "entryDate": "2026-11-18",
+   "high": 18790,
+   "stop": 0.25
+  },
+  "SIRCA": {
+   "sh": 0.012342007434944239,
+   "entry": 403.5,
+   "entryDate": "2026-11-18",
+   "high": 403.5,
+   "stop": 0.25
+  },
+  "PERSISTENT": {
+   "sh": 0.0008459745762711865,
+   "entry": 5900,
+   "entryDate": "2026-11-18",
+   "high": 5900,
+   "stop": 0.25
+  },
+  "MAXHEALTH": {
+   "sh": 0.004836482558139535,
+   "entry": 1032,
+   "entryDate": "2026-11-18",
+   "high": 1032,
+   "stop": 0.25
+  },
+  "SRF": {
+   "sh": 0.00202340865755203,
+   "entry": 2464.9,
+   "entryDate": "2026-11-18",
+   "high": 2464.9,
+   "stop": 0.25
+  },
+  "ADANIPORTS": {
+   "sh": 0.002614588789942378,
+   "entry": 1909,
+   "entryDate": "2026-11-18",
+   "high": 1909,
+   "stop": 0.25
+  },
+  "SONACOMS": {
+   "sh": 0.005539678135405106,
+   "entry": 901,
+   "entryDate": "2026-11-18",
+   "high": 901,
+   "stop": 0.25
+  },
+  "CGPOWER": {
+   "sh": 0.006223503740648379,
+   "entry": 802,
+   "entryDate": "2026-11-18",
+   "high": 802,
+   "stop": 0.25
+  },
+  "FSL": {
+   "sh": 0.017499999999999998,
+   "entry": 285,
+   "entryDate": "2026-11-18",
+   "high": 285,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "BSE": 11074359102.3,
+  "KRISHANA": 264626748.55,
+  "APOLLO": 4001989091.5,
+  "GODFRYPHLP": 453955537.25,
+  "TDPOWERSYS": 2664655378.15,
+  "ANANTRAJ": 838248235.8,
+  "POLYCAB": 2439905040,
+  "BAJAJ-AUTO": 3417335065,
+  "CDSL": 1698120051,
+  "TIPSMUSIC": 370864990.55,
+  "AFFLE": 236654785.39999998,
+  "SOLARINDS": 2243865000,
+  "SIRCA": 232206251.75,
+  "PERSISTENT": 2795486080,
+  "MAXHEALTH": 3250247437.5,
+  "SRF": 585560689.5,
+  "ADANIPORTS": 4203995459.55,
+  "SONACOMS": 1760514078.5,
+  "CGPOWER": 2258532117.6000004,
+  "FSL": 293706096.25
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-18",
+   "v": 98.3019,
+   "vs": 98.2019,
+   "x": 1
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-18",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-17",
- "lastNavDate": "2026-11-16",
+ "lastStep": "2026-11-18",
+ "lastNavDate": "2026-11-17",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -606,7 +670,11 @@
   "nav": {
    "2026-11-13": 100,
    "2026-11-16": 99.1417,
-   "2026-11-17": 99.2616
+   "2026-11-17": 99.2616,
+   "2026-11-18": 98.3729
   }
+ },
+ "costs": {
+  "2026-11": 0.22000000000000008
  }
 }

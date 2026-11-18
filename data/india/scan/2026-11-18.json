@@ -1,0 +1,576 @@
+{
+ "version": "IND-SCAN-1",
+ "asOf": "2026-11-18",
+ "light": "green",
+ "funnel": {
+  "tickers": 1111,
+  "passFloors": 1035,
+  "universe": 1035,
+  "universeFloorDollarVolumeM": 50.3,
+  "withRs": 960,
+  "rsGate": 211,
+  "template": 128,
+  "qualified": 42,
+  "baseQuality": 0,
+  "withSetup": 1
+ },
+ "groups": [
+  {
+   "group": "Media Entertainment & Publication",
+   "members": 8,
+   "medianRs": 89.36,
+   "passes": true
+  },
+  {
+   "group": "Textiles",
+   "members": 26,
+   "medianRs": 72.11,
+   "passes": true
+  },
+  {
+   "group": "Healthcare",
+   "members": 94,
+   "medianRs": 66.32,
+   "passes": true
+  },
+  {
+   "group": "Services",
+   "members": 25,
+   "medianRs": 62.98,
+   "passes": true
+  },
+  {
+   "group": "Capital Goods",
+   "members": 153,
+   "medianRs": 60.79,
+   "passes": false
+  },
+  {
+   "group": "Automobile and Auto Components",
+   "members": 67,
+   "medianRs": 60.48,
+   "passes": false
+  },
+  {
+   "group": "Metals & Mining",
+   "members": 27,
+   "medianRs": 50.47,
+   "passes": false
+  },
+  {
+   "group": "Oil Gas & Consumable Fuels",
+   "members": 22,
+   "medianRs": 49.64,
+   "passes": false
+  },
+  {
+   "group": "Telecommunication",
+   "members": 18,
+   "medianRs": 48.18,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 83,
+   "medianRs": 48.18,
+   "passes": false
+  },
+  {
+   "group": "Financial Services",
+   "members": 132,
+   "medianRs": 47.97,
+   "passes": false
+  },
+  {
+   "group": "Fast Moving Consumer Goods",
+   "members": 51,
+   "medianRs": 43.17,
+   "passes": false
+  },
+  {
+   "group": "Information Technology",
+   "members": 50,
+   "medianRs": 39.78,
+   "passes": false
+  },
+  {
+   "group": "Consumer Services",
+   "members": 47,
+   "medianRs": 38.27,
+   "passes": false
+  },
+  {
+   "group": "Realty",
+   "members": 24,
+   "medianRs": 38.06,
+   "passes": false
+  },
+  {
+   "group": "Consumer Durables",
+   "members": 50,
+   "medianRs": 36.7,
+   "passes": false
+  },
+  {
+   "group": "Power",
+   "members": 21,
+   "medianRs": 34.93,
+   "passes": false
+  },
+  {
+   "group": "Construction Materials",
+   "members": 16,
+   "medianRs": 25.08,
+   "passes": false
+  },
+  {
+   "group": "Construction",
+   "members": 40,
+   "medianRs": 18.87,
+   "passes": false
+  }
+ ],
+ "ready": [
+  {
+   "sym": "SHADOWFAX",
+   "type": "CS",
+   "group": "Services",
+   "path": "ipo",
+   "rsPct": 86.46,
+   "close": 298.65,
+   "tags": [
+    "results date not checked",
+    "IPO path: 3-month return rank, shorter template"
+   ],
+   "clears50M": true,
+   "composite": 61.6,
+   "tightness": 0.94,
+   "distPivot": 1.76,
+   "setup": {
+    "id": "1ipo",
+    "short": "IPO base",
+    "basis": 304,
+    "trigger": 305.52,
+    "limit": 308.58,
+    "stop": 275.5,
+    "stopWidthPct": 9.83,
+    "roomR": null
+   },
+   "gb": {
+    "pct": 44.8,
+    "n": 29
+   },
+   "diag": {
+    "rs121": null,
+    "rs6m2w": 64.92,
+    "atr14": 14.53,
+    "sma50": 278.51,
+    "sma200": null,
+    "high52": 304,
+    "low52": 98.55,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 86.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.",
+    "Group: Services ranks 4 of 19 (median strength 63); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 44.8% of the 29 stocks in Services are above their 50-day.",
+    "Ready: IPO base. Buy above 305.52 (limit 308.58), stop 275.5, 9.8% wide (cap 10%)."
+   ]
+  }
+ ],
+ "watch": [
+  {
+   "sym": "ICIL",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 97.71,
+   "close": 576.55,
+   "tags": [
+    "results date not checked",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": true,
+   "composite": 71.33,
+   "tightness": 1.39,
+   "distPivot": 0.77,
+   "setup": null,
+   "gb": {
+    "pct": 66.7,
+    "n": 27
+   },
+   "diag": {
+    "rs121": 62.1,
+    "rs6m2w": 58.04,
+    "atr14": 29.78,
+    "sma50": 460.38,
+    "sma200": 363.31,
+    "high52": 581,
+    "low52": 216.9,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 97.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.8% below its 52-week high (limit 25%) and 165.8% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 2 of 19 (median strength 72.1); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 66.7% of the 27 stocks in Textiles are above their 50-day.",
+    "Watch: extended, 25.2% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "SHREEJISPG",
+   "type": "CS",
+   "group": "Services",
+   "path": "main",
+   "rsPct": 99.48,
+   "close": 901.05,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 67,
+   "tightness": 0.96,
+   "distPivot": 2.56,
+   "setup": null,
+   "gb": {
+    "pct": 44.8,
+    "n": 29
+   },
+   "diag": {
+    "rs121": 209.62,
+    "rs6m2w": 99.86,
+    "atr14": 24.06,
+    "sma50": 795.16,
+    "sma200": 551,
+    "high52": 924.75,
+    "low52": 269.55,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 99.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.6% below its 52-week high (limit 25%) and 234.3% above its 52-week low (needs 30%).",
+    "Group: Services ranks 4 of 19 (median strength 63); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 44.8% of the 29 stocks in Services are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 2.6% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "PVRINOX",
+   "type": "CS",
+   "group": "Media Entertainment & Publication",
+   "path": "main",
+   "rsPct": 93.85,
+   "close": 1714.4,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 66.93,
+   "tightness": 1.08,
+   "distPivot": 1.46,
+   "setup": null,
+   "gb": {
+    "pct": 62.5,
+    "n": 8
+   },
+   "diag": {
+    "rs121": 24.21,
+    "rs6m2w": 43.9,
+    "atr14": 58.84,
+    "sma50": 1386.53,
+    "sma200": 1120.9,
+    "high52": 1739.8,
+    "low52": 907.4,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 93.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.5% below its 52-week high (limit 25%) and 88.9% above its 52-week low (needs 30%).",
+    "Group: Media Entertainment & Publication ranks 1 of 19 (median strength 89.4); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 62.5% of the 8 stocks in Media Entertainment & Publication are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 1.5% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "KPL",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "ipo",
+   "rsPct": 87.52,
+   "close": 4207.9,
+   "tags": [
+    "results date not checked",
+    "below $50M a day",
+    "IPO path: 3-month return rank, shorter template"
+   ],
+   "clears50M": false,
+   "composite": 65.59,
+   "tightness": 1.29,
+   "distPivot": 0.64,
+   "setup": null,
+   "gb": {
+    "pct": 56.2,
+    "n": 105
+   },
+   "diag": {
+    "rs121": null,
+    "rs6m2w": 119.16,
+    "atr14": 240,
+    "sma50": 3624.24,
+    "sma200": null,
+    "high52": 4235,
+    "low52": 1561,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 87.5th percentile on the weighted four-quarter return (needs 80 or more).",
+    "IPO path: no full year of history, so ranked on the 3-month return; close above the 50-day with a formed base.",
+    "Group: Healthcare ranks 3 of 19 (median strength 66.3); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 56.2% of the 105 stocks in Healthcare are above their 50-day.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "NITINSPIN",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 94.79,
+   "close": 680.3,
+   "tags": [
+    "results date not checked",
+    "below $50M a day"
+   ],
+   "clears50M": false,
+   "composite": 64.62,
+   "tightness": 0.92,
+   "distPivot": 2.42,
+   "setup": null,
+   "gb": {
+    "pct": 66.7,
+    "n": 27
+   },
+   "diag": {
+    "rs121": 92.31,
+    "rs6m2w": 34.15,
+    "atr14": 27.65,
+    "sma50": 634.01,
+    "sma200": 513.98,
+    "high52": 697.15,
+    "low52": 302.2,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.4% below its 52-week high (limit 25%) and 125.1% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 2 of 19 (median strength 72.1); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 66.7% of the 27 stocks in Textiles are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 0.9, needs under 0.7); price is 2.4% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "PGIL",
+   "type": "CS",
+   "group": "Textiles",
+   "path": "main",
+   "rsPct": 94.58,
+   "close": 1414.7,
+   "tags": [
+    "results date not checked",
+    "below $50M a day"
+   ],
+   "clears50M": false,
+   "composite": 64.44,
+   "tightness": 1.28,
+   "distPivot": 2.43,
+   "setup": null,
+   "gb": {
+    "pct": 66.7,
+    "n": 27
+   },
+   "diag": {
+    "rs121": 82.68,
+    "rs6m2w": 63.63,
+    "atr14": 71.25,
+    "sma50": 1255.26,
+    "sma200": 983.39,
+    "high52": 1450,
+    "low52": 675,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 94.6th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.4% below its 52-week high (limit 25%) and 109.6% above its 52-week low (needs 30%).",
+    "Group: Textiles ranks 2 of 19 (median strength 72.1); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 66.7% of the 27 stocks in Textiles are above their 50-day.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  },
+  {
+   "sym": "SAREGAMA",
+   "type": "CS",
+   "group": "Media Entertainment & Publication",
+   "path": "main",
+   "rsPct": 93.12,
+   "close": 677.35,
+   "tags": [
+    "results date not checked",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": true,
+   "composite": 63.93,
+   "tightness": 1.63,
+   "distPivot": 2.31,
+   "setup": null,
+   "gb": {
+    "pct": 62.5,
+    "n": 8
+   },
+   "diag": {
+    "rs121": 23.62,
+    "rs6m2w": 62.91,
+    "atr14": 30.1,
+    "sma50": 532.58,
+    "sma200": 442.61,
+    "high52": 693.4,
+    "low52": 307.05,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 93.1th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.3% below its 52-week high (limit 25%) and 120.6% above its 52-week low (needs 30%).",
+    "Group: Media Entertainment & Publication ranks 1 of 19 (median strength 89.4); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 62.5% of the 8 stocks in Media Entertainment & Publication are above their 50-day.",
+    "Watch: extended, 27.2% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "AMANTA",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 96.66,
+   "close": 237.38,
+   "tags": [
+    "results date not checked",
+    "below $50M a day",
+    "extended: more than 25% above the 50-day"
+   ],
+   "clears50M": false,
+   "composite": 62.84,
+   "tightness": 1.75,
+   "distPivot": 3.39,
+   "setup": null,
+   "gb": {
+    "pct": 56.2,
+    "n": 105
+   },
+   "diag": {
+    "rs121": 48.85,
+    "rs6m2w": 22.95,
+    "atr14": 17.17,
+    "sma50": 189.83,
+    "sma200": 150.16,
+    "high52": 245.7,
+    "low52": 92,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 96.7th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 3.4% below its 52-week high (limit 25%) and 158% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 3 of 19 (median strength 66.3); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 56.2% of the 105 stocks in Healthcare are above their 50-day.",
+    "Watch: extended, 25% above its 50-day (limit 25%). Wait for a pullback."
+   ]
+  },
+  {
+   "sym": "ACUTAAS",
+   "type": "CS",
+   "group": "Healthcare",
+   "path": "main",
+   "rsPct": 95.93,
+   "close": 3991.3,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 62.48,
+   "tightness": 0.99,
+   "distPivot": 3.36,
+   "setup": null,
+   "gb": {
+    "pct": 56.2,
+    "n": 105
+   },
+   "diag": {
+    "rs121": 82.58,
+    "rs6m2w": 45.87,
+    "atr14": 166.97,
+    "sma50": 3447.19,
+    "sma200": 2952.46,
+    "high52": 4130,
+    "low52": 1570,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 95.9th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 3.4% below its 52-week high (limit 25%) and 154.2% above its 52-week low (needs 30%).",
+    "Group: Healthcare ranks 3 of 19 (median strength 66.3); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 56.2% of the 105 stocks in Healthcare are above their 50-day.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 3.4% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+   ]
+  },
+  {
+   "sym": "TIPSMUSIC",
+   "type": "CS",
+   "group": "Media Entertainment & Publication",
+   "path": "main",
+   "rsPct": 91.03,
+   "close": 811.25,
+   "tags": [
+    "results date not checked"
+   ],
+   "clears50M": true,
+   "composite": 61.26,
+   "tightness": 1.13,
+   "distPivot": 2.79,
+   "setup": null,
+   "gb": {
+    "pct": 62.5,
+    "n": 8
+   },
+   "diag": {
+    "rs121": 52.63,
+    "rs6m2w": 21.96,
+    "atr14": 29.24,
+    "sma50": 709.75,
+    "sma200": 638.55,
+    "high52": 834.5,
+    "low52": 481.15,
+    "failingNights": 0
+   },
+   "why": [
+    "Strength: 91th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.8% below its 52-week high (limit 25%) and 68.6% above its 52-week low (needs 30%).",
+    "Group: Media Entertainment & Publication ranks 1 of 19 (median strength 89.4); the 4 strongest groups are traded in the green light.",
+    "Sector breadth: 62.5% of the 8 stocks in Media Entertainment & Publication are above their 50-day.",
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
+   ]
+  }
+ ],
+ "noGroup": {
+  "qualified": 0
+ },
+ "thinGroup": {
+  "qualified": 0
+ },
+ "qualifiedTotal": 42,
+ "notes": [
+  "Setup detection definitions are provisional (see us-scan-settings.ts).",
+  "IND-SCAN-1: the US scan method with India settings (src/ingest/india-scan-settings.ts). The universe is the NSE index lists (Nifty 500 and the segment lists in segments.json) because only they carry an industry; groups are NSE's broad industries. Results dates are not checked."
+ ],
+ "regimeDate": "2026-11-18",
+ "industryCovered": 1116,
+ "coreCovered": 501
+}

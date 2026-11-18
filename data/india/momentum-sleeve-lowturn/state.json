@@ -232,18 +232,18 @@
   "high": {
    "STLTECH": 736.9,
    "CPPLUS": 4237,
-   "TFCILTD": 166.52,
+   "TFCILTD": 169.69,
    "SKYGOLD": 1050.05,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
    "GLAND": 3385.9,
    "HFCL": 215,
    "ACUTAAS": 4039.1,
-   "PVRINOX": 1677.4,
+   "PVRINOX": 1714.4,
    "FEDERALBNK": 365.8,
    "AUROPHARMA": 1823.2,
    "NYKAA": 365.2,
-   "NAVINFLUOR": 10002,
+   "NAVINFLUOR": 10278,
    "BOSCHLTD": 50580,
    "AEGISLOG": 1240,
    "SYRMA": 1515.9,
@@ -330,16 +330,20 @@
   {
    "d": "2026-11-17",
    "v": 98.3342
+  },
+  {
+   "d": "2026-11-18",
+   "v": 98.0688
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-17",
-   "v": 98.3342
+   "d": "2026-11-18",
+   "v": 98.0688
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-17",
+ "stopChecked": "2026-11-18",
  "gone": []
 }

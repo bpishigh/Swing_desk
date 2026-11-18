@@ -1,128 +1,192 @@
 {
  "id": "ba-a3-quality",
  "startAfter": "2026-11-15",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-17",
-  "buys": [
-   {
-    "sym": "EICHERMOT",
-    "value": 3056297156.25,
-    "stop": 0.25
-   },
-   {
-    "sym": "TDPOWERSYS",
-    "value": 2664655378.15,
-    "stop": 0.25
-   },
-   {
-    "sym": "AFFLE",
-    "value": 236654785.39999998,
-    "stop": 0.25
-   },
-   {
-    "sym": "SONACOMS",
-    "value": 1760514078.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "SIRCA",
-    "value": 232206251.75,
-    "stop": 0.25
-   },
-   {
-    "sym": "SOLARINDS",
-    "value": 2243865000,
-    "stop": 0.25
-   },
-   {
-    "sym": "BAJAJ-AUTO",
-    "value": 3417335065,
-    "stop": 0.25
-   },
-   {
-    "sym": "IEX",
-    "value": 466972332.6,
-    "stop": 0.25
-   },
-   {
-    "sym": "HEROMOTOCO",
-    "value": 2921927914.5,
-    "stop": 0.25
-   },
-   {
-    "sym": "INFY",
-    "value": 14994616123.95,
-    "stop": 0.25
-   },
-   {
-    "sym": "BEL",
-    "value": 3570307486.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "TCS",
-    "value": 8605834408.349998,
-    "stop": 0.25
-   },
-   {
-    "sym": "ANANTRAJ",
-    "value": 838248235.8,
-    "stop": 0.25
-   },
-   {
-    "sym": "CGPOWER",
-    "value": 2258532117.6000004,
-    "stop": 0.25
-   },
-   {
-    "sym": "ZENTEC",
-    "value": 379211728.20000005,
-    "stop": 0.25
-   },
-   {
-    "sym": "AJANTPHARM",
-    "value": 476795860.2,
-    "stop": 0.25
-   },
-   {
-    "sym": "BOSCHLTD",
-    "value": 1289445090,
-    "stop": 0.25
-   },
-   {
-    "sym": "CUPID",
-    "value": 4218564129.7,
-    "stop": 0.25
-   },
-   {
-    "sym": "GVT&D",
-    "value": 2945134462.2,
-    "stop": 0.25
-   },
-   {
-    "sym": "CUMMINSIND",
-    "value": 2792855519.6,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 0,
+ "pos": {
+  "EICHERMOT": {
+   "sh": 0.000640314304041052,
+   "entry": 7795,
+   "entryDate": "2026-11-18",
+   "high": 7795,
+   "stop": 0.25
+  },
+  "TDPOWERSYS": {
+   "sh": 0.007977065686431197,
+   "entry": 625.7,
+   "entryDate": "2026-11-18",
+   "high": 632.3,
+   "stop": 0.25
+  },
+  "AFFLE": {
+   "sh": 0.0031518987341772153,
+   "entry": 1580,
+   "entryDate": "2026-11-18",
+   "high": 1585.1,
+   "stop": 0.25
+  },
+  "SONACOMS": {
+   "sh": 0.005539678135405106,
+   "entry": 901,
+   "entryDate": "2026-11-18",
+   "high": 901,
+   "stop": 0.25
+  },
+  "SIRCA": {
+   "sh": 0.012342007434944239,
+   "entry": 403.5,
+   "entryDate": "2026-11-18",
+   "high": 403.5,
+   "stop": 0.25
+  },
+  "SOLARINDS": {
+   "sh": 0.00026563331559340073,
+   "entry": 18790,
+   "entryDate": "2026-11-18",
+   "high": 18790,
+   "stop": 0.25
+  },
+  "BAJAJ-AUTO": {
+   "sh": 0.00046451838064215915,
+   "entry": 10745,
+   "entryDate": "2026-11-18",
+   "high": 10745,
+   "stop": 0.25
+  },
+  "IEX": {
+   "sh": 0.04357798165137614,
+   "entry": 114.45,
+   "entryDate": "2026-11-18",
+   "high": 115,
+   "stop": 0.25
+  },
+  "HEROMOTOCO": {
+   "sh": 0.0009389108352144469,
+   "entry": 5316,
+   "entryDate": "2026-11-18",
+   "high": 5316,
+   "stop": 0.25
+  },
+  "INFY": {
+   "sh": 0.004456473214285714,
+   "entry": 1120,
+   "entryDate": "2026-11-18",
+   "high": 1120,
+   "stop": 0.25
+  },
+  "BEL": {
+   "sh": 0.012572418136020152,
+   "entry": 397,
+   "entryDate": "2026-11-18",
+   "high": 397,
+   "stop": 0.25
+  },
+  "TCS": {
+   "sh": 0.0020949632738719833,
+   "entry": 2382.5,
+   "entryDate": "2026-11-18",
+   "high": 2382.5,
+   "stop": 0.25
+  },
+  "ANANTRAJ": {
+   "sh": 0.010758196721311475,
+   "entry": 463.6,
+   "entryDate": "2026-11-18",
+   "high": 463.6,
+   "stop": 0.25
+  },
+  "CGPOWER": {
+   "sh": 0.006223503740648379,
+   "entry": 802,
+   "entryDate": "2026-11-18",
+   "high": 802,
+   "stop": 0.25
+  },
+  "ZENTEC": {
+   "sh": 0.002907485134662469,
+   "entry": 1715.4,
+   "entryDate": "2026-11-18",
+   "high": 1724,
+   "stop": 0.25
+  },
+  "AJANTPHARM": {
+   "sh": 0.0015113636363636362,
+   "entry": 3300,
+   "entryDate": "2026-11-18",
+   "high": 3300,
+   "stop": 0.25
+  },
+  "BOSCHLTD": {
+   "sh": 0.00010171693499082943,
+   "entry": 49070,
+   "entryDate": "2026-11-18",
+   "high": 49170,
+   "stop": 0.25
+  },
+  "CUPID": {
+   "sh": 0.013637295081967213,
+   "entry": 366,
+   "entryDate": "2026-11-18",
+   "high": 366,
+   "stop": 0.25
+  },
+  "GVT&D": {
+   "sh": 0.0011491573421743336,
+   "entry": 4343.4,
+   "entryDate": "2026-11-18",
+   "high": 4343.4,
+   "stop": 0.25
+  },
+  "CUMMINSIND": {
+   "sh": 0.0012327117806865892,
+   "entry": 4049,
+   "entryDate": "2026-11-18",
+   "high": 4049,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "EICHERMOT": 3056297156.25,
+  "TDPOWERSYS": 2664655378.15,
+  "AFFLE": 236654785.39999998,
+  "SONACOMS": 1760514078.5,
+  "SIRCA": 232206251.75,
+  "SOLARINDS": 2243865000,
+  "BAJAJ-AUTO": 3417335065,
+  "IEX": 466972332.6,
+  "HEROMOTOCO": 2921927914.5,
+  "INFY": 14994616123.95,
+  "BEL": 3570307486.7,
+  "TCS": 8605834408.349998,
+  "ANANTRAJ": 838248235.8,
+  "CGPOWER": 2258532117.6000004,
+  "ZENTEC": 379211728.20000005,
+  "AJANTPHARM": 476795860.2,
+  "BOSCHLTD": 1289445090,
+  "CUPID": 4218564129.7,
+  "GVT&D": 2945134462.2,
+  "CUMMINSIND": 2792855519.6
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-18",
+   "v": 99.165,
+   "vs": 99.065,
+   "x": 1
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-18",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-17",
- "lastNavDate": "2026-11-16",
+ "lastStep": "2026-11-18",
+ "lastNavDate": "2026-11-17",
  "ew": {
   "month": "2026-11",
   "navBase": 100,
@@ -606,7 +670,11 @@
   "nav": {
    "2026-11-13": 100,
    "2026-11-16": 99.1417,
-   "2026-11-17": 99.2616
+   "2026-11-17": 99.2616,
+   "2026-11-18": 98.3729
   }
+ },
+ "costs": {
+  "2026-11": 0.2125000000000001
  }
 }
