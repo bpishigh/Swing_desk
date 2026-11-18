@@ -59,12 +59,14 @@ function portfolio(tr, X) {
       const v = mark(); eqs.push([dates[t], v]); peak = Math.max(peak, v); mdd = Math.min(mdd, v / peak - 1); inv += 1 - cash / v; nd++;
       if (pos.length === 0 && t > Math.max(...evs.map((e) => e.t)) + 1) break;
     }
+    if (name === 'whole' && arg('eqdump', '')) writeFileSync(arg('eqdump', ''), JSON.stringify(eqs));
     const d0 = eqs[0][0], d1 = eqs.at(-1)[0], yrs = (new Date(d1) - new Date(d0)) / 31557600000, a0 = comp[ck[compAt(d0)]], a1 = comp[ck[compAt(d1)]];
     let bp = a0, bdd = 0; for (const [d] of eqs) { const c = comp[ck[compAt(d)]]; bp = Math.max(bp, c); bdd = Math.min(bdd, c / bp - 1); }
     res[name] = { from: d0, to: d1, final: eqs.at(-1)[1], cagr: Math.pow(eqs.at(-1)[1], 1 / yrs) - 1, mdd, bench: Math.pow(a1 / a0, 1 / yrs) - 1, benchMdd: bdd, avgInvested: inv / nd, taken, skipped };
   }
   return res;
 }
+if (arg('dumpsig', '')) writeFileSync(arg('dumpsig', ''), JSON.stringify(sig.map((e) => ({ sym: e.sym, t: e.t, D: e.D }))));
 const out = {};
 for (const X of RULES) {
   const tr = sig.map((e) => {
