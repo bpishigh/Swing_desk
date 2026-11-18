@@ -879,6 +879,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-growth-combo",
+      "name": "Growth combo",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "GC-1",
+      "view": "book_list",
+      "startAfter": "2026-11-19",
+      "dataFile": "data/india/books/bc-growth-combo/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

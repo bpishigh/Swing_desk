@@ -180,6 +180,15 @@
       "startAfter": "2026-11-18",
       "comparator": "n500",
       "batch": "C"
+    },
+    {
+      "id": "bc-growth-combo",
+      "rule": "GC-1",
+      "name": "Growth combo (cheap, strong, rising liquidity)",
+      "signal": "growthCombo",
+      "startAfter": "2026-11-19",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [
