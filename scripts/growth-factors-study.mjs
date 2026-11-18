@@ -72,7 +72,8 @@ const table = {};
 for (const name of NAMES) {
   const qs = [0, 1, 2, 3, 4].map((q) => rows.filter((r) => r[name + '_p'] >= q / 5 && r[name + '_p'] < (q + 1) / 5)), cell = qs.map((a) => ({ n: a.length, A: a.filter((r) => r.a).length / a.length, B: a.filter((r) => r.b).length / a.length, Cmed: med(a.map((r) => r.c)), Cmean: mean(a.map((r) => r.c)) }));
   const yr = years.map((y) => { const q5 = qs[4].filter((r) => r.y === y), q1 = qs[0].filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, q5A: q5.length ? q5.filter((r) => r.a).length / q5.length : null, q1A: q1.length ? q1.filter((r) => r.a).length / q1.length : null, baseA: all.filter((r) => r.a).length / all.length, q5C: med(q5.map((r) => r.c)), q1C: med(q1.map((r) => r.c)) }; });
-  table[name] = { cell, liftTop: cell[4].A / baseA, liftBot: cell[0].A / baseA, yr };
+  const sub = rows.filter((r) => Number.isFinite(r.f[name])), baseS = sub.filter((r) => r.a).length / sub.length;
+  table[name] = { cell, baseS, nSub: sub.length, liftTop: cell[4].A / baseS, liftBot: cell[0].A / baseS, yr };
 }
 // combined rule
 let combo = null;
@@ -102,8 +103,8 @@ if (process.argv.includes('--portfolio') && COMBO.length) {
   pf = { from: d0, to: d1, final: pf.final, cagr: Math.pow(pf.final, 1 / yrs) - 1, mdd, avgInvested: inv / nd, taken, skipped, bench: Math.pow(b1 / b0, 1 / yrs) - 1, benchMdd: bdd };
 }
 mkdirSync(OUT, { recursive: true }); writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.json`, JSON.stringify({ sum, table, combo }));
-let md = `# What do stocks that grow have in common, ${TAG} (${FROM}..${TO})\n\nRule: docs/replay/GROWTH-FACTORS-PREREG.md. ${sum.stockMonths} stock-months over ${sum.months} month-ends. All-stock rate of 3x within 756 sessions ${pc(baseA)}, 5x ${pc(baseB)}, 12-month median return ${pc(baseC)}.\n\n| factor | Q1 3x rate | Q2 | Q3 | Q4 | Q5 | lift Q5 | lift Q1 | Q1 12m median | Q5 12m median |\n|---|---|---|---|---|---|---|---|---|---|\n`;
-for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) => pc(c.A)).join(' | ')} | ${t.liftTop.toFixed(2)} | ${t.liftBot.toFixed(2)} | ${pc(t.cell[0].Cmed)} | ${pc(t.cell[4].Cmed)} |\n`; }
+let md = `# What do stocks that grow have in common, ${TAG} (${FROM}..${TO})\n\nRule: docs/replay/GROWTH-FACTORS-PREREG.md. ${sum.stockMonths} stock-months over ${sum.months} month-ends. All-stock rate of 3x within 756 sessions ${pc(baseA)}, 5x ${pc(baseB)}, 12-month median return ${pc(baseC)}.\n\n| factor | Q1 3x rate | Q2 | Q3 | Q4 | Q5 | lift Q5 | lift Q1 | rate in covered stocks | stock-months covered | Q1 12m median | Q5 12m median |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n`;
+for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) => pc(c.A)).join(' | ')} | ${t.liftTop.toFixed(2)} | ${t.liftBot.toFixed(2)} | ${pc(t.baseS)} | ${t.nSub} | ${pc(t.cell[0].Cmed)} | ${pc(t.cell[4].Cmed)} |\n`; }
 md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| factor | ` + years.join(' | ') + ` | years Q5>base | years Q1<base |\n|---|` + years.map(() => '---|').join('') + `---|---|\n`;
 for (const n of NAMES) { const y = table[n].yr; md += `| ${n} | ${y.map((r) => (r.q5A == null ? '-' : r.q5A > r.baseA ? 'Q5+' : 'Q5-') + '/' + (r.q1A == null ? '-' : r.q1A < r.baseA ? 'Q1+' : 'Q1-')).join(' | ')} | ${y.filter((r) => r.q5A > r.baseA).length} | ${y.filter((r) => r.q1A < r.baseA).length} |\n`; }
 if (combo) md += `\n## Combined rule ${COMBO.map((n, i) => n + (DIRS[i] > 0 ? ' top quintile' : ' bottom quintile')).join(' + ')}\n\n${combo.n} stock-months; 3x rate ${pc(combo.A)} (lift ${combo.lift.toFixed(2)}); 5x ${pc(combo.B)}; 12m median ${pc(combo.Cmed)}, mean ${pc(combo.Cmean)}.\n\n| year | n | 3x rate | all-stock 3x rate | 12m median |\n|---|---|---|---|---|\n` + combo.years.map((y) => `| ${y.y} | ${y.n} | ${pc(y.A)} | ${pc(y.baseA)} | ${pc(y.Cmed)} |`).join('\n') + '\n';
