@@ -47,6 +47,7 @@ function portfolio(tr, X) {
   const res = {}; const starts = { whole: [FROM, TO], h1: [FROM, '2017-12-29'], h2: ['2018-01-01', TO] };
   for (const [name, [a, b]] of Object.entries(starts)) {
     const evs = tr.filter((e) => e.D >= a && e.D <= b), byT = new Map(); for (const e of evs) { if (!byT.has(e.t)) byT.set(e.t, []); byT.get(e.t).push(e); }
+    if (!evs.length) continue;
     const startT = Math.min(...evs.map((e) => e.t)); let cash = 1, pos = [], peak = 1, mdd = 0, inv = 0, nd = 0, taken = 0, skipped = 0; const eqs = [];
     for (let t = startT; t < N; t++) {
       // exits at today's open (xj = session of exit fill); proceeds net of cost
