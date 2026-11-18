@@ -7,7 +7,7 @@ import { type Buy, type BookState } from './stock-book.ts';
 import type { Orders, Ser } from './first-wave.ts';
 
 export const GC = { names: 50, weight: 0.02, trail: 0.35, floor: 2e7, cheap: 0.2, top: 0.8, minHist: 260 };
-export interface GcCtx { series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState; light: string; monthEnd: boolean; eligible: (sym: string) => boolean }
+export interface GcCtx { series: Map<string, Ser>; t: number; dates: string[]; held: Set<string>; st: BookState; light: string; monthEnd: boolean; eligible: (sym: string) => boolean; floor?: number }
 export interface GcLogRow { date: string; sym: string; sessions: number; volRatio: number | null; taken: boolean; why: string }
 export interface GcCounts { date: string; universe: number; cheap: number; mom: number; liq: number; all: number }
 
@@ -20,7 +20,7 @@ export function growthCombo(x: GcCtx, log?: GcLogRow[], counts?: GcCounts[]): Or
   const U: Array<{ sym: string; price: number; mom: number; tvt: number; tv: number }> = [];
   for (const [sym, s] of x.series) {
     const c = s.c, v = s.v; if (!v || !(c[t] > 0) || !(c[t - 126] > 0) || !(c[t - 252] > 0) || !(c[t - 21] > 0) || !x.eligible(sym)) continue;
-    const tv = tvAt(c, v, t - 19, t); if (!(tv >= GC.floor)) continue;
+    const tv = tvAt(c, v, t - 19, t); if (!(tv >= (x.floor ?? GC.floor))) continue;
     let n200 = 0, nr = 0, bad = false; for (let k = t - 199; k <= t; k++) if (c[k] > 0) n200++;
     for (let k = t - 125; k <= t; k++) if (c[k] > 0 && c[k - 1] > 0) { nr++; if (Math.abs(c[k] / c[k - 1] - 1) > 0.4) bad = true; }
     if (n200 < 180 || nr < 100 || bad) continue;

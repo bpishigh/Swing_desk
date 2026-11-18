@@ -152,6 +152,15 @@
       "startAfter": "2026-11-18",
       "comparator": "spy",
       "batch": "C"
+    },
+    {
+      "id": "bc-us-growth-combo",
+      "rule": "GC-2",
+      "name": "US growth combo (cheap, strong, rising liquidity)",
+      "signal": "growthCombo",
+      "startAfter": "2026-11-19",
+      "comparator": "spy",
+      "batch": "C"
     }
   ],
   "sleeveBooks": [

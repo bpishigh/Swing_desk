@@ -897,6 +897,24 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-us-growth-combo",
+      "name": "US growth combo",
+      "market": "us",
+      "status": "paper_only",
+      "rule": "GC-2",
+      "view": "book_list",
+      "startAfter": "2026-11-19",
+      "dataFile": "data/us/books/bc-us-growth-combo/latest.json",
+      "benchmarks": [
+        "spy",
+        "qqq",
+        "monthly-twin",
+        "mtum"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }
