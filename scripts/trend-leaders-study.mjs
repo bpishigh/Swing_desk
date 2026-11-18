@@ -42,7 +42,7 @@ for (let t = Math.max(t0, 260); t <= tEnd; t++) {
     last.set(sym, t); sig.push({ sym, t, D, ent, rk: rets[i], year: D.slice(0, 4) });
   }
 }
-const MAXP = 20, SIZE = 0.05;
+const MAXP = Number(arg('maxp', 20)), SIZE = Number(arg('size', 0.05));
 function portfolio(tr, X) {
   const res = {}; const starts = { whole: [FROM, TO], h1: [FROM, '2017-12-29'], h2: ['2018-01-01', TO] };
   for (const [name, [a, b]] of Object.entries(starts)) {

@@ -36,3 +36,8 @@ Validation result (one run, 35% trail, signals 2018-01-01 to 2023-12-29): 1,921 
 ## Addendum 2 (18 Nov 2026): portfolio replay, registered before the run
 Rule as validated (35% trail), unchanged. Book: at most 20 names, each sized at 5% of current equity at entry, signals taken in order of 126-session return when slots are short, no leverage, cash earns nothing, cost 1.3% per round trip, marked daily on closes. One run, all signals 2011-01-03 to 2023-12-29, positions marked through the last stored close; reported for the whole span, for 2011–2017 and for 2018–2023 starts separately (two runs of the same book from each half start, equity reset), against Nifty 500 over the same dates.
 Bar to propose a paper book: beats Nifty 500 CAGR in both halves; worst drawdown no worse than 35%; average invested fraction reported beside the result (comparator held at the same fraction, as in the other event books).
+
+Portfolio result (20 names x 5%): whole span CAGR 8.3% vs Nifty 500 12.9%, max drawdown -48% vs -38%; 2011–17 start 10.1% vs 10.5% (DD -40% vs -21%); 2018–23 start 2.4% vs 12.0% (DD -48% vs -38%). 254 of 2,929 signals were taken (slots full 87% of the time), so the book mostly held the most stretched names. Fails the bar.
+
+## Addendum 3 (18 Nov 2026): one sizing variant, registered before the run
+The event edge is spread over many trades; 20 slots capture under a tenth of them. One variant, sizing only, signal order unchanged: at most 50 names, 2% each. Same span, same three starts, same bar. If it fails, the study is closed. Family of 2 for the portfolio step noted.
