@@ -77,15 +77,15 @@ for (const name of NAMES) {
   table[name] = { cell, baseS, nSub: sub.length, liftTop: cell[4].A / baseS, liftBot: cell[0].A / baseS, yr };
 }
 // combined rule
-let combo = null;
-if (COMBO.length) { const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= 0.8 : r[n + '_p'] < 0.2))); combo = { names: COMBO, dirs: DIRS, n: sel.length, A: sel.filter((r) => r.a).length / sel.length, B: sel.filter((r) => r.b).length / sel.length, Cmed: med(sel.map((r) => r.c)), Cmean: mean(sel.map((r) => r.c)), lift: sel.filter((r) => r.a).length / sel.length / baseA, years: years.map((y) => { const s2 = sel.filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, n: s2.length, A: s2.length ? s2.filter((r) => r.a).length / s2.length : null, baseA: all.filter((r) => r.a).length / all.length, Cmed: med(s2.map((r) => r.c)) }; }) }; }
-let pf = null; const AUM = Number(arg('aum', 0)), TR = [];
+const HI = Number(arg('hi', 0.8)), LO = Number(arg('lo', 0.2)); let combo = null;
+if (COMBO.length) { const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= HI : r[n + '_p'] < LO))); combo = { names: COMBO, dirs: DIRS, n: sel.length, A: sel.filter((r) => r.a).length / sel.length, B: sel.filter((r) => r.b).length / sel.length, Cmed: med(sel.map((r) => r.c)), Cmean: mean(sel.map((r) => r.c)), lift: sel.filter((r) => r.a).length / sel.length / baseA, years: years.map((y) => { const s2 = sel.filter((r) => r.y === y), all = rows.filter((r) => r.y === y); return { y, n: s2.length, A: s2.length ? s2.filter((r) => r.a).length / s2.length : null, baseA: all.filter((r) => r.a).length / all.length, Cmed: med(s2.map((r) => r.c)) }; }) }; }
+const YE = new Map(); let pf = null; const AUM = Number(arg('aum', 0)), TR = [];
 if (process.argv.includes('--portfolio') && COMBO.length) {
   const bse = {}, nif = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['BSE 500'] ?? {})) if (v?.[3] > 0) bse[d] = v[3]; for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) if (v?.[3] > 0) nif[d] = v[3]; }
   const join = Object.keys(nif).sort().find((d) => bse[d] > 0), kk = bse[join] / nif[join], idxd = {}; for (const d of Object.keys(bse)) if (d < join) idxd[d] = bse[d]; for (const d of Object.keys(nif)) idxd[d] = nif[d] * kk;
   const GATE = arg('gate', 'none'), greenAt = (D) => { const a = ia(D); if (a < 199) return false; let m = 0; for (let i = a - 199; i <= a; i++) m += idxd[ik[i]]; return idxd[ik[a]] > m / 200; };
   const ik = Object.keys(idxd).sort(), ia = (D) => { let lo = 0, hi = ik.length - 1, a = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (ik[m] <= D) { a = m; lo = m + 1; } else hi = m - 1; } return a; };
-  const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= 0.8 : r[n + '_p'] < 0.2))), byT = new Map(); for (const r of sel) { if (!byT.has(r.t)) byT.set(r.t, []); byT.get(r.t).push(r); }
+  const sel = rows.filter((r) => COMBO.every((n, i) => (DIRS[i] > 0 ? r[n + '_p'] >= HI : r[n + '_p'] < LO))), byT = new Map(); for (const r of sel) { if (!byT.has(r.t)) byT.set(r.t, []); byT.get(r.t).push(r); }
   const tEnds = [...byT.keys()].sort((a, b) => a - b); let cash = 1, pos = [], peak = 1, mdd = 0, inv = 0, nd = 0, taken = 0, skipped = 0, d0 = null, d1 = null; const held = new Set();
   const pxAt = (sym, t, from) => { const s2 = series.get(sym); for (let k = t; k >= from; k--) if (s2.c[k] > 0) return s2.c[k]; return NaN; };
   const tStart = tEnds[0] + 1, tStop = Math.min(N - 1, tEnds.at(-1) + 781);
@@ -100,13 +100,13 @@ if (process.argv.includes('--portfolio') && COMBO.length) {
       const adv = tvAt(series.get(r.sym), t - 21, t - 1), part = AUM > 0 && adv > 0 ? Math.min(1, (eq0 * 0.02 * AUM * 1e7) / adv) : 0, imp = 2 * 0.5 * 0.03 * Math.sqrt(part);   // square-root impact, 3% daily volatility, both sides
       const rawR = (uniq[j + 1]?.rows?.[r.sym]?.[2] > 0 && uniq[t].rows?.[r.sym]?.[2] > 0) ? uniq[j + 1].rows[r.sym][2] / uniq[t].rows[r.sym][2] - 1 : NaN, fA = series.get(r.sym).c[t] / (uniq[t].rows?.[r.sym]?.[5] || NaN), fB = series.get(r.sym).c[Math.min(j + 1, N - 1)] / (uniq[Math.min(j + 1, N - 1)].rows?.[r.sym]?.[5] || NaN);
       cash -= val; held.add(r.sym); pos.push({ sym: r.sym, t, ent, val, r: xo / ent - 1 - 0.02 - imp, xj: Math.min(j + 1, N - 1) }); taken++; TR.push({ sym: r.sym, d: dates[t], x: dates[Math.min(j + 1, N - 1)], adv, part, imp, rAdj: xo / ent - 1, rRaw: rawR, split: Math.abs(fA / fB - 1) > 0.01 }); } }
-    const v = mark(); if (d0 == null) d0 = dates[t]; d1 = dates[t]; peak = Math.max(peak, v); mdd = Math.min(mdd, v / peak - 1); inv += 1 - cash / v; nd++; if (t > tEnds.at(-1) + 1 && pos.length === 0) break; pf = { final: v };
+    const v = mark(); YE.set(dates[t].slice(0, 4), v); if (d0 == null) d0 = dates[t]; d1 = dates[t]; peak = Math.max(peak, v); mdd = Math.min(mdd, v / peak - 1); inv += 1 - cash / v; nd++; if (t > tEnds.at(-1) + 1 && pos.length === 0) break; pf = { final: v };
   }
   const yrs = (new Date(d1) - new Date(d0)) / 31557600000, b0 = idxd[ik[ia(d0)]], b1 = idxd[ik[ia(d1)]]; let bp = b0, bdd = 0; for (let t = dates.indexOf(d0); t <= dates.indexOf(d1); t++) { const c = idxd[ik[ia(dates[t])]]; bp = Math.max(bp, c); bdd = Math.min(bdd, c / bp - 1); }
-  pf = { from: d0, to: d1, final: pf.final, cagr: Math.pow(pf.final, 1 / yrs) - 1, mdd, avgInvested: inv / nd, taken, skipped, bench: Math.pow(b1 / b0, 1 / yrs) - 1, benchMdd: bdd };
+  pf = { yearEnd: Object.fromEntries(YE), from: d0, to: d1, final: pf.final, cagr: Math.pow(pf.final, 1 / yrs) - 1, mdd, avgInvested: inv / nd, taken, skipped, bench: Math.pow(b1 / b0, 1 / yrs) - 1, benchMdd: bdd };
 }
 if (arg('dump', '')) writeFileSync(arg('dump', ''), JSON.stringify(TR));
-mkdirSync(OUT, { recursive: true }); writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.json`, JSON.stringify({ sum, table, combo }));
+mkdirSync(OUT, { recursive: true }); writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.json`, JSON.stringify({ sum, table, combo, pf }));
 let md = `# What do stocks that grow have in common, ${TAG} (${FROM}..${TO})\n\nRule: docs/replay/GROWTH-FACTORS-PREREG.md. ${sum.stockMonths} stock-months over ${sum.months} month-ends. All-stock rate of 3x within 756 sessions ${pc(baseA)}, 5x ${pc(baseB)}, 12-month median return ${pc(baseC)}.\n\n| factor | Q1 3x rate | Q2 | Q3 | Q4 | Q5 | lift Q5 | lift Q1 | rate in covered stocks | stock-months covered | Q1 12m median | Q5 12m median |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n`;
 for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) => pc(c.A)).join(' | ')} | ${t.liftTop.toFixed(2)} | ${t.liftBot.toFixed(2)} | ${pc(t.baseS)} | ${t.nSub} | ${pc(t.cell[0].Cmed)} | ${pc(t.cell[4].Cmed)} |\n`; }
 md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| factor | ` + years.join(' | ') + ` | years Q5>base | years Q1<base |\n|---|` + years.map(() => '---|').join('') + `---|---|\n`;
