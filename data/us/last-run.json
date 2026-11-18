@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-17T00:08:15.158Z",
- "date": "2026-11-16",
- "status": "written",
+ "ts": "2026-11-18T00:08:16.942Z",
+ "date": "2026-11-17",
+ "status": "SPY or QQQ could not be confirmed",
  "fetched": {
   "SPY": {
    "rows": 7,
@@ -70,11 +70,17 @@
  },
  "conflicts": [],
  "flags": [
-  "XLY: Tiingo close 118.15 and StockAnalysis 117.82 differ by more than 0.1%; 2026-11-16 not written for it",
-  "ITA: Tiingo close 69.75 and StockAnalysis 70.01 differ by more than 0.1%; 2026-11-16 not written for it",
-  "VIX: Cboe has no row for 2026-11-16 yet",
-  "2 sector ETF(s) not updated for 2026-11-16 (XLY, ITA): previous values kept with their own dates",
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-16"
- ],
- "backfilled": 0
+  "SPY: Tiingo close 732.44 and StockAnalysis 730.61 differ by more than 0.1%; 2026-11-17 not written for it",
+  "QQQ: Tiingo close 656.95 and StockAnalysis 652.19 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLK: Tiingo close 163.26 and StockAnalysis 162.19 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLF: Tiingo close 57.07 and StockAnalysis 57.2 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLE: Tiingo close 63.36 and StockAnalysis 63.48 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLI: Tiingo close 164.75 and StockAnalysis 164.41 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLY: Tiingo close 117.1 and StockAnalysis 117.22 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLU: Tiingo close 43.42 and StockAnalysis 43.56 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLB: Tiingo close 50.84 and StockAnalysis 51.11 differ by more than 0.1%; 2026-11-17 not written for it",
+  "XLRE: Tiingo close 43.59 and StockAnalysis 43.73 differ by more than 0.1%; 2026-11-17 not written for it",
+  "SMH: Tiingo close 460.1 and StockAnalysis 457.65 differ by more than 0.1%; 2026-11-17 not written for it",
+  "VIX: Cboe has no row for 2026-11-17 yet"
+ ]
 }
