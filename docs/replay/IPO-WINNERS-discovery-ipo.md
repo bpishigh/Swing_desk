@@ -20,6 +20,7 @@ Definitions: docs/replay/IPO-WINNERS-PREREG.md. Descriptive. Paper only.
 - f60med: -0.01087848932676505
 - f120med: 5%
 - f250med: 3%
+- trail: {"0.25":{"n":89,"mean":0.2481269822682941,"median":0.003635859519408492,"win":0.5168539325842697,"topDecileShare":0.8401630289133737,"hold":159.52808988764045,"meanExBest":0.19375291163793254,"best":5.033045197740113},"0.35":{"n":89,"mean":0.2821023778112007,"median":-0.004821561338289914,"win":0.48314606741573035,"topDecileShare":0.8388202948622177,"hold":255.14606741573033,"meanExBest":0.2362262299473449,"best":4.319203389830508},"0.5":{"n":89,"mean":0.3025363957743904,"median":-0.019751054852320635,"win":0.4606741573033708,"topDecileShare":0.8229872408713759,"hold":366.40449438202245,"meanExBest":0.2618847484998698,"best":3.879881355932203}}
 
 ## Single-feature splits at the sample median (precision across all first breakouts)
 
@@ -46,5 +47,13 @@ Definitions: docs/replay/IPO-WINNERS-PREREG.md. Descriptive. Paper only.
 | PCBL | 2022-01-13 | 2022-08-30 | 154 | 12% | 95 | 30% | 6.0 | 18% | green | 6.1 | 4.2 | 26% | -11% |
 | INOXGREEN | 2022-11-23 | 2023-07-24 | 165 | 9% | 164 | 40% | 6.1 | 40% | green | 5.9 | 3.4 | 161% | -5% |
 | SARVESHWAR | 2022-12-08 | 2023-08-02 | 161 | 31% | 6 | 13% | 4.4 | 41% | green | 5.2 | 0.1 | -93% | -97% |
+
+## Trailing exits (addendum 2)
+
+| trail | trades | mean net | median net | winners | top-10% share of profit | mean hold (sessions) | mean ex best | best |
+|---|---|---|---|---|---|---|---|---|
+| 0.25 | 89 | 25% | 0% | 52% | 84% | 160 | 19% | 503% |
+| 0.35 | 89 | 28% | -0% | 48% | 84% | 255 | 24% | 432% |
+| 0.5 | 89 | 30% | -2% | 46% | 82% | 366 | 26% | 388% |
 
 5x+ winners with no qualifying first breakout: IRFC 7.2x
