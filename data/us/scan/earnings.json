@@ -1,13 +1,8 @@
 {
- "asOf": "2026-11-16",
+ "asOf": "2026-11-17",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "SGRY": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "CON": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -17,21 +12,25 @@
    "sessions": null,
    "inWindow": null
   },
+  "CON": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "KSS": {
    "date": "2026-11-24",
-   "sessions": 6,
+   "sessions": 5,
    "inWindow": true
   },
   "TGT": {
    "date": "2026-11-18",
-   "sessions": 2,
+   "sessions": 1,
    "inWindow": true
   },
-  "FIVE": {
-   "date": "2026-12-02",
-   "sessions": 11,
-   "inWindow": false,
-   "estimated": true
+  "DLTR": {
+   "date": "2026-11-24",
+   "sessions": 5,
+   "inWindow": true
   },
   "COP": {
    "date": null,

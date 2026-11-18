@@ -1,47 +1,63 @@
 {
  "id": "ba-us-a5-fallen",
  "startAfter": "2026-11-15",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-16",
-  "buys": [
-   {
-    "sym": "AMD",
-    "value": 17888281688.699997,
-    "stop": 0.25
-   },
-   {
-    "sym": "REGN",
-    "value": 743266234.61,
-    "stop": 0.25
-   },
-   {
-    "sym": "EBAY",
-    "value": 460521688.05,
-    "stop": 0.25
-   },
-   {
-    "sym": "AMZN",
-    "value": 10327350491.1,
-    "stop": 0.25
-   }
-  ],
-  "sells": []
+ "cash": 80.00962222222222,
+ "pos": {
+  "AMD": {
+   "sh": 0.009753573381238773,
+   "entry": 512.12,
+   "entryDate": "2026-11-17",
+   "high": 512.12,
+   "stop": 0.25
+  },
+  "REGN": {
+   "sh": 0.005243764172335601,
+   "entry": 952.56,
+   "entryDate": "2026-11-17",
+   "high": 957.76,
+   "stop": 0.25
+  },
+  "EBAY": {
+   "sh": 0.04166319125865377,
+   "entry": 119.89,
+   "entryDate": "2026-11-17",
+   "high": 119.89,
+   "stop": 0.25
+  },
+  "AMZN": {
+   "sh": 0.019394292370413513,
+   "entry": 257.55,
+   "entryDate": "2026-11-17",
+   "high": 257.89,
+   "stop": 0.25
+  }
  },
+ "lastValue": {
+  "AMD": 17888281688.699997,
+  "REGN": 743266234.61,
+  "EBAY": 460521688.05,
+  "AMZN": 10327350491.1
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-17",
+   "v": 99.8844,
+   "vs": 99.8644,
+   "x": 0.199
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.02,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-17",
  "lastSignal": "2026-11-16",
- "lastStep": "2026-11-16",
+ "lastStep": "2026-11-17",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -551,7 +567,11 @@
    "CHKP": 147.74
   },
   "nav": {
-   "2026-11-16": 100
+   "2026-11-16": 100,
+   "2026-11-17": 98.5703
   }
+ },
+ "costs": {
+  "2026-11": 0.02
  }
 }
