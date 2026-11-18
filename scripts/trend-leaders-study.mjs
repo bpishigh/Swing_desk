@@ -5,7 +5,7 @@ import { gunzipSync } from 'node:zlib';
 import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays } from '../src/backtest/india-asof.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
-const FROM = arg('from', '2011-01-03'), TO = arg('to', '2017-12-29'), TAG = arg('tag', 'discovery'), OUT = 'docs/replay', RULES = arg('rules', '0.25,0.35,0.5').split(',').map(Number);
+const FROM = arg('from', '2011-01-03'), TO = arg('to', '2017-12-29'), TAG = arg('tag', 'discovery'), OUT = 'docs/replay', RULES = arg('rules', '0.25,0.35,0.5').split(',').map((x) => (isNaN(Number(x)) ? x : Number(x)));
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const raw = [];
 for (const dir of ['bhav-hist', 'bhav-pre2020']) for (const f of readdirSync('data/india/' + dir).filter((x) => x.endsWith('.json.gz')).sort()) raw.push(JSON.parse(gunzipSync(readFileSync(`data/india/${dir}/${f}`))));
@@ -66,8 +66,16 @@ function portfolio(tr, X) {
 const out = {};
 for (const X of RULES) {
   const tr = sig.map((e) => {
-    const s = series.get(e.sym); let hi = e.ent, xo = null, j = e.t + 1;
-    for (; j <= Math.min(N - 2, e.t + 781); j++) { if (!(s.c[j] > 0)) continue; if (s.c[j] > hi) hi = s.c[j]; if (s.c[j] <= hi * (1 - X)) { const o = uniq[j + 1]?.rows?.[e.sym]?.[2]; xo = o > 0 ? o : s.c[j]; break; } }
+    const s = series.get(e.sym); let hi = e.ent, xo = null, j = e.t + 1, locked = false;
+    const atr = (k) => { let a = 0, n = 0; for (let i = k - 19; i <= k; i++) if (s.c[i] > 0 && s.c[i - 1] > 0 && s.h[i] > 0) { a += Math.max(s.h[i] - s.l[i], Math.abs(s.h[i] - s.c[i - 1]), Math.abs(s.l[i] - s.c[i - 1])); n++; } return n >= 10 ? a / n : NaN; };
+    for (; j <= Math.min(N - 2, e.t + 781); j++) {
+      if (!(s.c[j] > 0)) continue; if (s.c[j] > hi) hi = s.c[j]; if (s.c[j] >= e.ent * 1.25) locked = true;
+      let stop = typeof X === 'number' ? hi * (1 - X) : NaN;
+      if (X === 'lock') stop = Math.max(e.ent * 0.8, locked ? e.ent : 0, hi * 0.65);
+      if (X === 'dead') { stop = hi * 0.65; if (j === e.t + 60 && s.c[j] < e.ent * 1.1) stop = Infinity; }
+      if (X === 'atr') { const a = atr(j); stop = Number.isFinite(a) ? hi - 3 * a : hi * 0.65; }
+      if (s.c[j] <= stop) { const o = uniq[j + 1]?.rows?.[e.sym]?.[2]; xo = o > 0 ? o : s.c[j]; break; }
+    }
     if (xo == null) { let m = Math.min(N - 1, e.t + 781); while (m > e.t && !(s.c[m] > 0)) m--; xo = s.c[m]; }
     const a = compAt(e.D), b = compAt(dates[Math.min(N - 1, j)]), ben = comp[ck[b]] / comp[ck[a]] - 1;
     return { ...e, r: xo / e.ent - 1 - 0.013, hold: j - e.t, ben, xo, xj: Math.min(j + 1, N - 1) };
