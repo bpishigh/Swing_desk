@@ -19,9 +19,24 @@ const res = resolveHistory(uniq, actions, ov), days = toDays(uniq), dates = days
 const eq = new Set(); for (const d of uniq) for (const [s, r] of Object.entries(d.rows)) if (r[0] === 'EQ') eq.add(s);
 const series = buildHistories(days, res.splits, eq).series; const syms = [...series.keys()];
 const firstIdx = new Map(); for (let i = 0; i < N; i++) for (const r of days[i].rows) if (!firstIdx.has(r[0])) firstIdx.set(r[0], i);
-const NAMES = ['mom12_1', 'mom6', 'mom3', 'prox52', 'vol126', 'logTV', 'tvTrend', 'price', 'deliv', 'range40', 'udVol', 'age', 'dist200', 'fromLow'];
+const FUND = process.argv.includes('--fund');
+const NAMES = [...(FUND ? ['revYoY', 'patYoY', 'revAccel', 'marginChg', 'patAccel'] : []), 'mom12_1', 'mom6', 'mom3', 'prox52', 'vol126', 'logTV', 'tvTrend', 'price', 'deliv', 'range40', 'udVol', 'age', 'dist200', 'fromLow'];
 const monthEnds = []; for (let t = 1; t < N; t++) if (dates[t].slice(0, 7) !== dates[t + 1]?.slice(0, 7) && dates[t].slice(0, 7) >= FROM && dates[t].slice(0, 7) <= TO) monthEnds.push(t);
 const tvAt = (s, a, b) => { let x = 0, n = 0; for (let i = a; i <= b; i++) if (s.c[i] > 0 && s.v[i] >= 0) { x += s.c[i] * s.v[i]; n++; } return n >= (b - a + 1) * 0.7 ? x / n : NaN; };
+const FIL = new Map(); if (FUND) for (const f of readdirSync('data/india/filings').filter((x) => x.endsWith('.json.gz'))) { try { const j = JSON.parse(gunzipSync(readFileSync('data/india/filings/' + f))); FIL.set(j.entity ?? f.replace('.json.gz', ''), j.results ?? []); } catch {} }
+const eom = (y, m) => new Date(Date.UTC(y, m, 0)).getUTCDate(), addM = (p, k) => { let y = +p.slice(0, 4), m = +p.slice(5, 7) + k; while (m < 1) { m += 12; y--; } while (m > 12) { m -= 12; y++; } return `${y}-${String(m).padStart(2, '0')}-${String(eom(y, m)).padStart(2, '0')}`; };
+function fund(sym, D) {
+  const rs = FIL.get(sym); if (!rs) return {};
+  const by = new Map();
+  for (const r of rs) { if (!r.original || !r.asOf || r.asOf.slice(0, 10) > D) continue; const cur = by.get(r.period); if (!cur || (r.basis === 'consolidated' && cur.basis !== 'consolidated') || (r.basis === cur.basis && r.asOf < cur.asOf)) by.set(r.period, r); }
+  const per = [...by.keys()].sort(); if (!per.length) return {}; const q0 = per.at(-1); if ((new Date(D) - new Date(q0)) / 86400000 > 150) return {};
+  const g = (p, fld) => { const a = by.get(p)?.fields?.[fld], b = by.get(addM(p, -12))?.fields?.[fld]; return a != null && b > 0 ? a / b - 1 : NaN; };
+  const q1 = addM(q0, -3), out = {};
+  const r0 = g(q0, 'revenue'), r1 = g(q1, 'revenue'), p0 = g(q0, 'pat'), p1 = g(q1, 'pat');
+  out.revYoY = r0; out.patYoY = p0; out.revAccel = r0 - r1; out.patAccel = p0 - p1;
+  const m = (p) => { const f = by.get(p)?.fields; return f?.revenue > 0 && f.pbt != null ? f.pbt / f.revenue : NaN; }; out.marginChg = m(q0) - m(addM(q0, -12));
+  return out;
+}
 const rows = [];
 for (const t of monthEnds) {
   if (t + 756 > N - 1) continue;
@@ -39,7 +54,7 @@ for (const t of monthEnds) {
     if (n200 < 180 || nr < 100) continue;
     const tvOld = tvAt(s, t - 250, t - 125), f = {
       mom12_1: s.c[t - 21] / s.c[t - 252] - 1, mom6: s.c[t] / s.c[t - 126] - 1, mom3: s.c[t] / s.c[t - 63] - 1, prox52: s.c[t] / hi, vol126: Math.sqrt(sr2 / nr - (sr / nr) ** 2), logTV: Math.log(tv), tvTrend: tv / tvOld, price: s.c[t],
-      deliv: ndv >= 30 ? dv / ndv : NaN, range40: (m40hi - m40lo) / m40hi, udVol: dn > 0 ? up / dn : NaN, age: t - (firstIdx.get(sym) ?? 0), dist200: s.c[t] / (s200 / n200) - 1, fromLow: s.c[t] / lo - 1 };
+      deliv: ndv >= 30 ? dv / ndv : NaN, range40: (m40hi - m40lo) / m40hi, udVol: dn > 0 ? up / dn : NaN, age: t - (firstIdx.get(sym) ?? 0), dist200: s.c[t] / (s200 / n200) - 1, fromLow: s.c[t] / lo - 1, ...(FUND ? fund(sym, dates[t]) : {}) };
     let mx = 0; for (let k = t + 1; k <= t + 756; k++) if (s.c[k] > mx) mx = s.c[k];
     let c12 = NaN; for (let k = t + 252; k > t + 200; k--) if (s.c[k] > 0) { c12 = s.c[k] / s.c[t] - 1; break; }
     U.push({ sym, t, y: dates[t].slice(0, 4), f, a: mx / s.c[t] >= 3, b: mx / s.c[t] >= 5, c: c12 });
