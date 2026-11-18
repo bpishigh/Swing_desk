@@ -6,6 +6,7 @@ import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays } from '../src/backtest/india-asof.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
 const FROM = arg('from', '2011-01'), TO = arg('to', '2017-12'), TAG = arg('tag', 'discovery'), OUT = 'docs/replay';
+const GATE_ARG = arg('gate', 'none');
 const COMBO = arg('combo', '').split(',').filter(Boolean), DIRS = arg('dir', '').split(',').filter(Boolean).map(Number);
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const raw = [];
@@ -91,5 +92,5 @@ for (const n of NAMES) { const t = table[n]; md += `| ${n} | ${t.cell.map((c) =>
 md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| factor | ` + years.join(' | ') + ` | years Q5>base | years Q1<base |\n|---|` + years.map(() => '---|').join('') + `---|---|\n`;
 for (const n of NAMES) { const y = table[n].yr; md += `| ${n} | ${y.map((r) => (r.q5A == null ? '-' : r.q5A > r.baseA ? 'Q5+' : 'Q5-') + '/' + (r.q1A == null ? '-' : r.q1A < r.baseA ? 'Q1+' : 'Q1-')).join(' | ')} | ${y.filter((r) => r.q5A > r.baseA).length} | ${y.filter((r) => r.q1A < r.baseA).length} |\n`; }
 if (combo) md += `\n## Combined rule ${COMBO.map((n, i) => n + (DIRS[i] > 0 ? ' top quintile' : ' bottom quintile')).join(' + ')}\n\n${combo.n} stock-months; 3x rate ${pc(combo.A)} (lift ${combo.lift.toFixed(2)}); 5x ${pc(combo.B)}; 12m median ${pc(combo.Cmed)}, mean ${pc(combo.Cmean)}.\n\n| year | n | 3x rate | all-stock 3x rate | 12m median |\n|---|---|---|---|---|\n` + combo.years.map((y) => `| ${y.y} | ${y.n} | ${pc(y.A)} | ${pc(y.baseA)} | ${pc(y.Cmed)} |`).join('\n') + '\n';
-if (pf) md += `\n## Portfolio replay (max 50 names, 2% each, 35% trail, cost 2.0%, gate ${GATE})\n\n${pf.from} to ${pf.to}: final ${pf.final.toFixed(2)}x, CAGR ${pc(pf.cagr)}, max drawdown ${pc(pf.mdd)}, average invested ${pc(pf.avgInvested)}, ${pf.taken} bought, ${pf.skipped} skipped. Nifty 500: CAGR ${pc(pf.bench)}, max drawdown ${pc(pf.benchMdd)}.\n`;
+if (pf) md += `\n## Portfolio replay (max 50 names, 2% each, 35% trail, cost 2.0%, gate ${GATE_ARG})\n\n${pf.from} to ${pf.to}: final ${pf.final.toFixed(2)}x, CAGR ${pc(pf.cagr)}, max drawdown ${pc(pf.mdd)}, average invested ${pc(pf.avgInvested)}, ${pf.taken} bought, ${pf.skipped} skipped. Nifty 500: CAGR ${pc(pf.bench)}, max drawdown ${pc(pf.benchMdd)}.\n`;
 writeFileSync(`${OUT}/GROWTH-FACTORS-${TAG}.md`, md); console.log(md);
