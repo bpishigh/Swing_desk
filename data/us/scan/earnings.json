@@ -25,7 +25,8 @@
   "TGT": {
    "date": "2026-11-18",
    "sessions": 1,
-   "inWindow": true
+   "inWindow": true,
+   "estimated": true
   },
   "DLTR": {
    "date": "2026-11-24",
