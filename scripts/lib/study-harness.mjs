@@ -20,7 +20,7 @@ export function loadIndia() {
   const series = buildHistories(days, res.splits, eq).series;
   const bse = {}, nif = {}; for (const f of readdirSync('data/india/idx-hist').filter((x) => /^idx-\d{4}\.json$/.test(x)).sort()) { const j = R('data/india/idx-hist/' + f); for (const [d, v] of Object.entries(j['BSE 500'] ?? {})) if (v?.[3] > 0) bse[d] = v[3]; for (const [d, v] of Object.entries(j['Nifty 500'] ?? {})) if (v?.[3] > 0) nif[d] = v[3]; }
   const join = Object.keys(nif).sort().find((d) => bse[d] > 0), k = bse[join] / nif[join], idx = {}; for (const d of Object.keys(bse)) if (d < join) idx[d] = bse[d]; for (const d of Object.keys(nif)) idx[d] = nif[d] * k;
-  return finish({ market: 'in', uniq, days, dates, series, idx, openRaw: (sym, i) => { const r = uniq[i]?.rows?.[sym]; return r && r[2] > 0 && r[5] > 0 ? [r[2], r[5]] : null; }, costRT: 0.013, floor: 2e7 });
+  return finish({ market: 'in', uniq, days, dates, series, idx, splits: res.splits, openRaw: (sym, i) => { const r = uniq[i]?.rows?.[sym]; return r && r[2] > 0 && r[5] > 0 ? [r[2], r[5]] : null; }, costRT: 0.013, floor: 2e7 });
 }
 export function loadUS() {
   const days = loadDays(), dates = days.map((d) => d.date), series = buildHistories(days, [], new Set(days.flatMap((d) => d.rows.map((r) => r[0])))).series;
