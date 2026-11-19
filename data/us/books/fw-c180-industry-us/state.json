@@ -98,14 +98,14 @@
    "sh": 0.00999,
    "entry": 500,
    "entryDate": "2026-11-16",
-   "high": 504.4,
+   "high": 515.9,
    "stop": 0.25
   },
   "FTNT": {
    "sh": 0.03979445506692161,
    "entry": 125.52,
    "entryDate": "2026-11-16",
-   "high": 125.52,
+   "high": 131.81,
    "stop": 0.25
   },
   "MRNA": {
@@ -181,17 +181,23 @@
    "v": 98.0855,
    "vs": 97.9855,
    "x": 1
+  },
+  {
+   "d": "2026-11-18",
+   "v": 95.5794,
+   "vs": 95.4794,
+   "x": 1
   }
  ],
  "skipped": [],
  "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 2,
+  "credited": 3,
   "missing": 0
  },
  "started": "2026-11-16",
  "lastSignal": "2026-11-13",
- "lastStep": "2026-11-17",
+ "lastStep": "2026-11-18",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,

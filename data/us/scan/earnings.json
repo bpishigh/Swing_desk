@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-17",
+ "asOf": "2026-11-18",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "SGRY": {
@@ -7,31 +7,41 @@
    "sessions": null,
    "inWindow": null
   },
-  "ACHC": {
+  "LH": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "CON": {
+  "CDNA": {
    "date": null,
    "sessions": null,
    "inWindow": null
-  },
-  "KSS": {
-   "date": "2026-11-24",
-   "sessions": 5,
-   "inWindow": true
   },
   "TGT": {
    "date": "2026-11-18",
-   "sessions": 1,
+   "sessions": 0,
    "inWindow": true,
    "estimated": true
   },
+  "KSS": {
+   "date": "2026-11-24",
+   "sessions": 4,
+   "inWindow": true
+  },
+  "TXN": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "DLTR": {
    "date": "2026-11-24",
-   "sessions": 5,
+   "sessions": 4,
    "inWindow": true
+  },
+  "ANET": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
   "COP": {
    "date": null,
