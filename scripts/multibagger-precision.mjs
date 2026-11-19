@@ -27,7 +27,7 @@ for (const sym of syms) {
   const s = series.get(sym), c = s.c, v = s.v, hiP = slide(c, 252, true), loP = slide(c, 252, false), hiF = new Uint8Array(N), cum = new Int32Array(N + 1);
   for (let i = 0; i < N; i++) { hiF[i] = c[i] > 0 && c[i] >= hiP[i] ? 1 : 0; cum[i + 1] = cum[i] + hiF[i]; }
   for (let t = 260; t < N - 760; t++) {
-    if (!hiF[t] || c[t] < 20 || !H.green(dates[t]) || t - (lastEv.get(sym) ?? -1e9) < 126) continue; const tv = H.tv(sym, t - 19, t); if (!(tv >= 2e7)) continue;
+    if (!hiF[t] || !((H.openRaw(sym, t)?.[1] ?? 0) >= 20) || !H.green(dates[t]) || t - (lastEv.get(sym) ?? -1e9) < 126) continue; const tv = H.tv(sym, t - 19, t); if (!(tv >= 2e7)) continue;
     let s200 = 0, n200 = 0, v50b = 0, nvb = 0, hi60 = 0, lo60 = 1e18; for (let k = t - 199; k <= t; k++) if (c[k] > 0) { s200 += c[k]; n200++; } for (let k = t - 50; k < t; k++) if (v[k] >= 0) { v50b += v[k]; nvb++; } for (let k = t - 59; k <= t; k++) if (c[k] > 0) { if (c[k] > hi60) hi60 = c[k]; if (c[k] < lo60) lo60 = c[k]; }
     const m1 = c[t] > s200 / n200 && nvb > 40 && v[t] >= 2 * (v50b / nvb) && hi60 / lo60 <= 1.35, m3 = c[t - 126] > 0 && c[t] / c[t - 126] - 1 >= cut10(t); if (!m1 && !m3) continue;
     const tr = H.trade(sym, t, { trail: 0.35, hold: 756 }); if (!tr || !(c[t + 1] > 0)) continue;
@@ -35,7 +35,7 @@ for (const sym of syms) {
     let lowIdx = t, lo = 1e18; for (let k = t - 251; k < t; k++) if (c[k] > 0 && c[k] < lo) { lo = c[k]; lowIdx = k; } let mx2 = 0; for (let k = Math.max(0, t - 503); k <= t; k++) if (c[k] > mx2) mx2 = c[k];
     let sr = 0, sr2 = 0, nr = 0, a20 = 0, n20 = 0, a100 = 0, n100 = 0; for (let k = t - 125; k <= t; k++) if (c[k] > 0 && c[k - 1] > 0) { const r = c[k] / c[k - 1] - 1; sr += r; sr2 += r * r; nr++; if (k > t - 20) { a20 += Math.abs(r); n20++; } if (k > t - 100) { a100 += Math.abs(r); n100++; } }
     let v50 = 0, nv = 0; for (let k = t - 50; k < t; k++) if (v[k] >= 0) { v50 += v[k]; nv++; } const tvOld = H.tv(sym, t - 250, t - 125);
-    lastEv.set(sym, t); E.push({ sym, t, y: dates[t].slice(0, 4), A: mxF / c[t + 1] >= 3, c12, ret: tr.ret, ex: tr.ret - (Number.isFinite(tr.bench) ? tr.bench : 0), f: { price: c[t], logTV: Math.log(tv), fromLow: c[t] / lo, ddLow: lo / mx2, vol126: nr > 100 ? Math.sqrt(sr2 / nr - (sr / nr) ** 2) : NaN, volr: nv > 40 ? v[t] / (v50 / nv) : NaN, mom6: c[t] / c[t - 126] - 1, mom12_1: c[t - 21] > 0 && c[t - 252] > 0 ? c[t - 21] / c[t - 252] - 1 : NaN, dsLow: t - lowIdx, tvTrend: tv / tvOld, tight: n20 > 15 && n100 > 80 ? a20 / n20 / (a100 / n100) : NaN, ...fund(sym, dates[t]) } });
+    lastEv.set(sym, t); E.push({ sym, t, y: dates[t].slice(0, 4), A: mxF / c[t + 1] >= 3, c12, ret: tr.ret, ex: tr.ret - (Number.isFinite(tr.bench) ? tr.bench : 0), f: { price: (H.openRaw(sym, t)?.[1] ?? NaN), logTV: Math.log(tv), fromLow: c[t] / lo, ddLow: lo / mx2, vol126: nr > 100 ? Math.sqrt(sr2 / nr - (sr / nr) ** 2) : NaN, volr: nv > 40 ? v[t] / (v50 / nv) : NaN, mom6: c[t] / c[t - 126] - 1, mom12_1: c[t - 21] > 0 && c[t - 252] > 0 ? c[t - 21] / c[t - 252] - 1 : NaN, dsLow: t - lowIdx, tvTrend: tv / tvOld, tight: n20 > 15 && n100 > 80 ? a20 / n20 / (a100 / n100) : NaN, ...fund(sym, dates[t]) } });
   }
 }
 const half = (a, b) => E.filter((e) => dates[e.t] >= a && dates[e.t] <= b), H1 = half('2011-01-03', '2018-12-31'), H2 = half('2019-01-01', '2023-11-30');
