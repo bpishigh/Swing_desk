@@ -58,3 +58,15 @@ test('growthCombo buys only at month end, and not when the light is red', () => 
   assert.equal(growthCombo({ ...base, light: 'red', monthEnd: true }), null);
   assert.equal(GC.trail, 0.35);
 });
+
+import { newHighLeaders, HL } from '../src/engine/new-high-leaders.ts';
+test('newHighLeaders M3 buys the strongest new high only in an uptrend and respects the 126-session gap', () => {
+  const N = 400, dates = Array.from({ length: N }, (_, i) => `d${i}`), series = new Map(), mk = (drift: number) => { const c = new Float64Array(N), v = new Float64Array(N); for (let i = 0; i < N; i++) { c[i] = 100 * Math.exp(drift * i + 0.001 * Math.sin(i)); v[i] = 1e6; } return { c, h: c, l: c, v }; };
+  for (let k = 0; k < 150; k++) series.set('S' + k, mk(k % 3 === 0 ? -0.001 : 0.0004 + k * 1e-6));
+  series.set('LEAD', mk(0.004));
+  const base = { series, t: N - 1, dates, held: new Set<string>(), st: {} as never, eligible: () => true, rule: 'M3' as const };
+  assert.deepEqual(newHighLeaders({ ...base, up: true })?.buys.map((b) => b.sym), ['LEAD']);
+  assert.equal(newHighLeaders({ ...base, up: false }), null);
+  assert.equal(newHighLeaders({ ...base, up: true, st: { signalLog: [{ date: 'd350', sym: 'LEAD' }] } as never }), null);
+  assert.equal(HL.trail, 0.35);
+});

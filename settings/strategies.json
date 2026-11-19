@@ -915,6 +915,42 @@
       ],
       "checks": [],
       "stops": {}
+    },
+    {
+      "id": "bc-hl-m3",
+      "name": "New-high leaders (strongest)",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "HL-1",
+      "view": "book_list",
+      "startAfter": "2026-11-19",
+      "dataFile": "data/india/books/bc-hl-m3/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
+    },
+    {
+      "id": "bc-hl-m4",
+      "name": "New-high leaders (quiet)",
+      "market": "in",
+      "status": "paper_only",
+      "rule": "HL-2",
+      "view": "book_list",
+      "startAfter": "2026-11-19",
+      "dataFile": "data/india/books/bc-hl-m4/latest.json",
+      "benchmarks": [
+        "nifty200",
+        "nifty500",
+        "monthly-twin",
+        "momentum-fund"
+      ],
+      "checks": [],
+      "stops": {}
     }
   ]
 }

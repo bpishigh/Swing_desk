@@ -189,6 +189,24 @@
       "startAfter": "2026-11-19",
       "comparator": "n500",
       "batch": "C"
+    },
+    {
+      "id": "bc-hl-m3",
+      "rule": "HL-1",
+      "name": "New-high leaders (strongest six months)",
+      "signal": "hlM3",
+      "startAfter": "2026-11-19",
+      "comparator": "n500",
+      "batch": "C"
+    },
+    {
+      "id": "bc-hl-m4",
+      "rule": "HL-2",
+      "name": "New-high leaders (quiet breakouts)",
+      "signal": "hlM4",
+      "startAfter": "2026-11-19",
+      "comparator": "n500",
+      "batch": "C"
     }
   ],
   "navFunds": [
