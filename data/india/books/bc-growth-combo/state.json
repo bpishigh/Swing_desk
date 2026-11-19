@@ -1,0 +1,22 @@
+{
+ "id": "bc-growth-combo",
+ "startAfter": "2026-11-19",
+ "cash": 100,
+ "pos": {},
+ "lastValue": {},
+ "pending": null,
+ "stopQueue": [],
+ "closed": [],
+ "daily": [],
+ "skipped": [],
+ "slipCum": 0,
+ "cashDays": {
+  "credited": 0,
+  "missing": 0
+ },
+ "started": null,
+ "lastSignal": null,
+ "lastStep": "2026-11-18",
+ "weight": 0.02,
+ "lastNavDate": "2026-11-18"
+}
