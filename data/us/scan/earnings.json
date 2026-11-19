@@ -2,21 +2,6 @@
  "asOf": "2026-11-18",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
-  "SGRY": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "LH": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "CDNA": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "TGT": {
    "date": "2026-11-18",
    "sessions": 0,
@@ -39,11 +24,6 @@
    "inWindow": true
   },
   "ANET": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "COP": {
    "date": null,
    "sessions": null,
    "inWindow": null

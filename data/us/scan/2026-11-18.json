@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 298,
   "template": 127,
-  "qualified": 16,
+  "qualified": 6,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -373,124 +373,6 @@
  "ready": [],
  "watch": [
   {
-   "sym": "SGRY",
-   "type": "CS",
-   "group": "Healthcare services",
-   "path": "main",
-   "rsPct": 99.05,
-   "close": 26.96,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)",
-    "extended: more than 25% above the 50-day"
-   ],
-   "clears50M": true,
-   "composite": 71.51,
-   "tightness": 0.9,
-   "distPivot": 0.97,
-   "setup": null,
-   "gb": {
-    "pct": 57.1,
-    "n": 28
-   },
-   "diag": {
-    "rs121": 2.86,
-    "rs6m2w": 58.74,
-    "atr14": 0.49,
-    "sma50": 18.06,
-    "sma200": 15.28,
-    "high52": 27.23,
-    "low52": 11.41,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 99th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1% below its 52-week high (limit 25%) and 136.3% above its 52-week low (needs 30%).",
-    "Group: Healthcare services ranks 10 of 59 (median strength 72.2); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 57.1% of the 28 stocks in Healthcare services are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: extended, 49.3% above its 50-day (limit 25%). Wait for a pullback."
-   ]
-  },
-  {
-   "sym": "LH",
-   "type": "CS",
-   "group": "Healthcare services",
-   "path": "main",
-   "rsPct": 82.05,
-   "close": 370.78,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 60.78,
-   "tightness": 0.92,
-   "distPivot": 1.15,
-   "setup": null,
-   "gb": {
-    "pct": 57.1,
-    "n": 28
-   },
-   "diag": {
-    "rs121": 23.63,
-    "rs6m2w": 43.14,
-    "atr14": 8.82,
-    "sma50": 332.41,
-    "sma200": 293.9,
-    "high52": 375.1,
-    "low52": 245,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 82.1th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.2% below its 52-week high (limit 25%) and 51.3% above its 52-week low (needs 30%).",
-    "Group: Healthcare services ranks 10 of 59 (median strength 72.2); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 57.1% of the 28 stocks in Healthcare services are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 0.9, needs under 0.7); price is 1.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "CDNA",
-   "type": "CS",
-   "group": "Healthcare services",
-   "path": "main",
-   "rsPct": 99.59,
-   "close": 74.44,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 59.76,
-   "tightness": 1.16,
-   "distPivot": 18.08,
-   "setup": null,
-   "gb": {
-    "pct": 57.1,
-    "n": 28
-   },
-   "diag": {
-    "rs121": 346.16,
-    "rs6m2w": 309.83,
-    "atr14": 6.26,
-    "sma50": 67.77,
-    "sma200": 37.51,
-    "high52": 90.87,
-    "low52": 15.22,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 99.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 18.1% below its 52-week high (limit 25%) and 389.1% above its 52-week low (needs 30%).",
-    "Group: Healthcare services ranks 10 of 59 (median strength 72.2); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 57.1% of the 28 stocks in Healthcare services are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 18.1% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "TGT",
    "type": "CS",
    "group": "General merchandise retail",
@@ -674,45 +556,6 @@
     "Sector breadth: 16.7% of the 18 stocks in Computer hardware are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
-  },
-  {
-   "sym": "COP",
-   "type": "CS",
-   "group": "Petroleum refining",
-   "path": "main",
-   "rsPct": 78.72,
-   "close": 134.4,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 47.23,
-   "tightness": 1.06,
-   "distPivot": 12.89,
-   "setup": null,
-   "gb": {
-    "pct": 6.3,
-    "n": 16
-   },
-   "diag": {
-    "rs121": 64.51,
-    "rs6m2w": 15.17,
-    "atr14": 4.63,
-    "sma50": 137.46,
-    "sma200": 123.84,
-    "high52": 154.28,
-    "low52": 85.7,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 78.7th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.9% below its 52-week high (limit 25%) and 56.8% above its 52-week low (needs 30%).",
-    "Group: Petroleum refining ranks 6 of 59 (median strength 75.7); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 6.3% of the 16 stocks in Petroleum refining are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 12.9% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -721,7 +564,7 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 16,
+ "qualifiedTotal": 6,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
