@@ -16,8 +16,8 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-18",
- "lastNavDate": "2026-11-17",
+ "lastStep": "2026-11-19",
+ "lastNavDate": "2026-11-18",
  "dealCounts": {
   "kept": 0,
   "roundTrip": 32,
@@ -726,5 +726,9 @@
    "taken": false,
    "why": "round trip"
   }
+ ],
+ "dealsMissing": 1,
+ "dealsMissingDates": [
+  "2026-11-19"
  ]
 }

@@ -48,7 +48,11 @@
    "run": 0.0546,
    "rea": -0.0322,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1412,
+   "m": 0.0544,
+   "done": true
   },
   "BAJFINANCE|2026-10-19": {
    "s": "BAJFINANCE",
@@ -58,7 +62,11 @@
    "run": 0.0304,
    "rea": -0.0274,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1802,
+   "m": 0.0544,
+   "done": true
   },
   "BAJAJHFL|2026-10-16": {
    "s": "BAJAJHFL",
@@ -92,7 +100,11 @@
    "run": 0.0241,
    "rea": 0.0152,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1045,
+   "m": 0.0544,
+   "done": true
   },
   "CHENNPETRO|2026-10-22": {
    "s": "CHENNPETRO",
@@ -194,7 +206,11 @@
    "run": 0.1442,
    "rea": -0.0134,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": -0.0757,
+   "m": 0.0544,
+   "done": true
   },
   "HDFCBANK|2026-10-17": {
    "s": "HDFCBANK",
@@ -204,7 +220,11 @@
    "run": 0.0053,
    "rea": -0.0003,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1625,
+   "m": 0.0544,
+   "done": true
   },
   "HFCL|2026-10-19": {
    "s": "HFCL",
@@ -214,7 +234,11 @@
    "run": 0.0688,
    "rea": 0.064,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-19",
+   "r": -0.2657,
+   "m": 0.0544,
+   "done": true
   },
   "HAVELLS|2026-10-22": {
    "s": "HAVELLS",
@@ -258,7 +282,11 @@
    "run": -0.0324,
    "rea": 0.002,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.0076,
+   "m": 0.0544,
+   "done": true
   },
   "ICICIBANK|2026-10-17": {
    "s": "ICICIBANK",
@@ -268,7 +296,11 @@
    "run": 0.0606,
    "rea": 0.0212,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-19",
+   "r": 0.1617,
+   "m": 0.0544,
+   "done": true
   },
   "IDBI|2026-10-17": {
    "s": "IDBI",
@@ -278,7 +310,11 @@
    "run": -0.0336,
    "rea": -0.014,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": -0.0106,
+   "m": 0.0544,
+   "done": true
   },
   "INDIACEM|2026-10-17": {
    "s": "INDIACEM",
@@ -288,7 +324,11 @@
    "run": 0.0189,
    "rea": 0.1207,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": -0.027,
+   "m": 0.0544,
+   "done": true
   },
   "INDHOTEL|2026-10-21": {
    "s": "INDHOTEL",
@@ -308,7 +348,11 @@
    "run": -0.0251,
    "rea": -0.018,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.2529,
+   "m": 0.0544,
+   "done": true
   },
   "IGIL|2026-10-21": {
    "s": "IGIL",
@@ -328,7 +372,11 @@
    "run": 0.0062,
    "rea": -0.039,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": -0.0337,
+   "m": 0.0544,
+   "done": true
   },
   "J&KBANK|2026-10-22": {
    "s": "J&KBANK",
@@ -382,7 +430,11 @@
    "run": 0.1314,
    "rea": 0.1056,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-19",
+   "r": 0.0099,
+   "m": 0.0544,
+   "done": true
   },
   "LTM|2026-10-16": {
    "s": "LTM",
@@ -450,7 +502,11 @@
    "run": -0.0414,
    "rea": 0.065,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.0036,
+   "m": 0.0544,
+   "done": true
   },
   "PNB|2026-10-16": {
    "s": "PNB",
@@ -494,7 +550,11 @@
    "run": -0.0256,
    "rea": 0.0495,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.0474,
+   "m": 0.0544,
+   "done": true
   },
   "SWIGGY|2026-10-22": {
    "s": "SWIGGY",
@@ -538,7 +598,11 @@
    "run": 0.0131,
    "rea": 0.0244,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1577,
+   "m": 0.0544,
+   "done": true
   },
   "UNIONBANK|2026-10-19": {
    "s": "UNIONBANK",
@@ -548,7 +612,11 @@
    "run": 0.0191,
    "rea": 0.0899,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.1538,
+   "m": 0.0544,
+   "done": true
   },
   "URBANCO|2026-10-16": {
    "s": "URBANCO",
@@ -582,7 +650,11 @@
    "run": -0.1619,
    "rea": -0.0325,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-19",
+   "r": 0.0871,
+   "m": 0.0544,
+   "done": true
   },
   "ACC|2026-10-27": {
    "s": "ACC",
@@ -4646,32 +4718,32 @@
   }
  },
  "summary": {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 2,
-    "open": 55,
-    "meanNet": 0.126,
-    "win": 1,
-    "market": 0.0256
+    "matured": 5,
+    "open": 52,
+    "meanNet": 0.0292,
+    "win": 0.8,
+    "market": 0.0429
    },
    {
     "group": "ran up, any reaction",
-    "matured": 6,
-    "open": 168,
-    "meanNet": 0.0033,
-    "win": 0.333,
-    "market": 0.0256
+    "matured": 13,
+    "open": 161,
+    "meanNet": 0.0191,
+    "win": 0.538,
+    "market": 0.0411
    },
    {
     "group": "all results stocks",
-    "matured": 11,
-    "open": 449,
-    "meanNet": 0.0211,
-    "win": 0.455,
-    "market": 0.0256
+    "matured": 29,
+    "open": 431,
+    "meanNet": 0.042,
+    "win": 0.586,
+    "market": 0.0435
    }
   ]
  }

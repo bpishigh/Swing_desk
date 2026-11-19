@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 90.0263885672336,
+ "cash": 90.04094674032065,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -14,7 +14,7 @@
    "sh": 0.00111754836048851,
    "entry": 4466.3,
    "entryDate": "2026-11-18",
-   "high": 4466.3,
+   "high": 4601.4,
    "stop": 0.07945009180063589
   }
  },
@@ -37,6 +37,12 @@
    "v": 99.6581,
    "vs": 99.6481,
    "x": 0.0966
+  },
+  {
+   "d": "2026-11-19",
+   "v": 99.9854,
+   "vs": 99.9754,
+   "x": 0.0995
   }
  ],
  "skipped": [
@@ -69,17 +75,37 @@
    "date": "2026-11-18",
    "sym": "GLENMARK",
    "width": 0.0983
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "ATHERENERG",
+   "width": 0.1254
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "SKYGOLD",
+   "width": 0.2314
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "NYKAA",
+   "width": 0.0875
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "MOTHERSON",
+   "width": 0.1115
   }
  ],
  "slipCum": 0.010000056341046665,
  "cashDays": {
-  "credited": 2,
+  "credited": 3,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-18",
- "lastNavDate": "2026-11-17",
+ "lastStep": "2026-11-19",
+ "lastNavDate": "2026-11-18",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -136,6 +162,34 @@
    "dip": "run",
    "volRatio": 1.1775,
    "tight": 0.0738
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "ATHERENERG",
+   "dip": "run",
+   "volRatio": 0.5908,
+   "tight": 0.0864
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "SKYGOLD",
+   "dip": "average",
+   "volRatio": 0.7242,
+   "tight": 0.1366
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "NYKAA",
+   "dip": "run",
+   "volRatio": 0.5663,
+   "tight": 0.0416
+  },
+  {
+   "date": "2026-11-19",
+   "sym": "MOTHERSON",
+   "dip": "average",
+   "volRatio": 1.06,
+   "tight": 0.0753
   }
  ],
  "costs": {

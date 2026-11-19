@@ -115,7 +115,7 @@
   "high": {
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
-   "TFCILTD": 169.69,
+   "TFCILTD": 170.18,
    "CPPLUS": 4237,
    "DIVISLAB": 11485,
    "SKYGOLD": 1050.05,
@@ -135,10 +135,10 @@
    "INDHOTEL": 901.55,
    "MOTHERSON": 168.75,
    "KALYANKJIL": 710.9,
-   "KOTAKBANK": 497.25,
-   "ICICIBANK": 1601.3,
+   "KOTAKBANK": 503,
+   "ICICIBANK": 1608.9,
    "RADICO": 4665,
-   "TVSMOTOR": 4550,
+   "TVSMOTOR": 4601.4,
    "KARURVYSYA": 393.5,
    "TITAN": 4970,
    "COFORGE": 2049,
@@ -217,16 +217,20 @@
   {
    "d": "2026-11-18",
    "v": 99.2799
+  },
+  {
+   "d": "2026-11-19",
+   "v": 99.6217
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-18",
-   "v": 99.2799
+   "d": "2026-11-19",
+   "v": 99.6217
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-18",
+ "stopChecked": "2026-11-19",
  "gone": []
 }

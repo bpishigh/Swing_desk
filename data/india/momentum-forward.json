@@ -12,7 +12,11 @@
    "limit": 441.54,
    "basis": 437.17,
    "width": 5.54,
-   "room": 1.11
+   "room": 1.11,
+   "exit": "2026-11-19",
+   "net": 0.057,
+   "mkt": 0.0537,
+   "done": true
   },
   "WELCORP|4|2026-10-19": {
    "sym": "WELCORP",
@@ -25,7 +29,11 @@
    "limit": 2651.49,
    "basis": 2625.24,
    "width": 8.58,
-   "room": 1.22
+   "room": 1.22,
+   "exit": "2026-11-19",
+   "net": -0.1365,
+   "mkt": 0.0537,
+   "done": true
   },
   "CPPLUS|2|2026-10-19": {
    "sym": "CPPLUS",
@@ -38,7 +46,11 @@
    "limit": 4160.61,
    "basis": 4119.42,
    "width": 8.33,
-   "room": 1.46
+   "room": 1.46,
+   "exit": "2026-11-19",
+   "net": 0.027,
+   "mkt": 0.0537,
+   "done": true
   },
   "BBOX|2|2026-10-19": {
    "sym": "BBOX",
@@ -51,7 +63,11 @@
    "limit": 938.75,
    "basis": 929.46,
    "width": 8.3,
-   "room": 2.25
+   "room": 2.25,
+   "exit": "2026-11-19",
+   "net": 0.0083,
+   "mkt": 0.0537,
+   "done": true
   },
   "JINDALSAW|2|2026-10-19": {
    "sym": "JINDALSAW",
@@ -64,7 +80,11 @@
    "limit": 302.65,
    "basis": 299.65,
    "width": 8.04,
-   "room": 0.84
+   "room": 0.84,
+   "exit": "2026-11-19",
+   "net": -0.0807,
+   "mkt": 0.0537,
+   "done": true
   },
   "JINDALSAW|4|2026-10-19": {
    "sym": "JINDALSAW",
@@ -77,7 +97,11 @@
    "limit": 302.65,
    "basis": 299.65,
    "width": 8.04,
-   "room": 0.84
+   "room": 0.84,
+   "exit": "2026-11-19",
+   "net": -0.0807,
+   "mkt": 0.0537,
+   "done": true
   },
   "LAURUSLABS|4|2026-10-23": {
    "sym": "LAURUSLABS",
@@ -611,6 +635,84 @@
    "basis": 140.1,
    "width": 9.02,
    "room": 0.36
+  },
+  "ARVIND|2|2026-11-19": {
+   "sym": "ARVIND",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 530.06,
+   "stop": 499.8,
+   "limit": 535.36,
+   "basis": 530.06,
+   "width": 5.71,
+   "room": 2.55
+  },
+  "ARVIND|4|2026-11-19": {
+   "sym": "ARVIND",
+   "id": "4",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 530.06,
+   "stop": 499.8,
+   "limit": 535.36,
+   "basis": 530.06,
+   "width": 5.71,
+   "room": 2.55
+  },
+  "PGIL|2|2026-11-19": {
+   "sym": "PGIL",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 1424.54,
+   "stop": 1292.7,
+   "limit": 1438.79,
+   "basis": 1424.54,
+   "width": 9.26,
+   "room": 0.19
+  },
+  "NITINSPIN|2|2026-11-19": {
+   "sym": "NITINSPIN",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 698.39,
+   "stop": 657.04,
+   "limit": 705.37,
+   "basis": 698.39,
+   "width": 5.92,
+   "room": -0.03
+  },
+  "QUESS|2|2026-11-19": {
+   "sym": "QUESS",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 349.6,
+   "stop": 323.66,
+   "limit": 353.1,
+   "basis": 349.6,
+   "width": 7.42,
+   "room": 1.51
+  },
+  "QUESS|4|2026-11-19": {
+   "sym": "QUESS",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-19",
+   "trigger": 349.6,
+   "stop": 323.66,
+   "limit": 353.1,
+   "basis": 349.6,
+   "width": 7.42,
+   "room": 1.51
   }
  },
  "lastLogged": {
@@ -660,23 +762,29 @@
   "INDGN|2": "2026-11-18",
   "TIPSMUSIC|2": "2026-11-18",
   "KOPRAN|2": "2026-11-18",
-  "GHCLTEXTIL|2": "2026-11-18"
+  "GHCLTEXTIL|2": "2026-11-18",
+  "ARVIND|2": "2026-11-19",
+  "ARVIND|4": "2026-11-19",
+  "PGIL|2": "2026-11-19",
+  "NITINSPIN|2": "2026-11-19",
+  "QUESS|2": "2026-11-19",
+  "QUESS|4": "2026-11-19"
  },
  "summary": {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
-     "matured": 0,
-     "open": 4,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "matured": 1,
+     "open": 3,
+     "meanNet": 0.057,
+     "win": 1,
+     "excess": 0.0033
     },
     "others": {
      "matured": 0,
-     "open": 7,
+     "open": 10,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -708,15 +816,15 @@
    {
     "group": "room under 3R",
     "momentum": {
-     "matured": 0,
-     "open": 4,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "matured": 1,
+     "open": 3,
+     "meanNet": 0.057,
+     "win": 1,
+     "excess": 0.0033
     },
     "others": {
      "matured": 0,
-     "open": 7,
+     "open": 10,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -728,21 +836,21 @@
    {
     "group": "stop too wide",
     "momentum": {
-     "matured": 0,
-     "open": 13,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "matured": 2,
+     "open": 11,
+     "meanNet": -0.0548,
+     "win": 0.5,
+     "excess": -0.1085
     },
     "others": {
-     "matured": 0,
+     "matured": 3,
      "open": 23,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "meanNet": -0.051,
+     "win": 0.333,
+     "excess": -0.1047
     },
-    "diffNet": null,
-    "diffWin": null,
+    "diffNet": -0.0038,
+    "diffWin": 0.167,
     "t": null
    }
   ]

@@ -1,7 +1,22 @@
 {
- "asOf": "2026-11-18",
+ "asOf": "2026-11-19",
  "source": "NSE event calendar",
  "dates": {
+  "NITINSPIN": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SHREEJISPG": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "KPL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "SHADOWFAX": {
    "date": null,
    "sessions": null,
@@ -12,42 +27,22 @@
    "sessions": null,
    "inWindow": null
   },
-  "SHREEJISPG": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "PVRINOX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "KPL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "NITINSPIN": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "PGIL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "SAREGAMA": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "AMANTA": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "ACUTAAS": {
+  "EMCURE": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SBC": {
+   "date": "2029-05-29",
+   "sessions": 656,
+   "inWindow": false
+  },
+  "PVRINOX": {
    "date": null,
    "sessions": null,
    "inWindow": null

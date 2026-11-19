@@ -549,7 +549,7 @@
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
    "STLTECH": 736.9,
-   "TFCILTD": 169.69,
+   "TFCILTD": 170.18,
    "CPPLUS": 4237,
    "SKYGOLD": 1050.05,
    "ATHERENERG": 1945,
@@ -567,7 +567,7 @@
    "BOSCHLTD": 50580,
    "NAVINFLUOR": 10278,
    "AEGISLOG": 1240,
-   "SYRMA": 1515.9,
+   "SYRMA": 1517,
    "MOTHERSON": 168.75,
    "ETERNAL": 375.05,
    "PAYTM": 1939.9,
@@ -575,7 +575,7 @@
    "INDHOTEL": 901.55,
    "KALYANKJIL": 710.9,
    "REDINGTON": 359.1,
-   "KOTAKBANK": 497.25
+   "KOTAKBANK": 503
   },
   "startedFill": "2026-11-12"
  },
@@ -650,16 +650,20 @@
   {
    "d": "2026-11-18",
    "v": 98.5809
+  },
+  {
+   "d": "2026-11-19",
+   "v": 98.6544
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-18",
-   "v": 98.5809
+   "d": "2026-11-19",
+   "v": 98.6544
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-18",
+ "stopChecked": "2026-11-19",
  "gone": []
 }
