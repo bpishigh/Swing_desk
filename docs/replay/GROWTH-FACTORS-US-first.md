@@ -37,14 +37,3 @@ Rule: docs/replay/GROWTH-FACTORS-US-PREREG.md. 61562 stock-months over 39 month-
 | age | Q5+/Q1+ | Q5+/Q1+ | Q5+/Q1- | Q5-/Q1- | 3 | 2 |
 | dist200 | Q5+/Q1- | Q5+/Q1- | Q5+/Q1- | Q5+/Q1- | 4 | 0 |
 | fromLow | Q5+/Q1+ | Q5+/Q1+ | Q5+/Q1+ | Q5+/Q1+ | 4 | 4 |
-
-## Combined rule price bottom quintile + mom6 top quintile + tvTrend top quintile
-
-1144 stock-months; 3x rate 38.0% (lift 3.25); 5x 20.3%; 12m median 22.4%, mean 65.7%.
-
-| year | n | 3x rate | all-stock 3x rate | 12m median |
-|---|---|---|---|---|
-| 2017 | 116 | 26.7% | 6.6% | 1.9% |
-| 2018 | 325 | 44.6% | 10.6% | 21.7% |
-| 2019 | 354 | 34.2% | 12.0% | 15.2% |
-| 2020 | 349 | 39.5% | 13.6% | 43.9% |
