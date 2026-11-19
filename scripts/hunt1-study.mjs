@@ -1,9 +1,9 @@
 // HUNT-1 (docs/replay/HUNT-1-PREREG.md). Usage: node scripts/hunt1-study.mjs --from 2011-01-03 --to 2018-12-31 [--rules M1,S2]
-import { loadIndia, summarize, line, header } from './lib/study-harness.mjs';
+import { loadIndia, loadUS, summarize, line, header } from './lib/study-harness.mjs';
 import { writeFileSync } from 'node:fs';
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const FROM = arg('from'), TO = arg('to'), RULES = (arg('rules', 'M1,M2,M3,M4,S1,S2,S3,S4')).split(',');
-const H = loadIndia(), { dates, series, syms } = H;
+const H = arg('market') === 'us' ? loadUS() : loadIndia(), { dates, series, syms } = H;
 const t0 = Math.max(H.t0(FROM), 260), t1 = H.dates.findLastIndex((d) => d <= TO);
 const out = Object.fromEntries(RULES.map((r) => [r, []])), last = Object.fromEntries(RULES.map((r) => [r, new Map()]));
 const mean = (s, a, b) => { let x = 0, n = 0; for (let i = a; i <= b; i++) if (s[i] > 0) { x += s[i]; n++; } return n >= (b - a + 1) * 0.85 ? x / n : NaN; };
@@ -35,7 +35,7 @@ for (let t = t0; t <= t1; t++) {
 console.log(`HUNT-1 ${FROM}..${TO}\n` + header);
 const rows = {}; for (const r of RULES) { const s = summarize(out[r], r); rows[r] = s; console.log(line(s)); }
 for (const r of RULES) console.log(r, 'years', Object.entries(rows[r].years ?? {}).map(([y, o]) => `${y}:${(o.excess * 100).toFixed(0)}(${o.n})`).join(' '), '| top-decile share', (rows[r].topDecileShare * 100).toFixed(0) + '%');
-writeFileSync(`/tmp/claude-0/-home-claude/777998c4-9f61-52d1-a143-48376f83c2ab/scratchpad/hunt1-${FROM}-${TO}.json`, JSON.stringify(rows));
+writeFileSync(`/tmp/claude-0/-home-claude/777998c4-9f61-52d1-a143-48376f83c2ab/scratchpad/hunt1-${arg('market','in')}-${FROM}-${TO}.json`, JSON.stringify(rows));
 // Descriptive portfolio replay of the passing rules (no tuning): --portfolio M2 ; 50 names x 2%, first come first served, trades already carry cost and the 35% trail.
 if (arg('portfolio')) for (const r of arg('portfolio').split(',')) {
   const trs = [...out[r]].sort((a, b) => a.t - b.t), N = H.N, open = []; let cash = 1, eq = [], pk = 1, mdd = 0, ti = 0; const nav = new Float64Array(N).fill(NaN);
