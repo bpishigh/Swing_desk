@@ -6,7 +6,7 @@ import { buildHistories } from '../src/ingest/us-scan.ts';
 import { resolveHistory, toDays } from '../src/backtest/india-asof.ts';
 const arg = (k, d) => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d;
 const FROM = arg('from', '2011-01'), TO = arg('to', '2017-12'), TAG = arg('tag', 'discovery'), OUT = 'docs/replay';
-const GATE_ARG = arg('gate', 'none');
+const GATE_ARG = arg('gate', 'none'); const RAWP = process.argv.includes('--rawprice');
 const COMBO = arg('combo', '').split(',').filter(Boolean), DIRS = arg('dir', '').split(',').filter(Boolean).map(Number);
 const R = (p, d = null) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
 const raw = [];
@@ -54,7 +54,7 @@ for (const t of monthEnds) {
     for (let k = t - 59; k <= t; k++) { const d = uniq[k].rows[sym]?.[7]; if (d > 0) { dv += d; ndv++; } }
     if (n200 < 180 || nr < 100) continue;
     const tvOld = tvAt(s, t - 250, t - 125), f = {
-      mom12_1: s.c[t - 21] / s.c[t - 252] - 1, mom6: s.c[t] / s.c[t - 126] - 1, mom3: s.c[t] / s.c[t - 63] - 1, prox52: s.c[t] / hi, vol126: Math.sqrt(sr2 / nr - (sr / nr) ** 2), logTV: Math.log(tv), tvTrend: tv / tvOld, price: s.c[t],
+      mom12_1: s.c[t - 21] / s.c[t - 252] - 1, mom6: s.c[t] / s.c[t - 126] - 1, mom3: s.c[t] / s.c[t - 63] - 1, prox52: s.c[t] / hi, vol126: Math.sqrt(sr2 / nr - (sr / nr) ** 2), logTV: Math.log(tv), tvTrend: tv / tvOld, price: RAWP ? (uniq[t].rows[sym]?.[5] > 0 ? uniq[t].rows[sym][5] : NaN) : s.c[t],
       deliv: ndv >= 30 ? dv / ndv : NaN, range40: (m40hi - m40lo) / m40hi, udVol: dn > 0 ? up / dn : NaN, age: t - (firstIdx.get(sym) ?? 0), dist200: s.c[t] / (s200 / n200) - 1, fromLow: s.c[t] / lo - 1, ...(FUND ? fund(sym, dates[t]) : {}) };
     let mx = 0; for (let k = t + 1; k <= t + 756; k++) if (s.c[k] > mx) mx = s.c[k];
     let c12 = NaN; for (let k = t + 252; k > t + 200; k--) if (s.c[k] > 0) { c12 = s.c[k] / s.c[t] - 1; break; }
