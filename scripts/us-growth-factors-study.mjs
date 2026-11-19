@@ -106,4 +106,20 @@ md += `\n## Year consistency (Q5 3x rate above all-stock rate / Q1 below)\n\n| f
 for (const n of NAMES) { const y = table[n].yr; md += `| ${n} | ${y.map((r) => (r.q5A == null ? '-' : r.q5A > r.baseA ? 'Q5+' : 'Q5-') + '/' + (r.q1A == null ? '-' : r.q1A < r.baseA ? 'Q1+' : 'Q1-')).join(' | ')} | ${y.filter((r) => r.q5A > r.baseA).length} | ${y.filter((r) => r.q1A < r.baseA).length} |\n`; }
 if (combo) md += `\n## Combined rule ${COMBO.map((n, i) => n + (DIRS[i] > 0 ? ' top quintile' : ' bottom quintile')).join(' + ')}\n\n${combo.n} stock-months; 3x rate ${pc(combo.A)} (lift ${combo.lift.toFixed(2)}); 5x ${pc(combo.B)}; 12m median ${pc(combo.Cmed)}, mean ${pc(combo.Cmean)}.\n\n| year | n | 3x rate | all-stock 3x rate | 12m median |\n|---|---|---|---|---|\n` + combo.years.map((y) => `| ${y.y} | ${y.n} | ${pc(y.A)} | ${pc(y.baseA)} | ${pc(y.Cmed)} |`).join('\n') + '\n';
 if (pf) md += `\n## Portfolio replay (max 50 names, 2% each, 35% trail, cost 2.0%, gate ${GATE_ARG})\n\n${pf.from} to ${pf.to}: final ${pf.final.toFixed(2)}x, CAGR ${pc(pf.cagr)}, max drawdown ${pc(pf.mdd)}, average invested ${pc(pf.avgInvested)}, ${pf.taken} bought, ${pf.skipped} skipped. Nifty 500: CAGR ${pc(pf.bench)}, max drawdown ${pc(pf.benchMdd)}.\n`;
-writeFileSync(`${OUT}/GROWTH-FACTORS-US-${TAG}.md`, md); console.log(md);
+writeFileSync(`${OUT}/GROWTH-FACTORS-US-${TAG}.md`, md); console.log(md.slice(0,200));
+// US-VOL addendum: factor lifts inside volatility terciles (docs/replay/GROWTH-FACTORS-US-PREREG.md, addendum US-VOL)
+if (process.argv.includes('--vol')) {
+  const DIR = { mom12_1: 1, mom6: 1, mom3: 1, tvTrend: 1, udVol: 1, dist200: 1, fromLow: 1, price: -1, prox52: -1, logTV: -1, age: -1, range40: -1 };
+  const out = {};
+  for (const name of Object.keys(DIR)) {
+    out[name] = [0, 1, 2].map((v) => {
+      const T = rows.filter((r) => r.vol126_p >= v / 3 && r.vol126_p < (v + 1) / 3 && Number.isFinite(r[name + '_p']));
+      const base = T.filter((r) => r.a).length / T.length, bmed = med(T.map((r) => r.c));
+      const Q = T.filter((r) => (DIR[name] > 0 ? r[name + '_p'] >= 0.8 : r[name + '_p'] < 0.2));
+      return { n: Q.length, base, lift: Q.filter((r) => r.a).length / Q.length / base, med: med(Q.map((r) => r.c)), bmed };
+    });
+  }
+  console.log('VOL ' + TAG); for (const [n, a] of Object.entries(out)) console.log(n.padEnd(8), a.map((x) => `lift ${x.lift.toFixed(2)} med ${pc(x.med)}/${pc(x.bmed)} n${x.n}`).join(' | '));
+  writeFileSync(`${OUT}/GROWTH-FACTORS-US-vol-${TAG}.json`, JSON.stringify(out));
+}
+
