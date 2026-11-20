@@ -1,5 +1,5 @@
 {
- "ts": "2026-11-20T01:07:51.191Z",
+ "ts": "2026-11-20T01:38:15.576Z",
  "date": "2026-11-19",
  "status": "SPY or QQQ could not be confirmed",
  "fetched": {
@@ -70,10 +70,12 @@
  },
  "conflicts": [],
  "flags": [
-  "QQQ: Tiingo close 645.04 and StockAnalysis 646.64 differ by more than 0.1%; 2026-11-19 not written for it",
-  "XLU: Tiingo close 43.01 and StockAnalysis 43.08 differ by more than 0.1%; 2026-11-19 not written for it",
+  "SPY: Tiingo close 715.87 and StockAnalysis 716.61 differ by more than 0.1%; 2026-11-19 not written for it",
+  "QQQ: Tiingo close 645.04 and StockAnalysis 645.81 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLF: Tiingo close 55.58 and StockAnalysis 55.65 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLI: Tiingo close 161.36 and StockAnalysis 162.29 differ by more than 0.1%; 2026-11-19 not written for it",
   "XLB: Tiingo close 49.42 and StockAnalysis 49.54 differ by more than 0.1%; 2026-11-19 not written for it",
-  "SMH: Tiingo close 447.48 and StockAnalysis 448.51 differ by more than 0.1%; 2026-11-19 not written for it",
+  "SMH: Tiingo close 447.48 and StockAnalysis 451.32 differ by more than 0.1%; 2026-11-19 not written for it",
   "VIX: Cboe has no row for 2026-11-19 yet"
  ]
 }
