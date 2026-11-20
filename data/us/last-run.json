@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-19T00:07:58.815Z",
- "date": "2026-11-18",
- "status": "written",
+ "ts": "2026-11-20T00:08:00.728Z",
+ "date": "2026-11-19",
+ "status": "SPY or QQQ could not be confirmed",
  "fetched": {
   "SPY": {
    "rows": 7,
@@ -70,15 +70,15 @@
  },
  "conflicts": [],
  "flags": [
-  "XLK: Tiingo close 163.81 and StockAnalysis 163.25 differ by more than 0.1%; 2026-11-18 not written for it",
-  "XLF: Tiingo close 56.42 and StockAnalysis 56.52 differ by more than 0.1%; 2026-11-18 not written for it",
-  "XLE: Tiingo close 61.29 and StockAnalysis 61.59 differ by more than 0.1%; 2026-11-18 not written for it",
-  "XLI: Tiingo close 164.66 and StockAnalysis 165.3 differ by more than 0.1%; 2026-11-18 not written for it",
-  "XLB: Tiingo close 50.46 and StockAnalysis 50.61 differ by more than 0.1%; 2026-11-18 not written for it",
-  "SMH: Tiingo close 459.54 and StockAnalysis 455.81 differ by more than 0.1%; 2026-11-18 not written for it",
-  "VIX: Cboe has no row for 2026-11-18 yet",
-  "6 sector ETF(s) not updated for 2026-11-18 (XLK, XLF and 4 more): previous values kept with their own dates",
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-18"
- ],
- "backfilled": 0
+  "SPY: Tiingo close 715.87 and StockAnalysis 716.61 differ by more than 0.1%; 2026-11-19 not written for it",
+  "QQQ: Tiingo close 645.04 and StockAnalysis 645.81 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLK: Tiingo close 160.69 and StockAnalysis 161.58 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLF: Tiingo close 55.58 and StockAnalysis 55.65 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLE: Tiingo close 60.89 and StockAnalysis 60.99 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLI: Tiingo close 161.36 and StockAnalysis 162.29 differ by more than 0.1%; 2026-11-19 not written for it",
+  "XLB: Tiingo close 49.42 and StockAnalysis 49.54 differ by more than 0.1%; 2026-11-19 not written for it",
+  "SMH: Tiingo close 447.48 and StockAnalysis 451.32 differ by more than 0.1%; 2026-11-19 not written for it",
+  "IGV: Tiingo close 96.1 and StockAnalysis 96.64 differ by more than 0.1%; 2026-11-19 not written for it",
+  "VIX: Cboe has no row for 2026-11-19 yet"
+ ]
 }
