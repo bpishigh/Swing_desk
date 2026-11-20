@@ -1,0 +1,12 @@
+# INSIDER: do promoter and insider market purchases find stocks that go on to win? — registered 21 Nov 2026, before the run
+Data: SEBI PIT disclosures, market-wide, 2016-2025, promoter / promoter group / director / KMP / relative rows (data/india/pit, loaded by the backfill-pit job on 20-21 Nov 2026). Each row carries the disclosure date; signals use only rows disclosed on or before the month-end. Unlike the filings, these include names that later delisted (as long as the symbol matches the price history; coverage of the match is reported). Paper only; not financial advice.
+## Events (month-end states, trailing 90 calendar days by disclosure date; family of 4, fixed)
+Rows are counted only when the mode is an open-market purchase or sale ("Market Purchase" / "Market Sale"); gifts, ESOP, pledges, off-market and inter-se transfers are ignored. Values are the rupee value in the disclosure.
+- P1 promoter buying: promoter / promoter-group net open-market purchase >= Rs 25 lakh (purchases minus sales).
+- P2 promoter creeping up: P1 and at least 2 separate purchase disclosures and summed holding gain (after minus before, in % points of the company) >= 0.5.
+- P3 insider (non-promoter) buying: director / KMP / relative net open-market purchase >= Rs 10 lakh, and no promoter net sale >= Rs 25 lakh in the same window.
+- P4 promoter selling (negative side): promoter / promoter-group net open-market sale >= Rs 1 crore.
+## Universe, outcomes, samples
+Each month-end: liquid stocks (20-session traded value >= Rs 2 crore, raw price >= Rs 20). Reported only (not scored): the same at Rs 50 lakh. Outcomes as in EARNINGS-ACCEL: A 12-month excess over the liquid median on that month-end (stocks with no price from session +150 onward are left out, which understates losers; disclosed); B 3x within 756 sessions (to 2023-11); C top-quintile share. Discovery month-ends 2016-06 to 2020-12; validation 2021-01 to 2024-11. One run.
+## Bar (P1-P3, both halves)
+n >= 300 stock-months per half; median excess >= +5 points; top-quintile share >= 1.3x (26%); ex-top-5% mean excess > 0; positive median excess in at least 6 of 9 entry years. P4 is a read-only check: pass if median excess <= -3 points in both halves (a sell-side warning, useful as an exclusion filter for other books). Pass of P1-P3 means a registered rule and a paper book next; the signal may be clustered in the 2020-21 wave, so the by-year line is read before anything else.
