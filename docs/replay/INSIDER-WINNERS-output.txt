@@ -1,0 +1,80 @@
+events (stock-months) 4489: discovery 2662, validation 1827; 3x rate all 24.7% disc 22.2% val 28.3%; 5x 9.6%; episodes 972
+
+PART 1 winners (3x) by entry year: events / winners / rate / winner episodes
+  2016: 268 / 16 / 6.0% / 7
+  2017: 558 / 37 / 6.6% / 7
+  2018: 633 / 77 / 12.2% / 18
+  2019: 454 / 113 / 24.9% / 22
+  2020: 749 / 348 / 46.5% / 96
+  2021: 676 / 220 / 32.5% / 49
+  2022: 697 / 180 / 25.8% / 33
+  2023: 454 / 117 / 25.8% / 28
+winner episodes 260; entered in 2020 (Mar-Dec) 88
+
+industry: events share -> winner share (3x), rate (top by winners)
+  unknown: 27.5% -> 20.9%, rate 18.8% (n 1236)
+  Capital Goods: 6.4% -> 12.6%, rate 48.4% (n 289)
+  Chemicals: 8.6% -> 10.7%, rate 30.9% (n 385)
+  Financial Services: 8.5% -> 7.9%, rate 22.8% (n 382)
+  Healthcare: 8.0% -> 5.9%, rate 18.0% (n 361)
+  Automobile and Auto Components: 6.4% -> 5.6%, rate 21.5% (n 288)
+  Information Technology: 4.1% -> 5.4%, rate 32.8% (n 183)
+  Construction: 4.6% -> 4.6%, rate 24.8% (n 206)
+  Textiles: 2.7% -> 4.2%, rate 39.2% (n 120)
+  Realty: 2.6% -> 4.2%, rate 39.0% (n 118)
+
+Top 25 winner episodes by multiple:
+  TANLA        2019-05-31 38.8x  buy 4.72 days-of-volume, buys 24, prom share 100%, mom6 75.5%, below high 0.0%, Information Technology
+  KPITTECH     2020-05-29 23.4x  buy 0.84 days-of-volume, buys 3, prom share 100%, mom6 -48.6%, below high -52.8%, Information Technology
+  AURIONPRO    2021-03-31 19.6x  buy 0.65 days-of-volume, buys 3, prom share 100%, mom6 91.6%, below high -6.3%, Information Technology
+  APARINDS     2022-02-28 18.5x  buy 0.19 days-of-volume, buys 2, prom share 100%, mom6 1.8%, below high -23.5%, Capital Goods
+  BLS          2021-03-31 18.2x  buy 0.48 days-of-volume, buys 3, prom share 100%, mom6 6.2%, below high -25.5%, Consumer Services
+  ANANTRAJ     2022-05-31 17.4x  buy 0.34 days-of-volume, buys 3, prom share 100%, mom6 -20.8%, below high -35.8%, Realty
+  SHAKTIPUMP   2022-02-28 16.3x  buy 0.28 days-of-volume, buys 3, prom share 100%, mom6 -28.5%, below high -43.6%, Capital Goods
+  ADANIPOWER   2020-03-31 15.6x  buy 0.02 days-of-volume, buys 7, prom share 0%, mom6 -58.6%, below high -61.2%, Power
+  TEJASNET     2020-07-31 15.1x  buy 0.13 days-of-volume, buys 1, prom share 0%, mom6 -32.2%, below high -55.2%, Telecommunication
+  APARINDS     2021-02-26 14.0x  buy 0.69 days-of-volume, buys 2, prom share 100%, mom6 32.8%, below high -2.6%, Capital Goods
+  USHAMART     2020-08-31 13.2x  buy 0.31 days-of-volume, buys 4, prom share 100%, mom6 5.1%, below high -15.2%, Capital Goods
+  NEULANDLAB   2022-09-30 13.1x  buy 0.02 days-of-volume, buys 2, prom share 0%, mom6 34.8%, below high -25.2%, Healthcare
+  GOODLUCK     2021-04-30 12.3x  buy 0.06 days-of-volume, buys 3, prom share 100%, mom6 142.7%, below high -2.0%, 
+  GLOBUSSPR    2019-11-29 12.3x  buy 0.33 days-of-volume, buys 11, prom share 100%, mom6 0.1%, below high -17.6%, Fast Moving Consumer Goods
+  GRAVITA      2021-02-26 12.3x  buy 0.57 days-of-volume, buys 3, prom share 96%, mom6 81.2%, below high 0.0%, Metals & Mining
+  MIRZAINT     2020-06-30 12.2x  buy 0.17 days-of-volume, buys 4, prom share 100%, mom6 -25.6%, below high -36.0%, 
+  ANANTRAJ     2020-12-31 12.1x  buy 0.22 days-of-volume, buys 5, prom share 100%, mom6 15.3%, below high -31.0%, Realty
+  BLS          2020-08-31 12.0x  buy 0.43 days-of-volume, buys 3, prom share 100%, mom6 40.6%, below high -19.6%, Consumer Services
+  AURIONPRO    2022-08-30 11.6x  buy 0.18 days-of-volume, buys 4, prom share 0%, mom6 11.5%, below high -11.4%, Information Technology
+  POWERMECH    2020-11-27 11.1x  buy 0.66 days-of-volume, buys 2, prom share 100%, mom6 4.1%, below high -45.6%, Construction
+  RKFORGE      2020-09-30 11.0x  buy 0.10 days-of-volume, buys 1, prom share 100%, mom6 123.4%, below high -18.8%, Automobile and Auto Components
+  WEBELSOLAR   2021-01-29 10.9x  buy 0.16 days-of-volume, buys 4, prom share 100%, mom6 118.0%, below high -11.6%, Capital Goods
+  DEEPAKNTR    2019-03-29 10.7x  buy 0.91 days-of-volume, buys 9, prom share 100%, mom6 -2.4%, below high -8.2%, Chemicals
+  APLAPOLLO    2020-03-31 10.6x  buy 0.39 days-of-volume, buys 1, prom share 100%, mom6 -9.7%, below high -41.0%, Capital Goods
+  LAURUSLABS   2019-11-29 10.1x  buy 0.44 days-of-volume, buys 19, prom share 100%, mom6 -6.3%, below high -13.6%, Healthcare
+
+PART 2 features: lift of 3x rate vs event base (disc base 22.2%, val base 28.3%); Q1 lowest ... Q5 highest; discovery | validation (same cuts)
+  bvAdv      disc 0.73 0.97 1.12 1.13 1.06 | val 0.77 1.14 1.05 1.16 0.83 | cuts 0.04,0.18,0.52,1.82
+  nBuys      disc 0.77 0.86 1.17 1.20 1.18 | val 0.89 1.12 1.12 0.92 0.89 | cuts 1.00,3.00,5.00,9.00
+  promShare  disc 1.00 1.00 NaN NaN NaN | val 1.11 0.97 NaN NaN NaN | cuts 0.13,1.00,1.00,1.00
+  b0         disc 1.15 1.11 0.73 1.18 0.82 | val 0.86 1.07 0.82 1.19 0.94 | cuts 0.26,2.53,9.76,28.41
+  gain       disc 0.93 0.69 1.13 1.03 1.17 | val 1.03 0.70 1.07 0.94 1.21 | cuts 0.00,0.04,0.14,0.50
+  mom6       disc 1.68 0.86 0.73 0.70 1.03 | val 0.96 0.96 0.63 1.01 1.21 | cuts -0.22,-0.06,0.10,0.36
+  mom12      disc 1.91 1.02 0.81 0.68 0.58 | val 0.89 0.92 0.89 0.96 1.10 | cuts -0.30,-0.06,0.16,0.53
+     -> mom12 low: disc lift 1.91 opp 0.58; yearly lifts 0.00 6.46 1.37 1.26 1.43; years>1 true; val lift 0.89 weak
+  belowHigh  disc 1.76 1.06 0.86 0.61 0.71 | val 0.92 1.04 0.92 1.08 1.01 | cuts -0.40,-0.25,-0.13,-0.05
+     -> belowHigh low: disc lift 1.76 opp 0.71; yearly lifts 0.00 - 1.25 1.17 1.35; years>1 false; val lift 0.92 weak
+  dd2y       disc 1.96 1.11 0.78 0.55 0.60 | val 1.08 1.21 0.80 1.03 0.98 | cuts -0.49,-0.31,-0.18,-0.07
+     -> dd2y low: disc lift 1.96 opp 0.60; yearly lifts 0.00 3.12 1.58 1.16 1.38; years>1 true; val lift 1.08 weak
+  vol        disc 0.29 0.59 0.83 1.36 1.93 | val 0.51 0.79 1.07 1.14 1.28 | cuts 0.02,0.02,0.03,0.03
+     -> vol high: disc lift 1.93 opp 0.29; yearly lifts 0.52 1.45 1.07 1.25 1.27; years>1 true; val lift 1.28 holds
+  logTV      disc 1.39 1.05 0.99 0.74 0.84 | val 1.17 1.31 1.14 0.81 0.37 | cuts 17.38,18.05,19.07,20.60
+  price      disc 1.56 1.33 0.76 0.81 0.53 | val 1.51 1.42 0.91 0.79 0.61 | cuts 108,229,431,891
+     -> price low: disc lift 1.56 opp 0.53; yearly lifts 2.35 1.23 1.42 1.38 1.37; years>1 true; val lift 1.51 holds
+  fromLow    disc 1.06 0.86 1.06 0.97 1.05 | val 0.70 0.94 0.87 0.90 1.22 | cuts 0.13,0.27,0.48,0.91
+  above200   disc 1.21 NaN 0.82 NaN NaN | val 0.87 NaN 1.06 NaN NaN | cuts 0.00,0.00,1.00,1.00
+
+useful features (disc): dd2y low 1.96 val weak; vol high 1.93 val ok; mom12 low 1.91 val weak; price low 1.56 val ok
+
+PART 3 rule = event and dd2y low and vol high
+  discovery: n 242 3x 49.6% (lift 2.23) 5x 21.1% median excess 16.5%
+  validation: n 27 3x 11.1% (lift 0.39) 5x 3.7% median excess -28.4% ex-top5% -11.6%
+  validation years (lift, n): 2021 - (2) | 2022 0.48 (24) | 2023 - (1)
+  PASS CHECK: fail
