@@ -10,7 +10,7 @@
   "withRs": 1473,
   "rsGate": 299,
   "template": 117,
-  "qualified": 7,
+  "qualified": 4,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -484,45 +484,6 @@
    ]
   },
   {
-   "sym": "TXN",
-   "type": "CS",
-   "group": "Semiconductors and components",
-   "path": "main",
-   "rsPct": 93.14,
-   "close": 285.75,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 55.88,
-   "tightness": 1.33,
-   "distPivot": 9.91,
-   "setup": null,
-   "gb": {
-    "pct": 8.7,
-    "n": 69
-   },
-   "diag": {
-    "rs121": 80.94,
-    "rs6m2w": -2.49,
-    "atr14": 15.6,
-    "sma50": 286.48,
-    "sma200": 266.17,
-    "high52": 334.03,
-    "low52": 152.73,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 93.1th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 14.5% below its 52-week high (limit 25%) and 87.1% above its 52-week low (needs 30%).",
-    "Group: Semiconductors and components ranks 3 of 59 (median strength 81.3); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 8.7% of the 69 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.3, needs under 0.7); price is 9.9% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "DLTR",
    "type": "CS",
    "group": "General merchandise retail",
@@ -558,45 +519,6 @@
     "Sector breadth: 81.8% of the 11 stocks in General merchandise retail are above their 50-day.",
     "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 5.6% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
-  },
-  {
-   "sym": "ANET",
-   "type": "CS",
-   "group": "Computer hardware",
-   "path": "main",
-   "rsPct": 82.47,
-   "close": 189.59,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 49.48,
-   "tightness": 1.38,
-   "distPivot": 12.8,
-   "setup": null,
-   "gb": {
-    "pct": 11.1,
-    "n": 18
-   },
-   "diag": {
-    "rs121": 49.32,
-    "rs6m2w": 12.28,
-    "atr14": 13.53,
-    "sma50": 192.65,
-    "sma200": 168.38,
-    "high52": 217.41,
-    "low52": 114.52,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 82.5th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.8% below its 52-week high (limit 25%) and 65.6% above its 52-week low (needs 30%).",
-    "Group: Computer hardware ranks 1 of 59 (median strength 82.9); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 11.1% of the 18 stocks in Computer hardware are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.4, needs under 0.7); price is 12.8% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -605,13 +527,13 @@
  "thinGroup": {
   "qualified": 2
  },
- "qualifiedTotal": 7,
+ "qualifiedTotal": 4,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
  ],
  "source": "nasdaq",
- "regimeDate": "2026-11-18",
+ "regimeDate": "2026-11-19",
  "sicCovered": 2323
 }

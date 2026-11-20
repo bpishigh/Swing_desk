@@ -17,20 +17,10 @@
    "sessions": 3,
    "inWindow": true
   },
-  "TXN": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "DLTR": {
    "date": "2026-11-24",
    "sessions": 3,
    "inWindow": true
-  },
-  "ANET": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
   }
  }
 }

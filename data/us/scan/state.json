@@ -1,1 +1,1 @@
-{"asOf":"2026-11-19","state":{"TXN":{"in":true,"fails":1},"ANET":{"in":true,"fails":1},"TGT":{"in":true,"fails":0},"DLTR":{"in":true,"fails":0},"FIVE":{"in":true,"fails":1},"SLAB":{"in":true,"fails":0},"KSS":{"in":true,"fails":0}}}
+{"asOf":"2026-11-19","state":{"TGT":{"in":true,"fails":0},"DLTR":{"in":true,"fails":0},"SLAB":{"in":true,"fails":0},"KSS":{"in":true,"fails":0}}}
