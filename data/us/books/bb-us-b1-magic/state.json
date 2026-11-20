@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-19",
+  "buys": [
+   {
+    "sym": "SNDK",
+    "value": 11746977410,
+    "stop": 0.25
+   },
+   {
+    "sym": "ADBE",
+    "value": 859997891.97,
+    "stop": 0.25
+   },
+   {
+    "sym": "ACN",
+    "value": 1190632146.41,
+    "stop": 0.25
+   },
+   {
+    "sym": "VLO",
+    "value": 1125229505.59,
+    "stop": 0.25
+   },
+   {
+    "sym": "BKNG",
+    "value": 1012510901.5999999,
+    "stop": 0.25
+   },
+   {
+    "sym": "MO",
+    "value": 566946522.565,
+    "stop": 0.25
+   },
+   {
+    "sym": "EME",
+    "value": 321360324.46000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "YUM",
+    "value": 358724772.58500004,
+    "stop": 0.25
+   },
+   {
+    "sym": "FICO",
+    "value": 472227639.04499996,
+    "stop": 0.25
+   },
+   {
+    "sym": "DECK",
+    "value": 280266118.10999995,
+    "stop": 0.25
+   },
+   {
+    "sym": "BMY",
+    "value": 604478870.96,
+    "stop": 0.25
+   },
+   {
+    "sym": "ZM",
+    "value": 245055632.79999998,
+    "stop": 0.25
+   },
+   {
+    "sym": "NFLX",
+    "value": 2302238313.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "INTU",
+    "value": 869853719.005,
+    "stop": 0.25
+   },
+   {
+    "sym": "FOXA",
+    "value": 510462710.28499997,
+    "stop": 0.25
+   },
+   {
+    "sym": "SPGI",
+    "value": 669581520.19,
+    "stop": 0.25
+   },
+   {
+    "sym": "OTIS",
+    "value": 298769176.655,
+    "stop": 0.25
+   },
+   {
+    "sym": "EXPE",
+    "value": 411641747.26,
+    "stop": 0.25
+   },
+   {
+    "sym": "FIS",
+    "value": 261259304.41500002,
+    "stop": 0.25
+   },
+   {
+    "sym": "HPQ",
+    "value": 365855095.65,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +120,8 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-18",
+ "lastSignal": "2026-11-19",
+ "lastStep": "2026-11-19",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0

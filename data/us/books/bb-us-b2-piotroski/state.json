@@ -4,7 +4,82 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-19",
+  "buys": [
+   {
+    "sym": "LHX",
+    "value": 454943561.26,
+    "stop": 0.25
+   },
+   {
+    "sym": "BSX",
+    "value": 694292260.15,
+    "stop": 0.25
+   },
+   {
+    "sym": "TRU",
+    "value": 240322946.14499998,
+    "stop": 0.25
+   },
+   {
+    "sym": "EXE",
+    "value": 239607947.52499998,
+    "stop": 0.25
+   },
+   {
+    "sym": "EQT",
+    "value": 400373320.49,
+    "stop": 0.25
+   },
+   {
+    "sym": "CTSH",
+    "value": 373999268.19500005,
+    "stop": 0.25
+   },
+   {
+    "sym": "FSLR",
+    "value": 511375982.04,
+    "stop": 0.25
+   },
+   {
+    "sym": "KDP",
+    "value": 641943040.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "AEP",
+    "value": 521176333.71000004,
+    "stop": 0.25
+   },
+   {
+    "sym": "KMI",
+    "value": 405433402.2,
+    "stop": 0.25
+   },
+   {
+    "sym": "NI",
+    "value": 260432455.19,
+    "stop": 0.25
+   },
+   {
+    "sym": "PYPL",
+    "value": 562422629.55,
+    "stop": 0.25
+   },
+   {
+    "sym": "LUV",
+    "value": 260767349.86,
+    "stop": 0.25
+   },
+   {
+    "sym": "HL",
+    "value": 395559014.3,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +90,8 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-18",
+ "lastSignal": "2026-11-19",
+ "lastStep": "2026-11-19",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0

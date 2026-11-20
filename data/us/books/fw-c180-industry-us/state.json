@@ -98,7 +98,7 @@
    "sh": 0.00999,
    "entry": 500,
    "entryDate": "2026-11-16",
-   "high": 515.9,
+   "high": 521.39,
    "stop": 0.25
   },
   "FTNT": {
@@ -187,17 +187,23 @@
    "v": 95.5794,
    "vs": 95.4794,
    "x": 1
+  },
+  {
+   "d": "2026-11-19",
+   "v": 94.3784,
+   "vs": 94.2784,
+   "x": 1
   }
  ],
  "skipped": [],
  "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 3,
+  "credited": 4,
   "missing": 0
  },
  "started": "2026-11-16",
  "lastSignal": "2026-11-13",
- "lastStep": "2026-11-18",
+ "lastStep": "2026-11-19",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,

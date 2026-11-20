@@ -8,7 +8,13 @@
  "stopQueue": [],
  "closed": [],
  "daily": [],
- "skipped": [],
+ "skipped": [
+  {
+   "date": "2026-11-19",
+   "sym": "BA",
+   "width": 0.1079
+  }
+ ],
  "slipCum": 0,
  "cashDays": {
   "credited": 0,
@@ -16,8 +22,20 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-18",
+ "lastStep": "2026-11-19",
  "blocks": {},
  "gaps": [],
- "cashCarried": 0
+ "cashCarried": 0,
+ "signalLog": [
+  {
+   "date": "2026-11-19",
+   "sym": "BA",
+   "value": 500067,
+   "ceoCfo": false,
+   "lagDays": 1,
+   "distinct30": 1,
+   "taken": false,
+   "why": "stop too wide"
+  }
+ ]
 }

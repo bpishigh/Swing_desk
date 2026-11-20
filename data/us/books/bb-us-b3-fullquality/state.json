@@ -4,7 +4,112 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-19",
+  "buys": [
+   {
+    "sym": "MA",
+    "value": 2061689399.07,
+    "stop": 0.25
+   },
+   {
+    "sym": "MSFT",
+    "value": 14333572798.5,
+    "stop": 0.25
+   },
+   {
+    "sym": "V",
+    "value": 2891850886.3450003,
+    "stop": 0.25
+   },
+   {
+    "sym": "LRCX",
+    "value": 2611074771.95,
+    "stop": 0.25
+   },
+   {
+    "sym": "FTNT",
+    "value": 677612740.275,
+    "stop": 0.25
+   },
+   {
+    "sym": "MSCI",
+    "value": 338040930.395,
+    "stop": 0.25
+   },
+   {
+    "sym": "IDXX",
+    "value": 312192639.155,
+    "stop": 0.25
+   },
+   {
+    "sym": "STX",
+    "value": 3163130887.93,
+    "stop": 0.25
+   },
+   {
+    "sym": "UTHR",
+    "value": 266891926.23000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "NFLX",
+    "value": 2302238313.25,
+    "stop": 0.25
+   },
+   {
+    "sym": "FIX",
+    "value": 800622350.5050001,
+    "stop": 0.25
+   },
+   {
+    "sym": "BKNG",
+    "value": 1012510901.5999999,
+    "stop": 0.25
+   },
+   {
+    "sym": "FAST",
+    "value": 312203359.885,
+    "stop": 0.25
+   },
+   {
+    "sym": "VRT",
+    "value": 1404603408.8000002,
+    "stop": 0.25
+   },
+   {
+    "sym": "TER",
+    "value": 960213328.71,
+    "stop": 0.25
+   },
+   {
+    "sym": "CDNS",
+    "value": 665073751.315,
+    "stop": 0.25
+   },
+   {
+    "sym": "FICO",
+    "value": 472227639.04499996,
+    "stop": 0.25
+   },
+   {
+    "sym": "DT",
+    "value": 406482177.18000007,
+    "stop": 0.25
+   },
+   {
+    "sym": "TYL",
+    "value": 287369210.78499997,
+    "stop": 0.25
+   },
+   {
+    "sym": "WDC",
+    "value": 2450301172.795,
+    "stop": 0.25
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +120,8 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-18",
+ "lastSignal": "2026-11-19",
+ "lastStep": "2026-11-19",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0
