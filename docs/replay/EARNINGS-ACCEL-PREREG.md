@@ -14,3 +14,12 @@ A: 12-month forward excess = stock's close 252 sessions later (last stored close
 Discovery month-ends 2019-01 to 2022-06; validation 2022-07 to 2024-11 (12-month outcomes complete). Events overlap in time and stock, so counts are not independent; read lifts and consistency. One run.
 ## Bar (per event, in both halves; validation is the single scored look)
 n >= 300 stock-months per half; median excess (A) >= +5 points; top-quintile share >= 1.3x the 20% base; ex-best-5% mean excess still positive; beats E0 (the plain-growth control) on median excess in each half (acceleration must add something over growth itself, which also cancels the survivor bias); positive median excess in at least 4 of the 6 calendar-year entry groups (2019-2024) pooled across halves. B lift reported (>= 1.3x) where available but not required. Pass means worth a registered rule on this data; the short history (about 6 years, one crash) caps how much weight it can carry, and a pass would be paper-book only and flagged as thin evidence.
+
+## Results (one run, no reruns; raw output docs/replay/EARNINGS-ACCEL-output.txt)
+62,196 liquid stock-months, 2019-01 to 2024-11; base 3x-in-756-sessions rate 27.3% (survivor-inflated). Median 12-month excess over the same-month liquid median (discovery / validation), with n:
+- E0 plain growth: -0.8% / +4.0% (4,239 / 6,481)
+- E1 profit acceleration: -1.9% / +2.7% (1,322 / 1,902)
+- E2 revenue acceleration: -2.7% / +3.3% (1,651 / 1,537)
+- E3 broad acceleration: -0.8% / +4.9% (1,952 / 2,736)
+Verdict: all three FAIL (none reaches +5 in discovery; none beats the plain-growth control in both halves; E1, E2 positive in only 2 of 6 entry years, E3 4 of 6). Top-quintile shares are 19-21% in discovery (base 20%) and 24% in validation. The excess that exists is a 2023-24 effect that plain growth gets equally, so acceleration adds nothing over growth. 3x rates: E1 22.9% / 28.0%, E2 23.9% / 30.5%, E3 25.9% / 30.2% against base 27.3%: no lift.
+Closes earnings acceleration for this data (6 years, one crash, survivors only). Weak test by construction; says "no usable signal found", not "proved none".

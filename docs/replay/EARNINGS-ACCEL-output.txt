@@ -1,0 +1,26 @@
+liquid stock-months 62196; base 3x rate 27.3%; base top-quintile 20%
+
+E0
+  disc: n 4239 median excess -0.8% mean 12.4% ex-top5% 3.6% top-quintile share 20.8% 3x rate 25.9% (n 4239)
+  val: n 6481 median excess 4.0% mean 17.9% ex-top5% 7.8% top-quintile share 23.9% 3x rate 27.9% (n 3349)
+  by entry year (median excess, n): 2019 10.4% (66) | 2020 -9.2% (346) | 2021 -0.8% (2578) | 2022 0.6% (2545) | 2023 5.2% (2448) | 2024 3.9% (2737)
+
+E1
+  disc: n 1322 median excess -1.9% mean 10.8% ex-top5% 2.4% top-quintile share 21.1% 3x rate 22.9% (n 1322)
+  val: n 1902 median excess 2.7% mean 20.5% ex-top5% 9.1% top-quintile share 24.3% 3x rate 28.0% (n 1031)
+  by entry year (median excess, n): 2019 n/a (18) | 2020 -12.5% (102) | 2021 -0.8% (893) | 2022 -2.7% (706) | 2023 6.4% (748) | 2024 1.8% (757)
+
+E2
+  disc: n 1651 median excess -2.7% mean 9.0% ex-top5% 2.2% top-quintile share 19.2% 3x rate 23.9% (n 1651)
+  val: n 1537 median excess 3.3% mean 19.1% ex-top5% 9.3% top-quintile share 24.5% 3x rate 30.5% (n 799)
+  by entry year (median excess, n): 2019 n/a (11) | 2020 -7.8% (47) | 2021 -2.2% (1391) | 2022 -0.9% (581) | 2023 6.3% (506) | 2024 2.4% (652)
+
+E3
+  disc: n 1952 median excess -0.8% mean 12.7% ex-top5% 4.1% top-quintile share 21.1% 3x rate 25.9% (n 1952)
+  val: n 2736 median excess 4.9% mean 19.1% ex-top5% 8.5% top-quintile share 23.7% 3x rate 30.2% (n 1458)
+  by entry year (median excess, n): 2019 13.0% (23) | 2020 -9.1% (153) | 2021 -0.1% (1362) | 2022 0.4% (1078) | 2023 7.4% (953) | 2024 4.8% (1119)
+
+PASS CHECK (n>=300 both halves, median excess >=5pts both, top-quintile share >=26% both, ex-top5% >0 both, median excess beats E0 both halves, positive median in >=4 of 6 years):
+  E1 fail (years positive 2/6)
+  E2 fail (years positive 2/6)
+  E3 fail (years positive 4/6)
