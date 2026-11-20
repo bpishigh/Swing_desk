@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 90.04094674032065,
+ "cash": 90.05603494010636,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -43,6 +43,12 @@
    "v": 99.9854,
    "vs": 99.9754,
    "x": 0.0995
+  },
+  {
+   "d": "2026-11-20",
+   "v": 99.906,
+   "vs": 99.896,
+   "x": 0.0986
   }
  ],
  "skipped": [
@@ -95,17 +101,22 @@
    "date": "2026-11-19",
    "sym": "MOTHERSON",
    "width": 0.1115
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "PAYTM",
+   "width": 0.1269
   }
  ],
  "slipCum": 0.010000056341046665,
  "cashDays": {
-  "credited": 3,
+  "credited": 4,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-19",
- "lastNavDate": "2026-11-18",
+ "lastStep": "2026-11-20",
+ "lastNavDate": "2026-11-19",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -190,6 +201,13 @@
    "dip": "average",
    "volRatio": 1.06,
    "tight": 0.0753
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "PAYTM",
+   "dip": "average",
+   "volRatio": 1.6996,
+   "tight": 0.123
   }
  ],
  "costs": {

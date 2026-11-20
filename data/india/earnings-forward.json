@@ -18,7 +18,11 @@
    "run": 0.0191,
    "rea": -0.0083,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.148,
+   "m": 0.0657,
+   "done": true
   },
   "ATGL|2026-10-22": {
    "s": "ATGL",
@@ -38,7 +42,11 @@
    "run": -0.0575,
    "rea": -0.0303,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.0347,
+   "m": 0.0657,
+   "done": true
   },
   "AXISBANK|2026-10-17": {
    "s": "AXISBANK",
@@ -182,7 +190,11 @@
    "run": 0.0086,
    "rea": -0.0226,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.1956,
+   "m": 0.0657,
+   "done": true
   },
   "FEDERALBNK|2026-10-16": {
    "s": "FEDERALBNK",
@@ -338,7 +350,11 @@
    "run": 0.0587,
    "rea": 0.0559,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-20",
+   "r": 0.1658,
+   "m": 0.0657,
+   "done": true
   },
   "IREDA|2026-10-19": {
    "s": "IREDA",
@@ -362,7 +378,11 @@
    "run": 0.0284,
    "rea": 0.1236,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-20",
+   "r": 0.1954,
+   "m": 0.0657,
+   "done": true
   },
   "JPPOWER|2026-10-19": {
    "s": "JPPOWER",
@@ -420,7 +440,11 @@
    "run": -0.0319,
    "rea": -0.1015,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": -0.0116,
+   "m": 0.0657,
+   "done": true
   },
   "LTTS|2026-10-19": {
    "s": "LTTS",
@@ -458,7 +482,11 @@
    "run": -0.0549,
    "rea": -0.0302,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.0024,
+   "m": 0.0657,
+   "done": true
   },
   "NAM-INDIA|2026-10-22": {
    "s": "NAM-INDIA",
@@ -530,7 +558,11 @@
    "run": -0.001,
    "rea": -0.0151,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.079,
+   "m": 0.0657,
+   "done": true
   },
   "SAGILITY|2026-10-22": {
    "s": "SAGILITY",
@@ -640,7 +672,11 @@
    "run": -0.0284,
    "rea": -0.0417,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-20",
+   "r": 0.0453,
+   "m": 0.0657,
+   "done": true
   },
   "YESBANK|2026-10-17": {
    "s": "YESBANK",
@@ -4718,32 +4754,32 @@
   }
  },
  "summary": {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 5,
-    "open": 52,
-    "meanNet": 0.0292,
-    "win": 0.8,
-    "market": 0.0429
+    "matured": 7,
+    "open": 50,
+    "meanNet": 0.0713,
+    "win": 0.857,
+    "market": 0.0494
    },
    {
     "group": "ran up, any reaction",
-    "matured": 13,
-    "open": 161,
-    "meanNet": 0.0191,
-    "win": 0.538,
-    "market": 0.0411
+    "matured": 15,
+    "open": 159,
+    "meanNet": 0.0401,
+    "win": 0.6,
+    "market": 0.0444
    },
    {
     "group": "all results stocks",
-    "matured": 29,
-    "open": 431,
-    "meanNet": 0.042,
-    "win": 0.586,
-    "market": 0.0435
+    "matured": 38,
+    "open": 422,
+    "meanNet": 0.0536,
+    "win": 0.632,
+    "market": 0.0487
    }
   ]
  }

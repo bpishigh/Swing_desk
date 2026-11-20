@@ -232,7 +232,7 @@
   "high": {
    "STLTECH": 736.9,
    "CPPLUS": 4237,
-   "TFCILTD": 170.18,
+   "TFCILTD": 171.85,
    "SKYGOLD": 1050.05,
    "RATNAVEER": 372.9,
    "SONACOMS": 926,
@@ -240,7 +240,7 @@
    "HFCL": 215,
    "ACUTAAS": 4039.1,
    "PVRINOX": 1714.4,
-   "FEDERALBNK": 365.8,
+   "FEDERALBNK": 373.5,
    "AUROPHARMA": 1823.2,
    "NYKAA": 365.2,
    "NAVINFLUOR": 10278,
@@ -249,16 +249,16 @@
    "SYRMA": 1517,
    "MOTHERSON": 168.75,
    "AEROFLEX": 507.4,
-   "INDHOTEL": 901.55,
+   "INDHOTEL": 912,
    "REDINGTON": 359.1,
    "KARURVYSYA": 393.5,
    "RADICO": 4665,
    "TITAN": 4970,
    "TVSMOTOR": 4601.4,
-   "PNB": 154.85,
+   "PNB": 155.33,
    "ZYDUSLIFE": 1206,
    "APOLLO": 475.6,
-   "UNIONBANK": 210,
+   "UNIONBANK": 218.85,
    "IIFL": 663.15
   },
   "startedFill": "2026-11-12"
@@ -338,16 +338,20 @@
   {
    "d": "2026-11-19",
    "v": 98.8073
+  },
+  {
+   "d": "2026-11-20",
+   "v": 98.0242
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-19",
-   "v": 98.8073
+   "d": "2026-11-20",
+   "v": 98.0242
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-19",
+ "stopChecked": "2026-11-20",
  "gone": []
 }

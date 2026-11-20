@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-19",
+ "asOf": "2026-11-20",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,23 +12,74 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 28,
+  "orders": 30,
   "open": 8,
-  "pending": 0,
+  "pending": 2,
   "notFilled": 12,
   "closed": 8,
   "meanR": 0.2896507495349944,
   "winRate": 0.5
  },
  "comparator": {
-  "orders": 9,
+  "orders": 10,
   "open": 3,
-  "pending": 0,
+  "pending": 1,
   "notFilled": 1,
   "closed": 5,
   "meanR": 0.2106140869343019,
   "winRate": 0.8
  },
  "light": "green",
- "newOrdersTonight": []
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "SANSERA",
+   "setup": "2",
+   "trigger": 4848.58,
+   "stop": 4423,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 8.78,
+   "maxStopPct": 7,
+   "roomR": 0
+  },
+  {
+   "stream": "capwaived",
+   "sym": "VIJAYA",
+   "setup": "2",
+   "trigger": 1590.17,
+   "stop": 1428.83,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 10.15,
+   "maxStopPct": 7,
+   "roomR": 0.02
+  },
+  {
+   "stream": "comparator",
+   "sym": "VIJAYA",
+   "setup": "2",
+   "trigger": 1572.3,
+   "stop": 1410.96,
+   "status": "pending",
+   "kind": "close",
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 10.26,
+   "maxStopPct": 7,
+   "roomR": 0.13
+  }
+ ]
 }

@@ -4,7 +4,92 @@
  "cash": 100,
  "pos": {},
  "lastValue": {},
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-20",
+  "buys": [
+   {
+    "sym": "TFCILTD",
+    "value": 1813950145.6334999,
+    "stop": 0.35
+   },
+   {
+    "sym": "GCSL",
+    "value": 257777782.17250004,
+    "stop": 0.35
+   },
+   {
+    "sym": "SANSERA",
+    "value": 1004559390.9649998,
+    "stop": 0.35
+   },
+   {
+    "sym": "ICIL",
+    "value": 600816766.3124999,
+    "stop": 0.35
+   },
+   {
+    "sym": "WELSPUNLIV",
+    "value": 2965192261.655001,
+    "stop": 0.35
+   },
+   {
+    "sym": "ORIENTHOT",
+    "value": 111979462.329,
+    "stop": 0.35
+   },
+   {
+    "sym": "PGIL",
+    "value": 269310012.52,
+    "stop": 0.35
+   },
+   {
+    "sym": "SGMART",
+    "value": 931985307.7924999,
+    "stop": 0.35
+   },
+   {
+    "sym": "NEOGEN",
+    "value": 464194414.31000006,
+    "stop": 0.35
+   },
+   {
+    "sym": "THELEELA",
+    "value": 383116330.66499996,
+    "stop": 0.35
+   },
+   {
+    "sym": "ALICON",
+    "value": 261360273.17249998,
+    "stop": 0.35
+   },
+   {
+    "sym": "GREAVESCOT",
+    "value": 1468773896.209,
+    "stop": 0.35
+   },
+   {
+    "sym": "GHCLTEXTIL",
+    "value": 121952875.30349998,
+    "stop": 0.35
+   },
+   {
+    "sym": "MANOMAY",
+    "value": 49628642.654,
+    "stop": 0.35
+   },
+   {
+    "sym": "LENSKART",
+    "value": 4105522596.0424995,
+    "stop": 0.35
+   },
+   {
+    "sym": "PNB",
+    "value": 5050279886.616999,
+    "stop": 0.35
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [],
@@ -15,8 +100,122 @@
   "missing": 0
  },
  "started": null,
- "lastSignal": null,
- "lastStep": "2026-11-19",
+ "lastSignal": "2026-11-20",
+ "lastStep": "2026-11-20",
  "weight": 0.02,
- "lastNavDate": "2026-11-18"
+ "lastNavDate": "2026-11-19",
+ "signalLog": [
+  {
+   "date": "2026-11-20",
+   "sym": "TFCILTD",
+   "ret126": 1.334,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "GCSL",
+   "ret126": 1.196,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "SANSERA",
+   "ret126": 0.93,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ICIL",
+   "ret126": 0.899,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "WELSPUNLIV",
+   "ret126": 0.897,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ORIENTHOT",
+   "ret126": 0.859,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "PGIL",
+   "ret126": 0.804,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "SGMART",
+   "ret126": 0.765,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "NEOGEN",
+   "ret126": 0.722,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "THELEELA",
+   "ret126": 0.716,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ALICON",
+   "ret126": 0.638,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "GREAVESCOT",
+   "ret126": 0.597,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "GHCLTEXTIL",
+   "ret126": 0.574,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "MANOMAY",
+   "ret126": 0.552,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "LENSKART",
+   "ret126": 0.529,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "PNB",
+   "ret126": 0.52,
+   "taken": true,
+   "why": "bought next open"
+  }
+ ]
 }

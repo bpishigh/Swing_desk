@@ -530,7 +530,7 @@
    "CUPID": 384.8,
    "SHREEJISPG": 914.9,
    "SBC": 70.37,
-   "TFCILTD": 170.18,
+   "TFCILTD": 171.85,
    "RATNAVEER": 382,
    "CPPLUS": 4224.9,
    "ATHERENERG": 1945,
@@ -543,7 +543,7 @@
    "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 365.8,
+   "FEDERALBNK": 373.5,
    "MOTHERSON": 169.69,
    "BOSCHLTD": 52475,
    "PVRINOX": 1714.4
@@ -649,12 +649,16 @@
   {
    "d": "2026-11-19",
    "v": 100.4462
+  },
+  {
+   "d": "2026-11-20",
+   "v": 100.6782
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-19",
-   "v": 100.4462
+   "d": "2026-11-20",
+   "v": 100.6782
   }
  },
  "stops": [
@@ -740,6 +744,6 @@
   }
  ],
  "stopQueue": [],
- "stopChecked": "2026-11-19",
+ "stopChecked": "2026-11-20",
  "gone": []
 }

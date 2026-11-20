@@ -552,7 +552,7 @@
    "SHREEJISPG": 914.9,
    "LAURUSLABS": 2454,
    "SBC": 70.37,
-   "TFCILTD": 170.18,
+   "TFCILTD": 171.85,
    "RATNAVEER": 382,
    "WELCORP": 2400,
    "CPPLUS": 4224.9,
@@ -570,7 +570,7 @@
    "NYKAA": 365.2,
    "ZYDUSLIFE": 1244.7,
    "AUROPHARMA": 1855.3,
-   "FEDERALBNK": 365.8,
+   "FEDERALBNK": 373.5,
    "MOTHERSON": 169.69,
    "MTARTECH": 6610,
    "BOSCHLTD": 52475,
@@ -679,16 +679,20 @@
   {
    "d": "2026-11-19",
    "v": 100.0855
+  },
+  {
+   "d": "2026-11-20",
+   "v": 99.3637
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-19",
-   "v": 100.0855
+   "d": "2026-11-20",
+   "v": 99.3637
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-19",
+ "stopChecked": "2026-11-20",
  "gone": []
 }

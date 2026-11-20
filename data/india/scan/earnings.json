@@ -1,23 +1,18 @@
 {
- "asOf": "2026-11-19",
+ "asOf": "2026-11-20",
  "source": "NSE event calendar",
  "dates": {
-  "NITINSPIN": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "SHREEJISPG": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "KPL": {
+  "SANSERA": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "SHADOWFAX": {
+  "WELSPUNLIV": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -27,7 +22,7 @@
    "sessions": null,
    "inWindow": null
   },
-  "AMANTA": {
+  "NITINSPIN": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -37,12 +32,17 @@
    "sessions": null,
    "inWindow": null
   },
-  "SBC": {
-   "date": "2029-05-29",
-   "sessions": 656,
-   "inWindow": false
+  "GLAND": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
   },
-  "PVRINOX": {
+  "ATHERENERG": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "VIJAYA": {
    "date": null,
    "sessions": null,
    "inWindow": null

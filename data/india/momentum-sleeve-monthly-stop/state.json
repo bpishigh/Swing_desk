@@ -549,7 +549,7 @@
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
    "STLTECH": 736.9,
-   "TFCILTD": 170.18,
+   "TFCILTD": 171.85,
    "CPPLUS": 4237,
    "SKYGOLD": 1050.05,
    "ATHERENERG": 1945,
@@ -561,7 +561,7 @@
    "HFCL": 215,
    "ACUTAAS": 4039.1,
    "PVRINOX": 1714.4,
-   "FEDERALBNK": 365.8,
+   "FEDERALBNK": 373.5,
    "AUROPHARMA": 1823.2,
    "NYKAA": 365.2,
    "BOSCHLTD": 50580,
@@ -572,10 +572,10 @@
    "ETERNAL": 375.05,
    "PAYTM": 1939.9,
    "AEROFLEX": 507.4,
-   "INDHOTEL": 901.55,
+   "INDHOTEL": 912,
    "KALYANKJIL": 710.9,
    "REDINGTON": 359.1,
-   "KOTAKBANK": 503
+   "KOTAKBANK": 515.8
   },
   "startedFill": "2026-11-12"
  },
@@ -654,16 +654,20 @@
   {
    "d": "2026-11-19",
    "v": 98.6544
+  },
+  {
+   "d": "2026-11-20",
+   "v": 98.1731
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-19",
-   "v": 98.6544
+   "d": "2026-11-20",
+   "v": 98.1731
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-19",
+ "stopChecked": "2026-11-20",
  "gone": []
 }

@@ -1,0 +1,47 @@
+{
+ "signalDate": "2026-11-20",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "SANSERA",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 4848.58,
+   "limit": 4897.06,
+   "stop": 4423,
+   "atrPct": 4.33,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "VIJAYA",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 1590.17,
+   "limit": 1606.08,
+   "stop": 1428.83,
+   "atrPct": 4.1,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "VIJAYA",
+   "setup": "2",
+   "stream": "comparator",
+   "trigger": 1572.3,
+   "limit": 1588.02,
+   "stop": 1410.96,
+   "atrPct": 4.1,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  }
+ ]
+}

@@ -713,6 +713,149 @@
    "basis": 349.6,
    "width": 7.42,
    "room": 1.51
+  },
+  "MOTHERSON|2|2026-11-20": {
+   "sym": "MOTHERSON",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-11-20",
+   "trigger": 167.55,
+   "stop": 156.25,
+   "limit": 169.23,
+   "basis": 167.55,
+   "width": 6.75,
+   "room": 0.51
+  },
+  "MOTHERSON|4|2026-11-20": {
+   "sym": "MOTHERSON",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-20",
+   "trigger": 167.55,
+   "stop": 156.25,
+   "limit": 169.23,
+   "basis": 167.55,
+   "width": 6.75,
+   "room": 0.51
+  },
+  "SONACOMS|2|2026-11-20": {
+   "sym": "SONACOMS",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-11-20",
+   "trigger": 904.61,
+   "stop": 869.82,
+   "limit": 913.66,
+   "basis": 904.61,
+   "width": 3.85,
+   "room": 0.87
+  },
+  "SSWL|2|2026-11-20": {
+   "sym": "SSWL",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 556.01,
+   "stop": 513.21,
+   "limit": 561.57,
+   "basis": 556.01,
+   "width": 7.7,
+   "room": 0.77
+  },
+  "SANSERA|2|2026-11-20": {
+   "sym": "SANSERA",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-20",
+   "trigger": 4848.58,
+   "stop": 4423,
+   "limit": 4897.07,
+   "basis": 4848.58,
+   "width": 8.78,
+   "room": 0
+  },
+  "ALIVUS|2|2026-11-20": {
+   "sym": "ALIVUS",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 1462.92,
+   "stop": 1367.71,
+   "limit": 1477.55,
+   "basis": 1462.92,
+   "width": 6.51,
+   "room": 0.96
+  },
+  "CRAFTSMAN|2|2026-11-20": {
+   "sym": "CRAFTSMAN",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": true,
+   "date": "2026-11-20",
+   "trigger": 12108.17,
+   "stop": 10991,
+   "limit": 12229.25,
+   "basis": 12108.17,
+   "width": 9.23,
+   "room": 0.09
+  },
+  "NAZARA|2|2026-11-20": {
+   "sym": "NAZARA",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 423.55,
+   "stop": 403.95,
+   "limit": 427.79,
+   "basis": 423.55,
+   "width": 4.63,
+   "room": 0.6
+  },
+  "JAMNAAUTO|2|2026-11-20": {
+   "sym": "JAMNAAUTO",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 140.56,
+   "stop": 129.62,
+   "limit": 141.97,
+   "basis": 140.56,
+   "width": 7.78,
+   "room": 1.41
+  },
+  "JAMNAAUTO|4|2026-11-20": {
+   "sym": "JAMNAAUTO",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 140.56,
+   "stop": 129.62,
+   "limit": 141.97,
+   "basis": 140.56,
+   "width": 7.78,
+   "room": 1.41
+  },
+  "SYNCOMF|2|2026-11-20": {
+   "sym": "SYNCOMF",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-20",
+   "trigger": 22.77,
+   "stop": 20.5,
+   "limit": 23,
+   "basis": 22.77,
+   "width": 9.95,
+   "room": 2.09
   }
  },
  "lastLogged": {
@@ -768,23 +911,34 @@
   "PGIL|2": "2026-11-19",
   "NITINSPIN|2": "2026-11-19",
   "QUESS|2": "2026-11-19",
-  "QUESS|4": "2026-11-19"
+  "QUESS|4": "2026-11-19",
+  "MOTHERSON|2": "2026-11-20",
+  "MOTHERSON|4": "2026-11-20",
+  "SONACOMS|2": "2026-11-20",
+  "SSWL|2": "2026-11-20",
+  "SANSERA|2": "2026-11-20",
+  "ALIVUS|2": "2026-11-20",
+  "CRAFTSMAN|2": "2026-11-20",
+  "NAZARA|2": "2026-11-20",
+  "JAMNAAUTO|2": "2026-11-20",
+  "JAMNAAUTO|4": "2026-11-20",
+  "SYNCOMF|2": "2026-11-20"
  },
  "summary": {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
      "matured": 1,
-     "open": 3,
+     "open": 5,
      "meanNet": 0.057,
      "win": 1,
      "excess": 0.0033
     },
     "others": {
      "matured": 0,
-     "open": 10,
+     "open": 12,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -817,14 +971,14 @@
     "group": "room under 3R",
     "momentum": {
      "matured": 1,
-     "open": 3,
+     "open": 5,
      "meanNet": 0.057,
      "win": 1,
      "excess": 0.0033
     },
     "others": {
      "matured": 0,
-     "open": 10,
+     "open": 12,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -837,14 +991,14 @@
     "group": "stop too wide",
     "momentum": {
      "matured": 2,
-     "open": 11,
+     "open": 14,
      "meanNet": -0.0548,
      "win": 0.5,
      "excess": -0.1085
     },
     "others": {
      "matured": 3,
-     "open": 23,
+     "open": 27,
      "meanNet": -0.051,
      "win": 0.333,
      "excess": -0.1047
