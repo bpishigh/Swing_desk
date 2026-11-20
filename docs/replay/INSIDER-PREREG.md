@@ -22,3 +22,6 @@ Reading: strongest lead found in the whole programme (consistent sign by year, e
 
 ## Addendum 1 (21 Nov 2026), registered before the run: P2 on unseen months
 Sample: month-ends 2024-12 to the last month with a 252-session outcome (about 2025-10); never scored above (the earlier run stopped at 2024-11). Same P2 definition, floor Rs 2 crore, outcome A and C as above, one run. Bar: n >= 150, median excess >= +5 points, top-quintile share >= 26%, ex-top-5% mean > 0. A pass makes P2 a registered rule with a forward paper book flagged "thin, one clustered year, passed only on the final sample". A fail closes it.
+
+### Addendum 1 result (one run; docs/replay/INSIDER-holdout-output.txt)
+Month-ends 2024-12 to 2025-10: 65 P2 events (below the n >= 150 bar), median excess -3.8%, mean +10.3%, ex-top-5% +3.7%, top-quintile share 21.5%. P1 median -2.0% (n 497), P3 -1.4% (n 138). FAIL. The discovery-and-validation edge (+10 / +5) did not hold on unseen months; it was carried by 2020 and the earlier years. Closed: no rule, no book. The PIT data stays in the repo for any later registered idea (it is the only deep history we hold on insiders).
