@@ -1,0 +1,58 @@
+
+=== M1: 4011 trades, 2459 with a scored group (61.3%); coverage by year: 2012:51.3% 2013:60.6% 2014:56.9% 2015:62.4% 2016:57.0% 2017:56.1% 2018:66.0% 2019:73.3% 2020:72.6% 2021:60.3% 2022:63.6% 2023:65.3%
+ G1 group strength rank>=75%
+   2011-17: strong n 316 mean 40.9% median 8.8% win 54.7% excess 22.0% ex-best-2 17.5% | rest n 715 mean 38.0% median 1.5% excess 20.2% | diff 1.8% | years strong>rest 3/6 (2012:57 2013:-43 2014:6 2015:-10 2016:6 2017:-9)
+   2018-23: strong n 460 mean 51.9% median 23.0% win 60.2% excess 27.4% ex-best-2 25.0% | rest n 968 mean 59.3% median 18.4% excess 34.5% | diff -7.1% | years strong>rest 3/6 (2018:-21 2019:1 2020:-19 2021:-17 2022:32 2023:1)
+ G2 group breadth>=60%
+   2011-17: strong n 880 mean 37.1% median 1.5% win 50.9% excess 20.5% ex-best-2 18.9% | rest n 151 mean 49.3% median 21.0% excess 22.4% | diff -1.9% | years strong>rest 3/6 (2012:36 2013:-31 2014:-23 2015:2 2016:-10 2017:0)
+   2018-23: strong n 1084 mean 66.4% median 25.6% win 64.5% excess 38.0% ex-best-2 35.1% | rest n 344 mean 27.3% median -11.2% excess 13.8% | diff 24.2% | years strong>rest 5/6 (2018:-20 2019:1 2020:10 2021:62 2022:28 2023:6)
+ G3 market phase: >70% of groups up
+   2011-17: strong n 826 mean 33.8% median -1.3% win 48.4% excess 18.6% ex-best-2 16.9% | rest n 205 mean 59.3% median 31.2% excess 29.6% | diff -11.0% | years strong>rest 2/5 (2012:9 2013:-33 2014:- 2015:17 2016:-13 2017:-0)
+   2018-23: strong n 919 mean 65.6% median 23.5% win 63.9% excess 38.1% ex-best-2 34.6% | rest n 509 mean 41.3% median 12.3% excess 21.6% | diff 16.5% | years strong>rest 2/5 (2018:-11 2019:3 2020:29 2021:- 2022:-44 2023:-5)
+
+=== M3: 3129 trades, 1517 with a scored group (48.5%); coverage by year: 2012:35.6% 2013:45.5% 2014:45.5% 2015:42.8% 2016:35.6% 2017:42.6% 2018:57.9% 2019:74.2% 2020:55.1% 2021:46.7% 2022:48.2% 2023:54.8%
+ G1 group strength rank>=75%
+   2011-17: strong n 258 mean 55.9% median 12.8% win 56.6% excess 35.8% ex-best-2 31.0% | rest n 269 mean 48.1% median 0.6% excess 33.7% | diff 2.1% | years strong>rest 3/6 (2012:28 2013:-2 2014:-40 2015:3 2016:-18 2017:7)
+   2018-23: strong n 471 mean 61.4% median 22.7% win 58.0% excess 40.0% ex-best-2 36.1% | rest n 519 mean 53.9% median 1.2% excess 39.2% | diff 0.8% | years strong>rest 4/6 (2018:4 2019:4 2020:-36 2021:-27 2022:29 2023:7)
+ G2 group breadth>=60%
+   2011-17: strong n 452 mean 50.5% median 3.2% win 52.4% excess 34.5% ex-best-2 31.3% | rest n 75 mean 60.2% median 17.0% excess 36.1% | diff -1.6% | years strong>rest 3/5 (2012:-59 2013:98 2014:- 2015:23 2016:-21 2017:11)
+   2018-23: strong n 715 mean 65.4% median 21.2% win 59.3% excess 44.1% ex-best-2 41.2% | rest n 275 mean 36.8% median -14.1% excess 27.8% | diff 16.4% | years strong>rest 3/5 (2018:-14 2019:0 2020:-31 2021:- 2022:29 2023:4)
+ G3 market phase: >70% of groups up
+   2011-17: strong n 399 mean 42.4% median -2.3% win 47.6% excess 29.2% ex-best-2 25.5% | rest n 128 mean 81.6% median 34.8% excess 52.1% | diff -22.9% | years strong>rest 2/3 (2012:0 2013:56 2014:- 2015:- 2016:-32 2017:-)
+   2018-23: strong n 506 mean 58.9% median 13.3% win 57.1% excess 40.9% ex-best-2 37.6% | rest n 484 mean 55.9% median 3.1% excess 38.2% | diff 2.6% | years strong>rest 1/5 (2018:-22 2019:-6 2020:4 2021:- 2022:-50 2023:-11)
+
+=== M4: 542 trades, 319 with a scored group (58.9%); coverage by year: 2012:44.0% 2013:63.6% 2014:54.3% 2015:60.0% 2016:50.0% 2017:48.4% 2018:54.5% 2019:70.8% 2020:64.0% 2021:62.6% 2022:55.6% 2023:68.1%
+ G1 group strength rank>=75%
+   2011-17: strong n 39 mean 60.1% median 11.2% win 56.4% excess 34.9% ex-best-2 16.1% | rest n 64 mean 49.1% median 12.7% excess 29.5% | diff 5.3% | years strong>rest 0/0 (2012:- 2013:- 2014:- 2015:- 2016:- 2017:-)
+   2018-23: strong n 81 mean 51.4% median 26.3% win 61.7% excess 20.4% ex-best-2 11.9% | rest n 135 mean 51.9% median 3.8% excess 25.0% | diff -4.6% | years strong>rest 1/4 (2018:- 2019:- 2020:-12 2021:-16 2022:-4 2023:10)
+ G2 group breadth>=60%
+   2011-17: strong n 85 mean 53.3% median 8.4% win 55.3% excess 33.2% ex-best-2 22.1% | rest n 18 mean 53.1% median 34.1% excess 23.7% | diff 9.5% | years strong>rest 0/0 (2012:- 2013:- 2014:- 2015:- 2016:- 2017:-)
+   2018-23: strong n 179 mean 52.1% median 13.1% win 54.7% excess 23.7% ex-best-2 17.0% | rest n 37 mean 49.6% median 11.5% excess 21.3% | diff 2.4% | years strong>rest 1/1 (2018:- 2019:- 2020:36 2021:- 2022:- 2023:-)
+ G3 market phase: >70% of groups up
+   2011-17: strong n 71 mean 53.8% median 5.3% win 52.1% excess 36.6% ex-best-2 23.4% | rest n 32 mean 52.2% median 51.9% excess 20.3% | diff 16.3% | years strong>rest 0/0 (2012:- 2013:- 2014:- 2015:- 2016:- 2017:-)
+   2018-23: strong n 144 mean 50.4% median 13.1% win 54.9% excess 22.7% ex-best-2 16.1% | rest n 72 mean 54.4% median 14.6% excess 24.5% | diff -1.8% | years strong>rest 1/2 (2018:- 2019:- 2020:56 2021:- 2022:-29 2023:-)
+
+=== GC: 1774 trades, 709 with a scored group (40.0%); coverage by year: 2012:30.4% 2013:50.0% 2014:50.8% 2015:36.6% 2016:21.8% 2017:31.6% 2018:41.1% 2019:49.0% 2020:40.7% 2021:40.8% 2022:37.7% 2023:61.1%
+ G1 group strength rank>=75%
+   2011-17: strong n 108 mean 45.7% median -7.8% win 45.4% excess 33.5% ex-best-2 22.7% | rest n 149 mean 47.9% median -12.4% excess 36.1% | diff -2.6% | years strong>rest 1/4 (2012:- 2013:- 2014:-50 2015:0 2016:-17 2017:-4)
+   2018-23: strong n 226 mean 97.1% median 56.2% win 76.5% excess 65.5% ex-best-2 58.9% | rest n 226 mean 97.5% median 34.4% excess 73.6% | diff -8.0% | years strong>rest 3/6 (2018:3 2019:-37 2020:-57 2021:8 2022:-56 2023:18)
+ G2 group breadth>=60%
+   2011-17: strong n 207 mean 46.1% median -8.5% win 43.0% excess 35.6% ex-best-2 30.1% | rest n 50 mean 50.7% median -8.8% excess 32.3% | diff 3.4% | years strong>rest 2/2 (2012:- 2013:- 2014:- 2015:69 2016:10 2017:-)
+   2018-23: strong n 344 mean 100.3% median 50.8% win 73.0% excess 72.3% ex-best-2 66.7% | rest n 108 mean 87.7% median 35.4% excess 60.8% | diff 11.5% | years strong>rest 0/4 (2018:-5 2019:-35 2020:- 2021:- 2022:-27 2023:-11)
+ G3 market phase: >70% of groups up
+   2011-17: strong n 203 mean 49.7% median -10.6% win 41.4% excess 39.6% ex-best-2 32.2% | rest n 54 mean 36.8% median -4.8% excess 17.6% | diff 22.0% | years strong>rest 1/2 (2012:- 2013:- 2014:- 2015:35 2016:-11 2017:-)
+   2018-23: strong n 272 mean 101.2% median 41.2% win 71.3% excess 76.1% ex-best-2 69.1% | rest n 180 mean 91.4% median 55.7% excess 59.6% | diff 16.5% | years strong>rest 2/4 (2018:-13 2019:- 2020:75 2021:- 2022:6 2023:-28)
+
+PASS CHECK (diff >= +5 pts both halves, n >= 150 both, ex-best-2 > 0 both, strong>rest in >= half the years in both halves):
+  M1  G1 group strength rank>=75%            fail
+  M1  G2 group breadth>=60%                  fail
+  M1  G3 market phase: >70% of groups up     fail
+  M3  G1 group strength rank>=75%            fail
+  M3  G2 group breadth>=60%                  fail
+  M3  G3 market phase: >70% of groups up     fail
+  M4  G1 group strength rank>=75%            fail
+  M4  G2 group breadth>=60%                  fail
+  M4  G3 market phase: >70% of groups up     fail
+  GC  G1 group strength rank>=75%            fail
+  GC  G2 group breadth>=60%                  fail
+  GC  G3 market phase: >70% of groups up     PASS
