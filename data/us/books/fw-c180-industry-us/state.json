@@ -167,7 +167,16 @@
   "GILD": 957518474.96
  },
  "pending": null,
- "stopQueue": [],
+ "stopQueue": [
+  {
+   "sym": "AAOI",
+   "on": "2026-11-20"
+  },
+  {
+   "sym": "SNDK",
+   "on": "2026-11-20"
+  }
+ ],
  "closed": [],
  "daily": [
   {
@@ -193,19 +202,40 @@
    "v": 94.3784,
    "vs": 94.2784,
    "x": 1
+  },
+  {
+   "d": "2026-11-20",
+   "v": 85.2883,
+   "vs": 85.1883,
+   "x": 1
   }
  ],
  "skipped": [],
  "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 4,
+  "credited": 5,
   "missing": 0
  },
  "started": "2026-11-16",
  "lastSignal": "2026-11-13",
- "lastStep": "2026-11-19",
+ "lastStep": "2026-11-20",
  "blocks": {},
- "gaps": [],
+ "gaps": [
+  {
+   "date": "2026-11-20",
+   "sym": "AAOI",
+   "kind": "stop-out after fall",
+   "move": -0.1655,
+   "state": "unconfirmed fall of 15% or more"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "SNDK",
+   "kind": "stop-out after fall",
+   "move": -0.1605,
+   "state": "unconfirmed fall of 15% or more"
+  }
+ ],
  "cashCarried": 0,
  "costs": {
   "2026-11": 0.10000000000000002

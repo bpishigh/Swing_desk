@@ -22,7 +22,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-19",
+ "lastStep": "2026-11-20",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -58,6 +58,30 @@
    "reaction": 0.0838,
    "taken": false,
    "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "INTU",
+   "runUp": -0.0635,
+   "reaction": -0.0913,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ROST",
+   "runUp": -0.008,
+   "reaction": 0.0072,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "KEYS",
+   "runUp": -0.0337,
+   "reaction": -0.0343,
+   "taken": false,
+   "why": "run-up below the cut"
   }
  ]
 }

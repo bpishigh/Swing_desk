@@ -1,7 +1,7 @@
 {
  "id": "fw-c189-pullback-us",
  "startAfter": "2026-11-12",
- "cash": 85.07717015356025,
+ "cash": 85.08737941397867,
  "pos": {
   "CVX": {
    "sh": 0.022701449802299687,
@@ -30,7 +30,32 @@
   "WELL": 622183336.1949999,
   "UNP": 849932029.1
  },
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-20",
+  "buys": [
+   {
+    "sym": "TRV",
+    "value": 586043368.735,
+    "stop": 0.06762507628928895
+   },
+   {
+    "sym": "KO",
+    "value": 1745762521.05,
+    "stop": 0.05665279925765543
+   },
+   {
+    "sym": "ABBV",
+    "value": 1426205397.41,
+    "stop": 0.07332641509433961
+   },
+   {
+    "sym": "ADP",
+    "value": 709855592.35,
+    "stop": 0.07239783235557319
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [
@@ -57,6 +82,12 @@
    "v": 99.59,
    "vs": 99.575,
    "x": 0.1457
+  },
+  {
+   "d": "2026-11-20",
+   "v": 99.5286,
+   "vs": 99.5136,
+   "x": 0.1451
   }
  ],
  "skipped": [
@@ -94,16 +125,21 @@
    "date": "2026-11-18",
    "sym": "KDP",
    "width": 0.108
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "KDP",
+   "width": 0.1095
   }
  ],
  "slipCum": 0.014989128365333802,
  "cashDays": {
-  "credited": 4,
+  "credited": 5,
   "missing": 0
  },
  "started": "2026-11-16",
- "lastSignal": "2026-11-18",
- "lastStep": "2026-11-19",
+ "lastSignal": "2026-11-20",
+ "lastStep": "2026-11-20",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -177,6 +213,41 @@
    "dip": "average",
    "volRatio": 0.7786,
    "tight": 0.0988
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "TRV",
+   "dip": "run",
+   "volRatio": 0.8939,
+   "tight": 0.0321
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "KO",
+   "dip": "run",
+   "volRatio": 1.3769,
+   "tight": 0.0356
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ABBV",
+   "dip": "run",
+   "volRatio": 1.7113,
+   "tight": 0.0401
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "ADP",
+   "dip": "run",
+   "volRatio": 1.1692,
+   "tight": 0.0406
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "KDP",
+   "dip": "average",
+   "volRatio": 0.6811,
+   "tight": 0.1102
   }
  ],
  "costs": {

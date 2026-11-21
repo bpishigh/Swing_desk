@@ -167,7 +167,12 @@
   "HON": 595631844.325
  },
  "pending": null,
- "stopQueue": [],
+ "stopQueue": [
+  {
+   "sym": "SNDK",
+   "on": "2026-11-20"
+  }
+ ],
  "closed": [],
  "daily": [
   {
@@ -187,19 +192,33 @@
    "v": 93.8612,
    "vs": 93.7612,
    "x": 1
+  },
+  {
+   "d": "2026-11-20",
+   "v": 86.869,
+   "vs": 86.769,
+   "x": 1
   }
  ],
  "skipped": [],
  "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 3,
+  "credited": 4,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-16",
- "lastStep": "2026-11-19",
+ "lastStep": "2026-11-20",
  "blocks": {},
- "gaps": [],
+ "gaps": [
+  {
+   "date": "2026-11-20",
+   "sym": "SNDK",
+   "kind": "stop-out after fall",
+   "move": -0.1605,
+   "state": "unconfirmed fall of 15% or more"
+  }
+ ],
  "cashCarried": 0,
  "ew": {
   "month": "2026-11",
@@ -710,7 +729,8 @@
    "2026-11-16": 100,
    "2026-11-17": 98.5703,
    "2026-11-18": 98.3497,
-   "2026-11-19": 96.4596
+   "2026-11-19": 96.4596,
+   "2026-11-20": 92.9583
   }
  },
  "costs": {

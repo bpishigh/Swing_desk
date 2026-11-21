@@ -1,1 +1,1 @@
-{"asOf":"2026-11-19","state":{"TGT":{"in":true,"fails":0},"DLTR":{"in":true,"fails":0},"SLAB":{"in":true,"fails":0},"KSS":{"in":true,"fails":0}}}
+{"asOf":"2026-11-20","state":{"TGT":{"in":true,"fails":0},"DLTR":{"in":true,"fails":0},"SLAB":{"in":true,"fails":1},"KSS":{"in":true,"fails":0}}}
