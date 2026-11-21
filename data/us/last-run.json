@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-21T03:07:46.904Z",
+ "ts": "2026-11-21T03:37:54.164Z",
  "date": "2026-11-20",
- "status": "SPY or QQQ could not be confirmed",
+ "status": "written",
  "fetched": {
   "SPY": {
    "rows": 6,
@@ -70,6 +70,7 @@
  },
  "conflicts": [],
  "flags": [
-  "QQQ: Tiingo close 608.45 and StockAnalysis 609.88 differ by more than 0.1%; 2026-11-20 not written for it"
- ]
+  "14 of 14 sectors, SPY and QQQ written for 2026-11-20, VIX 35.89"
+ ],
+ "backfilled": 0
 }
