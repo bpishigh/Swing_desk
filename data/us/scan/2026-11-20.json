@@ -10,7 +10,7 @@
   "withRs": 1473,
   "rsGate": 299,
   "template": 110,
-  "qualified": 4,
+  "qualified": 3,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -373,45 +373,6 @@
  "ready": [],
  "watch": [
   {
-   "sym": "SLAB",
-   "type": "CS",
-   "group": "Semiconductors and components",
-   "path": "main",
-   "rsPct": 94.16,
-   "close": 220.21,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 67.08,
-   "tightness": 1.18,
-   "distPivot": 1.47,
-   "setup": null,
-   "gb": {
-    "pct": 1.4,
-    "n": 69
-   },
-   "diag": {
-    "rs121": 87.41,
-    "rs6m2w": 1.86,
-    "atr14": 1.07,
-    "sma50": 221.44,
-    "sma200": 216.05,
-    "high52": 223.5,
-    "low52": 115.51,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 94.2th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.5% below its 52-week high (limit 25%) and 90.6% above its 52-week low (needs 30%).",
-    "Group: Semiconductors and components ranks 4 of 59 (median strength 76.6); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 1.4% of the 69 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 1.5% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
    "sym": "TGT",
    "type": "CS",
    "group": "General merchandise retail",
@@ -529,13 +490,13 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 4,
+ "qualifiedTotal": 3,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
   "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
  ],
  "source": "nasdaq",
- "regimeDate": "2026-11-19",
+ "regimeDate": "2026-11-20",
  "sicCovered": 2323
 }
