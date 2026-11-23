@@ -1,181 +1,181 @@
 {
- "date": "2026-11-20",
- "fetchedAt": "2026-11-20T14:08:11.962Z",
+ "date": "2026-11-23",
+ "fetchedAt": "2026-11-23T14:07:58.186Z",
  "bench": {
-  "r1m": 12.72,
-  "r3m": 6.47
+  "r1m": 12.17,
+  "r3m": 4.53
  },
  "sectors": {
   "Nifty IT": {
-   "close": 31322.65,
-   "date": "2026-11-20",
-   "sma50": 30293.1,
-   "sma200": 30263.21,
-   "r1m": -0.61,
-   "r3m": 2.12,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 31850.8,
+   "date": "2026-11-23",
+   "sma50": 30319.65,
+   "sma200": 30226.2,
+   "r1m": -0.45,
+   "r3m": 4.32,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Bank": {
-   "close": 64635.2,
-   "date": "2026-11-20",
-   "sma50": 56501.73,
-   "sma200": 56725.52,
-   "r1m": 16.48,
-   "r3m": 12.42,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 62585.35,
+   "date": "2026-11-23",
+   "sma50": 56652.67,
+   "sma200": 56750.7,
+   "r1m": 15.29,
+   "r3m": 8.35,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Financial Services": {
-   "close": 28871.2,
-   "date": "2026-11-20",
-   "sma50": 25575.27,
-   "sma200": 26116.95,
-   "r1m": 15.54,
-   "r3m": 10.18,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 28153.5,
+   "date": "2026-11-23",
+   "sma50": 25633.98,
+   "sma200": 26124.63,
+   "r1m": 15.37,
+   "r3m": 7.21,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty PSU Bank": {
-   "close": 9881.05,
-   "date": "2026-11-20",
-   "sma50": 8394.57,
-   "sma200": 8570.86,
-   "r1m": 19.13,
-   "r3m": 14.67,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 9559.65,
+   "date": "2026-11-23",
+   "sma50": 8423.7,
+   "sma200": 8574.84,
+   "r1m": 18.45,
+   "r3m": 10.9,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Auto": {
-   "close": 28787.65,
-   "date": "2026-11-20",
-   "sma50": 26468.21,
-   "sma200": 26838.12,
-   "r1m": 12.49,
-   "r3m": -1.75,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 28490.7,
+   "date": "2026-11-23",
+   "sma50": 26489.99,
+   "sma200": 26848.37,
+   "r1m": 14.59,
+   "r3m": -2.18,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Pharma": {
-   "close": 28386.9,
-   "date": "2026-11-20",
-   "sma50": 26806.82,
-   "sma200": 24848.59,
-   "r1m": 10.82,
-   "r3m": 7.46,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 28288.85,
+   "date": "2026-11-23",
+   "sma50": 26841.04,
+   "sma200": 24881.83,
+   "r1m": 11.68,
+   "r3m": 7.32,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty FMCG": {
-   "close": 48535.7,
-   "date": "2026-11-20",
-   "sma50": 45217.71,
-   "sma200": 48313.04,
-   "r1m": 10.37,
-   "r3m": 1.4,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 48312.55,
+   "date": "2026-11-23",
+   "sma50": 45276.58,
+   "sma200": 48300.79,
+   "r1m": 13.2,
+   "r3m": 1.69,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Metal": {
-   "close": 12271.1,
-   "date": "2026-11-20",
-   "sma50": 12476.29,
-   "sma200": 12560.61,
-   "r1m": 1.7,
-   "r3m": -6.04,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 11819.25,
+   "date": "2026-11-23",
+   "sma50": 12458.66,
+   "sma200": 12561.43,
+   "r1m": 2.97,
+   "r3m": -10.27,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Realty": {
-   "close": 938.9,
-   "date": "2026-11-20",
-   "sma50": 849.52,
-   "sma200": 824.12,
-   "r1m": 15.05,
-   "r3m": 3.41,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 941.85,
+   "date": "2026-11-23",
+   "sma50": 850.45,
+   "sma200": 824.95,
+   "r1m": 20.08,
+   "r3m": 3.32,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Energy": {
-   "close": 37321.25,
-   "date": "2026-11-20",
-   "sma50": 36701.98,
-   "sma200": 37901.38,
-   "r1m": 3.74,
-   "r3m": -2.18,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 36655.1,
+   "date": "2026-11-23",
+   "sma50": 36688.94,
+   "sma200": 37914.56,
+   "r1m": 6.18,
+   "r3m": -4.18,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Infrastructure": {
-   "close": 9689.4,
-   "date": "2026-11-20",
-   "sma50": 8973.93,
-   "sma200": 9217.28,
-   "r1m": 11.8,
-   "r3m": 3.64,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 9530.35,
+   "date": "2026-11-23",
+   "sma50": 8983.95,
+   "sma200": 9220.31,
+   "r1m": 11.41,
+   "r3m": 1.79,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty PSE": {
-   "close": 9528.8,
-   "date": "2026-11-20",
-   "sma50": 9372.14,
-   "sma200": 9938.33,
-   "r1m": 3.68,
-   "r3m": -2.2,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 9340.1,
+   "date": "2026-11-23",
+   "sma50": 9369.12,
+   "sma200": 9935.08,
+   "r1m": 5.11,
+   "r3m": -4.58,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Media": {
-   "close": 1755.75,
-   "date": "2026-11-20",
-   "sma50": 1612.44,
-   "sma200": 1495.2,
-   "r1m": 6.8,
-   "r3m": 8.29,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 1749.2,
+   "date": "2026-11-23",
+   "sma50": 1617.14,
+   "sma200": 1497.18,
+   "r1m": 11.88,
+   "r3m": 8.46,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty India Defence": {
-   "close": 8958.7,
-   "date": "2026-11-20",
-   "sma50": 9159.75,
-   "sma200": 8947.51,
-   "r1m": -1.81,
-   "r3m": -8.6,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 8839.95,
+   "date": "2026-11-23",
+   "sma50": 9143.84,
+   "sma200": 8951.46,
+   "r1m": 3.26,
+   "r3m": -10.09,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Healthcare": {
-   "close": 17474.6,
-   "date": "2026-11-20",
-   "sma50": 16402.06,
-   "sma200": 15657.42,
-   "r1m": 12.32,
-   "r3m": 6.13,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 17432.2,
+   "date": "2026-11-23",
+   "sma50": 16421.15,
+   "sma200": 15675.18,
+   "r1m": 13.29,
+   "r3m": 6.14,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Oil & Gas": {
-   "close": 11539.35,
-   "date": "2026-11-20",
-   "sma50": 10821.96,
-   "sma200": 11232.04,
-   "r1m": 9.44,
-   "r3m": 3.23,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 11306.9,
+   "date": "2026-11-23",
+   "sma50": 10830.37,
+   "sma200": 11230.93,
+   "r1m": 8.92,
+   "r3m": 1.11,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Consumer Durables": {
-   "close": 38487.95,
-   "date": "2026-11-20",
-   "sma50": 37017.84,
-   "sma200": 37138.48,
-   "r1m": 7.39,
-   "r3m": -4.98,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 38715.25,
+   "date": "2026-11-23",
+   "sma50": 37001.23,
+   "sma200": 37160.07,
+   "r1m": 14.13,
+   "r3m": -4.6,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Chemicals": {
-   "close": 28653.2,
-   "date": "2026-11-20",
-   "sma50": 28299.69,
-   "sma200": 28679.87,
-   "r1m": 2.65,
-   "r3m": -5.28,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 28414.2,
+   "date": "2026-11-23",
+   "sma50": 28273.52,
+   "sma200": 28683.68,
+   "r1m": 7.94,
+   "r3m": -5.5,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   },
   "Nifty Capital Markets": {
-   "close": 5781.75,
-   "date": "2026-11-20",
-   "sma50": 5343.38,
-   "sma200": 5188.34,
-   "r1m": 11.38,
-   "r3m": 7.07,
-   "src": "NSE index close file (20-Nov-2026) + computed averages/returns"
+   "close": 5740.05,
+   "date": "2026-11-23",
+   "sma50": 5349.87,
+   "sma200": 5193.8,
+   "r1m": 16.43,
+   "r3m": 5.84,
+   "src": "NSE index close file (23-Nov-2026) + computed averages/returns"
   }
  },
  "flags": []
