@@ -115,12 +115,12 @@
   "high": {
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
-   "TFCILTD": 171.85,
+   "TFCILTD": 173.51,
    "CPPLUS": 4237,
    "DIVISLAB": 11485,
    "SKYGOLD": 1050.05,
-   "ATHERENERG": 1945,
-   "RATNAVEER": 372.9,
+   "ATHERENERG": 1979.2,
+   "RATNAVEER": 403.3,
    "SONACOMS": 926,
    "GLAND": 3385.9,
    "PVRINOX": 1714.4,
@@ -141,7 +141,7 @@
    "TVSMOTOR": 4601.4,
    "KARURVYSYA": 393.5,
    "TITAN": 4970,
-   "COFORGE": 2086.7,
+   "COFORGE": 2142.3,
    "ZYDUSLIFE": 1206
   },
   "startedFill": "2026-11-12"
@@ -225,16 +225,20 @@
   {
    "d": "2026-11-20",
    "v": 99.7241
+  },
+  {
+   "d": "2026-11-23",
+   "v": 99.748
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-20",
-   "v": 99.7241
+   "d": "2026-11-23",
+   "v": 99.748
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-20",
+ "stopChecked": "2026-11-23",
  "gone": []
 }

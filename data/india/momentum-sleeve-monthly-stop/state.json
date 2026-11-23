@@ -549,12 +549,12 @@
    "CUPID": 384.8,
    "LAURUSLABS": 2427,
    "STLTECH": 736.9,
-   "TFCILTD": 171.85,
+   "TFCILTD": 173.51,
    "CPPLUS": 4237,
    "SKYGOLD": 1050.05,
-   "ATHERENERG": 1945,
+   "ATHERENERG": 1979.2,
    "DIVISLAB": 11485,
-   "RATNAVEER": 372.9,
+   "RATNAVEER": 403.3,
    "SONACOMS": 926,
    "GLAND": 3385.9,
    "WELCORP": 2260.2,
@@ -658,16 +658,20 @@
   {
    "d": "2026-11-20",
    "v": 98.1731
+  },
+  {
+   "d": "2026-11-23",
+   "v": 97.7127
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-20",
-   "v": 98.1731
+   "d": "2026-11-23",
+   "v": 97.7127
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-20",
+ "stopChecked": "2026-11-23",
  "gone": []
 }

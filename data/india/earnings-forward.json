@@ -8,7 +8,11 @@
    "run": 0.0192,
    "rea": -0.0463,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.2049,
+   "m": 0.0817,
+   "done": true
   },
   "ADANIGREEN|2026-10-21": {
    "s": "ADANIGREEN",
@@ -32,7 +36,11 @@
    "run": -0.0108,
    "rea": -0.0212,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.0396,
+   "m": 0.0817,
+   "done": true
   },
   "ABSLAMC|2026-10-21": {
    "s": "ABSLAMC",
@@ -98,7 +106,11 @@
    "run": 0.0136,
    "rea": -0.0164,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.0435,
+   "m": 0.0817,
+   "done": true
   },
   "CENTRALBK|2026-10-17": {
    "s": "CENTRALBK",
@@ -122,7 +134,11 @@
    "run": 0.0618,
    "rea": 0.0581,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-23",
+   "r": -0.0216,
+   "m": 0.0817,
+   "done": true
   },
   "COLPAL|2026-10-22": {
    "s": "COLPAL",
@@ -132,7 +148,11 @@
    "run": -0.0108,
    "rea": -0.0346,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.0938,
+   "m": 0.0817,
+   "done": true
   },
   "CREDITACC|2026-10-22": {
    "s": "CREDITACC",
@@ -142,7 +162,11 @@
    "run": -0.0589,
    "rea": -0.0684,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": -0.0424,
+   "m": 0.0817,
+   "done": true
   },
   "CROMPTON|2026-10-16": {
    "s": "CROMPTON",
@@ -166,7 +190,11 @@
    "run": 0.0835,
    "rea": 0.0864,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-23",
+   "r": -0.0588,
+   "m": 0.0817,
+   "done": true
   },
   "DLF|2026-10-16": {
    "s": "DLF",
@@ -260,7 +288,11 @@
    "run": 0.0524,
    "rea": -0.0056,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.1484,
+   "m": 0.0817,
+   "done": true
   },
   "HSCL|2026-10-16": {
    "s": "HSCL",
@@ -284,7 +316,11 @@
    "run": 0.028,
    "rea": 0.0064,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.138,
+   "m": 0.0817,
+   "done": true
   },
   "HINDZINC|2026-10-19": {
    "s": "HINDZINC",
@@ -406,7 +442,11 @@
    "run": 0.0099,
    "rea": -0.1331,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.2975,
+   "m": 0.0817,
+   "done": true
   },
   "JINDALSAW|2026-10-16": {
    "s": "JINDALSAW",
@@ -430,7 +470,11 @@
    "run": 0.0157,
    "rea": -0.0309,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.0545,
+   "m": 0.0817,
+   "done": true
   },
   "KEI|2026-10-21": {
    "s": "KEI",
@@ -496,7 +540,11 @@
    "run": -0.0299,
    "rea": -0.0451,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.1224,
+   "m": 0.0817,
+   "done": true
   },
   "NUVOCO|2026-10-22": {
    "s": "NUVOCO",
@@ -506,7 +554,11 @@
    "run": 0.0548,
    "rea": 0.0287,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-23",
+   "r": 0.0773,
+   "m": 0.0817,
+   "done": true
   },
   "OBEROIRLTY|2026-10-16": {
    "s": "OBEROIRLTY",
@@ -572,7 +624,11 @@
    "run": 0.0507,
    "rea": 0.0271,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-23",
+   "r": 0.0432,
+   "m": 0.0817,
+   "done": true
   },
   "SOBHA|2026-10-19": {
    "s": "SOBHA",
@@ -596,7 +652,11 @@
    "run": -0.0456,
    "rea": -0.1808,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": 0.0055,
+   "m": 0.0817,
+   "done": true
   },
   "TTML|2026-10-22": {
    "s": "TTML",
@@ -606,7 +666,11 @@
    "run": -0.0235,
    "rea": 0.2076,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-23",
+   "r": -0.0791,
+   "m": 0.0817,
+   "done": true
   },
   "TEJASNET|2026-10-16": {
    "s": "TEJASNET",
@@ -4754,32 +4818,32 @@
   }
  },
  "summary": {
-  "updated": "2026-11-21",
+  "updated": "2026-11-23",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 7,
-    "open": 50,
-    "meanNet": 0.0713,
-    "win": 0.857,
-    "market": 0.0494
+    "matured": 11,
+    "open": 46,
+    "meanNet": 0.0476,
+    "win": 0.727,
+    "market": 0.0611
    },
    {
     "group": "ran up, any reaction",
-    "matured": 15,
-    "open": 159,
-    "meanNet": 0.0401,
-    "win": 0.6,
-    "market": 0.0444
+    "matured": 21,
+    "open": 153,
+    "meanNet": 0.043,
+    "win": 0.619,
+    "market": 0.055
    },
    {
     "group": "all results stocks",
-    "matured": 38,
-    "open": 422,
-    "meanNet": 0.0536,
-    "win": 0.632,
-    "market": 0.0487
+    "matured": 54,
+    "open": 406,
+    "meanNet": 0.0563,
+    "win": 0.667,
+    "market": 0.0585
    }
   ]
  }

@@ -16,11 +16,11 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-20",
- "lastNavDate": "2026-11-19",
+ "lastStep": "2026-11-23",
+ "lastNavDate": "2026-11-22",
  "dealCounts": {
   "kept": 0,
-  "roundTrip": 38,
+  "roundTrip": 44,
   "keyword": 1,
   "promoter": 1,
   "small": 4
@@ -851,10 +851,95 @@
    "gap": null,
    "taken": false,
    "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "QE SECURITIES LLP",
+   "kind": "bulk",
+   "value": 965448681,
+   "price": 162.41,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "HRTI PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 748773666,
+   "price": 161.82,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "MICROCURVES TRADING PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 652126276,
+   "price": 162.24,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "ALPHAGREP SECURITIES PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 636628950,
+   "price": 162.07,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "JUNOMONETA FINSOL PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 419031658,
+   "price": 162.3,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-20",
+   "sym": "V2RETAIL",
+   "client": "PLUTUS WEALTH MANAGEMENT LLP",
+   "kind": "bulk",
+   "value": 330510264,
+   "price": 161.83,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 6,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
   }
  ],
- "dealsMissing": 1,
+ "dealsMissing": 2,
  "dealsMissingDates": [
-  "2026-11-19"
+  "2026-11-19",
+  "2026-11-23"
  ]
 }

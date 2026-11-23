@@ -856,6 +856,71 @@
    "basis": 22.77,
    "width": 9.95,
    "room": 2.09
+  },
+  "GRANULES|4|2026-11-23": {
+   "sym": "GRANULES",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-23",
+   "trigger": 844.54,
+   "stop": 788.45,
+   "limit": 852.99,
+   "basis": 844.54,
+   "width": 6.64,
+   "room": 1.41
+  },
+  "SBC|2|2026-11-23": {
+   "sym": "SBC",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-23",
+   "trigger": 69.49,
+   "stop": 66.76,
+   "limit": 70.18,
+   "basis": 69.49,
+   "width": 3.93,
+   "room": 0.66
+  },
+  "ANTHEM|2|2026-11-23": {
+   "sym": "ANTHEM",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-23",
+   "trigger": 966.83,
+   "stop": 907.55,
+   "limit": 976.5,
+   "basis": 966.83,
+   "width": 6.13,
+   "room": 0.38
+  },
+  "SMSPHARMA|4|2026-11-23": {
+   "sym": "SMSPHARMA",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-23",
+   "trigger": 474.2,
+   "stop": 441,
+   "limit": 478.94,
+   "basis": 474.2,
+   "width": 7,
+   "room": 1.83
+  },
+  "KOPRAN|4|2026-11-23": {
+   "sym": "KOPRAN",
+   "id": "4",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-23",
+   "trigger": 269.53,
+   "stop": 246.72,
+   "limit": 272.23,
+   "basis": 269.53,
+   "width": 8.46,
+   "room": 1.15
   }
  },
  "lastLogged": {
@@ -922,10 +987,15 @@
   "NAZARA|2": "2026-11-20",
   "JAMNAAUTO|2": "2026-11-20",
   "JAMNAAUTO|4": "2026-11-20",
-  "SYNCOMF|2": "2026-11-20"
+  "SYNCOMF|2": "2026-11-20",
+  "GRANULES|4": "2026-11-23",
+  "SBC|2": "2026-11-23",
+  "ANTHEM|2": "2026-11-23",
+  "SMSPHARMA|4": "2026-11-23",
+  "KOPRAN|4": "2026-11-23"
  },
  "summary": {
-  "updated": "2026-11-20",
+  "updated": "2026-11-23",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
@@ -938,7 +1008,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 12,
+     "open": 14,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -978,7 +1048,7 @@
     },
     "others": {
      "matured": 0,
-     "open": 12,
+     "open": 14,
      "meanNet": null,
      "win": null,
      "excess": null
@@ -998,7 +1068,7 @@
     },
     "others": {
      "matured": 3,
-     "open": 27,
+     "open": 30,
      "meanNet": -0.051,
      "win": 0.333,
      "excess": -0.1047

@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 90.05603494010636,
+ "cash": 90.09840195374649,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -49,6 +49,12 @@
    "v": 99.906,
    "vs": 99.896,
    "x": 0.0986
+  },
+  {
+   "d": "2026-11-23",
+   "v": 99.9406,
+   "vs": 99.9306,
+   "x": 0.0985
   }
  ],
  "skipped": [
@@ -106,17 +112,37 @@
    "date": "2026-11-20",
    "sym": "PAYTM",
    "width": 0.1269
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "LAURUSLABS",
+   "width": 0.115
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "ACUTAAS",
+   "width": 0.1493
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "KARURVYSYA",
+   "width": 0.1048
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "MOTILALOFS",
+   "width": 0.1206
   }
  ],
  "slipCum": 0.010000056341046665,
  "cashDays": {
-  "credited": 4,
+  "credited": 5,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-17",
- "lastStep": "2026-11-20",
- "lastNavDate": "2026-11-19",
+ "lastStep": "2026-11-23",
+ "lastNavDate": "2026-11-22",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -208,6 +234,34 @@
    "dip": "average",
    "volRatio": 1.6996,
    "tight": 0.123
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "LAURUSLABS",
+   "dip": "run",
+   "volRatio": 0.6286,
+   "tight": 0.0987
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "ACUTAAS",
+   "dip": "average",
+   "volRatio": 0.5046,
+   "tight": 0.0531
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "KARURVYSYA",
+   "dip": "run",
+   "volRatio": 1.5344,
+   "tight": 0.0612
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "MOTILALOFS",
+   "dip": "run",
+   "volRatio": 1.0342,
+   "tight": 0.0753
   }
  ],
  "costs": {

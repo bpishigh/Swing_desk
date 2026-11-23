@@ -1,38 +1,8 @@
 {
- "asOf": "2026-11-20",
+ "asOf": "2026-11-23",
  "source": "NSE event calendar",
  "dates": {
-  "SHREEJISPG": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "SANSERA": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "WELSPUNLIV": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "ICIL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "NITINSPIN": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "EMCURE": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "GLAND": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -42,7 +12,37 @@
    "sessions": null,
    "inWindow": null
   },
-  "VIJAYA": {
+  "SPORTKING": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "WELSPUNLIV": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "PVRINOX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "AARTIPHARM": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SANSERA": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ASAHIINDIA": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "LAURUSLABS": {
    "date": null,
    "sessions": null,
    "inWindow": null

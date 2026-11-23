@@ -1,34 +1,41 @@
 {
  "id": "bc-hl-m4",
  "startAfter": "2026-11-19",
- "cash": 100,
- "pos": {},
- "lastValue": {},
- "pending": {
-  "signalDate": "2026-11-20",
-  "buys": [
-   {
-    "sym": "GCSL",
-    "value": 257777782.17250004,
-    "stop": 0.35
-   }
-  ],
-  "sells": []
+ "cash": 98.0461042654109,
+ "pos": {
+  "GCSL": {
+   "sh": 0.002334152334152334,
+   "entry": 854.7,
+   "entryDate": "2026-11-23",
+   "high": 854.7,
+   "stop": 0.35
+  }
  },
+ "lastValue": {
+  "GCSL": 257777782.17250004
+ },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
- "daily": [],
+ "daily": [
+  {
+   "d": "2026-11-23",
+   "v": 100.0285,
+   "vs": 100.0265,
+   "x": 0.0198
+  }
+ ],
  "skipped": [],
- "slipCum": 0,
+ "slipCum": 0.002,
  "cashDays": {
-  "credited": 0,
+  "credited": 1,
   "missing": 0
  },
- "started": null,
+ "started": "2026-11-23",
  "lastSignal": "2026-11-20",
- "lastStep": "2026-11-20",
+ "lastStep": "2026-11-23",
  "weight": 0.02,
- "lastNavDate": "2026-11-19",
+ "lastNavDate": "2026-11-22",
  "signalLog": [
   {
    "date": "2026-11-20",
@@ -36,6 +43,16 @@
    "ret126": 1.196,
    "taken": true,
    "why": "bought next open"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "GCSL",
+   "ret126": 1.148,
+   "taken": false,
+   "why": "already held"
   }
- ]
+ ],
+ "costs": {
+  "2026-11": 0.005
+ }
 }
