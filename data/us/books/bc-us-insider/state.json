@@ -13,6 +13,16 @@
    "date": "2026-11-19",
    "sym": "BA",
    "width": 0.1079
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "WMB",
+   "width": 0.1172
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "TTMI",
+   "width": 0.3546
   }
  ],
  "slipCum": 0,
@@ -22,7 +32,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-20",
+ "lastStep": "2026-11-23",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -33,6 +43,26 @@
    "value": 500067,
    "ceoCfo": false,
    "lagDays": 1,
+   "distinct30": 1,
+   "taken": false,
+   "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "WMB",
+   "value": 646500,
+   "ceoCfo": false,
+   "lagDays": 3,
+   "distinct30": 1,
+   "taken": false,
+   "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "TTMI",
+   "value": 291989,
+   "ceoCfo": false,
+   "lagDays": 0,
    "distinct30": 1,
    "taken": false,
    "why": "stop too wide"

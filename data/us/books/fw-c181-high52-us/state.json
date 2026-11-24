@@ -199,17 +199,23 @@
    "v": 94.9942,
    "vs": 94.8942,
    "x": 1
+  },
+  {
+   "d": "2026-11-23",
+   "v": 95.3248,
+   "vs": 95.2248,
+   "x": 1
   }
  ],
  "skipped": [],
  "slipCum": 0.10000000000000002,
  "cashDays": {
-  "credited": 5,
+  "credited": 6,
   "missing": 0
  },
  "started": "2026-11-16",
  "lastSignal": "2026-11-13",
- "lastStep": "2026-11-20",
+ "lastStep": "2026-11-23",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,

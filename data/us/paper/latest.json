@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-20",
+ "asOf": "2026-11-23",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
@@ -12,25 +12,57 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 21,
+  "orders": 22,
   "open": 2,
-  "pending": 0,
+  "pending": 1,
   "notFilled": 10,
   "closed": 9,
   "meanR": -0.7110185710066145,
   "winRate": 0.2222222222222222
  },
  "comparator": {
-  "orders": 14,
+  "orders": 16,
   "open": 0,
-  "pending": 0,
+  "pending": 2,
   "notFilled": 1,
   "closed": 13,
   "meanR": -0.6484558850586548,
   "winRate": 0.38461538461538464
  },
  "light": "red",
- "newOrdersTonight": [],
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "ZIM",
+   "setup": "4",
+   "trigger": 30.2,
+   "stop": 28.91,
+   "tags": [
+    "room fail"
+   ]
+  },
+  {
+   "stream": "comparator",
+   "sym": "ZIM",
+   "setup": "4",
+   "trigger": 29.94,
+   "stop": 28.65,
+   "tags": [
+    "room fail"
+   ]
+  },
+  {
+   "stream": "comparator",
+   "sym": "TXN",
+   "setup": "4",
+   "trigger": 291.19,
+   "stop": 262.29,
+   "tags": [
+    "over cap",
+    "room fail"
+   ]
+  }
+ ],
  "open": [
   {
    "stream": "official",

@@ -22,7 +22,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-20",
+ "lastStep": "2026-11-23",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -80,6 +80,22 @@
    "sym": "KEYS",
    "runUp": -0.0337,
    "reaction": -0.0343,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "CRWD",
+   "runUp": -0.0169,
+   "reaction": -0.1363,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "ZS",
+   "runUp": -0.1441,
+   "reaction": 0.1296,
    "taken": false,
    "why": "run-up below the cut"
   }

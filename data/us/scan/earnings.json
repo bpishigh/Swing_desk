@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-20",
+ "asOf": "2026-11-23",
  "source": "Nasdaq earnings-date (estimates)",
  "dates": {
   "TGT": {
@@ -7,14 +7,24 @@
    "sessions": null,
    "inWindow": null
   },
+  "ZIM": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "TXN": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "KSS": {
    "date": "2026-11-24",
-   "sessions": 2,
+   "sessions": 1,
    "inWindow": true
   },
   "DLTR": {
    "date": "2026-11-24",
-   "sessions": 2,
+   "sessions": 1,
    "inWindow": true
   }
  }
