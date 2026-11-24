@@ -1,444 +1,444 @@
 {
  "version": "US-SCAN-1",
- "asOf": "2026-11-20",
+ "asOf": "2026-11-23",
  "light": "red",
  "funnel": {
   "tickers": 5698,
-  "passFloors": 2202,
+  "passFloors": 2211,
   "universe": 1500,
   "universeFloorDollarVolumeM": 42.7,
-  "withRs": 1465,
-  "rsGate": 300,
-  "template": 111,
+  "withRs": 1463,
+  "rsGate": 301,
+  "template": 122,
   "qualified": 4,
   "baseQuality": 0,
   "withSetup": 0
  },
  "groups": [
   {
-   "group": "Petroleum refining",
-   "members": 16,
-   "medianRs": 80.29,
+   "group": "Semiconductors and components",
+   "members": 66,
+   "medianRs": 85.29,
    "passes": true
   },
   {
    "group": "Computer hardware",
    "members": 17,
-   "medianRs": 78.89,
+   "medianRs": 83.38,
    "passes": true
   },
   {
-   "group": "General merchandise retail",
-   "members": 12,
-   "medianRs": 78.62,
+   "group": "Communications equipment",
+   "members": 9,
+   "medianRs": 77.84,
    "passes": true
-  },
-  {
-   "group": "Semiconductors and components",
-   "members": 67,
-   "medianRs": 76.84,
-   "passes": true
-  },
-  {
-   "group": "Healthcare services",
-   "members": 28,
-   "medianRs": 75.1,
-   "passes": false
-  },
-  {
-   "group": "Pipelines",
-   "members": 5,
-   "medianRs": 74.59,
-   "passes": false
   },
   {
    "group": "Shipping",
    "members": 16,
-   "medianRs": 73.91,
-   "passes": false
+   "medianRs": 76.57,
+   "passes": true
   },
   {
-   "group": "Communications equipment",
-   "members": 8,
-   "medianRs": 72.54,
-   "passes": false
-  },
-  {
-   "group": "Textiles and apparel",
-   "members": 13,
-   "medianRs": 71.52,
-   "passes": false
-  },
-  {
-   "group": "Pharma and biotech",
-   "members": 106,
-   "medianRs": 69.71,
+   "group": "Petroleum refining",
+   "members": 16,
+   "medianRs": 75.75,
    "passes": false
   },
   {
    "group": "Instruments and test equipment",
    "members": 35,
-   "medianRs": 67.62,
+   "medianRs": 73.94,
    "passes": false
   },
   {
-   "group": "Railroads",
-   "members": 5,
-   "medianRs": 67.14,
+   "group": "Steel and metals",
+   "members": 13,
+   "medianRs": 71.68,
    "passes": false
   },
   {
-   "group": "Wood and furniture",
-   "members": 6,
-   "medianRs": 67.08,
-   "passes": false
-  },
-  {
-   "group": "Trucking and transit",
-   "members": 7,
-   "medianRs": 66.94,
-   "passes": false
-  },
-  {
-   "group": "Hotels and lodging",
-   "members": 16,
-   "medianRs": 66.91,
-   "passes": false
-  },
-  {
-   "group": "Apparel retail",
-   "members": 7,
-   "medianRs": 66.26,
-   "passes": false
-  },
-  {
-   "group": "Fabricated metal",
+   "group": "General merchandise retail",
    "members": 12,
-   "medianRs": 65.92,
+   "medianRs": 71.48,
    "passes": false
   },
   {
-   "group": "Insurance",
-   "members": 50,
-   "medianRs": 63.56,
+   "group": "Textiles and apparel",
+   "members": 13,
+   "medianRs": 70.31,
    "passes": false
   },
   {
-   "group": "Specialty chemicals",
-   "members": 22,
-   "medianRs": 62.26,
+   "group": "Healthcare services",
+   "members": 28,
+   "medianRs": 69.46,
    "passes": false
   },
   {
-   "group": "Oilfield services",
-   "members": 8,
-   "medianRs": 61.03,
+   "group": "Pipelines",
+   "members": 5,
+   "medianRs": 68.95,
    "passes": false
   },
   {
-   "group": "Chemicals",
-   "members": 11,
-   "medianRs": 57.86,
+   "group": "Pharma and biotech",
+   "members": 107,
+   "medianRs": 67.85,
    "passes": false
   },
   {
    "group": "Electrical equipment",
    "members": 14,
-   "medianRs": 57.41,
+   "medianRs": 66.66,
    "passes": false
   },
   {
-   "group": "Waste and environmental",
+   "group": "Trucking and transit",
    "members": 7,
-   "medianRs": 57.04,
+   "medianRs": 66.48,
    "passes": false
   },
   {
-   "group": "Food and beverages",
-   "members": 35,
-   "medianRs": 56.08,
-   "passes": false
-  },
-  {
-   "group": "Medical devices",
-   "members": 40,
-   "medianRs": 55.5,
-   "passes": false
-  },
-  {
-   "group": "Restaurants",
-   "members": 17,
-   "medianRs": 54.17,
-   "passes": false
-  },
-  {
-   "group": "Engineering and research services",
-   "members": 16,
-   "medianRs": 52.15,
-   "passes": false
-  },
-  {
-   "group": "Airlines",
-   "members": 10,
-   "medianRs": 50.82,
-   "passes": false
-  },
-  {
-   "group": "Instruments, other",
-   "members": 6,
-   "medianRs": 49.69,
-   "passes": false
-  },
-  {
-   "group": "Telecom",
-   "members": 9,
-   "medianRs": 49.18,
-   "passes": false
-  },
-  {
-   "group": "Oil and gas production",
-   "members": 32,
-   "medianRs": 47.75,
+   "group": "Fabricated metal",
+   "members": 12,
+   "medianRs": 65.22,
    "passes": false
   },
   {
    "group": "Logistics services",
+   "members": 8,
+   "medianRs": 65.18,
+   "passes": false
+  },
+  {
+   "group": "Wood and furniture",
+   "members": 6,
+   "medianRs": 64.74,
+   "passes": false
+  },
+  {
+   "group": "Hotels and lodging",
+   "members": 16,
+   "medianRs": 64.5,
+   "passes": false
+  },
+  {
+   "group": "Railroads",
+   "members": 5,
+   "medianRs": 63.68,
+   "passes": false
+  },
+  {
+   "group": "Chemicals",
+   "members": 10,
+   "medianRs": 63.17,
+   "passes": false
+  },
+  {
+   "group": "Apparel retail",
+   "members": 7,
+   "medianRs": 61.76,
+   "passes": false
+  },
+  {
+   "group": "Specialty chemicals",
+   "members": 22,
+   "medianRs": 60.84,
+   "passes": false
+  },
+  {
+   "group": "Insurance",
+   "members": 51,
+   "medianRs": 60.53,
+   "passes": false
+  },
+  {
+   "group": "Oilfield services",
+   "members": 8,
+   "medianRs": 57.83,
+   "passes": false
+  },
+  {
+   "group": "Airlines",
    "members": 9,
-   "medianRs": 47.34,
+   "medianRs": 56.16,
    "passes": false
   },
   {
    "group": "Industrial machinery",
    "members": 55,
-   "medianRs": 46.52,
+   "medianRs": 53.49,
    "passes": false
   },
   {
    "group": "Wholesale",
    "members": 29,
-   "medianRs": 45.77,
+   "medianRs": 52.67,
    "passes": false
   },
   {
-   "group": "Paper and packaging",
-   "members": 6,
-   "medianRs": 45.42,
+   "group": "Restaurants",
+   "members": 17,
+   "medianRs": 52.26,
    "passes": false
   },
   {
-   "group": "Electric and gas utilities",
-   "members": 61,
-   "medianRs": 45.29,
+   "group": "Medical devices",
+   "members": 40,
+   "medianRs": 51.81,
    "passes": false
   },
   {
-   "group": "Banks",
-   "members": 60,
-   "medianRs": 44.64,
-   "passes": false
-  },
-  {
-   "group": "Home improvement retail",
+   "group": "Waste and environmental",
    "members": 7,
-   "medianRs": 44.06,
+   "medianRs": 50.07,
+   "passes": false
+  },
+  {
+   "group": "Engineering and research services",
+   "members": 16,
+   "medianRs": 48.94,
    "passes": false
   },
   {
    "group": "Rubber, plastics and leather",
    "members": 14,
-   "medianRs": 43,
+   "medianRs": 48.12,
+   "passes": false
+  },
+  {
+   "group": "Paper and packaging",
+   "members": 6,
+   "medianRs": 46.27,
+   "passes": false
+  },
+  {
+   "group": "Instruments, other",
+   "members": 6,
+   "medianRs": 46.2,
    "passes": false
   },
   {
    "group": "Business services",
    "members": 53,
-   "medianRs": 42.96,
+   "medianRs": 45.62,
    "passes": false
   },
   {
-   "group": "Insurance brokers",
+   "group": "Home improvement retail",
    "members": 7,
-   "medianRs": 42.69,
+   "medianRs": 43.91,
    "passes": false
   },
   {
-   "group": "Leisure and gaming",
-   "members": 12,
-   "medianRs": 41.29,
+   "group": "Food and beverages",
+   "members": 35,
+   "medianRs": 43.43,
+   "passes": false
+  },
+  {
+   "group": "Banks",
+   "members": 60,
+   "medianRs": 43.33,
    "passes": false
   },
   {
    "group": "Aerospace and defense",
    "members": 23,
-   "medianRs": 40.51,
-   "passes": false
-  },
-  {
-   "group": "Steel and metals",
-   "members": 14,
-   "medianRs": 39.75,
+   "medianRs": 42.75,
    "passes": false
   },
   {
    "group": "Software and IT services",
-   "members": 128,
-   "medianRs": 39.38,
+   "members": 127,
+   "medianRs": 42.61,
    "passes": false
   },
   {
-   "group": "REITs and trusts",
-   "members": 75,
-   "medianRs": 39.34,
+   "group": "Oil and gas production",
+   "members": 32,
+   "medianRs": 41.42,
    "passes": false
   },
   {
-   "group": "Media and cable",
+   "group": "Electric and gas utilities",
+   "members": 60,
+   "medianRs": 40.32,
+   "passes": false
+  },
+  {
+   "group": "Leisure and gaming",
    "members": 12,
-   "medianRs": 38.83,
+   "medianRs": 39.88,
    "passes": false
   },
   {
    "group": "Specialty retail",
    "members": 15,
-   "medianRs": 34.97,
-   "passes": false
-  },
-  {
-   "group": "Auto retail",
-   "members": 13,
-   "medianRs": 34.56,
-   "passes": false
-  },
-  {
-   "group": "Homebuilding",
-   "members": 11,
-   "medianRs": 33.2,
+   "medianRs": 38.24,
    "passes": false
   },
   {
    "group": "Autos and parts",
    "members": 23,
-   "medianRs": 32.51,
+   "medianRs": 37.62,
+   "passes": false
+  },
+  {
+   "group": "Insurance brokers",
+   "members": 7,
+   "medianRs": 36.11,
+   "passes": false
+  },
+  {
+   "group": "Media and cable",
+   "members": 12,
+   "medianRs": 35.33,
+   "passes": false
+  },
+  {
+   "group": "REITs and trusts",
+   "members": 75,
+   "medianRs": 33.52,
+   "passes": false
+  },
+  {
+   "group": "Homebuilding",
+   "members": 11,
+   "medianRs": 32.83,
+   "passes": false
+  },
+  {
+   "group": "Auto retail",
+   "members": 13,
+   "medianRs": 32.35,
    "passes": false
   },
   {
    "group": "Metal mining",
    "members": 26,
-   "medianRs": 25.55,
+   "medianRs": 31.77,
+   "passes": false
+  },
+  {
+   "group": "Telecom",
+   "members": 10,
+   "medianRs": 29.45,
    "passes": false
   },
   {
    "group": "Capital markets",
    "members": 49,
-   "medianRs": 25.41,
-   "passes": false
-  },
-  {
-   "group": "Real estate services",
-   "members": 9,
-   "medianRs": 24.8,
-   "passes": false
-  },
-  {
-   "group": "Glass and building materials",
-   "members": 5,
-   "medianRs": 19.33,
-   "passes": false
-  },
-  {
-   "group": "Nonmetallic mining",
-   "members": 6,
-   "medianRs": 17.62,
-   "passes": false
-  },
-  {
-   "group": "Consumer and specialty finance",
-   "members": 25,
-   "medianRs": 15.3,
+   "medianRs": 26.61,
    "passes": false
   },
   {
    "group": "Construction and engineering",
    "members": 17,
-   "medianRs": 14.07,
+   "medianRs": 26.54,
+   "passes": false
+  },
+  {
+   "group": "Glass and building materials",
+   "members": 5,
+   "medianRs": 22.09,
+   "passes": false
+  },
+  {
+   "group": "Real estate services",
+   "members": 9,
+   "medianRs": 20.86,
+   "passes": false
+  },
+  {
+   "group": "Consumer and specialty finance",
+   "members": 26,
+   "medianRs": 17.41,
+   "passes": false
+  },
+  {
+   "group": "Nonmetallic mining",
+   "members": 7,
+   "medianRs": 16.62,
    "passes": false
   }
  ],
  "ready": [],
  "watch": [
   {
-   "sym": "SLAB",
+   "sym": "TGT",
    "type": "CS",
-   "group": "Semiconductors and components",
+   "group": "General merchandise retail",
    "path": "main",
-   "rsPct": 94.33,
-   "close": 220.21,
+   "rsPct": 92.13,
+   "close": 168.19,
    "tags": [
     "results date not checked",
     "failed qualification 1 night(s)"
    ],
    "clears50M": true,
-   "composite": 67.18,
-   "tightness": 1.18,
-   "distPivot": 1.47,
+   "composite": 63.79,
+   "tightness": 1.2,
+   "distPivot": 2.16,
    "setup": null,
    "gb": {
-    "pct": 1.4,
-    "n": 69
+    "pct": 50,
+    "n": 12
    },
    "diag": {
-    "rs121": 87.41,
-    "rs6m2w": 1.86,
-    "atr14": 1.07,
-    "sma50": 221.44,
-    "sma200": 216.05,
-    "high52": 223.5,
-    "low52": 115.51,
+    "rs121": 82.55,
+    "rs6m2w": 40.07,
+    "atr14": 6.32,
+    "sma50": 157.02,
+    "sma200": 138.32,
+    "high52": 171.91,
+    "low52": 84.24,
     "failingNights": 1
    },
    "why": [
-    "Strength: 94.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.5% below its 52-week high (limit 25%) and 90.6% above its 52-week low (needs 30%).",
-    "Group: Semiconductors and components ranks 4 of 58 (median strength 76.8); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 1.4% of the 69 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
+    "Strength: 92.1th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.2% below its 52-week high (limit 25%) and 99.7% above its 52-week low (needs 30%).",
+    "Group: General merchandise retail ranks 8 of 58 (median strength 71.5); the 4 strongest groups are traded in the red light.",
+    "Sector breadth: 50% of the 12 stocks in General merchandise retail are above their 50-day.",
     "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.2, needs under 0.7); price is 1.5% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+    "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   },
   {
-   "sym": "TGT",
+   "sym": "TXN",
    "type": "CS",
-   "group": "General merchandise retail",
+   "group": "Semiconductors and components",
    "path": "main",
-   "rsPct": 92.9,
-   "close": 165.83,
+   "rsPct": 94.19,
+   "close": 291.19,
    "tags": [
     "results date not checked"
    ],
    "clears50M": true,
-   "composite": 60.13,
-   "tightness": 1.27,
-   "distPivot": 3.54,
+   "composite": 56.51,
+   "tightness": 1.46,
+   "distPivot": 8.2,
    "setup": null,
    "gb": {
-    "pct": 66.7,
-    "n": 12
+    "pct": 8.8,
+    "n": 68
    },
    "diag": {
-    "rs121": 83.68,
-    "rs6m2w": 26.48,
-    "atr14": 6.33,
-    "sma50": 156.83,
-    "sma200": 138.06,
-    "high52": 171.91,
-    "low52": 83.44,
+    "rs121": 85.67,
+    "rs6m2w": -0.68,
+    "atr14": 17.93,
+    "sma50": 286.94,
+    "sma200": 266.72,
+    "high52": 334.03,
+    "low52": 153.41,
     "failingNights": 0
    },
    "why": [
-    "Strength: 92.9th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 3.5% below its 52-week high (limit 25%) and 98.7% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 3 of 58 (median strength 78.6); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 66.7% of the 12 stocks in General merchandise retail are above their 50-day.",
+    "Strength: 94.2th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 12.8% below its 52-week high (limit 25%) and 89.8% above its 52-week low (needs 30%).",
+    "Group: Semiconductors and components ranks 1 of 58 (median strength 85.3); the 4 strongest groups are traded in the red light.",
+    "Sector breadth: 8.8% of the 68 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
   },
@@ -447,36 +447,38 @@
    "type": "CS",
    "group": "General merchandise retail",
    "path": "main",
-   "rsPct": 93.03,
-   "close": 22.25,
+   "rsPct": 87.41,
+   "close": 21.2,
    "tags": [
-    "results date not checked"
+    "results date not checked",
+    "failed qualification 1 night(s)"
    ],
    "clears50M": true,
-   "composite": 55.82,
-   "tightness": 1.11,
-   "distPivot": 13.09,
+   "composite": 52.45,
+   "tightness": 1.08,
+   "distPivot": 17.19,
    "setup": null,
    "gb": {
-    "pct": 66.7,
+    "pct": 50,
     "n": 12
    },
    "diag": {
-    "rs121": 60.8,
-    "rs6m2w": 58.9,
-    "atr14": 1.31,
-    "sma50": 21.26,
-    "sma200": 17.42,
+    "rs121": 63.87,
+    "rs6m2w": 90.37,
+    "atr14": 1.39,
+    "sma50": 21.34,
+    "sma200": 17.44,
     "high52": 25.6,
     "low52": 11.38,
-    "failingNights": 0
+    "failingNights": 1
    },
    "why": [
-    "Strength: 93th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 13.1% below its 52-week high (limit 25%) and 95.5% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 3 of 58 (median strength 78.6); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 66.7% of the 12 stocks in General merchandise retail are above their 50-day.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 13.1% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+    "Strength: 87.4th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 17.2% below its 52-week high (limit 25%) and 86.3% above its 52-week low (needs 30%).",
+    "Group: General merchandise retail ranks 8 of 58 (median strength 71.5); the 4 strongest groups are traded in the red light.",
+    "Sector breadth: 50% of the 12 stocks in General merchandise retail are above their 50-day.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 17.2% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
   },
   {
@@ -484,36 +486,38 @@
    "type": "CS",
    "group": "General merchandise retail",
    "path": "main",
-   "rsPct": 86.07,
-   "close": 137.96,
+   "rsPct": 83.79,
+   "close": 139.1,
    "tags": [
-    "results date not checked"
+    "results date not checked",
+    "failed qualification 1 night(s)"
    ],
    "clears50M": true,
-   "composite": 51.64,
-   "tightness": 1.07,
-   "distPivot": 7.12,
+   "composite": 50.27,
+   "tightness": 0.99,
+   "distPivot": 6.35,
    "setup": null,
    "gb": {
-    "pct": 66.7,
+    "pct": 50,
     "n": 12
    },
    "diag": {
-    "rs121": 31.11,
-    "rs6m2w": 39.16,
-    "atr14": 6.23,
-    "sma50": 125.11,
-    "sma200": 117.73,
+    "rs121": 27.15,
+    "rs6m2w": 52.44,
+    "atr14": 6.1,
+    "sma50": 125.51,
+    "sma200": 117.81,
     "high52": 148.54,
     "low52": 85.88,
-    "failingNights": 0
+    "failingNights": 1
    },
    "why": [
-    "Strength: 86.1th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 7.1% below its 52-week high (limit 25%) and 60.6% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 3 of 58 (median strength 78.6); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 66.7% of the 12 stocks in General merchandise retail are above their 50-day.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 7.1% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
+    "Strength: 83.8th percentile on the weighted four-quarter return (needs 80 or more).",
+    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 6.4% below its 52-week high (limit 25%) and 62% above its 52-week low (needs 30%).",
+    "Group: General merchandise retail ranks 8 of 58 (median strength 71.5); the 4 strongest groups are traded in the red light.",
+    "Sector breadth: 50% of the 12 stocks in General merchandise retail are above their 50-day.",
+    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
+    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 6.4% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
   }
  ],
@@ -530,6 +534,6 @@
   "Composite weights 60/25/15 signed off 16 Oct 2026; settings frozen (US-SCAN-1), forward-test clock running."
  ],
  "source": "massive",
- "regimeDate": "2026-11-19",
+ "regimeDate": "2026-11-23",
  "sicCovered": 2323
 }
