@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 300,
   "template": 122,
-  "qualified": 5,
+  "qualified": 2,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -373,45 +373,6 @@
  "ready": [],
  "watch": [
   {
-   "sym": "TGT",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 91.71,
-   "close": 168.19,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 63.53,
-   "tightness": 1.2,
-   "distPivot": 2.16,
-   "setup": null,
-   "gb": {
-    "pct": 54.5,
-    "n": 11
-   },
-   "diag": {
-    "rs121": 82.55,
-    "rs6m2w": 40.07,
-    "atr14": 6.32,
-    "sma50": 157.02,
-    "sma200": 138.32,
-    "high52": 171.91,
-    "low52": 84.24,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 91.7th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 2.2% below its 52-week high (limit 25%) and 99.7% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 8 of 59 (median strength 73); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 54.5% of the 11 stocks in General merchandise retail are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
    "sym": "ZIM",
    "type": "CS",
    "group": "Shipping",
@@ -485,84 +446,6 @@
     "Sector breadth: 8.7% of the 69 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
    ]
-  },
-  {
-   "sym": "KSS",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 87.02,
-   "close": 21.2,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 52.21,
-   "tightness": 1.08,
-   "distPivot": 17.19,
-   "setup": null,
-   "gb": {
-    "pct": 54.5,
-    "n": 11
-   },
-   "diag": {
-    "rs121": 63.87,
-    "rs6m2w": 90.37,
-    "atr14": 1.39,
-    "sma50": 21.34,
-    "sma200": 17.44,
-    "high52": 25.6,
-    "low52": 11.38,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 87th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 17.2% below its 52-week high (limit 25%) and 86.3% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 8 of 59 (median strength 73); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 54.5% of the 11 stocks in General merchandise retail are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 17.2% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "DLTR",
-   "type": "CS",
-   "group": "General merchandise retail",
-   "path": "main",
-   "rsPct": 83.41,
-   "close": 139.1,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 50.05,
-   "tightness": 0.99,
-   "distPivot": 6.35,
-   "setup": null,
-   "gb": {
-    "pct": 54.5,
-    "n": 11
-   },
-   "diag": {
-    "rs121": 27.15,
-    "rs6m2w": 52.44,
-    "atr14": 6.1,
-    "sma50": 125.51,
-    "sma200": 117.81,
-    "high52": 148.54,
-    "low52": 85.88,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 83.4th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 6.4% below its 52-week high (limit 25%) and 62% above its 52-week low (needs 30%).",
-    "Group: General merchandise retail ranks 8 of 59 (median strength 73); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 54.5% of the 11 stocks in General merchandise retail are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1, needs under 0.7); price is 6.4% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -571,7 +454,7 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 5,
+ "qualifiedTotal": 2,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
