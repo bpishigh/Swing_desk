@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-24T00:37:58.085Z",
+ "ts": "2026-11-24T01:08:12.539Z",
  "date": "2026-11-23",
- "status": "SPY or QQQ could not be confirmed",
+ "status": "written",
  "fetched": {
   "SPY": {
    "rows": 6,
@@ -70,11 +70,10 @@
  },
  "conflicts": [],
  "flags": [
-  "SPY: Tiingo close 722.29 and StockAnalysis 724.76 differ by more than 0.1%; 2026-11-23 not written for it",
-  "QQQ: Tiingo close 651.03 and StockAnalysis 648.72 differ by more than 0.1%; 2026-11-23 not written for it",
-  "XLF: Tiingo close 55.65 and StockAnalysis 55.79 differ by more than 0.1%; 2026-11-23 not written for it",
-  "SMH: Tiingo close 460.18 and StockAnalysis 457.16 differ by more than 0.1%; 2026-11-23 not written for it",
-  "IGV: Tiingo close 95.26 and StockAnalysis 94.78 differ by more than 0.1%; 2026-11-23 not written for it",
-  "VIX: Cboe has no row for 2026-11-23 yet"
- ]
+  "XLRE: Tiingo close 42.9 and StockAnalysis 42.96 differ by more than 0.1%; 2026-11-23 not written for it",
+  "VIX: Cboe has no row for 2026-11-23 yet",
+  "1 sector ETF(s) not updated for 2026-11-23 (XLRE): previous values kept with their own dates",
+  "14 of 14 sectors, SPY and QQQ written for 2026-11-23"
+ ],
+ "backfilled": 0
 }
