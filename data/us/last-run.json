@@ -1,76 +1,80 @@
 {
- "ts": "2026-11-21T03:37:54.164Z",
- "date": "2026-11-20",
- "status": "written",
+ "ts": "2026-11-24T00:08:15.882Z",
+ "date": "2026-11-23",
+ "status": "SPY or QQQ could not be confirmed",
  "fetched": {
   "SPY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "QQQ": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLK": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLF": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLI": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLP": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLU": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLB": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLRE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLC": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "SMH": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "IGV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "ITA": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   }
  },
  "conflicts": [],
  "flags": [
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-20, VIX 35.89"
- ],
- "backfilled": 0
+  "SPY: Tiingo close 722.29 and StockAnalysis 724.76 differ by more than 0.1%; 2026-11-23 not written for it",
+  "QQQ: Tiingo close 651.03 and StockAnalysis 648.72 differ by more than 0.1%; 2026-11-23 not written for it",
+  "XLF: Tiingo close 55.65 and StockAnalysis 55.79 differ by more than 0.1%; 2026-11-23 not written for it",
+  "SMH: Tiingo close 460.18 and StockAnalysis 457.16 differ by more than 0.1%; 2026-11-23 not written for it",
+  "IGV: Tiingo close 95.26 and StockAnalysis 94.78 differ by more than 0.1%; 2026-11-23 not written for it",
+  "VIX: Cboe has no row for 2026-11-23 yet"
+ ]
 }
