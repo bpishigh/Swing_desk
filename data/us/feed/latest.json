@@ -1,18 +1,138 @@
 {
- "date": "2026-11-23",
- "fetchedAt": "2026-11-24T01:08:25.780Z",
+ "date": "2026-11-24",
+ "fetchedAt": "2026-11-25T01:38:20.366Z",
  "bench": {
-  "r1m": -4.96,
-  "r3m": -5.67
+  "r1m": -5.42,
+  "r3m": -5.85
  },
  "sectors": {
   "Technology (XLK)": {
-   "date": "2026-11-23",
-   "close": 162.38,
-   "r1m": -11.38,
-   "r3m": -11.42,
-   "sma50": 183.98,
-   "sma200": 171.4,
+   "date": "2026-11-24",
+   "close": 157.09,
+   "r1m": -14.27,
+   "r3m": -12.75,
+   "sma50": 183.44,
+   "sma200": 171.47,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Energy (XLE)": {
+   "date": "2026-11-24",
+   "close": 60.45,
+   "r1m": -12.81,
+   "r3m": -4.21,
+   "sma50": 64.49,
+   "sma200": 59.8,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Health Care (XLV)": {
+   "date": "2026-11-24",
+   "close": 184.72,
+   "r1m": 3.03,
+   "r3m": 5.74,
+   "sma50": 177.08,
+   "sma200": 161.12,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Industrials (XLI)": {
+   "date": "2026-11-24",
+   "close": 161.61,
+   "r1m": -1.83,
+   "r3m": -9.72,
+   "sma50": 167.63,
+   "sma200": 173.21,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Consumer Discretionary (XLY)": {
+   "date": "2026-11-24",
+   "close": 117.72,
+   "r1m": 4.08,
+   "r3m": -0.49,
+   "sma50": 114.38,
+   "sma200": 115.34,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Consumer Staples (XLP)": {
+   "date": "2026-11-24",
+   "close": 91.88,
+   "r1m": 4.1,
+   "r3m": 5.07,
+   "sma50": 86.68,
+   "sma200": 85.06,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Utilities (XLU)": {
+   "date": "2026-11-24",
+   "close": 43.4,
+   "r1m": 1.97,
+   "r3m": 0.42,
+   "sma50": 42.01,
+   "sma200": 44.34,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Materials (XLB)": {
+   "date": "2026-11-24",
+   "close": 50.17,
+   "r1m": -2.22,
+   "r3m": -6.36,
+   "sma50": 50.76,
+   "sma200": 51.22,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Real Estate (XLRE)": {
+   "date": "2026-11-24",
+   "close": 43.46,
+   "r1m": 2.09,
+   "r3m": -4.13,
+   "sma50": 42.58,
+   "sma200": 43.55,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Communication (XLC)": {
+   "date": "2026-11-24",
+   "close": 104.45,
+   "r1m": -1,
+   "r3m": -7.01,
+   "sma50": 108.2,
+   "sma200": 111.89,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Semiconductors (SMH)": {
+   "date": "2026-11-24",
+   "close": 426.75,
+   "r1m": -19.05,
+   "r3m": -21.96,
+   "sma50": 543.58,
+   "sma200": 525.56,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Software (IGV)": {
+   "date": "2026-11-24",
+   "close": 95.35,
+   "r1m": -13.78,
+   "r3m": -6.93,
+   "sma50": 105.04,
+   "sma200": 94.54,
+   "sma200Src": "computed from stored closes",
+   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
+  },
+  "Aerospace & Defense (ITA)": {
+   "date": "2026-11-24",
+   "close": 68.12,
+   "r1m": 1.05,
+   "r3m": -12.44,
+   "sma50": 69.75,
+   "sma200": 75.62,
    "sma200Src": "computed from stored closes",
    "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
   },
@@ -25,131 +145,11 @@
    "sma200": 54.02,
    "sma200Src": "computed from stored closes",
    "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Energy (XLE)": {
-   "date": "2026-11-23",
-   "close": 59.87,
-   "r1m": -13.64,
-   "r3m": -5.92,
-   "sma50": 64.6,
-   "sma200": 59.77,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Health Care (XLV)": {
-   "date": "2026-11-23",
-   "close": 179.42,
-   "r1m": 0.08,
-   "r3m": 2.75,
-   "sma50": 176.74,
-   "sma200": 160.98,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Industrials (XLI)": {
-   "date": "2026-11-23",
-   "close": 162.47,
-   "r1m": -1.31,
-   "r3m": -9.86,
-   "sma50": 167.78,
-   "sma200": 173.27,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Consumer Discretionary (XLY)": {
-   "date": "2026-11-23",
-   "close": 116.93,
-   "r1m": 3.39,
-   "r3m": -0.92,
-   "sma50": 114.24,
-   "sma200": 115.34,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Consumer Staples (XLP)": {
-   "date": "2026-11-23",
-   "close": 90.38,
-   "r1m": 2.4,
-   "r3m": 5.11,
-   "sma50": 86.52,
-   "sma200": 85.04,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Utilities (XLU)": {
-   "date": "2026-11-23",
-   "close": 43.32,
-   "r1m": 1.79,
-   "r3m": 1.29,
-   "sma50": 41.97,
-   "sma200": 44.34,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Materials (XLB)": {
-   "date": "2026-11-23",
-   "close": 49.9,
-   "r1m": -2.75,
-   "r3m": -6.8,
-   "sma50": 50.77,
-   "sma200": 51.23,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Communication (XLC)": {
-   "date": "2026-11-23",
-   "close": 103.6,
-   "r1m": -1.81,
-   "r3m": -7,
-   "sma50": 108.4,
-   "sma200": 111.95,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Semiconductors (SMH)": {
-   "date": "2026-11-23",
-   "close": 460.18,
-   "r1m": -12.71,
-   "r3m": -17.89,
-   "sma50": 545.88,
-   "sma200": 525.46,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Software (IGV)": {
-   "date": "2026-11-23",
-   "close": 95.26,
-   "r1m": -13.86,
-   "r3m": -7.85,
-   "sma50": 105.24,
-   "sma200": 94.49,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Aerospace & Defense (ITA)": {
-   "date": "2026-11-23",
-   "close": 68.48,
-   "r1m": 1.59,
-   "r3m": -13.44,
-   "sma50": 69.82,
-   "sma200": 75.67,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
-  },
-  "Real Estate (XLRE)": {
-   "date": "2026-11-20",
-   "close": 42.46,
-   "r1m": 0.19,
-   "r3m": -5.81,
-   "sma50": 42.58,
-   "sma200": 43.54,
-   "sma200Src": "computed from stored closes",
-   "src": "Tiingo EOD, split-adjusted; close checked against StockAnalysis"
   }
  },
  "flags": [
-  "XLRE: Tiingo close 42.9 and StockAnalysis 42.96 differ by more than 0.1%; 2026-11-23 not written for it",
-  "VIX: Cboe has no row for 2026-11-23 yet",
-  "1 sector ETF(s) not updated for 2026-11-23 (XLRE): previous values kept with their own dates"
+  "XLF: Tiingo close 56.11 and StockAnalysis 56.03 differ by more than 0.1%; 2026-11-24 not written for it",
+  "VIX: Cboe has no row for 2026-11-24 yet",
+  "1 sector ETF(s) not updated for 2026-11-24 (XLF): previous values kept with their own dates"
  ]
 }
