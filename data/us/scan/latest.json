@@ -10,7 +10,7 @@
   "withRs": 1472,
   "rsGate": 300,
   "template": 133,
-  "qualified": 2,
+  "qualified": 1,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -409,45 +409,6 @@
     "Sector breadth: 35.3% of the 17 stocks in Shipping are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
     "Watch: a pattern is forming but there is under 3R of room before the next overhead high."
    ]
-  },
-  {
-   "sym": "TXN",
-   "type": "CS",
-   "group": "Semiconductors and components",
-   "path": "main",
-   "rsPct": 87.56,
-   "close": 258.44,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 52.54,
-   "tightness": 1.55,
-   "distPivot": 18.52,
-   "setup": null,
-   "gb": {
-    "pct": 2.9,
-    "n": 68
-   },
-   "diag": {
-    "rs121": 87.03,
-    "rs6m2w": 1.81,
-    "atr14": 19.36,
-    "sma50": 286.84,
-    "sma200": 266.92,
-    "high52": 334.03,
-    "low52": 158.69,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 87.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 22.6% below its 52-week high (limit 25%) and 62.9% above its 52-week low (needs 30%).",
-    "Group: Semiconductors and components ranks 6 of 59 (median strength 74.1); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 2.9% of the 68 stocks in Semiconductors and components are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.5, needs under 0.7); price is 18.5% below its 50-day high (needs within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
   }
  ],
  "noGroup": {
@@ -456,7 +417,7 @@
  "thinGroup": {
   "qualified": 3
  },
- "qualifiedTotal": 2,
+ "qualifiedTotal": 1,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
