@@ -1,89 +1,57 @@
 {
- "asOf": "2026-11-23",
+ "asOf": "2026-11-24",
  "startDate": "2026-10-15",
  "version": "PAPER-1",
  "official": {
   "orders": 2,
-  "open": 1,
+  "open": 0,
   "pending": 0,
   "notFilled": 1,
-  "closed": 0,
-  "meanR": null,
-  "winRate": null
+  "closed": 1,
+  "meanR": 0.3375297561346592,
+  "winRate": 1
  },
  "capwaived": {
   "orders": 22,
   "open": 2,
-  "pending": 1,
+  "pending": 0,
   "notFilled": 10,
-  "closed": 9,
-  "meanR": -0.7110185710066145,
-  "winRate": 0.2222222222222222
+  "closed": 10,
+  "meanR": -0.6061637382924872,
+  "winRate": 0.3
  },
  "comparator": {
   "orders": 16,
-  "open": 0,
-  "pending": 2,
-  "notFilled": 1,
+  "open": 1,
+  "pending": 0,
+  "notFilled": 2,
   "closed": 13,
   "meanR": -0.6484558850586548,
   "winRate": 0.38461538461538464
  },
  "light": "red",
- "newOrdersTonight": [
-  {
-   "stream": "capwaived",
-   "sym": "ZIM",
-   "setup": "4",
-   "trigger": 30.2,
-   "stop": 28.91,
-   "tags": [
-    "room fail"
-   ]
-  },
-  {
-   "stream": "comparator",
-   "sym": "ZIM",
-   "setup": "4",
-   "trigger": 29.94,
-   "stop": 28.65,
-   "tags": [
-    "room fail"
-   ]
-  },
-  {
-   "stream": "comparator",
-   "sym": "TXN",
-   "setup": "4",
-   "trigger": 291.19,
-   "stop": 262.29,
-   "tags": [
-    "over cap",
-    "room fail"
-   ]
-  }
- ],
+ "newOrdersTonight": [],
  "open": [
-  {
-   "stream": "official",
-   "sym": "LNTH",
-   "setup": "4",
-   "entry": 101.31,
-   "stop": 101.2
-  },
-  {
-   "stream": "capwaived",
-   "sym": "LNTH",
-   "setup": "4",
-   "entry": 101.31,
-   "stop": 101.2
-  },
   {
    "stream": "capwaived",
    "sym": "TGT",
    "setup": "4",
    "entry": 170.11,
    "stop": 156.14
+  },
+  {
+   "stream": "capwaived",
+   "sym": "ZIM",
+   "setup": "4",
+   "entry": 30.2,
+   "stop": 28.91
+  },
+  {
+   "stream": "comparator",
+   "sym": "ZIM",
+   "setup": "4",
+   "entry": 30.49,
+   "stop": 28.65
   }
  ]
 }

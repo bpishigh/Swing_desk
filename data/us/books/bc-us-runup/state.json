@@ -13,6 +13,21 @@
    "date": "2026-11-19",
    "sym": "PANW",
    "width": 0.1722
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "DLTR",
+   "width": 0.1243
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "A",
+   "width": 0.0941
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "BBY",
+   "width": 0.1261
   }
  ],
  "slipCum": 0,
@@ -22,7 +37,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-23",
+ "lastStep": "2026-11-24",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -98,6 +113,78 @@
    "reaction": 0.1296,
    "taken": false,
    "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "HPE",
+   "runUp": -0.1259,
+   "reaction": -0.1582,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "SMTC",
+   "runUp": -0.1821,
+   "reaction": -0.1648,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "ZM",
+   "runUp": -0.0662,
+   "reaction": 0.0324,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "ADI",
+   "runUp": -0.0152,
+   "reaction": -0.1689,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "MDT",
+   "runUp": 0.1188,
+   "reaction": -0.0407,
+   "taken": false,
+   "why": "reaction below 2%"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "BURL",
+   "runUp": 0.031,
+   "reaction": 0.0439,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "DLTR",
+   "runUp": 0.1698,
+   "reaction": 0.1166,
+   "taken": false,
+   "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "A",
+   "runUp": 0.0567,
+   "reaction": 0.0473,
+   "taken": false,
+   "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "BBY",
+   "runUp": 0.0466,
+   "reaction": 0.0319,
+   "taken": false,
+   "why": "stop too wide"
   }
  ]
 }

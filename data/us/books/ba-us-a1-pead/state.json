@@ -8,7 +8,18 @@
  "stopQueue": [],
  "closed": [],
  "daily": [],
- "skipped": [],
+ "skipped": [
+  {
+   "date": "2026-11-24",
+   "sym": "ADI",
+   "width": 0.2404
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "COR",
+   "width": 0.0857
+  }
+ ],
  "slipCum": 0,
  "cashDays": {
   "credited": 0,
@@ -16,7 +27,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-23",
+ "lastStep": "2026-11-24",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -531,7 +542,32 @@
    "2026-11-18": 98.3497,
    "2026-11-19": 96.4596,
    "2026-11-20": 92.9583,
-   "2026-11-23": 96.8835
+   "2026-11-23": 96.8835,
+   "2026-11-24": 96.3889
   }
- }
+ },
+ "signalLog": [
+  {
+   "date": "2026-11-24",
+   "sym": "ADI",
+   "sue": 3.01,
+   "epsChange": 1.7900000000000014,
+   "reaction": -0.1737,
+   "volRatio": 2.38,
+   "taken": false,
+   "why": "stop too wide",
+   "gapDays": 0
+  },
+  {
+   "date": "2026-11-24",
+   "sym": "COR",
+   "sue": 2.3,
+   "epsChange": 4.479999999999998,
+   "reaction": 0.0344,
+   "volRatio": 1.11,
+   "taken": false,
+   "why": "stop too wide",
+   "gapDays": 20
+  }
+ ]
 }
