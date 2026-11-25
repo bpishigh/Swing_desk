@@ -1,79 +1,83 @@
 {
- "ts": "2026-11-24T01:08:12.539Z",
- "date": "2026-11-23",
- "status": "written",
+ "ts": "2026-11-25T00:07:58.845Z",
+ "date": "2026-11-24",
+ "status": "SPY or QQQ could not be confirmed",
  "fetched": {
   "SPY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "QQQ": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLK": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLF": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLI": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLY": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLP": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLU": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLB": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLRE": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "XLC": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "SMH": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "IGV": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   },
   "ITA": {
-   "rows": 6,
-   "added": 0
+   "rows": 7,
+   "added": 1
   }
  },
  "conflicts": [],
  "flags": [
-  "XLRE: Tiingo close 42.9 and StockAnalysis 42.96 differ by more than 0.1%; 2026-11-23 not written for it",
-  "VIX: Cboe has no row for 2026-11-23 yet",
-  "1 sector ETF(s) not updated for 2026-11-23 (XLRE): previous values kept with their own dates",
-  "14 of 14 sectors, SPY and QQQ written for 2026-11-23"
- ],
- "backfilled": 0
+  "SPY: Tiingo close 718.78 and StockAnalysis 716.27 differ by more than 0.1%; 2026-11-24 not written for it",
+  "QQQ: Tiingo close 638.1 and StockAnalysis 636.38 differ by more than 0.1%; 2026-11-24 not written for it",
+  "XLP: Tiingo close 91.88 and StockAnalysis 92 differ by more than 0.1%; 2026-11-24 not written for it",
+  "XLB: Tiingo close 50.17 and StockAnalysis 49.98 differ by more than 0.1%; 2026-11-24 not written for it",
+  "XLRE: Tiingo close 43.46 and StockAnalysis 43.26 differ by more than 0.1%; 2026-11-24 not written for it",
+  "XLC: Tiingo close 104.45 and StockAnalysis 104.58 differ by more than 0.1%; 2026-11-24 not written for it",
+  "SMH: Tiingo close 426.75 and StockAnalysis 429.59 differ by more than 0.1%; 2026-11-24 not written for it",
+  "ITA: Tiingo close 68.12 and StockAnalysis 68.51 differ by more than 0.1%; 2026-11-24 not written for it",
+  "VIX: Cboe has no row for 2026-11-24 yet"
+ ]
 }
