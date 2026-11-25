@@ -1,7 +1,7 @@
 {
  "id": "bc-hl-m4",
  "startAfter": "2026-11-19",
- "cash": 98.0461042654109,
+ "cash": 98.07533247255813,
  "pos": {
   "GCSL": {
    "sh": 0.002334152334152334,
@@ -14,7 +14,22 @@
  "lastValue": {
   "GCSL": 257777782.17250004
  },
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-25",
+  "buys": [
+   {
+    "sym": "TFCILTD",
+    "value": 1724862022.9169998,
+    "stop": 0.35
+   },
+   {
+    "sym": "SHIVAUM",
+    "value": 30229071.1475,
+    "stop": 0.35
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [
@@ -23,19 +38,25 @@
    "v": 100.0285,
    "vs": 100.0265,
    "x": 0.0198
+  },
+  {
+   "d": "2026-11-25",
+   "v": 100.0651,
+   "vs": 100.0631,
+   "x": 0.0199
   }
  ],
  "skipped": [],
  "slipCum": 0.002,
  "cashDays": {
-  "credited": 1,
+  "credited": 2,
   "missing": 0
  },
  "started": "2026-11-23",
- "lastSignal": "2026-11-20",
- "lastStep": "2026-11-23",
+ "lastSignal": "2026-11-25",
+ "lastStep": "2026-11-25",
  "weight": 0.02,
- "lastNavDate": "2026-11-22",
+ "lastNavDate": "2026-11-24",
  "signalLog": [
   {
    "date": "2026-11-20",
@@ -50,6 +71,27 @@
    "ret126": 1.148,
    "taken": false,
    "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "TFCILTD",
+   "ret126": 1.36,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "GCSL",
+   "ret126": 1.175,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "SHIVAUM",
+   "ret126": 0.692,
+   "taken": true,
+   "why": "bought next open"
   }
  ],
  "costs": {

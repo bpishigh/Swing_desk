@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 90.09840195374649,
+ "cash": 90.12526089705351,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -14,7 +14,7 @@
    "sh": 0.00111754836048851,
    "entry": 4466.3,
    "entryDate": "2026-11-18",
-   "high": 4601.4,
+   "high": 4610,
    "stop": 0.07945009180063589
   }
  },
@@ -22,7 +22,22 @@
   "TITAN": 3401740872.2,
   "TVSMOTOR": 2993161186
  },
- "pending": null,
+ "pending": {
+  "signalDate": "2026-11-25",
+  "buys": [
+   {
+    "sym": "BOSCHLTD",
+    "value": 1388265990,
+    "stop": 0.076129656014655
+   },
+   {
+    "sym": "ZYDUSLIFE",
+    "value": 1522956220.6,
+    "stop": 0.07208737864077669
+   }
+  ],
+  "sells": []
+ },
  "stopQueue": [],
  "closed": [],
  "daily": [
@@ -55,6 +70,12 @@
    "v": 99.9406,
    "vs": 99.9306,
    "x": 0.0985
+  },
+  {
+   "d": "2026-11-25",
+   "v": 100.0656,
+   "vs": 100.0556,
+   "x": 0.0993
   }
  ],
  "skipped": [
@@ -132,17 +153,27 @@
    "date": "2026-11-23",
    "sym": "MOTILALOFS",
    "width": 0.1206
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "ACUTAAS",
+   "width": 0.1432
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "NYKAA",
+   "width": 0.0829
   }
  ],
  "slipCum": 0.010000056341046665,
  "cashDays": {
-  "credited": 5,
+  "credited": 6,
   "missing": 0
  },
  "started": "2026-11-17",
- "lastSignal": "2026-11-17",
- "lastStep": "2026-11-23",
- "lastNavDate": "2026-11-22",
+ "lastSignal": "2026-11-25",
+ "lastStep": "2026-11-25",
+ "lastNavDate": "2026-11-24",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -262,6 +293,34 @@
    "dip": "run",
    "volRatio": 1.0342,
    "tight": 0.0753
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "ACUTAAS",
+   "dip": "average",
+   "volRatio": 0.4273,
+   "tight": 0.0515
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "BOSCHLTD",
+   "dip": "average",
+   "volRatio": 0.6587,
+   "tight": 0.0347
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "NYKAA",
+   "dip": "average",
+   "volRatio": 1.0395,
+   "tight": 0.0369
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "ZYDUSLIFE",
+   "dip": "average",
+   "volRatio": 0.7804,
+   "tight": 0.0373
   }
  ],
  "costs": {

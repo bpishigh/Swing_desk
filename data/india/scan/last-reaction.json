@@ -1,35 +1,35 @@
 {
- "asOf": "2026-11-23",
+ "asOf": "2026-11-25",
  "rows": {
-  "ATHERENERG": {
-   "date": "2026-10-26",
-   "move": 0.213,
-   "excess": 0.1901
-  },
   "WELSPUNLIV": {
    "date": "2026-10-30",
    "move": 0.1422,
    "excess": 0.14
   },
-  "PVRINOX": {
-   "date": "2026-10-28",
-   "move": 0.018,
-   "excess": 0.0087
+  "LAURUSLABS": {
+   "date": "2026-10-29",
+   "move": 0.1025,
+   "excess": 0.1101
+  },
+  "DIVISLAB": {
+   "date": "2026-11-07",
+   "move": 0.1014,
+   "excess": 0.0817
   },
   "SANSERA": {
    "date": "2026-11-05",
    "move": -0.0244,
    "excess": -0.0342
   },
-  "ASAHIINDIA": {
-   "date": "2026-11-03",
-   "move": 0.0454,
-   "excess": 0.0194
+  "GLENMARK": {
+   "date": "2026-11-05",
+   "move": 0.0341,
+   "excess": 0.0243
   },
-  "LAURUSLABS": {
-   "date": "2026-10-29",
-   "move": 0.1025,
-   "excess": 0.1101
+  "PVRINOX": {
+   "date": "2026-10-28",
+   "move": 0.018,
+   "excess": 0.0087
   }
  }
 }

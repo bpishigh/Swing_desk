@@ -1,43 +1,8 @@
 {
- "asOf": "2026-11-23",
+ "asOf": "2026-11-25",
  "source": "NSE event calendar",
  "dates": {
-  "ICIL": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "ATHERENERG": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "SPORTKING": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "WELSPUNLIV": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "PVRINOX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "AARTIPHARM": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "SANSERA": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "ASAHIINDIA": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -47,7 +12,42 @@
    "sessions": null,
    "inWindow": null
   },
-  "TIPSMUSIC": {
+  "DIVISLAB": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SANSERA": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "GLENMARK": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "PVRINOX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SHREEJISPG": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SHADOWFAX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "GHCLTEXTIL": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "ICIL": {
    "date": null,
    "sessions": null,
    "inWindow": null

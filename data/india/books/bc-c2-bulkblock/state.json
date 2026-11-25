@@ -16,11 +16,11 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-23",
- "lastNavDate": "2026-11-22",
+ "lastStep": "2026-11-25",
+ "lastNavDate": "2026-11-24",
  "dealCounts": {
   "kept": 0,
-  "roundTrip": 44,
+  "roundTrip": 50,
   "keyword": 1,
   "promoter": 1,
   "small": 4
@@ -935,11 +935,110 @@
    "gap": null,
    "taken": false,
    "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "APLAPOLLO",
+   "client": "GRAVITON RESEARCH CAPITAL LLP",
+   "kind": "bulk",
+   "value": 3518742527,
+   "price": 1765.13,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 1,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "RATNAVEER",
+   "client": "ARIHANT CAPITAL MARKETS LIMITED",
+   "kind": "bulk",
+   "value": 505682708,
+   "price": 391.72,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 1,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "JSLL",
+   "client": "MICROCURVES TRADING PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 381600649,
+   "price": 328.7,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 4,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "JSLL",
+   "client": "ALPHAGREP SECURITIES PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 322456422,
+   "price": 329.23,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 4,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "JSLL",
+   "client": "QE SECURITIES LLP",
+   "kind": "bulk",
+   "value": 286814876,
+   "price": 327.73,
+   "buyer": "other",
+   "promoterTag": true,
+   "sameDaySells": 4,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "JSLL",
+   "client": "JUNOMONETA FINSOL PRIVATE LIMITED",
+   "kind": "bulk",
+   "value": 243487526,
+   "price": 328.52,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 4,
+   "gap": null,
+   "taken": false,
+   "why": "round trip"
+  },
+  {
+   "date": "2026-11-23",
+   "sym": "RATNAVEER",
+   "client": "ARTHKUMBH VENTURES LLP",
+   "kind": "bulk",
+   "value": 195495000,
+   "price": 390.99,
+   "buyer": "other",
+   "promoterTag": false,
+   "sameDaySells": 1,
+   "gap": null,
+   "taken": false,
+   "why": "stop too wide"
   }
  ],
- "dealsMissing": 2,
+ "dealsMissing": 3,
  "dealsMissingDates": [
   "2026-11-19",
-  "2026-11-23"
+  "2026-11-23",
+  "2026-11-25"
  ]
 }

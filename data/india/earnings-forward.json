@@ -854,7 +854,11 @@
    "run": -0.0166,
    "rea": 0.0216,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.1043,
+   "m": 0.0748,
+   "done": true
   },
   "ABREL|2026-10-26": {
    "s": "ABREL",
@@ -954,7 +958,11 @@
    "run": 0.0427,
    "rea": -0.0929,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.0499,
+   "m": 0.0748,
+   "done": true
   },
   "BAJAJ-AUTO|2026-10-27": {
    "s": "BAJAJ-AUTO",
@@ -984,7 +992,11 @@
    "run": 0.0625,
    "rea": -0.0579,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.2658,
+   "m": 0.0748,
+   "done": true
   },
   "MAHABANK|2026-10-26": {
    "s": "MAHABANK",
@@ -1024,7 +1036,11 @@
    "run": 0.011,
    "rea": 0.0267,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.0673,
+   "m": 0.0748,
+   "done": true
   },
   "BSOFT|2026-10-28": {
    "s": "BSOFT",
@@ -1064,7 +1080,11 @@
    "run": -0.0438,
    "rea": 0.0344,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.0652,
+   "m": 0.0748,
+   "done": true
   },
   "CRISIL|2026-10-23": {
    "s": "CRISIL",
@@ -1074,7 +1094,11 @@
    "run": 0.1021,
    "rea": 0.0148,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.1643,
+   "m": 0.0748,
+   "done": true
   },
   "CGCL|2026-10-27": {
    "s": "CGCL",
@@ -1114,7 +1138,11 @@
    "run": -0.0726,
    "rea": 0.0077,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.0136,
+   "m": 0.0748,
+   "done": true
   },
   "CHOLAFIN|2026-10-28": {
    "s": "CHOLAFIN",
@@ -1164,7 +1192,11 @@
    "run": 0.0902,
    "rea": 0.0588,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-25",
+   "r": 0.0336,
+   "m": 0.0748,
+   "done": true
   },
   "CAMS|2026-10-29": {
    "s": "CAMS",
@@ -1224,7 +1256,11 @@
    "run": 0.0719,
    "rea": 0.0727,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-25",
+   "r": 0.0664,
+   "m": 0.0748,
+   "done": true
   },
   "FSL|2026-10-29": {
    "s": "FSL",
@@ -1284,7 +1320,11 @@
    "run": 0.0331,
    "rea": -0.0108,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.2589,
+   "m": 0.0748,
+   "done": true
   },
   "GRAVITA|2026-10-27": {
    "s": "GRAVITA",
@@ -1414,7 +1454,11 @@
    "run": 0.0148,
    "rea": 0.0076,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.153,
+   "m": 0.0748,
+   "done": true
   },
   "INDUSTOWER|2026-10-27": {
    "s": "INDUSTOWER",
@@ -1444,7 +1488,11 @@
    "run": 0.2053,
    "rea": 0.0256,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-25",
+   "r": -0.0309,
+   "m": 0.0748,
+   "done": true
   },
   "INDIGO|2026-10-29": {
    "s": "INDIGO",
@@ -1484,7 +1532,11 @@
    "run": 0.0115,
    "rea": -0.0553,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.2202,
+   "m": 0.0748,
+   "done": true
   },
   "JSWCEMENT|2026-10-27": {
    "s": "JSWCEMENT",
@@ -1524,7 +1576,11 @@
    "run": 0.0346,
    "rea": 0.0475,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-25",
+   "r": 0.0337,
+   "m": 0.0748,
+   "done": true
   },
   "JINDALSTEL|2026-10-23": {
    "s": "JINDALSTEL",
@@ -1534,7 +1590,11 @@
    "run": 0.0201,
    "rea": 0.0175,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.0626,
+   "m": 0.0748,
+   "done": true
   },
   "JUBLINGREA|2026-10-27": {
    "s": "JUBLINGREA",
@@ -1734,7 +1794,11 @@
    "run": -0.0266,
    "rea": 0.0218,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.0644,
+   "m": 0.0748,
+   "done": true
   },
   "ONESOURCE|2026-10-27": {
    "s": "ONESOURCE",
@@ -1874,7 +1938,11 @@
    "run": 0.0587,
    "rea": -0.0348,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.0942,
+   "m": 0.0748,
+   "done": true
   },
   "SBILIFE|2026-10-27": {
    "s": "SBILIFE",
@@ -1904,7 +1972,11 @@
    "run": 0.0679,
    "rea": 0.0689,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-25",
+   "r": 0.0724,
+   "m": 0.0748,
+   "done": true
   },
   "SHRIRAMFIN|2026-10-23": {
    "s": "SHRIRAMFIN",
@@ -1914,7 +1986,11 @@
    "run": -0.007,
    "rea": -0.0696,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.1999,
+   "m": 0.0748,
+   "done": true
   },
   "SONACOMS|2026-10-26": {
    "s": "SONACOMS",
@@ -1954,7 +2030,11 @@
    "run": -0.1697,
    "rea": 0.098,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": -0.3316,
+   "m": 0.0748,
+   "done": true
   },
   "SUMICHEM|2026-10-26": {
    "s": "SUMICHEM",
@@ -2034,7 +2114,11 @@
    "run": 0.0108,
    "rea": -0.0582,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.1509,
+   "m": 0.0748,
+   "done": true
   },
   "TATASTEEL|2026-10-27": {
    "s": "TATASTEEL",
@@ -2074,7 +2158,11 @@
    "run": 0.0213,
    "rea": 0.0005,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.0759,
+   "m": 0.0748,
+   "done": true
   },
   "TRENT|2026-10-29": {
    "s": "TRENT",
@@ -2094,7 +2182,11 @@
    "run": -0.0034,
    "rea": -0.0377,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-25",
+   "r": 0.0441,
+   "m": 0.0748,
+   "done": true
   },
   "UBL|2026-10-27": {
    "s": "UBL",
@@ -4818,32 +4910,32 @@
   }
  },
  "summary": {
-  "updated": "2026-11-23",
+  "updated": "2026-11-25",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 11,
-    "open": 46,
-    "meanNet": 0.0476,
-    "win": 0.727,
-    "market": 0.0611
+    "matured": 16,
+    "open": 41,
+    "meanNet": 0.0424,
+    "win": 0.75,
+    "market": 0.0654
    },
    {
     "group": "ran up, any reaction",
-    "matured": 21,
-    "open": 153,
-    "meanNet": 0.043,
-    "win": 0.619,
-    "market": 0.055
+    "matured": 31,
+    "open": 143,
+    "meanNet": 0.0466,
+    "win": 0.645,
+    "market": 0.0614
    },
    {
     "group": "all results stocks",
-    "matured": 54,
-    "open": 406,
-    "meanNet": 0.0563,
-    "win": 0.667,
-    "market": 0.0585
+    "matured": 77,
+    "open": 383,
+    "meanNet": 0.0536,
+    "win": 0.675,
+    "market": 0.0634
    }
   ]
  }

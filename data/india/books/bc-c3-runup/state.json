@@ -1,36 +1,8 @@
 {
  "id": "bc-c3-runup",
  "startAfter": "2026-10-16",
- "cash": 37.29858328294486,
+ "cash": 60.88274053634539,
  "pos": {
-  "CYIENT": {
-   "sh": 0.00406364136765366,
-   "entry": 1220.5,
-   "entryDate": "2026-10-26",
-   "high": 1242.9,
-   "stop": 0.25
-  },
-  "CHENNPETRO": {
-   "sh": 0.0033718772877950006,
-   "entry": 1472,
-   "entryDate": "2026-10-26",
-   "high": 1573.8,
-   "stop": 0.25
-  },
-  "NUVOCO": {
-   "sh": 0.015006715552713322,
-   "entry": 330,
-   "entryDate": "2026-10-26",
-   "high": 358.5,
-   "stop": 0.25
-  },
-  "SAGILITY": {
-   "sh": 0.112336903493121,
-   "entry": 44.15,
-   "entryDate": "2026-10-26",
-   "high": 46.09,
-   "stop": 0.25
-  },
   "INFY": {
    "sh": 0.004353632385185481,
    "entry": 1151.95,
@@ -70,14 +42,7 @@
    "sh": 0.029971096018732428,
    "entry": 167,
    "entryDate": "2026-10-28",
-   "high": 184.25,
-   "stop": 0.25
-  },
-  "APLAPOLLO": {
-   "sh": 0.0022572944223184553,
-   "entry": 2219,
-   "entryDate": "2026-10-28",
-   "high": 2251.6,
+   "high": 186.5,
    "stop": 0.25
   },
   "ATHERENERG": {
@@ -118,21 +83,17 @@
   "ACUTAAS": 1097945058
  },
  "pending": {
-  "signalDate": "2026-11-23",
+  "signalDate": "2026-11-25",
   "buys": [],
   "sells": [
-   "CYIENT",
-   "CHENNPETRO",
-   "NUVOCO",
-   "SAGILITY"
+   "INFY",
+   "COFORGE",
+   "DRREDDY",
+   "SHREECEM",
+   "JSWSTEEL"
   ]
  },
- "stopQueue": [
-  {
-   "sym": "APLAPOLLO",
-   "on": "2026-11-23"
-  }
- ],
+ "stopQueue": [],
  "closed": [
   {
    "sym": "HFCL",
@@ -195,6 +156,51 @@
    "entry": 357,
    "exit": 425,
    "ret": 0.1905,
+   "why": "rule"
+  },
+  {
+   "sym": "APLAPOLLO",
+   "entryDate": "2026-10-28",
+   "exitDate": "2026-11-25",
+   "entry": 2219,
+   "exit": 1503,
+   "ret": -0.3227,
+   "why": "stop"
+  },
+  {
+   "sym": "CYIENT",
+   "entryDate": "2026-10-26",
+   "exitDate": "2026-11-25",
+   "entry": 1220.5,
+   "exit": 1167.9,
+   "ret": -0.0431,
+   "why": "rule"
+  },
+  {
+   "sym": "CHENNPETRO",
+   "entryDate": "2026-10-26",
+   "exitDate": "2026-11-25",
+   "entry": 1472,
+   "exit": 1450,
+   "ret": -0.0149,
+   "why": "rule"
+  },
+  {
+   "sym": "NUVOCO",
+   "entryDate": "2026-10-26",
+   "exitDate": "2026-11-25",
+   "entry": 330,
+   "exit": 357.9,
+   "ret": 0.0845,
+   "why": "rule"
+  },
+  {
+   "sym": "SAGILITY",
+   "entryDate": "2026-10-26",
+   "exitDate": "2026-11-25",
+   "entry": 44.15,
+   "exit": 46.54,
+   "ret": 0.0541,
    "why": "rule"
   }
  ],
@@ -336,17 +342,23 @@
    "v": 103.9676,
    "vs": 103.8302,
    "x": 0.6412
+  },
+  {
+   "d": "2026-11-25",
+   "v": 103.5437,
+   "vs": 103.3827,
+   "x": 0.412
   }
  ],
  "skipped": [],
- "slipCum": 0.1373814974334145,
+ "slipCum": 0.16100842275563054,
  "cashDays": {
-  "credited": 9,
+  "credited": 10,
   "missing": 14
  },
  "started": "2026-10-21",
- "lastSignal": "2026-11-23",
- "lastStep": "2026-11-23",
+ "lastSignal": "2026-11-25",
+ "lastStep": "2026-11-25",
  "signalLog": [
   {
    "date": "2026-10-19",
@@ -864,7 +876,7 @@
  ],
  "costs": {
   "2026-10": 0.2236482326993218,
-  "2026-11": 0.09014545167928684
+  "2026-11": 0.15105766854126557
  },
- "lastNavDate": "2026-11-22"
+ "lastNavDate": "2026-11-24"
 }

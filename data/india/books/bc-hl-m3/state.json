@@ -1,13 +1,13 @@
 {
  "id": "bc-hl-m3",
  "startAfter": "2026-11-19",
- "cash": 68.03199071477492,
+ "cash": 52.14891607432438,
  "pos": {
   "TFCILTD": {
    "sh": 0.01156720741599073,
    "entry": 172.6,
    "entryDate": "2026-11-23",
-   "high": 173.51,
+   "high": 173.66,
    "stop": 0.35
   },
   "GCSL": {
@@ -35,7 +35,7 @@
    "sh": 0.0074775280898876405,
    "entry": 267,
    "entryDate": "2026-11-23",
-   "high": 270.76,
+   "high": 276.57,
    "stop": 0.35
   },
   "ORIENTHOT": {
@@ -84,21 +84,21 @@
    "sh": 0.007394444444444444,
    "entry": 270,
    "entryDate": "2026-11-23",
-   "high": 270,
+   "high": 309.44,
    "stop": 0.35
   },
   "GHCLTEXTIL": {
    "sh": 0.013761658031088083,
    "entry": 144.75,
    "entryDate": "2026-11-23",
-   "high": 144.75,
+   "high": 146.21,
    "stop": 0.35
   },
   "MANOMAY": {
    "sh": 0.007294031490296594,
    "entry": 273.1,
    "entryDate": "2026-11-23",
-   "high": 273.1,
+   "high": 281.14,
    "stop": 0.35
   },
   "LENSKART": {
@@ -113,6 +113,62 @@
    "entry": 155.93,
    "entryDate": "2026-11-23",
    "high": 155.93,
+   "stop": 0.35
+  },
+  "ATHERENERG": {
+   "sh": 0.000997811674776861,
+   "entry": 1988.2,
+   "entryDate": "2026-11-25",
+   "high": 1988.2,
+   "stop": 0.35
+  },
+  "RATNAVEER": {
+   "sh": 0.004898393016768778,
+   "entry": 405,
+   "entryDate": "2026-11-25",
+   "high": 405,
+   "stop": 0.35
+  },
+  "SHALPAINTS": {
+   "sh": 0.018327571167173942,
+   "entry": 108,
+   "entryDate": "2026-11-25",
+   "high": 108,
+   "stop": 0.35
+  },
+  "HMAAGRO": {
+   "sh": 0.049509457456189614,
+   "entry": 40.04,
+   "entryDate": "2026-11-25",
+   "high": 43.35,
+   "stop": 0.35
+  },
+  "SAMBHV": {
+   "sh": 0.01123340327843731,
+   "entry": 176.47,
+   "entryDate": "2026-11-25",
+   "high": 176.47,
+   "stop": 0.35
+  },
+  "COFORGE": {
+   "sh": 0.0009150595810845734,
+   "entry": 2168,
+   "entryDate": "2026-11-25",
+   "high": 2168,
+   "stop": 0.35
+  },
+  "SPORTKING": {
+   "sh": 0.008281915004413328,
+   "entry": 239,
+   "entryDate": "2026-11-25",
+   "high": 239,
+   "stop": 0.35
+  },
+  "HONASA": {
+   "sh": 0.0036042885028106037,
+   "entry": 550,
+   "entryDate": "2026-11-25",
+   "high": 550,
    "stop": 0.35
   }
  },
@@ -132,49 +188,52 @@
   "GHCLTEXTIL": 121952875.30349998,
   "MANOMAY": 49628642.654,
   "LENSKART": 4105522596.0424995,
-  "PNB": 5050279886.616999
+  "PNB": 5050279886.616999,
+  "ATHERENERG": 6396319010.999999,
+  "RATNAVEER": 1234572768.74,
+  "SHALPAINTS": 77739180.9325,
+  "HMAAGRO": 516467156.108,
+  "SAMBHV": 518729799.5235001,
+  "COFORGE": 6122622336.67,
+  "SPORTKING": 198438307.4555,
+  "HONASA": 861666793.2924999
  },
  "pending": {
-  "signalDate": "2026-11-23",
+  "signalDate": "2026-11-25",
   "buys": [
    {
-    "sym": "ATHERENERG",
-    "value": 6396319010.999999,
+    "sym": "LAURUSLABS",
+    "value": 7307282701.514999,
     "stop": 0.35
    },
    {
-    "sym": "RATNAVEER",
-    "value": 1234572768.74,
+    "sym": "DIVISLAB",
+    "value": 9366263057.05,
     "stop": 0.35
    },
    {
-    "sym": "SHALPAINTS",
-    "value": 77739180.9325,
+    "sym": "SHIVAUM",
+    "value": 30229071.1475,
     "stop": 0.35
    },
    {
-    "sym": "HMAAGRO",
-    "value": 516467156.108,
+    "sym": "NECCLTD",
+    "value": 20885703.862499997,
     "stop": 0.35
    },
    {
-    "sym": "SAMBHV",
-    "value": 518729799.5235001,
+    "sym": "ARIS",
+    "value": 472626067.03550005,
     "stop": 0.35
    },
    {
-    "sym": "COFORGE",
-    "value": 6122622336.67,
+    "sym": "PDSL",
+    "value": 389134079.9725,
     "stop": 0.35
    },
    {
-    "sym": "SPORTKING",
-    "value": 198438307.4555,
-    "stop": 0.35
-   },
-   {
-    "sym": "HONASA",
-    "value": 861666793.2924999,
+    "sym": "AARTIPHARM",
+    "value": 723398991.72,
     "stop": 0.35
    }
   ],
@@ -188,19 +247,25 @@
    "v": 99.3775,
    "vs": 99.3455,
    "x": 0.3154
+  },
+  {
+   "d": "2026-11-25",
+   "v": 99.0883,
+   "vs": 99.0404,
+   "x": 0.4737
   }
  ],
  "skipped": [],
- "slipCum": 0.032000000000000015,
+ "slipCum": 0.0478986159522473,
  "cashDays": {
-  "credited": 1,
+  "credited": 2,
   "missing": 0
  },
  "started": "2026-11-23",
- "lastSignal": "2026-11-23",
- "lastStep": "2026-11-23",
+ "lastSignal": "2026-11-25",
+ "lastStep": "2026-11-25",
  "weight": 0.02,
- "lastNavDate": "2026-11-22",
+ "lastNavDate": "2026-11-24",
  "signalLog": [
   {
    "date": "2026-11-20",
@@ -425,9 +490,121 @@
    "ret126": 0.497,
    "taken": true,
    "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "TFCILTD",
+   "ret126": 1.36,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "RATNAVEER",
+   "ret126": 1.217,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "GCSL",
+   "ret126": 1.175,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "SHALPAINTS",
+   "ret126": 1.148,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "WELSPUNLIV",
+   "ret126": 0.987,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "LAURUSLABS",
+   "ret126": 0.831,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "GREAVESCOT",
+   "ret126": 0.826,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "HMAAGRO",
+   "ret126": 0.779,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "DIVISLAB",
+   "ret126": 0.701,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "SHIVAUM",
+   "ret126": 0.692,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "NECCLTD",
+   "ret126": 0.655,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "GHCLTEXTIL",
+   "ret126": 0.616,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "ARIS",
+   "ret126": 0.595,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "MANOMAY",
+   "ret126": 0.537,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "PDSL",
+   "ret126": 0.453,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "AARTIPHARM",
+   "ret126": 0.438,
+   "taken": true,
+   "why": "bought next open"
   }
  ],
  "costs": {
-  "2026-11": 0.08000000000000002
+  "2026-11": 0.12123703512614138
  }
 }
