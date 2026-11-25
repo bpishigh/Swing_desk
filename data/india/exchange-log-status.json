@@ -1,1 +1,1 @@
-{"surveillance":{"last":"2026-11-25","counts":{"asmLong":126,"asmShort":43,"gsm":76,"esm":220}},"deals":{"last":"2026-11-23","days":1,"bulkRows":89,"blockRows":5,"badRows":0},"run":{"at":"2026-11-24T23:19:22.407Z","failed":[]}}
+{"surveillance":{"last":"2026-11-25","counts":{"asmLong":126,"asmShort":43,"gsm":76,"esm":220}},"deals":{"last":"2026-11-25","days":1,"bulkRows":103,"blockRows":21,"badRows":0},"run":{"at":"2026-11-25T14:44:33.047Z","failed":[]}}
