@@ -23,6 +23,11 @@
    "date": "2026-11-23",
    "sym": "TTMI",
    "width": 0.3546
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "WMB",
+   "width": 0.116
   }
  ],
  "slipCum": 0,
@@ -32,7 +37,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-24",
+ "lastStep": "2026-11-25",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -64,6 +69,16 @@
    "ceoCfo": false,
    "lagDays": 0,
    "distinct30": 1,
+   "taken": false,
+   "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "WMB",
+   "value": 978650,
+   "ceoCfo": false,
+   "lagDays": 1,
+   "distinct30": 2,
    "taken": false,
    "why": "stop too wide"
   }

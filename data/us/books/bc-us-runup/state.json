@@ -37,7 +37,7 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-24",
+ "lastStep": "2026-11-25",
  "blocks": {},
  "gaps": [],
  "cashCarried": 0,
@@ -185,6 +185,46 @@
    "reaction": 0.0319,
    "taken": false,
    "why": "stop too wide"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "DELL",
+   "runUp": -0.3456,
+   "reaction": 0.0089,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "ADSK",
+   "runUp": 0.1223,
+   "reaction": -0.032,
+   "taken": false,
+   "why": "reaction below 2%"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "WDAY",
+   "runUp": -0.0616,
+   "reaction": 0.0096,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "HPQ",
+   "runUp": -0.1019,
+   "reaction": 0.1178,
+   "taken": false,
+   "why": "run-up below the cut"
+  },
+  {
+   "date": "2026-11-25",
+   "sym": "DE",
+   "runUp": 0.0257,
+   "reaction": 0.0473,
+   "taken": false,
+   "why": "run-up below the cut"
   }
  ]
 }
