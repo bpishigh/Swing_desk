@@ -1,43 +1,8 @@
 {
  "id": "bc-c3-runup",
  "startAfter": "2026-10-16",
- "cash": 60.88274053634539,
+ "cash": 87.1464782599401,
  "pos": {
-  "INFY": {
-   "sh": 0.004353632385185481,
-   "entry": 1151.95,
-   "entryDate": "2026-10-27",
-   "high": 1185,
-   "stop": 0.25
-  },
-  "COFORGE": {
-   "sh": 0.0025341924336101137,
-   "entry": 1979,
-   "entryDate": "2026-10-27",
-   "high": 2142.3,
-   "stop": 0.25
-  },
-  "DRREDDY": {
-   "sh": 0.0038312962766343887,
-   "entry": 1309,
-   "entryDate": "2026-10-27",
-   "high": 1400.9,
-   "stop": 0.25
-  },
-  "SHREECEM": {
-   "sh": 0.0002115406862409863,
-   "entry": 23690,
-   "entryDate": "2026-10-27",
-   "high": 25475,
-   "stop": 0.25
-  },
-  "JSWSTEEL": {
-   "sh": 0.004052005191980621,
-   "entry": 1237.7,
-   "entryDate": "2026-10-27",
-   "high": 1357.1,
-   "stop": 0.25
-  },
   "ITCHOTELS": {
    "sh": 0.029971096018732428,
    "entry": 167,
@@ -56,7 +21,7 @@
    "sh": 0.0013462785617913548,
    "entry": 3700,
    "entryDate": "2026-10-29",
-   "high": 4039.1,
+   "high": 4079.9,
    "stop": 0.25
   }
  },
@@ -83,14 +48,17 @@
   "ACUTAAS": 1097945058
  },
  "pending": {
-  "signalDate": "2026-11-25",
-  "buys": [],
+  "signalDate": "2026-11-26",
+  "buys": [
+   {
+    "sym": "ENRIN",
+    "value": 1438018586,
+    "stop": 0.25
+   }
+  ],
   "sells": [
-   "INFY",
-   "COFORGE",
-   "DRREDDY",
-   "SHREECEM",
-   "JSWSTEEL"
+   "ITCHOTELS",
+   "ATHERENERG"
   ]
  },
  "stopQueue": [],
@@ -201,6 +169,51 @@
    "entry": 44.15,
    "exit": 46.54,
    "ret": 0.0541,
+   "why": "rule"
+  },
+  {
+   "sym": "INFY",
+   "entryDate": "2026-10-27",
+   "exitDate": "2026-11-26",
+   "entry": 1151.95,
+   "exit": 1151,
+   "ret": -0.0008,
+   "why": "rule"
+  },
+  {
+   "sym": "COFORGE",
+   "entryDate": "2026-10-27",
+   "exitDate": "2026-11-26",
+   "entry": 1979,
+   "exit": 2086,
+   "ret": 0.0541,
+   "why": "rule"
+  },
+  {
+   "sym": "DRREDDY",
+   "entryDate": "2026-10-27",
+   "exitDate": "2026-11-26",
+   "entry": 1309,
+   "exit": 1395,
+   "ret": 0.0657,
+   "why": "rule"
+  },
+  {
+   "sym": "SHREECEM",
+   "entryDate": "2026-10-27",
+   "exitDate": "2026-11-26",
+   "entry": 23690,
+   "exit": 25275,
+   "ret": 0.0669,
+   "why": "rule"
+  },
+  {
+   "sym": "JSWSTEEL",
+   "entryDate": "2026-10-27",
+   "exitDate": "2026-11-26",
+   "entry": 1237.7,
+   "exit": 1310.4,
+   "ret": 0.0587,
    "why": "rule"
   }
  ],
@@ -348,17 +361,23 @@
    "v": 103.5437,
    "vs": 103.3827,
    "x": 0.412
+  },
+  {
+   "d": "2026-11-26",
+   "v": 103.8999,
+   "vs": 103.7126,
+   "x": 0.1612
   }
  ],
  "skipped": [],
- "slipCum": 0.16100842275563054,
+ "slipCum": 0.18730687580170705,
  "cashDays": {
-  "credited": 10,
+  "credited": 11,
   "missing": 14
  },
  "started": "2026-10-21",
- "lastSignal": "2026-11-25",
- "lastStep": "2026-11-25",
+ "lastSignal": "2026-11-26",
+ "lastStep": "2026-11-26",
  "signalLog": [
   {
    "date": "2026-10-19",
@@ -872,11 +891,20 @@
    "rea": 0.0286,
    "taken": false,
    "why": "no slot"
+  },
+  {
+   "date": "2026-11-26",
+   "sym": "ENRIN",
+   "resultsDate": "2026-11-25",
+   "run": 0.05,
+   "rea": 0.0219,
+   "taken": true,
+   "why": "bought next open"
   }
  ],
  "costs": {
   "2026-10": 0.2236482326993218,
-  "2026-11": 0.15105766854126557
+  "2026-11": 0.20108997950545515
  },
- "lastNavDate": "2026-11-24"
+ "lastNavDate": "2026-11-25"
 }

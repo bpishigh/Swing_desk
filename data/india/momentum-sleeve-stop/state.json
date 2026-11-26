@@ -2,7 +2,7 @@
  "version": "MOM-30 v1",
  "startAfter": "2026-11-01",
  "book": {
-  "cash": 3.718161607645507,
+  "cash": 6.854068030526223,
   "shares": {
    "CUPID": 0.014470092222587525,
    "SHREEJISPG": 0.00435736712574472,
@@ -13,7 +13,6 @@
    "WELCORP": 0.0021057952774558805,
    "CPPLUS": 0.0006428472032722831,
    "ATHERENERG": 0.002812315342933865,
-   "HFCL": 0.01816365353957872,
    "RAYMOND": 0.0018254596239026212,
    "SKYGOLD": 0.005021838951417264,
    "DIVISLAB": 0.0005008263730627634,
@@ -523,7 +522,6 @@
    "WELCORP": 2370,
    "CPPLUS": 3913.7,
    "ATHERENERG": 1774.6,
-   "HFCL": 212.55,
    "RAYMOND": 1136.1,
    "SKYGOLD": 880,
    "DIVISLAB": 9965,
@@ -547,20 +545,19 @@
   "high": {
    "CUPID": 384.8,
    "SHREEJISPG": 914.9,
-   "LAURUSLABS": 2460,
+   "LAURUSLABS": 2505,
    "SBC": 70.37,
-   "TFCILTD": 173.66,
-   "RATNAVEER": 404.55,
+   "TFCILTD": 174.94,
+   "RATNAVEER": 405,
    "WELCORP": 2400,
-   "CPPLUS": 4224.9,
+   "CPPLUS": 4235,
    "ATHERENERG": 1979.2,
-   "HFCL": 228.16,
    "RAYMOND": 1224,
    "SKYGOLD": 1050.05,
    "DIVISLAB": 11716.5,
    "SONACOMS": 926,
    "AEROFLEX": 567.2,
-   "ACUTAAS": 4039.1,
+   "ACUTAAS": 4079.9,
    "SYRMA": 1519.4,
    "FCL": 53.56,
    "COFORGE": 2142.3,
@@ -688,12 +685,16 @@
   {
    "d": "2026-11-25",
    "v": 98.4134
+  },
+  {
+   "d": "2026-11-26",
+   "v": 99.0382
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-25",
-   "v": 98.4134
+   "d": "2026-11-26",
+   "v": 99.0382
   }
  },
  "stops": [
@@ -704,14 +705,17 @@
    "entry": 757.25,
    "price": 565.15,
    "ret": -0.2537
-  }
- ],
- "stopQueue": [
+  },
   {
    "sym": "HFCL",
-   "on": "2026-11-25"
+   "signalDate": "2026-11-25",
+   "fillDate": "2026-11-26",
+   "entry": 212.55,
+   "price": 172.95,
+   "ret": -0.1863
   }
  ],
- "stopChecked": "2026-11-25",
+ "stopQueue": [],
+ "stopChecked": "2026-11-26",
  "gone": []
 }

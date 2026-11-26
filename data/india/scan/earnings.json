@@ -1,8 +1,8 @@
 {
- "asOf": "2026-11-25",
+ "asOf": "2026-11-26",
  "source": "NSE event calendar",
  "dates": {
-  "WELSPUNLIV": {
+  "KOVAI": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -12,22 +12,22 @@
    "sessions": null,
    "inWindow": null
   },
-  "DIVISLAB": {
+  "ACUTAAS": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "SANSERA": {
+  "WELSPUNLIV": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "GLENMARK": {
+  "FREDUN": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "PVRINOX": {
+  "ICIL": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -37,17 +37,22 @@
    "sessions": null,
    "inWindow": null
   },
-  "SHADOWFAX": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
   "GHCLTEXTIL": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "ICIL": {
+  "SHADOWFAX": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "KMEW": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "PVRINOX": {
    "date": null,
    "sessions": null,
    "inWindow": null

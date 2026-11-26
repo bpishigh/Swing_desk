@@ -251,12 +251,12 @@
   },
   "high": {
    "CUPID": 384.8,
-   "LAURUSLABS": 2460,
+   "LAURUSLABS": 2505,
    "STLTECH": 736.9,
-   "TFCILTD": 173.66,
+   "TFCILTD": 174.94,
    "CPPLUS": 4237,
    "SKYGOLD": 1050.05,
-   "RATNAVEER": 404.55,
+   "RATNAVEER": 405,
    "GLAND": 3385.9,
    "WELCORP": 2260.2,
    "HFCL": 215,
@@ -278,7 +278,7 @@
    "RADICO": 4699,
    "TVSMOTOR": 4610,
    "TITAN": 4970,
-   "MCX": 3729.6,
+   "MCX": 3835,
    "PNB": 155.33
   },
   "startedFill": "2026-11-12"
@@ -370,16 +370,20 @@
   {
    "d": "2026-11-25",
    "v": 98.4945
+  },
+  {
+   "d": "2026-11-26",
+   "v": 99.1173
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-25",
-   "v": 98.4945
+   "d": "2026-11-26",
+   "v": 99.1173
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-25",
+ "stopChecked": "2026-11-26",
  "gone": []
 }

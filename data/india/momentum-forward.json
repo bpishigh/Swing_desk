@@ -165,7 +165,11 @@
    "limit": 2021.62,
    "basis": 2001.6,
    "width": 9.46,
-   "room": 0.1
+   "room": 0.1,
+   "exit": "2026-11-26",
+   "net": -0.002,
+   "mkt": 0.0635,
+   "done": true
   },
   "LAURUSLABS|2|2026-10-26": {
    "sym": "LAURUSLABS",
@@ -178,7 +182,11 @@
    "limit": 2083.65,
    "basis": 2063.02,
    "width": 6.28,
-   "room": 0.2
+   "room": 0.2,
+   "exit": "2026-11-26",
+   "net": 0.166,
+   "mkt": 0.0635,
+   "done": true
   },
   "ZYDUSLIFE|2|2026-10-26": {
    "sym": "ZYDUSLIFE",
@@ -191,7 +199,11 @@
    "limit": 1174.35,
    "basis": 1162.72,
    "width": 5.95,
-   "room": 1
+   "room": 1,
+   "exit": "2026-11-26",
+   "net": 0.0147,
+   "mkt": 0.0635,
+   "done": true
   },
   "ZYDUSLIFE|4|2026-10-26": {
    "sym": "ZYDUSLIFE",
@@ -204,7 +216,11 @@
    "limit": 1174.35,
    "basis": 1162.72,
    "width": 5.95,
-   "room": 1
+   "room": 1,
+   "exit": "2026-11-26",
+   "net": 0.0147,
+   "mkt": 0.0635,
+   "done": true
   },
   "ACUTAAS|2|2026-10-26": {
    "sym": "ACUTAAS",
@@ -217,7 +233,11 @@
    "limit": 3405.25,
    "basis": 3371.53,
    "width": 8.5,
-   "room": 1.29
+   "room": 1.29,
+   "exit": "2026-11-26",
+   "net": 0.0721,
+   "mkt": 0.0635,
+   "done": true
   },
   "ACUTAAS|4|2026-10-26": {
    "sym": "ACUTAAS",
@@ -230,7 +250,11 @@
    "limit": 3405.25,
    "basis": 3371.53,
    "width": 8.5,
-   "room": 1.29
+   "room": 1.29,
+   "exit": "2026-11-26",
+   "net": 0.0721,
+   "mkt": 0.0635,
+   "done": true
   },
   "DIVISLAB|2|2026-10-27": {
    "sym": "DIVISLAB",
@@ -985,6 +1009,71 @@
    "basis": 640.18,
    "width": 7.57,
    "room": 1.1
+  },
+  "GLAND|2|2026-11-26": {
+   "sym": "GLAND",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": true,
+   "date": "2026-11-26",
+   "trigger": 3383.15,
+   "stop": 3222.6,
+   "limit": 3416.98,
+   "basis": 3383.15,
+   "width": 4.75,
+   "room": 0.29
+  },
+  "SHREEJISPG|2|2026-11-26": {
+   "sym": "SHREEJISPG",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-26",
+   "trigger": 916.73,
+   "stop": 880.2,
+   "limit": 925.9,
+   "basis": 916.73,
+   "width": 3.98,
+   "room": 0.58
+  },
+  "KMEW|2|2026-11-26": {
+   "sym": "KMEW",
+   "id": "2",
+   "cls": "tooWide",
+   "mom": false,
+   "date": "2026-11-26",
+   "trigger": 700.3,
+   "stop": 637.07,
+   "limit": 707.3,
+   "basis": 700.3,
+   "width": 9.03,
+   "room": 1.16
+  },
+  "IGIL|2|2026-11-26": {
+   "sym": "IGIL",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-26",
+   "trigger": 437.47,
+   "stop": 409.03,
+   "limit": 441.84,
+   "basis": 437.47,
+   "width": 6.5,
+   "room": 0.57
+  },
+  "SMSPHARMA|2|2026-11-26": {
+   "sym": "SMSPHARMA",
+   "id": "2",
+   "cls": "lowRoom",
+   "mom": false,
+   "date": "2026-11-26",
+   "trigger": 490.98,
+   "stop": 460.63,
+   "limit": 495.89,
+   "basis": 490.98,
+   "width": 6.18,
+   "room": 1.45
   }
  },
  "lastLogged": {
@@ -1005,7 +1094,7 @@
   "ACUTAAS|4": "2026-10-26",
   "DIVISLAB|2": "2026-10-27",
   "DIVISLAB|4": "2026-10-27",
-  "GLAND|2": "2026-10-27",
+  "GLAND|2": "2026-11-26",
   "GLAND|4": "2026-10-27",
   "CPPLUS|4": "2026-10-28",
   "PTCIL|2": "2026-10-28",
@@ -1057,29 +1146,33 @@
   "ANTHEM|2": "2026-11-23",
   "SMSPHARMA|4": "2026-11-23",
   "KOPRAN|4": "2026-11-23",
-  "SAREGAMA|2": "2026-11-25"
+  "SAREGAMA|2": "2026-11-25",
+  "SHREEJISPG|2": "2026-11-26",
+  "KMEW|2": "2026-11-26",
+  "IGIL|2": "2026-11-26",
+  "SMSPHARMA|2": "2026-11-26"
  },
  "summary": {
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "groups": [
    {
     "group": "valid + room under 3R (reading rule)",
     "momentum": {
-     "matured": 2,
+     "matured": 3,
      "open": 4,
-     "meanNet": 0.1241,
+     "meanNet": 0.1381,
      "win": 1,
-     "excess": 0.0602
+     "excess": 0.0743
     },
     "others": {
-     "matured": 0,
-     "open": 15,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "matured": 2,
+     "open": 16,
+     "meanNet": 0.0147,
+     "win": 1,
+     "excess": -0.0488
     },
-    "diffNet": null,
-    "diffWin": null,
+    "diffNet": 0.1234,
+    "diffWin": 0,
     "t": null
    },
    {
@@ -1105,41 +1198,41 @@
    {
     "group": "room under 3R",
     "momentum": {
-     "matured": 2,
+     "matured": 3,
      "open": 4,
-     "meanNet": 0.1241,
+     "meanNet": 0.1381,
      "win": 1,
-     "excess": 0.0602
+     "excess": 0.0743
     },
     "others": {
-     "matured": 0,
-     "open": 15,
-     "meanNet": null,
-     "win": null,
-     "excess": null
+     "matured": 2,
+     "open": 16,
+     "meanNet": 0.0147,
+     "win": 1,
+     "excess": -0.0488
     },
-    "diffNet": null,
-    "diffWin": null,
+    "diffNet": 0.1234,
+    "diffWin": 0,
     "t": null
    },
    {
     "group": "stop too wide",
     "momentum": {
-     "matured": 3,
-     "open": 15,
-     "meanNet": 0.0697,
-     "win": 0.667,
-     "excess": 0.0092
+     "matured": 5,
+     "open": 13,
+     "meanNet": 0.0707,
+     "win": 0.8,
+     "excess": 0.0089
     },
     "others": {
-     "matured": 4,
+     "matured": 5,
      "open": 30,
-     "meanNet": -0.0535,
-     "win": 0.25,
-     "excess": -0.1123
+     "meanNet": -0.0432,
+     "win": 0.2,
+     "excess": -0.1029
     },
-    "diffNet": 0.1232,
-    "diffWin": 0.417,
+    "diffNet": 0.1139,
+    "diffWin": 0.6,
     "t": null
    }
   ]

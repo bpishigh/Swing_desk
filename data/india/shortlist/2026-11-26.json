@@ -1,0 +1,15 @@
+{
+ "signalDate": "2026-11-26",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "KOVAI",
+   "setup": "1ipo",
+   "stream": "ready",
+   "trigger": 6844.05,
+   "limit": 6912.49,
+   "stop": 6315,
+   "atrPct": 3.42
+  }
+ ]
+}

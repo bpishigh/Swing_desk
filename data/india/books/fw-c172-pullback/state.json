@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 90.12526089705351,
+ "cash": 80.13280060337208,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -16,28 +16,29 @@
    "entryDate": "2026-11-18",
    "high": 4610,
    "stop": 0.07945009180063589
+  },
+  "BOSCHLTD": {
+   "sh": 0.00010141150350541096,
+   "entry": 49250,
+   "entryDate": "2026-11-26",
+   "high": 49250,
+   "stop": 0.076129656014655
+  },
+  "ZYDUSLIFE": {
+   "sh": 0.004018114680323001,
+   "entry": 1243,
+   "entryDate": "2026-11-26",
+   "high": 1243,
+   "stop": 0.07208737864077669
   }
  },
  "lastValue": {
   "TITAN": 3401740872.2,
-  "TVSMOTOR": 2993161186
+  "TVSMOTOR": 2993161186,
+  "BOSCHLTD": 1388265990,
+  "ZYDUSLIFE": 1522956220.6
  },
- "pending": {
-  "signalDate": "2026-11-25",
-  "buys": [
-   {
-    "sym": "BOSCHLTD",
-    "value": 1388265990,
-    "stop": 0.076129656014655
-   },
-   {
-    "sym": "ZYDUSLIFE",
-    "value": 1522956220.6,
-    "stop": 0.07208737864077669
-   }
-  ],
-  "sells": []
- },
+ "pending": null,
  "stopQueue": [],
  "closed": [],
  "daily": [
@@ -76,6 +77,12 @@
    "v": 100.0656,
    "vs": 100.0556,
    "x": 0.0993
+  },
+  {
+   "d": "2026-11-26",
+   "v": 99.6998,
+   "vs": 99.6798,
+   "x": 0.1963
   }
  ],
  "skipped": [
@@ -163,17 +170,27 @@
    "date": "2026-11-25",
    "sym": "NYKAA",
    "width": 0.0829
+  },
+  {
+   "date": "2026-11-26",
+   "sym": "PAYTM",
+   "width": 0.1165
+  },
+  {
+   "date": "2026-11-26",
+   "sym": "WOCKPHARMA",
+   "width": 0.1199
   }
  ],
- "slipCum": 0.010000056341046665,
+ "slipCum": 0.020006600889289065,
  "cashDays": {
-  "credited": 6,
+  "credited": 7,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-25",
- "lastStep": "2026-11-25",
- "lastNavDate": "2026-11-24",
+ "lastStep": "2026-11-26",
+ "lastNavDate": "2026-11-25",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -321,9 +338,23 @@
    "dip": "average",
    "volRatio": 0.7804,
    "tight": 0.0373
+  },
+  {
+   "date": "2026-11-26",
+   "sym": "PAYTM",
+   "dip": "average",
+   "volRatio": 0.4198,
+   "tight": 0.1249
+  },
+  {
+   "date": "2026-11-26",
+   "sym": "WOCKPHARMA",
+   "dip": "run",
+   "volRatio": 2.3595,
+   "tight": 0.1026
   }
  ],
  "costs": {
-  "2026-11": 0.017500098596831666
+  "2026-11": 0.03501155155625587
  }
 }

@@ -784,7 +784,11 @@
    "run": 0.0389,
    "rea": 0.0657,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-26",
+   "r": -0.3308,
+   "m": 0.064,
+   "done": true
   },
   "AUBANK|2026-10-24": {
    "s": "AUBANK",
@@ -794,7 +798,11 @@
    "run": -0.0012,
    "rea": -0.1139,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.158,
+   "m": 0.064,
+   "done": true
   },
   "AWL|2026-10-27": {
    "s": "AWL",
@@ -814,7 +822,11 @@
    "run": -0.0221,
    "rea": -0.0019,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.0334,
+   "m": 0.064,
+   "done": true
   },
   "ACUTAAS|2026-10-27": {
    "s": "ACUTAAS",
@@ -868,7 +880,11 @@
    "run": 0.066,
    "rea": 0.0136,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1923,
+   "m": 0.064,
+   "done": true
   },
   "AEGISVOPAK|2026-10-26": {
    "s": "AEGISVOPAK",
@@ -878,7 +894,11 @@
    "run": -0.107,
    "rea": -0.0542,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.177,
+   "m": 0.064,
+   "done": true
   },
   "AEGISLOG|2026-10-26": {
    "s": "AEGISLOG",
@@ -888,7 +908,11 @@
    "run": -0.0557,
    "rea": -0.0607,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0092,
+   "m": 0.064,
+   "done": true
   },
   "ABDL|2026-10-27": {
    "s": "ABDL",
@@ -948,7 +972,11 @@
    "run": 0.0235,
    "rea": 0.1901,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-26",
+   "r": 0.1386,
+   "m": 0.064,
+   "done": true
   },
   "ATUL|2026-10-23": {
    "s": "ATUL",
@@ -1006,7 +1034,11 @@
    "run": -0.04,
    "rea": 0.0392,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1775,
+   "m": 0.064,
+   "done": true
   },
   "BHARATCOAL|2026-10-24": {
    "s": "BHARATCOAL",
@@ -1016,7 +1048,11 @@
    "run": -0.0075,
    "rea": 0.0208,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0203,
+   "m": 0.064,
+   "done": true
   },
   "BHARATCOAL|2026-10-25": {
    "s": "BHARATCOAL",
@@ -1026,7 +1062,11 @@
    "run": -0.0075,
    "rea": 0.0208,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0203,
+   "m": 0.064,
+   "done": true
   },
   "BPCL|2026-10-23": {
    "s": "BPCL",
@@ -1128,7 +1168,11 @@
    "run": 0.0347,
    "rea": -0.0526,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0063,
+   "m": 0.064,
+   "done": true
   },
   "CMPDI|2026-10-23": {
    "s": "CMPDI",
@@ -1236,7 +1280,11 @@
    "run": 0.041,
    "rea": -0.0683,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0103,
+   "m": 0.064,
+   "done": true
   },
   "DEEPAKNTR|2026-10-29": {
    "s": "DEEPAKNTR",
@@ -1290,7 +1338,11 @@
    "run": -0.0651,
    "rea": -0.0944,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.0074,
+   "m": 0.064,
+   "done": true
   },
   "GMRAIRPORT|2026-10-28": {
    "s": "GMRAIRPORT",
@@ -1404,7 +1456,11 @@
    "run": -0.0365,
    "rea": -0.0359,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.2151,
+   "m": 0.064,
+   "done": true
   },
   "ITCHOTELS|2026-10-26": {
    "s": "ITCHOTELS",
@@ -1414,7 +1470,11 @@
    "run": 0.0525,
    "rea": 0.0414,
    "top": true,
-   "signal": true
+   "signal": true,
+   "exit": "2026-11-26",
+   "r": 0.1191,
+   "m": 0.064,
+   "done": true
   },
   "INDIAMART|2026-10-27": {
    "s": "INDIAMART",
@@ -1444,7 +1504,11 @@
    "run": -0.017,
    "rea": -0.0055,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0583,
+   "m": 0.064,
+   "done": true
   },
   "INDUSINDBK|2026-10-23": {
    "s": "INDUSINDBK",
@@ -1512,7 +1576,11 @@
    "run": 0.0194,
    "rea": -0.0139,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1156,
+   "m": 0.064,
+   "done": true
   },
   "JBMA|2026-10-26": {
    "s": "JBMA",
@@ -1522,7 +1590,11 @@
    "run": -0.0329,
    "rea": -0.0297,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.0288,
+   "m": 0.064,
+   "done": true
   },
   "JKTYRE|2026-10-23": {
    "s": "JKTYRE",
@@ -1634,7 +1706,11 @@
    "run": -0.0191,
    "rea": -0.0162,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0692,
+   "m": 0.064,
+   "done": true
   },
   "KFINTECH|2026-10-26": {
    "s": "KFINTECH",
@@ -1644,7 +1720,11 @@
    "run": -0.0047,
    "rea": 0.0655,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1441,
+   "m": 0.064,
+   "done": true
   },
   "KIRLOSBROS|2026-10-27": {
    "s": "KIRLOSBROS",
@@ -1664,7 +1744,11 @@
    "run": 0.0317,
    "rea": 0.005,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1524,
+   "m": 0.064,
+   "done": true
   },
   "LTFOODS|2026-10-27": {
    "s": "LTFOODS",
@@ -1714,7 +1798,11 @@
    "run": -0.0283,
    "rea": 0.1081,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0729,
+   "m": 0.064,
+   "done": true
   },
   "MARUTI|2026-10-27": {
    "s": "MARUTI",
@@ -1774,7 +1862,11 @@
    "run": -0.0384,
    "rea": -0.0193,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.0677,
+   "m": 0.064,
+   "done": true
   },
   "PAYTM|2026-10-26": {
    "s": "PAYTM",
@@ -1784,7 +1876,11 @@
    "run": 0.0266,
    "rea": -0.0319,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.1045,
+   "m": 0.064,
+   "done": true
   },
   "OFSS|2026-10-23": {
    "s": "OFSS",
@@ -1908,7 +2004,11 @@
    "run": 0.0385,
    "rea": -0.0482,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0377,
+   "m": 0.064,
+   "done": true
   },
   "RADICO|2026-10-27": {
    "s": "RADICO",
@@ -1928,7 +2028,11 @@
    "run": -0.035,
    "rea": -0.0188,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0716,
+   "m": 0.064,
+   "done": true
   },
   "SBICARD|2026-10-23": {
    "s": "SBICARD",
@@ -2000,7 +2104,11 @@
    "run": -0.0086,
    "rea": 0.1086,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.0348,
+   "m": 0.064,
+   "done": true
   },
   "STARHEALTH|2026-10-27": {
    "s": "STARHEALTH",
@@ -2044,7 +2152,11 @@
    "run": -0.0815,
    "rea": -0.0814,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.0246,
+   "m": 0.064,
+   "done": true
   },
   "SUPREMEIND|2026-10-26": {
    "s": "SUPREMEIND",
@@ -2054,7 +2166,11 @@
    "run": 0.0212,
    "rea": -0.0499,
    "top": false,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": -0.042,
+   "m": 0.064,
+   "done": true
   },
   "SUZLON|2026-10-29": {
    "s": "SUZLON",
@@ -2104,7 +2220,11 @@
    "run": 0.0546,
    "rea": 0.0145,
    "top": true,
-   "signal": false
+   "signal": false,
+   "exit": "2026-11-26",
+   "r": 0.164,
+   "m": 0.064,
+   "done": true
   },
   "TMCV|2026-10-23": {
    "s": "TMCV",
@@ -4907,35 +5027,45 @@
    "rea": -0.04,
    "top": true,
    "signal": false
+  },
+  "ENRIN|2026-11-25": {
+   "s": "ENRIN",
+   "d": "2026-11-25",
+   "entry": "2026-11-26",
+   "px": 3058,
+   "run": 0.05,
+   "rea": 0.0219,
+   "top": true,
+   "signal": true
   }
  },
  "summary": {
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "cut": 0.0226,
   "groups": [
    {
     "group": "signal (ran up + reaction >= +2%)",
-    "matured": 16,
-    "open": 41,
-    "meanNet": 0.0424,
-    "win": 0.75,
-    "market": 0.0654
+    "matured": 19,
+    "open": 39,
+    "meanNet": 0.0312,
+    "win": 0.737,
+    "market": 0.0652
    },
    {
     "group": "ran up, any reaction",
-    "matured": 31,
-    "open": 143,
-    "meanNet": 0.0466,
-    "win": 0.645,
-    "market": 0.0614
+    "matured": 41,
+    "open": 134,
+    "meanNet": 0.0487,
+    "win": 0.707,
+    "market": 0.062
    },
    {
     "group": "all results stocks",
-    "matured": 77,
-    "open": 383,
-    "meanNet": 0.0536,
-    "win": 0.675,
-    "market": 0.0634
+    "matured": 107,
+    "open": 354,
+    "meanNet": 0.0537,
+    "win": 0.701,
+    "market": 0.0635
    }
   ]
  }
