@@ -1,86 +1,85 @@
 {
- "ts": "2026-11-26T00:08:04.647Z",
+ "ts": "2026-11-26T00:37:51.602Z",
  "date": "2026-11-25",
- "status": "SPY or QQQ could not be confirmed",
+ "status": "written",
  "fetched": {
   "SPY": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "QQQ": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLK": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLF": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLE": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLV": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLI": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLY": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLP": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLU": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLB": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLRE": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "XLC": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "SMH": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "IGV": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   },
   "ITA": {
-   "rows": 7,
-   "added": 1
+   "rows": 6,
+   "added": 0
   }
  },
  "conflicts": [],
  "flags": [
-  "SPY: Tiingo close 716.7 and StockAnalysis 718 differ by more than 0.1%; 2026-11-25 not written for it",
-  "QQQ: Tiingo close 633.93 and StockAnalysis 631.42 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLK: Tiingo close 155.79 and StockAnalysis 154.33 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLE: Tiingo close 60.9 and StockAnalysis 61.07 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLV: Tiingo close 183.68 and StockAnalysis 184.63 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLY: Tiingo close 117.49 and StockAnalysis 117.91 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLP: Tiingo close 92.3 and StockAnalysis 92.56 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLB: Tiingo close 51.21 and StockAnalysis 51.33 differ by more than 0.1%; 2026-11-25 not written for it",
-  "XLRE: Tiingo close 43.86 and StockAnalysis 44.06 differ by more than 0.1%; 2026-11-25 not written for it",
-  "SMH: Tiingo close 422.46 and StockAnalysis 420 differ by more than 0.1%; 2026-11-25 not written for it",
-  "ITA: Tiingo close 68.77 and StockAnalysis 68.68 differ by more than 0.1%; 2026-11-25 not written for it",
-  "VIX: Cboe has no row for 2026-11-25 yet"
- ]
+  "XLI: Tiingo close 162.95 and StockAnalysis 163.17 differ by more than 0.1%; 2026-11-25 not written for it",
+  "XLY: Tiingo close 117.49 and StockAnalysis 118.15 differ by more than 0.1%; 2026-11-25 not written for it",
+  "XLP: Tiingo close 92.3 and StockAnalysis 92.45 differ by more than 0.1%; 2026-11-25 not written for it",
+  "XLB: Tiingo close 51.21 and StockAnalysis 51.37 differ by more than 0.1%; 2026-11-25 not written for it",
+  "SMH: Tiingo close 422.46 and StockAnalysis 416.91 differ by more than 0.1%; 2026-11-25 not written for it",
+  "IGV: Tiingo close 95.02 and StockAnalysis 94.91 differ by more than 0.1%; 2026-11-25 not written for it",
+  "ITA: Tiingo close 68.77 and StockAnalysis 68.63 differ by more than 0.1%; 2026-11-25 not written for it",
+  "VIX: Cboe has no row for 2026-11-25 yet",
+  "7 sector ETF(s) not updated for 2026-11-25 (XLI, XLY and 5 more): previous values kept with their own dates",
+  "14 of 14 sectors, SPY and QQQ written for 2026-11-25"
+ ],
+ "backfilled": 0
 }
