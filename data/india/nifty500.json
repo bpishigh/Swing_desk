@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-26T14:18:14.364Z",
+ "fetchedAt": "2026-11-27T14:10:46.572Z",
  "src": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
  "count": 501,
  "symbols": [
@@ -151,7 +151,6 @@
   "DIXON",
   "LALPATHLAB",
   "DRREDDY",
-  "DUMMYHEG",
   "EIDPARRY",
   "EIHOTEL",
   "EMBASSY",
@@ -206,6 +205,7 @@
   "HDFCBANK",
   "HDFCLIFE",
   "HEGAM",
+  "HEGRAPHITE",
   "HFCL",
   "HAVELLS",
   "HEROMOTOCO",
