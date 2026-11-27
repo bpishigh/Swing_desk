@@ -10,7 +10,7 @@
   "withRs": 1464,
   "rsGate": 300,
   "template": 142,
-  "qualified": 31,
+  "qualified": 5,
   "baseQuality": 0,
   "withSetup": 0
  },
@@ -405,46 +405,6 @@
    ]
   },
   {
-   "sym": "VCEL",
-   "type": "CS",
-   "group": "Pharma and biotech",
-   "path": "main",
-   "rsPct": 96.1,
-   "close": 61.01,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)",
-    "extended: more than 25% above the 50-day"
-   ],
-   "clears50M": true,
-   "composite": 71.49,
-   "tightness": 1.03,
-   "distPivot": 0.39,
-   "setup": null,
-   "gb": {
-    "pct": 71.6,
-    "n": 109
-   },
-   "diag": {
-    "rs121": 11.29,
-    "rs6m2w": 81.03,
-    "atr14": 2.32,
-    "sma50": 45.92,
-    "sma200": 40.31,
-    "high52": 61.25,
-    "low52": 28.95,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 96.1th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.4% below its 52-week high (limit 25%) and 110.7% above its 52-week low (needs 30%).",
-    "Group: Pharma and biotech ranks 5 of 58 (median strength 74); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 71.6% of the 109 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: extended, 32.8% above its 50-day (limit 25%). Wait for a pullback."
-   ]
-  },
-  {
    "sym": "ZIM",
    "type": "CS",
    "group": "Shipping",
@@ -480,85 +440,6 @@
     "Group: Shipping ranks 1 of 58 (median strength 79.8); the 4 strongest groups are traded in the red light.",
     "Sector breadth: 35.3% of the 17 stocks in Shipping are above their 50-day (under 40%: a weak sector for finding rising stocks; information only, nothing is blocked).",
     "Watch: a pattern is forming but the stop would be wider than the setup allows."
-   ]
-  },
-  {
-   "sym": "OGN",
-   "type": "CS",
-   "group": "Pharma and biotech",
-   "path": "main",
-   "rsPct": 95.28,
-   "close": 13.86,
-   "tags": [
-    "results date not checked",
-    "below $50M a day",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": false,
-   "composite": 70.45,
-   "tightness": 0.76,
-   "distPivot": 0.57,
-   "setup": null,
-   "gb": {
-    "pct": 71.6,
-    "n": 109
-   },
-   "diag": {
-    "rs121": 94.76,
-    "rs6m2w": 4.12,
-    "atr14": 0.04,
-    "sma50": 13.79,
-    "sma200": 11.98,
-    "high52": 13.94,
-    "low52": 5.69,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 95.3th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 0.6% below its 52-week high (limit 25%) and 143.6% above its 52-week low (needs 30%).",
-    "Group: Pharma and biotech ranks 5 of 58 (median strength 74); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 71.6% of the 109 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 0.8, needs under 0.7); price is 0.6% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
-   ]
-  },
-  {
-   "sym": "ROIV",
-   "type": "CS",
-   "group": "Pharma and biotech",
-   "path": "main",
-   "rsPct": 95.56,
-   "close": 42.2,
-   "tags": [
-    "results date not checked",
-    "failed qualification 1 night(s)"
-   ],
-   "clears50M": true,
-   "composite": 68.82,
-   "tightness": 1.08,
-   "distPivot": 1.17,
-   "setup": null,
-   "gb": {
-    "pct": 71.6,
-    "n": 109
-   },
-   "diag": {
-    "rs121": 80,
-    "rs6m2w": 43.22,
-    "atr14": 1.67,
-    "sma50": 37.26,
-    "sma200": 32.95,
-    "high52": 42.7,
-    "low52": 19.96,
-    "failingNights": 1
-   },
-   "why": [
-    "Strength: 95.6th percentile on the weighted four-quarter return (needs 80 or more).",
-    "Trend: close above the 50, 150 and 200-day averages, 150 above 200, 200 rising, 50 above 150; 1.2% below its 52-week high (limit 25%) and 111.4% above its 52-week low (needs 30%).",
-    "Group: Pharma and biotech ranks 5 of 58 (median strength 74); the 4 strongest groups are traded in the red light.",
-    "Sector breadth: 71.6% of the 109 stocks in Pharma and biotech are above their 50-day.",
-    "Kept for now: it failed qualification 1 night(s) and leaves after 2.",
-    "Watch: no entry pattern yet. Breakout needs a tight base and price near its high: base is NOT tight (volatility ratio 1.1, needs under 0.7); price is 1.2% below its 50-day high (within 5%). A pullback entry needs a dip to the 20 or 50-day average and a close back above it, which has not happened."
    ]
   },
   {
@@ -642,7 +523,7 @@
  "thinGroup": {
   "qualified": 5
  },
- "qualifiedTotal": 31,
+ "qualifiedTotal": 5,
  "notes": [
   "C-20a: no rule change. Results dates are not checked here; the weekly screen and the checklist still apply.",
   "Setup detection definitions are provisional (see us-scan-settings.ts).",
