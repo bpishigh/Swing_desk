@@ -113,10 +113,10 @@
    "ZYDUSLIFE": 1199.4
   },
   "high": {
-   "CUPID": 384.8,
+   "CUPID": 389.5,
    "LAURUSLABS": 2505,
    "TFCILTD": 174.94,
-   "CPPLUS": 4237,
+   "CPPLUS": 4307.2,
    "DIVISLAB": 11716.5,
    "SKYGOLD": 1050.05,
    "ATHERENERG": 1979.2,
@@ -130,7 +130,7 @@
    "NYKAA": 365.2,
    "AUROPHARMA": 1843,
    "ETERNAL": 375.05,
-   "NAVINFLUOR": 10278,
+   "NAVINFLUOR": 10456.5,
    "PAYTM": 1939.9,
    "INDHOTEL": 912,
    "MOTHERSON": 168.75,
@@ -237,16 +237,20 @@
   {
    "d": "2026-11-26",
    "v": 100.12
+  },
+  {
+   "d": "2026-11-27",
+   "v": 100.2885
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-26",
-   "v": 100.12
+   "d": "2026-11-27",
+   "v": 100.2885
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-26",
+ "stopChecked": "2026-11-27",
  "gone": []
 }

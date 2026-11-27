@@ -1,0 +1,47 @@
+{
+ "signalDate": "2026-11-27",
+ "market": "india",
+ "lines": [
+  {
+   "sym": "GESHIP",
+   "setup": "2",
+   "stream": "ready",
+   "trigger": 1560.11,
+   "limit": 1575.72,
+   "stop": 1495.85,
+   "atrPct": 2.76
+  },
+  {
+   "sym": "KOVAI",
+   "setup": "1ipo",
+   "stream": "ready",
+   "trigger": 6844.05,
+   "limit": 6912.49,
+   "stop": 6315,
+   "atrPct": 3.39
+  },
+  {
+   "sym": "RUBICON",
+   "setup": "2",
+   "stream": "capwaived",
+   "trigger": 1883.06,
+   "limit": 1901.89,
+   "stop": 1671.61,
+   "atrPct": 4.52,
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ]
+  },
+  {
+   "sym": "SBC",
+   "setup": "1",
+   "stream": "ready",
+   "trigger": 71.65,
+   "limit": 72.36,
+   "stop": 67.1,
+   "atrPct": 2.33
+  }
+ ]
+}

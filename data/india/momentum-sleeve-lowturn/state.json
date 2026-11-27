@@ -231,7 +231,7 @@
   },
   "high": {
    "STLTECH": 736.9,
-   "CPPLUS": 4237,
+   "CPPLUS": 4307.2,
    "TFCILTD": 174.94,
    "SKYGOLD": 1050.05,
    "RATNAVEER": 405,
@@ -243,9 +243,9 @@
    "FEDERALBNK": 373.5,
    "AUROPHARMA": 1843,
    "NYKAA": 365.2,
-   "NAVINFLUOR": 10278,
+   "NAVINFLUOR": 10456.5,
    "BOSCHLTD": 50580,
-   "AEGISLOG": 1240,
+   "AEGISLOG": 1297.9,
    "SYRMA": 1517,
    "MOTHERSON": 168.75,
    "AEROFLEX": 507.4,
@@ -354,16 +354,20 @@
   {
    "d": "2026-11-26",
    "v": 96.9463
+  },
+  {
+   "d": "2026-11-27",
+   "v": 97.6552
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-26",
-   "v": 96.9463
+   "d": "2026-11-27",
+   "v": 97.6552
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-26",
+ "stopChecked": "2026-11-27",
  "gone": []
 }

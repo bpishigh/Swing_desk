@@ -1,18 +1,18 @@
 {
- "asOf": "2026-11-26",
+ "asOf": "2026-11-27",
  "source": "NSE event calendar",
  "dates": {
+  "SBC": {
+   "date": "2029-05-29",
+   "sessions": 651,
+   "inWindow": false
+  },
   "KOVAI": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "LAURUSLABS": {
-   "date": null,
-   "sessions": null,
-   "inWindow": null
-  },
-  "ACUTAAS": {
+  "GESHIP": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -22,12 +22,17 @@
    "sessions": null,
    "inWindow": null
   },
-  "FREDUN": {
+  "RUBICON": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "ICIL": {
+  "LAURUSLABS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
+  "SPORTKING": {
    "date": null,
    "sessions": null,
    "inWindow": null
@@ -42,17 +47,22 @@
    "sessions": null,
    "inWindow": null
   },
+  "ACUTAAS": {
+   "date": null,
+   "sessions": null,
+   "inWindow": null
+  },
   "SHADOWFAX": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "KMEW": {
+  "PVRINOX": {
    "date": null,
    "sessions": null,
    "inWindow": null
   },
-  "PVRINOX": {
+  "KMEW": {
    "date": null,
    "sessions": null,
    "inWindow": null

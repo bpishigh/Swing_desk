@@ -250,23 +250,23 @@
    "PNB": 138.7
   },
   "high": {
-   "CUPID": 384.8,
+   "CUPID": 389.5,
    "LAURUSLABS": 2505,
    "STLTECH": 736.9,
    "TFCILTD": 174.94,
-   "CPPLUS": 4237,
+   "CPPLUS": 4307.2,
    "SKYGOLD": 1050.05,
    "RATNAVEER": 405,
    "GLAND": 3385.9,
-   "WELCORP": 2260.2,
+   "WELCORP": 2301.9,
    "HFCL": 215,
    "PVRINOX": 1714.4,
    "FEDERALBNK": 373.5,
    "AUROPHARMA": 1843,
    "NYKAA": 365.2,
    "BOSCHLTD": 50580,
-   "AEGISLOG": 1240,
-   "NAVINFLUOR": 10278,
+   "AEGISLOG": 1297.9,
+   "NAVINFLUOR": 10456.5,
    "SYRMA": 1517,
    "MOTHERSON": 168.75,
    "ETERNAL": 375.05,
@@ -278,7 +278,7 @@
    "RADICO": 4699,
    "TVSMOTOR": 4610,
    "TITAN": 4970,
-   "MCX": 3835,
+   "MCX": 3900,
    "PNB": 155.33
   },
   "startedFill": "2026-11-12"
@@ -374,16 +374,20 @@
   {
    "d": "2026-11-26",
    "v": 99.1173
+  },
+  {
+   "d": "2026-11-27",
+   "v": 99.8454
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-26",
-   "v": 99.1173
+   "d": "2026-11-27",
+   "v": 99.8454
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-26",
+ "stopChecked": "2026-11-27",
  "gone": []
 }

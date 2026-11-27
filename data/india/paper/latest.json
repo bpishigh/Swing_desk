@@ -1,5 +1,5 @@
 {
- "asOf": "2026-11-26",
+ "asOf": "2026-11-27",
  "startDate": "2026-10-16",
  "version": "IND-PAPER-1",
  "official": {
@@ -12,9 +12,9 @@
   "winRate": null
  },
  "capwaived": {
-  "orders": 30,
+  "orders": 31,
   "open": 9,
-  "pending": 0,
+  "pending": 1,
   "notFilled": 12,
   "closed": 9,
   "meanR": 0.2828814108756801,
@@ -30,5 +30,23 @@
   "winRate": 0.8
  },
  "light": "green",
- "newOrdersTonight": []
+ "newOrdersTonight": [
+  {
+   "stream": "capwaived",
+   "sym": "RUBICON",
+   "setup": "2",
+   "trigger": 1883.06,
+   "stop": 1671.61,
+   "status": "pending",
+   "kind": "trigger",
+   "tags": [
+    "inside base",
+    "over cap",
+    "room fail"
+   ],
+   "stopPct": 11.23,
+   "maxStopPct": 7,
+   "roomR": 0.08
+  }
+ ]
 }

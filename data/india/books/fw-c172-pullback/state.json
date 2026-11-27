@@ -1,7 +1,7 @@
 {
  "id": "fw-c172-pullback",
  "startAfter": "2026-11-12",
- "cash": 80.13280060337208,
+ "cash": 80.14194032519521,
  "pos": {
   "TITAN": {
    "sh": 0.001021729340238685,
@@ -83,6 +83,12 @@
    "v": 99.6998,
    "vs": 99.6798,
    "x": 0.1963
+  },
+  {
+   "d": "2026-11-27",
+   "v": 99.6124,
+   "vs": 99.5924,
+   "x": 0.1955
   }
  ],
  "skipped": [
@@ -180,17 +186,27 @@
    "date": "2026-11-26",
    "sym": "WOCKPHARMA",
    "width": 0.1199
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "LENSKART",
+   "width": 0.0991
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "KARURVYSYA",
+   "width": 0.1066
   }
  ],
  "slipCum": 0.020006600889289065,
  "cashDays": {
-  "credited": 7,
+  "credited": 8,
   "missing": 0
  },
  "started": "2026-11-17",
  "lastSignal": "2026-11-25",
- "lastStep": "2026-11-26",
- "lastNavDate": "2026-11-25",
+ "lastStep": "2026-11-27",
+ "lastNavDate": "2026-11-26",
  "signalLog": [
   {
    "date": "2026-11-16",
@@ -352,6 +368,20 @@
    "dip": "run",
    "volRatio": 2.3595,
    "tight": 0.1026
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "LENSKART",
+   "dip": "average",
+   "volRatio": 0.3483,
+   "tight": 0.0416
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "KARURVYSYA",
+   "dip": "average",
+   "volRatio": 0.8888,
+   "tight": 0.0633
   }
  ],
  "costs": {

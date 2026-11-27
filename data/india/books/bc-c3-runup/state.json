@@ -1,27 +1,20 @@
 {
  "id": "bc-c3-runup",
  "startAfter": "2026-10-16",
- "cash": 87.1464782599401,
+ "cash": 93.19849915618525,
  "pos": {
-  "ITCHOTELS": {
-   "sh": 0.029971096018732428,
-   "entry": 167,
-   "entryDate": "2026-10-28",
-   "high": 186.5,
-   "stop": 0.25
-  },
-  "ATHERENERG": {
-   "sh": 0.0029816871975264316,
-   "entry": 1679.9,
-   "entryDate": "2026-10-28",
-   "high": 1979.2,
-   "stop": 0.25
-  },
   "ACUTAAS": {
    "sh": 0.0013462785617913548,
    "entry": 3700,
    "entryDate": "2026-10-29",
    "high": 4079.9,
+   "stop": 0.25
+  },
+  "ENRIN": {
+   "sh": 0.0016865190276640213,
+   "entry": 3075,
+   "entryDate": "2026-11-27",
+   "high": 3102,
    "stop": 0.25
   }
  },
@@ -45,20 +38,14 @@
   "ITCHOTELS": 254504573.64,
   "APLAPOLLO": 1286359615.2,
   "ATHERENERG": 4679551153.400001,
-  "ACUTAAS": 1097945058
+  "ACUTAAS": 1097945058,
+  "ENRIN": 1438018586
  },
  "pending": {
-  "signalDate": "2026-11-26",
-  "buys": [
-   {
-    "sym": "ENRIN",
-    "value": 1438018586,
-    "stop": 0.25
-   }
-  ],
+  "signalDate": "2026-11-27",
+  "buys": [],
   "sells": [
-   "ITCHOTELS",
-   "ATHERENERG"
+   "ACUTAAS"
   ]
  },
  "stopQueue": [],
@@ -215,6 +202,24 @@
    "exit": 1310.4,
    "ret": 0.0587,
    "why": "rule"
+  },
+  {
+   "sym": "ITCHOTELS",
+   "entryDate": "2026-10-28",
+   "exitDate": "2026-11-27",
+   "entry": 167,
+   "exit": 186.1,
+   "ret": 0.1144,
+   "why": "rule"
+  },
+  {
+   "sym": "ATHERENERG",
+   "entryDate": "2026-10-28",
+   "exitDate": "2026-11-27",
+   "entry": 1679.9,
+   "exit": 1905.9,
+   "ret": 0.1345,
+   "why": "rule"
   }
  ],
  "daily": [
@@ -367,17 +372,23 @@
    "v": 103.8999,
    "vs": 103.7126,
    "x": 0.1612
+  },
+  {
+   "d": "2026-11-27",
+   "v": 103.9162,
+   "vs": 103.7124,
+   "x": 0.1031
   }
  ],
  "skipped": [],
- "slipCum": 0.18730687580170705,
+ "slipCum": 0.20376243190125184,
  "cashDays": {
-  "credited": 11,
+  "credited": 12,
   "missing": 14
  },
  "started": "2026-10-21",
- "lastSignal": "2026-11-26",
- "lastStep": "2026-11-26",
+ "lastSignal": "2026-11-27",
+ "lastStep": "2026-11-27",
  "signalLog": [
   {
    "date": "2026-10-19",
@@ -904,7 +915,7 @@
  ],
  "costs": {
   "2026-10": 0.2236482326993218,
-  "2026-11": 0.20108997950545515
+  "2026-11": 0.23407041840647316
  },
- "lastNavDate": "2026-11-25"
+ "lastNavDate": "2026-11-26"
 }

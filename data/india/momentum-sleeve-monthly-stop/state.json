@@ -546,18 +546,18 @@
    "KOTAKBANK": 485.95
   },
   "high": {
-   "CUPID": 384.8,
+   "CUPID": 389.5,
    "LAURUSLABS": 2505,
    "STLTECH": 736.9,
    "TFCILTD": 174.94,
-   "CPPLUS": 4237,
+   "CPPLUS": 4307.2,
    "SKYGOLD": 1050.05,
    "ATHERENERG": 1979.2,
    "DIVISLAB": 11716.5,
    "RATNAVEER": 405,
    "SONACOMS": 926,
    "GLAND": 3385.9,
-   "WELCORP": 2260.2,
+   "WELCORP": 2301.9,
    "HFCL": 215,
    "ACUTAAS": 4079.9,
    "PVRINOX": 1714.4,
@@ -565,8 +565,8 @@
    "AUROPHARMA": 1843,
    "NYKAA": 365.2,
    "BOSCHLTD": 50580,
-   "NAVINFLUOR": 10278,
-   "AEGISLOG": 1240,
+   "NAVINFLUOR": 10456.5,
+   "AEGISLOG": 1297.9,
    "SYRMA": 1517,
    "MOTHERSON": 168.75,
    "ETERNAL": 375.05,
@@ -670,16 +670,20 @@
   {
    "d": "2026-11-26",
    "v": 98.4806
+  },
+  {
+   "d": "2026-11-27",
+   "v": 99.213
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-26",
-   "v": 98.4806
+   "d": "2026-11-27",
+   "v": 99.213
   }
  },
  "stops": [],
  "stopQueue": [],
- "stopChecked": "2026-11-26",
+ "stopChecked": "2026-11-27",
  "gone": []
 }

@@ -527,14 +527,14 @@
    "PVRINOX": 1520
   },
   "high": {
-   "CUPID": 384.8,
-   "SHREEJISPG": 914.9,
+   "CUPID": 389.5,
+   "SHREEJISPG": 923.7,
    "SBC": 70.37,
    "TFCILTD": 174.94,
    "RATNAVEER": 405,
-   "CPPLUS": 4235,
+   "CPPLUS": 4307.2,
    "ATHERENERG": 1979.2,
-   "RAYMOND": 1224,
+   "RAYMOND": 1278.6,
    "DIVISLAB": 11716.5,
    "SONACOMS": 926,
    "ACUTAAS": 4079.9,
@@ -665,12 +665,16 @@
   {
    "d": "2026-11-26",
    "v": 100.9392
+  },
+  {
+   "d": "2026-11-27",
+   "v": 101.4169
   }
  ],
  "monthly": {
   "2026-11": {
-   "d": "2026-11-26",
-   "v": 100.9392
+   "d": "2026-11-27",
+   "v": 101.4169
   }
  },
  "stops": [
@@ -756,6 +760,6 @@
   }
  ],
  "stopQueue": [],
- "stopChecked": "2026-11-26",
+ "stopChecked": "2026-11-27",
  "gone": []
 }

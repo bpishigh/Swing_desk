@@ -1,7 +1,7 @@
 {
  "id": "bc-hl-m3",
  "startAfter": "2026-11-19",
- "cash": 38.28501481553096,
+ "cash": 34.311634827514276,
  "pos": {
   "TFCILTD": {
    "sh": 0.01156720741599073,
@@ -35,7 +35,7 @@
    "sh": 0.0074775280898876405,
    "entry": 267,
    "entryDate": "2026-11-23",
-   "high": 280.35,
+   "high": 285.52,
    "stop": 0.35
   },
   "ORIENTHOT": {
@@ -91,7 +91,7 @@
    "sh": 0.013761658031088083,
    "entry": 144.75,
    "entryDate": "2026-11-23",
-   "high": 146.21,
+   "high": 150.86,
    "stop": 0.35
   },
   "MANOMAY": {
@@ -133,7 +133,7 @@
    "sh": 0.018327571167173942,
    "entry": 108,
    "entryDate": "2026-11-25",
-   "high": 108.11,
+   "high": 108.57,
    "stop": 0.35
   },
   "HMAAGRO": {
@@ -147,7 +147,7 @@
    "sh": 0.01123340327843731,
    "entry": 176.47,
    "entryDate": "2026-11-25",
-   "high": 176.47,
+   "high": 177.3,
    "stop": 0.35
   },
   "COFORGE": {
@@ -161,7 +161,7 @@
    "sh": 0.008281915004413328,
    "entry": 239,
    "entryDate": "2026-11-25",
-   "high": 239,
+   "high": 249.03,
    "stop": 0.35
   },
   "HONASA": {
@@ -196,7 +196,7 @@
    "sh": 0.07535672157360046,
    "entry": 26.19,
    "entryDate": "2026-11-26",
-   "high": 26.19,
+   "high": 26.26,
    "stop": 0.35
   },
   "ARIS": {
@@ -218,6 +218,20 @@
    "entry": 1028,
    "entryDate": "2026-11-26",
    "high": 1028,
+   "stop": 0.35
+  },
+  "ABDL": {
+   "sh": 0.0024308251931132877,
+   "entry": 816.05,
+   "entryDate": "2026-11-27",
+   "high": 838,
+   "stop": 0.35
+  },
+  "ACE": {
+   "sh": 0.0015317952886796126,
+   "entry": 1295,
+   "entryDate": "2026-11-27",
+   "high": 1325.7,
    "stop": 0.35
   }
  },
@@ -252,19 +266,51 @@
   "NECCLTD": 20885703.862499997,
   "ARIS": 472626067.03550005,
   "PDSL": 389134079.9725,
-  "AARTIPHARM": 723398991.72
+  "AARTIPHARM": 723398991.72,
+  "ABDL": 498567480.6049999,
+  "ACE": 581676348.9649999
  },
  "pending": {
-  "signalDate": "2026-11-26",
+  "signalDate": "2026-11-27",
   "buys": [
    {
-    "sym": "ABDL",
-    "value": 498567480.6049999,
+    "sym": "CUPID",
+    "value": 4457387746.4574995,
     "stop": 0.35
    },
    {
-    "sym": "ACE",
-    "value": 581676348.9649999,
+    "sym": "FILATEX",
+    "value": 302313592.11849993,
+    "stop": 0.35
+   },
+   {
+    "sym": "SHREEJISPG",
+    "value": 661983775.76,
+    "stop": 0.35
+   },
+   {
+    "sym": "RUBICON",
+    "value": 367720569.16499996,
+    "stop": 0.35
+   },
+   {
+    "sym": "KRISHANA",
+    "value": 268203335.68799996,
+    "stop": 0.35
+   },
+   {
+    "sym": "MBAPL",
+    "value": 229034711.146,
+    "stop": 0.35
+   },
+   {
+    "sym": "UTTAMSUGAR",
+    "value": 157376117.41749996,
+    "stop": 0.35
+   },
+   {
+    "sym": "DBOL",
+    "value": 43524815.71000001,
     "stop": 0.35
    }
   ],
@@ -290,19 +336,25 @@
    "v": 99.2266,
    "vs": 99.1649,
    "x": 0.6142
+  },
+  {
+   "d": "2026-11-27",
+   "v": 99.5667,
+   "vs": 99.501,
+   "x": 0.6554
   }
  ],
  "skipped": [],
- "slipCum": 0.061769246239484404,
+ "slipCum": 0.06574653926974025,
  "cashDays": {
-  "credited": 3,
+  "credited": 4,
   "missing": 0
  },
  "started": "2026-11-23",
- "lastSignal": "2026-11-26",
- "lastStep": "2026-11-26",
+ "lastSignal": "2026-11-27",
+ "lastStep": "2026-11-27",
  "weight": 0.02,
- "lastNavDate": "2026-11-25",
+ "lastNavDate": "2026-11-26",
  "signalLog": [
   {
    "date": "2026-11-20",
@@ -716,9 +768,114 @@
    "ret126": 0.463,
    "taken": true,
    "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "CUPID",
+   "ret126": 2.047,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "FILATEX",
+   "ret126": 1.572,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "SHALPAINTS",
+   "ret126": 1.094,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "WELSPUNLIV",
+   "ret126": 1.057,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "SHREEJISPG",
+   "ret126": 1.016,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "RUBICON",
+   "ret126": 0.912,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "KRISHANA",
+   "ret126": 0.862,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "MBAPL",
+   "ret126": 0.807,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "NECCLTD",
+   "ret126": 0.703,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "SAMBHV",
+   "ret126": 0.659,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "UTTAMSUGAR",
+   "ret126": 0.604,
+   "taken": true,
+   "why": "bought next open"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "GHCLTEXTIL",
+   "ret126": 0.576,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "ABDL",
+   "ret126": 0.538,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "ACE",
+   "ret126": 0.481,
+   "taken": false,
+   "why": "already held"
+  },
+  {
+   "date": "2026-11-27",
+   "sym": "DBOL",
+   "ret126": 0.429,
+   "taken": true,
+   "why": "bought next open"
   }
  ],
  "costs": {
-  "2026-11": 0.1588858887629278
+  "2026-11": 0.16882912133856742
  }
 }

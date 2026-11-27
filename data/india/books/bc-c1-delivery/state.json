@@ -16,6 +16,17 @@
  },
  "started": null,
  "lastSignal": null,
- "lastStep": "2026-11-26",
- "lastNavDate": "2026-11-25"
+ "lastStep": "2026-11-27",
+ "lastNavDate": "2026-11-26",
+ "signalLog": [
+  {
+   "date": "2026-11-27",
+   "sym": "AGIIL",
+   "ratio": 1.86,
+   "reaction": 0.0317,
+   "tags": [],
+   "taken": false,
+   "why": "stop too wide"
+  }
+ ]
 }
