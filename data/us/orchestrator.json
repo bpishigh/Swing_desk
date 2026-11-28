@@ -1,12 +1,12 @@
 {
  "scan": {
   "target": "2026-11-27",
-  "attempts": 4,
+  "attempts": 5,
   "alertedFor": "2026-11-27"
  },
  "breadth": {
   "target": "2026-11-27",
-  "attempts": 6,
+  "attempts": 7,
   "alertedFor": "2026-11-27"
  },
  "daily": {
