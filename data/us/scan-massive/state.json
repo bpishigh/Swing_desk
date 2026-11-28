@@ -1,1 +1,1 @@
-{"asOf":"2026-11-25","state":{"MHK":{"in":true,"fails":0},"FIGS":{"in":true,"fails":0},"PVH":{"in":true,"fails":0},"COLM":{"in":true,"fails":0},"ZIM":{"in":true,"fails":0}}}
+{"asOf":"2026-11-27","state":{"PANW":{"in":true,"fails":0},"MHK":{"in":true,"fails":1},"FIGS":{"in":true,"fails":1},"PVH":{"in":true,"fails":1},"COLM":{"in":true,"fails":1},"ZIM":{"in":true,"fails":0}}}
