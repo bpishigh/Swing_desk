@@ -1,11 +1,11 @@
 {
  "scan": {
   "target": "2026-11-27",
-  "attempts": 0
+  "attempts": 1
  },
  "breadth": {
   "target": "2026-11-27",
-  "attempts": 2
+  "attempts": 3
  },
  "daily": {
   "target": "2026-11-27",
